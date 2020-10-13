@@ -355,18 +355,18 @@ void ConsoleForm::on_pushButtonSend_clicked()
                 worldpath->requestPath(PathfindingMap::coordsToMapId(4, 0, 3), PathfindingMap::coordsToMapId(-2, -3, 3), 10, m_sender);
                 worldpath->start();
             }
-            else if(content.split("/").last() == "use")
-            {
-                foreach(const StatedElementsInfos e, getData().mapData.statedOnMap)
-                {
-                    qDebug() << e.elementCellId;
-                    if(e.elementCellId == 367)
-                    {
-                        m_engine->getInteractionModule().processUse(m_sender, e.elementId, "");
-                        break;
-                    }
-                }
-            }
+//            else if(content.split("/").last() == "use")
+//            {
+//                foreach(const StatedElementsInfos e, getData().mapData.statedOnMap)
+//                {
+//                    qDebug() << e.elementCellId;
+//                    if(e.elementCellId == 367)
+//                    {
+//                        m_engine->getInteractionModule().processUse(m_sender, e.elementId, "");
+//                        break;
+//                    }
+//                }
+//            }
         }
 
         else

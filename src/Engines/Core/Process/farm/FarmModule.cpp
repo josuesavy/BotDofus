@@ -80,56 +80,33 @@ bool FarmModule::processMessage(const MessageInfos &data, SocketIO *sender)
 
         if(message.interactiveElement->onCurrentMap)
         {
-            if (message.interactiveElement->enabledSkills.size())
+            for (int i = 0; i < m_botData[sender].mapData.interactivesOnMap.size(); i++)
             {
-                bool found = true;
-                for (int i = 0; i < m_botData[sender].farmData.interactiveElementsList.size(); i++)
+                if (m_botData[sender].mapData.interactivesOnMap[i].elementId == message.interactiveElement->elementId)
                 {
-                    if (m_botData[sender].farmData.interactiveElementsList[i].ie.elementId == message.interactiveElement->elementId)
+                    InteractiveElementInfos mainElementInfos;
+                    mainElementInfos.elementId = message.interactiveElement->elementId;
+                    mainElementInfos.elementTypeId = message.interactiveElement->elementTypeId;
+
+                    // Enable skills
+                    foreach(QSharedPointer<InteractiveElementSkill> skill, message.interactiveElement->enabledSkills)
                     {
-                        found = false;
-                    }
-                }
-
-                if (found)
-                {
-                    InteractiveElementAction interactiveElementAction;
-                    InteractiveElementInfos interactiveElementInfo;
-
-                    interactiveElementInfo.elementId = message.interactiveElement->elementId;
-                    interactiveElementInfo.elementTypeId = message.interactiveElement->elementTypeId;
-                    for (int i = 0; i < message.interactiveElement->enabledSkills.size(); i++)
-                    {
-                        InteractiveSkillInfos interactiveSkillInfos;
-                        interactiveSkillInfos.ID = message.interactiveElement->enabledSkills[i]->skillId;
-                        interactiveSkillInfos.UID = message.interactiveElement->enabledSkills[i]->skillInstanceUid;
-
-                        interactiveElementInfo.enabledSkills << interactiveSkillInfos;
-                    }
-                    for (int i = 0; i < message.interactiveElement->disabledSkills.size(); i++)
-                    {
-                        InteractiveSkillInfos interactiveSkillInfos;
-                        interactiveSkillInfos.ID = message.interactiveElement->disabledSkills[i]->skillId;
-                        interactiveSkillInfos.UID = message.interactiveElement->disabledSkills[i]->skillInstanceUid;
-
-                        interactiveElementInfo.disabledSkills << interactiveSkillInfos;
+                        InteractiveSkillInfos enabledInfos;
+                        enabledInfos.ID = skill->skillId;
+                        enabledInfos.UID = skill->skillInstanceUid;
+                        mainElementInfos.enabledSkills<<enabledInfos;
                     }
 
-                    interactiveElementAction.ie = interactiveElementInfo;
-                    interactiveElementAction.skillInstanceUid = message.interactiveElement->enabledSkills.first()->skillInstanceUid;
-                    interactiveElementAction.position = m_botData[sender].mapData.map.getInteractiveElementCellID(message.interactiveElement->elementId);
-                }
-            }
-
-            else if (message.interactiveElement->disabledSkills.size())
-            {
-                for (int i = 0; i < m_botData[sender].farmData.interactiveElementsList.size(); i++)
-                {
-                    if (m_botData[sender].farmData.interactiveElementsList[i].ie.elementId == message.interactiveElement->elementId)
+                    // Disable skills
+                    foreach (QSharedPointer<InteractiveElementSkill> skill, message.interactiveElement->disabledSkills)
                     {
-                        m_botData[sender].farmData.interactiveElementsList.removeAt(i);
-                        break;
+                        InteractiveSkillInfos disabledInfos;
+                        disabledInfos.ID = skill->skillId;
+                        disabledInfos.UID = skill->skillInstanceUid;
+                        mainElementInfos.disabledSkills<<disabledInfos;
                     }
+
+                    m_botData[sender].mapData.interactivesOnMap.replace(i, mainElementInfos);
                 }
             }
         }
@@ -184,35 +161,6 @@ bool FarmModule::processMessage(const MessageInfos &data, SocketIO *sender)
         break;
 
     case MessageEnum::STATEDELEMENTUPDATEDMESSAGE:
-    {
-        StatedElementUpdatedMessage message;
-        message.deserialize(&reader);
-
-        if(message.statedElement.onCurrentMap)
-        {
-            for(int i = 0; i < m_botData[sender].mapData.statedOnMap.size(); i++)
-            {
-                if(m_botData[sender].mapData.statedOnMap.at(i).elementId == message.statedElement.elementId)
-                {
-                    StatedElementsInfos mainElementInfos;
-                    mainElementInfos.elementId = message.statedElement.elementId;
-                    mainElementInfos.elementState = message.statedElement.elementState;
-                    mainElementInfos.elementCellId = message.statedElement.elementCellId;
-
-                    m_botData[sender].mapData.statedOnMap.replace(i, mainElementInfos);
-                }
-
-                else
-                {
-                    StatedElementsInfos mainElementInfos;
-                    mainElementInfos.elementId = message.statedElement.elementId;
-                    mainElementInfos.elementState = message.statedElement.elementState;
-                    mainElementInfos.elementCellId = message.statedElement.elementCellId;
-                    m_botData[sender].mapData.statedOnMap << mainElementInfos;
-                }
-            }
-        }
-    }
         break;
     }
 
@@ -230,17 +178,14 @@ bool FarmModule::processFarm(SocketIO *sender)
 
     foreach (InteractiveElementInfos e, m_botData[sender].mapData.interactivesOnMap)
     {
-        foreach(StatedElementsInfos s, m_botData[sender].mapData.statedOnMap)
+        if (m_botData[sender].farmData.elementsId.contains(e.elementTypeId) &&  !e.enabledSkills.isEmpty())
         {
-            if (m_botData[sender].farmData.elementsId.contains(e.elementTypeId) && s.elementId == e.elementId && s.elementState==0 && !e.enabledSkills.isEmpty())
-            {
-                InteractiveElementAction ie;
-                ie.ie = e;
-                ie.skillInstanceUid = e.enabledSkills.first().UID;
-                ie.position = m_botData[sender].mapData.map.getInteractiveElementCellID(e.elementId);
+            InteractiveElementAction ie;
+            ie.ie = e;
+            ie.skillInstanceUid = e.enabledSkills.first().UID;
+            ie.position = m_botData[sender].mapData.map.getInteractiveElementCellID(e.elementId);
 
-                m_botData[sender].farmData.interactiveElementsList << ie;
-            }
+            m_botData[sender].farmData.interactiveElementsList << ie;
         }
     }
 

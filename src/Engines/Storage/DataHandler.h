@@ -418,13 +418,6 @@ struct InteractiveElementInfos
     QList<InteractiveSkillInfos> disabledSkills;
 };
 
-struct StatedElementsInfos
-{
-    uint elementId;
-    uint elementState;
-    uint elementCellId;
-};
-
 struct InteractiveElementAction
 {
     uint position;
@@ -694,7 +687,6 @@ struct MapData
     QList<ChangeMapRequest> requestedMaps;
     QMap<uint, MonsterGroup> monsterGroupsOnMap;
     QList<InteractiveElementInfos> interactivesOnMap;
-    QList<StatedElementsInfos> statedOnMap;
     RequestedPathInfos requestedPath;
     MovingConfirmationRequest confirmationRequest;
     QMap<uint, uint> objectGroundListAdded;

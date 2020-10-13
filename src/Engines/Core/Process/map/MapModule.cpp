@@ -193,23 +193,8 @@ bool MapModule::processMessage(const MessageInfos &data, SocketIO *sender)
 
         m_botData[sender].mapData.playersOnMap.clear();
         m_botData[sender].mapData.interactivesOnMap.clear();
-        m_botData[sender].mapData.statedOnMap.clear();
         m_botData[sender].mapData.npcsOnMap.clear();
         m_botData[sender].mapData.monsterGroupsOnMap.clear();
-
-        // Get statements of elements
-        foreach(StatedElement statedElement, message.statedElements)
-        {
-//            if(statedElement.elementId >= 0)
-//            {
-                StatedElementsInfos mainElementInfos;
-                mainElementInfos.elementId = statedElement.elementId;
-                mainElementInfos.elementState = statedElement.elementState;
-                mainElementInfos.elementCellId = statedElement.elementCellId;
-
-                m_botData[sender].mapData.statedOnMap << mainElementInfos;
-//            }
-        }
 
         // Get interactive elements
         foreach(QSharedPointer<InteractiveElement> interactiveClass, message.interactiveElements)
