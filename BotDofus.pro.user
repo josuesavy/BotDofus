@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.12.4, 2020-10-06T21:36:23. -->
+<!-- Written by QtCreator 4.12.4, 2020-10-13T19:56:12. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -316,8 +316,9 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/SAVY/Documents/Qt Creator projects/BotDofus/BotDofus.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/SAVY/Documents/Qt Creator projects/BotDofus/BotDofus.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">BotDofus2</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/SAVY/Documents/BotDofus/BotDofus.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/SAVY/Documents/BotDofus/BotDofus.pro</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>

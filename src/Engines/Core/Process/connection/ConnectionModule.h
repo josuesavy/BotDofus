@@ -35,8 +35,8 @@ enum class DofusVersion
 {
     MAJOR = 2,
     MINOR = 57,
-    CODE = 4,
-    BUILD = 5,
+    CODE = 5,
+    BUILD = 6,
 };
 
 class ConnectionModule : public AbstractModule
