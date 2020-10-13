@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SubscriptionForm</class>
+ <widget class="QWidget" name="SubscriptionForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>413</width>
+    <height>328</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="3" column="0">
+    <widget class="QPushButton" name="pushButton_2">
+     <property name="text">
+      <string>Options</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0" colspan="2">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Choix utilisateur</string>
+     </property>
+     <layout class="QFormLayout" name="formLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Compte :</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QComboBox" name="comboBox"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Abonnement :</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QComboBox" name="comboBox_2">
+        <item>
+         <property name="text">
+          <string>Pack 7 jours</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Pack 1 mois</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Pack 3 mois</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Pack 6 mois</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Pack 1 ans</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="2">
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
+      <string>Console</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <widget class="QTextEdit" name="textEditConsole">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QPushButton" name="pushButton">
+     <property name="text">
+      <string>Abonner</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="2">
+    <widget class="QProgressBar" name="progressBar"/>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

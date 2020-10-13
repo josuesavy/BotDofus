@@ -1,0 +1,89 @@
+FrontEnd :
+Main
+ [ ] L'energie max et la vie max du bot s'affiche avec une incrémentation d'un +1 (O.o)
+ [ ] Ajouter un timer qui update la life du bot
+
+Carte
+ [✓] Lorsqu'on survole une entité ses propriétés ne sont pas affichées
+ [✓] On ne voit pas les portes sur la carte
+ [ ] Ya pas d'animation quand une entité se déplace sur la carte
+ [ ] Certaine interactive sont visible sur la map alors qu'elle sont pas active (check avec le StatedElement)
+
+Flood
+ [ ] Ajouter et supprimer une phrase dans la liste
+ [ ] Le bouton pour lancer le flood n'a pas d'event
+
+Options
+ [ ] L'affichage de la planification est un peu moche
+
+Statistiques
+ [ ] Trouver un bon truc pour le design des items expand or not
+
+Divers
+ [✓] La tête du personnage ne s'affiche pas dans la liste des bots ouverts sur le logiciel
+ [ ] La fenêtre est trop grande pour certaines résolutions graphique. Faire en sorte d'ajuster, permettre un certain resize sur certains widgets pour régler le problème
+ [ ] Quand on arrête le script depuis le module actualiser les actions dans la liste du managenement des scripts
+
+
+
+
+BackEnd :
+Script
+ [✓] Lors qu'on lance le script, ça boucle l'action a faire et le serveur refuse la demande du coup (c a cause du emit actionScriptDone)
+
+Recolte
+ [ ] Ajouter la verification du StatedElement en fonction du InteractiveElement quand on reçoit les messages InteractiveElementUpdatedMessage et StatedElementUpdatedMessage.
+ [✓] Le bot ne bouge plus après quelques récoltes... Verifiez si le laps de temps est respecté ou en rajouter si besoin
+ [ ] Le bot va recolter les ressources deja recoltées
+ [✓] Trier les ressources a recolter sur la map pour que le bot puisse pas se balader juste pour recolter
+
+Inventaire
+ [ ] Nouveau paquet a gérer SetUpdateMessage
+ [ ] Pour certains items de type différent (hat, ring, etc..) quand on l'equipe, c'est pas actualiser dans l'inventaire à car ya pas de paquet pour
+
+Combat
+ [✓] "S'approcher si la distance est inférieur à" n'est pas défini
+ [✓] Le bot doit attaquer un groupe de monstre sur une cellule proche
+ [✓] Attribuer les restrictions à la recherche de groupes de montres
+ [✓] Revoir et ameliorer l'IA en combat
+ [✓] Quand le bot se connecte en combat, il plante a cause du D2OFileAccessor (c'est a cause d'un breed invalid)
+ [✓] Le bot ne met pas prêt quand il est tout seul
+ [✓] Le bot ne combat pas tout les monstres sur la carte quand il est solo
+ [✓] 1 fois/2 le chef du groupe commence les combats sans les membres de son groupe
+ [ ] Un coup le chef arrive à faire la suite des actions après les combats sur une carte sans les membres et l'autre coup c'est les membres sans le chef...
+ [ ] Le placement en debut de combat echoue
+
+Options
+ [✓] Le proxy s'applique au compte en question mais faut tester si ça fonctionne
+ [ ] Empêcher la déconnexion pour inactivité (SystemMessageDisplayMessage)
+
+Statistiques
+ [ ] Rajouter le flood (Total messages, reussis, echoues)
+ [ ] Rajouter l'inventaire (total ressources, combat, recolte, total objets, combat, recolte)
+ [✓] Revoir le calcul du nombre de personnages rencontres
+ [✓] Rajouter la vitesse moyenne du reseau
+
+Divers
+ [✓] La fonctionnalité de création de personnages n'est pas fini
+ [✓] Refonte du systeme de trajet (c cho)
+ [✓] Revoir le conteur de succès pour les stats du bots j'arrive pas a compter les succès qui sont pas encore accepté dans la liste à la connexion
+ [✓] Ajouter la fonctionnalité de groupe (Dans la liste des comptes, quand on connect sa bug putain)
+ [✓] Traker le plantage du logiciel quand je touche la GUI des fois ou pas (log: plant.txt)
+     (C'est une histoire de logMessageCount ou il essaye d'acceder en dehors du tableau)
+     (Il y a une alternative: augmenter les 250 pour genre ralentir le bug lol)
+ [✓] Traker la perte de l'EntityLook du bot (NetworkError: QNetworkReply::HostNotFoundError) (le faite qu'il demande trop souvent en un laps de temps très court que le serveur refuse de donner le resultat d'où un message d'erreur different a chque fois)
+ [ ] Il y a une mesure anti-bot (ou pas) où j'arrive pas a récup toute les mapids des maps...
+ [ ] Lors de la connexion d'un groupe, vérifier si tous sont sur le même serveur (bof)
+ [ ] Quand je demarre le trajet de type combat et que le bot se déplace avant de lancer le combat ça plante des fois
+
+
+[\{](.*?|\n)*?[\}][\,]
+
+
+08:15:08: Elapsed time: 20:08.
+
+SocketIO::dataReceived()
+Buffer::readPacket()
+ProcessEngine::processData()
+ProcessEngine::processMessage()
+AbstractModule::processMessage()

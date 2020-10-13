@@ -1,0 +1,925 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CharacterForm</class>
+ <widget class="QWidget" name="CharacterForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>838</width>
+    <height>606</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QTabWidget" name="tabWidgetCharacter">
+     <property name="styleSheet">
+      <string notr="true">QTabWidget::tab-bar {
+     alignment: center;
+ }</string>
+     </property>
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tab_4">
+      <attribute name="icon">
+       <iconset resource="../../../../res/resources.qrc">
+        <normaloff>:/icons/theater_16px.ico</normaloff>:/icons/theater_16px.ico</iconset>
+      </attribute>
+      <attribute name="title">
+       <string>Caractéristiques</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_7">
+       <item row="1" column="0">
+        <widget class="QLabel" name="labelDescription">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>-</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="2">
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="title">
+          <string>Caractéristiques</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_9">
+          <item row="2" column="1">
+           <spacer name="horizontalSpacer_17">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Preferred</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>138</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="3" column="2">
+           <widget class="QLabel" name="labelIntelligence">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>-</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="3">
+           <widget class="QPushButton" name="pushButtonAddIntelligence">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="../../../../res/resources.qrc">
+              <normaloff>:/icons/plus_16px.ico</normaloff>:/icons/plus_16px.ico</iconset>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_17">
+            <property name="text">
+             <string>Sagesse</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_20">
+            <property name="text">
+             <string>Chance</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_16">
+            <property name="text">
+             <string>Vitalité</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="2">
+           <widget class="QLabel" name="labelChance">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>-</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QLabel" name="labelWisdom">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>-</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QLabel" name="labelVitality">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>-</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_18">
+            <property name="text">
+             <string>Force</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QLabel" name="labelStrength">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>-</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="2">
+           <widget class="QLabel" name="labelAgility">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>-</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLabel" name="label_21">
+            <property name="text">
+             <string>Agilité</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="3">
+           <widget class="QPushButton" name="pushButtonAddStrength">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="../../../../res/resources.qrc">
+              <normaloff>:/icons/plus_16px.ico</normaloff>:/icons/plus_16px.ico</iconset>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_19">
+            <property name="text">
+             <string>Intelligence</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="2">
+           <widget class="QLabel" name="labelCapitalPoints">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>-</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <spacer name="horizontalSpacer_18">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Preferred</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>138</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="1" column="1">
+           <spacer name="horizontalSpacer_19">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Preferred</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="6" column="0">
+           <widget class="QLabel" name="label_22">
+            <property name="text">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Capital des points&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="3">
+           <widget class="QPushButton" name="pushButtonAddChance">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="../../../../res/resources.qrc">
+              <normaloff>:/icons/plus_16px.ico</normaloff>:/icons/plus_16px.ico</iconset>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <spacer name="horizontalSpacer_20">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Preferred</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>138</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="6" column="1">
+           <spacer name="horizontalSpacer_21">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Preferred</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>138</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="1" column="3">
+           <widget class="QPushButton" name="pushButtonAddWisdom">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="../../../../res/resources.qrc">
+              <normaloff>:/icons/plus_16px.ico</normaloff>:/icons/plus_16px.ico</iconset>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <spacer name="horizontalSpacer_22">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Preferred</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>138</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="0" column="1">
+           <spacer name="horizontalSpacer_23">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Preferred</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>138</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="5" column="3">
+           <widget class="QPushButton" name="pushButtonAddAgility">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="../../../../res/resources.qrc">
+              <normaloff>:/icons/plus_16px.ico</normaloff>:/icons/plus_16px.ico</iconset>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="QPushButton" name="pushButtonAddVitality">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="../../../../res/resources.qrc">
+              <normaloff>:/icons/plus_16px.ico</normaloff>:/icons/plus_16px.ico</iconset>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="0">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Booster automatiquement :&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="1" colspan="2">
+           <widget class="QComboBox" name="comboBoxBoostAuto">
+            <item>
+             <property name="text">
+              <string/>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Vitalité</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Sagesse</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Force</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Intelligence</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Chance</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Agilité</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="6" column="3">
+           <widget class="QPushButton" name="pushButtonResetCharacteristics">
+            <property name="toolTip">
+             <string>Réinitialiser les caractéristiques</string>
+            </property>
+            <property name="icon">
+             <iconset resource="../../../../res/resources.qrc">
+              <normaloff>:/icons/arrow_redo_16px.ico</normaloff>:/icons/arrow_redo_16px.ico</iconset>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="0" column="2" rowspan="3">
+        <widget class="QGroupBox" name="groupBox">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="title">
+          <string>Résumé</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_8">
+          <item row="0" column="2">
+           <widget class="QLabel" name="labelAP">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>-</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <spacer name="horizontalSpacer_14">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Preferred</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>211</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="5" column="1">
+           <spacer name="horizontalSpacer_16">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Preferred</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>211</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="5" column="2">
+           <widget class="QLabel" name="labelSummons">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>-</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="2">
+           <widget class="QLabel" name="labelRange">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>-</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QLabel" name="labelMP">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>-</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_5">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>PM</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <spacer name="horizontalSpacer_13">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Preferred</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>211</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="0" column="1">
+           <spacer name="horizontalSpacer_11">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Preferred</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>211</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="1" column="1">
+           <spacer name="horizontalSpacer_12">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Preferred</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>211</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_8">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Portée</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <spacer name="horizontalSpacer_15">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Preferred</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>211</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_7">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Prospection</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_4">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>PA</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_6">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Initiative</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="2">
+           <widget class="QLabel" name="labelProspecting">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>-</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLabel" name="label_9">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Invocation</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QLabel" name="labelInitiative">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>-</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="labelName">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>-</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" rowspan="3">
+        <widget class="QLabel" name="labelImage">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <spacer name="verticalSpacer_10">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_5">
+      <attribute name="icon">
+       <iconset resource="../../../../res/resources.qrc">
+        <normaloff>:/icons/magic_wand_2_16px.ico</normaloff>:/icons/magic_wand_2_16px.ico</iconset>
+      </attribute>
+      <attribute name="title">
+       <string>Sorts</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_10">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item row="0" column="0" colspan="2">
+        <widget class="QTableWidget" name="tableWidgetSpells">
+         <property name="editTriggers">
+          <set>QAbstractItemView::NoEditTriggers</set>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::SingleSelection</enum>
+         </property>
+         <property name="selectionBehavior">
+          <enum>QAbstractItemView::SelectRows</enum>
+         </property>
+         <attribute name="verticalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
+         <column>
+          <property name="text">
+           <string>ID</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Nom</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Niveau</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_6">
+      <attribute name="icon">
+       <iconset resource="../../../../res/resources.qrc">
+        <normaloff>:/icons/ax_16px.ico</normaloff>:/icons/ax_16px.ico</iconset>
+      </attribute>
+      <attribute name="title">
+       <string>Métiers</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_11">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item row="0" column="0">
+        <widget class="QTableWidget" name="tableWidgetJobs">
+         <property name="editTriggers">
+          <set>QAbstractItemView::NoEditTriggers</set>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::SingleSelection</enum>
+         </property>
+         <property name="selectionBehavior">
+          <enum>QAbstractItemView::SelectRows</enum>
+         </property>
+         <attribute name="verticalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
+         <column>
+          <property name="text">
+           <string>ID</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Nom</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Niveau</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Expérience</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../../../../res/resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>

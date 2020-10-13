@@ -1,0 +1,19 @@
+Sources
+	Engines
+		Core
+			Process
+		Storage
+		Pathfinding
+		Security
+		IO
+			D2O
+			D2P
+			I18n
+		Misc
+			EntityLook
+ 	Network
+ 	Protocol
+  		Enums
+  		Messages
+  		Types
+ 	Gui
