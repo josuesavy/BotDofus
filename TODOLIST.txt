@@ -32,14 +32,13 @@ Script
  [✓] Lors qu'on lance le script, ça boucle l'action a faire et le serveur refuse la demande du coup (c a cause du emit actionScriptDone)
 
 Recolte
- [ ] Ajouter la verification du StatedElement en fonction du InteractiveElement quand on reçoit les messages InteractiveElementUpdatedMessage et StatedElementUpdatedMessage.
  [✓] Le bot ne bouge plus après quelques récoltes... Verifiez si le laps de temps est respecté ou en rajouter si besoin
  [✓] Le bot va recolter les ressources deja recoltées
  [✓] Trier les ressources a recolter sur la map pour que le bot puisse pas se balader juste pour recolter
 
 Inventaire
  [ ] Nouveau paquet a gérer SetUpdateMessage
- [ ] Pour certains items de type différent (hat, ring, etc..) quand on l'equipe, c'est pas actualiser dans l'inventaire à car ya pas de paquet pour
+ [ ] Pour certains items de type différent (hat, ring, etc..) quand on l'equipe, c'est pas actualiser dans l'inventaire car ya pas de paquet pour...
 
 Combat
  [✓] "S'approcher si la distance est inférieur à" n'est pas défini

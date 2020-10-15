@@ -1046,6 +1046,21 @@ bool ConnectionModule::processMessage(const MessageInfos &data, SocketIO *sender
     }
         break;
 
+    case MessageEnum::ALMANACHCALENDARDATEMESSAGE:
+    {
+        AlmanachCalendarDateMessage message;
+        message.deserialize(&reader);
+
+        QSharedPointer<AlmanaxCalendarData> almanaxData = qSharedPointerCast<AlmanaxCalendarData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::ALMANAXCALENDARS, message.date));
+        QSharedPointer<NpcData> npcData = qSharedPointerCast<NpcData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::NPCS, almanaxData->getNpcId()));
+        QString str = D2OManagerSingleton::get()->getI18N()->getText("ui.almanax.offeringTo");
+        str.replace("%1", npcData->getName());
+
+        action(sender) << "[Almanax]" << D2OManagerSingleton::get()->getI18N()->getText(almanaxData->getDescId());
+        action(sender) << "[Almanax]" << str;
+    }
+        break;
+
     case MessageEnum::EXCHANGEBIDHOUSEUNSOLDITEMSMESSAGE:
         break;
     }
