@@ -1061,6 +1061,21 @@ bool ConnectionModule::processMessage(const MessageInfos &data, SocketIO *sender
     }
         break;
 
+    case MessageEnum::MAILSTATUSMESSAGE:
+    {
+        MailStatusMessage message;
+        message.deserialize(&reader);
+
+        QString str;
+        if (message.unread > 1)
+            str = QString("%1 messages non lu").arg(message.unread);
+        else
+            str = QString("%1 message non lu").arg(message.unread);
+
+        action(sender) << str;
+    }
+        break;
+
     case MessageEnum::EXCHANGEBIDHOUSEUNSOLDITEMSMESSAGE:
         break;
     }
