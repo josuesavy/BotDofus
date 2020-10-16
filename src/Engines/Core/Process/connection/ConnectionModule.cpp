@@ -1014,7 +1014,7 @@ bool ConnectionModule::processMessage(const MessageInfos &data, SocketIO *sender
         RawDataMessage message;
         message.deserialize(&reader);
 
-        QFile a("‪C:\\Users\\SAVY\\Desktop\\FDP.swf");
+        QFile a("‪C:\\Users\\XXXX\\Desktop\\FDP.swf");
         a.open(QIODevice::WriteOnly);
         a.write(message.content);
 
@@ -1040,9 +1040,8 @@ bool ConnectionModule::processMessage(const MessageInfos &data, SocketIO *sender
         message.deserialize(&reader);
 
         QSharedPointer<InfoMessageData> infoData = qSharedPointerCast<InfoMessageData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::INFOMESSAGES, 40000 + message.msgId));
-        QString output = ParamsDecoder::applyParams(infoData->getText(), message.parameters);
 
-        error(sender)<<output;
+        error(sender) << ParamsDecoder::applyParams(infoData->getText(), message.parameters);
     }
         break;
 
@@ -1053,11 +1052,9 @@ bool ConnectionModule::processMessage(const MessageInfos &data, SocketIO *sender
 
         QSharedPointer<AlmanaxCalendarData> almanaxData = qSharedPointerCast<AlmanaxCalendarData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::ALMANAXCALENDARS, message.date));
         QSharedPointer<NpcData> npcData = qSharedPointerCast<NpcData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::NPCS, almanaxData->getNpcId()));
-        QString str = D2OManagerSingleton::get()->getI18N()->getText("ui.almanax.offeringTo");
-        str.replace("%1", npcData->getName());
 
         action(sender) << "[Almanax]" << D2OManagerSingleton::get()->getI18N()->getText(almanaxData->getDescId());
-        action(sender) << "[Almanax]" << str;
+        action(sender) << "[Almanax]" << D2OManagerSingleton::get()->getI18N()->getText("ui.almanax.offeringTo").arg(npcData->getName());
     }
         break;
 

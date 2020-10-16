@@ -210,8 +210,6 @@ void ConsoleForm::on_pushButtonSmiley_clicked()
     QList<QString> smileysSadList;
     QList<QString> smileysOtherList;
 
-
-
     QList<int> listID = D2OManagerSingleton::get()->getIndexes(GameDataTypeEnum::SMILEYS);
     for(int i = 0; i < listID.size(); i++)
     {
@@ -246,47 +244,49 @@ void ConsoleForm::on_pushButtonSend_clicked()
 {
     if (!ui->lineEditConsole->text().isEmpty())
     {
-        Channel c;
+        Channel channel;
 
         switch (ui->comboBoxCanal->currentIndex())
         {
-        case 0: c = CHANNELGLOBAL; break;
+        case 0:
+            channel = CHANNELGLOBAL;
+            break;
         case 1:
-            c = CHANNELTEAM;
+            channel = CHANNELTEAM;
             break;
         case 2:
-            c = CHANNELGUILD;
+            channel = CHANNELGUILD;
             break;
         case 3:
-            c = CHANNELALLIANCE;
+            channel = CHANNELALLIANCE;
             break;
         case 4:
-            c = CHANNELPARTY;
+            channel = CHANNELPARTY;
             break;
         case 5:
-            c = CHANNELPRIVATE;
+            channel = CHANNELPRIVATE;
             break;
         case 6:
-            c = CHANNELARENA;
+            channel = CHANNELARENA;
             break;
         case 7:
-            c = CHANNELCOMMUNITY;
+            channel = CHANNELCOMMUNITY;
             break;
         case 8:
-            c = CHANNELSALES;
+            channel = CHANNELSALES;
             break;
         case 9:
-            c = CHANNELSEEK;
+            channel = CHANNELSEEK;
             break;
         }
 
         QString content = ui->lineEditConsole->text();
         //QRegExp pattern("%[a-z]+%");
 
-        if(c == Channel::CHANNELPRIVATE)
+        if(channel == Channel::CHANNELPRIVATE)
             m_engine->getFloodModule().sendChatMessage(m_sender, content.remove(content.split(" ").at(0)+" "), content.split(" ").at(0));
         else
-            m_engine->getFloodModule().sendChatMessage(m_sender, content, c);
+            m_engine->getFloodModule().sendChatMessage(m_sender, content, channel);
 
         ui->lineEditConsole->setText("");
     }
