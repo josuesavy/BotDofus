@@ -283,100 +283,10 @@ void ConsoleForm::on_pushButtonSend_clicked()
         QString content = ui->lineEditConsole->text();
         //QRegExp pattern("%[a-z]+%");
 
-        if(content.mid(0, 1) == "/")
-        {
-            if(content.split("/").last() == "gather")
-            {
-                if(m_engine->getFarmModule().editResourcesList(m_sender, 38, true)) // Ble
-                    qDebug() << "not add";
-                else
-                    qDebug() << "add";
-
-                if(m_engine->getFarmModule().editResourcesList(m_sender, 75, true)) // Goujon
-                    qDebug() << "not add";
-                else
-                    qDebug() << "add";
-
-                if(m_engine->getFarmModule().editResourcesList(m_sender, 254, true)) // Ortie
-                    qDebug() << "not add";
-                else
-                    qDebug() << "add";
-
-                if(m_engine->getFarmModule().processFarm(m_sender))
-                    qDebug() << "je farm";
-                else
-                    qDebug() << "ya r";
-            }
-            else if(content.split("/").last() == "fight")
-            {
-
-                m_engine->getFightModule().setFightPlacementPosition(m_sender, FightPlacementPosition::NEARFUL);
-                m_engine->getFightModule().setFightIA(m_sender, FightIA::FEARFUL);
-
-                QList<RequestedSpell> spells;
-                RequestedSpell spell;
-                spell.castNb = 2;
-                //spell.spellID = 12978; // Attaque Naturelle (Feca)
-                //spell.spellID = 13106; // Pression (Iop)
-                spell.spellID = 13047; // Flèche magique (Crâ)
-                spell.spellCible = SpellCible::ENEMY;
-                spells.append(spell);
-
-                m_engine->getFightModule().setRequestedSpells(m_sender, spells);
-
-                RequestedMonsters monsters;
-                monsters.mxNbMonsters = 2;
-                monsters.groupLevelMax = 100;
-                monsters.groupLevelMin = 1;
-
-                MonsterCondition cond;
-                cond.id = 3271; // Feu de joie
-                cond.monsterInclusion = MonsterInclusion::NONE_EXCEPT;
-
-                monsters.monsterConditions << cond;
-
-                MonsterCondition cond2;
-                cond2.id = 3272; // Feu furieux
-                cond2.monsterInclusion = MonsterInclusion::ALL_EXCEPT;
-
-                monsters.monsterConditions << cond2;
-
-                m_engine->getFightModule().setRequestedMonsters(m_sender, monsters);
-                m_engine->getFightModule().setClosed(m_sender, true);
-
-                if(m_engine->getFightModule().processMonsters(m_sender))
-                    qDebug() << "fight ok";
-                else
-                    qDebug() << "fight ko";
-            }
-            else if(content.split("/").last() == "pathfinder")
-            {
-                PathfindingMap *worldpath = new PathfindingMap();
-                worldpath->requestPath(PathfindingMap::coordsToMapId(4, 0, 3), PathfindingMap::coordsToMapId(-2, -3, 3), 10, m_sender);
-                worldpath->start();
-            }
-//            else if(content.split("/").last() == "use")
-//            {
-//                foreach(const StatedElementsInfos e, getData().mapData.statedOnMap)
-//                {
-//                    qDebug() << e.elementCellId;
-//                    if(e.elementCellId == 367)
-//                    {
-//                        m_engine->getInteractionModule().processUse(m_sender, e.elementId, "");
-//                        break;
-//                    }
-//                }
-//            }
-        }
-
+        if(c == Channel::CHANNELPRIVATE)
+            m_engine->getFloodModule().sendChatMessage(m_sender, content.remove(content.split(" ").at(0)+" "), content.split(" ").at(0));
         else
-        {
-            if(c == Channel::CHANNELPRIVATE)
-                m_engine->getFloodModule().sendChatMessage(m_sender, content.remove(content.split(" ").at(0)+" "), content.split(" ").at(0));
-
-            else
-                m_engine->getFloodModule().sendChatMessage(m_sender, content, c);
-        }
+            m_engine->getFloodModule().sendChatMessage(m_sender, content, c);
 
         ui->lineEditConsole->setText("");
     }
