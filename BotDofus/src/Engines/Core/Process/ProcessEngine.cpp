@@ -28,17 +28,15 @@ void ProcessEngine::processUpdateRequest(SocketIO *sender)
     if(m_botData.contains(sender))
     {
         if(m_botData[sender].generalData.logMessages.size() <= 250)
+        {
             m_botData[sender].generalData.logMessageCount = m_botData[sender].generalData.logMessages.size();
+        }
 
         while(m_botData[sender].generalData.logMessages.size() > 250)
         {
             m_botData[sender].generalData.logMessages.removeFirst();
-            m_botData[sender].generalData.logMessageCount = m_botData[sender].generalData.logMessageCount + 1;
+            m_botData[sender].generalData.logMessageCount = m_botData[sender].generalData.logMessageCount - 1;
         }
-
-//        m_botData[sender].statisticsData.countTotalSpeedNetwork = sender->getLatencyAverage();
-
-//        action(sender) << sender->getMaxLatency();
 
         emit informationsUpdated(sender);
     }
