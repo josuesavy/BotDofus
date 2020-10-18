@@ -91,13 +91,8 @@ void ConsoleForm::updateInterface(bool directCall)
 
     if (infos.generalData.logMessageCount != m_logMessageCount)
     {
-        qDebug() << "logMessageCount size:" << infos.generalData.logMessageCount;
-
         for(int i = m_logMessageCount; i < infos.generalData.logMessageCount; i++)
         {
-            qDebug() << "iteration:" << i;
-            qDebug() << "size logMessage:" << infos.generalData.logMessages.size();
-            qDebug() << infos.generalData.logMessages[i].channel;
             QString htmlOutput = toHtml(infos.generalData.logMessages[i].output);
 
             switch (infos.generalData.logMessages[i].channel)
