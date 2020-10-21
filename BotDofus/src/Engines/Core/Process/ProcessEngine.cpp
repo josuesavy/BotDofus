@@ -78,9 +78,7 @@ bool ProcessEngine::processMessage(const MessageInfos &data, SocketIO *sender)
         message.deserialize(&reader);
 
         QSharedPointer<InfoMessageData> infoData = qSharedPointerCast<InfoMessageData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::INFOMESSAGES, message.msgType*10000 + message.msgId));
-
         QString output = infoData->getText();
-
         output = ParamsDecoder::applyParams(output, message.parameters);
 
         qDebug()<<"TextInformationMessage -"<<output<<" Params -"<<message.parameters;
