@@ -120,51 +120,18 @@ void FightForm::on_pushButtonAddSpell_clicked()
 {
     const BotData &infos = getData();
 
-    QDialog *dialog = new QDialog(this);
-    dialog->setWindowTitle("Ajouter un sort");
-    QLabel *label1 = new QLabel("Sort");
-    QComboBox *combobox1 = new QComboBox(dialog);
-
-    QSharedPointer<SpellData> spellData;
-    foreach(const Spell &spell, infos.playerData.spells)
-    {
-        spellData = qSharedPointerCast<SpellData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::SPELLS, spell.spellID));
-        combobox1->addItem(spellData->getName(), spell.spellID);
-    }
-
-    QLabel *label2 = new QLabel("Cible");
-    QComboBox *combobox2 = new QComboBox(dialog);
-    combobox2->addItem("Ennemi");
-    combobox2->addItem("Allié");
-    combobox2->addItem("Direction");
-    combobox2->addItem("Moi");
-
-    QLabel *label3 = new QLabel("Nombre de lancé");
-    QSpinBox *spinbox1 = new QSpinBox(dialog);
-    spinbox1->setMinimum(1);
-    QDialogButtonBox *dialogButtonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel, Qt::Horizontal, dialog);
-
-    connect(dialogButtonBox, &QDialogButtonBox::accepted, dialog, &QDialog::accept);
-    connect(dialogButtonBox, &QDialogButtonBox::rejected, dialog, &QDialog::reject);
-
-    QFormLayout *layout = new QFormLayout;
-    layout->addRow(label1, combobox1);
-    layout->addRow(label2, combobox2);
-    layout->addRow(label3, spinbox1);
-    layout->addRow(dialogButtonBox);
-
-    dialog->setLayout(layout);
-
-    if(dialog->exec() == QDialog::Accepted)
+    AddSpellDialog addSpellDialog(this, infos.playerData.spells);
+    addSpellDialog.setParent(this, Qt::Dialog);
+    if(addSpellDialog.exec() == QDialog::Accepted)
     {
         while(ui->tableWidgetSpells->rowCount() > 0)
             ui->tableWidgetSpells->removeRow(0);
 
         // Creation d'un sort à jouer en combat
         RequestedSpell r;
-        r.spellID = combobox1->currentData().toInt();
-        r.castNb = spinbox1->value();
-        r.spellCible = (SpellCible)combobox2->currentIndex();
+        r.spellID = addSpellDialog.getSpell();
+        r.castNb = addSpellDialog.getNbrCast();
+        r.spellCible = addSpellDialog.getTarget();
 
         // On le rajoute à ceux déjà présent
         QList<RequestedSpell> rs = m_engine->getFightModule().getRequestedSpells(m_sender);

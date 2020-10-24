@@ -7,6 +7,7 @@
 
 #include "src/Engines/Core/Process/ProcessEngine.h"
 #include "src/Engines/Storage/DataHandler.h"
+#include "src/gui/main/forms/dialogs/addspelldialog.h"
 
 namespace Ui {
 class FightForm;

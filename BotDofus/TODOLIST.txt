@@ -33,7 +33,6 @@ Inventaire
  [ ] Pour certains items de type différent (hat, ring, etc..) quand on l'equipe, c'est pas actualiser dans l'inventaire à car ya pas de paquet pour
 
 Combat
- [ ] Un coup le chef arrive à faire la suite des actions après les combats sur une carte sans les membres et l'autre coup c'est les membres sans le chef...
  [ ] Le placement en debut de combat echoue
 
 Options
