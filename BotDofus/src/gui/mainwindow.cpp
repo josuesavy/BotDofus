@@ -54,8 +54,10 @@ void MainWindow::initTrayMenu()
 void MainWindow::remove(AccountForm *accountForm, bool child)
 {
     int index = m_accountForms.indexOf(accountForm);
+
     delete m_accountForms.at(index);
     m_accountForms.removeAt(index);
+
     if(!child)
         delete ui->treeWidgetAccount->topLevelItem(index);
 }
@@ -125,12 +127,13 @@ void MainWindow::addAccount(const QList<ConnectionInfos> &accounts)
 
                 AccountForm *accountForm = new AccountForm(&m_engine, accounts.at(i));
                 connect(accountForm, SIGNAL(remove(AccountForm*, bool)), this, SLOT(remove(AccountForm*, bool)));
+                ui->stackedWidget->addWidget(accountForm);
 
                 QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidgetAccount);
                 item->setData(0, 1, accounts.at(i).alias.isEmpty() ? accounts.at(i).login: accounts.at(i).alias);
                 item->setData(0, 2, (uint)ConnectionState::DISCONNECTED);
-                item->setData(0, Qt::UserRole, ui->stackedWidget->addWidget(accountForm));
                 item->setData(0, 4, QPixmap(":/icons/user.png"));
+                item->setData(0, Qt::UserRole, QVariant::fromValue(accountForm));
 
                 m_accountForms << accountForm;
                 accountFormsToAutoConnect << accountForm;
@@ -143,11 +146,13 @@ void MainWindow::addAccount(const QList<ConnectionInfos> &accounts)
             // Add Master
             AccountForm *accountFormMaster = new AccountForm(&m_engine, accounts.first());
             connect(accountFormMaster, SIGNAL(remove(AccountForm*, bool)), this, SLOT(remove(AccountForm*, bool)));
+            ui->stackedWidget->addWidget(accountFormMaster);
 
             QTreeWidgetItem *parentItem = new QTreeWidgetItem(ui->treeWidgetAccount);
             parentItem->setData(0, 1, accounts.first().alias.isEmpty() ? accounts.first().login: accounts.first().alias);
             parentItem->setData(0, 2, (uint)ConnectionState::DISCONNECTED);
-            parentItem->setData(0, Qt::UserRole, ui->stackedWidget->addWidget(accountFormMaster));
+            parentItem->setData(0, 4, QPixmap(":/icons/user.png"));
+            parentItem->setData(0, Qt::UserRole, QVariant::fromValue(accountFormMaster));
 
             m_accountForms << accountFormMaster;
             accountFormsToAutoConnect << accountFormMaster;
@@ -163,11 +168,13 @@ void MainWindow::addAccount(const QList<ConnectionInfos> &accounts)
 
                 AccountForm *accountFormSlave = new AccountForm(&m_engine, accounts.at(i));
                 connect(accountFormSlave, SIGNAL(remove(AccountForm*, bool)), this, SLOT(remove(AccountForm*, bool)));
+                ui->stackedWidget->addWidget(accountFormSlave);
 
                 QTreeWidgetItem *childItem = new QTreeWidgetItem();
                 childItem->setData(0, 1, accounts.at(i).alias.isEmpty() ? accounts.at(i).login: accounts.at(i).alias);
                 childItem->setData(0, 2, (uint)ConnectionState::DISCONNECTED);
-                childItem->setData(0, Qt::UserRole, ui->stackedWidget->addWidget(accountFormSlave));
+                childItem->setData(0, 4, QPixmap(":/icons/user.png"));
+                childItem->setData(0, Qt::UserRole, QVariant::fromValue(accountFormSlave));
 
                 m_accountForms << accountFormSlave;
                 accountFormsChilds << accountFormSlave;
@@ -183,7 +190,7 @@ void MainWindow::addAccount(const QList<ConnectionInfos> &accounts)
         if(!ui->treeWidgetAccount->selectedItems().size() && ui->treeWidgetAccount->topLevelItemCount())
         {
             ui->treeWidgetAccount->topLevelItem(ui->treeWidgetAccount->topLevelItemCount()-1)->setSelected(true);
-            ui->stackedWidget->setCurrentIndex(ui->treeWidgetAccount->topLevelItem(ui->treeWidgetAccount->topLevelItemCount()-1)->data(0, Qt::UserRole).toInt());
+            ui->stackedWidget->setCurrentWidget(ui->treeWidgetAccount->topLevelItem(ui->treeWidgetAccount->topLevelItemCount()-1)->data(0, Qt::UserRole).value<AccountForm*>());
         }
 
         // Auto connect accounts
@@ -199,11 +206,12 @@ void MainWindow::addAccount(const QList<ConnectionInfos> &accounts)
 
 void MainWindow::updateBotInferface(SocketIO *sender)
 {
+    QList<QTreeWidgetItem*> items = getTreeWidgetItems();
+
     for(int i = 0; i < m_accountForms.size(); i++)
     {
         if(m_accountForms.at(i)->getSocket() == sender)
         {
-            QList<QTreeWidgetItem*> items = getTreeWidgetItems();
             items[i]->setData(0, 1, m_engine.getData(sender).connectionData.connectionInfos.alias.isEmpty()? m_engine.getData(sender).connectionData.connectionInfos.login: m_engine.getData(sender).connectionData.connectionInfos.alias);
             items[i]->setData(0, 2, (uint)m_engine.getData(sender).connectionData.connectionState);
             items[i]->setData(0, 3, m_engine.getData(sender).generalData.botState);
@@ -257,39 +265,39 @@ void MainWindow::on_actionMinimize_triggered()
     hide();
 
     QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::MessageIcon(QSystemTrayIcon::Information);
-    trayIcon->showMessage("SweatedBox", ("SweatedBox est réduit. Pour l'afficher de nouveau cliquez sur l'icone."), icon, 2000);
+    trayIcon->showMessage("SweatedBox", ("SweatedBox est réduit. Pour l'afficher de nouveau cliquez sur l'icône."), icon, 2000);
 }
 
 void MainWindow::on_treeWidgetAccount_itemClicked(QTreeWidgetItem *item, int column)
 {
-    ui->stackedWidget->setCurrentIndex(item->data(column, Qt::UserRole).toInt());
+    ui->stackedWidget->setCurrentWidget(item->data(column, Qt::UserRole).value<AccountForm*>());
 }
 
 void MainWindow::on_treeWidgetAccount_itemActivated(QTreeWidgetItem *item, int column)
 {
-    ui->stackedWidget->setCurrentIndex(item->data(column, Qt::UserRole).toInt());
+    ui->stackedWidget->setCurrentWidget(item->data(column, Qt::UserRole).value<AccountForm*>());
 }
 
 void MainWindow::on_treeWidgetAccount_itemEntered(QTreeWidgetItem *item, int column)
 {
-     ui->stackedWidget->setCurrentIndex(item->data(column, Qt::UserRole).toInt());
+    ui->stackedWidget->setCurrentWidget(item->data(column, Qt::UserRole).value<AccountForm*>());
 }
 
 void MainWindow::on_treeWidgetAccount_itemPressed(QTreeWidgetItem *item, int column)
 {
-    ui->stackedWidget->setCurrentIndex(item->data(column, Qt::UserRole).toInt());
+    ui->stackedWidget->setCurrentWidget(item->data(column, Qt::UserRole).value<AccountForm*>());
 }
 
 void MainWindow::on_treeWidgetAccount_itemCollapsed(QTreeWidgetItem *item)
 {
     ui->treeWidgetAccount->setCurrentItem(item);
-    ui->stackedWidget->setCurrentIndex(item->data(0, Qt::UserRole).toInt());
+    ui->stackedWidget->setCurrentWidget(item->data(0, Qt::UserRole).value<AccountForm*>());
 }
 
 void MainWindow::on_treeWidgetAccount_itemExpanded(QTreeWidgetItem *item)
 {
     ui->treeWidgetAccount->setCurrentItem(item);
-    ui->stackedWidget->setCurrentIndex(item->data(0, Qt::UserRole).toInt());
+    ui->stackedWidget->setCurrentWidget(item->data(0, Qt::UserRole).value<AccountForm*>());
 }
 
 QList<QTreeWidgetItem *> MainWindow::getTreeWidgetItems()

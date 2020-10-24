@@ -23,7 +23,7 @@ Divers
  [✓] La tête du personnage ne s'affiche pas dans la liste des bots ouverts sur le logiciel
  [ ] La fenêtre est trop grande pour certaines résolutions graphique. Faire en sorte d'ajuster, permettre un certain resize sur certains widgets pour régler le problème
  [ ] Quand on arrête le script depuis le module actualiser les actions dans la liste du managenement des scripts
-
+ [✓] Lors de la suppression d'un compte chargé se trouvant entre deux autres comptes puis la selection du compte juste d'avant, la connexion de l'item et le stackwidget s'embrouille
 
 
 
@@ -32,13 +32,14 @@ Script
  [✓] Lors qu'on lance le script, ça boucle l'action a faire et le serveur refuse la demande du coup (c a cause du emit actionScriptDone)
 
 Recolte
+ [ ] Ajouter la verification du StatedElement en fonction du InteractiveElement quand on reçoit les messages InteractiveElementUpdatedMessage et StatedElementUpdatedMessage.
  [✓] Le bot ne bouge plus après quelques récoltes... Verifiez si le laps de temps est respecté ou en rajouter si besoin
- [✓] Le bot va recolter les ressources deja recoltées
+ [ ] Le bot va recolter les ressources deja recoltées
  [✓] Trier les ressources a recolter sur la map pour que le bot puisse pas se balader juste pour recolter
 
 Inventaire
  [ ] Nouveau paquet a gérer SetUpdateMessage
- [ ] Pour certains items de type différent (hat, ring, etc..) quand on l'equipe, c'est pas actualiser dans l'inventaire car ya pas de paquet pour...
+ [ ] Pour certains items de type différent (hat, ring, etc..) quand on l'equipe, c'est pas actualiser dans l'inventaire à car ya pas de paquet pour
 
 Combat
  [✓] "S'approcher si la distance est inférieur à" n'est pas défini
