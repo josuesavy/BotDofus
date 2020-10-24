@@ -469,6 +469,8 @@ void AccountForm::on_actionRunScript_triggered()
 
         if (result == INVALID)
             m_engine->error(m_sender) << "[Script] Nous n'avons pas réussit a ouvrir le fichier du trajet, le chargement des trajets a été interrompu veuillez recommencer après avoir corrigé l'erreur";
+        else if (result != 0)
+            m_engine->error(m_sender) << "[Script] Erreur à la ligne :" << QString::number(result);
 
         if (result == INVALID || result != 0)
             p = true;

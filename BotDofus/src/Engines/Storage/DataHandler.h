@@ -104,12 +104,12 @@ enum class ScriptType
 
 enum class ScriptTag
 {
-    BANK, MOVE, GHOST, UNDEFINED,
+    BANK, LOST, MOVE, GHOST, CRAFT, FIGHT, COLLECT, NO_AGGRO, UNDEFINED,
 };
 
 enum class ScriptFunctionEnum
 {
-    CHANGEMAP, FIGHT, GATHER, DOOR, NPC_BANK, HOUSE, SAFE, CUSTOM, UNDEFINED,
+    USE, MOVE, CELL, ZAAP, CRAFT, ZAAPI, TRADE, FIGHT,WEAPON, COLLECT, AUTOPATH, USE_ITEM, NPC_QUIT, UNDEFINED, NPC_DIALOG, NPC_INTERACT,
 };
 
 struct ScriptFunction
@@ -122,7 +122,9 @@ struct ScriptPathMapData
 {
     int id = INVALID;
     ScriptTag tag;
+    QString condition;
     QList<MapSide> sides;
+    bool defaultCondition;
     QList<ScriptFunction> functions;
 };
 

@@ -11,17 +11,6 @@
   * what the bot should do when he enters a new map.
   */
 
-extern "C"
-{
-#include "Lua514/include/lua.h"
-#include "Lua514/include/lauxlib.h"
-#include "Lua514/include/lualib.h"
-}
-
-#ifdef _WIN32
-#pragma comment(lib, "Lua514/lua5.1.lib")
-#endif
-
 #include "src/Engines/Core/Process/map/MapModule.h"
 #include "src/Engines/Core/Process/farm/FarmModule.h"
 #include "src/Engines/Core/Process/fight/FightModule.h"
@@ -114,6 +103,13 @@ public:
     void setPodsLimit(SocketIO *sender, ushort ratio);
 
     /*!
+     * \brief getLost
+     * \param sender Pointer to the bot instance
+     * \return ScriptPathMapData Returns informations of what the bot has to do to go back to the default lost map
+     */
+    ScriptPathMapData getLost(SocketIO *sender);
+
+    /*!
      * \brief getMap
      * \param sender Pointer to the bot instance
      * \param id This is an overloaded parameter for the map id. If default value, id will be set to current mapId
@@ -145,18 +141,30 @@ private slots:
     void waitForInactivity();
 
 private:
-    void getSettings(SocketIO *sender, lua_State *lua);
-    void getGlobalFunction(SocketIO *sender, lua_State *lua, ScriptTag function);
-    void getActions(SocketIO *sender, lua_State *lua);
-
     bool groupNeedsHeal(SocketIO *sender);
     bool groupNeedsToGoToBank(SocketIO *sender);
     bool isGroupReadyForNextSequence(SocketIO *master);
     ScriptPathMapData arrangeScriptForSlave(ScriptPathMapData s);
 
     void convertToFunction(ScriptPathMapData &s);
+    static bool checkConditionalSyntax(QString d);
+    bool conditionalParser(SocketIO *sender, QString d);
 
     QList<MapSide> getSides(QString side);
+    ScriptFunction getFunction(QString f);
+    QList<MapSide> getSideFromMove(ScriptFunction f);
+
+    QVariantList parseInt(QString d);
+    QVariantList parseString(QString d);
+    QVariantList parseIntArray(QString d);
+    QVariantList parseStringArray(QString d);
+
+    bool check(SocketIO *sender, QString d);
+    bool isMap(SocketIO *sender, QString d);
+    bool isHeader(SocketIO *sender, QString d);
+    bool isOpenTag(SocketIO *sender,QString d);
+    bool isCloseTag(SocketIO *sender, QString d);
+    bool isCondition(SocketIO *sender, QString d);
 
     MapModule *m_mapModule;
     FarmModule *m_farmModule;

@@ -10,9 +10,9 @@ ScriptModule::ScriptModule(QMap<SocketIO *, BotData> *connectionsData,
                            ConnectionModule *connectionModule):
     AbstractModule(ModuleType::SCRIPT, connectionsData),
     m_mapModule(mapModule),
+    m_fightModule(fightModule),
     m_farmModule(farmModule),
     m_craftModule(craftModule),
-    m_fightModule(fightModule),
     m_interactionModule(interactionModule),
     m_groupModule(groupModule),
     m_statsModule(statsModule),
@@ -56,7 +56,7 @@ bool ScriptModule::processMessage(const MessageInfos &data, SocketIO *sender)
                 sender->getLatencyList().last() <= m_botData[sender].scriptData.scriptMaxTime)
         {
             m_botData[sender].scriptData.scriptMaxTime = INVALID;
-            warn(sender)<<"Il semblerait que le bot soit bloqué, tentative de relance du script...";
+            error(sender)<<"Il semblerait que le bot soit bloqué, tentative de relance du script...";
             m_connectionModule->reconnect(sender);
         }
     }
@@ -98,11 +98,42 @@ ScriptPathMapData ScriptModule::getBank(SocketIO *sender, uint id)
     return d;
 }
 
+ScriptPathMapData ScriptModule::getLost(SocketIO *sender)
+{
+    ScriptPathMapData d;
+    ScriptPathMapData s;
+
+    if (m_botData[sender].scriptData.lost.isEmpty())
+        return d;
+
+    int i = 0;
+    foreach (ScriptPathMapData m, m_botData[sender].scriptData.lost)
+    {
+        if (conditionalParser(sender, m.condition))
+        {
+            if (m.condition.isEmpty())
+                d = m;
+            else
+                s = m;
+
+            i++;
+        }
+    }
+
+    convertToFunction(d);
+    convertToFunction(s);
+    if (!m_botData[sender].scriptData.isActive)
+        return d;
+    else if (i >= 1 || d.id == INVALID)
+        return d;
+    else
+        return s;
+}
+
 ScriptPathMapData ScriptModule::getMap(SocketIO *sender, uint id)
 {
     ScriptPathMapData d = {};
     ScriptPathMapData s = {};
-
     if (m_botData[sender].scriptData.data.isEmpty())
         return d;
 
@@ -111,26 +142,29 @@ ScriptPathMapData ScriptModule::getMap(SocketIO *sender, uint id)
 
     QList<ScriptPathMapData> l;
     foreach (ScriptPathMapData m, m_botData[sender].scriptData.data)
-    {
         if (m.id == id)
             l << m;
-    }
-
 
     int i = 0;
     foreach (ScriptPathMapData m, l)
     {
-        if (m.tag == ScriptTag::BANK)
-            return m;
-        else
-            d = m;
+        if (conditionalParser(sender, m.condition))
+        {
+            if (m.tag == ScriptTag::BANK)
+                return m;
+            else if (m.defaultCondition)
+                return m;
+            else if (m.condition.isEmpty())
+                d = m;
+            else
+                d = m;
 
-        i++;
+            i++;
+        }
     }
 
     convertToFunction(d);
     convertToFunction(s);
-
     if (!m_botData[sender].scriptData.isActive)
         return d;
     else if (i >= 1 || d.id == INVALID)
@@ -159,7 +193,7 @@ void ScriptModule::processRepeatAction(SocketIO *sender)
         slaves<<sender;
 
         foreach(SocketIO *slave, slaves)
-            m_botData[slave].scriptData.toExecute.insert(0, m_botData[slave].scriptData.lastInstruction);
+            m_botData[slave].scriptData.toExecute<<m_botData[slave].scriptData.lastInstruction;
 
         processNextAction(sender);
     }
@@ -169,7 +203,7 @@ void ScriptModule::processNextAction(SocketIO *sender)
 {
     if(m_botData[sender].scriptData.isActive)
     {
-        qDebug() << "P. NEXT ACTION"<<m_botData[sender].mapData.map.getPosition().getX()<<m_botData[sender].mapData.map.getPosition().getY();
+        action(sender) << "P. NEXT ACTION"<<m_botData[sender].mapData.map.getPosition().getX()<<m_botData[sender].mapData.map.getPosition().getY();
 
         SocketIO *master = m_groupModule->getMaster(sender);
 
@@ -231,24 +265,12 @@ void ScriptModule::processNextAction(SocketIO *sender)
             }
         }
 
+
         if (!m_botData[sender].scriptData.toExecute.isEmpty())
         {
-            debug(sender) << "size to execute:" << m_botData[sender].scriptData.toExecute.size();
-            foreach(ScriptFunction func, m_botData[sender].scriptData.toExecute)
-            {
-                if(func.type == ScriptFunctionEnum::FIGHT)
-                    debug(sender) << "to execute is fight";
-                else if(func.type == ScriptFunctionEnum::CHANGEMAP)
-                    debug(sender) << "to execute is changeMap";
-            }
-
-            ScriptFunction f = m_botData[sender].scriptData.toExecute.takeFirst();
+            ScriptFunction f = m_botData[sender].scriptData.toExecute.first();
+            m_botData[sender].scriptData.toExecute.removeFirst();
             m_botData[sender].scriptData.lastInstruction = f;
-
-            if(m_botData[sender].scriptData.lastInstruction.type == ScriptFunctionEnum::FIGHT)
-                debug(sender) << "next instruction is fight";
-            else if(m_botData[sender].scriptData.lastInstruction.type == ScriptFunctionEnum::CHANGEMAP)
-                debug(sender) << "next instruction is changeMap";
 
             if(m_botData[sender].playerData.lifeStatus == PlayerLifeStatusEnum::STATUS_TOMBSTONE)
             {
@@ -257,9 +279,18 @@ void ScriptModule::processNextAction(SocketIO *sender)
                 m_botData[sender].scriptData.activeModule = ModuleType::STATS;
             }
 
-            else if (f.type == ScriptFunctionEnum::GATHER)
+            else if (f.type == ScriptFunctionEnum::FIGHT)
             {
-                qDebug()<<"FARM";
+                debug(sender)<<"FIGHT";
+                m_botData[sender].scriptData.activeModule = ModuleType::FIGHT;
+
+                if (!m_fightModule->processMonsters(sender))
+                    processNextAction(sender);
+            }
+
+            else if (f.type == ScriptFunctionEnum::COLLECT)
+            {
+                debug(sender)<<"FARM";
                 m_botData[sender].scriptData.activeModule = ModuleType::FARM;
 
                 if (m_farmModule->processFarm(sender))
@@ -269,41 +300,9 @@ void ScriptModule::processNextAction(SocketIO *sender)
                     processNextAction(sender);
             }
 
-            else if (f.type == ScriptFunctionEnum::FIGHT)
+            else if (f.type == ScriptFunctionEnum::MOVE)
             {
-                qDebug()<<"FIGHT";
-                m_botData[sender].scriptData.activeModule = ModuleType::FIGHT;
-
-                if (!m_fightModule->processMonsters(sender))
-                    processNextAction(sender);
-            }
-
-            else if(f.type == ScriptFunctionEnum::DOOR)
-            {
-
-            }
-
-            else if(f.type == ScriptFunctionEnum::CUSTOM)
-            {
-                qDebug()<<"CUSTOM";
-                m_botData[sender].scriptData.activeModule = ModuleType::UNKNOWN;
-
-//                lua_State *lua;
-
-//                lua = luaL_newstate();
-//                luaL_openlibs(lua);
-
-//                if(luaL_dostring(lua, m_botData[sender].scriptData.fileContent.toStdString().c_str()))
-//                {
-//                    lua_getglobal(lua, f.params.first());
-//                }
-
-//                lua_close(lua);
-            }
-
-            else if (f.type == ScriptFunctionEnum::CHANGEMAP)
-            {
-                qDebug()<<"MOVE";
+                debug(sender)<<"MOVE";
                 QList<QVariant> sides = f.params.first().toList();
                 MapSide m = (MapSide)sides[qrand() % sides.size()].toInt();
                 m_botData[sender].scriptData.activeModule = ModuleType::MAP;
@@ -313,6 +312,90 @@ void ScriptModule::processNextAction(SocketIO *sender)
 
                 else
                     action(sender) << "Une erreur est survenue, impossible de passer d'une carte à une autre";
+            }
+
+            else if (f.type == ScriptFunctionEnum::CELL)
+            {
+                debug(sender)<<"CELL";
+                QList<QVariant> cells = f.params.first().toList();
+                uint chosenCell = cells[qrand() % cells.size()].toInt();
+                m_botData[sender].scriptData.activeModule = ModuleType::MAP;
+
+                if (m_mapModule->changeCell(sender, chosenCell))
+                    m_botData[sender].scriptData.scriptMaxTime = MOVE_MAXTIME;
+
+                else if (chosenCell != m_botData[sender].mapData.playersOnMap[m_botData[sender].mapData.botId].cellId)
+                    action(sender) << "Une erreur est survenue, impossible de bouger à la cellule"<<chosenCell;
+            }
+
+            else if (f.type == ScriptFunctionEnum::USE)
+            {
+                debug(sender)<<"USE";
+
+                if (m_interactionModule->processUse(sender, f.params.first().toInt(), f.params.at(1).toString()))
+                {
+                    m_botData[sender].scriptData.scriptMaxTime = INTERACTION_MAXTIME;
+                    m_botData[sender].scriptData.activeModule = ModuleType::INTERACTION;
+                }
+
+                else
+                    action(sender) << "Une erreur est survenue, impossible d'intéragir avec un item";
+            }
+
+            else if (f.type == ScriptFunctionEnum::NPC_INTERACT)
+            {
+                debug(sender) << "NPC INTERACT";
+
+                if (m_interactionModule->processNpcInteraction(sender, f.params.first().toInt()))
+                {
+                    m_botData[sender].scriptData.scriptMaxTime = INTERACTION_MAXTIME;
+                    m_botData[sender].scriptData.activeModule = ModuleType::INTERACTION;
+                }
+
+                else
+                    action(sender) << "Une erreur est survenue, impossible d'intéragir avec un pnj";
+            }
+
+            else if (f.type == ScriptFunctionEnum::NPC_DIALOG)
+            {
+                debug(sender) << "NPC DIALOG";
+
+                if (m_interactionModule->processNpcDialog(sender, f.params.last().toString()))
+                {
+                    m_botData[sender].scriptData.scriptMaxTime = INTERACTION_MAXTIME;
+                    m_botData[sender].scriptData.activeModule = ModuleType::INTERACTION;
+                }
+
+                else
+                    action(sender) << "Une erreur est survenue, impossible d'intéragir avec un pnj";
+            }
+
+            else if (f.type == ScriptFunctionEnum::NPC_QUIT)
+            {
+                debug(sender) << "NPC QUIT";
+
+                if (m_interactionModule->leaveNpcDialog(sender))
+                {
+                    m_botData[sender].scriptData.scriptMaxTime = INTERACTION_MAXTIME;
+                    m_botData[sender].scriptData.activeModule = ModuleType::INTERACTION;
+                }
+
+                else
+                    processNextAction(sender);
+            }
+
+            else if (f.type == ScriptFunctionEnum::CRAFT)
+            {
+                debug(sender) << "CRAFT";
+
+                if (m_craftModule->processCraft(sender))
+                {
+                    m_botData[sender].scriptData.scriptMaxTime = CRAFT_MAXTIME;
+                    m_botData[sender].scriptData.activeModule = ModuleType::CRAFT;
+                }
+
+                else
+                    processNextAction(sender);
             }
 
             else if(f.type == ScriptFunctionEnum::UNDEFINED)
@@ -332,8 +415,26 @@ void ScriptModule::processNextAction(SocketIO *sender)
 
         else
         {
-            action(sender) << "Carte non repertoriée dans le script, impossible de récuperer";
-            unloadFile(sender);
+            ScriptPathMapData d = getLost(master);
+
+            if (d.id == INVALID)
+            {
+                error(sender)<<"Carte non repertoriée, pensez à inclure une position de secours";
+                unloadFile(sender);
+            }
+
+            else if (m_mapModule->changeMap(sender, d.id))
+            {
+                m_botData[sender].scriptData.activeModule = ModuleType::MAP;
+                action(sender) << "Carte non repertoriée dans le script, tentative de recuperation en position de secours";
+                unloadFile(sender);
+            }
+
+            else if(d.id != m_botData[sender].mapData.map.getMapId())
+            {
+                action(sender) << "Carte non repertoriée dans le script, impossible de récuperer";
+                unloadFile(sender);
+            }
         }
 
         if(m_botData[sender].scriptData.scriptMaxTime != INVALID)
@@ -343,7 +444,7 @@ void ScriptModule::processNextAction(SocketIO *sender)
 
 void ScriptModule::processControl(SocketIO *sender)
 {
-    qDebug() << "START PROCESS CONTROL";
+    debug(sender)<<"-----START PROCESS CONTROL-------";
 
     m_botData[sender].scriptData.scriptMaxTime = INVALID;
     m_botData[sender].scriptData.activeModule = ModuleType::UNKNOWN;
@@ -374,23 +475,26 @@ void ScriptModule::processControl(SocketIO *sender)
                     m_botData[slave].scriptData.isActive = true;
 
                     // SYNCHRONISATION A LA MEME SEQUENCE SI NECESSAIRE (DEMARRAGE & BUGS)
-                    if ((m_botData[slave].scriptData.sequence > m_botData[master].scriptData.sequence || m_botData[slave].scriptData.sequence < 0) && !m_botData[slave].scriptData.isIndependent)
+                    if ((m_botData[slave].scriptData.sequence > m_botData[master].scriptData.sequence ||
+                         m_botData[slave].scriptData.sequence < 0) &&
+                            !m_botData[slave].scriptData.isIndependent)
                     {
                         int s = m_botData[master].scriptData.toExecute.size();
 
                         if(m_botData[master].scriptData.activeModule != ModuleType::UNKNOWN)
                             s++;
 
-                        debug(slave)<<"ASYNCHRONE - RECALIBRAGE - Sequence:"<<m_botData[slave].scriptData.sequence<<"- MASTER's Sequence:"<<m_botData[master].scriptData.sequence;
+                        action(slave)<<"ASYNCHRONE - RECALIBRAGE - Sequence:"<<m_botData[slave].scriptData.sequence<<"- MASTER's Sequence:"<<m_botData[master].scriptData.sequence;
 
                         // action(slave)<<"CALCUL"<< m_botData[m].scriptData.sequence <<f.functions.size()<<s;
                         m_botData[slave].scriptData.sequence = m_botData[master].scriptData.sequence;
                     }
 
                     // LES MEMBRES EN PHASE CONTINUENT LEURS ACTIONS
-                    if(m_botData[slave].scriptData.sequence < m_botData[master].scriptData.sequence && !m_botData[slave].scriptData.isIndependent)
+                    if(m_botData[slave].scriptData.sequence < m_botData[master].scriptData.sequence &&
+                            !m_botData[slave].scriptData.isIndependent)
                     {
-                        debug(slave)<<"SYNCHRONE - Sequence :"<<m_botData[slave].scriptData.sequence;
+                        action(slave)<<"SYNCHRONE - Sequence :"<<m_botData[slave].scriptData.sequence;
                         processNextAction(slave);
 
                         if(m_botData[slave].scriptData.sequence >= 0)
@@ -399,14 +503,14 @@ void ScriptModule::processControl(SocketIO *sender)
 
                     else if(m_botData[slave].scriptData.isIndependent)
                     {
-                        debug(slave)<<"ISOLEMENT";
+                        action(slave)<<"ISOLEMENT";
                         m_botData[slave].scriptData.sequence = INVALID;
                         processNextAction(slave);
                     }
 
                     // LES AUTRES AYANT DEJA EXECUTE LEUR ACTION ATTENDENT LES AUTRES
                     else
-                        debug(slave)<<"EN ATTENTE1 - MAP X:"<<m_botData[slave].mapData.map.getPosition().getX()<<"Y:"<<m_botData[slave].mapData.map.getPosition().getY()<<" - Sequence:"<<m_botData[slave].scriptData.sequence;
+                        action(slave)<<"EN ATTENTE1 - MAP X:"<<m_botData[slave].mapData.map.getPosition().getX()<<"Y:"<<m_botData[slave].mapData.map.getPosition().getY()<<" - Sequence:"<<m_botData[slave].scriptData.sequence;
                 }
             }
 
@@ -415,12 +519,12 @@ void ScriptModule::processControl(SocketIO *sender)
                 if(m_botData[master].scriptData.sequence >= 0)
                     m_botData[master].scriptData.sequence = m_botData[master].scriptData.sequence + 1;
 
-                debug(master)<<"NEW ACTION - Sequence:"<<m_botData[master].scriptData.sequence;
+                action(master)<<"NEW ACTION - Sequence:"<<m_botData[master].scriptData.sequence;
                 processNextAction(master);
             }
 
             else
-                debug(master)<<"EN ATTENTE2 - MAP X:"<<m_botData[master].mapData.map.getPosition().getX()<<"Y:"<<m_botData[master].mapData.map.getPosition().getY()<<" - Sequence:"<<m_botData[master].scriptData.sequence;
+                action(master)<<"EN ATTENTE2 - MAP X:"<<m_botData[master].mapData.map.getPosition().getX()<<"Y:"<<m_botData[master].mapData.map.getPosition().getY()<<" - Sequence:"<<m_botData[master].scriptData.sequence;
         }
 
 
@@ -450,8 +554,20 @@ void ScriptModule::processControl(SocketIO *sender)
             // SI UN MEMBRE DU GROUPE EST PERDU, RETOUR A LA POSITION LOST (DEMARRAGE & BUGS)
             if(lost)
             {
-                error(master) << "Impossible de démarrer le script : Tous les membres du groupe ne sont pas sur la même carte.";
-                unloadFile(master);
+                int lostId = getLost(master).id;
+
+                foreach(SocketIO *member, members)
+                {
+                    if(m_botData[member].mapData.map.getMapId() != lostId &&
+                            m_botData[member].scriptData.activeModule == ModuleType::UNKNOWN)
+                    {
+                        m_botData[member].scriptData.toExecute.clear();
+                        m_botData[member].scriptData.isActive = true;
+
+                        action(member)<<"REGROUPEMENT - MAP X:"<<m_botData[member].mapData.map.getPosition().getX()<<"Y:"<<m_botData[member].mapData.map.getPosition().getY()<<" - Sequence:"<<m_botData[member].scriptData.sequence;
+                        processNextAction(member);
+                    }
+                }
             }
 
             // LES MEMBRES EN PHASE CONTINUENT LEURS ACTIONS
@@ -463,7 +579,7 @@ void ScriptModule::processControl(SocketIO *sender)
                             m_botData[member].scriptData.activeModule == ModuleType::UNKNOWN &&
                             m_botData[member].scriptData.sequence+1 == m_botData[master].scriptData.sequence)
                     {
-                        debug(member)<<"SYNCHRONE2 - Sequence:"<<m_botData[member].scriptData.sequence;
+                        action(member)<<"SYNCHRONE2 - Sequence:"<<m_botData[member].scriptData.sequence;
 
                         m_botData[member].scriptData.isActive = true;
 
@@ -477,7 +593,7 @@ void ScriptModule::processControl(SocketIO *sender)
                     }
 
                     else
-                        debug(member)<<"EN ATTENTE3 - MAP X:"<<m_botData[member].mapData.map.getPosition().getX()<<"Y:"<<m_botData[member].mapData.map.getPosition().getY()<<" - Sequence :"<<m_botData[member].scriptData.sequence<<" - MASTER's Sequence:"<<m_botData[master].scriptData.sequence ;
+                        action(member)<<"EN ATTENTE3 - MAP X:"<<m_botData[member].mapData.map.getPosition().getX()<<"Y:"<<m_botData[member].mapData.map.getPosition().getY()<<" - Sequence :"<<m_botData[member].scriptData.sequence<<" - MASTER's Sequence:"<<m_botData[master].scriptData.sequence ;
                 }
             }
         }
@@ -486,11 +602,11 @@ void ScriptModule::processControl(SocketIO *sender)
     // MODE SOLO
     else
     {
-        qDebug() << "INDEPENDENT";
+        debug(sender)<<"INDEPENDENT";
         processNextAction(sender);
     }
 
-    qDebug() << "END PROCESS CONTROL";
+    debug(sender)<<"-----END PROCESS CONTROL--------";
 }
 
 void ScriptModule::waitForInactivity()
@@ -498,281 +614,6 @@ void ScriptModule::waitForInactivity()
     SocketIO *sender = m_waitingList.first();
     m_waitingList.removeFirst();
     processNextAction(sender);
-}
-
-void ScriptModule::getSettings(SocketIO *sender, lua_State *lua)
-{
-    lua_getglobal(lua, "MAX_PODS");
-    if(lua_isnumber(lua, -1))
-        setPodsLimit(sender, (ushort)lua_tonumber(lua,-1));
-
-    lua_getglobal(lua, "AUTO_DELETE");
-    if(lua_istable(lua, -1))
-    {
-        lua_pushnil(lua);
-        while(lua_next(lua, -2))
-        {
-            if(lua_isnumber(lua, -1))
-                m_botData[sender].farmData.resourcesToDelete << (int)lua_tonumber(lua,-1);
-
-            lua_pop(lua, 1);
-        }
-        lua_pop(lua, 1);
-    }
-
-    lua_getglobal(lua, "GATHER");
-    if(lua_istable(lua, -1))
-    {
-        lua_pushnil(lua);
-        while(lua_next(lua, -2))
-        {
-            if(lua_isnumber(lua, -1))
-                m_botData[sender].farmData.elementsId << (int)lua_tonumber(lua,-1);
-
-            lua_pop(lua, 1);
-        }
-        lua_pop(lua, 1);
-    }
-
-    lua_getglobal(lua, "MIN_MONSTERS");
-    if(lua_isnumber(lua, -1))
-        m_botData[sender].fightData.requestedMonsters.mnNbMonsters = (int)lua_tonumber(lua,-1);
-
-    lua_getglobal(lua, "MAX_MONSTERS");
-    if(lua_isnumber(lua, -1))
-        m_botData[sender].fightData.requestedMonsters.mxNbMonsters = (int)lua_tonumber(lua,-1);
-
-    // TODO : add properties open bag in datahandlers
-    lua_getglobal(lua, "OPEN_BAGS");
-    if(lua_isboolean(lua, -1))
-        (bool)lua_toboolean(lua,-1); // value
-
-    lua_getglobal(lua, "FORBIDDEN_MONSTERS");
-    if(lua_istable(lua, -1))
-    {
-        lua_pushnil(lua);
-        while(lua_next(lua, -2))
-        {
-            if(lua_isnumber(lua, -1))
-            {
-                MonsterCondition cond;
-                cond.id = (int)lua_tonumber(lua,-1);
-                cond.monsterInclusion = MonsterInclusion::ALL_EXCEPT;
-                m_botData[sender].fightData.requestedMonsters.monsterConditions << cond;
-            }
-
-            lua_pop(lua, 1);
-        }
-        lua_pop(lua, 1);
-    }
-
-    lua_getglobal(lua, "MANDATORY_MONSTERS");
-    if(lua_istable(lua, -1))
-    {
-        lua_pushnil(lua);
-        while(lua_next(lua, -2))
-        {
-            if(lua_isnumber(lua, -1))
-            {
-                MonsterCondition cond;
-                cond.id = (int)lua_tonumber(lua,-1);
-                cond.monsterInclusion = MonsterInclusion::NONE_EXCEPT;
-                m_botData[sender].fightData.requestedMonsters.monsterConditions << cond;
-            }
-
-            lua_pop(lua, 1);
-        }
-        lua_pop(lua, 1);
-    }
-}
-
-void ScriptModule::getGlobalFunction(SocketIO *sender, lua_State *lua, ScriptTag function)
-{
-    m_botData[sender].scriptData.tag = function;
-
-    switch (function)
-    {
-    case ScriptTag::MOVE:
-        lua_getglobal(lua, "move");
-        break;
-
-    case ScriptTag::BANK:
-        lua_getglobal(lua, "bank");
-        break;
-
-    case ScriptTag::GHOST:
-        lua_getglobal(lua, "phoenix");
-        break;
-    }
-
-    if(lua_isfunction(lua, -1))
-    {
-        if(!lua_pcall(lua, 0, LUA_MULTRET, 0))
-        {
-            if(lua_istable(lua, -1))
-            {
-                lua_pushnil(lua);
-                while(lua_next(lua,-2) != 0)
-                {
-                    if(lua_istable(lua, -3))
-                        getActions(sender, lua);
-
-                    lua_pop(lua,1);
-                }
-            }
-        }
-    }
-
-    m_botData[sender].scriptData.tag = ScriptTag::UNDEFINED;
-}
-
-void ScriptModule::getActions(SocketIO *sender, lua_State *lua)
-{
-    ScriptPathMapData a;
-    a.tag = m_botData[sender].scriptData.tag;
-
-    lua_pushstring(lua, "map");
-    lua_gettable(lua, -2);
-
-    QString d = lua_tostring(lua, -1);
-    QRegularExpression r("(?<x>[-]*[0-9][0-9]*),[ ]*(?<y>[-]*[0-9][0-9]*)");
-    QRegularExpression re("^(?<id>[0-9]+)");
-    QRegularExpressionMatch me = re.match(d);
-    QRegularExpressionMatch m = r.match(d);
-    if (((m.hasMatch() || me.hasMatch()) && (m_botData[sender].scriptData.tag != ScriptTag::UNDEFINED)))
-    {
-        int id = INVALID;
-        if (m.hasMatch())
-        {
-            QSharedPointer<SubAreaData> subArea = qSharedPointerCast<SubAreaData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::SUBAREAS, m_botData[sender].mapData.map.getSubAreaId()));
-            QSharedPointer<AreaData> area = qSharedPointerCast<AreaData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::AREAS, subArea->getAreaId()));
-
-            id = PathfindingMap::coordsToMapId(m.captured("x").toInt(), m.captured("y").toInt(), area->getSuperAreaId());
-        }
-        else if (me.hasMatch())
-            id = me.captured("id").toInt();
-
-        a.id = id;
-    }
-    lua_pop(lua,1);
-
-
-
-    lua_pushstring(lua, "custom");
-    lua_gettable(lua, -2);
-    if(lua_topointer(lua, -1) != NULL)
-    {
-        if(lua_isfunction(lua, -1))
-        {
-            ScriptFunction func;
-            func.type = ScriptFunctionEnum::CUSTOM;
-            func.params << qVariantFromValue((void*)lua_topointer(lua, -1));
-
-            a.functions << func;
-        }
-    }
-    lua_pop(lua,1);
-
-
-
-    lua_pushstring(lua, "npcBank");
-    lua_gettable(lua, -2);
-    if(a.id != INVALID && (bool)lua_toboolean(lua, -1))
-    {
-        ScriptFunction func;
-        func.type = ScriptFunctionEnum::NPC_BANK;
-
-        a.functions << func;
-    }
-    lua_pop(lua,1);
-
-
-
-    lua_pushstring(lua, "changeMap");
-    lua_gettable(lua, -2);
-    if(a.id != INVALID)
-    {
-        QList<MapSide> side = getSides(lua_tostring(lua, -1));
-        a.sides = side;
-    }
-    lua_pop(lua,1);
-
-
-
-    lua_pushstring(lua, "door");
-    lua_gettable(lua, -2);
-    if(a.id != INVALID && !QString::fromUtf8(lua_tostring(lua, -1)).isEmpty())
-    {
-        ScriptFunction func;
-        func.type = ScriptFunctionEnum::DOOR;
-        func.params << lua_tostring(lua, -1);
-
-        a.functions << func;
-    }
-    lua_pop(lua,1);
-
-
-
-    lua_pushstring(lua, "gather");
-    lua_gettable(lua, -2);
-    if(a.id != INVALID && (bool)lua_toboolean(lua, -1))
-    {
-        ScriptFunction func;
-        func.type = ScriptFunctionEnum::GATHER;
-
-        a.functions << func;
-    }
-    lua_pop(lua,1);
-
-
-
-    lua_pushstring(lua, "fight");
-    lua_gettable(lua, -2);
-    if(a.id != INVALID && (bool)lua_toboolean(lua, -1))
-    {
-        ScriptFunction func;
-        func.type = ScriptFunctionEnum::FIGHT;
-
-        a.functions << func;
-    }
-    lua_pop(lua,1);
-
-
-
-    lua_pushstring(lua, "lockedHouse");
-    lua_gettable(lua, -2);
-    if(a.id != INVALID && !QString::fromUtf8(lua_tostring(lua, -1)).isEmpty())
-    {
-        ScriptFunction func;
-        func.type = ScriptFunctionEnum::HOUSE;
-        func.params << lua_tostring(lua, -1); // value
-
-        a.functions << func;
-    }
-    lua_pop(lua,1);
-
-
-
-    lua_pushstring(lua, "lockedStorage");
-    lua_gettable(lua, -2);
-    if(a.id != INVALID && !QString::fromUtf8(lua_tostring(lua, -1)).isEmpty())
-    {
-        ScriptFunction func;
-        func.type = ScriptFunctionEnum::SAFE;
-        func.params << lua_tostring(lua, -1); // value
-
-        a.functions << func;
-    }
-    lua_pop(lua,1);
-
-
-
-    if (m_botData[sender].scriptData.tag == ScriptTag::BANK)
-        m_botData[sender].scriptData.bank << a;
-    else if (m_botData[sender].scriptData.tag == ScriptTag::GHOST)
-        m_botData[sender].scriptData.ghost << a;
-    else if (m_botData[sender].scriptData.tag != ScriptTag::UNDEFINED)
-        m_botData[sender].scriptData.data << a;
 }
 
 bool ScriptModule::groupNeedsHeal(SocketIO *sender)
@@ -844,39 +685,23 @@ ScriptPathMapData ScriptModule::arrangeScriptForSlave(ScriptPathMapData s)
 
 void ScriptModule::unloadFile(SocketIO *sender)
 {
-    // clear global
+    m_botData[sender].scriptData.headers = 0;
     m_botData[sender].scriptData.data.clear();
     m_botData[sender].scriptData.lost.clear();
-    m_botData[sender].scriptData.bank.clear();
+    m_botData[sender].scriptData.condition.clear();
     m_botData[sender].scriptData.fileContent.clear();
+    m_botData[sender].scriptData.defaultCondition = false;
     m_botData[sender].scriptData.tag = ScriptTag::UNDEFINED;
     m_botData[sender].scriptData.isActive = false;
-    foreach(SocketIO *salve, m_groupModule->getSlaves(sender))
-        m_botData[salve].scriptData.isActive = false;
     m_botData[sender].scriptData.scriptMaxTime = INVALID;
-    m_botData[sender].scriptData.sequence = 0;
-    m_botData[sender].scriptData.toExecute.clear();
-    // TODO : empty openbags
-
-    // clear farm
-    setPodsLimit(sender, 90);
-    m_botData[sender].farmData.resourcesToDelete.clear();
-    m_botData[sender].farmData.elementsId.clear();
-
-    // clear fight
-    m_botData[sender].fightData.requestedMonsters.mnNbMonsters = INVALID;
-    m_botData[sender].fightData.requestedMonsters.mxNbMonsters = INVALID;
-    m_botData[sender].fightData.requestedMonsters.groupLevelMin = INVALID;
-    m_botData[sender].fightData.requestedMonsters.groupLevelMin = INVALID;
-    m_botData[sender].fightData.requestedMonsters.monsterConditions.clear();
+//    m_botData[sender].scriptData.sequence = 0;
+//    m_botData[sender].scriptData.toExecute.clear();
 
     if(m_botData[sender].scriptData.activeModule == ModuleType::MAP)
         m_mapModule->stopMoving(sender);
 
     else if(m_botData[sender].scriptData.activeModule == ModuleType::INTERACTION)
         m_interactionModule->leaveNpcDialog(sender);
-
-    // TODO: emit signal gui
 
     info(sender) << "Script arrêté.";
 }
@@ -895,64 +720,29 @@ bool ScriptModule::loadFile(SocketIO *sender, QString p)
 
 int ScriptModule::parse(SocketIO *sender)
 {
-    // clear global
-    m_botData[sender].scriptData.data.clear();
-    m_botData[sender].scriptData.lost.clear();
-    m_botData[sender].scriptData.bank.clear();
+    int i = 1;
+    m_botData[sender].scriptData.headers = 0;
     m_botData[sender].scriptData.tag = ScriptTag::UNDEFINED;
-    m_botData[sender].scriptData.isActive = false;
-    m_botData[sender].scriptData.scriptMaxTime = INVALID;
+    m_botData[sender].scriptData.data.clear();
+    m_botData[sender].scriptData.condition = "";
     m_botData[sender].scriptData.sequence = 0;
-    m_botData[sender].scriptData.toExecute.clear();
-    // TODO : empty openbags
 
-    // clear farm
-    setPodsLimit(sender, 90);
-    m_botData[sender].farmData.resourcesToDelete.clear();
-    m_botData[sender].farmData.elementsId.clear();
+    QStringList lines = m_botData[sender].scriptData.fileContent.split('\n');
 
-    // clear fight
-    m_botData[sender].fightData.requestedMonsters.mnNbMonsters = INVALID;
-    m_botData[sender].fightData.requestedMonsters.mxNbMonsters = INVALID;
-    m_botData[sender].fightData.requestedMonsters.groupLevelMin = INVALID;
-    m_botData[sender].fightData.requestedMonsters.groupLevelMin = INVALID;
-    m_botData[sender].fightData.requestedMonsters.monsterConditions.clear();
-
-
-    // begin read and parse lua file
-    lua_State *lua;
-    lua = luaL_newstate();
-    luaL_openlibs(lua);
-
-    if(luaL_dostring(lua, m_botData[sender].scriptData.fileContent.toStdString().c_str()) != 0)
+    foreach(QString line, lines)
     {
-        error(sender) << lua_tostring(lua, -1);
-        unloadFile(sender);
-        return 1;
+        line.replace("\r", "");
+        line.replace("\n", "");
+
+        if (!line.isEmpty() && line.mid(0, 2) != "//")
+            if (!check(sender, line.split("//").first()))
+                return i;
+
+        i++;
     }
-
-    else
-    {
-        info(sender) << "Script démarré.";
-
-        // Get vars
-        getSettings(sender, lua);
-
-        // Get functions
-        getGlobalFunction(sender, lua, ScriptTag::MOVE);
-        getGlobalFunction(sender, lua, ScriptTag::BANK);
-        getGlobalFunction(sender, lua, ScriptTag::GHOST);
-    }
-
-    lua_close(lua);
-    // end read and parse lua file
-
 
     if (m_botData[sender].scriptData.tag != ScriptTag::UNDEFINED)
-    {
-        //unloadFile(sender);
-        return 1;
-    }
+        return i;
 
     else
     {
@@ -961,6 +751,239 @@ int ScriptModule::parse(SocketIO *sender)
         processControl(sender);
         return 0;
     }
+}
+
+bool ScriptModule::check(SocketIO *sender, QString d)
+{
+    if (!isMap(sender, d))
+        if (!isHeader(sender, d))
+            if (!isCondition(sender, d))
+                if (!isOpenTag(sender, d))
+                    if (!isCloseTag(sender, d))
+                        return false;
+    return true;
+}
+
+bool ScriptModule::isMap(SocketIO *sender, QString d)
+{
+    QRegularExpression r("[\[](?<x>[-]*[0-9][0-9]*),[ ]*(?<y>[-]*[0-9][0-9]*)[\]](?<p>.*)");
+    QRegularExpression re("^(?<id>[0-9]+)[ ]*(?<p>.*)");
+    QRegularExpressionMatch me = re.match(d);
+    QRegularExpressionMatch m = r.match(d);
+
+    if (!((m.hasMatch() || me.hasMatch()) && (m_botData[sender].scriptData.tag != ScriptTag::UNDEFINED)))
+        return false;
+
+    QString p;
+    int id = INVALID;
+    if (m.hasMatch())
+    {
+        p = m.captured("p");
+        QSharedPointer<SubAreaData> subArea = qSharedPointerCast<SubAreaData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::SUBAREAS, m_botData[sender].mapData.map.getSubAreaId()));
+        QSharedPointer<AreaData> area = qSharedPointerCast<AreaData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::AREAS, subArea->getAreaId()));
+
+        id = PathfindingMap::coordsToMapId(m.captured("x").toInt(), m.captured("y").toInt(), area->getSuperAreaId());
+    }
+    else if (me.hasMatch())
+    {
+        p = me.captured("p");
+        id = me.captured("id").toInt();
+    }
+    else
+        return false;
+
+    QList<MapSide> s;
+    QList<ScriptFunction> f;
+    QStringList sp = p.split("+");
+    foreach (QString str, sp)
+    {
+        QList<MapSide> side = getSides(str);
+        ScriptFunction func = getFunction(str);
+
+        if (m_botData[sender].scriptData.tag != ScriptTag::LOST && func.type == ScriptFunctionEnum::UNDEFINED && side.isEmpty())
+            return false;
+        else if ((func.type != ScriptFunctionEnum::UNDEFINED) && (func.type != ScriptFunctionEnum::MOVE))
+            f.append(func);
+        else if (!side.isEmpty())
+            s = side;
+    }
+
+    ScriptPathMapData a;
+    a.id = id;
+    a.sides = s;
+    a.functions = f;
+    a.tag = m_botData[sender].scriptData.tag;
+    a.condition = m_botData[sender].scriptData.condition;
+    a.defaultCondition = m_botData[sender].scriptData.defaultCondition;
+
+    if (m_botData[sender].scriptData.tag == ScriptTag::BANK)
+        m_botData[sender].scriptData.bank << a;
+    else if (m_botData[sender].scriptData.tag == ScriptTag::LOST)
+        m_botData[sender].scriptData.lost << a;
+    else if (m_botData[sender].scriptData.tag == ScriptTag::GHOST)
+        m_botData[sender].scriptData.ghost << a;
+    else if ((m_botData[sender].scriptData.tag != ScriptTag::LOST) && (m_botData[sender].scriptData.tag != ScriptTag::UNDEFINED))
+        m_botData[sender].scriptData.data << a;
+    else
+        return false;
+
+    return true;
+}
+
+bool ScriptModule::isHeader(SocketIO *sender, QString d)
+{
+    if (d.at(0) != '@')
+        return false;
+
+    m_botData[sender].scriptData.headers++;
+    return true;
+}
+
+bool ScriptModule::isOpenTag(SocketIO *sender, QString d)
+{
+    QRegularExpression r("[<](?<tag>[^/#]*)[>]");
+    QRegularExpressionMatch m = r.match(d);
+
+    if (!m.hasMatch())
+        return false;
+
+    ScriptTag t;
+    QString c = m.captured("tag");
+    QRegularExpression bank("[bB][aA][nN][kK]");
+    QRegularExpression lost("[lL][oO][sS][tT]");
+    QRegularExpression move("[mM][oO][vV][eE]");
+    QRegularExpression ghost("[gG][hH][oO][sS][tT]");
+    QRegularExpression craft("[cC][rR][aA][fF][tT]");
+    QRegularExpression fight("[fF][iI][gG][hH][tT]");
+    QRegularExpression collect("[cC][oO][lL][lL][eE][cC][tT]");
+    QRegularExpression noAggro("[nN][oO][aA][gG][gG][rR][oO]");
+
+    QRegularExpressionMatch matchBank = bank.match(c);
+    QRegularExpressionMatch matchLost = lost.match(c);
+    QRegularExpressionMatch matchMove = move.match(c);
+    QRegularExpressionMatch matchGhost = ghost.match(c);
+    QRegularExpressionMatch matchCraft = craft.match(c);
+    QRegularExpressionMatch matchFight = fight.match(c);
+    QRegularExpressionMatch matchCollect = collect.match(c);
+    QRegularExpressionMatch matchNoAggro = noAggro.match(c);
+
+    if (matchBank.hasMatch())
+        t = ScriptTag::BANK;
+    else if (matchLost.hasMatch())
+        t = ScriptTag::LOST;
+    else if (matchMove.hasMatch())
+        t = ScriptTag::MOVE;
+    else if (matchGhost.hasMatch())
+        t = ScriptTag::GHOST;
+    else if (matchCraft.hasMatch())
+        t = ScriptTag::CRAFT;
+    else if (matchFight.hasMatch())
+        t = ScriptTag::FIGHT;
+    else if (matchCollect.hasMatch())
+        t = ScriptTag::COLLECT;
+    else if (matchNoAggro.hasMatch())
+        t = ScriptTag::NO_AGGRO;
+    else
+        return false;
+
+    m_botData[sender].scriptData.tag = t;
+    return true;
+}
+
+bool ScriptModule::isCloseTag(SocketIO *sender, QString d)
+{
+    QRegularExpression r("[<][/](?<tag>[^#]*)[>]");
+    QRegularExpressionMatch m = r.match(d);
+
+    if (!m.hasMatch())
+        return false;
+
+    ScriptTag t;
+    QString c = m.captured("tag");
+    QRegularExpression bank("[bB][aA][nN][kK]");
+    QRegularExpression lost("[lL][oO][sS][tT]");
+    QRegularExpression move("[mM][oO][vV][eE]");
+    QRegularExpression ghost("[gG][hH][oO][sS][tT]");
+    QRegularExpression craft("[cC][rR][aA][fF][tT]");
+    QRegularExpression fight("[fF][iI][gG][hH][tT]");
+    QRegularExpression collect("[cC][oO][lL][lL][eE][cC][tT]");
+    QRegularExpression noAggro("[nN][oO][aA][gG][gG][rR][oO]");
+
+    QRegularExpressionMatch matchBank = bank.match(c);
+    QRegularExpressionMatch matchLost = lost.match(c);
+    QRegularExpressionMatch matchMove = move.match(c);
+    QRegularExpressionMatch matchGhost = ghost.match(c);
+    QRegularExpressionMatch matchCraft = craft.match(c);
+    QRegularExpressionMatch matchFight = fight.match(c);
+    QRegularExpressionMatch matchCollect = collect.match(c);
+    QRegularExpressionMatch matchNoAggro = noAggro.match(c);
+
+    if (matchBank.hasMatch())
+        t = ScriptTag::BANK;
+    else if (matchLost.hasMatch())
+        t = ScriptTag::LOST;
+    else if (matchMove.hasMatch())
+        t = ScriptTag::MOVE;
+    else if (matchGhost.hasMatch())
+        t = ScriptTag::GHOST;
+    else if (matchCraft.hasMatch())
+        t = ScriptTag::CRAFT;
+    else if (matchFight.hasMatch())
+        t = ScriptTag::FIGHT;
+    else if (matchCollect.hasMatch())
+        t = ScriptTag::COLLECT;
+    else if (matchNoAggro.hasMatch())
+        t = ScriptTag::NO_AGGRO;
+    else
+        return false;
+
+    if (m_botData[sender].scriptData.tag != t || m_botData[sender].scriptData.tag == ScriptTag::UNDEFINED)
+        return false;
+
+    m_botData[sender].scriptData.tag = ScriptTag::UNDEFINED;
+    return true;
+}
+
+bool ScriptModule::isCondition(SocketIO *sender, QString d)
+{
+    QRegularExpression r("#[iI][fF][ ]*[\[](?<c>.*)[\]]");
+    QRegularExpressionMatch mr = r.match(d);
+
+    QRegularExpression e("#[eE][nN][dD][iI][fF]");
+    QRegularExpressionMatch me = e.match(d);
+
+    QRegularExpression de("[dD][eE][fF][aA][uU][lL][tT]");
+    QRegularExpressionMatch md = de.match(mr.captured("d"));
+
+    if (mr.hasMatch())
+    {
+        QString c = mr.captured("c");
+        c.replace("\r", "");
+        c.replace("\n", "");
+
+        if (md.hasMatch())
+            m_botData[sender].scriptData.defaultCondition = true;
+        else
+            m_botData[sender].scriptData.defaultCondition = false;
+
+        if (ScriptModule::checkConditionalSyntax(c))
+            m_botData[sender].scriptData.condition = c;
+        else
+            return false;
+    }
+
+    else if (me.hasMatch())
+    {
+        if (!m_botData[sender].scriptData.condition.isEmpty())
+            m_botData[sender].scriptData.condition = "";
+        else
+            return false;
+    }
+
+    else
+        return false;
+
+    return true;
 }
 
 QList<MapSide> ScriptModule::getSides(QString side)
@@ -996,9 +1019,389 @@ QList<MapSide> ScriptModule::getSides(QString side)
     return q;
 }
 
+ScriptFunction ScriptModule::getFunction(QString f)
+{
+    ScriptFunction r;
+    r.type = ScriptFunctionEnum::UNDEFINED;
+
+    QRegularExpression npc("npc[ ]*[(](?<f>.*)[ ]*[)]");
+    QRegularExpression use("use[ ]*[(](?<f>.*)[ ]*[)]");
+    QRegularExpression cell("cell[ ]*[(](?<f>.*)[ ]*[)]");
+    QRegularExpression move("move[ ]*[(](?<f>.*)[ ]*[)]");
+    QRegularExpression zaap("zaap[ ]*[(](?<f>.*)[ ]*[)]");
+    QRegularExpression craft("craft[ ]*[(](?<f>.*)[ ]*[)]");
+    QRegularExpression zaapi("zaapi[ ]*[(](?<f>.*)[ ]*[)]");
+    QRegularExpression trade("trade[ ]*[(](?<f>.*)[ ]*[)]");
+    QRegularExpression weapon("weapon[ ]*[(](?<f>.*)[ ]*[)]");
+    QRegularExpression useItem("useItem[ ]*[(](?<f>.*)[ ]*[)]");
+    QRegularExpression autoPath("autoPath[ ]*[(](?<f>.*)[ ]*[)]");
+
+    QRegularExpressionMatch npcMatch = npc.match(f);
+    QRegularExpressionMatch useMatch = use.match(f);
+    QRegularExpressionMatch cellMatch = cell.match(f);
+    QRegularExpressionMatch moveMatch = move.match(f);
+    QRegularExpressionMatch zaapMatch = zaap.match(f);
+    QRegularExpressionMatch craftMatch = craft.match(f);
+    QRegularExpressionMatch zaapiMatch = zaapi.match(f);
+    QRegularExpressionMatch tradeMatch = trade.match(f);
+    QRegularExpressionMatch weaponMatch = weapon.match(f);
+    QRegularExpressionMatch useItemMatch = useItem.match(f);
+    QRegularExpressionMatch autoPathMatch = autoPath.match(f);
+
+    QString d;
+    if (npcMatch.hasMatch())
+    {
+        r.type = ScriptFunctionEnum::NPC_INTERACT;
+        d = npcMatch.captured("f");
+    }
+
+    else if (useMatch.hasMatch())
+    {
+        r.type = ScriptFunctionEnum::USE;
+        d = useMatch.captured("f");
+    }
+
+    else if (cellMatch.hasMatch())
+    {
+        r.type = ScriptFunctionEnum::CELL;
+        d = cellMatch.captured("f");
+    }
+
+    else if (moveMatch.hasMatch())
+    {
+        r.type = ScriptFunctionEnum::MOVE;
+        d = moveMatch.captured("f");
+    }
+
+    else if (zaapMatch.hasMatch())
+    {
+        r.type = ScriptFunctionEnum::ZAAP;
+        d = zaapMatch.captured("f");
+    }
+
+    else if (craftMatch.hasMatch())
+    {
+        r.type = ScriptFunctionEnum::CRAFT;
+        d = craftMatch.captured("f");
+    }
+
+    else if (zaapiMatch.hasMatch())
+    {
+        r.type = ScriptFunctionEnum::ZAAPI;
+        d = zaapiMatch.captured("f");
+    }
+
+    else if (tradeMatch.hasMatch())
+    {
+        r.type = ScriptFunctionEnum::TRADE;
+        d = tradeMatch.captured("f");
+    }
+
+    else if (weaponMatch.hasMatch())
+    {
+        r.type = ScriptFunctionEnum::WEAPON;
+        d = weaponMatch.captured("f");
+    }
+
+    else if (useItemMatch.hasMatch())
+    {
+        r.type = ScriptFunctionEnum::USE_ITEM;
+    }
+
+    else if (autoPathMatch.hasMatch())
+    {
+        r.type = ScriptFunctionEnum::AUTOPATH;
+        d = autoPathMatch.captured("f");
+    }
+
+    else
+        return r;
+
+    QVariantList p;
+    switch (r.type)
+    {
+    default:
+        return r;
+        break;
+
+    case ScriptFunctionEnum::NPC_INTERACT:
+    {
+        QVariantList t = parseInt(d);
+        if (t.isEmpty())
+            r.type = ScriptFunctionEnum::UNDEFINED;
+
+        if (r.type != ScriptFunctionEnum::UNDEFINED)
+        {
+            QVariantList u = parseStringArray(t.last().toString());
+            if (u.isEmpty())
+                r.type = ScriptFunctionEnum::UNDEFINED;
+
+            if (r.type != ScriptFunctionEnum::UNDEFINED)
+            {
+                p.insert(p.end(), t.first());
+                p.insert(p.end(), u.first());
+            }
+        }
+    }
+        break;
+
+    case ScriptFunctionEnum::USE:
+    {
+        QVariantList t = parseInt(d);
+        if (t.isEmpty())
+            r.type = ScriptFunctionEnum::UNDEFINED;
+
+        if (r.type != ScriptFunctionEnum::UNDEFINED)
+        {
+            QVariantList u = parseString(t.last().toString());
+            if (t.isEmpty())
+                r.type = ScriptFunctionEnum::UNDEFINED;
+
+            if (r.type != ScriptFunctionEnum::UNDEFINED)
+            {
+                p.insert(p.end(), t.first());
+                p.insert(p.end(), u.first());
+            }
+        }
+    }
+        break;
+
+    case ScriptFunctionEnum::TRADE:
+    {
+        QVariantList t = parseInt(d);
+        if (t.isEmpty())
+            r.type = ScriptFunctionEnum::UNDEFINED;
+
+        if (r.type != ScriptFunctionEnum::UNDEFINED)
+            p.insert(p.end(), t.first());
+    }
+        break;
+
+    case ScriptFunctionEnum::USE_ITEM:
+    {
+        QVariantList t = parseInt(d);
+        if (t.isEmpty())
+            r.type = ScriptFunctionEnum::UNDEFINED;
+
+        if (r.type != ScriptFunctionEnum::UNDEFINED)
+        {
+            QVariantList u = parseInt(t.last().toString());
+            if (t.isEmpty() || u.isEmpty())
+                r.type = ScriptFunctionEnum::UNDEFINED;
+
+            if (r.type != ScriptFunctionEnum::UNDEFINED)
+            {
+                p.insert(p.end(), t.first());
+                p.insert(p.end(), u.first());
+            }
+        }
+    }
+        break;
+
+    case ScriptFunctionEnum::MOVE:
+    {
+        QVariantList t = parseStringArray(d);
+        if (t.isEmpty())
+            r.type = ScriptFunctionEnum::UNDEFINED;
+
+        if (r.type != ScriptFunctionEnum::UNDEFINED)
+            p.insert(p.end(), t.first());
+    }
+        break;
+
+    case ScriptFunctionEnum::AUTOPATH:
+    {
+        QVariantList t = parseInt(d);
+        if (t.isEmpty())
+            r.type = ScriptFunctionEnum::UNDEFINED;
+
+        if (r.type != ScriptFunctionEnum::UNDEFINED)
+            p.insert(p.end(), t.first());
+    }
+        break;
+
+    case ScriptFunctionEnum::WEAPON:
+    {
+        QVariantList t = parseInt(d);
+        if (t.isEmpty())
+            r.type = ScriptFunctionEnum::UNDEFINED;
+
+        if (r.type != ScriptFunctionEnum::UNDEFINED)
+            p << t.first();
+    }
+        break;
+
+    case ScriptFunctionEnum::ZAAP:
+    {
+        QVariantList t = parseInt(d);
+        if (t.isEmpty())
+            r.type = ScriptFunctionEnum::UNDEFINED;
+
+        if (r.type != ScriptFunctionEnum::UNDEFINED)
+            p.insert(p.end(), t.first());
+    }
+        break;
+
+    case ScriptFunctionEnum::ZAAPI:
+    {
+        QVariantList t = parseInt(d);
+        if (t.isEmpty())
+            r.type = ScriptFunctionEnum::UNDEFINED;
+
+        if (r.type != ScriptFunctionEnum::UNDEFINED)
+            p.insert(p.end(), t.first());
+    }
+        break;
+
+    case ScriptFunctionEnum::CELL:
+    {
+        QVariantList t = parseIntArray(d);
+        if (t.isEmpty())
+            r.type = ScriptFunctionEnum::UNDEFINED;
+
+        if (r.type != ScriptFunctionEnum::UNDEFINED)
+            p.insert(p.end(), t.first());
+    }
+        break;
+    }
+
+    r.params = p;
+    return r;
+}
+
+QList<MapSide> ScriptModule::getSideFromMove(ScriptFunction f)
+{
+    QStringList l;
+    QVariantList p = f.params;
+    for (int i = 0; i < p.first().toList().size(); i++)
+        l << p.first().toList().at(i).toString();
+
+    QString c = l.join("|");
+    QList<MapSide> r = getSides(c);
+
+    return r;
+}
+
+QVariantList ScriptModule::parseInt(QString d)
+{
+    QRegularExpression r("(?<i>[0-9]+)[ ]*,*[ ]*(?<r>.*)");
+    QRegularExpressionMatch m = r.match(d);
+
+    QVariantList l;
+    if (!m.hasMatch())
+        return l;
+
+    int i = m.captured("i").toInt();
+    QString rest = m.captured("r");
+
+    l.insert(l.end(), i);
+    l.insert(l.end(), rest);
+    return l;
+}
+
+QVariantList ScriptModule::parseIntArray(QString d)
+{
+    QRegularExpression r("(?<a>[\[]([ ]*[0-9,]+[ ]*)+[\]])[ ]*(?<r>.*)");
+    QRegularExpressionMatch m = r.match(d);
+
+    QVariantList l;
+    if (!m.hasMatch())
+        return l;
+
+    QString a = m.captured("a");
+    a.replace(" ", "");
+    a.replace("[", "");
+    a.replace("]", "");
+    QStringList array = a.split(",");
+
+    QVariantList s;
+    foreach (QString str, array)
+    {
+        QRegularExpression re("[ ]*(?<d>[0-9]+)[ ]*");
+        QRegularExpressionMatch me = re.match(str);
+        s.append(me.captured("d").toInt());
+    }
+
+    l.insert(l.end(), s);
+    l.insert(l.end(), m.captured("r"));
+    return l;
+}
+
+QVariantList ScriptModule::parseStringArray(QString d)
+{
+    QRegularExpression r("(?<a>[\[]([ ]*[\"].+[\"][ ]*)+[\]])[ ]*(?<r>.*)");
+    QRegularExpressionMatch m = r.match(d);
+
+    QVariantList l;
+    if (!m.hasMatch())
+        return l;
+
+    QString a = m.captured("a");
+    a.replace("[", "");
+    a.replace("]", "");
+    QStringList array = a.split(",");
+
+    QStringList s;
+    foreach (QString str, array)
+    {
+        QRegularExpression re("[ ]*[\"]+[ ]*(?<d>[^\"]+)[ ]*[\"]+");
+        QRegularExpressionMatch me = re.match(str);
+        s.append(me.captured("d"));
+    }
+
+    l.insert(l.end(), s);
+    l.insert(l.end(), m.captured("r"));
+    return l;
+}
+
+QVariantList ScriptModule::parseString(QString d)
+{
+    QRegularExpression r("[\"]+(?<s>[^\"]*)[\"]+[ ]*,*[ ]*(?<r>.*)");
+    QRegularExpressionMatch m = r.match(d);
+
+    QVariantList l;
+    if (!m.hasMatch())
+        return l;
+
+    l.insert(l.end(), m.captured("s"));
+    l.insert(l.end(), m.captured("r"));
+    return l;
+}
+
+bool ScriptModule::checkConditionalSyntax(QString d)
+{
+    return true;
+}
+
+bool ScriptModule::conditionalParser(SocketIO *sender, QString d)
+{
+    return true;
+}
+
 void ScriptModule::convertToFunction(ScriptPathMapData &s)
 {
-    ScriptFunction func;
+    ScriptFunction func1;
+    ScriptFunction func2;
+
+    switch (s.tag)
+    {
+    default:
+        break;
+
+    case ScriptTag::COLLECT:
+    {
+        func1.type = ScriptFunctionEnum::COLLECT;
+        s.functions.append(func1);
+    }
+        break;
+
+    case ScriptTag::FIGHT:
+    {
+        func1.type = ScriptFunctionEnum::FIGHT;
+        s.functions.append(func1);
+    }
+        break;
+    }
 
     QVariantList l;
     QVariantList p;
@@ -1007,11 +1410,46 @@ void ScriptModule::convertToFunction(ScriptPathMapData &s)
 
     p.insert(p.end(), l);
 
-    func.params = p;
-    func.type = ScriptFunctionEnum::CHANGEMAP;
+    for (int i = 0; i < s.functions.size(); i++)
+    {
+        if (s.functions[i].type == ScriptFunctionEnum::NPC_INTERACT)
+        {
+            QStringList dialogs = s.functions[i].params.last().toStringList();
+            s.functions[i].params.removeLast();
+
+            int count = 0;
+            foreach (QString str, dialogs)
+            {
+                if (str.isEmpty())
+                    break;
+
+                ScriptFunction func3;
+                func3.type = ScriptFunctionEnum::NPC_DIALOG;
+
+                func3.params.insert(func3.params.end(), s.functions[i].params.first().toInt());
+                func3.params.insert(func3.params.end(), str);
+
+                s.functions.insert(i+1, func3);
+                count++;
+            }
+
+            ScriptFunction end;
+            end.type = ScriptFunctionEnum::NPC_QUIT;
+
+            s.functions.insert(i+count+1, end);
+        }
+    }
+
+    if (s.tag == ScriptTag::NO_AGGRO)
+        p.insert(p.end(), true);
+    else
+        p.insert(p.end(), false);
+
+    func2.params = p;
+    func2.type = ScriptFunctionEnum::MOVE;
 
     if (!s.sides.isEmpty())
-        s.functions.append(func);
+        s.functions.append(func2);
 }
 
 void ScriptModule::setActivePath(SocketIO *sender, bool active)
