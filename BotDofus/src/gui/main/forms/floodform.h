@@ -13,6 +13,7 @@
 
 #include "src/Engines/Core/Process/ProcessEngine.h"
 #include "src/Engines/Storage/DataHandler.h"
+#include "src/gui/main/forms/dialogs/addfloodmessagedialog.h"
 
 namespace Ui {
 class FloodForm;

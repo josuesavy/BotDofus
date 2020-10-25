@@ -49,6 +49,7 @@ FORMS += \
     src/gui/main/accountform.ui \
     src/gui/main/forms/characterform.ui \
     src/gui/main/forms/consoleform.ui \
+    src/gui/main/forms/dialogs/addfloodmessagedialog.ui \
     src/gui/main/forms/dialogs/addspelldialog.ui \
     src/gui/main/forms/dialogs/smileysdialog.ui \
     src/gui/main/forms/fightform.ui \
@@ -1893,6 +1894,7 @@ HEADERS += \
     src/gui/main/accountform.h \
     src/gui/main/forms/characterform.h \
     src/gui/main/forms/consoleform.h \
+    src/gui/main/forms/dialogs/addfloodmessagedialog.h \
     src/gui/main/forms/dialogs/addspelldialog.h \
     src/gui/main/forms/dialogs/smileysdialog.h \
     src/gui/main/forms/fightform.h \
@@ -3620,6 +3622,7 @@ SOURCES += \
     src/gui/main/accountform.cpp \
     src/gui/main/forms/characterform.cpp \
     src/gui/main/forms/consoleform.cpp \
+    src/gui/main/forms/dialogs/addfloodmessagedialog.cpp \
     src/gui/main/forms/dialogs/addspelldialog.cpp \
     src/gui/main/forms/dialogs/smileysdialog.cpp \
     src/gui/main/forms/fightform.cpp \
