@@ -427,10 +427,10 @@ void AccountForm::updateInterface(bool directCall)
 
 void AccountForm::on_pushButtonDisconnection_clicked()
 {
-    if(!m_sender->isActive() && getData().connectionData.connectionState != ConnectionState::TRANSITION)
+    if(!m_sender->isActive())
         m_engine->getConnectionModule().connect(m_sender);
 
-    else if (m_sender->isActive() && getData().connectionData.connectionState != ConnectionState::TRANSITION)
+    else
         m_engine->getConnectionModule().disconnect(m_sender);
 }
 

@@ -441,7 +441,6 @@ bool InteractionModule::processZaap(SocketIO *sender, int mapId)
     m_botData[sender].interactionData.interactionType = CurrentInteraction::ZAAP;
     connect(m_mapModule, SIGNAL(hasFinishedMoving(SocketIO*)), this, SLOT(moved(SocketIO*)));
     connect(m_mapModule, SIGNAL(couldNotMove(SocketIO*)), this, SLOT(noMovement(SocketIO*)));
-    qDebug() << "ProcessZaap";
     m_mapModule->changeCell(sender, m_botData[sender].mapData.map.getInteractiveElementCellID(element.elementId));
 }
 
@@ -468,7 +467,6 @@ bool InteractionModule::processZaapi(SocketIO *sender, int mapId)
     m_botData[sender].interactionData.interactionType = CurrentInteraction::ZAAPI;
     connect(m_mapModule, SIGNAL(hasFinishedMoving(SocketIO*)), this, SLOT(moved(SocketIO*)));
     connect(m_mapModule, SIGNAL(couldNotMove(SocketIO*)), this, SLOT(noMovement(SocketIO*)));
-    qDebug() << "ProcessZaapi";
     m_mapModule->changeCell(sender, m_botData[sender].mapData.map.getInteractiveElementCellID(element.elementId));
 }
 
