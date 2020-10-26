@@ -113,30 +113,6 @@ public:
 
     void setPodsLimit(SocketIO *sender, ushort ratio);
 
-    /*!
-     * \brief getMap
-     * \param sender Pointer to the bot instance
-     * \param id This is an overloaded parameter for the map id. If default value, id will be set to current mapId
-     * \return ScriptPathMapData Returns informations of the bot actionList for the requested map
-     */
-    ScriptPathMapData getMap(SocketIO *sender, uint id = 0);
-
-    /*!
-     * \brief getBank
-     * \param sender Pointer to the bot instance
-     * \param id This is an overloaded parameter for the map id. If default value, id will be set to current mapId
-     * \return ScriptPathMapData Returns informations of the bot actionList for the requested map to go to the bank
-     */
-    ScriptPathMapData getBank(SocketIO *sender, uint id = 0);
-
-    /*!
-     * \brief getGhost
-     * \param sender Pointer to the bot instance
-     * \param id This is an overloaded parameter for the map id. If default value, id will be set to current mapId
-     * \return ScriptPathMapData Returns informations of the bot actionList for the requested map to go to the phoenix
-     */
-    ScriptPathMapData getGhost(SocketIO *sender, uint id = 0);
-
 private slots:
     void cancelProcessingAction(SocketIO *sender);
     void processRepeatAction(SocketIO *sender);
@@ -151,12 +127,9 @@ private:
 
     bool groupNeedsHeal(SocketIO *sender);
     bool groupNeedsToGoToBank(SocketIO *sender);
-    bool isGroupReadyForNextSequence(SocketIO *master);
-    ScriptPathMapData arrangeScriptForSlave(ScriptPathMapData s);
-
-    void convertToFunction(ScriptPathMapData &s);
 
     QList<MapSide> getSides(QString side);
+    int getMap(SocketIO *sender, QString map);
 
     MapModule *m_mapModule;
     FarmModule *m_farmModule;
@@ -167,6 +140,8 @@ private:
     GroupModule *m_groupModule;
     StatsModule *m_statsModule;
     ConnectionModule *m_connectionModule;
+
+    lua_State *lua;
 };
 
 #endif // SCRIPTMODULE_H
