@@ -89,7 +89,7 @@ void InventoryForm::updateInterface(bool directCall)
                 ui->tableWidgetEquipment->setItem(indexEquipment, 2, new QTableWidgetItem(QString::number(i.GID)));
 
                 if(!i.isEquipped)
-                    ui->tableWidgetEquipment->setItem(indexEquipment, 3, new QTableWidgetItem(QString("Non équipé%1").arg(c->getLevel() <= level? "": QString(" (Niv.%1)").arg(c->getLevel()))));
+                    ui->tableWidgetEquipment->setItem(indexEquipment, 3, new QTableWidgetItem(QString("Non équipé")));
                 else
                     ui->tableWidgetEquipment->setItem(indexEquipment, 3, new QTableWidgetItem(itemTypeData->getName()));
 
@@ -99,8 +99,16 @@ void InventoryForm::updateInterface(bool directCall)
                 else
                     pushButtonEquipEquipement = new QPushButton("Déséquiper");
 
-                connect(pushButtonEquipEquipement, SIGNAL(clicked()), this, SLOT(equipEquipement()));
-                ui->tableWidgetEquipment->setCellWidget(indexEquipment, 4, pushButtonEquipEquipement);
+                if (c->getLevel() <= level)
+                {
+                    connect(pushButtonEquipEquipement, SIGNAL(clicked()), this, SLOT(equipEquipement()));
+                    ui->tableWidgetEquipment->setCellWidget(indexEquipment, 4, pushButtonEquipEquipement);
+                }
+                else
+                {
+                    pushButtonEquipEquipement = nullptr;
+                    ui->tableWidgetEquipment->setItem(indexEquipment, 4, new QTableWidgetItem(QString("Niv.%1 requis").arg(c->getLevel())));
+                }
 
 
                 pushButtonThrowEquipement = new QPushButton("Jeter");
