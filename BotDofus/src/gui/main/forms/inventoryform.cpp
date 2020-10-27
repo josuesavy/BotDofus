@@ -34,7 +34,12 @@ ConnectionInfos InventoryForm::getConnectionInfos() const
     return m_infos;
 }
 
-void InventoryForm::updateInterface(bool directCall)
+const BotData &InventoryForm::getData() const
+{
+    return m_engine->getData(m_sender);
+}
+
+void InventoryForm::updateInterface()
 {
     const BotData &infos = getData();
 
@@ -52,24 +57,7 @@ void InventoryForm::updateInterface(bool directCall)
         else if(infos.mapData.gameContext == GameContextEnum::FIGHT)
             level = infos.fightData.fighters[infos.fightData.botFightData.botId].level;
 
-        //bool newObjects = m_inventoryContent.size() != infos.playerData.inventoryContent.size();
-
-
-        // Empty all inventories categories
-        m_inventoryContent.clear();
-
-        while(ui->tableWidgetResources->rowCount() > 0)
-            ui->tableWidgetResources->removeRow(0);
-
-        while(ui->tableWidgetEquipment->rowCount() > 0)
-            ui->tableWidgetEquipment->removeRow(0);
-
-        while(ui->tableWidgetUsableItems->rowCount() > 0)
-            ui->tableWidgetUsableItems->removeRow(0);
-
-        while(ui->tableWidgetQuestItems->rowCount() > 0)
-            ui->tableWidgetQuestItems->removeRow(0);
-
+        resetInventory();
 
         // Filling inventories
         m_inventoryContent = infos.playerData.inventoryContent;
@@ -192,34 +180,34 @@ void InventoryForm::updateInterface(bool directCall)
 
     if (infos.connectionData.connectionState == ConnectionState::DISCONNECTED)
     {
-        // Empty all inventories categories
-        m_inventoryContent.clear();
-
-        while(ui->tableWidgetResources->rowCount() > 0)
-            ui->tableWidgetResources->removeRow(0);
-
-        while(ui->tableWidgetEquipment->rowCount() > 0)
-            ui->tableWidgetEquipment->removeRow(0);
-
-        while(ui->tableWidgetUsableItems->rowCount() > 0)
-            ui->tableWidgetUsableItems->removeRow(0);
-
-        while(ui->tableWidgetQuestItems->rowCount() > 0)
-            ui->tableWidgetQuestItems->removeRow(0);
+        resetInventory();
     }
 }
 
-const BotData &InventoryForm::getData() const
+void InventoryForm::resetInventory()
 {
-    return m_engine->getData(m_sender);
+    // Empty all inventories categories
+    m_inventoryContent.clear();
+
+    while(ui->tableWidgetResources->rowCount() > 0)
+        ui->tableWidgetResources->removeRow(0);
+
+    while(ui->tableWidgetEquipment->rowCount() > 0)
+        ui->tableWidgetEquipment->removeRow(0);
+
+    while(ui->tableWidgetUsableItems->rowCount() > 0)
+        ui->tableWidgetUsableItems->removeRow(0);
+
+    while(ui->tableWidgetQuestItems->rowCount() > 0)
+        ui->tableWidgetQuestItems->removeRow(0);
 }
 
 void InventoryForm::equipEquipement()
 {
-    QPushButton *pb = qobject_cast<QPushButton *>(sender());
-    if(pb)
+    QPushButton *pushButttonSender = qobject_cast<QPushButton *>(sender());
+    if(pushButttonSender)
     {
-        int row = ui->tableWidgetEquipment->indexAt(pb->pos()).row();
+        int row = ui->tableWidgetEquipment->indexAt(pushButttonSender->pos()).row();
 
         int indexGID = ui->tableWidgetEquipment->item(row, 2)->text().toInt();
         int indexUID = INVALID;
@@ -250,10 +238,10 @@ void InventoryForm::equipEquipement()
 
 void InventoryForm::throwEquipement()
 {
-    QPushButton *pb = qobject_cast<QPushButton *>(sender());
-    if(pb)
+    QPushButton *pushButttonSender = qobject_cast<QPushButton *>(sender());
+    if(pushButttonSender)
     {
-        int row = ui->tableWidgetEquipment->indexAt(pb->pos()).row();
+        int row = ui->tableWidgetEquipment->indexAt(pushButttonSender->pos()).row();
 
         int indexGID = ui->tableWidgetEquipment->item(row, 2)->text().toInt();
         int quantity = ui->tableWidgetEquipment->item(row, 1)->text().toInt();
@@ -287,10 +275,10 @@ void InventoryForm::throwEquipement()
 
 void InventoryForm::deleteEquipement()
 {
-    QPushButton *pb = qobject_cast<QPushButton *>(sender());
-    if(pb)
+    QPushButton *pushButttonSender = qobject_cast<QPushButton *>(sender());
+    if(pushButttonSender)
     {
-        int row = ui->tableWidgetEquipment->indexAt(pb->pos()).row();
+        int row = ui->tableWidgetEquipment->indexAt(pushButttonSender->pos()).row();
 
         int indexGID = ui->tableWidgetEquipment->item(row, 2)->text().toInt();
         int quantity = ui->tableWidgetEquipment->item(row, 1)->text().toInt();
@@ -324,10 +312,10 @@ void InventoryForm::deleteEquipement()
 
 void InventoryForm::useUsable()
 {
-    QPushButton *pb = qobject_cast<QPushButton *>(sender());
-    if(pb)
+    QPushButton *pushButttonSender = qobject_cast<QPushButton *>(sender());
+    if(pushButttonSender)
     {
-        int row = ui->tableWidgetUsableItems->indexAt(pb->pos()).row();
+        int row = ui->tableWidgetUsableItems->indexAt(pushButttonSender->pos()).row();
 
         int indexGID = ui->tableWidgetUsableItems->item(row, 2)->text().toInt();
         int indexUID = INVALID;
@@ -348,10 +336,10 @@ void InventoryForm::useUsable()
 
 void InventoryForm::throwUsable()
 {
-    QPushButton *pb = qobject_cast<QPushButton *>(sender());
-    if(pb)
+    QPushButton *pushButttonSender = qobject_cast<QPushButton *>(sender());
+    if(pushButttonSender)
     {
-        int row = ui->tableWidgetUsableItems->indexAt(pb->pos()).row();
+        int row = ui->tableWidgetUsableItems->indexAt(pushButttonSender->pos()).row();
 
         int indexGID = ui->tableWidgetEquipment->item(row, 2)->text().toInt();
         int quantity = ui->tableWidgetEquipment->item(row, 1)->text().toInt();
@@ -385,10 +373,10 @@ void InventoryForm::throwUsable()
 
 void InventoryForm::deleteUsable()
 {
-    QPushButton *pb = qobject_cast<QPushButton *>(sender());
-    if(pb)
+    QPushButton *pushButttonSender = qobject_cast<QPushButton *>(sender());
+    if(pushButttonSender)
     {
-        int row = ui->tableWidgetUsableItems->indexAt(pb->pos()).row();
+        int row = ui->tableWidgetUsableItems->indexAt(pushButttonSender->pos()).row();
 
         int indexGID = ui->tableWidgetUsableItems->item(row, 2)->text().toInt();
         int quantity = ui->tableWidgetUsableItems->item(row, 1)->text().toInt();
@@ -422,10 +410,10 @@ void InventoryForm::deleteUsable()
 
 void InventoryForm::throwResource()
 {
-    QPushButton *pb = qobject_cast<QPushButton *>(sender());
-    if(pb)
+    QPushButton *pushButttonSender = qobject_cast<QPushButton *>(sender());
+    if(pushButttonSender)
     {
-        int row = ui->tableWidgetResources->indexAt(pb->pos()).row();
+        int row = ui->tableWidgetResources->indexAt(pushButttonSender->pos()).row();
 
         int indexGID = ui->tableWidgetResources->item(row, 2)->text().toInt();
         int quantity = ui->tableWidgetResources->item(row, 1)->text().toInt();
@@ -459,10 +447,10 @@ void InventoryForm::throwResource()
 
 void InventoryForm::deleteResource()
 {
-    QPushButton *pb = qobject_cast<QPushButton *>(sender());
-    if(pb)
+    QPushButton *pushButttonSender = qobject_cast<QPushButton *>(sender());
+    if(pushButttonSender)
     {
-        int row = ui->tableWidgetResources->indexAt(pb->pos()).row();
+        int row = ui->tableWidgetResources->indexAt(pushButttonSender->pos()).row();
 
         int indexGID = ui->tableWidgetResources->item(row, 2)->text().toInt();
         int quantity = ui->tableWidgetResources->item(row, 1)->text().toInt();

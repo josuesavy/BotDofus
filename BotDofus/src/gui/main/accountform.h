@@ -60,7 +60,7 @@ signals:
     void remove(AccountForm *accountForm, bool child = false);
 
 public slots:
-    void updateInterface(bool directCall = false);
+    void updateInterface();
 
 private slots:
     void on_pushButtonDisconnection_clicked();

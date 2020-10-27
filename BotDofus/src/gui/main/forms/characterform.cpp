@@ -37,7 +37,12 @@ ConnectionInfos CharacterForm::getConnectionInfos() const
     return m_infos;
 }
 
-void CharacterForm::updateInterface(bool directCall)
+const BotData &CharacterForm::getData() const
+{
+    return m_engine->getData(m_sender);
+}
+
+void CharacterForm::updateInterface()
 {
     const BotData &infos = getData();
 
@@ -306,11 +311,6 @@ void CharacterForm::loadCharacterFaceUrl(QNetworkReply *reply)
     pixmap.loadFromData(reply->readAll());
     m_engine->getStatsModule().defineSkinHead(m_sender, pixmap);
     reply->deleteLater();
-}
-
-const BotData &CharacterForm::getData() const
-{
-    return m_engine->getData(m_sender);
 }
 
 void CharacterForm::on_pushButtonAddVitality_clicked()

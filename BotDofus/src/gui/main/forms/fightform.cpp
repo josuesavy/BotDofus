@@ -32,7 +32,12 @@ ConnectionInfos FightForm::getConnectionInfos() const
     return m_infos;
 }
 
-void FightForm::updateInterface(bool directCall)
+const BotData &FightForm::getData() const
+{
+    return m_engine->getData(m_sender);
+}
+
+void FightForm::updateInterface()
 {
     const BotData &infos = getData();
 
@@ -50,11 +55,6 @@ void FightForm::updateInterface(bool directCall)
     {
 
     }
-}
-
-const BotData &FightForm::getData() const
-{
-    return m_engine->getData(m_sender);
 }
 
 void FightForm::on_pushButtonMoveTopSpell_clicked()

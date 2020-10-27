@@ -34,6 +34,11 @@ ConnectionInfos MapForm::getConnectionInfos() const
     return m_infos;
 }
 
+const BotData &MapForm::getData() const
+{
+    return m_engine->getData(m_sender);
+}
+
 void MapForm::changeCell(uint cell)
 {
     m_engine->getMapModule().changeCell(m_sender, cell);
@@ -119,7 +124,7 @@ void MapForm::hideInfos()
     QToolTip::hideText();
 }
 
-void MapForm::updateInterface(bool directCall)
+void MapForm::updateInterface()
 {
     const BotData &infos = getData();
 
@@ -155,10 +160,10 @@ void MapForm::updateMap()
 
     if (infos.mapData.map.isInit())
     {
+        int selfCellId = infos.fightData.fighters[infos.mapData.botId].cellId;
+
         if(infos.generalData.botState == FIGHTING_STATE)
         {
-            int selfCellId = infos.fightData.fighters[infos.mapData.botId].cellId;
-
             m_defenderOnMap.clear();
             m_challengerOnMap.clear();
 
@@ -225,8 +230,6 @@ void MapForm::updateMap()
 
         else
         {
-            int selfCellId = infos.mapData.playersOnMap[infos.mapData.botId].cellId;
-
             QList<int> pnjsCellId;
             QList<int> merchantsCellId;
             QList<int> playersPathsCellId;
@@ -377,9 +380,4 @@ void MapForm::on_pushButtonBottom_clicked()
 {
     if (getData().generalData.botState == BotState::INACTIVE_STATE && !getData().scriptData.isActive)
         m_engine->getMapModule().changeMap(m_sender, MapSide::BOTTOM);
-}
-
-const BotData &MapForm::getData() const
-{
-    return m_engine->getData(m_sender);
 }

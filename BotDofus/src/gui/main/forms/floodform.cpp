@@ -30,7 +30,12 @@ ConnectionInfos FloodForm::getConnectionInfos() const
     return m_infos;
 }
 
-void FloodForm::updateInterface(bool directCall)
+const BotData &FloodForm::getData() const
+{
+    return m_engine->getData(m_sender);
+}
+
+void FloodForm::updateInterface()
 {
     const BotData &infos = getData();
 
@@ -48,11 +53,6 @@ void FloodForm::updateInterface(bool directCall)
     {
 
     }
-}
-
-const BotData &FloodForm::getData() const
-{
-    return m_engine->getData(m_sender);
 }
 
 void FloodForm::on_pushButtonAddFlood_clicked()

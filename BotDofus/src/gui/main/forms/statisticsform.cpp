@@ -28,7 +28,12 @@ ConnectionInfos StatisticsForm::getConnectionInfos() const
     return m_infos;
 }
 
-void StatisticsForm::updateInterface(bool directCall)
+const BotData &StatisticsForm::getData() const
+{
+    return m_engine->getData(m_sender);
+}
+
+void StatisticsForm::updateInterface()
 {
     const BotData &infos = getData();
 
@@ -496,9 +501,4 @@ void StatisticsForm::updateInterface(bool directCall)
     {
 
     }
-}
-
-const BotData &StatisticsForm::getData() const
-{
-    return m_engine->getData(m_sender);
 }

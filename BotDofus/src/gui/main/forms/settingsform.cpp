@@ -34,7 +34,12 @@ ConnectionInfos SettingsForm::getConnectionInfos() const
     return m_infos;
 }
 
-void SettingsForm::updateInterface(bool directCall)
+const BotData &SettingsForm::getData() const
+{
+    return m_engine->getData(m_sender);
+}
+
+void SettingsForm::updateInterface()
 {
     const BotData &infos = getData();
 
@@ -115,11 +120,6 @@ void SettingsForm::on_pushButtonCheckAndApplyProxy_clicked()
 
     QObject::connect(socket, SIGNAL(connected()), this, SLOT(hasConnected()));
     QObject::connect(socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(hasDisconnected()));
-}
-
-const BotData &SettingsForm::getData() const
-{
-    return m_engine->getData(m_sender);
 }
 
 void SettingsForm::on_groupBox_6_clicked(bool checked)

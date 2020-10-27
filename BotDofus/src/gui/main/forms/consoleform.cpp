@@ -61,7 +61,12 @@ ConnectionInfos ConsoleForm::getConnectionInfos() const
     return m_infos;
 }
 
-void ConsoleForm::updateInterface(bool directCall)
+const BotData &ConsoleForm::getData() const
+{
+    return m_engine->getData(m_sender);
+}
+
+void ConsoleForm::updateInterface()
 {
     const BotData &infos = getData();
 
@@ -285,11 +290,6 @@ void ConsoleForm::on_pushButtonSend_clicked()
 
         ui->lineEditConsole->setText("");
     }
-}
-
-const BotData &ConsoleForm::getData() const
-{
-    return m_engine->getData(m_sender);
 }
 
 void ConsoleForm::on_comboBoxCanal_currentIndexChanged(int index)

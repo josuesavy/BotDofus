@@ -137,6 +137,11 @@ ConnectionInfos AccountForm::getConnectionInfos()
     return m_infos;
 }
 
+const BotData &AccountForm::getData() const
+{
+    return m_engine->getData(m_sender);
+}
+
 ProcessEngine *AccountForm::getEngine()
 {
     return m_engine;
@@ -216,7 +221,7 @@ void AccountForm::autoConnect()
     ui->pushButtonDisconnection->clicked();
 }
 
-void AccountForm::updateInterface(bool directCall)
+void AccountForm::updateInterface()
 {
     consoleForm->updateInterface();
     characterForm->updateInterface();
@@ -264,9 +269,6 @@ void AccountForm::updateInterface(bool directCall)
             if (infos.connectionData.connectionInfos.character != infos.connectionData.connectionInfos.masterGroup && infos.groupData.master == "" && !infos.connectionData.connectionInfos.masterGroup.isEmpty())
                     m_engine->getGroupModule().setMaster(m_sender, infos.connectionData.connectionInfos.masterGroup);
 
-//            if(!infos.groupData.followUp && infos.groupData.isInGroup)
-//                m_engine->getGroupModule().setFollowUpEnabled(m_sender, true);
-
             // Experience du personnage
             if(infos.mapData.gameContext == GameContextEnum::ROLE_PLAY)
                 ui->progressBarExperience->setFormat(QString("%1 (%p%)").arg(infos.mapData.playersOnMap[infos.mapData.botId].level));
@@ -289,7 +291,8 @@ void AccountForm::updateInterface(bool directCall)
             ui->labelSubscriptionDofus->setText(D2OManagerSingleton::get()->getI18N()->getText("ui.common.non_subscriber"));
 
         // Status du personnage
-        switch (getData().generalData.botState) {
+        switch (getData().generalData.botState)
+        {
         case BotState::MOVING_STATE:
         {
             ui->labelIconStatus->setPixmap(QPixmap(":/icons/bullet_green_16px.ico"));
@@ -534,11 +537,6 @@ void AccountForm::on_pushButtonClose_clicked()
         }
         emit remove(this);
     }
-}
-
-const BotData &AccountForm::getData() const
-{
-    return m_engine->getData(m_sender);
 }
 
 void AccountForm::on_actionTeleportSlavesToMaster_triggered()

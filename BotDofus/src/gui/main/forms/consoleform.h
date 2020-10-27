@@ -56,7 +56,7 @@ public:
     ConnectionInfos getConnectionInfos() const;
 
 public slots:
-    void updateInterface(bool directCall = true);
+    void updateInterface();
     void writeConsole(QString content);
 
 signals:

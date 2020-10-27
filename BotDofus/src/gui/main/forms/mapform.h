@@ -61,7 +61,7 @@ public:
     };
 
 public slots:
-    void updateInterface(bool directCall = true);
+    void updateInterface();
     void updateMap();
 
 protected:

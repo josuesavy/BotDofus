@@ -24,7 +24,7 @@ public:
     ConnectionInfos getConnectionInfos() const;
 
 public slots:
-    void updateInterface(bool directCall = true);
+    void updateInterface();
 
 private slots:
     // Equipement
@@ -48,6 +48,7 @@ private:
     ProcessEngine *m_engine;
     ConnectionInfos m_infos;
 
+    void resetInventory();
     const BotData &getData() const;
 
     QList<InventoryObject> m_inventoryContent;

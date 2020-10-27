@@ -31,7 +31,7 @@ public:
     ConnectionInfos getConnectionInfos() const;
 
 public slots:
-    void updateInterface(bool directCall = true);
+    void updateInterface();
 
 private slots:
     void on_pushButtonAddFlood_clicked();
