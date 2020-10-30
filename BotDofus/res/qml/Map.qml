@@ -9,33 +9,6 @@ Canvas {
 
     property color background : "#434343"
 
-    property color  gridColor: '#807A5B'
-
-    property color cellNoCollisionColor: "#958D69"
-    property color cellNoCollisionColor_: "#756D49"
-    property color cellNoCollisionAlternativeColor: "#8B8561"
-    property color cellNoCollisionAlternativeColor_: "#736D49"
-
-    property color collisionBlockColor: "#58533A"
-
-    property color cellInteractiveColor: "#94a8c6"
-    property color cellUsableColor: "green"
-
-    property color innerBotColor: "violet"
-    property color aroundBotColor: "black"
-
-    property color innerPlayerBotColor: "yellow"
-    property color aroundPlayerBotColor: "black"
-
-    property color innerPlayerColor: "#8076d0"
-    property color aroundPlayerColor: "black"
-
-    property color innerMonsterColor: "#ee6276"
-    property color aroundMonsterColor: "black"
-
-    property color innerNpcColor: "#8a8a8a"
-    property color aroundNpcColor: "black"
-
     property int tileWidth: 0
     property int tileHeight: 0
     property variant cellPos: []
@@ -43,12 +16,7 @@ Canvas {
     signal mouseMove(int x, int y);
     signal mouseDown(int x, int y, int buttons);
     signal mouseUp(int x, int y);
-    signal mouseWheel(int x, int y);
-    signal mouseIn();
     signal mouseOut();
-
-    signal keyDown(var event);
-    signal keyUp(var event);
 
     Connections
     {
@@ -57,6 +25,7 @@ Canvas {
         onCollisionTypesChanged: canvas.requestPaint()
         onInteractiveTypesChanged: canvas.requestPaint()
         onCellClickedChanged: canvas.requestPaint()
+        onDisplayCellIdsChanged: canvas.requestPaint()
     }
 
     clip:true
@@ -74,7 +43,6 @@ Canvas {
 
         if(mapForm.collisionTypes.length !== 0)
         {
-            // Création de la région de la carte
             var ctx = canvas.getContext("2d");
             ctx.reset();
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -116,14 +84,6 @@ Canvas {
                     else if(mapForm.interactiveTypes[cellId] === MapForm.USABLE)
                         drawSquare(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, 0xe8bc75);
                 }
-
-//                // Chemin
-//                if(mapForm.getCellIds(cellId).length >1)
-//                {
-//                    console.log(mapForm.getCellIds(cellId).length);
-//                    for(var k=0; k < mapForm.getCellIds(cellId).length-1; k++)
-//                        drawPath(ctx, mapForm.getCellIds(cellId)[k], mapForm.getCellIds(cellId)[k+1]);
-//                }
 
                 // Entitée
                 if(mapForm.entityTypes[cellId] !== MapForm.NOTHING)
@@ -238,22 +198,6 @@ Canvas {
         target.restore();
     }
 
-    function drawPath(target, x, y, color, shadow)
-    {
-        var dimensionX = canvas.width/14*13.5/14;
-        var dimensionY = canvas.height/20*19/20;
-
-        target.strokeStyle= "#0xBBBBBB";
-        target.setLineDash([4, 4]);
-
-        target.beginPath();
-        target.lineWidth = 1;
-        target.moveTo(cellPos[start].pixelX + dimensionX / 2,cellPos[start].pixelY + dimensionY / 2);
-        target.lineTo(cellPos[end].pixelX + dimensionX / 2,cellPos[end].pixelY + dimensionY / 2);
-        target.closePath();
-        target.stroke();
-    }
-
     function initCells()
     {
         tileWidth = canvas.width/14*13.5/14;
@@ -287,31 +231,6 @@ Canvas {
     {
         return { x:cellId % 14,	 y:Math.floor(cellId / 14) }
     }
-
-    //    function anim(time, start, end)
-    //    {
-    //        if (!startTime) // it's the first frame
-    //            startTime = time || performance.now();
-
-    //        // deltaTime should be in the range [0 ~ 1]
-    //        var deltaTime = (time - startTime) / 1000;
-    //        // currentPos = previous position + (difference * deltaTime)
-    //        var currentX = x + ((nextX - x) * deltaTime);
-    //        var currentY = y + ((nextY - y) * deltaTime);
-
-    //        if (deltaTime >= 1) // this means we ended our animation
-    //        {
-    //            x = nextX; // reset x variable
-    //            y = nextY; // reset y variable
-    //            startTime = null; // reset startTime
-    //            drawCircle(x, y); // draw the last frame, at required position
-    //        }
-    //        else
-    //        {
-    //            drawCircle(currentX, currentY);
-    //            requestAnimationFrame(anim); // do it again
-    //        }
-    //    }
 
     function addEventListener(event, handler, ignored)
     {
@@ -403,7 +322,10 @@ Canvas {
                 mapForm.cellClicked = false;
                 mapForm.cellChangeColor=i;
 
-                if(mapForm.collisionTypes[i] === MapForm.COLLISION_WITH_SIGHT || mapForm.collisionTypes[i] === MapForm.COLLISION_NO_SIGHT)
+                if (mapForm.interactiveTypes[i] === MapForm.USABLE)
+                    mapForm.useInteractive(i);
+
+                else if(mapForm.collisionTypes[i] === MapForm.COLLISION_WITH_SIGHT || mapForm.collisionTypes[i] === MapForm.COLLISION_NO_SIGHT)
                     mapForm.changeToNearestCell(i);
 
                 else
@@ -420,39 +342,19 @@ Canvas {
         tileWidth = canvas.width/14*13.5/14;
         tileHeight = canvas.height/20*19/20;
 
-        for(var i in mapForm.interactiveTypes)
+        var data;
+        var cellPosX;
+        var cellPosY;
+
+        for(var i in cellPos)
         {
-            var data = mapForm.interactiveTypes[i];
-            if(data !== 0)
+            cellPosX = cellPos[i].pixelX + tileWidth / 2 ;
+            cellPosY = cellPos[i].pixelY + tileHeight / 2;
+
+            if(Math.sqrt(Math.pow(x - 0 - cellPosX,2) + Math.pow(y - 12 - cellPosY,2)) < tileHeight / 2)
             {
-                var cellPosX = cellPos[i].pixelX + tileWidth / 2 ;
-                var cellPosY = cellPos[i].pixelY + tileHeight / 2;
-                if(Math.sqrt(Math.pow(x - 0 - cellPosX,2) + Math.pow(y - 12 - cellPosY,2)) < tileHeight / 3.5)
-                {
-                    mapForm.showInfos(i);
-                    return;
-                }
-
-                else
-                    mapForm.hideInfos();
-            }
-        }
-
-        for(var i in mapForm.entityTypes)
-        {
-            var data = mapForm.entityTypes[i];
-            if(data !== 0)
-            {
-                var cellPosX = cellPos[i].pixelX + tileWidth / 2 ;
-                var cellPosY = cellPos[i].pixelY + tileHeight / 2;
-                if(Math.sqrt(Math.pow(x - 0 - cellPosX,2) + Math.pow(y - 12 - cellPosY,2)) < tileHeight / 3.5)
-                {
-                    mapForm.showInfos(i);
-                    return;
-                }
-
-                else
-                    mapForm.hideInfos();
+                mapForm.showInfos(i);
+                return;
             }
         }
     }
