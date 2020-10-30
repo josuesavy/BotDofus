@@ -895,8 +895,15 @@ void StatsModule::increaseStat(SocketIO *sender, PlayerD2OFields stat)
 
 void StatsModule::resetStat(SocketIO *sender)
 {
-    if(m_botData[sender].connectionData.connectionState == ConnectionState::CONNECTED)
+    if(m_botData[sender].connectionData.connectionState == ConnectionState::CONNECTED && m_botData[sender].generalData.botState != FIGHTING_STATE)
     {
+        m_botData[sender].statisticsData.countTotalPointVitality = 0;
+        m_botData[sender].statisticsData.countTotalPointWisdom = 0;
+        m_botData[sender].statisticsData.countTotalPointStrength = 0;
+        m_botData[sender].statisticsData.countTotalPointIntelligence = 0;
+        m_botData[sender].statisticsData.countTotalPointChance = 0;
+        m_botData[sender].statisticsData.countTotalPointAgility = 0;
+
         ResetCharacterStatsRequestMessage rcsrmsg;
         sender->send(rcsrmsg);
     }

@@ -87,6 +87,7 @@ bool FightModule::processMessage(const MessageInfos &data, SocketIO *sender)
 
         if(m.content == "fight")
         {
+            m_botData[sender].scriptData.activeModule = getType();
             if(processMonsters(sender))
                 qDebug()<<"IS GOING TO FIGHT";
 
@@ -118,6 +119,7 @@ bool FightModule::processMessage(const MessageInfos &data, SocketIO *sender)
         break;
 
     case MessageEnum::GAMEENTITIESDISPOSITIONMESSAGE:
+    case MessageEnum::GAMEFIGHTPLACEMENTSWAPPOSITIONSMESSAGE:
     {
         GameEntitiesDispositionMessage message;
         message.deserialize(&reader);
@@ -129,6 +131,12 @@ bool FightModule::processMessage(const MessageInfos &data, SocketIO *sender)
     }
         break;
 
+    case MessageEnum::GAMEENTITYDISPOSITIONERRORMESSAGE:
+    {
+        qDebug() << "FightModule - Cette position n'est pas accessible.";
+    }
+        break;
+
     case MessageEnum::GAMEFIGHTHUMANREADYSTATEMESSAGE:
     {
         GameFightHumanReadyStateMessage message;
@@ -137,12 +145,12 @@ bool FightModule::processMessage(const MessageInfos &data, SocketIO *sender)
         if(m_botData[sender].fightData.botFightData.botId == message.characterId)
             m_botData[sender].fightData.botFightData.isReady = message.isReady;
 
-        else if(m_botData[sender].groupData.master == m_botData[sender].fightData.fighters[message.characterId].name)
+        else if(m_botData[sender].groupData.master == m_botData[sender].fightData.fighters[message.characterId].name && m_botData[sender].groupData.isInGroup)
         {
-            GameFightReadyMessage answer;
-            m_botData[sender].fightData.botFightData.isReady = message.isReady;
-            answer.isReady = message.isReady;
-            sender->send(answer);
+//            GameFightReadyMessage answer;
+//            m_botData[sender].fightData.botFightData.isReady = message.isReady;
+//            answer.isReady = message.isReady;
+//            sender->send(answer);
         }
     }
         break;
@@ -158,8 +166,6 @@ bool FightModule::processMessage(const MessageInfos &data, SocketIO *sender)
             {
                 if(team.hasGroupMember)
                 {
-                    action(sender) << "Un membre de votre groupe à lancé un combat.";
-
                     GameFightJoinRequestMessage answer;
                     answer.fightId = fight.fightId;
                     answer.fighterId = team.leaderId;
@@ -364,7 +370,9 @@ bool FightModule::processMessage(const MessageInfos &data, SocketIO *sender)
         m_botData[sender].fightData.fighters.clear();
 
         foreach(QSharedPointer<GameFightFighterInformations> fighter, message.fighters)
+        {
             addFighter(sender, fighter);
+        }
 
         if(m_botData[sender].fightData.isBotTurn)
             processTurn(sender);
@@ -613,19 +621,19 @@ bool FightModule::processMessage(const MessageInfos &data, SocketIO *sender)
             if(names.isEmpty())
             {
                 debug(sender)<<"Master ready to start fight with his"<<slaves.size()<<"slaves";
-                GameFightReadyMessage answer;
-                m_botData[sender].fightData.botFightData.isReady = true;
-                answer.isReady = true;
-                sender->send(answer);
+//                GameFightReadyMessage answer;
+//                m_botData[sender].fightData.botFightData.isReady = true;
+//                answer.isReady = true;
+//                sender->send(answer);
             }
         }
 
         else
         {
-            GameFightReadyMessage answer;
-            m_botData[sender].fightData.botFightData.isReady = true;
-            answer.isReady = true;
-            sender->send(answer);
+//            GameFightReadyMessage answer;
+//            m_botData[sender].fightData.botFightData.isReady = true;
+//            answer.isReady = true;
+//            sender->send(answer);
         }
     }
         break;
@@ -635,6 +643,7 @@ bool FightModule::processMessage(const MessageInfos &data, SocketIO *sender)
         GameFightShowFighterRandomStaticPoseMessage message;
         message.deserialize(&reader);
 
+        qDebug() << "GameFightShowFighterRandomStaticPoseMessage";
         addFighter(sender, message.informations);
     }
         break;
@@ -680,7 +689,10 @@ bool FightModule::processMessage(const MessageInfos &data, SocketIO *sender)
         message.deserialize(&reader);
 
         foreach(const QSharedPointer<GameFightFighterInformations> &summon, message.summons)
+        {
+            qDebug() << "GameActionFightSummonMessage";
             addFighter(sender, summon);
+        }
     }
         break;
 
@@ -876,15 +888,12 @@ void FightModule::updateFightDisposition(SocketIO *sender)
     {
         if(m_botData[sender].fightData.fightPlacementPosition == FightPlacementPosition::NEARFUL)
         {
-            int cibleID = INVALID;
-            cibleID = getStrongestEnemy(sender);
+            QList<uint> enemies = getEnemies(sender);
 
-            qDebug()<<"FightModule - Ennemi visé :"<<cibleID;
-
-            if(cibleID != INVALID)
+            if(!enemies.isEmpty())
             {
+                int cibleID = getMiddleCell(enemies);
                 int cellID = INVALID;
-
                 QList<uint> possiblePositions = m_botData[sender].fightData.startingPositions;
 
                 foreach(const FightEntityInfos fighter, m_botData[sender].fightData.fighters)
@@ -895,7 +904,7 @@ void FightModule::updateFightDisposition(SocketIO *sender)
                     }
                 }
 
-                cellID = getClosestCell(cibleID, m_botData[sender].fightData.startingPositions);
+                cellID = getClosestCell(cibleID, possiblePositions);
 
                 if(cellID != INVALID && m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].cellId != cellID)
                 {
@@ -910,9 +919,6 @@ void FightModule::updateFightDisposition(SocketIO *sender)
                     qDebug()<<"FightModule - Position actuelle déjà optimale";
                 }
             }
-
-            else
-                qDebug()<<"FightModule - Le classement des positions a échoué";
         }
 
         else if(m_botData[sender].fightData.fightPlacementPosition == FightPlacementPosition::FARTHER)
@@ -976,6 +982,10 @@ int FightModule::getStrongestEnemy(SocketIO *sender)
 
     foreach(const FightEntityInfos fighter, m_botData[sender].fightData.fighters)
     {
+        qDebug() << "isAlive:" << fighter.isAlive;
+        qDebug() << "different team:" << bool(m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].teamId != fighter.teamId);
+        qDebug() << "fighterlevel not invalid" << bool(fighter.level != INVALID);
+        qDebug() << "fighterlevel highest level:" << bool(fighter.level > level);
         if(fighter.isAlive && m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].teamId != fighter.teamId && fighter.level != INVALID && fighter.level > level)
         {
             level = fighter.level;
