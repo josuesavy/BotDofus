@@ -69,11 +69,10 @@ bool FloodModule::processMessage(const MessageInfos &data, SocketIO *sender)
         foreach(QSharedPointer<ObjectItem> object, message.objects)
         {
             QSharedPointer<ItemData> itemData = D2OManagerSingleton::get()->getItem(object->objectGID);
-            if(contentModified.contains("￼")) // "\xef\xbf\xbc"
-            //if(contentModified.contains("\xFF""FD"))
+            if(contentModified.contains("\uFFFC")) // Object replacement character
             {
-                int index = contentModified.indexOf("￼");
-                contentModified.replace(index,QString("￼").length(), "<b>["+itemData->getName()+"]</b>");
+                int index = contentModified.indexOf("\uFFFC");
+                contentModified.replace(index,QString("\uFFFC").length(), "<b>["+itemData->getName()+"]</b>");
             }
         }
 
