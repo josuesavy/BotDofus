@@ -269,7 +269,12 @@ void FloodModule::initFlood(SocketIO *sender, const QList<FloodMessage> &floods)
         }
 
         m_floodRequests<<temp;
-        m_botData[sender].floodData.floodList[m_botData[sender].floodData.floodList.indexOf(flood)].timer.start();
+
+        foreach (FloodMessage floodMessage, m_botData[sender].floodData.floodList)
+        {
+            floodMessage.timer.start();
+        }
+
         QTimer::singleShot(temp.estimatedTime, this, SLOT(processFloodWaiting()));
         //QTimer::singleShot(m_botData[sender].floodData.floodList[m_botData[sender].floodData.floodList.indexOf(flood)].changeTimer*60000, this, SLOT(changeFloodMessage()));
     }
