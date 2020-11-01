@@ -425,6 +425,12 @@ bool ConnectionModule::processMessage(const MessageInfos &data, SocketIO *sender
         AccountLoggingKickedMessage message;
         message.deserialize(&reader);
 
+        QSqlQuery query;
+        query.prepare("UPDATE accounts SET isbanned = :isbanned WHERE login = :login");
+        query.bindValue(":isbanned", 1);
+        query.bindValue(":login", m_botData[sender].connectionData.connectionInfos.login);
+        query.exec();
+
         m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
         
         QString alertMessage = "Connexion refusée. Votre compte est invalide pendant ";
