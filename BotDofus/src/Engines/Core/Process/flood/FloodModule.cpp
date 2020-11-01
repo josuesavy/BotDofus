@@ -76,7 +76,11 @@ bool FloodModule::processMessage(const MessageInfos &data, SocketIO *sender)
             }
         }
 
-        chat.output = "<b>"+message.senderName+"</b> : "+contentModified;
+        if(message.channel == Channel::CHANNELPRIVATE)
+            chat.output = "de <b>"+message.senderName+"</b> : "+contentModified;
+        else
+            chat.output = "<b>"+message.senderName+"</b> : "+contentModified;
+
         m_botData[sender].generalData.logMessages<<chat;
     }
         break;
