@@ -2,6 +2,7 @@
 #define ADDFLOODMESSAGEDIALOG_H
 
 #include <QDialog>
+#include <QTime>
 
 namespace Ui {
 class AddFloodMessageDialog;
@@ -17,6 +18,7 @@ public:
 
     QString getMessage();
     int getCanal();
+    QTime getInterval();
 
 private slots:
     void on_radioButtonPublic_clicked();
@@ -31,12 +33,14 @@ private slots:
 
     void on_comboBoxCanal_currentIndexChanged(int index);
 
+    void on_timeEdit_timeChanged(const QTime &time);
+
 private:
     Ui::AddFloodMessageDialog *ui;
 
     QString m_message;
     int m_canal;
-
+    QTime m_interval;
 };
 
 #endif // ADDFLOODMESSAGEDIALOG_H
