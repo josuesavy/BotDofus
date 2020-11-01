@@ -27,9 +27,6 @@ Inventaire
  [ ] Nouveau paquet a gérer SetUpdateMessage
  [ ] Pour certains items de type différent (hat, ring, etc..) quand on l'equipe, c'est pas actualiser dans l'inventaire à car ya pas de paquet pour
 
-Options
- [ ] Empêcher la déconnexion pour inactivité (SystemMessageDisplayMessage)
-
 Statistiques
  [ ] Rajouter le flood (Total messages, reussis, echoues)
  [ ] Rajouter l'inventaire (total ressources, combat, recolte, total objets, combat, recolte)

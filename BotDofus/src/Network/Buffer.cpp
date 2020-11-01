@@ -15,14 +15,6 @@ void Buffer::reset()
     m_remainingBytes = 0;
 }
 
-void Buffer::generateRandomKey()
-{
-    m_key.clear();
-
-    for(int i = 0; i < 8; i++)
-        m_key.insert(i, 128);
-}
-
 Writer Buffer::writePacket(AbstractMessage &message)
 {
     Writer temp;

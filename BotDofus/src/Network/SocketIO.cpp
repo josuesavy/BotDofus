@@ -135,9 +135,6 @@ void SocketIO::dataReceived()
                     }
                 }
             }
-
-            else if(message.messageType == MessageEnum::RAWDATAMESSAGE)
-                generateRandomKey();
         }
 
         emit dataReceived(messages);

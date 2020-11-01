@@ -22,7 +22,6 @@ public:
     Buffer();
 
     void reset();
-    void generateRandomKey();
 
     Writer writePacket(MessageInfos &message);
     Writer writePacket(AbstractMessage &message);
