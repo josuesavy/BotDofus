@@ -28,6 +28,8 @@ private slots:
 
 private:
     int basicNoOperationMsgCounter;
+
+    QByteArray fileChecksum(const QString &fileName, QCryptographicHash::Algorithm hashAlgorithm);
 };
 
 #endif // PROCESSENGINE_H

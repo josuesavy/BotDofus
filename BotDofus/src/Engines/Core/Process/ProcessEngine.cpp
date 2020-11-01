@@ -57,6 +57,18 @@ void ProcessEngine::processData(QList<MessageInfos> messages)
     processUpdateRequest(sender);
 }
 
+QByteArray ProcessEngine::fileChecksum(const QString &fileName, QCryptographicHash::Algorithm hashAlgorithm)
+{
+    QFile f(fileName);
+    if (f.open(QFile::ReadOnly))
+    {
+        QCryptographicHash hash(hashAlgorithm);
+        if (hash.addData(&f))
+            return hash.result();
+    }
+    return QByteArray();
+}
+
 bool ProcessEngine::processMessage(const MessageInfos &data, SocketIO *sender)
 {
     bool messageFound = false;
@@ -226,54 +238,42 @@ bool ProcessEngine::processMessage(const MessageInfos &data, SocketIO *sender)
     {
         warn(sender) << "Attention ! Un modérateur est actuellement entrain de vérifier vos fichier du jeu.";
 
-        QFile file(USER_DATA_PATH);
-        QString dofusPath;
-
-        if (file.open(QFile::ReadOnly))
-        {
-            QJsonArray array = QJsonDocument::fromBinaryData(file.readAll()).object().value("globalParameters").toArray();
-
-            for (int i = 0; i < array.size(); i++)
-            {
-                QVariantMap data = array[i].toObject().toVariantMap();
-
-                dofusPath = data["DofusPath"].toString();
-            }
-
-            file.close();
-        }
-
         CheckFileRequestMessage message;
+        message.deserialize(&reader);
+
+        qDebug() << "CheckFileRequestMessage";
+        qDebug() << "filename:" << message.filename;
+        qDebug() << "type:" << message.type;
+
         message.filename = message.filename.replace(QRegExp("\\.\\.[\\/|\\\\]"),"");
 
-        QByteArray fileByte;
-        QString value = "";
-
-        QByteArray num = message.filename.toStdString().c_str();
         QCryptographicHash hash(QCryptographicHash::Md5);
-        hash.addData(num);
-        QString filenameHash = hash.result().toHex();
+        hash.addData(message.filename.toStdString().c_str());
+        QString filenameHash = hash.result();
 
-        QFile f(message.filename);
-        if (f.open(QFile::ReadOnly))
+        QString path;
+        QSqlQuery query;
+        query.prepare("SELECT dofus_path FROM globalParameters");
+        if(query.exec())
         {
-            fileByte = f.readAll();
-            f.close();
+            while(query.next())
+                path = query.value(0).toString();
         }
-        else
+        path += QDir::separator() + message.filename;
+
+
+        QString value;
+        QFile file(path);
+        if (!file.exists())
             value = "-1";
 
         if(value == "")
         {
             if(message.type == 0)
-                value = QString::number(fileByte.size());
+                value = QString::number(file.size());
 
             else if(message.type == 1)
-            {
-                QCryptographicHash hash(QCryptographicHash::Md5);
-                hash.addData(fileByte);
-                value = hash.result().toHex();
-            }
+                value = QString::fromStdString(fileChecksum(message.filename, QCryptographicHash::Md5).toStdString());
         }
 
         CheckFileMessage cfmsg;
