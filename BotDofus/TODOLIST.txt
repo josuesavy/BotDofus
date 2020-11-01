@@ -13,9 +13,6 @@ Flood
 Options
  [ ] L'affichage de la planification est un peu moche
 
-Statistiques
- [ ] Trouver un bon truc pour le design des items expand or not
-
 Divers
  [ ] La fenêtre est trop grande pour certaines résolutions graphique. Faire en sorte d'ajuster, permettre un certain resize sur certains widgets pour régler le problème
  [ ] Quand on arrête le script depuis le module, actualiser les actions dans la liste du managenement des scripts

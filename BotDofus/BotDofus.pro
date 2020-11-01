@@ -22,7 +22,6 @@ TEMPLATE = app
 
 # Declaring Other Libraries
 LIBS += -lz
-LIBS += -L$$PWD/src/Engines/Core/Process/script/Lua514 -llua5.1 # MotherFucking line don't forget that
 
 # Pour Windows
 win32: INCLUDEPATH += "C:\OpenSSL-Win32\include"
@@ -76,11 +75,6 @@ HEADERS += \
     src/Engines/Core/Process/group/GroupModule.h \
     src/Engines/Core/Process/interaction/InteractionModule.h \
     src/Engines/Core/Process/map/MapModule.h \
-    src/Engines/Core/Process/script/Lua514/include/lauxlib.h \
-    src/Engines/Core/Process/script/Lua514/include/lua.h \
-    src/Engines/Core/Process/script/Lua514/include/lua.hpp \
-    src/Engines/Core/Process/script/Lua514/include/luaconf.h \
-    src/Engines/Core/Process/script/Lua514/include/lualib.h \
     src/Engines/Core/Process/script/ScriptModule.h \
     src/Engines/Core/Process/shop/ShopModule.h \
     src/Engines/IO/D2O/AbstractGameData.h \
@@ -3636,6 +3630,4 @@ SOURCES += \
     src/main.cpp
 
 DISTFILES += \
-    res/qml/Map.qml \
-    src/Engines/Core/Process/script/Lua514/lua5.1.dll \
-    src/Engines/Core/Process/script/Lua514/lua5.1.lib
+    res/qml/Map.qml
