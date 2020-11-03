@@ -35,7 +35,6 @@ public:
     ~AccountForm();
 
     SocketIO *getSocket();
-    QString getTime(uint timeStamp);
     ConnectionInfos getConnectionInfos();
     ProcessEngine *getEngine();
 

@@ -244,6 +244,7 @@ bool ConnectionModule::processMessage(const MessageInfos &data, SocketIO *sender
         message.deserialize(&reader);
         m_botData[sender].playerData.accountId = message.accountId;
         m_botData[sender].playerData.subscriptionEndDate = message.subscriptionEndDate;
+        m_botData[sender].playerData.subscriptionElapsedDuration = message.subscriptionElapsedDuration;
 
         QSqlQuery query;
         query.prepare("UPDATE accounts SET isbanned = :isbanned WHERE login = :login");

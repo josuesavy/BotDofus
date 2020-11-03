@@ -101,37 +101,6 @@ SocketIO *AccountForm::getSocket()
     return m_sender;
 }
 
-QString AccountForm::getTime(uint timeStamp)
-{
-    QString date = "";
-
-    QTime time = QDateTime::fromTime_t(timeStamp).time();
-    int hours = time.hour();
-    int minutes = time.minute();
-    int seconds = time.second();
-
-    if (hours < 10)
-        date += "0"+QString::number(hours);
-    else
-        date += QString::number(hours);
-
-    date += ":";
-
-    if (minutes < 10)
-        date += "0"+QString::number(minutes);
-    else
-        date += QString::number(minutes);
-
-    date += ":";
-
-    if (seconds < 10)
-        date += "0"+QString::number(seconds);
-    else
-        date += QString::number(seconds);
-
-    return date;
-}
-
 ConnectionInfos AccountForm::getConnectionInfos()
 {
     return m_infos;
@@ -285,7 +254,7 @@ void AccountForm::updateInterface()
             ui->labelSubscriptionDofus->setText(tr("N/A"));
 
         else if(infos.playerData.subscriptionEndDate != 0)
-            ui->labelSubscriptionDofus->setText(D2OManagerSingleton::get()->getI18N()->getText("ui.connection.subscriberUntil").arg(getTime(infos.playerData.subscriptionEndDate)));
+            ui->labelSubscriptionDofus->setText(dateToString(infos.playerData.subscriptionEndDate));
 
         else
             ui->labelSubscriptionDofus->setText(D2OManagerSingleton::get()->getI18N()->getText("ui.common.non_subscriber"));

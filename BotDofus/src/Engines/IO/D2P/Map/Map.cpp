@@ -56,7 +56,6 @@ void Map::initializeMap(CompressedMap *compressedMap)
                 encryptedData[i] = encryptedData[i] ^ m_encryptionKey[i % m_encryptionKey.size()];
 
             reader.setBuffer(encryptedData);
-
         }
     }
 
