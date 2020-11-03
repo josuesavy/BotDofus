@@ -742,7 +742,7 @@ struct ConnectionData
 
 struct FloodData
 {
-    QList<FloodMessage> flood;
+    QList<FloodMessage> floodList;
     QTime timer;
     int levelMin = 1;
     int levelMax = 200;

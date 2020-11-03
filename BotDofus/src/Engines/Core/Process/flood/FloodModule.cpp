@@ -228,23 +228,24 @@ void FloodModule::sendChatSmiley(SocketIO *sender, uint smileyId)
     }
 }
 
-void FloodModule::initFlood(SocketIO *sender, const QList<Channel> &channels)
+void FloodModule::initFlood(SocketIO *sender, const QList<FloodMessage> &floods)
 {
-    m_botData[sender].floodData.channelList.clear();
-    foreach (Channel channel, channels)
+    m_botData[sender].floodData.floodList.clear();
+    foreach (FloodMessage flood, floods)
     {
-        if (!m_botData[sender].floodData.channelList.contains(channel))
-            m_botData[sender].floodData.channelList<<channel;
+        if (!m_botData[sender].floodData.floodList.contains(flood))
+            m_botData[sender].floodData.floodList<<flood;
 
         FloodRequest temp;
         temp.sender = sender;
-        temp.channel = channel;
+        temp.channel = flood.channel;
+        temp.message = flood.message;
         temp.elapsedTime.start();
 
-        switch (channel)
+        switch (flood.channel)
         {
         default:
-            qDebug()<<"ERREUR - FloodModule ne connait pas cette channel"<<channel;
+            qDebug()<<"ERREUR - FloodModule ne connait pas cette channel"<<flood.channel;
             break;
 
         case CHANNELSALES:
@@ -261,21 +262,27 @@ void FloodModule::initFlood(SocketIO *sender, const QList<Channel> &channels)
 
         case CHANNELPRIVATE:
         {
-            if (!m_botData[sender].floodData.channelList.contains(channel))
-                m_botData[sender].floodData.channelList<<channel;
+            if (!m_botData[sender].floodData.floodList.contains(flood))
+                m_botData[sender].floodData.floodList<<flood;
         }
             break;
         }
 
         m_floodRequests<<temp;
-        m_botData[sender].floodData.timer.start();
+
+        foreach (FloodMessage floodMessage, m_botData[sender].floodData.floodList)
+        {
+            floodMessage.timer.start();
+        }
+
         QTimer::singleShot(temp.estimatedTime, this, SLOT(processFloodWaiting()));
-        QTimer::singleShot(m_botData[sender].floodData.changeTimer*60000, this, SLOT(changeFloodMessage()));
+        //QTimer::singleShot(m_botData[sender].floodData.floodList[m_botData[sender].floodData.floodList.indexOf(flood)].changeTimer*60000, this, SLOT(changeFloodMessage()));
     }
 }
 
 void FloodModule::processFloodWaiting()
 {
+    // Get the flood that has the smallest time value to send
     int toTest = m_floodRequests[0].estimatedTime - m_floodRequests[0].elapsedTime.elapsed();
     int selected = 0;
     for (int i = 0; i < m_floodRequests.size(); i++)
@@ -289,36 +296,38 @@ void FloodModule::processFloodWaiting()
 
     FloodRequest temp = m_floodRequests[selected];
 
-    if (m_botData[temp.sender].floodData.channelList.contains(temp.channel))
+    foreach (FloodMessage flood, m_botData[temp.sender].floodData.floodList)
     {
-        QString randomPart = randomizeFloodMessage();
-        sendChatMessage(temp.sender, m_botData[temp.sender].floodData.floodMessage+randomPart, temp.channel);
+        if (flood.message == temp.message && flood.channel == temp.channel)
+        {
+            QString randomPart = randomizeFloodMessage();
+            sendChatMessage(temp.sender, flood.message+randomPart, temp.channel);
 
-        m_floodRequests[0].elapsedTime.restart();
-        QTimer::singleShot(temp.estimatedTime, this, SLOT(processFloodWaiting()));
+            m_floodRequests[0].elapsedTime.restart();
+            QTimer::singleShot(temp.estimatedTime, this, SLOT(processFloodWaiting()));
+        }
+        else
+            m_floodRequests.removeFirst();
     }
-
-    else
-        m_floodRequests.removeFirst();
 }
 
 void FloodModule::endFlood(SocketIO *sender)
 {
-    m_botData[sender].floodData.channelList.clear();
-    m_botData[sender].floodData.floodMessage.clear();
+    m_botData[sender].floodData.floodList.clear();
 }
 
-void FloodModule::addFloodChannel(SocketIO *sender, const Channel &channel)
+void FloodModule::addFloodChannel(SocketIO *sender, const FloodMessage &flood)
 {
-    if (!m_botData[sender].floodData.channelList.contains(channel))
-        m_botData[sender].floodData.channelList<<channel;
+    if (!m_botData[sender].floodData.floodList.contains(flood))
+        m_botData[sender].floodData.floodList<<flood;
 
     FloodRequest temp;
     temp.sender = sender;
-    temp.channel = channel;
+    temp.channel = flood.channel;
+    temp.message = flood.message;
     temp.elapsedTime.start();
 
-    switch (channel)
+    switch (flood.channel)
     {
     default:
         throw "ERREUR - FloodModule ne connait pas cette channel";
@@ -338,8 +347,8 @@ void FloodModule::addFloodChannel(SocketIO *sender, const Channel &channel)
 
     case CHANNELPRIVATE:
     {
-        if (!m_botData[sender].floodData.channelList.contains(channel))
-            m_botData[sender].floodData.channelList<<channel;
+        if (!m_botData[sender].floodData.floodList.contains(flood))
+            m_botData[sender].floodData.floodList<<flood;
     }
         break;
     }
@@ -348,15 +357,9 @@ void FloodModule::addFloodChannel(SocketIO *sender, const Channel &channel)
     QTimer::singleShot(temp.estimatedTime, this, SLOT(processFloodWaiting()));
 }
 
-void FloodModule::removeFloodChannel(SocketIO *sender, const Channel &channel)
+void FloodModule::removeFloodChannel(SocketIO *sender, const FloodMessage &flood)
 {
-    m_botData[sender].floodData.channelList.removeOne(channel);
-}
-
-void FloodModule::modifyFloodMessage(SocketIO *sender, const QString &message)
-{
-    if (!m_botData[sender].floodData.isUsingFile)
-        m_botData[sender].floodData.floodMessage = message;
+    m_botData[sender].floodData.floodList.removeOne(flood);
 }
 
 QString FloodModule::randomizeFloodMessage()
@@ -365,92 +368,4 @@ QString FloodModule::randomizeFloodMessage()
     list<<"#"<<"\""<<"'"<<"@"<<"$"<<"%"<<"/"<<".";
 
     return " "+list[rand() % list.size()]+list[rand() % list.size()];
-}
-
-void FloodModule::setIsUsingFile(SocketIO* sender, const bool isUsingFile)
-{
-    m_botData[sender].floodData.isUsingFile = isUsingFile;
-
-    if (!isUsingFile)
-    {
-        m_botData[sender].floodData.changeTimer = 0;
-        m_botData[sender].floodData.messageIndex = -1;
-        m_botData[sender].floodData.messageFile.clear();
-        m_botData[sender].floodData.floodMessage.clear();
-    }
-}
-
-bool FloodModule::loadTimerFromFile(SocketIO* sender, const uint timer)
-{
-    if (!timer || !m_botData[sender].floodData.isUsingFile)
-        return false;
-
-    m_botData[sender].floodData.changeTimer = timer;
-    return true;
-}
-
-bool FloodModule::loadMessagesFromFile(SocketIO* sender, const QStringList messages)
-{
-    if (messages.isEmpty())
-        return false;
-
-    foreach (QString str, messages)
-    {
-        QString s = str;
-        s.simplified();
-        s.replace(" ", "");
-
-        if (s.isEmpty())
-            return false;
-    }
-
-    m_botData[sender].floodData.messageIndex++;
-    m_botData[sender].floodData.messageFile = messages;
-    m_botData[sender].floodData.floodMessage = messages.first();
-    return true;
-}
-
-void FloodModule::changeFloodMessage()
-{
-    QMap<SocketIO*, uint> time;
-    foreach (SocketIO* sender, m_botData.keys())
-    {
-        qDebug() << m_botData[sender].floodData.changeTimer*60000 - m_botData[sender].floodData.timer.elapsed();
-        time[sender] = m_botData[sender].floodData.changeTimer - m_botData[sender].floodData.timer.elapsed();
-    }
-
-    int a = 99999;
-    SocketIO* selected;
-    foreach (int val, time.values())
-    {
-        if (val < a)
-        {
-            a = val;
-            selected = time.key(val);
-        }
-    }
-
-    if (m_botData[selected].floodData.isUsingFile && !m_botData[selected].floodData.messageFile.isEmpty())
-    {
-        m_botData[selected].floodData.messageIndex++;
-        m_botData[selected].floodData.floodMessage = m_botData[selected].floodData.messageFile[m_botData[selected].floodData.messageIndex % m_botData[selected].floodData.messageFile.size()];
-        QTimer::singleShot(m_botData[selected].floodData.changeTimer*60000, this, SLOT(changeFloodMessage()));
-        m_botData[selected].floodData.timer.restart();
-    }
-
-}
-
-void FloodModule::setFileContent(SocketIO *sender, QByteArray content)
-{
-    m_botData[sender].floodData.fileContent = content;
-}
-
-QByteArray FloodModule::getFileContent(SocketIO *sender)
-{
-    return m_botData[sender].floodData.fileContent;
-}
-
-bool FloodModule::getIsUsingFile(SocketIO *sender)
-{
-    return m_botData[sender].floodData.isUsingFile;
 }

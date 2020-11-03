@@ -23,6 +23,7 @@ struct FloodRequest
 {
     SocketIO* sender;   /*!< Pointer to the bot instance */
     Channel channel;    /*!< Channel to flood on */
+    QString message;
     QTime elapsedTime;  /*!< Timer of elapsed time since the last message sent */
     int estimatedTime;  /*!< Cooldown between two messages */
 };
@@ -120,82 +121,23 @@ public:
      * \param sender Bot's particular connection
      * \param channels List of channels in which to flood
      */
-    void initFlood(SocketIO *sender, const QList<Channel> &channels);
+    void initFlood(SocketIO *sender, const QList<FloodMessage> &floods);
 
     /*!
      * \brief Adds a channel in the channel list to flood of the specified bot.
      * \param sender Bot's particular connection
      * \param channel Channel to add
      */
-    void addFloodChannel(SocketIO* sender, const Channel &channel);
+    void addFloodChannel(SocketIO* sender, const FloodMessage &flood);
 
     /*!
      * \brief Removes a channel from the channel list to flood of the specified bot.
      * \param sender Bot's particular connection
      * \param channel Channel to remove
      */
-    void removeFloodChannel(SocketIO* sender, const Channel &channel);
-
-    /*!
-     * \brief Updates the message flooded by the specified bot.
-     * \param sender Bot's particular connection
-     * \param message New message to FloodData
-     */
-    void modifyFloodMessage(SocketIO* sender, const QString &message);
-
-    /*!
-     * \brief Attemps to load a list of message to flood for the specified bot.
-     * Returns true if the message where successfully loaded, false if not.
-     * The message to flood will automatically go to the next one when the timer is elapsed.
-     * \param sender Bot's particular connection
-     * \param messages List of message to flood
-     * \return bool Returns true if the message where successfully loaded, false if not
-     */
-    bool loadMessagesFromFile(SocketIO* sender, const QStringList messages);
-
-    /*!
-     * \brief Toggles flood from file.
-     * \param sender Bot's particular connection
-     * \param isUsingFile Set to true to activate and false to disable
-     */
-    void setIsUsingFile(SocketIO* sender, const bool isUsingFile);
-
-    /*!
-     * \brief Attemps to define the message rotation cooldown when using a list of predefined message loaded through a flood file.
-     * \param sender Bot's particular connection
-     * \param timer Cooldown to change flood message
-     * \return bool Returns true if the timer was set correctly, false if NotificationByServerMessage
-     */
-    bool loadTimerFromFile(SocketIO* sender, const uint timer);
-
-    /*!
-     * \brief Sets the content of the flood file when user loads a file to define
-     * a set of predefined messages to flood with a rotation timer.
-     * \param sender Bot's particular connection
-     * \param content Content of the file
-     */
-    void setFileContent(SocketIO *sender, QByteArray content);
-
-    /*!
-     * \brief Gets the loaded flood file content that was previously loaded by the user.
-     * \param sender Bot's particular connection
-     * \return QByteArray File content
-     */
-    QByteArray getFileContent(SocketIO *sender);
-
-    /*!
-     * \brief Checks if the specified bot uses a flood file. Returns true if the bot is using it, false if not.
-     * \param sender Bot's particular connection
-     * \return bool Returns true if user is using flood file, false if not
-     */
-    bool getIsUsingFile(SocketIO *sender);
+    void removeFloodChannel(SocketIO* sender, const FloodMessage &flood);
 
 private slots:
-    /*!
-     * \brief Event for I don't know bro really
-     */
-    void changeFloodMessage();
-
     /*!
      * \brief Event allow to wait before send a message
      */

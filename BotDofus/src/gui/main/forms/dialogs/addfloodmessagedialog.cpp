@@ -29,6 +29,11 @@ int AddFloodMessageDialog::getCanal()
     return m_canal;
 }
 
+QTime AddFloodMessageDialog::getInterval()
+{
+    return m_interval;
+}
+
 void AddFloodMessageDialog::on_radioButtonPublic_clicked()
 {
     ui->groupBoxPublic->setEnabled(true);
@@ -60,4 +65,9 @@ void AddFloodMessageDialog::on_lineEditMessage_textChanged(const QString &arg1)
 void AddFloodMessageDialog::on_comboBoxCanal_currentIndexChanged(int index)
 {
     m_canal = index;
+}
+
+void AddFloodMessageDialog::on_timeEdit_timeChanged(const QTime &time)
+{
+    m_interval = time;
 }
