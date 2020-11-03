@@ -340,21 +340,6 @@ void AccountForm::updateInterface()
 
         // Kamas du personnage
         ui->labelKamas->setText(QString("%1 <b>₭</b>").arg(infos.playerData.kamas));
-
-//        if(m_accountFormChilds.size())
-//        {
-//            bool memberNotConnected = false;
-//            foreach(AccountForm *accountForm, m_accountFormChilds)
-//            {
-//                if(accountForm->getData().connectionData.connectionState != ConnectionState::CONNECTED || accountForm->getData().generalData.botState != BotState::INACTIVE_STATE)
-//                    memberNotConnected = true;
-//            }
-
-//            if(!memberNotConnected)
-//            {
-//                m_engine->getGroupModule().setMaster(m_sender, getData().connectionData.connectionInfos.masterGroup);
-//            }
-//        }
     }
 
     if (infos.connectionData.connectionState == ConnectionState::TRANSITION)
@@ -474,13 +459,9 @@ void AccountForm::on_pushButtonClose_clicked()
                 foreach(AccountForm *accountForm, m_accountFormChilds)
                 {
                     if (accountForm->getSocket()->isActive())
-                    {
                         accountForm->getEngine()->getConnectionModule().disconnect(accountForm->getSocket());
-                        emit remove(accountForm, true);
-                    }
 
-                    else
-                        emit remove(accountForm, true);
+                    emit remove(accountForm, true);
                 }
             }
             m_engine->getConnectionModule().disconnect(m_sender);
@@ -495,13 +476,9 @@ void AccountForm::on_pushButtonClose_clicked()
             foreach(AccountForm *accountForm, m_accountFormChilds)
             {
                 if (accountForm->getSocket()->isActive())
-                {
                     accountForm->getEngine()->getConnectionModule().disconnect(accountForm->getSocket());
-                    emit remove(accountForm, true);
-                }
 
-                else
-                    emit remove(accountForm, true);
+                emit remove(accountForm, true);
             }
         }
         emit remove(this);

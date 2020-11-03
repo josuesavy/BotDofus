@@ -20,8 +20,6 @@
 #include "src/Engines/Storage/DataHandler.h"
 #include "src/Engines/Misc/Logging/LogOutput.h"
 
-#define UPDATE_INTERVAL 500
-
 namespace Ui {
 class AccountForm;
 }
