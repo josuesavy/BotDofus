@@ -622,7 +622,7 @@ bool ConnectionModule::processMessage(const MessageInfos &data, SocketIO *sender
         message.deserialize(&reader);
         
         if (message.position != 0)
-            action(sender)<< "Vous êtes" << message.position<<"/"<<message.total << "dans la file d'attente.";
+            action(sender)<< D2OManagerSingleton::get()->getI18N()->getText("ui.queue.number").arg(message.position).arg(message.total);
     }
         break;
         
