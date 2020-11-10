@@ -489,7 +489,7 @@ bool MapModule::processMessage(const MessageInfos &data, SocketIO *sender)
         CharacterLevelUpInformationMessage message;
         message.deserialize(&reader);
 
-        info(sender) << message.name << "vient de passer niveau" << message.newLevel << ".";
+        info(sender) << message.name << "vient de passer niveau" << message.newLevel;
     }
         break;
 

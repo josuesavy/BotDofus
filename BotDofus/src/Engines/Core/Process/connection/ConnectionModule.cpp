@@ -234,7 +234,7 @@ bool ConnectionModule::processMessage(const MessageInfos &data, SocketIO *sender
         message.deserialize(&reader);
         
         if (message.position != 0)
-            action(sender)<< "Vous êtes" << message.position<<"/"<<message.total << "dans la file d'attente.";
+            action(sender)<< D2OManagerSingleton::get()->getI18N()->getText("ui.queue.number").arg(message.position).arg(message.total);
     }
         break;
         
@@ -342,9 +342,12 @@ bool ConnectionModule::processMessage(const MessageInfos &data, SocketIO *sender
         
         m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
         
-        error(sender) << "La version"<<(int)DofusVersion::MAJOR<<"."<<(int)DofusVersion::MINOR<<"."<<(int)DofusVersion::CODE<<":"<<(int)DofusVersion::BUILD<<" de DOFUS installée est invalide pour ce serveur. Pour accéder au jeu, la version "<<message.requiredVersion.major<<"."<<message.requiredVersion.minor<<"."<<message.requiredVersion.code<<"."<<message.requiredVersion.build<<"est nécessaire.";
+        QString oldVersion = QString("%1.%2.%3.%4").arg((int)DofusVersion::MAJOR).arg((int)DofusVersion::MINOR).arg((int)DofusVersion::CODE).arg((int)DofusVersion::BUILD);
+        QString newVersion = QString("%1.%2.%3.%4").arg(message.requiredVersion.major).arg(message.requiredVersion.minor).arg(message.requiredVersion.code).arg(message.requiredVersion.build);
 
-        qDebug()<<"INFOS - ConnectionModule : Bad version " <<(int)DofusVersion::MAJOR<<"."<<(int)DofusVersion::MINOR<<"."<<(int)DofusVersion::CODE<<":"<<(int)DofusVersion::BUILD<<"->"<<message.requiredVersion.major<<"."<<message.requiredVersion.minor<<"."<<message.requiredVersion.code<<"."<<message.requiredVersion.build;
+        error(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.popup.accessDenied.badVersion").arg(oldVersion).arg(newVersion);
+
+        qDebug() << "INFOS - ConnectionModule : Bad version " << oldVersion << "->" << newVersion;
 
         sender->disconnect();
     }
