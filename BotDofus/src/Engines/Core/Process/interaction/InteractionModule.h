@@ -82,7 +82,7 @@ public:
      * \param action
      * \return bool
      */
-    bool processUse(SocketIO *sender, int id, QString action);
+    bool processUse(SocketIO *sender, int id);
 
     /*!
      * \brief Clears the bank settings of the specified bot.
