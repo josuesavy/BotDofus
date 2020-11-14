@@ -21,61 +21,74 @@ void AddAccountForm::on_pushButtonAddAccount_clicked()
     {
         QSqlQuery query;
 
-        if(ui->groupBoxOptions->isChecked() && ui->lineEditAccount->text().contains("%"))
+        if(ui->groupBoxOptions->isChecked())
         {
-            if(ui->spinBox->value() > ui->spinBox_2->value())
-                QMessageBox::critical(this,"Erreur","La valeur de la première itération doit être inférieur à celle de fin.");
+            if (ui->lineEditAccount->text().contains("%"))
+            {
+                int begin = ui->spinBox->value();
+                int end = ui->spinBox_2->value();
+                QString login = ui->lineEditAccount->text();
+                QString password = ui->lineEditPassword->text();
+
+                if(begin > end)
+                    QMessageBox::critical(this,"Erreur","La valeur de la première itération doit être inférieur à celle de la deuxième.");
+
+                else
+                {
+                    QString request = "INSERT INTO accounts (login, password) SELECT t.login, t.password FROM ";
+                    QString value = "(";
+
+                    for(int i = begin; i <= end; i++)
+                    {
+                        QString loginTemp = login;
+                        value.append(QString("SELECT '%1' AS login, '%2' AS password UNION ALL ").arg(loginTemp.replace("%", QString::number(i))).arg(password));
+                    }
+
+                    value.remove(value.size() -11, 11);
+                    value += ") AS t WHERE NOT EXISTS (SELECT login, password FROM accounts a WHERE a.login = t.login)";
+
+                    request += value;
+
+                    query.prepare(request);
+
+                    if(query.exec())
+                    {
+                        QMessageBox::information(this,"Sauvegarde","Les comptes ont été ajoutés !");
+
+                        ui->lineEditAccount->clear();
+                        ui->lineEditPassword->clear();
+                    }
+                    else
+                        QMessageBox::critical(this,"Erreur", query.lastError().text());
+                }
+            }
 
             else
-            {
-                QString value = "VALUES";
-
-                for(int i = ui->spinBox->value(); i <= ui->spinBox_2->value(); i++)
-                {
-                    QString login = ui->lineEditAccount->text();
-
-                    value.append(QString("('%1','%2'),").arg(login.replace("%", QString::number(i))).arg(ui->lineEditPassword->text()));
-                }
-
-                value.remove(value.size()-1, 1);
-
-                query.prepare(QString("INSERT INTO accounts (login, password) %1").arg(value));
-
-                if(query.exec())
-                    QMessageBox::information(this,"Sauvegarde","Les comptes ont été ajoutés !");
-                else
-                    qDebug() << query.lastError();
-            }
+                QMessageBox::critical(this,"Erreur", "Le caractère '<b>%</b>' n'est pas définis dans le nom de compte.");
         }
 
         else
         {
-            query.prepare("SELECT login FROM accounts WHERE login = (:login)");
+            query.prepare("INSERT INTO accounts (login, password) SELECT :login, :password WHERE NOT EXISTS (SELECT login, password FROM accounts WHERE login = :login)");
             query.bindValue(":login", ui->lineEditAccount->text());
-            if (query.exec())
+            query.bindValue(":password", ui->lineEditPassword->text());
+
+            if(query.exec())
             {
-               if (query.next())
-                   QMessageBox::critical(this,"Sauvegarde","Le compte existe déjà !");
+                QMessageBox::information(this,"Sauvegarde","Le compte a été ajouté !");
 
-               else
-               {
-                   query.prepare("INSERT INTO accounts (login, password) VALUES (:login,:password)");
-                   query.bindValue(":login", ui->lineEditAccount->text());
-                   query.bindValue(":password", ui->lineEditPassword->text());
-
-                   if(query.exec())
-                       QMessageBox::information(this,"Sauvegarde","Le compte a été ajouté !");
-               }
+                ui->lineEditAccount->clear();
+                ui->lineEditPassword->clear();
             }
-
-
+            else
+                QMessageBox::critical(this,"Erreur", query.lastError().text());
         }
-
-        ui->lineEditAccount->clear();
-        ui->lineEditPassword->clear();
 
         emit updateListAccounts(); // initialization() in LoaderAccountForm
     }
+
+    else
+        QMessageBox::critical(this,"Erreur", "Veuillez remplir les champs de connexion.");
 }
 
 void AddAccountForm::on_pushButtonRefreshAccountName_clicked()
