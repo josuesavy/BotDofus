@@ -192,7 +192,7 @@ bool ConnectionModule::processMessage(const MessageInfos &data, SocketIO *sender
 
                     case ServerStatusEnum::NOJOIN:
                     {
-                        warn(sender)<<"Impossible de se joindre au serveur"<<server->getName();
+                        warn(sender)<<"Serveur"<<server->getName()<<"injoignable";
                         m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
                         sender->disconnect();
                     }
@@ -673,7 +673,7 @@ bool ConnectionModule::processMessage(const MessageInfos &data, SocketIO *sender
             }
         }
 
-        else if(m_botData[sender].connectionData.connectionInfos.characterCreated && !m_botData[sender].connectionData.connectionInfos.needToCreateCharacter)
+        else if(!m_botData[sender].connectionData.connectionInfos.needToCreateCharacter && m_botData[sender].connectionData.connectionInfos.characterCreated)
         {
             action(sender) << "Sélection du personnage" << message.characters.first()->name + "...";
             m_botData[sender].playerData.breed = message.characters.first()->breed;
@@ -684,7 +684,7 @@ bool ConnectionModule::processMessage(const MessageInfos &data, SocketIO *sender
             sender->send(answer);
         }
 
-        else if(m_botData[sender].connectionData.connectionInfos.connectionTo == ConnectionTo::CHARACTER || m_botData[sender].connectionData.connectionInfos.connectionTo == ConnectionTo::SERVER)
+        else if(m_botData[sender].connectionData.connectionInfos.connectionTo == ConnectionTo::CHARACTER || m_botData[sender].connectionData.connectionInfos.connectionTo == ConnectionTo::SERVER || m_botData[sender].connectionData.connectionInfos.character.isEmpty())
         {
             QStringList items;
             foreach(QSharedPointer<CharacterBaseInformations> infos, message.characters)
@@ -712,40 +712,28 @@ bool ConnectionModule::processMessage(const MessageInfos &data, SocketIO *sender
 
         else
         {
-            if(m_botData[sender].connectionData.connectionInfos.character.isEmpty())
-            {
-                action(sender) << "Sélection du personnage" << message.characters.first()->name + "...";
+            action(sender) << "Sélection du personnage" << m_botData[sender].connectionData.connectionInfos.character + "...";
 
+            foreach (QSharedPointer<CharacterBaseInformations> infos, message.characters)
+            {
+                if (infos->name == m_botData[sender].connectionData.connectionInfos.character)
+                {
+                    m_botData[sender].mapData.botId = infos->id;
+                    m_botData[sender].playerData.breed = infos->breed;
+                }
+            }
+
+            if (m_botData[sender].mapData.botId != INVALID)
+            {
                 CharacterSelectionMessage answer;
-                answer.id = message.characters.first()->id;
+                answer.id = m_botData[sender].mapData.botId;
                 sender->send(answer);
             }
 
             else
             {
-                action(sender) << "Sélection du personnage" << m_botData[sender].connectionData.connectionInfos.character + "...";
-
-                foreach (QSharedPointer<CharacterBaseInformations> infos, message.characters)
-                {
-                    if (infos->name == m_botData[sender].connectionData.connectionInfos.character)
-                    {
-                        m_botData[sender].mapData.botId = infos->id;
-                        m_botData[sender].playerData.breed = infos->breed;
-                    }
-                }
-
-                if (m_botData[sender].mapData.botId != INVALID)
-                {
-                    CharacterSelectionMessage answer;
-                    answer.id = m_botData[sender].mapData.botId;
-                    sender->send(answer);
-                }
-
-                else
-                {
-                    error(sender)<<"Le personnage"<<m_botData[sender].connectionData.connectionInfos.character<<"n'existe pas ou n'est pas sur ce serveur.";
-                    sender->disconnect();
-                }
+                error(sender)<<"Le personnage"<<m_botData[sender].connectionData.connectionInfos.character<<"n'existe pas ou n'est pas sur ce serveur.";
+                sender->disconnect();
             }
         }
     }
