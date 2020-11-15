@@ -171,6 +171,9 @@
      <property name="selectionMode">
       <enum>QAbstractItemView::ExtendedSelection</enum>
      </property>
+     <property name="sortingEnabled">
+      <bool>true</bool>
+     </property>
      <attribute name="headerStretchLastSection">
       <bool>false</bool>
      </attribute>

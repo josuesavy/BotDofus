@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>418</width>
+    <width>454</width>
     <height>359</height>
    </rect>
   </property>
@@ -28,7 +28,7 @@
    <item row="1" column="0">
     <widget class="QCheckBox" name="checkBoxCloseAfterLoaded">
      <property name="text">
-      <string>Fermer automatique après le chargement de comptes</string>
+      <string>Fermer après chargement</string>
      </property>
     </widget>
    </item>

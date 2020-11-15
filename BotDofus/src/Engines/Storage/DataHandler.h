@@ -714,6 +714,7 @@ struct PlayerData
     bool isRequestingFreeSoul = false;
     bool hasSentRequestFreeSoul = false;
     double subscriptionEndDate = INVALID;
+    double subscriptionElapsedDuration = INVALID;
     bool automaticallyAcceptAchievement = false;
     QList<InventoryObject> healInventory;
     int breed = 0;

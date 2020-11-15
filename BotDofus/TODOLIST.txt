@@ -30,4 +30,5 @@ Statistiques
 
 Divers
  [ ] Il y a une mesure anti-bot (ou pas) où j'arrive pas a récup toute les mapids des maps...
+ [ ] Certaines cartes ont des voisins inconnue quand on veut se deplacer
  [ ] Lors de la connexion d'un groupe, vérifier si tous sont sur le même serveur (bof)

@@ -192,7 +192,7 @@ bool ConnectionModule::processMessage(const MessageInfos &data, SocketIO *sender
 
                     case ServerStatusEnum::NOJOIN:
                     {
-                        warn(sender)<<"Impossible de se joindre au serveur"<<server->getName();
+                        warn(sender)<<"Serveur"<<server->getName()<<"injoignable";
                         m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
                         sender->disconnect();
                     }
@@ -234,7 +234,7 @@ bool ConnectionModule::processMessage(const MessageInfos &data, SocketIO *sender
         message.deserialize(&reader);
         
         if (message.position != 0)
-            action(sender)<< "Vous êtes" << message.position<<"/"<<message.total << "dans la file d'attente.";
+            action(sender)<< D2OManagerSingleton::get()->getI18N()->getText("ui.queue.number").arg(message.position).arg(message.total);
     }
         break;
         
@@ -244,6 +244,7 @@ bool ConnectionModule::processMessage(const MessageInfos &data, SocketIO *sender
         message.deserialize(&reader);
         m_botData[sender].playerData.accountId = message.accountId;
         m_botData[sender].playerData.subscriptionEndDate = message.subscriptionEndDate;
+        m_botData[sender].playerData.subscriptionElapsedDuration = message.subscriptionElapsedDuration;
 
         QSqlQuery query;
         query.prepare("UPDATE accounts SET isbanned = :isbanned WHERE login = :login");
@@ -341,9 +342,12 @@ bool ConnectionModule::processMessage(const MessageInfos &data, SocketIO *sender
         
         m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
         
-        error(sender) << "La version"<<(int)DofusVersion::MAJOR<<"."<<(int)DofusVersion::MINOR<<"."<<(int)DofusVersion::CODE<<":"<<(int)DofusVersion::BUILD<<" de DOFUS installée est invalide pour ce serveur. Pour accéder au jeu, la version "<<message.requiredVersion.major<<"."<<message.requiredVersion.minor<<"."<<message.requiredVersion.code<<"."<<message.requiredVersion.build<<"est nécessaire.";
+        QString oldVersion = QString("%1.%2.%3.%4").arg((int)DofusVersion::MAJOR).arg((int)DofusVersion::MINOR).arg((int)DofusVersion::CODE).arg((int)DofusVersion::BUILD);
+        QString newVersion = QString("%1.%2.%3.%4").arg(message.requiredVersion.major).arg(message.requiredVersion.minor).arg(message.requiredVersion.code).arg(message.requiredVersion.build);
 
-        qDebug()<<"INFOS - ConnectionModule : Bad version " <<(int)DofusVersion::MAJOR<<"."<<(int)DofusVersion::MINOR<<"."<<(int)DofusVersion::CODE<<":"<<(int)DofusVersion::BUILD<<"->"<<message.requiredVersion.major<<"."<<message.requiredVersion.minor<<"."<<message.requiredVersion.code<<"."<<message.requiredVersion.build;
+        error(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.popup.accessDenied.badVersion").arg(oldVersion).arg(newVersion);
+
+        qDebug() << "INFOS - ConnectionModule : Bad version " << oldVersion << "->" << newVersion;
 
         sender->disconnect();
     }
@@ -618,7 +622,7 @@ bool ConnectionModule::processMessage(const MessageInfos &data, SocketIO *sender
         message.deserialize(&reader);
         
         if (message.position != 0)
-            action(sender)<< "Vous êtes" << message.position<<"/"<<message.total << "dans la file d'attente.";
+            action(sender)<< D2OManagerSingleton::get()->getI18N()->getText("ui.queue.number").arg(message.position).arg(message.total);
     }
         break;
         
@@ -669,7 +673,7 @@ bool ConnectionModule::processMessage(const MessageInfos &data, SocketIO *sender
             }
         }
 
-        else if(m_botData[sender].connectionData.connectionInfos.characterCreated && !m_botData[sender].connectionData.connectionInfos.needToCreateCharacter)
+        else if(!m_botData[sender].connectionData.connectionInfos.needToCreateCharacter && m_botData[sender].connectionData.connectionInfos.characterCreated)
         {
             action(sender) << "Sélection du personnage" << message.characters.first()->name + "...";
             m_botData[sender].playerData.breed = message.characters.first()->breed;
@@ -680,7 +684,7 @@ bool ConnectionModule::processMessage(const MessageInfos &data, SocketIO *sender
             sender->send(answer);
         }
 
-        else if(m_botData[sender].connectionData.connectionInfos.connectionTo == ConnectionTo::CHARACTER || m_botData[sender].connectionData.connectionInfos.connectionTo == ConnectionTo::SERVER)
+        else if(m_botData[sender].connectionData.connectionInfos.connectionTo == ConnectionTo::CHARACTER || m_botData[sender].connectionData.connectionInfos.connectionTo == ConnectionTo::SERVER || m_botData[sender].connectionData.connectionInfos.character.isEmpty())
         {
             QStringList items;
             foreach(QSharedPointer<CharacterBaseInformations> infos, message.characters)
@@ -708,40 +712,28 @@ bool ConnectionModule::processMessage(const MessageInfos &data, SocketIO *sender
 
         else
         {
-            if(m_botData[sender].connectionData.connectionInfos.character.isEmpty())
-            {
-                action(sender) << "Sélection du personnage" << message.characters.first()->name + "...";
+            action(sender) << "Sélection du personnage" << m_botData[sender].connectionData.connectionInfos.character + "...";
 
+            foreach (QSharedPointer<CharacterBaseInformations> infos, message.characters)
+            {
+                if (infos->name == m_botData[sender].connectionData.connectionInfos.character)
+                {
+                    m_botData[sender].mapData.botId = infos->id;
+                    m_botData[sender].playerData.breed = infos->breed;
+                }
+            }
+
+            if (m_botData[sender].mapData.botId != INVALID)
+            {
                 CharacterSelectionMessage answer;
-                answer.id = message.characters.first()->id;
+                answer.id = m_botData[sender].mapData.botId;
                 sender->send(answer);
             }
 
             else
             {
-                action(sender) << "Sélection du personnage" << m_botData[sender].connectionData.connectionInfos.character + "...";
-
-                foreach (QSharedPointer<CharacterBaseInformations> infos, message.characters)
-                {
-                    if (infos->name == m_botData[sender].connectionData.connectionInfos.character)
-                    {
-                        m_botData[sender].mapData.botId = infos->id;
-                        m_botData[sender].playerData.breed = infos->breed;
-                    }
-                }
-
-                if (m_botData[sender].mapData.botId != INVALID)
-                {
-                    CharacterSelectionMessage answer;
-                    answer.id = m_botData[sender].mapData.botId;
-                    sender->send(answer);
-                }
-
-                else
-                {
-                    error(sender)<<"Le personnage"<<m_botData[sender].connectionData.connectionInfos.character<<"n'existe pas ou n'est pas sur ce serveur.";
-                    sender->disconnect();
-                }
+                error(sender)<<"Le personnage"<<m_botData[sender].connectionData.connectionInfos.character<<"n'existe pas ou n'est pas sur ce serveur.";
+                sender->disconnect();
             }
         }
     }
