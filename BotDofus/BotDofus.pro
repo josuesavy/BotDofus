@@ -1243,6 +1243,7 @@ HEADERS += \
     src/Protocol/Messages/Data/game/interactive/meeting/TeleportToBuddyCloseMessage.h \
     src/Protocol/Messages/Data/game/interactive/meeting/TeleportToBuddyOfferMessage.h \
     src/Protocol/Messages/Data/game/interactive/skill/InteractiveUseWithParamRequestMessage.h \
+    src/Protocol/Messages/Data/game/interactive/zaap/KnownZaapListMessage.h \
     src/Protocol/Messages/Data/game/interactive/zaap/TeleportDestinationsMessage.h \
     src/Protocol/Messages/Data/game/interactive/zaap/TeleportRequestMessage.h \
     src/Protocol/Messages/Data/game/interactive/zaap/ZaapDestinationsMessage.h \
@@ -2976,6 +2977,7 @@ SOURCES += \
     src/Protocol/Messages/Data/game/interactive/meeting/TeleportToBuddyCloseMessage.cpp \
     src/Protocol/Messages/Data/game/interactive/meeting/TeleportToBuddyOfferMessage.cpp \
     src/Protocol/Messages/Data/game/interactive/skill/InteractiveUseWithParamRequestMessage.cpp \
+    src/Protocol/Messages/Data/game/interactive/zaap/KnownZaapListMessage.cpp \
     src/Protocol/Messages/Data/game/interactive/zaap/TeleportDestinationsMessage.cpp \
     src/Protocol/Messages/Data/game/interactive/zaap/TeleportRequestMessage.cpp \
     src/Protocol/Messages/Data/game/interactive/zaap/ZaapDestinationsMessage.cpp \
