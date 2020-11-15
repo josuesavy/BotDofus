@@ -50,7 +50,7 @@ void LoaderAccountForm::initialization()
             account.login = query.value(2).toString();
             account.password = query.value(3).toString();
             account.character = query.value(4).toString();
-            account.serverId = query.value(5).toInt();
+            account.serverId = query.value(5).toInt() == 0? INVALID: query.value(5).toInt();
             account.isBanned = query.value(6).toBool();
             account.lastConnection = query.value(7).toLongLong();
 
