@@ -40,7 +40,6 @@ public:
     Q_INVOKABLE void changeToNearestCell(uint cell);
     Q_INVOKABLE void useInteractive(uint cell);
     Q_INVOKABLE void showInfos(uint cell);
-    Q_INVOKABLE void hideInfos();
 
     enum MapViewerCellEnum
     {
@@ -93,10 +92,10 @@ private:
     QList<uint> m_defenderOnMap;
     QList<uint> m_challengerOnMap;
 
-    QList<InteractiveDisplayInfos> inl;
-    QList<MonsterGroup> ml;
-    QList<EntityInfos> pl;
-    QList<NpcInfos> npcl;
+    QList<InteractiveDisplayInfos> interactiveDisplayInfosList;
+    QList<MonsterGroup> monsterGroupList;
+    QList<EntityInfos> entityInfosList;
+    QList<NpcInfos> npcInfosList;
 };
 
 #endif // MAPFORM_H

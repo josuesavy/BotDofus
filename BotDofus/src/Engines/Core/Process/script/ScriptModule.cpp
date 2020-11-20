@@ -332,7 +332,7 @@ void ScriptModule::processNextAction(SocketIO *sender)
             {
                 debug(sender)<<"USE";
 
-                if (m_interactionModule->processUse(sender, f.params.first().toInt(), f.params.at(1).toString()))
+                if (m_interactionModule->processUse(sender, f.params.first().toInt()))
                 {
                     m_botData[sender].scriptData.scriptMaxTime = INTERACTION_MAXTIME;
                     m_botData[sender].scriptData.activeModule = ModuleType::INTERACTION;

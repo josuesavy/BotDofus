@@ -536,7 +536,7 @@ bool InteractionModule::processNpcInteraction(SocketIO *sender, int cellId)
     return false;
 }
 
-bool InteractionModule::processUse(SocketIO *sender, int id, QString action)
+bool InteractionModule::processUse(SocketIO *sender, int id)
 {
     if ((m_botData[sender].interactionData.interactionType != CurrentInteraction::NONE) || m_botData[sender].generalData.botState != BotState::INACTIVE_STATE || m_botData[sender].interactionData.interactionId != INVALID || !m_botData[sender].interactionData.npcDialogs.isEmpty())
         return false;
@@ -545,32 +545,18 @@ bool InteractionModule::processUse(SocketIO *sender, int id, QString action)
     InteractiveElementInfos elem;
     foreach (InteractiveElementInfos e, m_botData[sender].mapData.interactivesOnMap)
     {
-        qDebug() << e.elementId;
-        qDebug() << e.elementTypeId;
-
         if (e.elementId == id)
         {
             elem = e;
-            foreach (int index, D2OManagerSingleton::get()->getIndexes(GameDataTypeEnum::SKILLS))
-            {
-                if (qSharedPointerCast<SkillData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::SKILLS, index))->getName().indexOf(action, Qt::CaseInsensitive) >= 0)
-                {
-                    skill = qSharedPointerCast<SkillData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::SKILLS, index))->getId();
-                    qDebug() << "haah";
-                }
-            }
+            break;
         }
     }
 
-    if (action.isEmpty() && elem.enabledSkills.size())
+    if (elem.enabledSkills.size())
         skill = elem.enabledSkills.first().ID;
-
-    qDebug() << "1-skill:" <<skill;
 
     if (skill == INVALID)
         return false;
-
-    qDebug() << "2-skill:" <<skill;
 
     m_botData[sender].interactionData.actionID = skill;
     m_botData[sender].interactionData.interactionId = elem.elementId;

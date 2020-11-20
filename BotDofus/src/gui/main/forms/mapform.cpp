@@ -12,9 +12,11 @@ MapForm::MapForm(ProcessEngine *engine, const ConnectionInfos &infos, SocketIO *
     m_infos = infos;
     m_sender = sender;
 
-    displayCellIds(false); // Don't display cell id in the beginning
-    cellClicked(false); // Don't display a random cell clicked
+    displayCellIds(false);
+    cellClicked(false);
+
     qmlRegisterType<MapForm>("MapViewerCellEnum", 1, 0, "MapForm");
+
     ui->quickWidget->rootContext()->setContextProperty("mapForm", this);
     ui->quickWidget->setSource(QUrl(QStringLiteral("qrc:/qml/Map.qml")));
 }
@@ -51,11 +53,11 @@ void MapForm::changeToNearestCell(uint cell)
 
 void MapForm::useInteractive(uint cell)
 {
-    foreach (InteractiveDisplayInfos interactive, inl)
+    foreach (InteractiveDisplayInfos interactive, interactiveDisplayInfosList)
     {
-        if(interactive.cellId == cell)
+        if(interactive.cellId == cell && interactive.name.isEmpty())
         {
-            m_engine->getInteractionModule().processUse(m_sender, interactive.id,"");
+            m_engine->getInteractionModule().processUse(m_sender, interactive.id);
             break;
         }
     }
@@ -65,13 +67,13 @@ void MapForm::showInfos(uint cell)
 {
     QString txt;
 
-    foreach (InteractiveDisplayInfos interactive, inl)
+    foreach (InteractiveDisplayInfos interactive, interactiveDisplayInfosList)
     {
         if(interactive.cellId == cell)
             txt += QString("%1 (ID: %2, CellId: %3)").arg(interactive.name).arg(interactive.id).arg(interactive.cellId);
     }
 
-    foreach (MonsterGroup monsters, ml)
+    foreach (MonsterGroup monsters, monsterGroupList)
     {
         if(monsters.cellID == cell)
         {
@@ -81,9 +83,6 @@ void MapForm::showInfos(uint cell)
             txt += QString("<b><center>Niveau %1<center></b>").arg(monsters.level);
             txt += QString("<hr>");
 
-            // stars empty: &#9734;
-            // stars fill: &#9733;
-
             foreach(Monster monster, monsters.monsters)
             {
                 QSharedPointer<MonsterData> m = qSharedPointerCast<MonsterData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::MONSTERS, monster.id));
@@ -92,7 +91,7 @@ void MapForm::showInfos(uint cell)
         }
     }
 
-    foreach (EntityInfos entity, pl)
+    foreach (EntityInfos entity, entityInfosList)
     {
         if(entity.cellId == cell)
         {
@@ -103,7 +102,7 @@ void MapForm::showInfos(uint cell)
         }
     }
 
-    foreach (NpcInfos npc, npcl)
+    foreach (NpcInfos npc, npcInfosList)
     {
         if(npc.cellId == cell)
         {
@@ -117,11 +116,8 @@ void MapForm::showInfos(uint cell)
 
     if(!txt.isEmpty())
         QToolTip::showText(QCursor::pos(), txt);
-}
-
-void MapForm::hideInfos()
-{
-    QToolTip::hideText();
+    else
+        QToolTip::hideText();
 }
 
 void MapForm::updateInterface()
@@ -191,41 +187,39 @@ void MapForm::updateMap()
             }
 
             QList<CellData> mapCells = infos.mapData.map.getCellData();
-            QList<int> c;
-            QList<int> z;
-            QList<int> e;
+            QList<int> collisions;
+            QList<int> entities;
 
             for(int i = 0; i < 560; i++)
             {
                 if(mapCells[i].isWalkable())
-                    c<<((uint)MapViewerCellEnum::NOTHING);
+                    collisions << ((uint)MapViewerCellEnum::NOTHING);
 
                 else if(mapCells[i].isLos())
-                    c<<((uint)MapViewerCellEnum::COLLISION_WITH_SIGHT);
+                    collisions << ((uint)MapViewerCellEnum::COLLISION_WITH_SIGHT);
 
                 else
-                    c<<((uint)MapViewerCellEnum::COLLISION_NO_SIGHT);
+                    collisions << ((uint)MapViewerCellEnum::COLLISION_NO_SIGHT);
 
 
                 if(m_defenderOnMap.contains(i))
-                    e<<((uint)MapViewerCellEnum::MONSTER);
+                    entities << ((uint)MapViewerCellEnum::MONSTER);
 
                 else if(m_challengerOnMap.contains(i))
                 {
                     if(i == selfCellId)
-                        e<<((uint)MapViewerCellEnum::BOT);
+                        entities << ((uint)MapViewerCellEnum::BOT);
 
                     else
-                        e<<((uint)MapViewerCellEnum::PLAYER);
+                        entities << ((uint)MapViewerCellEnum::PLAYER);
                 }
 
                 else
-                    e<<MapViewerCellEnum::NOTHING;
+                    entities << MapViewerCellEnum::NOTHING;
             }
 
-            entityTypes(e);
-            interactiveTypes(z);
-            collisionTypes(c);
+            entityTypes(entities);
+            collisionTypes(collisions);
         }
 
         else
@@ -252,71 +246,70 @@ void MapForm::updateMap()
                 m_monstersOnMap<<monster.cellID;
 
             QMap<int, int> interactivesCellId;
-
             for(int i = 0; i < infos.mapData.interactivesOnMap.size(); i++)
                 interactivesCellId[infos.mapData.map.getInteractiveElementCellID(infos.mapData.interactivesOnMap[i].elementId)] = i;
 
 
             QList<CellData> mapCells = infos.mapData.map.getCellData();
-            QList<int> c;
-            QList<int> z;
-            QList<int> e;
+            QList<int> collisions;
+            QList<int> interactives;
+            QList<int> entities;
 
             for(int i = 0; i < 560; i++)
             {
                 if(mapCells[i].isWalkable())
-                    c<<((uint)MapViewerCellEnum::NOTHING);
+                    collisions<<((uint)MapViewerCellEnum::NOTHING);
 
                 else if(mapCells[i].isLos())
-                    c<<((uint)MapViewerCellEnum::COLLISION_WITH_SIGHT);
+                    collisions<<((uint)MapViewerCellEnum::COLLISION_WITH_SIGHT);
 
                 else
-                    c<<((uint)MapViewerCellEnum::COLLISION_NO_SIGHT);
+                    collisions<<((uint)MapViewerCellEnum::COLLISION_NO_SIGHT);
 
 
                 if(m_monstersOnMap.contains(i))
-                    e<<((uint)MapViewerCellEnum::MONSTER);
+                    entities<<((uint)MapViewerCellEnum::MONSTER);
 
                 else if(m_playersOnMap.contains(i))
                 {
                     if(i == selfCellId)
-                        e<<((uint)MapViewerCellEnum::BOT);
+                        entities<<((uint)MapViewerCellEnum::BOT);
 
                     else
-                        e<<((uint)MapViewerCellEnum::PLAYER);
+                        entities<<((uint)MapViewerCellEnum::PLAYER);
                 }
 
                 else if(pnjsCellId.contains(i))
-                    e<<((uint)MapViewerCellEnum::NPC);
+                    entities<<((uint)MapViewerCellEnum::NPC);
 
                 else if(merchantsCellId.contains(i))
-                    e<<((uint)MapViewerCellEnum::MERCHANT);
+                    entities<<((uint)MapViewerCellEnum::MERCHANT);
 
                 else
-                    e<<MapViewerCellEnum::NOTHING;
+                    entities<<MapViewerCellEnum::NOTHING;
 
 
                 if(interactivesCellId.keys().contains(i))
                 {
                     if(FarmModule::canFarmResource(infos.mapData.interactivesOnMap[interactivesCellId[i]]))
-                        z<<((uint)MapViewerCellEnum::USABLE);
+                        interactives<<((uint)MapViewerCellEnum::USABLE);
 
                     else
-                        z<<((uint)MapViewerCellEnum::INTERACTIVE);
+                        interactives<<((uint)MapViewerCellEnum::INTERACTIVE);
                 }
 
                 else
-                    z<<MapViewerCellEnum::NOTHING;
+                    interactives<<MapViewerCellEnum::NOTHING;
             }
 
-            entityTypes(e);
-            interactiveTypes(z);
-            collisionTypes(c);
+            entityTypes(entities);
+            interactiveTypes(interactives);
+            collisionTypes(collisions);
 
-            inl.clear();
-            ml.clear();
-            pl.clear();
-            npcl.clear();
+            interactiveDisplayInfosList.clear();
+            monsterGroupList.clear();
+            entityInfosList.clear();
+            npcInfosList.clear();
 
             foreach (InteractiveDisplayInfos interactive, infos.interactionData.interactives)
             {
@@ -324,17 +317,17 @@ void MapForm::updateMap()
                 in.id = interactive.id;
                 in.cellId = interactive.cellId;
                 in.name = interactive.name;
-                inl<<in;
+                interactiveDisplayInfosList<<in;
             }
 
             foreach (MonsterGroup monster, infos.mapData.monsterGroupsOnMap.values())
-                ml << monster;
+                monsterGroupList << monster;
 
             foreach (EntityInfos player, infos.mapData.playersOnMap.values())
-                pl << player;
+                entityInfosList << player;
 
             foreach (NpcInfos npc, infos.mapData.npcsOnMap.values())
-                npcl << npc;
+                npcInfosList << npc;
         }
 
         // Display Map's ID
