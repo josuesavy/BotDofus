@@ -2,13 +2,9 @@
 #define PROCESSENGINE_H
 
 #include <QObject>
-#include <QCryptographicHash>
-#include <unistd.h>
 
 #include "src/Engines/Core/CoreEngine.h"
-#include "src/Engines/IO/D2O/D2OManager.h"
-#include "src/Engines/Pathfinding/Map/Pathfinding.h"
-#include "src/Engines/IO/D2O/Misc/ParamsDecoder.h"
+#include "src/Engines/Core/Process/connection/managers/ConnectionManager.h"
 
 class ProcessEngine : public CoreEngine
 {
@@ -25,11 +21,6 @@ private slots:
     void connectToSocket(SocketIO* sender);
 
     void processData(QList<MessageInfos> messages);
-
-private:
-    int basicNoOperationMsgCounter;
-
-    QByteArray fileChecksum(const QString &fileName, QCryptographicHash::Algorithm hashAlgorithm);
 };
 
 #endif // PROCESSENGINE_H
