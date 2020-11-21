@@ -66,7 +66,7 @@ HEADERS += \
     src/Engines/Core/Process/abstract/AbstractFrame.h \
     src/Engines/Core/Process/arena/ArenaModule.h \
     src/Engines/Core/Process/characters/StatsModule.h \
-    src/Engines/Core/Process/common/frames/BasicFrame.h \
+    src/Engines/Core/Process/common/frames/CommonBasicFrame.h \
     src/Engines/Core/Process/connection/ConnectionModule.h \
     src/Engines/Core/Process/connection/frames/AuthentificationFrame.h \
     src/Engines/Core/Process/connection/frames/ConnectionFrame.h \
@@ -86,6 +86,43 @@ HEADERS += \
     src/Engines/Core/Process/game/alliance/frames/AllianceFrame.h \
     src/Engines/Core/Process/game/almanach/frames/AlmanachFrame.h \
     src/Engines/Core/Process/game/approach/frames/ApproachFrame.h \
+    src/Engines/Core/Process/game/atlas/compass/frames/CompassFrame.h \
+    src/Engines/Core/Process/game/basic/frames/GameBasicFrame.h \
+    src/Engines/Core/Process/game/character/choice/frames/GameCharacterChoiceFrame.h \
+    src/Engines/Core/Process/game/character/creation/frames/GameCharacterCreationFrame.h \
+    src/Engines/Core/Process/game/character/deletion/frames/GameCharacterDeletionFrame.h \
+    src/Engines/Core/Process/game/character/stats/frames/GameCharacterStatsFrame.h \
+    src/Engines/Core/Process/game/character/status/frames/GameCharacterStatusFrame.h \
+    src/Engines/Core/Process/game/chat/GameChatFrame.h \
+    src/Engines/Core/Process/game/chat/channel/frames/GameChatChannelFrame.h \
+    src/Engines/Core/Process/game/context/GameContextFrame.h \
+    src/Engines/Core/Process/game/context/fight/GameContextFightFrame.h \
+    src/Engines/Core/Process/game/context/fight/character/GameContextFightCharacterFrame.h \
+    src/Engines/Core/Process/game/context/mount/GameContextMountFrame.h \
+    src/Engines/Core/Process/game/context/notification/GameContextNotificationFrame.h \
+    src/Engines/Core/Process/game/context/roleplay/GameContextRoleplayFrame.h \
+    src/Engines/Core/Process/game/context/roleplay/death/GameContextRoleplayDeathFrame.h \
+    src/Engines/Core/Process/game/context/roleplay/fight/GameContextRoleplayFightFrame.h \
+    src/Engines/Core/Process/game/context/roleplay/fight/arena/GameContextRoleplayFightArenaFrame.h \
+    src/Engines/Core/Process/game/context/roleplay/job/GameContextRoleplayJobFrame.h \
+    src/Engines/Core/Process/game/context/roleplay/npc/GameContextRoleplayNpcFrame.h \
+    src/Engines/Core/Process/game/context/roleplay/objects/GameContextRoleplayObjectsFrame.h \
+    src/Engines/Core/Process/game/context/roleplay/party/GameContextRoleplayPartyFrame.h \
+    src/Engines/Core/Process/game/context/roleplay/quest/GameContextRoleplayQuestFrame.h \
+    src/Engines/Core/Process/game/context/roleplay/stats/GameContextRoleplayStatsFrame.h \
+    src/Engines/Core/Process/game/dialog/GameDialogFrame.h \
+    src/Engines/Core/Process/game/friend/GameFriendFrame.h \
+    src/Engines/Core/Process/game/guild/GameGuildFrame.h \
+    src/Engines/Core/Process/game/initialization/GameInitializationFrame.h \
+    src/Engines/Core/Process/game/interactive/GameInteractiveFrame.h \
+    src/Engines/Core/Process/game/interactive/zaap/GameInteractiveZaapFrame.h \
+    src/Engines/Core/Process/game/inventory/GameInventoryFrame.h \
+    src/Engines/Core/Process/game/inventory/exchanges/GameInventoryExchangesFrame.h \
+    src/Engines/Core/Process/game/inventory/items/GameInventoryItemsFrame.h \
+    src/Engines/Core/Process/game/inventory/spells/GameInventorySpellsFrame.h \
+    src/Engines/Core/Process/game/inventory/storage/GameInventoryStorageFrame.h \
+    src/Engines/Core/Process/game/moderation/GameModerationFrame.h \
+    src/Engines/Core/Process/game/subscriber/GameSubscriberFrame.h \
     src/Engines/Core/Process/group/GroupModule.h \
     src/Engines/Core/Process/handshake/HandshakeFrame.h \
     src/Engines/Core/Process/interaction/InteractionModule.h \
@@ -1930,7 +1967,7 @@ SOURCES += \
     src/Engines/Core/Process/abstract/AbstractFrame.cpp \
     src/Engines/Core/Process/arena/ArenaModule.cpp \
     src/Engines/Core/Process/characters/StatsModule.cpp \
-    src/Engines/Core/Process/common/frames/BasicFrame.cpp \
+    src/Engines/Core/Process/common/frames/CommonBasicFrame.cpp \
     src/Engines/Core/Process/connection/ConnectionModule.cpp \
     src/Engines/Core/Process/connection/frames/ConnectionFrame.cpp \
     src/Engines/Core/Process/connection/frames/GameStartingFrame.cpp \
@@ -1949,6 +1986,43 @@ SOURCES += \
     src/Engines/Core/Process/game/alliance/frames/AllianceFrame.cpp \
     src/Engines/Core/Process/game/almanach/frames/AlmanachFrame.cpp \
     src/Engines/Core/Process/game/approach/frames/ApproachFrame.cpp \
+    src/Engines/Core/Process/game/atlas/compass/frames/CompassFrame.cpp \
+    src/Engines/Core/Process/game/basic/frames/GameBasicFrame.cpp \
+    src/Engines/Core/Process/game/character/choice/frames/GameCharacterChoiceFrame.cpp \
+    src/Engines/Core/Process/game/character/creation/frames/GameCharacterCreationFrame.cpp \
+    src/Engines/Core/Process/game/character/deletion/frames/GameCharacterDeletionFrame.cpp \
+    src/Engines/Core/Process/game/character/stats/frames/GameCharacterStatsFrame.cpp \
+    src/Engines/Core/Process/game/character/status/frames/GameCharacterStatusFrame.cpp \
+    src/Engines/Core/Process/game/chat/GameChatFrame.cpp \
+    src/Engines/Core/Process/game/chat/channel/frames/GameChatChannelFrame.cpp \
+    src/Engines/Core/Process/game/context/GameContextFrame.cpp \
+    src/Engines/Core/Process/game/context/fight/GameContextFightFrame.cpp \
+    src/Engines/Core/Process/game/context/fight/character/GameContextFightCharacterFrame.cpp \
+    src/Engines/Core/Process/game/context/mount/GameContextMountFrame.cpp \
+    src/Engines/Core/Process/game/context/notification/GameContextNotificationFrame.cpp \
+    src/Engines/Core/Process/game/context/roleplay/GameContextRoleplayFrame.cpp \
+    src/Engines/Core/Process/game/context/roleplay/death/GameContextRoleplayDeathFrame.cpp \
+    src/Engines/Core/Process/game/context/roleplay/fight/GameContextRoleplayFightFrame.cpp \
+    src/Engines/Core/Process/game/context/roleplay/fight/arena/GameContextRoleplayFightArenaFrame.cpp \
+    src/Engines/Core/Process/game/context/roleplay/job/GameContextRoleplayJobFrame.cpp \
+    src/Engines/Core/Process/game/context/roleplay/npc/GameContextRoleplayNpcFrame.cpp \
+    src/Engines/Core/Process/game/context/roleplay/objects/GameContextRoleplayObjectsFrame.cpp \
+    src/Engines/Core/Process/game/context/roleplay/party/GameContextRoleplayPartyFrame.cpp \
+    src/Engines/Core/Process/game/context/roleplay/quest/GameContextRoleplayQuestFrame.cpp \
+    src/Engines/Core/Process/game/context/roleplay/stats/GameContextRoleplayStatsFrame.cpp \
+    src/Engines/Core/Process/game/dialog/GameDialogFrame.cpp \
+    src/Engines/Core/Process/game/friend/GameFriendFrame.cpp \
+    src/Engines/Core/Process/game/guild/GameGuildFrame.cpp \
+    src/Engines/Core/Process/game/initialization/GameInitializationFrame.cpp \
+    src/Engines/Core/Process/game/interactive/GameInteractiveFrame.cpp \
+    src/Engines/Core/Process/game/interactive/zaap/GameInteractiveZaapFrame.cpp \
+    src/Engines/Core/Process/game/inventory/GameInventoryFrame.cpp \
+    src/Engines/Core/Process/game/inventory/exchanges/GameInventoryExchangesFrame.cpp \
+    src/Engines/Core/Process/game/inventory/items/GameInventoryItemsFrame.cpp \
+    src/Engines/Core/Process/game/inventory/spells/GameInventorySpellsFrame.cpp \
+    src/Engines/Core/Process/game/inventory/storage/GameInventoryStorageFrame.cpp \
+    src/Engines/Core/Process/game/moderation/GameModerationFrame.cpp \
+    src/Engines/Core/Process/game/subscriber/GameSubscriberFrame.cpp \
     src/Engines/Core/Process/group/GroupModule.cpp \
     src/Engines/Core/Process/handshake/HandshakeFrame.cpp \
     src/Engines/Core/Process/interaction/InteractionModule.cpp \

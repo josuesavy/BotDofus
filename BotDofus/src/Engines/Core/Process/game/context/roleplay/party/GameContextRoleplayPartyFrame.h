@@ -1,12 +1,12 @@
-#ifndef BASICFRAME_H
-#define BASICFRAME_H
+#ifndef GAMECONTEXTROLEPLAYPARTYFRAME_H
+#define GAMECONTEXTROLEPLAYPARTYFRAME_H
 
 #include "src/Engines/Core/Process/abstract/AbstractFrame.h"
 
-class BasicFrame : public AbstractFrame
+class GameContextRoleplayPartyFrame : public AbstractFrame
 {
 public:
-    BasicFrame(QMap<SocketIO*, BotData> *connectionsData);
+    GameContextRoleplayPartyFrame(QMap<SocketIO*, BotData> *connectionsData);
 
     /*!
      * \brief Reset the module
@@ -24,4 +24,4 @@ public:
     virtual bool processMessage(const MessageInfos &data, SocketIO *sender);
 };
 
-#endif // BASICFRAME_H
+#endif // GAMECONTEXTROLEPLAYPARTYFRAME_H

@@ -1,17 +1,17 @@
-#include "BasicFrame.h"
+#include "CommonBasicFrame.h"
 
-BasicFrame::BasicFrame(QMap<SocketIO *, BotData> *connectionsData):
+CommonBasicFrame::CommonBasicFrame(QMap<SocketIO *, BotData> *connectionsData):
     AbstractFrame(ModuleType::CONNECTION, connectionsData)
 {
 
 }
 
-void BasicFrame::reset(SocketIO *sender)
+void CommonBasicFrame::reset(SocketIO *sender)
 {
     m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
 }
 
-bool BasicFrame::processMessage(const MessageInfos &data, SocketIO *sender)
+bool CommonBasicFrame::processMessage(const MessageInfos &data, SocketIO *sender)
 {
     bool messageFound = true;
     Reader reader(data.messageData);

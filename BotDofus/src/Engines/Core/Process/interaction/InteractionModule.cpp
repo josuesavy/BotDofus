@@ -211,6 +211,7 @@ bool InteractionModule::processMessage(const MessageInfos &data, SocketIO *sende
             emit scriptActionDone(sender);
         }
     }
+        break;
 
     case MessageEnum::NPCDIALOGCREATIONMESSAGE:
     {

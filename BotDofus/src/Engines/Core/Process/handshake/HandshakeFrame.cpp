@@ -8,7 +8,7 @@ HandshakeFrame::HandshakeFrame(QMap<SocketIO *, BotData> *connectionsData):
 
 void HandshakeFrame::reset(SocketIO *sender)
 {
-    m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
+
 }
 
 bool HandshakeFrame::processMessage(const MessageInfos &data, SocketIO *sender)
