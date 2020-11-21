@@ -8,7 +8,7 @@
  * \version Beta
  */
 
-#include "src/Engines/Core/Process/abstract/AbstractModule.h"
+#include "src/Engines/Core/Process/abstract/AbstractFrame.h"
 #include "src/Engines/IO/D2O/GameDataDeclarator.h"
 #include "src/Protocol/Enums/Data/ListAddFailureEnum.h"
 #include "src/Protocol/Enums/Data/SubscriptionRequiredEnum.h"
@@ -21,7 +21,7 @@ struct LifeRegenQueue
     SocketIO* sender;
 };
 
-class StatsModule : public AbstractModule
+class StatsModule : public AbstractFrame
 {
     Q_OBJECT
 

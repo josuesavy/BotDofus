@@ -23,7 +23,7 @@
 #include <QtSql/QtSql>
 
 
-#include "src/Engines/Core/Process/abstract/AbstractModule.h"
+#include "src/Engines/Core/Process/abstract/AbstractFrame.h"
 #include "src/Engines/Security/RsaManager.h"
 #include "src/Engines/IO/D2O/Misc/ParamsDecoder.h"
 #include "src/Engines/Misc/EntityLook/EntityLookParser.h"
@@ -39,7 +39,7 @@ enum class DofusVersion
     BUILD = 13,
 };
 
-class ConnectionModule : public AbstractModule
+class ConnectionModule : public AbstractFrame
 {
     Q_OBJECT
 

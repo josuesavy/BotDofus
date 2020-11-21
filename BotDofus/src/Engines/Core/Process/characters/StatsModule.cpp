@@ -1,7 +1,7 @@
 #include "StatsModule.h"
 
 StatsModule::StatsModule(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractModule(ModuleType::STATS, connectionsData)
+    AbstractFrame(ModuleType::STATS, connectionsData)
 {
 //    foreach (int index, D2OManagerSingleton::get()->getIndexes(GameDataTypeEnum::PETS))
 //    {

@@ -1,7 +1,7 @@
 #include "MapModule.h"
 
 MapModule::MapModule(QMap<SocketIO*, BotData> *connectionsData):
-    AbstractModule(ModuleType::MAP, connectionsData)
+    AbstractFrame(ModuleType::MAP, connectionsData)
 {
     qRegisterMetaType<QList<ChangeMapRequest>>("QList<ChangeMapRequest>");
 }

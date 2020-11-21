@@ -2,6 +2,7 @@
 #define CoreEngine_H
 
 #include "src/Engines/IO/Network/Reader.h"
+#include "src/Engines/Core/Process/connection/frames/HandshakeFrame.h"
 #include "src/Engines/Core/Process/flood/FloodModule.h"
 #include "src/Engines/Core/Process/fight/FightModule.h"
 #include "src/Engines/Core/Process/farm/FarmModule.h"
@@ -45,7 +46,8 @@ signals:
     void informationsUpdated(SocketIO *sender);
 
 protected:
-    QMap<ModuleType, AbstractModule*> m_modules;
+    QMap<ModuleType, AbstractFrame*> m_modules;
+    QList<AbstractFrame*> m_moduless;
 
 private:
     QMap<SocketIO*, ConnectionInfos> m_connectionsInfos;

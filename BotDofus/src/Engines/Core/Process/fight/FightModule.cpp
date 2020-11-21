@@ -15,7 +15,7 @@ QMap<int, Point2D> FightModule::m_cellsPos;
 QMap<Point2D, int> FightModule::m_cellsId;
 
 FightModule::FightModule(QMap<SocketIO *, BotData> *connectionsData, MapModule *mapModule, GroupModule *groupModule, ArenaModule *arenaModule) :
-    AbstractModule(ModuleType::FIGHT, connectionsData),
+    AbstractFrame(ModuleType::FIGHT, connectionsData),
     m_mapModule(mapModule),
     m_groupModule(groupModule),
     m_arenaModule(arenaModule)

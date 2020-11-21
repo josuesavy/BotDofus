@@ -31,7 +31,7 @@
 #define CRAFT_MAXTIME 60000
 #define INTERACTION_MAXTIME 60000
 
-class ScriptModule : public AbstractModule
+class ScriptModule : public AbstractFrame
 {
     Q_OBJECT
 

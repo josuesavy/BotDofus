@@ -14,7 +14,7 @@
 #include <math.h>
 #include <QMessageBox>
 
-#include "src/Engines/Core/Process/abstract/AbstractModule.h"
+#include "src/Engines/Core/Process/abstract/AbstractFrame.h"
 #include "src/Engines/Pathfinding/World/PathfindingMap.h"
 #include "src/Engines/Pathfinding/Map/Pathfinding.h"
 //#include "src/core/Tools/Pathfinding/Map/TestPathfinding.h"
@@ -45,7 +45,7 @@ enum Directions
  * to know when the map mouvement confirm message should be sent to confirm the bot's mouvement.
  */
 
-class MapModule : public AbstractModule
+class MapModule : public AbstractFrame
 {
     Q_OBJECT
 

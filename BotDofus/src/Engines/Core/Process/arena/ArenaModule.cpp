@@ -1,7 +1,7 @@
 #include "ArenaModule.h"
 
 ArenaModule::ArenaModule(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractModule(ModuleType::ARENA, connectionsData)
+    AbstractFrame(ModuleType::ARENA, connectionsData)
 {
 
 }

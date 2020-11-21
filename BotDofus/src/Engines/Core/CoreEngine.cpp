@@ -5,6 +5,8 @@ CoreEngine::CoreEngine()
     QTime t;
     t.start();
 
+    m_moduless.append(new HandshakeFrame(&m_botData));
+
     m_modules[ModuleType::MAP] = new MapModule(&m_botData);
     m_modules[ModuleType::STATS] = new StatsModule(&m_botData);
     m_modules[ModuleType::FLOOD] =  new FloodModule(&m_botData);
@@ -24,7 +26,7 @@ CoreEngine::CoreEngine()
 
 CoreEngine::~CoreEngine()
 {
-    QMapIterator<ModuleType, AbstractModule*> module(m_modules);
+    QMapIterator<ModuleType, AbstractFrame*> module(m_modules);
     while (module.hasNext())
     {
         module.next();

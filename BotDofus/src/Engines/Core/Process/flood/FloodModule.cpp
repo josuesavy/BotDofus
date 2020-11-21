@@ -32,7 +32,7 @@ bool operator==(const FloodRequest &left, const FloodRequest &right)
 }
 
 FloodModule::FloodModule(QMap<SocketIO*, BotData> *connectionsData) :
-    AbstractModule(ModuleType::FLOOD, connectionsData)
+    AbstractFrame(ModuleType::FLOOD, connectionsData)
 {
 }
 

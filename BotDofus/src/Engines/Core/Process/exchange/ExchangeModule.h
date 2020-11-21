@@ -8,9 +8,9 @@
  * \version Beta
  */
 
-#include "src/Engines/Core/Process/abstract/AbstractModule.h"
+#include "src/Engines/Core/Process/abstract/AbstractFrame.h"
 
-class ExchangeModule : public AbstractModule
+class ExchangeModule : public AbstractFrame
 {
 public:
     ExchangeModule(QMap<SocketIO*, BotData> *connectionsData);

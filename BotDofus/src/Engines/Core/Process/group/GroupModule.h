@@ -10,7 +10,7 @@
 
 #include "src/Engines/Core/Process/map/MapModule.h"
 
-class GroupModule : public AbstractModule
+class GroupModule : public AbstractFrame
 {
     Q_OBJECT
 

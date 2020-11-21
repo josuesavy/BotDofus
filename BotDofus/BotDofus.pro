@@ -63,20 +63,42 @@ FORMS += \
 HEADERS += \
     src/Engines/Core/CoreEngine.h \
     src/Engines/Core/Process/ProcessEngine.h \
-    src/Engines/Core/Process/abstract/AbstractModule.h \
+    src/Engines/Core/Process/abstract/AbstractFrame.h \
     src/Engines/Core/Process/arena/ArenaModule.h \
     src/Engines/Core/Process/characters/StatsModule.h \
+    src/Engines/Core/Process/common/frames/BasicFrame.h \
     src/Engines/Core/Process/connection/ConnectionModule.h \
+    src/Engines/Core/Process/connection/frames/AuthentificationFrame.h \
+    src/Engines/Core/Process/connection/frames/ConnectionFrame.h \
+    src/Engines/Core/Process/connection/frames/GameStartingFrame.h \
+    src/Engines/Core/Process/connection/frames/ServerSelectionFrame.h \
+    src/Engines/Core/Process/connection/managers/ConnectionManager.h \
+    src/Engines/Core/Process/connection/register/frames/RegisterFrame.h \
     src/Engines/Core/Process/craft/CraftModule.h \
     src/Engines/Core/Process/exchange/ExchangeModule.h \
     src/Engines/Core/Process/farm/FarmModule.h \
     src/Engines/Core/Process/fight/FightModule.h \
     src/Engines/Core/Process/flood/FloodModule.h \
+    src/Engines/Core/Process/game/achievement/frames/AchievementFrame.h \
+    src/Engines/Core/Process/game/actions/fight/frames/FightFrame.h \
+    src/Engines/Core/Process/game/actions/frames/ActionsFrame.h \
+    src/Engines/Core/Process/game/actions/sequence/frames/SequenceFrame.h \
+    src/Engines/Core/Process/game/alliance/frames/AllianceFrame.h \
+    src/Engines/Core/Process/game/almanach/frames/AlmanachFrame.h \
+    src/Engines/Core/Process/game/approach/frames/ApproachFrame.h \
     src/Engines/Core/Process/group/GroupModule.h \
+    src/Engines/Core/Process/handshake/HandshakeFrame.h \
     src/Engines/Core/Process/interaction/InteractionModule.h \
     src/Engines/Core/Process/map/MapModule.h \
+    src/Engines/Core/Process/queues/frames/QueueFrame.h \
     src/Engines/Core/Process/script/ScriptModule.h \
+    src/Engines/Core/Process/secure/TrustStatusFrame.h \
+    src/Engines/Core/Process/security/frames/SecurityFrame.h \
+    src/Engines/Core/Process/security/managers/SecurityManager.h \
+    src/Engines/Core/Process/server/basic/frames/ServerBasicFrame.h \
     src/Engines/Core/Process/shop/ShopModule.h \
+    src/Engines/Core/Process/subscription/frames/SubscriptionFrame.h \
+    src/Engines/Core/Process/web/ankabox/frames/AnkaboxFrame.h \
     src/Engines/IO/D2O/AbstractGameData.h \
     src/Engines/IO/D2O/D2OClassDefinition.h \
     src/Engines/IO/D2O/D2OField.h \
@@ -1905,20 +1927,41 @@ HEADERS += \
 SOURCES += \
     src/Engines/Core/CoreEngine.cpp \
     src/Engines/Core/Process/ProcessEngine.cpp \
-    src/Engines/Core/Process/abstract/AbstractModule.cpp \
+    src/Engines/Core/Process/abstract/AbstractFrame.cpp \
     src/Engines/Core/Process/arena/ArenaModule.cpp \
     src/Engines/Core/Process/characters/StatsModule.cpp \
+    src/Engines/Core/Process/common/frames/BasicFrame.cpp \
     src/Engines/Core/Process/connection/ConnectionModule.cpp \
+    src/Engines/Core/Process/connection/frames/ConnectionFrame.cpp \
+    src/Engines/Core/Process/connection/frames/GameStartingFrame.cpp \
+    src/Engines/Core/Process/connection/frames/ServerSelectionFrame.cpp \
+    src/Engines/Core/Process/connection/managers/ConnectionManager.cpp \
+    src/Engines/Core/Process/connection/register/frames/RegisterFrame.cpp \
     src/Engines/Core/Process/craft/CraftModule.cpp \
     src/Engines/Core/Process/exchange/ExchangeModule.cpp \
     src/Engines/Core/Process/farm/FarmModule.cpp \
     src/Engines/Core/Process/fight/FightModule.cpp \
     src/Engines/Core/Process/flood/FloodModule.cpp \
+    src/Engines/Core/Process/game/achievement/frames/AchievementFrame.cpp \
+    src/Engines/Core/Process/game/actions/fight/frames/FightFrame.cpp \
+    src/Engines/Core/Process/game/actions/frames/ActionsFrame.cpp \
+    src/Engines/Core/Process/game/actions/sequence/frames/SequenceFrame.cpp \
+    src/Engines/Core/Process/game/alliance/frames/AllianceFrame.cpp \
+    src/Engines/Core/Process/game/almanach/frames/AlmanachFrame.cpp \
+    src/Engines/Core/Process/game/approach/frames/ApproachFrame.cpp \
     src/Engines/Core/Process/group/GroupModule.cpp \
+    src/Engines/Core/Process/handshake/HandshakeFrame.cpp \
     src/Engines/Core/Process/interaction/InteractionModule.cpp \
     src/Engines/Core/Process/map/MapModule.cpp \
+    src/Engines/Core/Process/queues/frames/QueueFrame.cpp \
     src/Engines/Core/Process/script/ScriptModule.cpp \
+    src/Engines/Core/Process/secure/TrustStatusFrame.cpp \
+    src/Engines/Core/Process/security/frames/SecurityFrame.cpp \
+    src/Engines/Core/Process/security/managers/SecurityManager.cpp \
+    src/Engines/Core/Process/server/basic/frames/ServerBasicFrame.cpp \
     src/Engines/Core/Process/shop/ShopModule.cpp \
+    src/Engines/Core/Process/subscription/frames/SubscriptionFrame.cpp \
+    src/Engines/Core/Process/web/ankabox/frames/AnkaboxFrame.cpp \
     src/Engines/IO/D2O/AbstractGameData.cpp \
     src/Engines/IO/D2O/D2OClassDefinition.cpp \
     src/Engines/IO/D2O/D2OField.cpp \

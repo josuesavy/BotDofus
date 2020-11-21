@@ -1,7 +1,7 @@
 #include "GroupModule.h"
 
 GroupModule::GroupModule(QMap<SocketIO*, BotData> *connectionsData, MapModule *mapModule):
-    AbstractModule(ModuleType::GROUP, connectionsData),
+    AbstractFrame(ModuleType::GROUP, connectionsData),
     m_mapModule(mapModule)
 {
     connect(m_mapModule, SIGNAL(mapContentUpdated(SocketIO*)), this, SLOT(followUpUpdate(SocketIO*)));

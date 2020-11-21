@@ -8,7 +8,7 @@ ScriptModule::ScriptModule(QMap<SocketIO *, BotData> *connectionsData,
                            GroupModule *groupModule,
                            StatsModule *statsModule,
                            ConnectionModule *connectionModule):
-    AbstractModule(ModuleType::SCRIPT, connectionsData),
+    AbstractFrame(ModuleType::SCRIPT, connectionsData),
     m_mapModule(mapModule),
     m_fightModule(fightModule),
     m_farmModule(farmModule),

@@ -67,7 +67,7 @@ enum class SpellType
     BOOST
 };
 
-class FightModule : public AbstractModule
+class FightModule : public AbstractFrame
 {
 
     Q_OBJECT

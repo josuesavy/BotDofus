@@ -1,7 +1,7 @@
 #include "ConnectionModule.h"
 
 ConnectionModule::ConnectionModule(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractModule(ModuleType::CONNECTION, connectionsData),
+    AbstractFrame(ModuleType::CONNECTION, connectionsData),
     m_connectionsData(connectionsData)
 {
     //    QObject::connect(&m_rawDataModule, SIGNAL(translateSucess(SocketIO*,int,QList<int>)), this, SLOT(processAntiBotReply(SocketIO*,int,QList<int>)));

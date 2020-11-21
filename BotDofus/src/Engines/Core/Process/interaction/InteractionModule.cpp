@@ -1,7 +1,7 @@
 #include "InteractionModule.h"
 
 InteractionModule::InteractionModule(QMap<SocketIO *, BotData> *connectionsData, MapModule *mapModule):
-    AbstractModule(ModuleType::INTERACTION, connectionsData),
+    AbstractFrame(ModuleType::INTERACTION, connectionsData),
     m_mapModule(mapModule)
 {
 }

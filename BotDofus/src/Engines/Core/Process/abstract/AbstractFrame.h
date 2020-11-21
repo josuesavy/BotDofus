@@ -6,13 +6,13 @@
 /*!
  * \brief The AbstractModule class
  */
-class AbstractModule : public QObject, public DataHandler
+class AbstractFrame : public QObject, public DataHandler
 {
     Q_OBJECT
 
 public:
-    AbstractModule(ModuleType type, QMap<SocketIO*, BotData> *connectionsData);
-    virtual ~AbstractModule();
+    AbstractFrame(ModuleType type, QMap<SocketIO*, BotData> *connectionsData);
+    virtual ~AbstractFrame();
 
     /*!
      * \brief Reset the module

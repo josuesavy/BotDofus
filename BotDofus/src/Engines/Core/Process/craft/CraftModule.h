@@ -9,9 +9,9 @@
  */
 
 #include "src/Engines/Core/Process/map/MapModule.h"
-#include "src/Engines/Core/Process/abstract/AbstractModule.h"
+#include "src/Engines/Core/Process/abstract/AbstractFrame.h"
 
-class CraftModule : public AbstractModule
+class CraftModule : public AbstractFrame
 {
     Q_OBJECT
 

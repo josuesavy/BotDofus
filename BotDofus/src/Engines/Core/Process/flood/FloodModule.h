@@ -8,7 +8,7 @@
  * \version Beta
  */
 
-#include "src/Engines/Core/Process/abstract/AbstractModule.h"
+#include "src/Engines/Core/Process/abstract/AbstractFrame.h"
 #include <QPropertyAnimation>
 //#include "src/network/CleverBot.h"
 
@@ -51,7 +51,7 @@ bool operator!=(const FloodRequest &left, const FloodRequest &right);
  */
 bool operator==(const FloodRequest &left, const FloodRequest &right);
 
-class FloodModule : public AbstractModule
+class FloodModule : public AbstractFrame
 {
 
     Q_OBJECT

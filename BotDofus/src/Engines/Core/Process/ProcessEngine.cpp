@@ -3,11 +3,12 @@
 ProcessEngine::ProcessEngine():
     basicNoOperationMsgCounter(0)
 {
+
     connect(m_modules[ModuleType::CONNECTION], SIGNAL(connectionAdded(SocketIO*)), this, SLOT(connectToSocket(SocketIO*)));
     connect(m_modules[ModuleType::CONNECTION], SIGNAL(botDisconnected(SocketIO*)), this, SLOT(resetModules(SocketIO*)));
 
 
-    QMapIterator<ModuleType, AbstractModule*> module(m_modules);
+    QMapIterator<ModuleType, AbstractFrame*> module(m_modules);
     while (module.hasNext())
     {
         module.next();
@@ -17,7 +18,7 @@ ProcessEngine::ProcessEngine():
 
 void ProcessEngine::resetModules(SocketIO *sender)
 {
-    foreach(AbstractModule *module, m_modules.values())
+    foreach(AbstractFrame *module, m_modules.values())
         module->reset(sender);
 
     processUpdateRequest(sender);
@@ -72,7 +73,7 @@ QByteArray ProcessEngine::fileChecksum(const QString &fileName, QCryptographicHa
 bool ProcessEngine::processMessage(const MessageInfos &data, SocketIO *sender)
 {
     bool messageFound = false;
-    QMapIterator<ModuleType, AbstractModule*> module(m_modules);
+    QMapIterator<ModuleType, AbstractFrame*> module(m_modules);
     while (module.hasNext())
     {
         module.next();

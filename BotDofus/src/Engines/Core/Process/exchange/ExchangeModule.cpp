@@ -1,7 +1,7 @@
 #include "ExchangeModule.h"
 
 ExchangeModule::ExchangeModule(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractModule(ModuleType::EXCHANGE, connectionsData)
+    AbstractFrame(ModuleType::EXCHANGE, connectionsData)
 {
 }
 

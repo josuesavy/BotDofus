@@ -1,7 +1,7 @@
 #include "ShopModule.h"
 
 ShopModule::ShopModule(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractModule(ModuleType::SHOP, connectionsData)
+    AbstractFrame(ModuleType::SHOP, connectionsData)
 {
 
 }

@@ -11,7 +11,7 @@
 #include "src/Engines/Core/Process/map/MapModule.h"
 #include "src/Engines/Pathfinding/Map/Pathfinding.h"
 
-class FarmModule : public AbstractModule
+class FarmModule : public AbstractFrame
 {
     Q_OBJECT
 

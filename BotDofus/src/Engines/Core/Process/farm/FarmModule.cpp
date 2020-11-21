@@ -1,7 +1,7 @@
 #include "FarmModule.h"
 
 FarmModule::FarmModule(QMap<SocketIO *, BotData> *connectionsData, MapModule *mapModule) :
-    AbstractModule(ModuleType::FARM, connectionsData),
+    AbstractFrame(ModuleType::FARM, connectionsData),
     m_mapModule(mapModule)
 {
     QObject::connect(m_mapModule, SIGNAL(hasFinishedMoving(SocketIO*)), this, SLOT(activateSkill(SocketIO*)));
