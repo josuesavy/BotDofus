@@ -1,7 +1,8 @@
 #include "GameActionsSequenceFrame.h"
 
-GameActionsSequenceFrame::GameActionsSequenceFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+GameActionsSequenceFrame::GameActionsSequenceFrame(QMap<SocketIO *, BotData> *connectionsData, FightManager *fightManager):
+    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    m_fightManager(fightManager)
 {
 
 }
@@ -34,7 +35,7 @@ bool GameActionsSequenceFrame::processMessage(const MessageInfos &data, SocketIO
             answer.actionId = message.actionId;
             sender->send(answer);
 
-            processTurn(sender);
+            m_fightManager->processTurn(sender);
         }
     }
         break;

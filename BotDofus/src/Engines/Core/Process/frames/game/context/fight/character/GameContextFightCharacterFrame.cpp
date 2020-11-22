@@ -1,7 +1,9 @@
 #include "GameContextFightCharacterFrame.h"
 
-GameContextFightCharacterFrame::GameContextFightCharacterFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+GameContextFightCharacterFrame::GameContextFightCharacterFrame(QMap<SocketIO *, BotData> *connectionsData, FightManager *fightManager, GroupManager *groupManager):
+    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    m_fightManager(fightManager),
+    m_groupManager(groupManager)
 {
 
 }
@@ -27,11 +29,11 @@ bool GameContextFightCharacterFrame::processMessage(const MessageInfos &data, So
         GameFightShowFighterMessage message;
         message.deserialize(&reader);
 
-        addFighter(sender, message.informations);
+        m_fightManager->addFighter(sender, message.informations);
 
-        if(!m_groupModule->getSlaves(sender).isEmpty())
+        if(!m_groupManager->getSlaves(sender).isEmpty())
         {
-            QList<SocketIO*> slaves = m_groupModule->getSlaves(sender);
+            QList<SocketIO*> slaves = m_groupManager->getSlaves(sender);
             QStringList names;
 
             foreach(SocketIO *slave, slaves)
@@ -69,7 +71,7 @@ bool GameContextFightCharacterFrame::processMessage(const MessageInfos &data, So
         message.deserialize(&reader);
 
         qDebug() << "GameFightShowFighterRandomStaticPoseMessage";
-        addFighter(sender, message.informations);
+        m_fightManager->addFighter(sender, message.informations);
     }
         break;
     }

@@ -1,7 +1,8 @@
 #include "GameDialogFrame.h"
 
-GameDialogFrame::GameDialogFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+GameDialogFrame::GameDialogFrame(QMap<SocketIO *, BotData> *connectionsData, InteractionManager *interactionManager):
+    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    m_interactionManager(interactionManager)
 {
 
 }
@@ -49,7 +50,7 @@ bool GameDialogFrame::processMessage(const MessageInfos &data, SocketIO *sender)
 
             else
             {
-                m_finishedAction << sender;
+                m_interactionManager->finishedAction << sender;
                 QTimer::singleShot(15000, this, SLOT(finishAction()));
                 m_botData[sender].interactionData.finishedAction = false;
             }

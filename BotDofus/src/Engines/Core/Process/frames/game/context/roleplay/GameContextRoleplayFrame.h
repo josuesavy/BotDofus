@@ -2,11 +2,12 @@
 #define GAMECONTEXTROLEPLAYFRAME_H
 
 #include "src/Engines/Core/Process/Frames/AbstractFrame.h"
+#include "src/Engines/Core/Process/Managers/flood/FloodManager.h"
 
 class GameContextRoleplayFrame : public AbstractFrame
 {
 public:
-    GameContextRoleplayFrame(QMap<SocketIO*, BotData> *connectionsData);
+    GameContextRoleplayFrame(QMap<SocketIO*, BotData> *connectionsData, FloodManager *floodManager);
 
     /*!
      * \brief Reset the module
@@ -22,6 +23,9 @@ public:
      * \return bool The message has been process
      */
     virtual bool processMessage(const MessageInfos &data, SocketIO *sender);
+
+private:
+    FloodManager *m_floodManager;
 };
 
 #endif // GAMECONTEXTROLEPLAYFRAME_H

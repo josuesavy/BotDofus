@@ -1,7 +1,8 @@
 #include "GameInteractiveZaapFrame.h"
 
-GameInteractiveZaapFrame::GameInteractiveZaapFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+GameInteractiveZaapFrame::GameInteractiveZaapFrame(QMap<SocketIO *, BotData> *connectionsData, InteractionManager *interactionManager):
+    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    m_interactionManager(interactionManager)
 {
 
 }
@@ -48,7 +49,7 @@ bool GameInteractiveZaapFrame::processMessage(const MessageInfos &data, SocketIO
                     reply.sourceType = message.type;
                     reply.mapId = m_botData[sender].interactionData.interactionId;
 
-                    m_finishedAction << sender;
+                    m_interactionManager->finishedAction << sender;
                     QTimer::singleShot(15000, this, SLOT(finishAction()));
                     m_botData[sender].interactionData.finishedAction = false;
 
@@ -96,7 +97,7 @@ bool GameInteractiveZaapFrame::processMessage(const MessageInfos &data, SocketIO
                     reply.sourceType = message.type;
                     reply.mapId = m_botData[sender].interactionData.interactionId;
 
-                    m_finishedAction << sender;
+                    m_interactionManager->finishedAction << sender;
                     QTimer::singleShot(15000, this, SLOT(finishAction()));
                     m_botData[sender].interactionData.finishedAction = false;
 

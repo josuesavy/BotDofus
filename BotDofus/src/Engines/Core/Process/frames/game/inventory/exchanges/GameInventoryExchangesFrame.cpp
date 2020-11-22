@@ -1,7 +1,9 @@
 #include "GameInventoryExchangesFrame.h"
 
-GameInventoryExchangesFrame::GameInventoryExchangesFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+GameInventoryExchangesFrame::GameInventoryExchangesFrame(QMap<SocketIO *, BotData> *connectionsData, CraftManager *craftManager, ExchangeManager *exchangeManager):
+    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    m_craftManager(craftManager),
+    m_exchangeManager(exchangeManager)
 {
 
 }
@@ -27,14 +29,14 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
         if (m_botData[sender].generalData.botState == BotState::CRAFTING_STATE && m_botData[sender].craftData.isCrafting)
         {
             m_botData[sender].craftData.countSet = true;
-            if (compareRecipes(m_botData[sender].craftData.recipeStack, m_botData[sender].craftData.toCraft.ingredients))
+            if (m_craftManager->compareRecipes(m_botData[sender].craftData.recipeStack, m_botData[sender].craftData.toCraft.ingredients))
             {
                 ExchangeReadyMessage message;
                 message.step = m_botData[sender].craftData.step;
                 message.ready = true;
 
                 sender->send(message);
-                processCrafting(sender);
+                m_craftManager->processCrafting(sender);
             }
         }
     }
@@ -95,7 +97,7 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
 
             if(message.success)
             {
-                updateExchange(sender);
+                m_exchangeManager->updateExchange(sender);
                 action(sender)<<"Succès de l'échange";
             }
 
@@ -134,16 +136,16 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
                 m_botData[sender].craftData.isCrafting)
         {
             m_botData[sender].craftData.step++;
-            addCraftComponent(sender, message.object);
+            m_craftManager->addCraftComponent(sender, message.object);
 
-            if (compareRecipes(m_botData[sender].craftData.recipeStack, m_botData[sender].craftData.toCraft.ingredients) && m_botData[sender].craftData.countSet)
+            if (m_craftManager->compareRecipes(m_botData[sender].craftData.recipeStack, m_botData[sender].craftData.toCraft.ingredients) && m_botData[sender].craftData.countSet)
             {
                 ExchangeReadyMessage message;
                 message.step = m_botData[sender].craftData.step;
                 message.ready = true;
 
                 sender->send(message);
-                processCrafting(sender);
+                m_craftManager->processCrafting(sender);
             }
         }
 
@@ -155,7 +157,7 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
             item.quantity = message.object->quantity;
 
             m_botData[sender].exchangeData.objects<<item;
-            updateExchange(sender);
+            m_exchangeManager->updateExchange(sender);
         }
 
         m_botData[sender].exchangeData.step++;
@@ -171,16 +173,16 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
 
             m_botData[sender].craftData.step++;
             foreach (QSharedPointer<ObjectItem> o, message.object)
-                addCraftComponent(sender, o);
+                m_craftManager->addCraftComponent(sender, o);
 
-            if (compareRecipes(m_botData[sender].craftData.recipeStack, m_botData[sender].craftData.toCraft.ingredients) && m_botData[sender].craftData.countSet)
+            if (m_craftManager->compareRecipes(m_botData[sender].craftData.recipeStack, m_botData[sender].craftData.toCraft.ingredients) && m_botData[sender].craftData.countSet)
             {
                 ExchangeReadyMessage message;
                 message.step = m_botData[sender].craftData.step;
                 message.ready = true;
 
                 sender->send(message);
-                processCrafting(sender);
+                m_craftManager->processCrafting(sender);
             }
         }
     }

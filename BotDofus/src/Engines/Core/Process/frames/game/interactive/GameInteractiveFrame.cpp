@@ -1,7 +1,9 @@
 #include "GameInteractiveFrame.h"
 
-GameInteractiveFrame::GameInteractiveFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+GameInteractiveFrame::GameInteractiveFrame(QMap<SocketIO *, BotData> *connectionsData, InteractionManager *interactionManager, FarmManager *farmManager):
+    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    m_interactionManager(interactionManager),
+    m_farmManager(farmManager)
 {
 
 }
@@ -72,7 +74,7 @@ bool GameInteractiveFrame::processMessage(const MessageInfos &data, SocketIO *se
             m_botData[sender].interactionData.actionID = INVALID;
             m_botData[sender].interactionData.npcDialogs.clear();
 
-            m_confirmAction << sender;
+            m_interactionManager->m_confirmAction << sender;
             QTimer::singleShot(1000, this, SLOT(confirmAction()));
         }
     }
@@ -86,7 +88,7 @@ bool GameInteractiveFrame::processMessage(const MessageInfos &data, SocketIO *se
             m_botData[sender].generalData.botState = BotState::INACTIVE_STATE;
             if (m_botData[sender].farmData.interactiveElementsList.size())
             {
-                QTimer::singleShot(500, this, [this, sender] () { farmAction(sender); });
+                QTimer::singleShot(500, this, [this, sender] () { m_farmManager->farmAction(sender); });
                 //farmAction(sender);
             }
             else
@@ -122,7 +124,7 @@ bool GameInteractiveFrame::processMessage(const MessageInfos &data, SocketIO *se
 
 
             if (m_botData[sender].farmData.interactiveElementsList.size())
-                QTimer::singleShot(500, this, [this, sender] () { farmAction(sender); });
+                QTimer::singleShot(500, this, [this, sender] () { m_farmManager->farmAction(sender); });
 
             else
             {

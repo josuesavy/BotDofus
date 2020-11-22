@@ -2,11 +2,12 @@
 #define GAMEDIALOGFRAME_H
 
 #include "src/Engines/Core/Process/Frames/AbstractFrame.h"
+#include "src/Engines/Core/Process/Managers/interaction/InteractionManager.h"
 
 class GameDialogFrame : public AbstractFrame
 {
 public:
-    GameDialogFrame(QMap<SocketIO*, BotData> *connectionsData);
+    GameDialogFrame(QMap<SocketIO*, BotData> *connectionsData, InteractionManager *interactionManager);
 
     /*!
      * \brief Reset the module
@@ -22,6 +23,9 @@ public:
      * \return bool The message has been process
      */
     virtual bool processMessage(const MessageInfos &data, SocketIO *sender);
+
+private:
+    InteractionManager *m_interactionManager;
 };
 
 #endif // GAMEDIALOGFRAME_H

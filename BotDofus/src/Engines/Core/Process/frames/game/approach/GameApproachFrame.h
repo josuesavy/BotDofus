@@ -1,6 +1,8 @@
 #ifndef APPROACHFRAME_H
 #define APPROACHFRAME_H
 
+#include <QtSql/QtSql>
+
 #include "src/Engines/Core/Process/Frames/AbstractFrame.h"
 
 class GameApproachFrame : public AbstractFrame

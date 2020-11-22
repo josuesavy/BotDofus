@@ -274,7 +274,7 @@ private slots:
      */
     void moveFailure(SocketIO *sender);
 
-private:
+public:
     /*!
      * \brief Dispose the character's placement when start fight
      * \param sender Bot's particular connection
@@ -520,7 +520,7 @@ private:
     ArenaManager *m_arenaManager;
     static QMap<int, Point2D> m_cellsPos;
     static QMap<Point2D, int> m_cellsId;
-    QTime m_fightTimer;
+    QTime fightTimer;
 };
 
 #endif // FIGHTMANAGER_H

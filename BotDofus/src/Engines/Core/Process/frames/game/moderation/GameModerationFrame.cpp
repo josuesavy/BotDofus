@@ -1,7 +1,8 @@
 #include "GameModerationFrame.h"
 
-GameModerationFrame::GameModerationFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+GameModerationFrame::GameModerationFrame(QMap<SocketIO *, BotData> *connectionsData, MapManager *mapManager):
+    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    m_mapManager(mapManager)
 {
 
 }
@@ -31,7 +32,7 @@ bool GameModerationFrame::processMessage(const MessageInfos &data, SocketIO *sen
         warn(sender) << "Détails :" << message.lockDuration;
 
         // TODO : Stop all actions if it's a modo :s
-        stopMoving(sender);
+        m_mapManager->stopMoving(sender);
     }
         break;
     }

@@ -58,10 +58,16 @@
 
 #include "src/Engines/Core/Process/Managers/arena/ArenaManager.h"
 #include "src/Engines/Core/Process/Managers/connection/ConnectionManager.h"
+#include "src/Engines/Core/Process/Managers/craft/CraftManager.h"
+#include "src/Engines/Core/Process/Managers/exchange/ExchangeManager.h"
+#include "src/Engines/Core/Process/Managers/farm/FarmManager.h"
 #include "src/Engines/Core/Process/Managers/fight/FightManager.h"
+#include "src/Engines/Core/Process/Managers/flood/FloodManager.h"
 #include "src/Engines/Core/Process/Managers/group/GroupManager.h"
+#include "src/Engines/Core/Process/Managers/interaction/InteractionManager.h"
 #include "src/Engines/Core/Process/Managers/map/MapManager.h"
 #include "src/Engines/Core/Process/Managers/security/SecurityManager.h"
+#include "src/Engines/Core/Process/Managers/stats/StatsManager.h"
 
 #include "src/Engines/IO/Network/Reader.h"
 
@@ -81,7 +87,7 @@ signals:
 
 protected:
     QList<AbstractFrame*> m_frames;
-    QList<AbstractManager*> m_managers;
+    QMap<ModuleType, AbstractManager*> m_managers;
 
 private:
     QMap<SocketIO*, ConnectionInfos> m_connectionsInfos;

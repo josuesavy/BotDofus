@@ -1,7 +1,8 @@
 #include "GameContextRoleplayFrame.h"
 
-GameContextRoleplayFrame::GameContextRoleplayFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+GameContextRoleplayFrame::GameContextRoleplayFrame(QMap<SocketIO *, BotData> *connectionsData, FloodManager *floodManager):
+    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    m_floodManager(floodManager)
 {
 
 }
@@ -65,8 +66,8 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
                             splited.replace(i, rolePlay->name);
                     }
 
-                    QString randomPart = randomizeFloodMessage();
-                    sendChatMessage(sender, splited.join(" ")+randomPart, rolePlay->name);
+                    QString randomPart = m_floodManager->randomizeFloodMessage();
+                    m_floodManager->sendChatMessage(sender, splited.join(" ")+randomPart, rolePlay->name);
                 }
 
 

@@ -2,11 +2,12 @@
 #define GAMEINITIALIZATIONFRAME_H
 
 #include "src/Engines/Core/Process/Frames/AbstractFrame.h"
+#include "src/Engines/Core/Process/Managers/group/GroupManager.h"
 
 class GameInitializationFrame : public AbstractFrame
 {
 public:
-    GameInitializationFrame(QMap<SocketIO*, BotData> *connectionsData);
+    GameInitializationFrame(QMap<SocketIO*, BotData> *connectionsData, GroupManager *groupManager);
 
     /*!
      * \brief Reset the module
@@ -22,6 +23,9 @@ public:
      * \return bool The message has been process
      */
     virtual bool processMessage(const MessageInfos &data, SocketIO *sender);
+
+private:
+    GroupManager *m_groupManager;
 };
 
 #endif // GAMEINITIALIZATIONFRAME_H

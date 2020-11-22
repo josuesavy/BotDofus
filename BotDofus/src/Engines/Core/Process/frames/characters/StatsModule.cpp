@@ -1076,7 +1076,7 @@ bool StatsModule::healSit(SocketIO* sender)
 }
 
 bool StatsModule::healEat(SocketIO* sender)
-{   
+{
     if (m_botData[sender].generalData.botState != BotState::INACTIVE_STATE)
         return false;
 

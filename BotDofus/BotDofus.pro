@@ -63,9 +63,15 @@ FORMS += \
 HEADERS += \
     src/Engines/Core/CoreEngine.h \
     src/Engines/Core/Process/Managers/arena/ArenaManager.h \
+    src/Engines/Core/Process/Managers/craft/CraftManager.h \
+    src/Engines/Core/Process/Managers/exchange/ExchangeManager.h \
+    src/Engines/Core/Process/Managers/farm/FarmManager.h \
     src/Engines/Core/Process/Managers/fight/FightManager.h \
+    src/Engines/Core/Process/Managers/flood/FloodManager.h \
     src/Engines/Core/Process/Managers/group/GroupManager.h \
+    src/Engines/Core/Process/Managers/interaction/InteractionManager.h \
     src/Engines/Core/Process/Managers/map/MapManager.h \
+    src/Engines/Core/Process/Managers/stats/StatsManager.h \
     src/Engines/Core/Process/ProcessEngine.h \
     src/Engines/Core/Process/Frames/AbstractFrame.h \
     src/Engines/Core/Process/Frames/arena/ArenaModule.h \
@@ -1967,9 +1973,15 @@ HEADERS += \
 SOURCES += \
     src/Engines/Core/CoreEngine.cpp \
     src/Engines/Core/Process/Managers/arena/ArenaManager.cpp \
+    src/Engines/Core/Process/Managers/craft/CraftManager.cpp \
+    src/Engines/Core/Process/Managers/exchange/ExchangeManager.cpp \
+    src/Engines/Core/Process/Managers/farm/FarmManager.cpp \
     src/Engines/Core/Process/Managers/fight/FightManager.cpp \
+    src/Engines/Core/Process/Managers/flood/FloodManager.cpp \
     src/Engines/Core/Process/Managers/group/GroupManager.cpp \
+    src/Engines/Core/Process/Managers/interaction/InteractionManager.cpp \
     src/Engines/Core/Process/Managers/map/MapManager.cpp \
+    src/Engines/Core/Process/Managers/stats/StatsManager.cpp \
     src/Engines/Core/Process/ProcessEngine.cpp \
     src/Engines/Core/Process/Frames/AbstractFrame.cpp \
     src/Engines/Core/Process/Frames/arena/ArenaModule.cpp \

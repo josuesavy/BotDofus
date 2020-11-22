@@ -1,7 +1,8 @@
 #include "GameContextFightFrame.h"
 
-GameContextFightFrame::GameContextFightFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+GameContextFightFrame::GameContextFightFrame(QMap<SocketIO *, BotData> *connectionsData, FightManager *fightManager):
+    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    m_fightManager(fightManager)
 {
 
 }
@@ -62,7 +63,7 @@ bool GameContextFightFrame::processMessage(const MessageInfos &data, SocketIO *s
         m_botData[sender].fightData.followingMonsterGroup = INVALID;
 
         int second = 0;
-        second = m_fightTimer.elapsed()/1000;
+        second = m_fightManager->fightTimer.elapsed()/1000;
 
         m_botData[sender].statisticsData.speedFight += second;
 
@@ -149,7 +150,7 @@ bool GameContextFightFrame::processMessage(const MessageInfos &data, SocketIO *s
         foreach(QSharedPointer<IdentifiedEntityDispositionInformations> entity, message.dispositions)
             m_botData[sender].fightData.fighters[entity->id].cellId = entity->cellId;
 
-        updateFightDisposition(sender);
+        m_fightManager->updateFightDisposition(sender);
     }
         break;
 
@@ -211,7 +212,7 @@ bool GameContextFightFrame::processMessage(const MessageInfos &data, SocketIO *s
         message.deserialize(&reader);
 
         warn(sender) << "Commencement d'un nouveau combat !";
-        m_fightTimer.restart();
+        m_fightManager->fightTimer.restart();
     }
         break;
 
@@ -224,11 +225,13 @@ bool GameContextFightFrame::processMessage(const MessageInfos &data, SocketIO *s
 
         foreach(QSharedPointer<GameFightFighterInformations> fighter, message.fighters)
         {
-            addFighter(sender, fighter);
+            m_fightManager->addFighter(sender, fighter);
         }
 
         if(m_botData[sender].fightData.isBotTurn)
-            processTurn(sender);
+        {
+            m_fightManager->processTurn(sender);
+        }
     }
         break;
 
@@ -238,7 +241,9 @@ bool GameContextFightFrame::processMessage(const MessageInfos &data, SocketIO *s
         message.deserialize(&reader);
 
         if(m_botData[sender].fightData.botFightData.botId == message.id)
-            processEndTurn(sender);
+        {
+            m_fightManager->processEndTurn(sender);
+        }
     }
         break;
 

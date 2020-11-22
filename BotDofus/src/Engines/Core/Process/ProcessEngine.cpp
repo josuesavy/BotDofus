@@ -1,10 +1,9 @@
 #include "ProcessEngine.h"
 
-ProcessEngine::ProcessEngine():
-    basicNoOperationMsgCounter(0)
+ProcessEngine::ProcessEngine()
 {
-    connect(m_frames[ModuleType::CONNECTION], SIGNAL(connectionAdded(SocketIO*)), this, SLOT(connectToSocket(SocketIO*)));
-    connect(m_frames[ModuleType::CONNECTION], SIGNAL(botDisconnected(SocketIO*)), this, SLOT(resetModules(SocketIO*)));
+    connect(m_managers[ModuleType::CONNECTION], SIGNAL(connectionAdded(SocketIO*)), this, SLOT(connectToSocket(SocketIO*)));
+    connect(m_managers[ModuleType::CONNECTION], SIGNAL(botDisconnected(SocketIO*)), this, SLOT(resetModules(SocketIO*)));
 
     foreach (AbstractFrame *frame, m_frames)
     {

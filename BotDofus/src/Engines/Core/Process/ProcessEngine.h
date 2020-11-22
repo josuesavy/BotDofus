@@ -4,7 +4,7 @@
 #include <QObject>
 
 #include "src/Engines/Core/CoreEngine.h"
-#include "src/Engines/Core/Process/connection/managers/ConnectionManager.h"
+#include "src/Engines/Core/Process/Managers/connection/ConnectionManager.h"
 
 class ProcessEngine : public CoreEngine
 {

@@ -1,7 +1,8 @@
 #include "GameInventoryStorageFrame.h"
 
-GameInventoryStorageFrame::GameInventoryStorageFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+GameInventoryStorageFrame::GameInventoryStorageFrame(QMap<SocketIO *, BotData> *connectionsData, InteractionManager *interactionManager):
+    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    m_interactionManager(interactionManager)
 {
 
 }
@@ -41,7 +42,7 @@ bool GameInventoryStorageFrame::processMessage(const MessageInfos &data, SocketI
 
             //Process deposit items
             foreach (InventoryObject o, m_botData[sender].playerData.inventoryContent)
-                if (concernedByBankDeposit(sender, o.GID))
+                if (m_interactionManager->concernedByBankDeposit(sender, o.GID))
                     toDeposit << o;
 
             for (int i = 0; i < toDeposit.size(); i++)
@@ -51,7 +52,7 @@ bool GameInventoryStorageFrame::processMessage(const MessageInfos &data, SocketI
 
             //Process take items
             foreach (QSharedPointer<ObjectItem> o, message.objects)
-                if (concernedByBankTake(sender, o->objectGID))
+                if (m_interactionManager->concernedByBankTake(sender, o->objectGID))
                     toTake << o;
 
             int freePods = m_botData[sender].playerData.stats.pods.max - m_botData[sender].playerData.stats.pods.current;
@@ -78,7 +79,7 @@ bool GameInventoryStorageFrame::processMessage(const MessageInfos &data, SocketI
                 depositMessage.quantity = m_botData[sender].interactionData.bankData.toDepositQuantity.first();
                 sender->send(depositMessage);
 
-                info(sender) << "Depot en banque de" << m_botData[sender].interactionData.bankData.toDepositQuantity.first() << nameFromUid(sender, m_botData[sender].interactionData.bankData.toDepositQuantity.firstKey());
+                info(sender) << "Depot en banque de" << m_botData[sender].interactionData.bankData.toDepositQuantity.first() << m_interactionManager->nameFromUid(sender, m_botData[sender].interactionData.bankData.toDepositQuantity.firstKey());
                 depositMessage.objectUID = m_botData[sender].interactionData.bankData.toDepositQuantity.remove(depositMessage.objectUID = m_botData[sender].interactionData.bankData.toDepositQuantity.firstKey());
             }
 
@@ -89,7 +90,7 @@ bool GameInventoryStorageFrame::processMessage(const MessageInfos &data, SocketI
                 takeMessage.quantity = m_botData[sender].interactionData.bankData.toTakeQuantity.first();
                 sender->send(takeMessage);
 
-                info(sender) << "Prise en banque de" << m_botData[sender].interactionData.bankData.toTakeQuantity.first() << nameFromUid(sender, m_botData[sender].interactionData.bankData.toTakeQuantity.firstKey());
+                info(sender) << "Prise en banque de" << m_botData[sender].interactionData.bankData.toTakeQuantity.first() << m_interactionManager->nameFromUid(sender, m_botData[sender].interactionData.bankData.toTakeQuantity.firstKey());
                 takeMessage.objectUID = m_botData[sender].interactionData.bankData.toTakeQuantity.remove(m_botData[sender].interactionData.bankData.toTakeQuantity.firstKey());
             }
 
@@ -113,7 +114,7 @@ bool GameInventoryStorageFrame::processMessage(const MessageInfos &data, SocketI
                 depositMessage.quantity = m_botData[sender].interactionData.bankData.toDepositQuantity.first();
                 sender->send(depositMessage);
 
-                info(sender) << "Depot en banque de" << m_botData[sender].interactionData.bankData.toDepositQuantity.first() << nameFromUid(sender, m_botData[sender].interactionData.bankData.toDepositQuantity.firstKey());
+                info(sender) << "Depot en banque de" << m_botData[sender].interactionData.bankData.toDepositQuantity.first() << m_interactionManager->nameFromUid(sender, m_botData[sender].interactionData.bankData.toDepositQuantity.firstKey());
                 depositMessage.objectUID = m_botData[sender].interactionData.bankData.toDepositQuantity.remove(depositMessage.objectUID = m_botData[sender].interactionData.bankData.toDepositQuantity.firstKey());
             }
 
@@ -124,7 +125,7 @@ bool GameInventoryStorageFrame::processMessage(const MessageInfos &data, SocketI
                 takeMessage.quantity = m_botData[sender].interactionData.bankData.toTakeQuantity.first();
                 sender->send(takeMessage);
 
-                info(sender) << "Prise en banque de" << m_botData[sender].interactionData.bankData.toTakeQuantity.first() << nameFromUid(sender, m_botData[sender].interactionData.bankData.toTakeQuantity.firstKey());
+                info(sender) << "Prise en banque de" << m_botData[sender].interactionData.bankData.toTakeQuantity.first() << m_interactionManager->nameFromUid(sender, m_botData[sender].interactionData.bankData.toTakeQuantity.firstKey());
                 takeMessage.objectUID = m_botData[sender].interactionData.bankData.toTakeQuantity.remove(m_botData[sender].interactionData.bankData.toTakeQuantity.firstKey());
             }
 

@@ -4,7 +4,7 @@
 #include <QtSql/QtSql>
 
 #include "src/Engines/Core/Process/Frames/AbstractFrame.h"
-#include "src/Engines/Core/Process/security/managers/SecurityManager.h"
+#include "src/Engines/Core/Process/Managers/security/SecurityManager.h"
 
 class SecurityFrame : public AbstractFrame
 {

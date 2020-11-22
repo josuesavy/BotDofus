@@ -584,7 +584,8 @@ enum class ModuleType
     SCRIPT,
     INTERACTION,
     ARENA,
-    SHOP
+    SHOP,
+    SECURITY
 };
 
 struct PlayerMountData

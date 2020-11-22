@@ -1,7 +1,8 @@
 #include "GameActionsFightFrame.h"
 
-GameActionsFightFrame::GameActionsFightFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+GameActionsFightFrame::GameActionsFightFrame(QMap<SocketIO *, BotData> *connectionsData, FightManager *fightManager):
+    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    m_fightManager(fightManager)
 {
 
 }
@@ -108,7 +109,7 @@ bool GameActionsFightFrame::processMessage(const MessageInfos &data, SocketIO *s
         break;
 
     case MessageEnum::GAMEACTIONFIGHTNOSPELLCASTMESSAGE:
-        processTurn(sender);
+        m_fightManager->processTurn(sender);
         break;
 
     case MessageEnum::GAMEACTIONFIGHTPOINTSVARIATIONMESSAGE:
@@ -203,7 +204,7 @@ bool GameActionsFightFrame::processMessage(const MessageInfos &data, SocketIO *s
         foreach(const QSharedPointer<GameFightFighterInformations> &summon, message.summons)
         {
             qDebug() << "GameActionFightSummonMessage";
-            addFighter(sender, summon);
+            m_fightManager->addFighter(sender, summon);
         }
     }
         break;

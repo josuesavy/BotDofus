@@ -8,7 +8,7 @@ CommonBasicFrame::CommonBasicFrame(QMap<SocketIO *, BotData> *connectionsData):
 
 void CommonBasicFrame::reset(SocketIO *sender)
 {
-    m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
+
 }
 
 bool CommonBasicFrame::processMessage(const MessageInfos &data, SocketIO *sender)

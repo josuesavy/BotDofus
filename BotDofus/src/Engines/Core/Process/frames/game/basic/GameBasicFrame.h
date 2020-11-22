@@ -2,13 +2,13 @@
 #define BASICFRAME_H
 
 #include "src/Engines/Core/Process/Frames/AbstractFrame.h"
-#include "src/Engines/Core/Process/connection/managers/ConnectionManager.h"
+#include "src/Engines/Core/Process/Managers/connection/ConnectionManager.h"
 #include "src/Engines/IO/D2O/Misc/ParamsDecoder.h"
 
 class GameBasicFrame : public AbstractFrame
 {
 public:
-    GameBasicFrame(QMap<SocketIO*, BotData> *connectionsData);
+    GameBasicFrame(QMap<SocketIO*, BotData> *connectionsData, ConnectionManager *connectionManager);
 
     /*!
      * \brief Reset the module
@@ -24,6 +24,9 @@ public:
      * \return bool The message has been process
      */
     virtual bool processMessage(const MessageInfos &data, SocketIO *sender);
+
+private:
+    ConnectionManager *m_connectionManager;
 };
 
 #endif // BASICFRAME_H

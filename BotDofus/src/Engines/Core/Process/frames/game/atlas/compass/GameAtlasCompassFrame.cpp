@@ -1,7 +1,8 @@
 #include "GameAtlasCompassFrame.h"
 
-GameAtlasCompassFrame::GameAtlasCompassFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+GameAtlasCompassFrame::GameAtlasCompassFrame(QMap<SocketIO *, BotData> *connectionsData, MapManager *mapManager):
+    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    m_mapManager(mapManager)
 {
 
 }
@@ -45,8 +46,8 @@ bool GameAtlasCompassFrame::processMessage(const MessageInfos &data, SocketIO *s
 
                 int mapId = PathfindingMap::coordsToMapId(message.coords->worldX, message.coords->worldY, area->getSuperAreaId());
 
-                m_mapModule->stopMoving(sender);
-                m_mapModule->changeMap(sender, mapId);
+                m_mapManager->stopMoving(sender);
+                m_mapManager->changeMap(sender, mapId);
                 m_botData[sender].groupData.isFollowing = true;
             }
         }

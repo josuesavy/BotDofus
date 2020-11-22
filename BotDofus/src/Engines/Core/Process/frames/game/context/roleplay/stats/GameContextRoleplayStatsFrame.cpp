@@ -1,7 +1,8 @@
 #include "GameContextRoleplayStatsFrame.h"
 
-GameContextRoleplayStatsFrame::GameContextRoleplayStatsFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+GameContextRoleplayStatsFrame::GameContextRoleplayStatsFrame(QMap<SocketIO *, BotData> *connectionsData, StatsManager *statsManager):
+    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    m_statsManager(statsManager)
 {
 
 }
@@ -49,7 +50,7 @@ bool GameContextRoleplayStatsFrame::processMessage(const MessageInfos &data, Soc
             break;
         }
 
-        updateRequiredStats(sender);
+        m_statsManager->updateRequiredStats(sender);
     }
         break;
     }

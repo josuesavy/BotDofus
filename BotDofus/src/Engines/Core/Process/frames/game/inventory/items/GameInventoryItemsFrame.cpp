@@ -1,7 +1,9 @@
 #include "GameInventoryItemsFrame.h"
 
-GameInventoryItemsFrame::GameInventoryItemsFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+GameInventoryItemsFrame::GameInventoryItemsFrame(QMap<SocketIO *, BotData> *connectionsData, ExchangeManager *exchangeManager, StatsManager *statsManager):
+    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    m_exchangeManager(exchangeManager),
+    m_statsManager(statsManager)
 {
 
 }
@@ -31,7 +33,7 @@ bool GameInventoryItemsFrame::processMessage(const MessageInfos &data, SocketIO 
             m_botData[sender].craftData.step++;
 
         if(message.remote)
-            updateExchange(sender);
+            m_exchangeManager->updateExchange(sender);
 
         m_botData[sender].exchangeData.step++;
     }
@@ -65,7 +67,7 @@ bool GameInventoryItemsFrame::processMessage(const MessageInfos &data, SocketIO 
                 }
             }
 
-            updateExchange(sender);
+            m_exchangeManager->updateExchange(sender);
         }
 
         m_botData[sender].exchangeData.step++;
@@ -94,7 +96,7 @@ bool GameInventoryItemsFrame::processMessage(const MessageInfos &data, SocketIO 
                     break;
                 }
             }
-            updateExchange(sender);
+            m_exchangeManager->updateExchange(sender);
         }
 
         m_botData[sender].exchangeData.step++;
@@ -145,7 +147,7 @@ bool GameInventoryItemsFrame::processMessage(const MessageInfos &data, SocketIO 
                 item.UID = message.objects[i]->objectUID;
                 item.quantity = message.objects[i]->quantity;
                 item.position = (CharacterInventoryPositionEnum)message.objects[i]->position;
-                if (m_inventoryPositions.contains(item.position))
+                if (m_statsManager->inventoryPositions.contains(item.position))
                     item.isEquipped = true;
 
                 for (int j = 0; j < message.objects[i]->effects.size(); j++)
@@ -159,19 +161,19 @@ bool GameInventoryItemsFrame::processMessage(const MessageInfos &data, SocketIO 
                 PetFeedInfos pet;
                 pet.GID = message.objects[i]->objectGID;
 
-                if (m_pets.keys().contains(message.objects[i]->objectGID) && !m_botData[sender].interactionData.petData.petInfos.contains(pet))
+                if (m_statsManager->pets.keys().contains(message.objects[i]->objectGID) && !m_botData[sender].interactionData.petData.petInfos.contains(pet))
                 {
                     PetFeedInfos p;
                     p.GID = message.objects[i]->objectGID;
                     p.UID = message.objects[i]->objectUID;
-                    p.name = m_pets[message.objects[i]->objectGID];
+                    p.name = m_statsManager->pets[message.objects[i]->objectGID];
                     m_botData[sender].interactionData.petData.petInfos << p;
                 }
             }
 
             if(m_botData[sender].playerData.stats.lifePoints != m_botData[sender].playerData.stats.maxLifePoints)
-                if(!healEat(sender))
-                    healSit(sender);
+                if(!m_statsManager->healEat(sender))
+                    m_statsManager->healSit(sender);
         }
 
         else
@@ -303,12 +305,12 @@ bool GameInventoryItemsFrame::processMessage(const MessageInfos &data, SocketIO 
             {
                 m_botData[sender].playerData.inventoryContent[i].position = (CharacterInventoryPositionEnum)message.position;
 
-                if (m_inventoryPositions.contains((CharacterInventoryPositionEnum)message.position))
+                if (m_statsManager->inventoryPositions.contains((CharacterInventoryPositionEnum)message.position))
                     m_botData[sender].playerData.inventoryContent[i].isEquipped = true;
                 else
                     m_botData[sender].playerData.inventoryContent[i].isEquipped = false;
 
-                qDebug() << "Equip test:" << m_botData[sender].playerData.inventoryContent[i].isEquipped << message.position << m_inventoryPositions.contains((CharacterInventoryPositionEnum)message.position);
+                qDebug() << "Equip test:" << m_botData[sender].playerData.inventoryContent[i].isEquipped << message.position << m_statsManager->inventoryPositions.contains((CharacterInventoryPositionEnum)message.position);
             }
         }
     }

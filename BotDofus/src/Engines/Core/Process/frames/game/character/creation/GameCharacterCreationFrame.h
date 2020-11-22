@@ -1,6 +1,8 @@
 #ifndef GAMECHARACTERCREATIONFRAME_H
 #define GAMECHARACTERCREATIONFRAME_H
 
+#include <QtSql/QtSql>
+
 #include "src/Engines/Core/Process/Frames/AbstractFrame.h"
 
 class GameCharacterCreationFrame : public AbstractFrame

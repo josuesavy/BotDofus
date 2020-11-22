@@ -1,7 +1,8 @@
 #include "GameCharacterStatsFrame.h"
 
-GameCharacterStatsFrame::GameCharacterStatsFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+GameCharacterStatsFrame::GameCharacterStatsFrame(QMap<SocketIO *, BotData> *connectionsData, StatsManager *statsManager):
+    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    m_statsManager(statsManager)
 {
 
 }
@@ -155,10 +156,10 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
         m_botData[sender].playerData.stats = temp;
         m_botData[sender].playerData.kamas = message.stats.kamas;
 
-        updateRequiredStats(sender);
+        m_statsManager->updateRequiredStats(sender);
 
         if (m_botData[sender].generalData.botState == BotState::REGENERATING_STATE)
-            regenOptimizer(sender);
+            m_statsManager->regenOptimizer(sender);
     }
         break;
 
@@ -170,7 +171,7 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
         LifePointsRegenBeginMessage message;
         message.deserialize(&reader);
 
-        QMutableListIterator<LifeRegenQueue> i(m_passiveRegen);
+        QMutableListIterator<LifeRegenQueue> i(m_statsManager->passiveRegen);
         while (i.hasNext())
             if (i.next().sender == sender)
                 i.remove();
@@ -184,7 +185,7 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
         queue.timer->setSingleShot(false);
         queue.timer->setInterval(1000);
         queue.timer->start();
-        m_passiveRegen << queue;
+        m_statsManager->passiveRegen << queue;
 
         if (m_botData[sender].generalData.botState == BotState::REGENERATING_STATE)
         {
@@ -196,7 +197,7 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
             {
                 m_botData[sender].generalData.botState = BotState::INACTIVE_STATE;
 
-                emit healed(sender);
+                emit m_statsManager->healed(sender);
 
                 if(m_botData[sender].scriptData.activeModule == getType())
                     emit scriptActionDone(sender);
@@ -209,7 +210,7 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
                 q.sender = sender;
                 q.time.start();
 
-                m_regenQueue << q;
+                m_statsManager->regenQueue << q;
                 QTimer::singleShot(q.interval*1000, this, SLOT(healFinished()));
             }
         }
@@ -221,7 +222,7 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
         LifePointsRegenEndMessage message;
         message.deserialize(&reader);
 
-        QMutableListIterator<LifeRegenQueue> i(m_passiveRegen);
+        QMutableListIterator<LifeRegenQueue> i(m_statsManager->passiveRegen);
         while (i.hasNext())
         {
             LifeRegenQueue q = i.next();

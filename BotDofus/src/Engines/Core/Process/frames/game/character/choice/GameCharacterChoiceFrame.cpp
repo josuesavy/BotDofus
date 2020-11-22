@@ -1,7 +1,8 @@
 #include "GameCharacterChoiceFrame.h"
 
-GameCharacterChoiceFrame::GameCharacterChoiceFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+GameCharacterChoiceFrame::GameCharacterChoiceFrame(QMap<SocketIO *, BotData> *connectionsData, GroupManager *groupManager):
+    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    m_groupManager(groupManager)
 {
 
 }
@@ -54,7 +55,7 @@ bool GameCharacterChoiceFrame::processMessage(const MessageInfos &data, SocketIO
     case MessageEnum::CHARACTERSELECTEDFORCEMESSAGE:
     {
         if(!m_botData[sender].connectionData.connectionInfos.masterGroup.isEmpty())
-            updateTeams();
+            m_groupManager->updateTeams();
 
         CharacterSelectedForceMessage message;
         message.deserialize(&reader);

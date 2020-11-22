@@ -1,7 +1,9 @@
 #include "GameContextFrame.h"
 
-GameContextFrame::GameContextFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+GameContextFrame::GameContextFrame(QMap<SocketIO *, BotData> *connectionsData, FightManager *fightManager, MapManager *mapManager):
+    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    m_fightManager(fightManager),
+    m_mapManager(mapManager)
 {
 
 }
@@ -88,7 +90,7 @@ bool GameContextFrame::processMessage(const MessageInfos &data, SocketIO *sender
         foreach(QSharedPointer<IdentifiedEntityDispositionInformations> entity, message.dispositions)
             m_botData[sender].fightData.fighters[entity->id].cellId = entity->cellId;
 
-        updateFightDisposition(sender);
+        m_fightManager->updateFightDisposition(sender);
     }
         break;
 
@@ -141,7 +143,7 @@ bool GameContextFrame::processMessage(const MessageInfos &data, SocketIO *sender
     case MessageEnum::GAMEMAPNOMOVEMENTMESSAGE:
     {
         if(m_botData[sender].generalData.botState == FIGHTING_STATE)
-            processTurn(sender);
+            m_fightManager->processTurn(sender);
 
         if (m_botData[sender].mapData.gameContext == GameContextEnum::ROLE_PLAY)
         {
@@ -153,7 +155,7 @@ bool GameContextFrame::processMessage(const MessageInfos &data, SocketIO *sender
             if(m_botData[sender].generalData.botState == MOVING_STATE)
                 m_botData[sender].generalData.botState = INACTIVE_STATE;
 
-            emit couldNotMove(sender);
+            emit m_mapManager->couldNotMove(sender);
         }
     }
         break;

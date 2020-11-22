@@ -1,7 +1,8 @@
 #include "GameContextRoleplayDeathFrame.h"
 
-GameContextRoleplayDeathFrame::GameContextRoleplayDeathFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+GameContextRoleplayDeathFrame::GameContextRoleplayDeathFrame(QMap<SocketIO *, BotData> *connectionsData, StatsManager *statsManager):
+    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    m_statsManager(statsManager)
 {
 
 }
@@ -30,7 +31,7 @@ bool GameContextRoleplayDeathFrame::processMessage(const MessageInfos &data, Soc
         m_botData[sender].playerData.lifeStatus = (PlayerLifeStatusEnum)message.state;
 
         if(m_botData[sender].playerData.lifeStatus == PlayerLifeStatusEnum::STATUS_TOMBSTONE)
-            freeSoul(sender);
+            m_statsManager->freeSoul(sender);
 
         else if(m_botData[sender].playerData.isRequestingFreeSoul &&
                 m_botData[sender].playerData.hasSentRequestFreeSoul)

@@ -2,11 +2,12 @@
 #define COMPASSFRAME_H
 
 #include "src/Engines/Core/Process/Frames/AbstractFrame.h"
+#include "src/Engines/Core/Process/Managers/map/MapManager.h"
 
 class GameAtlasCompassFrame : public AbstractFrame
 {
 public:
-    GameAtlasCompassFrame(QMap<SocketIO*, BotData> *connectionsData);
+    GameAtlasCompassFrame(QMap<SocketIO*, BotData> *connectionsData, MapManager *mapManager);
 
     /*!
      * \brief Reset the module
@@ -22,6 +23,9 @@ public:
      * \return bool The message has been process
      */
     virtual bool processMessage(const MessageInfos &data, SocketIO *sender);
+
+private:
+    MapManager *m_mapManager;
 };
 
 #endif // COMPASSFRAME_H

@@ -1,7 +1,8 @@
 #include "GameContextRoleplayPartyFrame.h"
 
-GameContextRoleplayPartyFrame::GameContextRoleplayPartyFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+GameContextRoleplayPartyFrame::GameContextRoleplayPartyFrame(QMap<SocketIO *, BotData> *connectionsData, MapManager *mapManager):
+    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    m_mapManager(mapManager)
 {
 
 }
@@ -80,7 +81,7 @@ bool GameContextRoleplayPartyFrame::processMessage(const MessageInfos &data, Soc
             m_botData[sender].groupData.isInGroup = false;
 
             if(m_botData[sender].groupData.isFollowing && (m_botData[sender].generalData.botState == MOVING_STATE || m_botData[sender].generalData.botState == CALCULATING_STATE))
-                m_mapModule->stopMoving(sender);
+                m_mapManager->stopMoving(sender);
         }
     }
         break;
@@ -236,7 +237,7 @@ bool GameContextRoleplayPartyFrame::processMessage(const MessageInfos &data, Soc
 
 
             if(m_botData[sender].groupData.isFollowing && (m_botData[sender].generalData.botState == MOVING_STATE || m_botData[sender].generalData.botState == CALCULATING_STATE))
-                m_mapModule->stopMoving(sender);
+                m_mapManager->stopMoving(sender);
         }
     }
         break;
@@ -258,7 +259,7 @@ bool GameContextRoleplayPartyFrame::processMessage(const MessageInfos &data, Soc
             m_botData[sender].groupData.masterPosition.y = INVALID;
 
             if(m_botData[sender].groupData.isFollowing && (m_botData[sender].generalData.botState == MOVING_STATE || m_botData[sender].generalData.botState == CALCULATING_STATE))
-                m_mapModule->stopMoving(sender);
+                m_mapManager->stopMoving(sender);
         }
     }
         break;

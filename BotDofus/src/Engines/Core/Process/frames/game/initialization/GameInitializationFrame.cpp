@@ -1,7 +1,8 @@
 #include "GameInitializationFrame.h"
 
-GameInitializationFrame::GameInitializationFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+GameInitializationFrame::GameInitializationFrame(QMap<SocketIO *, BotData> *connectionsData, GroupManager *groupManager):
+    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    m_groupManager(groupManager)
 {
 
 }
@@ -30,7 +31,9 @@ bool GameInitializationFrame::processMessage(const MessageInfos &data, SocketIO 
         m_botData[sender].connectionData.connectionState = ConnectionState::CONNECTED;
 
         if(!m_botData[sender].connectionData.connectionInfos.masterGroup.isEmpty())
-            updateTeams();
+        {
+            m_groupManager->updateTeams();
+        }
     }
         break;
     }

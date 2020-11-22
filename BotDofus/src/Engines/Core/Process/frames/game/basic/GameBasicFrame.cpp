@@ -1,7 +1,8 @@
 #include "GameBasicFrame.h"
 
-GameBasicFrame::GameBasicFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+GameBasicFrame::GameBasicFrame(QMap<SocketIO *, BotData> *connectionsData, ConnectionManager *connectionManager):
+    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    m_connectionManager(connectionManager)
 {
 
 }
@@ -30,7 +31,7 @@ bool GameBasicFrame::processMessage(const MessageInfos &data, SocketIO *sender)
         {
             m_botData[sender].scriptData.scriptMaxTime = INVALID;
             error(sender)<<"Il semblerait que le bot soit bloqué, tentative de relance du script...";
-            m_connectionModule->reconnect(sender);
+            m_connectionManager->reconnect(sender);
         }
     }
         break;

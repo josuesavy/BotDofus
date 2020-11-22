@@ -1,7 +1,8 @@
 #include "GameContextRoleplayNpcFrame.h"
 
-GameContextRoleplayNpcFrame::GameContextRoleplayNpcFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+GameContextRoleplayNpcFrame::GameContextRoleplayNpcFrame(QMap<SocketIO *, BotData> *connectionsData, InteractionManager *interactionManager):
+    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    m_interactionManager(interactionManager)
 {
 
 }
@@ -45,7 +46,7 @@ bool GameContextRoleplayNpcFrame::processMessage(const MessageInfos &data, Socke
         else
         {
             m_botData[sender].interactionData.interactionType = CurrentInteraction::NPC;
-            m_waitingReplies << sender;
+            m_interactionManager->waitingReplies << sender;
         }
     }
         break;
@@ -64,7 +65,7 @@ bool GameContextRoleplayNpcFrame::processMessage(const MessageInfos &data, Socke
             m_botData[sender].interactionData.finishedAction = true;
             m_botData[sender].interactionData.actionID = INVALID;
             m_botData[sender].interactionData.npcDialogs.clear();
-            m_waitingReplies.removeOne(sender);
+            m_interactionManager->waitingReplies.removeOne(sender);
 
             LeaveDialogRequestMessage reply;
             sender->send(reply);
@@ -75,9 +76,9 @@ bool GameContextRoleplayNpcFrame::processMessage(const MessageInfos &data, Socke
         else
         {
             m_botData[sender].interactionData.npcDialogs = message.visibleReplies;
-            if (m_waitingReplies.contains(sender))
+            if (m_interactionManager->waitingReplies.contains(sender))
             {
-                m_waitingReplies.removeOne(sender);
+                m_interactionManager->waitingReplies.removeOne(sender);
                 emit scriptActionDone(sender);
             }
         }

@@ -7,7 +7,7 @@
 class GameActionsSequenceFrame : public AbstractFrame
 {
 public:
-    GameActionsSequenceFrame(QMap<SocketIO*, BotData> *connectionsData);
+    GameActionsSequenceFrame(QMap<SocketIO*, BotData> *connectionsData, FightManager *fightManager);
 
     /*!
      * \brief Reset the module
