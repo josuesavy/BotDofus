@@ -1,7 +1,8 @@
 #include "GameCharacterChoiceFrame.h"
 
-GameCharacterChoiceFrame::GameCharacterChoiceFrame(QMap<SocketIO *, BotData> *connectionsData, GroupManager *groupManager):
+GameCharacterChoiceFrame::GameCharacterChoiceFrame(QMap<SocketIO *, BotData> *connectionsData, ConnectionManager *connectionManager, GroupManager *groupManager):
     AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    m_connectionManager(connectionManager),
     m_groupManager(groupManager)
 {
 
@@ -74,7 +75,7 @@ bool GameCharacterChoiceFrame::processMessage(const MessageInfos &data, SocketIO
         sender->send(answer2);
 
         ClientKeyMessage answer3;
-        answer3.key = ConnectionManager::getFlashKey();
+        answer3.key = m_connectionManager->getFlashKey();
         sender->send(answer3);
 
         GameContextCreateRequestMessage answer4;

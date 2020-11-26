@@ -1,5 +1,5 @@
-#ifndef BASICFRAME_H
-#define BASICFRAME_H
+#ifndef COMMONBASICFRAME_H
+#define COMMONBASICFRAME_H
 
 #include "src/Engines/Core/Process/Frames/AbstractFrame.h"
 
@@ -24,4 +24,4 @@ public:
     virtual bool processMessage(const MessageInfos &data, SocketIO *sender);
 };
 
-#endif // BASICFRAME_H
+#endif // COMMONBASICFRAME_H

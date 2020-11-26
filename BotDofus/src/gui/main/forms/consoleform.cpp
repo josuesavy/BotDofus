@@ -236,7 +236,7 @@ void ConsoleForm::on_pushButtonSmiley_clicked()
     if(smileysDialog.exec() == QDialog::Accepted)
     {
         qDebug() << smileysDialog.smiley.toInt();
-        m_engine->getFloodModule().sendChatSmiley(m_sender, smileysDialog.smiley.toInt());
+        m_engine->getFloodManager().sendChatSmiley(m_sender, smileysDialog.smiley.toInt());
     }
 }
 
@@ -284,9 +284,9 @@ void ConsoleForm::on_pushButtonSend_clicked()
         //QRegExp pattern("%[a-z]+%");
 
         if(channel == Channel::CHANNELPRIVATE)
-            m_engine->getFloodModule().sendChatMessage(m_sender, content.remove(content.split(" ").at(0)+" "), content.split(" ").at(0));
+            m_engine->getFloodManager().sendChatMessage(m_sender, content.remove(content.split(" ").at(0)+" "), content.split(" ").at(0));
         else
-            m_engine->getFloodModule().sendChatMessage(m_sender, content, channel);
+            m_engine->getFloodManager().sendChatMessage(m_sender, content, channel);
 
         ui->lineEditConsole->setText("");
     }

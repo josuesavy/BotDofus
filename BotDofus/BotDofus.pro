@@ -74,17 +74,9 @@ HEADERS += \
     src/Engines/Core/Process/Managers/stats/StatsManager.h \
     src/Engines/Core/Process/ProcessEngine.h \
     src/Engines/Core/Process/Frames/AbstractFrame.h \
-    src/Engines/Core/Process/Frames/arena/ArenaModule.h \
-    src/Engines/Core/Process/Frames/characters/StatsModule.h \
     src/Engines/Core/Process/Frames/common/basic/CommonBasicFrame.h \
     src/Engines/Core/Process/Frames/connection/ConnectionFrame.h \
-    src/Engines/Core/Process/Frames/connection/ConnectionModule.h \
     src/Engines/Core/Process/Frames/connection/register/ConnectionRegisterFrame.h \
-    src/Engines/Core/Process/Frames/craft/CraftModule.h \
-    src/Engines/Core/Process/Frames/exchange/ExchangeModule.h \
-    src/Engines/Core/Process/Frames/farm/FarmModule.h \
-    src/Engines/Core/Process/Frames/fight/FightModule.h \
-    src/Engines/Core/Process/Frames/flood/FloodModule.h \
     src/Engines/Core/Process/Frames/game/achievement/AchievementFrame.h \
     src/Engines/Core/Process/Frames/game/actions/GameActionsFrame.h \
     src/Engines/Core/Process/Frames/game/actions/fight/GameActionsFightFrame.h \
@@ -129,17 +121,11 @@ HEADERS += \
     src/Engines/Core/Process/Frames/game/inventory/storage/GameInventoryStorageFrame.h \
     src/Engines/Core/Process/Frames/game/moderation/GameModerationFrame.h \
     src/Engines/Core/Process/Frames/game/subscriber/GameSubscriberFrame.h \
-    src/Engines/Core/Process/Frames/group/GroupModule.h \
     src/Engines/Core/Process/Frames/handshake/HandshakeFrame.h \
-    src/Engines/Core/Process/Frames/interaction/InteractionModule.h \
-    src/Engines/Core/Process/Frames/map/MapModule.h \
     src/Engines/Core/Process/Frames/queues/QueueFrame.h \
-    src/Engines/Core/Process/Frames/script/ScriptModule.h \
-    src/Engines/Core/Process/Frames/script/ScriptModule_lua.h \
     src/Engines/Core/Process/Frames/secure/SecureFrame.h \
     src/Engines/Core/Process/Frames/security/SecurityFrame.h \
     src/Engines/Core/Process/Frames/server/basic/ServerBasicFrame.h \
-    src/Engines/Core/Process/Frames/shop/ShopModule.h \
     src/Engines/Core/Process/Frames/subscription/SubscriptionFrame.h \
     src/Engines/Core/Process/Frames/web/ankabox/WebAnkaboxFrame.h \
     src/Engines/Core/Process/Managers/AbstractManager.h \
@@ -1984,17 +1970,9 @@ SOURCES += \
     src/Engines/Core/Process/Managers/stats/StatsManager.cpp \
     src/Engines/Core/Process/ProcessEngine.cpp \
     src/Engines/Core/Process/Frames/AbstractFrame.cpp \
-    src/Engines/Core/Process/Frames/arena/ArenaModule.cpp \
-    src/Engines/Core/Process/Frames/characters/StatsModule.cpp \
     src/Engines/Core/Process/Frames/common/basic/CommonBasicFrame.cpp \
     src/Engines/Core/Process/Frames/connection/ConnectionFrame.cpp \
-    src/Engines/Core/Process/Frames/connection/ConnectionModule.cpp \
     src/Engines/Core/Process/Frames/connection/register/ConnectionRegisterFrame.cpp \
-    src/Engines/Core/Process/Frames/craft/CraftModule.cpp \
-    src/Engines/Core/Process/Frames/exchange/ExchangeModule.cpp \
-    src/Engines/Core/Process/Frames/farm/FarmModule.cpp \
-    src/Engines/Core/Process/Frames/fight/FightModule.cpp \
-    src/Engines/Core/Process/Frames/flood/FloodModule.cpp \
     src/Engines/Core/Process/Frames/game/achievement/AchievementFrame.cpp \
     src/Engines/Core/Process/Frames/game/actions/GameActionsFrame.cpp \
     src/Engines/Core/Process/Frames/game/actions/fight/GameActionsFightFrame.cpp \
@@ -2039,17 +2017,11 @@ SOURCES += \
     src/Engines/Core/Process/Frames/game/inventory/storage/GameInventoryStorageFrame.cpp \
     src/Engines/Core/Process/Frames/game/moderation/GameModerationFrame.cpp \
     src/Engines/Core/Process/Frames/game/subscriber/GameSubscriberFrame.cpp \
-    src/Engines/Core/Process/Frames/group/GroupModule.cpp \
     src/Engines/Core/Process/Frames/handshake/HandshakeFrame.cpp \
-    src/Engines/Core/Process/Frames/interaction/InteractionModule.cpp \
-    src/Engines/Core/Process/Frames/map/MapModule.cpp \
     src/Engines/Core/Process/Frames/queues/QueueFrame.cpp \
-    src/Engines/Core/Process/Frames/script/ScriptModule.cpp \
-    src/Engines/Core/Process/Frames/script/ScriptModule_lua.cpp \
     src/Engines/Core/Process/Frames/secure/SecureFrame.cpp \
     src/Engines/Core/Process/Frames/security/SecurityFrame.cpp \
     src/Engines/Core/Process/Frames/server/basic/ServerBasicFrame.cpp \
-    src/Engines/Core/Process/Frames/shop/ShopModule.cpp \
     src/Engines/Core/Process/Frames/subscription/SubscriptionFrame.cpp \
     src/Engines/Core/Process/Frames/web/ankabox/WebAnkaboxFrame.cpp \
     src/Engines/Core/Process/Managers/AbstractManager.cpp \

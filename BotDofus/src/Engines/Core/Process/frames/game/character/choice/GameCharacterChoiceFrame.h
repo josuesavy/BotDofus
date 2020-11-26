@@ -11,7 +11,7 @@
 class GameCharacterChoiceFrame : public AbstractFrame
 {
 public:
-    GameCharacterChoiceFrame(QMap<SocketIO*, BotData> *connectionsData, GroupManager *groupManager);
+    GameCharacterChoiceFrame(QMap<SocketIO*, BotData> *connectionsData, ConnectionManager *connectionManager, GroupManager *groupManager);
 
     /*!
      * \brief Reset the module
@@ -29,6 +29,7 @@ public:
     virtual bool processMessage(const MessageInfos &data, SocketIO *sender);
 
 private:
+    ConnectionManager *m_connectionManager;
     GroupManager *m_groupManager;
 };
 

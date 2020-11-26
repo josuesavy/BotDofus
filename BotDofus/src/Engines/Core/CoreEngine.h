@@ -1,7 +1,6 @@
 #ifndef CoreEngine_H
 #define CoreEngine_H
 
-
 #include "src/Engines/Core/Process/Frames/common/basic/CommonBasicFrame.h"
 #include "src/Engines/Core/Process/Frames/connection/ConnectionFrame.h"
 #include "src/Engines/Core/Process/Frames/connection/register/ConnectionRegisterFrame.h"
@@ -73,12 +72,24 @@
 
 class CoreEngine : public QObject, public DataHandler
 {
-
     Q_OBJECT
 
 public:
     CoreEngine();
     ~CoreEngine();
+
+    MapManager &getMapManager();
+    FarmManager &getFarmManager();
+    CraftManager &getCraftManager();
+    FightManager &getFightManager();
+    FloodManager &getFloodManager();
+    GroupManager &getGroupManager();
+    StatsManager &getStatsManager();
+    //ScriptManager &getScriptModule();
+    ExchangeManager &getExchangeManager();
+    ConnectionManager &getConnectionManager();
+    InteractionManager &getInteractionManager();
+    SecurityManager &getSecurityManager();
 
     const BotData &getData(SocketIO *sender);
 
@@ -88,9 +99,6 @@ signals:
 protected:
     QList<AbstractFrame*> m_frames;
     QMap<ModuleType, AbstractManager*> m_managers;
-
-private:
-    QMap<SocketIO*, ConnectionInfos> m_connectionsInfos;
 };
 
 #endif // CoreEngine_H

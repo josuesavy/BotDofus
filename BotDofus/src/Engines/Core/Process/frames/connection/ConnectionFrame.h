@@ -18,7 +18,7 @@ enum class DofusVersion
 class ConnectionFrame : public AbstractFrame
 {
 public:
-    ConnectionFrame(QMap<SocketIO*, BotData> *connectionsData);
+    ConnectionFrame(QMap<SocketIO*, BotData> *connectionsData, ConnectionManager *connectionManager);
 
     /*!
      * \brief Reset the module
@@ -34,6 +34,9 @@ public:
      * \return bool The message has been process
      */
     virtual bool processMessage(const MessageInfos &data, SocketIO *sender);
+
+private:
+    ConnectionManager *m_connectionManager;
 };
 
 #endif // CONNECTIONFRAME_H

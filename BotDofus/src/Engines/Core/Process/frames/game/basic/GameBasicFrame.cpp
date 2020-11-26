@@ -87,7 +87,7 @@ bool GameBasicFrame::processMessage(const MessageInfos &data, SocketIO *sender)
             sender->send(answer3);
 
             ClientKeyMessage answer4;
-            answer4.key = ConnectionManager::getFlashKey();
+            answer4.key = m_connectionManager->getFlashKey();
             sender->send(answer4);
 
             GameContextCreateRequestMessage answer5;

@@ -10,7 +10,7 @@ AccountForm::AccountForm(ProcessEngine *engine, const ConnectionInfos &infos, QW
     // Liste d'initialisations
     m_engine = engine;
     m_infos = infos;
-    m_sender = m_engine->getConnectionModule().addConnection(m_infos);
+    m_sender = m_engine->getConnectionManager().addConnection(m_infos);
 
     consoleForm = new ConsoleForm(m_engine, m_infos, m_sender, this);
     characterForm = new CharacterForm(m_engine, m_infos, m_sender, this);
@@ -84,7 +84,7 @@ AccountForm::AccountForm(ProcessEngine *engine, const ConnectionInfos &infos, QW
 
 AccountForm::~AccountForm()
 {
-    m_engine->getConnectionModule().removeConnection(m_sender);
+    m_engine->getConnectionManager().removeConnection(m_sender);
     delete consoleForm;
     delete characterForm;
     delete inventoryForm;
@@ -163,26 +163,26 @@ void AccountForm::setAccountFormChilds(QList<AccountForm *> accountForms)
 
 int AccountForm::loadPath(QString path, bool unload)
 {
-    if (!unload)
-    {
-        if (!m_engine->getScriptModule().loadFile(m_sender, path))
-            return INVALID;
+//    if (!unload)
+//    {
+//        if (!m_engine->getScriptModule().loadFile(m_sender, path))
+//            return INVALID;
 
-        uint i = m_engine->getScriptModule().parse(m_sender);
-        if (i)
-            return i;
+//        uint i = m_engine->getScriptModule().parse(m_sender);
+//        if (i)
+//            return i;
 
-        m_engine->getGroupModule().setFollowUpEnabled(m_sender, false);
-        m_engine->getScriptModule().setActivePath(m_sender, true);
+//        m_engine->getGroupModule().setFollowUpEnabled(m_sender, false);
+//        m_engine->getScriptModule().setActivePath(m_sender, true);
 
-        return 0;
-    }
+//        return 0;
+//    }
 
-    else
-    {
-        m_engine->getScriptModule().unloadFile(m_sender);
-        return 0;
-    }
+//    else
+//    {
+//        m_engine->getScriptModule().unloadFile(m_sender);
+//        return 0;
+//    }
 }
 
 void AccountForm::autoConnect()
@@ -236,7 +236,7 @@ void AccountForm::updateInterface()
             ui->labelInfosPosition->setText(QString("<b>[%1,%2]</b> %3 (%4)").arg(infos.mapData.map.getPosition().getX()).arg(infos.mapData.map.getPosition().getY()).arg(area).arg(subAreas->getName()));
 
             if (infos.connectionData.connectionInfos.character != infos.connectionData.connectionInfos.masterGroup && infos.groupData.master == "" && !infos.connectionData.connectionInfos.masterGroup.isEmpty())
-                    m_engine->getGroupModule().setMaster(m_sender, infos.connectionData.connectionInfos.masterGroup);
+                    m_engine->getGroupManager().setMaster(m_sender, infos.connectionData.connectionInfos.masterGroup);
 
             // Experience du personnage
             if(infos.mapData.gameContext == GameContextEnum::ROLE_PLAY)
@@ -344,7 +344,7 @@ void AccountForm::updateInterface()
 
     if (infos.connectionData.connectionState == ConnectionState::TRANSITION)
     {
-        m_engine->getStatsModule().defineSkinHead(m_sender, QPixmap(":/icons/user.png"));
+        m_engine->getStatsManager().defineSkinHead(m_sender, QPixmap(":/icons/user.png"));
     }
 
     if (infos.connectionData.connectionState == ConnectionState::DISCONNECTED)
@@ -385,10 +385,10 @@ void AccountForm::updateInterface()
 void AccountForm::on_pushButtonDisconnection_clicked()
 {
     if(!m_sender->isActive())
-        m_engine->getConnectionModule().connect(m_sender);
+        m_engine->getConnectionManager().connect(m_sender);
 
     else
-        m_engine->getConnectionModule().disconnect(m_sender);
+        m_engine->getConnectionManager().disconnect(m_sender);
 }
 
 void AccountForm::on_actionLoadScript_triggered()
@@ -459,12 +459,12 @@ void AccountForm::on_pushButtonClose_clicked()
                 foreach(AccountForm *accountForm, m_accountFormChilds)
                 {
                     if (accountForm->getSocket()->isActive())
-                        accountForm->getEngine()->getConnectionModule().disconnect(accountForm->getSocket());
+                        accountForm->getEngine()->getConnectionManager().disconnect(accountForm->getSocket());
 
                     emit remove(accountForm, true);
                 }
             }
-            m_engine->getConnectionModule().disconnect(m_sender);
+            m_engine->getConnectionManager().disconnect(m_sender);
             emit remove(this);
         }
     }
@@ -476,7 +476,7 @@ void AccountForm::on_pushButtonClose_clicked()
             foreach(AccountForm *accountForm, m_accountFormChilds)
             {
                 if (accountForm->getSocket()->isActive())
-                    accountForm->getEngine()->getConnectionModule().disconnect(accountForm->getSocket());
+                    accountForm->getEngine()->getConnectionManager().disconnect(accountForm->getSocket());
 
                 emit remove(accountForm, true);
             }
@@ -488,11 +488,11 @@ void AccountForm::on_pushButtonClose_clicked()
 void AccountForm::on_actionTeleportSlavesToMaster_triggered()
 {
     if(m_engine->getData(m_sender).connectionData.connectionInfos.masterGroup != m_engine->getData(m_sender).connectionData.connectionInfos.character)
-        m_engine->getGroupModule().teleportSlavesToMaster(m_sender, m_engine->getData(m_sender).connectionData.connectionInfos.masterGroup);
+        m_engine->getGroupManager().teleportSlavesToMaster(m_sender, m_engine->getData(m_sender).connectionData.connectionInfos.masterGroup);
 
     else
     {
-        foreach(SocketIO *slave, m_engine->getGroupModule().getSlaves(m_sender))
-            m_engine->getGroupModule().teleportSlavesToMaster(slave, m_engine->getData(slave).connectionData.connectionInfos.masterGroup);
+        foreach(SocketIO *slave, m_engine->getGroupManager().getSlaves(m_sender))
+            m_engine->getGroupManager().teleportSlavesToMaster(slave, m_engine->getData(slave).connectionData.connectionInfos.masterGroup);
     }
 }

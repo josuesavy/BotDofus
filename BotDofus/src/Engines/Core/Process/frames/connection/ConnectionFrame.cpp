@@ -1,7 +1,8 @@
 #include "ConnectionFrame.h"
 
-ConnectionFrame::ConnectionFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+ConnectionFrame::ConnectionFrame(QMap<SocketIO *, BotData> *connectionsData, ConnectionManager *connectionManager):
+    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    m_connectionManager(connectionManager)
 {
 
 }
@@ -46,13 +47,11 @@ bool ConnectionFrame::processMessage(const MessageInfos &data, SocketIO *sender)
         imsg.serverId = 0;
         imsg.sessionOptionalSalt = 0;
         imsg.failedAttempts = QList<uint>();
-
-        ConnectionManager connectionManager;
-        imsg.credentials = connectionManager.cipherRSA(sender, message.key, message.salt);
+        imsg.credentials = m_connectionManager->cipherRSA(sender, message.key, message.salt);
         sender->send(imsg);
 
         ClientKeyMessage ckmsg;
-        ckmsg.key = connectionManager.getFlashKey();
+        ckmsg.key = m_connectionManager->getFlashKey();
         sender->send(ckmsg);
     }
         break;

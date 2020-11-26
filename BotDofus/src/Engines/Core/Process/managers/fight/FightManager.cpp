@@ -1,5 +1,16 @@
 #include "FightManager.h"
 
+bool operator<(const Point2D &left, const Point2D & right)
+{
+    if(left.x < right.x)
+        return true;
+
+    else if(left.x == right.x && left.y < right.y)
+        return true;
+
+    return false;
+}
+
 FightManager::FightManager(QMap<SocketIO *, BotData> *connectionsData, MapManager *mapManager, GroupManager *groupManager, ArenaManager *arenaManager):
     AbstractManager(ModuleType::FIGHT, connectionsData),
     m_mapManager(mapManager),

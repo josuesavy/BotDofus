@@ -181,6 +181,7 @@ private:
     MapManager *m_mapManager;
     QMap<PetFeedInfos, SocketIO*> m_feed;
     QList< QPair<SocketIO*, PetFeedInfos> > m_connection;
+
 };
 
 #endif // INTERACTIONMANAGER_H

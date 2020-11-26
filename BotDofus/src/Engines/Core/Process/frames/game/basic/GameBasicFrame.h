@@ -1,5 +1,5 @@
-#ifndef BASICFRAME_H
-#define BASICFRAME_H
+#ifndef GAMEBASICFRAME_H
+#define GAMEBASICFRAME_H
 
 #include "src/Engines/Core/Process/Frames/AbstractFrame.h"
 #include "src/Engines/Core/Process/Managers/connection/ConnectionManager.h"
@@ -29,4 +29,4 @@ private:
     ConnectionManager *m_connectionManager;
 };
 
-#endif // BASICFRAME_H
+#endif // GAMEBASICFRAME_H

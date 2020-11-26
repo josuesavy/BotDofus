@@ -206,32 +206,32 @@ void CharacterForm::updateInterface()
 
         case 1:
             if(infos.playerData.stats.statsPoints != 0 && infos.playerData.stats.statsRequiredVitality != 0)
-                m_engine->getStatsModule().increaseStat(m_sender, PlayerD2OFields::VITALITY);
+                m_engine->getStatsManager().increaseStat(m_sender, PlayerD2OFields::VITALITY);
             break;
 
         case 2:
             if(infos.playerData.stats.statsPoints != 0 && infos.playerData.stats.statsRequiredWisdom != 0)
-                m_engine->getStatsModule().increaseStat(m_sender, PlayerD2OFields::WISDOM);
+                m_engine->getStatsManager().increaseStat(m_sender, PlayerD2OFields::WISDOM);
             break;
 
         case 3:
             if(infos.playerData.stats.statsPoints != 0 && infos.playerData.stats.statsRequiredStrength != 0)
-                m_engine->getStatsModule().increaseStat(m_sender, PlayerD2OFields::STRENGTH);
+                m_engine->getStatsManager().increaseStat(m_sender, PlayerD2OFields::STRENGTH);
             break;
 
         case 4:
             if(infos.playerData.stats.statsPoints != 0 && infos.playerData.stats.statsRequiredIntelligence != 0)
-                m_engine->getStatsModule().increaseStat(m_sender, PlayerD2OFields::INTELLIGENCE);
+                m_engine->getStatsManager().increaseStat(m_sender, PlayerD2OFields::INTELLIGENCE);
             break;
 
         case 5:
             if(infos.playerData.stats.statsPoints != 0 && infos.playerData.stats.statsRequiredChance != 0)
-                m_engine->getStatsModule().increaseStat(m_sender, PlayerD2OFields::CHANCE);
+                m_engine->getStatsManager().increaseStat(m_sender, PlayerD2OFields::CHANCE);
             break;
 
         case 6:
             if(infos.playerData.stats.statsPoints != 0 && infos.playerData.stats.statsRequiredAgility != 0)
-                m_engine->getStatsModule().increaseStat(m_sender, PlayerD2OFields::AGILITY);
+                m_engine->getStatsManager().increaseStat(m_sender, PlayerD2OFields::AGILITY);
             break;
         }
 
@@ -309,43 +309,43 @@ void CharacterForm::loadCharacterFaceUrl(QNetworkReply *reply)
 {
     QPixmap pixmap;
     pixmap.loadFromData(reply->readAll());
-    m_engine->getStatsModule().defineSkinHead(m_sender, pixmap);
+    m_engine->getStatsManager().defineSkinHead(m_sender, pixmap);
     reply->deleteLater();
 }
 
 void CharacterForm::on_pushButtonAddVitality_clicked()
 {
-    m_engine->getStatsModule().increaseStat(m_sender, PlayerD2OFields::VITALITY);
+    m_engine->getStatsManager().increaseStat(m_sender, PlayerD2OFields::VITALITY);
 }
 
 void CharacterForm::on_pushButtonAddWisdom_clicked()
 {
-    m_engine->getStatsModule().increaseStat(m_sender, PlayerD2OFields::WISDOM);
+    m_engine->getStatsManager().increaseStat(m_sender, PlayerD2OFields::WISDOM);
 }
 
 void CharacterForm::on_pushButtonAddStrength_clicked()
 {
-    m_engine->getStatsModule().increaseStat(m_sender, PlayerD2OFields::STRENGTH);
+    m_engine->getStatsManager().increaseStat(m_sender, PlayerD2OFields::STRENGTH);
 }
 
 void CharacterForm::on_pushButtonAddIntelligence_clicked()
 {
-    m_engine->getStatsModule().increaseStat(m_sender, PlayerD2OFields::INTELLIGENCE);
+    m_engine->getStatsManager().increaseStat(m_sender, PlayerD2OFields::INTELLIGENCE);
 }
 
 void CharacterForm::on_pushButtonAddChance_clicked()
 {
-    m_engine->getStatsModule().increaseStat(m_sender, PlayerD2OFields::CHANCE);
+    m_engine->getStatsManager().increaseStat(m_sender, PlayerD2OFields::CHANCE);
 }
 
 void CharacterForm::on_pushButtonAddAgility_clicked()
 {
-    m_engine->getStatsModule().increaseStat(m_sender, PlayerD2OFields::AGILITY);
+    m_engine->getStatsManager().increaseStat(m_sender, PlayerD2OFields::AGILITY);
 }
 
 void CharacterForm::on_pushButtonResetCharacteristics_clicked()
 {
     int answ = QMessageBox::warning(this, "Attention", "Etes-vous sûr de vouloir réinitialiser vos caractéristiques ?", QMessageBox::Yes | QMessageBox::No);
     if(answ == QMessageBox::Yes)
-        m_engine->getStatsModule().resetStat(m_sender);
+        m_engine->getStatsManager().resetStat(m_sender);
 }

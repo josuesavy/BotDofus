@@ -5,7 +5,15 @@ ProcessEngine::ProcessEngine()
     connect(m_managers[ModuleType::CONNECTION], SIGNAL(connectionAdded(SocketIO*)), this, SLOT(connectToSocket(SocketIO*)));
     connect(m_managers[ModuleType::CONNECTION], SIGNAL(botDisconnected(SocketIO*)), this, SLOT(resetModules(SocketIO*)));
 
-    foreach (AbstractFrame *frame, m_frames)
+
+    QMapIterator<ModuleType, AbstractManager*> manager(m_managers);
+    while (manager.hasNext())
+    {
+        manager.next();
+        connect(manager.value(), SIGNAL(requestUpdate(SocketIO*)), this, SLOT(processUpdateRequest(SocketIO*)));
+    }
+
+    foreach (const AbstractFrame *frame, m_frames)
     {
         connect(frame, SIGNAL(requestUpdate(SocketIO*)), this, SLOT(processUpdateRequest(SocketIO*)));
     }

@@ -60,7 +60,7 @@ public:
 
     QList<int> cipherRSA(SocketIO *sender, QList<int> keys, QString salt);
 
-    static QString getFlashKey();
+    QString getFlashKey();
 
 
 

@@ -1,10 +1,10 @@
-#ifndef ABSTRACTMODULE_H
-#define ABSTRACTMODULE_H
+#ifndef ABSTRACTMANAGER_H
+#define ABSTRACTMANAGER_H
 
 #include "src/Engines/Storage/DataHandler.h"
 
 /*!
- * \brief The AbstractModule class
+ * \brief The AbstractManager class
  */
 class AbstractManager : public QObject, public DataHandler
 {
@@ -28,7 +28,10 @@ signals:
     void scriptActionFailure(SocketIO *sender);
     void requestResetData(SocketIO *sender);
 
+protected:
+    QMap<SocketIO *, BotData> *m_connectionsData;
+
 private:
     ModuleType m_type;
 };
-#endif // ABSTRACTMODULE_H
+#endif // ABSTRACTMANAGER_H

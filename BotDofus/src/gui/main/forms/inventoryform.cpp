@@ -226,12 +226,12 @@ void InventoryForm::equipEquipement()
         if(isEquipped)
         {
             qDebug()<<"ACCOUNTFORM - UNEQUIP ITEM"<<indexUID;
-            m_engine->getStatsModule().unequipItem(m_sender, indexUID);
+            m_engine->getStatsManager().unequipItem(m_sender, indexUID);
         }
         else
         {
             qDebug()<<"ACCOUNTFORM - EQUIP ITEM"<<indexUID;
-            m_engine->getStatsModule().equipItem(m_sender, indexUID);
+            m_engine->getStatsManager().equipItem(m_sender, indexUID);
         }
     }
 }
@@ -267,7 +267,7 @@ void InventoryForm::throwEquipement()
         }
 
         qDebug()<<"ACCOUNTFORM - DESTROY"<<indexUID<<" - QUANTITY"<<quantity;
-        m_engine->getStatsModule().throwItem(m_sender, indexUID, quantity);
+        m_engine->getStatsManager().throwItem(m_sender, indexUID, quantity);
 
         ui->tableWidgetEquipment->removeRow(row);
     }
@@ -304,7 +304,7 @@ void InventoryForm::deleteEquipement()
         }
 
         qDebug()<<"ACCOUNTFORM - DESTROY"<<indexUID<<" - QUANTITY"<<quantity;
-        m_engine->getStatsModule().destroyItem(m_sender, indexUID, quantity);
+        m_engine->getStatsManager().destroyItem(m_sender, indexUID, quantity);
 
         ui->tableWidgetEquipment->removeRow(row);
     }
@@ -330,7 +330,7 @@ void InventoryForm::useUsable()
         }
 
         qDebug()<<"ACCOUNTFORM - USE ITEM"<<indexUID;
-        m_engine->getStatsModule().useItem(m_sender, indexUID);
+        m_engine->getStatsManager().useItem(m_sender, indexUID);
     }
 }
 
@@ -365,7 +365,7 @@ void InventoryForm::throwUsable()
         }
 
         qDebug()<<"ACCOUNTFORM - DESTROY"<<indexUID<<" - QUANTITY"<<quantity;
-        m_engine->getStatsModule().throwItem(m_sender, indexUID, quantity);
+        m_engine->getStatsManager().throwItem(m_sender, indexUID, quantity);
 
         ui->tableWidgetEquipment->removeRow(row);
     }
@@ -402,7 +402,7 @@ void InventoryForm::deleteUsable()
         }
 
         qDebug()<<"ACCOUNTFORM - DESTROY"<<indexUID<<" - QUANTITY"<<quantity;
-        m_engine->getStatsModule().destroyItem(m_sender, indexUID, quantity);
+        m_engine->getStatsManager().destroyItem(m_sender, indexUID, quantity);
 
         ui->tableWidgetUsableItems->removeRow(row);
     }
@@ -439,7 +439,7 @@ void InventoryForm::throwResource()
         }
 
         qDebug()<<"ACCOUNTFORM - DESTROY"<<indexUID<<" - QUANTITY"<<quantity;
-        m_engine->getStatsModule().throwItem(m_sender, indexUID, quantity);
+        m_engine->getStatsManager().throwItem(m_sender, indexUID, quantity);
 
         ui->tableWidgetResources->removeRow(row);
     }
@@ -476,7 +476,7 @@ void InventoryForm::deleteResource()
         }
 
         qDebug()<<"ACCOUNTFORM - DESTROY"<<indexUID<<" - QUANTITY"<<quantity;
-        m_engine->getStatsModule().destroyItem(m_sender, indexUID, quantity);
+        m_engine->getStatsManager().destroyItem(m_sender, indexUID, quantity);
 
         ui->tableWidgetResources->removeRow(row);
     }

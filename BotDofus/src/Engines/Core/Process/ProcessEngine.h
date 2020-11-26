@@ -1,8 +1,6 @@
 #ifndef PROCESSENGINE_H
 #define PROCESSENGINE_H
 
-#include <QObject>
-
 #include "src/Engines/Core/CoreEngine.h"
 #include "src/Engines/Core/Process/Managers/connection/ConnectionManager.h"
 
