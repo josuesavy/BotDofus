@@ -23,8 +23,11 @@ enum Directions
 
 class MapManager : public AbstractManager
 {
+    Q_OBJECT
+
 public:
     MapManager(QMap<SocketIO*, BotData> *connectionsData);
+    ~MapManager();
 
     /*!
      * \brief stopMoving

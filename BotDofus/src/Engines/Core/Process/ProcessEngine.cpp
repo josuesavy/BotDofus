@@ -22,7 +22,9 @@ ProcessEngine::ProcessEngine()
 void ProcessEngine::resetModules(SocketIO *sender)
 {
     foreach(AbstractFrame *frame, m_frames)
+    {
         frame->reset(sender);
+    }
 
     processUpdateRequest(sender);
 }
@@ -73,15 +75,6 @@ bool ProcessEngine::processMessage(const MessageInfos &data, SocketIO *sender)
         {
             messageFound = true;
         }
-    }
-
-    Reader reader(data.messageData);
-
-    switch (data.messageType)
-    {
-    default :
-        messageFound = false;
-        break;
     }
 
     if (!messageFound)

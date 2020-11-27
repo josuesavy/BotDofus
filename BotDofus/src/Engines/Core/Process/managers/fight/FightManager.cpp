@@ -11,13 +11,54 @@ bool operator<(const Point2D &left, const Point2D & right)
     return false;
 }
 
+QMap<int, Point2D> FightManager::m_cellsPos;
+QMap<Point2D, int> FightManager::m_cellsId;
+
 FightManager::FightManager(QMap<SocketIO *, BotData> *connectionsData, MapManager *mapManager, GroupManager *groupManager, ArenaManager *arenaManager):
     AbstractManager(ModuleType::FIGHT, connectionsData),
     m_mapManager(mapManager),
     m_groupManager(groupManager),
     m_arenaManager(arenaManager)
 {
+    int param4 = 0;
+        int param1 = 0;
+        int param2 = 0;
+        int param3 = 0;
+        int param5 = 0;
 
+        while(param5 < MAP_HEIGHT)
+        {
+            param4 = 0;
+            while(param4 < MAP_WIDTH)
+            {
+                Point2D point;
+                point.x = param1 + param4;
+                point.y = param2 + param4;
+                m_cellsPos[param3] = point;
+                param3++;
+                param4++;
+            }
+            param1++;
+            param4 = 0;
+            while(param4 < MAP_WIDTH)
+            {
+                Point2D point;
+                point.x = param1 + param4;
+                point.y = param2 + param4;
+                m_cellsPos[param3] = point;
+                param3++;
+                param4++;
+            }
+            param2--;
+            param5++;
+        }
+
+        foreach(const int &id, m_cellsPos.keys())
+            m_cellsId[m_cellsPos[id]] = id;
+
+        connect(m_mapManager, SIGNAL(hasFinishedMoving(SocketIO*)), this, SLOT(moveSuccess(SocketIO*)));
+        connect(m_mapManager, SIGNAL(couldNotMove(SocketIO*)), this, SLOT(moveFailure(SocketIO*)));
+        connect(m_mapManager, SIGNAL(mapContentUpdated(SocketIO*)), this, SLOT(processEndFight(SocketIO*)));
 }
 
 void FightManager::setRequestedMonsters(SocketIO *sender, RequestedMonsters requestedMonster)

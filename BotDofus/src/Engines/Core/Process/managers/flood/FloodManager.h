@@ -19,6 +19,30 @@ struct FloodRequest
     int estimatedTime;  /*!< Cooldown between two messages */
 };
 
+/*!
+ * \brief operator <
+ * \param left
+ * \param right
+ * \return bool
+ */
+bool operator<(const FloodRequest &left, const FloodRequest &right);
+
+/*!
+ * \brief operator !=
+ * \param left
+ * \param right
+ * \return bool
+ */
+bool operator!=(const FloodRequest &left, const FloodRequest &right);
+
+/*!
+ * \brief operator ==
+ * \param left
+ * \param right
+ * \return bool
+ */
+bool operator==(const FloodRequest &left, const FloodRequest &right);
+
 class FloodManager : public AbstractManager
 {
 public:

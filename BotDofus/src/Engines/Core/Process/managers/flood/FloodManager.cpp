@@ -1,5 +1,36 @@
 #include "FloodManager.h"
 
+bool operator<(const FloodRequest &left, const FloodRequest &right)
+{
+    int a = left.estimatedTime - (left.elapsedTime.elapsed()/1000);
+    int b = right.estimatedTime - (right.elapsedTime.elapsed()/1000);
+
+    if (a < b)
+        return false;
+    else
+        return true;
+}
+
+bool operator!=(const FloodRequest &left, const FloodRequest &right)
+{
+    if (left.channel == right.channel)
+        if (left.elapsedTime == right.elapsedTime)
+            if (left.estimatedTime == right.estimatedTime)
+                if (left.sender == right.sender)
+                    return false;
+    return true;
+}
+
+bool operator==(const FloodRequest &left, const FloodRequest &right)
+{
+    if (left.channel == right.channel)
+        if (left.elapsedTime == right.elapsedTime)
+            if (left.estimatedTime == right.estimatedTime)
+                if (left.sender == right.sender)
+                    return true;
+    return false;
+}
+
 FloodManager::FloodManager(QMap<SocketIO *, BotData> *connectionsData):
     AbstractManager(ModuleType::FLOOD, connectionsData)
 {

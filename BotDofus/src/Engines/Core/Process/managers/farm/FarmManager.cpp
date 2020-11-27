@@ -4,7 +4,7 @@ FarmManager::FarmManager(QMap<SocketIO *, BotData> *connectionsData, MapManager 
     AbstractManager(ModuleType::FARM, connectionsData),
     m_mapManager(mapManager)
 {
-
+    QObject::connect(m_mapManager, SIGNAL(hasFinishedMoving(SocketIO*)), this, SLOT(activateSkill(SocketIO*)));
 }
 
 bool FarmManager::processFarm(SocketIO *sender)

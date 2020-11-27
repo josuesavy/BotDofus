@@ -5,6 +5,7 @@
 
 #include <QNetworkReply>
 
+#include "src/Engines/Misc/EntityLook/EntityLookParser.h"
 #include "src/Engines/Core/Process/ProcessEngine.h"
 #include "src/Engines/Storage/DataHandler.h"
 

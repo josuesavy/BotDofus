@@ -7,6 +7,8 @@
 
 class GameContextFrame : public AbstractFrame
 {
+    Q_OBJECT
+
 public:
     GameContextFrame(QMap<SocketIO*, BotData> *connectionsData, FightManager *fightManager, MapManager *mapManager);
 

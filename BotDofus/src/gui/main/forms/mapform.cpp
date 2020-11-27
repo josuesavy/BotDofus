@@ -43,12 +43,12 @@ const BotData &MapForm::getData() const
 
 void MapForm::changeCell(uint cell)
 {
-    m_engine->getMapModule().changeCell(m_sender, cell);
+    m_engine->getMapManager().changeCell(m_sender, cell);
 }
 
 void MapForm::changeToNearestCell(uint cell)
 {
-    m_engine->getMapModule().changeToNearestCell(m_sender, cell);
+    m_engine->getMapManager().changeToNearestCell(m_sender, cell);
 }
 
 void MapForm::useInteractive(uint cell)
@@ -57,7 +57,7 @@ void MapForm::useInteractive(uint cell)
     {
         if(interactive.cellId == cell && interactive.name.isEmpty())
         {
-            m_engine->getInteractionModule().processUse(m_sender, interactive.id);
+            m_engine->getInteractionManager().processUse(m_sender, interactive.id);
             break;
         }
     }
@@ -291,7 +291,7 @@ void MapForm::updateMap()
 
                 if(interactivesCellId.keys().contains(i))
                 {
-                    if(FarmModule::canFarmResource(infos.mapData.interactivesOnMap[interactivesCellId[i]]))
+                    if(FarmManager::canFarmResource(infos.mapData.interactivesOnMap[interactivesCellId[i]]))
                         interactives<<((uint)MapViewerCellEnum::USABLE);
 
                     else
@@ -356,23 +356,23 @@ void MapForm::on_checkBoxDisplayCellIds_stateChanged(int arg1)
 void MapForm::on_pushButtonTop_clicked()
 {
     if (getData().generalData.botState == BotState::INACTIVE_STATE && !getData().scriptData.isActive)
-        m_engine->getMapModule().changeMap(m_sender, MapSide::TOP);
+        m_engine->getMapManager().changeMap(m_sender, MapSide::TOP);
 }
 
 void MapForm::on_pushButtonLeft_clicked()
 {
     if (getData().generalData.botState == BotState::INACTIVE_STATE && !getData().scriptData.isActive)
-        m_engine->getMapModule().changeMap(m_sender, MapSide::LEFT);
+        m_engine->getMapManager().changeMap(m_sender, MapSide::LEFT);
 }
 
 void MapForm::on_pushButtonRight_clicked()
 {
     if (getData().generalData.botState == BotState::INACTIVE_STATE && !getData().scriptData.isActive)
-        m_engine->getMapModule().changeMap(m_sender, MapSide::RIGHT);
+        m_engine->getMapManager().changeMap(m_sender, MapSide::RIGHT);
 }
 
 void MapForm::on_pushButtonBottom_clicked()
 {
     if (getData().generalData.botState == BotState::INACTIVE_STATE && !getData().scriptData.isActive)
-        m_engine->getMapModule().changeMap(m_sender, MapSide::BOTTOM);
+        m_engine->getMapManager().changeMap(m_sender, MapSide::BOTTOM);
 }

@@ -3,6 +3,11 @@
 MapManager::MapManager(QMap<SocketIO *, BotData> *connectionsData):
     AbstractManager(ModuleType::MAP, connectionsData)
 {
+    qRegisterMetaType<QList<ChangeMapRequest>>("QList<ChangeMapRequest>");
+}
+
+MapManager::~MapManager()
+{
 
 }
 

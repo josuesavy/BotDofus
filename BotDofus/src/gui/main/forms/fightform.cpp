@@ -65,7 +65,7 @@ void FightForm::on_pushButtonMoveTopSpell_clicked()
     {
         QList<RequestedSpell> rs = m_engine->getFightManager().getRequestedSpells(m_sender);
         rs.move(index, index-1);
-        m_engine->getFightModule().setRequestedSpells(m_sender, rs);
+        m_engine->getFightManager().setRequestedSpells(m_sender, rs);
 
         QList<QTableWidgetItem*> sourceItems;
         QList<QTableWidgetItem*> destItems;

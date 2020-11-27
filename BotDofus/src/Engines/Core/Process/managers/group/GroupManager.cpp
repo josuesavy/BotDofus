@@ -4,7 +4,8 @@ GroupManager::GroupManager(QMap<SocketIO *, BotData> *connectionsData, MapManage
     AbstractManager(ModuleType::MAP, connectionsData),
     m_mapManager(mapManager)
 {
-
+    connect(m_mapManager, SIGNAL(mapContentUpdated(SocketIO*)), this, SLOT(followUpUpdate(SocketIO*)));
+    connect(m_mapManager, SIGNAL(couldNotMove(SocketIO*)), this, SLOT(followUpFailure(SocketIO*)));
 }
 
 void GroupManager::setFollowUpEnabled(SocketIO *sender, bool followUp)

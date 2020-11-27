@@ -4,7 +4,27 @@ CraftManager::CraftManager(QMap<SocketIO*, BotData> *connectionsData, MapManager
     AbstractManager(ModuleType::CRAFT, connectionsData),
     m_mapManager(mapManager)
 {
+    QObject::connect(m_mapManager, SIGNAL(hasFinishedMoving(SocketIO*)), this, SLOT(useCraftingBench(SocketIO*)));
+    QObject::connect(m_mapManager, SIGNAL(couldNotMove(SocketIO*)), this, SLOT(couldNotMove(SocketIO*)));
 
+    foreach(int index, D2OManagerSingleton::get()->getIndexes(GameDataTypeEnum::RECIPES))
+    {
+        QSharedPointer<RecipeData> recipe = qSharedPointerCast<RecipeData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::RECIPES, index));
+        m_recipesName[recipe->getResultName()] = recipe->getResultId();
+
+        RecipeInfos infos;
+        infos.quantity = -1;
+        infos.jobId = recipe->getJobId();
+        infos.joblevel = recipe->getResultLevel();
+        infos.name = recipe->getResultName();
+        infos.skillId = recipe->getSkillId();
+        infos.recipeId = recipe->getResultId();
+
+        for (int i = 0; i < recipe->getIngredientIds().size(); i++)
+            infos.ingredients[recipe->getIngredientIds()[i]] = recipe->getQuantities()[i];
+
+        m_recipes[recipe->getResultId()] = infos;
+    }
 }
 
 bool CraftManager::processCraft(SocketIO *sender)

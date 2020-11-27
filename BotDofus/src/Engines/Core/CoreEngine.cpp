@@ -6,17 +6,17 @@ CoreEngine::CoreEngine()
     t.start();
 
     m_managers[ModuleType::MAP] = new MapManager(&m_botData);
-    m_managers[ModuleType::ARENA] = new ArenaManager(&m_botData);
+    m_managers[ModuleType::STATS] = new StatsManager(&m_botData);
+    m_managers[ModuleType::FLOOD] = new FloodManager(&m_botData);
+    m_managers[ModuleType::EXCHANGE] = new ExchangeManager(&m_botData);
     m_managers[ModuleType::CONNECTION] = new ConnectionManager(&m_botData);
-    m_managers[ModuleType::FARM] = new FarmManager(&m_botData, static_cast<MapManager*>(m_managers[ModuleType::MAP]));
-    m_managers[ModuleType::CRAFT] = new CraftManager(&m_botData, static_cast<MapManager*>(m_managers[ModuleType::MAP]));
+    m_managers[ModuleType::INTERACTION] = new InteractionManager(&m_botData, static_cast<MapManager*>(m_managers[ModuleType::MAP]));
     m_managers[ModuleType::GROUP] = new GroupManager(&m_botData, static_cast<MapManager*>(m_managers[ModuleType::MAP]));
     m_managers[ModuleType::FIGHT] = new FightManager(&m_botData, static_cast<MapManager*>(m_managers[ModuleType::MAP]), static_cast<GroupManager*>(m_managers[ModuleType::GROUP]), static_cast<ArenaManager*>(m_managers[ModuleType::ARENA]));
+    m_managers[ModuleType::FARM] = new FarmManager(&m_botData, static_cast<MapManager*>(m_managers[ModuleType::MAP]));
+    m_managers[ModuleType::CRAFT] = new CraftManager(&m_botData, static_cast<MapManager*>(m_managers[ModuleType::MAP]));
+    m_managers[ModuleType::ARENA] = new ArenaManager(&m_botData);
     m_managers[ModuleType::SECURITY] = new SecurityManager(&m_botData);
-    m_managers[ModuleType::STATS] = new StatsManager(&m_botData);
-    m_managers[ModuleType::INTERACTION] = new InteractionManager(&m_botData, static_cast<MapManager*>(m_managers[ModuleType::MAP]));
-    m_managers[ModuleType::EXCHANGE] = new ExchangeManager(&m_botData);
-    m_managers[ModuleType::FLOOD] = new FloodManager(&m_botData);
 
 
     m_frames.append(new CommonBasicFrame(&m_botData));
@@ -78,6 +78,13 @@ CoreEngine::CoreEngine()
 
 CoreEngine::~CoreEngine()
 {
+    QMapIterator<ModuleType, AbstractManager*> manager(m_managers);
+    while (manager.hasNext())
+    {
+        manager.next();
+        delete manager.value();
+    }
+
     foreach(AbstractFrame *frame, m_frames)
     {
         delete frame;

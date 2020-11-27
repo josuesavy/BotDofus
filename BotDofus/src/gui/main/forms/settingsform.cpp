@@ -79,19 +79,19 @@ void SettingsForm::hasDisconnected()
 void SettingsForm::on_checkBoxAutoReconnect_stateChanged(int arg1)
 {
     if(arg1 == Qt::Unchecked) // Unchecked
-        m_engine->getConnectionModule().setReconnectionAuto(m_sender, false);
+        m_engine->getConnectionManager().setReconnectionAuto(m_sender, false);
 
     else if(arg1 == Qt::Checked) // Checked
-        m_engine->getConnectionModule().setReconnectionAuto(m_sender, true);
+        m_engine->getConnectionManager().setReconnectionAuto(m_sender, true);
 }
 
 void SettingsForm::on_checkBoxAutoAcceptAchievement_stateChanged(int arg1)
 {
     if(arg1 == Qt::Unchecked) // Unchecked
-        m_engine->getStatsModule().setAutomaticallyAcceptAchievement(m_sender, false);
+        m_engine->getStatsManager().setAutomaticallyAcceptAchievement(m_sender, false);
 
     else if(arg1 == Qt::Checked) // Checked
-        m_engine->getStatsModule().setAutomaticallyAcceptAchievement(m_sender, true);
+        m_engine->getStatsManager().setAutomaticallyAcceptAchievement(m_sender, true);
 }
 
 void SettingsForm::on_pushButtonCheckAndApplyProxy_clicked()
@@ -138,26 +138,26 @@ void SettingsForm::on_groupBox_6_clicked(bool checked)
 void SettingsForm::on_comboBoxStatus_currentIndexChanged(int index)
 {
     if(index == 0)
-        m_engine->getStatsModule().setPlayerStatusUpdate(m_sender, PlayerStatusEnum::PLAYER_STATUS_AVAILABLE);
+        m_engine->getStatsManager().setPlayerStatusUpdate(m_sender, PlayerStatusEnum::PLAYER_STATUS_AVAILABLE);
     else if(index == 1)
-        m_engine->getStatsModule().setPlayerStatusUpdate(m_sender, PlayerStatusEnum::PLAYER_STATUS_AFK);
+        m_engine->getStatsManager().setPlayerStatusUpdate(m_sender, PlayerStatusEnum::PLAYER_STATUS_AFK);
     else if(index == 2)
     {
         bool ok;
         QString text = QInputDialog::getText(this, tr("Message d'absence"), tr("Raison de l'absence :"), QLineEdit::Normal, QString(), &ok);
         if (ok && !text.isEmpty())
-            m_engine->getStatsModule().setPlayerStatusUpdate(m_sender, PlayerStatusEnum::PLAYER_STATUS_AFK, text);
+            m_engine->getStatsManager().setPlayerStatusUpdate(m_sender, PlayerStatusEnum::PLAYER_STATUS_AFK, text);
         else if(ok && text.isEmpty())
-            m_engine->getStatsModule().setPlayerStatusUpdate(m_sender, PlayerStatusEnum::PLAYER_STATUS_AFK);
+            m_engine->getStatsManager().setPlayerStatusUpdate(m_sender, PlayerStatusEnum::PLAYER_STATUS_AFK);
         else
             ui->comboBoxStatus->setCurrentIndex(currentIndexSelected);
     }
     else if(index == 3)
     {
-        m_engine->getStatsModule().setPlayerStatusUpdate(m_sender, PlayerStatusEnum::PLAYER_STATUS_PRIVATE);
+        m_engine->getStatsManager().setPlayerStatusUpdate(m_sender, PlayerStatusEnum::PLAYER_STATUS_PRIVATE);
     }
     else if(index == 4)
-        m_engine->getStatsModule().setPlayerStatusUpdate(m_sender, PlayerStatusEnum::PLAYER_STATUS_SOLO);
+        m_engine->getStatsManager().setPlayerStatusUpdate(m_sender, PlayerStatusEnum::PLAYER_STATUS_SOLO);
 
     currentIndexSelected = index;
 }
