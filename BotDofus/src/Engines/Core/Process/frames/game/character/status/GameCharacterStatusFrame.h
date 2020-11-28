@@ -1,7 +1,7 @@
 #ifndef GAMECHARACTERSTATUSFRAME_H
 #define GAMECHARACTERSTATUSFRAME_H
 
-#include "src/Engines/Core/Process/Frames/AbstractFrame.h"
+#include "src/Engines/Core/Process/frames/AbstractFrame.h"
 
 class GameCharacterStatusFrame : public AbstractFrame
 {

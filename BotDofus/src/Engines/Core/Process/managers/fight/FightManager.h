@@ -1,7 +1,7 @@
 #ifndef FIGHTMANAGER_H
 #define FIGHTMANAGER_H
 
-#include "src/Engines/Core/Process/Managers/AbstractManager.h"
+#include "src/Engines/Core/Process/managers/AbstractManager.h"
 #include "src/Engines/Core/Process/Managers/map/MapManager.h"
 #include "src/Engines/Core/Process/Managers/group/GroupManager.h"
 #include "src/Engines/Core/Process/Managers/arena/ArenaManager.h"

@@ -1,7 +1,7 @@
 #ifndef GAMECONTEXTROLEPLAYOBJECTSFRAME_H
 #define GAMECONTEXTROLEPLAYOBJECTSFRAME_H
 
-#include "src/Engines/Core/Process/Frames/AbstractFrame.h"
+#include "src/Engines/Core/Process/frames/AbstractFrame.h"
 
 class GameContextRoleplayObjectsFrame : public AbstractFrame
 {

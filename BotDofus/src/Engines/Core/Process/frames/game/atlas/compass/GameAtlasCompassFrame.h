@@ -1,7 +1,7 @@
 #ifndef COMPASSFRAME_H
 #define COMPASSFRAME_H
 
-#include "src/Engines/Core/Process/Frames/AbstractFrame.h"
+#include "src/Engines/Core/Process/frames/AbstractFrame.h"
 #include "src/Engines/Core/Process/Managers/map/MapManager.h"
 
 class GameAtlasCompassFrame : public AbstractFrame

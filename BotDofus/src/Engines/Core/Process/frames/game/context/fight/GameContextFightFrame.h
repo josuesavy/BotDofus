@@ -1,7 +1,7 @@
 #ifndef GAMECONTEXTFIGHTFRAME_H
 #define GAMECONTEXTFIGHTFRAME_H
 
-#include "src/Engines/Core/Process/Frames/AbstractFrame.h"
+#include "src/Engines/Core/Process/frames/AbstractFrame.h"
 #include "src/Engines/Core/Process/Managers/fight/FightManager.h"
 
 class GameContextFightFrame : public AbstractFrame

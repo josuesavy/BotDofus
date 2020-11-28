@@ -1,7 +1,7 @@
 #ifndef GAMEDIALOGFRAME_H
 #define GAMEDIALOGFRAME_H
 
-#include "src/Engines/Core/Process/Frames/AbstractFrame.h"
+#include "src/Engines/Core/Process/frames/AbstractFrame.h"
 #include "src/Engines/Core/Process/Managers/interaction/InteractionManager.h"
 
 class GameDialogFrame : public AbstractFrame

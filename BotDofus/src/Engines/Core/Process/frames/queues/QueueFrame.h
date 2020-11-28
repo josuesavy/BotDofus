@@ -1,7 +1,7 @@
 #ifndef QUEUEFRAME_H
 #define QUEUEFRAME_H
 
-#include "src/Engines/Core/Process/Frames/AbstractFrame.h"
+#include "src/Engines/Core/Process/frames/AbstractFrame.h"
 
 class QueueFrame : public AbstractFrame
 {

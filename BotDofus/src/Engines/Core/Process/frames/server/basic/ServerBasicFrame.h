@@ -1,7 +1,7 @@
 #ifndef SERVERBASICFRAME_H
 #define SERVERBASICFRAME_H
 
-#include "src/Engines/Core/Process/Frames/AbstractFrame.h"
+#include "src/Engines/Core/Process/frames/AbstractFrame.h"
 #include "src/Engines/IO/D2O/Misc/ParamsDecoder.h"
 
 class ServerBasicFrame : public AbstractFrame

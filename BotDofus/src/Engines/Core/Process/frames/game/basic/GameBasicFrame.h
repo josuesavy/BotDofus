@@ -1,7 +1,7 @@
 #ifndef GAMEBASICFRAME_H
 #define GAMEBASICFRAME_H
 
-#include "src/Engines/Core/Process/Frames/AbstractFrame.h"
+#include "src/Engines/Core/Process/frames/AbstractFrame.h"
 #include "src/Engines/Core/Process/Managers/connection/ConnectionManager.h"
 #include "src/Engines/IO/D2O/Misc/ParamsDecoder.h"
 

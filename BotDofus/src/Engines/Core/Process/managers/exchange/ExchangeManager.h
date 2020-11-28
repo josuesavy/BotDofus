@@ -1,7 +1,7 @@
 #ifndef EXCHANGEMANAGER_H
 #define EXCHANGEMANAGER_H
 
-#include "src/Engines/Core/Process/Managers/AbstractManager.h"
+#include "src/Engines/Core/Process/managers/AbstractManager.h"
 
 class ExchangeManager : public AbstractManager
 {

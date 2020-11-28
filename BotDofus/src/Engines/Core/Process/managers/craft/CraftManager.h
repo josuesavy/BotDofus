@@ -1,7 +1,7 @@
 #ifndef CRAFTMANAGER_H
 #define CRAFTMANAGER_H
 
-#include "src/Engines/Core/Process/Managers/AbstractManager.h"
+#include "src/Engines/Core/Process/managers/AbstractManager.h"
 #include "src/Engines/Core/Process/Managers/map/MapManager.h"
 
 class CraftManager : public AbstractManager

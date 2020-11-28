@@ -1,7 +1,7 @@
 #ifndef HANDSHAKEFRAME_H
 #define HANDSHAKEFRAME_H
 
-#include "src/Engines/Core/Process/Frames/AbstractFrame.h"
+#include "src/Engines/Core/Process/frames/AbstractFrame.h"
 
 class HandshakeFrame : public AbstractFrame
 {

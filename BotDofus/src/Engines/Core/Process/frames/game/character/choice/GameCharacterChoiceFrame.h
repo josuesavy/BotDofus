@@ -4,7 +4,7 @@
 #include <QInputDialog>
 #include <QtSql/QtSql>
 
-#include "src/Engines/Core/Process/Frames/AbstractFrame.h"
+#include "src/Engines/Core/Process/frames/AbstractFrame.h"
 #include "src/Engines/Core/Process/Managers/connection/ConnectionManager.h"
 #include "src/Engines/Core/Process/Managers/group/GroupManager.h"
 

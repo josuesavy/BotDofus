@@ -1,7 +1,7 @@
 #ifndef GAMEINTERACTIVEZAAPFRAME_H
 #define GAMEINTERACTIVEZAAPFRAME_H
 
-#include "src/Engines/Core/Process/Frames/AbstractFrame.h"
+#include "src/Engines/Core/Process/frames/AbstractFrame.h"
 #include "src/Engines/Core/Process/Managers/interaction/InteractionManager.h"
 
 class GameInteractiveZaapFrame : public AbstractFrame

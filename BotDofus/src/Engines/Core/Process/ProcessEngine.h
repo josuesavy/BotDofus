@@ -2,7 +2,7 @@
 #define PROCESSENGINE_H
 
 #include "src/Engines/Core/CoreEngine.h"
-#include "src/Engines/Core/Process/Managers/connection/ConnectionManager.h"
+#include "src/Engines/Core/Process/managers/connection/ConnectionManager.h"
 
 class ProcessEngine : public CoreEngine
 {

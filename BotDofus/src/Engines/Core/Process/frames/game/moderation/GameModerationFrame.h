@@ -1,7 +1,7 @@
 #ifndef GAMEMODERATIONFRAME_H
 #define GAMEMODERATIONFRAME_H
 
-#include "src/Engines/Core/Process/Frames/AbstractFrame.h"
+#include "src/Engines/Core/Process/frames/AbstractFrame.h"
 #include "src/Engines/Core/Process/Managers/map/MapManager.h"
 
 class GameModerationFrame : public AbstractFrame

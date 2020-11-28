@@ -1,7 +1,7 @@
 #ifndef COMMONBASICFRAME_H
 #define COMMONBASICFRAME_H
 
-#include "src/Engines/Core/Process/Frames/AbstractFrame.h"
+#include "src/Engines/Core/Process/frames/AbstractFrame.h"
 
 class CommonBasicFrame : public AbstractFrame
 {
