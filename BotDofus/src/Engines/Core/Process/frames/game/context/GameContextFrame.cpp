@@ -1,14 +1,9 @@
 #include "GameContextFrame.h"
 
 GameContextFrame::GameContextFrame(QMap<SocketIO *, BotData> *connectionsData, FightManager *fightManager, MapManager *mapManager):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    AbstractFrame(connectionsData),
     m_fightManager(fightManager),
     m_mapManager(mapManager)
-{
-
-}
-
-void GameContextFrame::reset(SocketIO *sender)
 {
 
 }
@@ -41,7 +36,7 @@ bool GameContextFrame::processMessage(const MessageInfos &data, SocketIO *sender
                 connect(m_botData[sender].mapData.confirmationRequest.timer.data(), SIGNAL(timeout()), m_mapManager, SLOT(processConfirmation()));
                 m_botData[sender].mapData.confirmationRequest.timer->start();
 
-                if(m_botData[sender].generalData.botState == BotState::INACTIVE_STATE && m_botData[sender].scriptData.isActive && m_botData[sender].scriptData.activeModule == ModuleType::MAP)
+                if(m_botData[sender].generalData.botState == BotState::INACTIVE_STATE && m_botData[sender].scriptData.isActive && m_botData[sender].scriptData.activeModule == ManagerType::MAP)
                     emit scriptActionDone(sender);
             }
         }
@@ -121,7 +116,7 @@ bool GameContextFrame::processMessage(const MessageInfos &data, SocketIO *sender
                 connect(m_botData[sender].mapData.confirmationRequest.timer.data(), SIGNAL(timeout()), m_mapManager, SLOT(processConfirmation()));
                 m_botData[sender].mapData.confirmationRequest.timer->start();
 
-                if(m_botData[sender].generalData.botState == BotState::INACTIVE_STATE && m_botData[sender].scriptData.isActive && m_botData[sender].scriptData.activeModule == ModuleType::MAP)
+                if(m_botData[sender].generalData.botState == BotState::INACTIVE_STATE && m_botData[sender].scriptData.isActive && m_botData[sender].scriptData.activeModule == ManagerType::MAP)
                     emit scriptActionDone(sender);
             }
 

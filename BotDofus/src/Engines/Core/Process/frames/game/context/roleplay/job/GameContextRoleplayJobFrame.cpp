@@ -1,12 +1,7 @@
 #include "GameContextRoleplayJobFrame.h"
 
 GameContextRoleplayJobFrame::GameContextRoleplayJobFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
-{
-
-}
-
-void GameContextRoleplayJobFrame::reset(SocketIO *sender)
+    AbstractFrame(connectionsData)
 {
 
 }

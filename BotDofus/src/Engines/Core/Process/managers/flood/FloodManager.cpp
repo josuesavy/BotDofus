@@ -32,7 +32,12 @@ bool operator==(const FloodRequest &left, const FloodRequest &right)
 }
 
 FloodManager::FloodManager(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractManager(ModuleType::FLOOD, connectionsData)
+    AbstractManager(ManagerType::FLOOD, connectionsData)
+{
+
+}
+
+void FloodManager::reset(SocketIO *sender)
 {
 
 }

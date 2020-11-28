@@ -1,15 +1,10 @@
 #include "GameActionsFightFrame.h"
 
 GameActionsFightFrame::GameActionsFightFrame(QMap<SocketIO *, BotData> *connectionsData, FightManager *fightManager):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    AbstractFrame(connectionsData),
     m_fightManager(fightManager)
 {
 
-}
-
-void GameActionsFightFrame::reset(SocketIO *sender)
-{
-    m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
 }
 
 bool GameActionsFightFrame::processMessage(const MessageInfos &data, SocketIO *sender)
@@ -203,7 +198,6 @@ bool GameActionsFightFrame::processMessage(const MessageInfos &data, SocketIO *s
 
         foreach(const QSharedPointer<GameFightFighterInformations> &summon, message.summons)
         {
-            qDebug() << "GameActionFightSummonMessage";
             m_fightManager->addFighter(sender, summon);
         }
     }

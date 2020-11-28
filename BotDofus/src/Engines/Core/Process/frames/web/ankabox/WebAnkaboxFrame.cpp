@@ -1,14 +1,9 @@
 #include "WebAnkaboxFrame.h"
 
 WebAnkaboxFrame::WebAnkaboxFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+    AbstractFrame(connectionsData)
 {
 
-}
-
-void WebAnkaboxFrame::reset(SocketIO *sender)
-{
-    m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
 }
 
 bool WebAnkaboxFrame::processMessage(const MessageInfos &data, SocketIO *sender)

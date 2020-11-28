@@ -1,12 +1,7 @@
 #include "CommonBasicFrame.h"
 
 CommonBasicFrame::CommonBasicFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
-{
-
-}
-
-void CommonBasicFrame::reset(SocketIO *sender)
+    AbstractFrame(connectionsData)
 {
 
 }

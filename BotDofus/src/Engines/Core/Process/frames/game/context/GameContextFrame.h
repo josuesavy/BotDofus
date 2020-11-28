@@ -13,13 +13,6 @@ public:
     GameContextFrame(QMap<SocketIO*, BotData> *connectionsData, FightManager *fightManager, MapManager *mapManager);
 
     /*!
-     * \brief Reset the module
-     * \param sender Bot's particular connection
-     */
-    virtual void reset(SocketIO *sender);
-
-
-    /*!
      * \brief Process message of the connection
      * \param data The message to process
      * \param sender Bot's particular connection

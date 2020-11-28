@@ -1,13 +1,8 @@
 #include "GameContextFightFrame.h"
 
 GameContextFightFrame::GameContextFightFrame(QMap<SocketIO *, BotData> *connectionsData, FightManager *fightManager):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    AbstractFrame(connectionsData),
     m_fightManager(fightManager)
-{
-
-}
-
-void GameContextFightFrame::reset(SocketIO *sender)
 {
 
 }

@@ -1,14 +1,9 @@
 #include "ServerBasicFrame.h"
 
 ServerBasicFrame::ServerBasicFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+    AbstractFrame(connectionsData)
 {
 
-}
-
-void ServerBasicFrame::reset(SocketIO *sender)
-{
-    m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
 }
 
 bool ServerBasicFrame::processMessage(const MessageInfos &data, SocketIO *sender)

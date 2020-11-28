@@ -1,12 +1,7 @@
 #include "GameContextRoleplayFightArenaFrame.h"
 
 GameContextRoleplayFightArenaFrame::GameContextRoleplayFightArenaFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
-{
-
-}
-
-void GameContextRoleplayFightArenaFrame::reset(SocketIO *sender)
+    AbstractFrame(connectionsData)
 {
 
 }

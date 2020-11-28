@@ -1,12 +1,7 @@
 #include "GameFriendFrame.h"
 
 GameFriendFrame::GameFriendFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
-{
-
-}
-
-void GameFriendFrame::reset(SocketIO *sender)
+    AbstractFrame(connectionsData)
 {
 
 }

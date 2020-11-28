@@ -69,6 +69,12 @@ public:
     FightManager(QMap<SocketIO*, BotData> *connectionsData, MapManager *mapManager, GroupManager *groupManager, ArenaManager *arenaManager);
 
     /*!
+     * \brief Reset the module
+     * \param sender Bot's particular connection
+     */
+    virtual void reset(SocketIO *sender);
+
+    /*!
      * \brief Set the conditions's list of monster to fight
      * \param sender Bot's particular connection
      * \param requestedMonster The monster's conditions

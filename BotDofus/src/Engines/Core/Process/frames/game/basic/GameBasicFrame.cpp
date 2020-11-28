@@ -1,13 +1,8 @@
 #include "GameBasicFrame.h"
 
 GameBasicFrame::GameBasicFrame(QMap<SocketIO *, BotData> *connectionsData, ConnectionManager *connectionManager):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    AbstractFrame(connectionsData),
     m_connectionManager(connectionManager)
-{
-
-}
-
-void GameBasicFrame::reset(SocketIO *sender)
 {
 
 }

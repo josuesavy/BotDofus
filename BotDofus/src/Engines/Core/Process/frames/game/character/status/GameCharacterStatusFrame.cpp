@@ -1,12 +1,7 @@
 #include "GameCharacterStatusFrame.h"
 
 GameCharacterStatusFrame::GameCharacterStatusFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
-{
-
-}
-
-void GameCharacterStatusFrame::reset(SocketIO *sender)
+    AbstractFrame(connectionsData)
 {
 
 }

@@ -1,14 +1,9 @@
 #include "SecurityFrame.h"
 
 SecurityFrame::SecurityFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+    AbstractFrame(connectionsData)
 {
 
-}
-
-void SecurityFrame::reset(SocketIO *sender)
-{
-    m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
 }
 
 bool SecurityFrame::processMessage(const MessageInfos &data, SocketIO *sender)

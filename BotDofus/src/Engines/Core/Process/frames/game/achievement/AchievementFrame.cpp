@@ -1,14 +1,9 @@
 #include "AchievementFrame.h"
 
 AchievementFrame::AchievementFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+    AbstractFrame(connectionsData)
 {
 
-}
-
-void AchievementFrame::reset(SocketIO *sender)
-{
-    m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
 }
 
 bool AchievementFrame::processMessage(const MessageInfos &data, SocketIO *sender)
@@ -45,8 +40,6 @@ bool AchievementFrame::processMessage(const MessageInfos &data, SocketIO *sender
         AchievementListMessage message;
         message.deserialize(&reader);
 
-//        m_botData[sender].statisticsData.countTotalNotValidatedAchievement = message.finishedAchievements.size();
-
         for(int i = 0; i < message.finishedAchievements.size(); i++)
         {
             if(message.finishedAchievements.at(i)->getTypes().contains(ClassEnum::ACHIEVEMENTACHIEVEDREWARDABLE))
@@ -54,8 +47,6 @@ bool AchievementFrame::processMessage(const MessageInfos &data, SocketIO *sender
                 m_botData[sender].statisticsData.countTotalNotValidatedAchievement += 1;
             }
         }
-
-//        qDebug() << "botid" << m_botData[sender].mapData.botId;
 
         if(m_botData[sender].playerData.automaticallyAcceptAchievement)
         {

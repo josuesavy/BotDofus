@@ -1,7 +1,7 @@
 #include "StatsManager.h"
 
 StatsManager::StatsManager(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractManager(ModuleType::STATS, connectionsData)
+    AbstractManager(ManagerType::STATS, connectionsData)
 {
     inventoryPositions << CharacterInventoryPositionEnum::ACCESSORY_POSITION_HAT << CharacterInventoryPositionEnum::ACCESSORY_POSITION_BELT <<
                             CharacterInventoryPositionEnum::ACCESSORY_POSITION_AMULET << CharacterInventoryPositionEnum::ACCESSORY_POSITION_BOOTS <<
@@ -11,7 +11,14 @@ StatsManager::StatsManager(QMap<SocketIO *, BotData> *connectionsData):
                             CharacterInventoryPositionEnum::INVENTORY_POSITION_DOFUS_4 <<CharacterInventoryPositionEnum::ACCESSORY_POSITION_CAPE <<
                             CharacterInventoryPositionEnum::INVENTORY_POSITION_DOFUS_5 << CharacterInventoryPositionEnum::INVENTORY_POSITION_DOFUS_6 <<
                             CharacterInventoryPositionEnum::INVENTORY_POSITION_RING_LEFT << CharacterInventoryPositionEnum::INVENTORY_POSITION_RING_RIGHT <<
-                            CharacterInventoryPositionEnum::ACCESSORY_POSITION_WEAPON;
+                          CharacterInventoryPositionEnum::ACCESSORY_POSITION_WEAPON;
+}
+
+void StatsManager::reset(SocketIO *sender)
+{
+    m_botData[sender].playerData.isRequestingFreeSoul = false;
+    m_botData[sender].playerData.hasSentRequestFreeSoul = false;
+    m_botData[sender].generalData.botState = INVALID_STATE;
 }
 
 void StatsManager::increaseStat(SocketIO *sender, PlayerD2OFields stat)
@@ -378,7 +385,7 @@ void StatsManager::regenOptimizer(SocketIO *sender)
 
         emit healed(sender);
 
-        if(m_botData[sender].scriptData.activeModule == ModuleType::STATS)
+        if(m_botData[sender].scriptData.activeModule == ManagerType::STATS)
             emit scriptActionDone(sender);
 
         return;
@@ -460,7 +467,7 @@ void StatsManager::healFinished()
 
     emit healed(sender);
 
-    if(m_botData[sender].scriptData.activeModule == ModuleType::STATS)
+    if(m_botData[sender].scriptData.activeModule == ManagerType::STATS)
         emit scriptActionDone(sender);
 }
 
@@ -478,7 +485,7 @@ void StatsManager::preventRegenBlocked()
 
             emit healed(q.sender);
 
-            if(m_botData[q.sender].scriptData.activeModule == ModuleType::STATS)
+            if(m_botData[q.sender].scriptData.activeModule == ManagerType::STATS)
                 emit scriptActionDone(q.sender);
 
             i.remove();

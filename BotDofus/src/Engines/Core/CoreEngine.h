@@ -98,7 +98,7 @@ signals:
 
 protected:
     QList<AbstractFrame*> m_frames;
-    QMap<ModuleType, AbstractManager*> m_managers;
+    QMap<ManagerType, AbstractManager*> m_managers;
 };
 
 #endif // CoreEngine_H

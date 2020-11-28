@@ -12,6 +12,12 @@ public:
     GroupManager(QMap<SocketIO*, BotData> *connectionsData, MapManager *mapManager);
 
     /*!
+     * \brief Reset the module
+     * \param sender Bot's particular connection
+     */
+    virtual void reset(SocketIO *sender);
+
+    /*!
      * \brief Toggles the auto-follow of the specified bot's master.
      * \param sender Bot's particular connection
      * \param followUp (dis)actives auto-follow of the bot's master

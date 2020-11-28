@@ -1,9 +1,20 @@
 #include "ExchangeManager.h"
 
 ExchangeManager::ExchangeManager(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractManager(ModuleType::EXCHANGE, connectionsData)
+    AbstractManager(ManagerType::EXCHANGE, connectionsData)
 {
 
+}
+
+void ExchangeManager::reset(SocketIO *sender)
+{
+    m_botData[sender].exchangeData.sourceId = INVALID;
+    m_botData[sender].exchangeData.isLackingKamas = false;
+    m_botData[sender].exchangeData.objects.clear();
+    m_botData[sender].exchangeData.step = 0;
+    m_botData[sender].exchangeData.currentKamas = 0;
+    m_botData[sender].exchangeData.isActive = false;
+    m_botData[sender].exchangeData.isExchangingWithMaster = false;
 }
 
 void ExchangeManager::setState(SocketIO *sender, bool state)

@@ -11,6 +11,11 @@ class CraftManager : public AbstractManager
 public:
     CraftManager(QMap<SocketIO*, BotData> *connectionsData, MapManager *mapManager);
 
+    /*!
+     * \brief Reset the module
+     * \param sender Bot's particular connection
+     */
+    virtual void reset(SocketIO *sender);
 
     /*!
      * \brief Check if the character is ready to craft and start the craft

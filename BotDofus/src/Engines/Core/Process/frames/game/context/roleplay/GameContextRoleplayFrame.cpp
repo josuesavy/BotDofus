@@ -1,14 +1,9 @@
 #include "GameContextRoleplayFrame.h"
 
 GameContextRoleplayFrame::GameContextRoleplayFrame(QMap<SocketIO *, BotData> *connectionsData, MapManager *mapManager, FloodManager *floodManager):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    AbstractFrame(connectionsData),
     m_mapManager(mapManager),
     m_floodManager(floodManager)
-{
-
-}
-
-void GameContextRoleplayFrame::reset(SocketIO *sender)
 {
 
 }
@@ -73,7 +68,7 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
 
 
                 else if (m_botData[sender].generalData.botState != INACTIVE_STATE)
-                    qDebug()<<"ERREUR - FloodModule ne peut lancer le flood car le bot est occupé";
+                    qDebug()<<"[GameContextRoleplayFrame] Cannot start the flood because the character is busy";
             }
         }
 
@@ -207,7 +202,7 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
                 if(interactiveClass->elementTypeId >= 0)
                 {
                     QSharedPointer<InteractiveData> element = qSharedPointerCast<InteractiveData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::INTERACTIVES, interactiveClass->elementTypeId));
-                    qDebug()<<"InteractiveElement - Nom :"<<element->getName()<<" CellID :"<<m_botData[sender].mapData.map.getInteractiveElementCellID(interactiveClass->elementId)<<" TypeID :"<<interactiveClass->elementTypeId;
+                    qDebug()<<"[InteractiveElement] Name :"<<element->getName()<<" CellID :"<<m_botData[sender].mapData.map.getInteractiveElementCellID(interactiveClass->elementId)<<" TypeID :"<<interactiveClass->elementTypeId;
                 }
             }
         }
@@ -235,7 +230,7 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
                 }
 
                 m_botData[sender].mapData.playersOnMap[infos.entityId] = infos;
-                qDebug()<<"GameRolePlay - Nom :"<<infos.name<<" Niveau :"<<infos.level<<" CellID :"<<infos.cellId<<" ContextualID :"<<rolePlay->contextualId;
+                qDebug()<<"GameRolePlay - Name :"<<infos.name<<" Level :"<<infos.level<<" CellID :"<<infos.cellId<<" ContextualID :"<<rolePlay->contextualId;
             }
 
             // Get NPC
@@ -249,7 +244,7 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
                 infos.cellId = npc->disposition->cellId;
 
                 m_botData[sender].mapData.npcsOnMap[npc->npcId] = infos;
-                qDebug()<<"NPC - Nom :"<<qSharedPointerCast<NpcData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::NPCS, npc->npcId))->getName()<<"CellId :"<<npc->disposition->cellId<<" ContextualID :"<<npc->contextualId;
+                qDebug()<<"NPC - Name :"<<qSharedPointerCast<NpcData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::NPCS, npc->npcId))->getName()<<"CellId :"<<npc->disposition->cellId<<" ContextualID :"<<npc->contextualId;
             }
 
             // Get NPC with quest
@@ -263,7 +258,7 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
                 infos.cellId = npc->disposition->cellId;
 
                 m_botData[sender].mapData.npcsQuestOnMap[npc->npcId] = infos;
-                qDebug()<<"NPC QUEST - Nom :"<<qSharedPointerCast<NpcData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::NPCS, npc->npcId))->getName()<<"CellId :"<<npc->disposition->cellId<<" ContextualID :"<<npc->contextualId;
+                qDebug()<<"NPC QUEST - Name :"<<qSharedPointerCast<NpcData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::NPCS, npc->npcId))->getName()<<"CellId :"<<npc->disposition->cellId<<" ContextualID :"<<npc->contextualId;
             }
 
             // Get merchants
@@ -279,7 +274,7 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
                 infos.cellId = merchant->disposition->cellId;
 
                 m_botData[sender].mapData.merchantsOnMap[merchant->sellType] = infos;
-                qDebug()<<"MERCHANT - Nom :"<<infos.name<<"CellId :"<<infos.merchantId<<" ContextualID :"<<infos.merchantId;
+                qDebug()<<"MERCHANT - Name :"<<infos.name<<"CellId :"<<infos.merchantId<<" ContextualID :"<<infos.merchantId;
             }
 
             // Get groups monsters
@@ -334,11 +329,11 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
 
                 m_botData[sender].mapData.monsterGroupsOnMap[monsterGroup->contextualId] = botMonsterGroup;
 
-                qDebug()<<"GroupMonster - Nom du monstre p. :"<<qSharedPointerCast<MonsterData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::MONSTERS, monsterGroup->staticInfos->mainCreatureLightInfos.genericId))->getName() <<" Niveau du groupe :"<<totalLevel <<" N. de monstres :"<<monsterGroup->staticInfos->underlings.size()+1 <<" CellID :"<<monsterGroup->disposition->cellId <<" ContextualID :"<<monsterGroup->contextualId;
+                qDebug()<<"GroupMonster - monster's name p. :"<<qSharedPointerCast<MonsterData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::MONSTERS, monsterGroup->staticInfos->mainCreatureLightInfos.genericId))->getName() <<" groupe's level :"<<totalLevel <<" number of monstres :"<<monsterGroup->staticInfos->underlings.size()+1 <<" CellID :"<<monsterGroup->disposition->cellId <<" ContextualID :"<<monsterGroup->contextualId;
             }
 
             else
-                qDebug() << "ERROR - MapModule don't found actor type.";
+                qDebug() << "[GameContextRoleplayFrame] Don't found actor type.";
         }
 
         if(!m_botData[sender].mapData.requestedMaps.isEmpty())
@@ -359,7 +354,7 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
 
             else
             {
-                qDebug()<<"MapModule - Changement de zone à la carte";
+                qDebug()<<"[GameContextRoleplayFrame] Changing the map area";
 
                 Map requestedMap = D2PManagerSingleton::get()->getMap(m_botData[sender].mapData.requestedMaps.first().mapId);
 
@@ -388,13 +383,13 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
                 }
 
                 else
-                    qDebug()<<"ERREUR - MapModule n'a pas de map"<<m_botData[sender].mapData.requestedMaps.first().mapId<< "autour de la"<< m_botData[sender].mapData.map.getMapId();
+                    qDebug()<<"[GameContextRoleplayFrame] Don't have map"<<m_botData[sender].mapData.requestedMaps.first().mapId<< "around the"<< m_botData[sender].mapData.map.getMapId();
             }
 
             m_mapManager->changeMap(sender, side, m_botData[sender].mapData.requestedMaps.first().cellId);
         }
 
-        else if(m_botData[sender].generalData.botState == BotState::INACTIVE_STATE && m_botData[sender].scriptData.isActive && m_botData[sender].scriptData.activeModule == ModuleType::MAP)
+        else if(m_botData[sender].generalData.botState == BotState::INACTIVE_STATE && m_botData[sender].scriptData.isActive && m_botData[sender].scriptData.activeModule == ManagerType::MAP)
         {
             //action(sender)<<"Moving DONE";
             emit scriptActionDone(sender);

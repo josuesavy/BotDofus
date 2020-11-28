@@ -19,6 +19,12 @@ public:
     StatsManager(QMap<SocketIO*, BotData> *connectionsData);
 
     /*!
+     * \brief Reset the module
+     * \param sender Bot's particular connection
+     */
+    virtual void reset(SocketIO *sender);
+
+    /*!
      * \brief Drop the item as parameter on the ground
      * \param sender Bot's particular connection
      * \param uid Item's identity

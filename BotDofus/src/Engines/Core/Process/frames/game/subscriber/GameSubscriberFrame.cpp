@@ -1,12 +1,7 @@
 #include "GameSubscriberFrame.h"
 
 GameSubscriberFrame::GameSubscriberFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
-{
-
-}
-
-void GameSubscriberFrame::reset(SocketIO *sender)
+    AbstractFrame(connectionsData)
 {
 
 }

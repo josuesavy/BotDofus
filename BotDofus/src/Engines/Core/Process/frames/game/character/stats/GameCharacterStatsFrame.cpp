@@ -1,13 +1,8 @@
 #include "GameCharacterStatsFrame.h"
 
 GameCharacterStatsFrame::GameCharacterStatsFrame(QMap<SocketIO *, BotData> *connectionsData, StatsManager *statsManager):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    AbstractFrame(connectionsData),
     m_statsManager(statsManager)
-{
-
-}
-
-void GameCharacterStatsFrame::reset(SocketIO *sender)
 {
 
 }
@@ -196,7 +191,7 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
 
                 emit m_statsManager->healed(sender);
 
-                if(m_botData[sender].scriptData.activeModule == ModuleType::STATS)
+                if(m_botData[sender].scriptData.activeModule == ManagerType::STATS)
                     emit scriptActionDone(sender);
             }
 

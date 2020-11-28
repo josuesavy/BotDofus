@@ -1,12 +1,7 @@
 #include "GameContextNotificationFrame.h"
 
 GameContextNotificationFrame::GameContextNotificationFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
-{
-
-}
-
-void GameContextNotificationFrame::reset(SocketIO *sender)
+    AbstractFrame(connectionsData)
 {
 
 }

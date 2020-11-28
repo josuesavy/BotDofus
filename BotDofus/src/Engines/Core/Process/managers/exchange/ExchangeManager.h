@@ -9,6 +9,12 @@ public:
     ExchangeManager(QMap<SocketIO*, BotData> *connectionsData);
 
     /*!
+     * \brief Reset the module
+     * \param sender Bot's particular connection
+     */
+    virtual void reset(SocketIO *sender);
+
+    /*!
      * \brief Set the character's state for to know if he is in exchange or not
      * \param sender Bot's particular connection
      * \param state In exchange or not

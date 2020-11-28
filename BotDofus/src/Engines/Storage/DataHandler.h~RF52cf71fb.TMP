@@ -577,7 +577,7 @@ struct MovingConfirmationRequest
     int estimatedTime;  /*!< Estimated time to wait before sending mouvement confirm message */
 };
 
-enum class ManagerType
+enum class ModuleType
 {
     UNKNOWN,
     FLOOD,
@@ -821,7 +821,7 @@ struct ScriptData
     QList<ScriptPathMapData> ghost;
     ScriptFunction lastInstruction;
     QList<ScriptFunction> toExecute;
-    ManagerType activeModule = ManagerType::UNKNOWN;
+    ModuleType activeModule = ModuleType::UNKNOWN;
     int sequence = -10;
     QTime scriptTimer;
     int scriptMaxTime = INVALID;

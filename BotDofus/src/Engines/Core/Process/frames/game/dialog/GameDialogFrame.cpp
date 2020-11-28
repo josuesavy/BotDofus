@@ -1,13 +1,8 @@
 #include "GameDialogFrame.h"
 
 GameDialogFrame::GameDialogFrame(QMap<SocketIO *, BotData> *connectionsData, InteractionManager *interactionManager):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    AbstractFrame(connectionsData),
     m_interactionManager(interactionManager)
-{
-
-}
-
-void GameDialogFrame::reset(SocketIO *sender)
 {
 
 }

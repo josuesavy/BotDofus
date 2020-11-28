@@ -1,9 +1,16 @@
 #include "ConnectionManager.h"
 
 ConnectionManager::ConnectionManager(QMap<SocketIO*, BotData> *connectionsData):
-    AbstractManager(ModuleType::CONNECTION, connectionsData)
+    AbstractManager(ManagerType::CONNECTION, connectionsData)
 {
 
+}
+
+void ConnectionManager::reset(SocketIO *sender)
+{
+    m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
+    m_botData[sender].connectionData.greetingMessageIsInitialized = 0;
+    m_botData[sender].connectionData.sequenceNumber = 0;
 }
 
 SocketIO *ConnectionManager::addConnection(const ConnectionInfos &connectionInfos)

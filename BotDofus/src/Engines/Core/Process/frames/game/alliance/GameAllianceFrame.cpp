@@ -1,14 +1,9 @@
 #include "GameAllianceFrame.h"
 
 GameAllianceFrame::GameAllianceFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+    AbstractFrame(connectionsData)
 {
 
-}
-
-void GameAllianceFrame::reset(SocketIO *sender)
-{
-    m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
 }
 
 bool GameAllianceFrame::processMessage(const MessageInfos &data, SocketIO *sender)

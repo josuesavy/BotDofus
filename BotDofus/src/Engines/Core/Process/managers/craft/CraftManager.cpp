@@ -1,7 +1,7 @@
 #include "CraftManager.h"
 
 CraftManager::CraftManager(QMap<SocketIO*, BotData> *connectionsData, MapManager *mapManager):
-    AbstractManager(ModuleType::CRAFT, connectionsData),
+    AbstractManager(ManagerType::CRAFT, connectionsData),
     m_mapManager(mapManager)
 {
     QObject::connect(m_mapManager, SIGNAL(hasFinishedMoving(SocketIO*)), this, SLOT(useCraftingBench(SocketIO*)));
@@ -25,6 +25,14 @@ CraftManager::CraftManager(QMap<SocketIO*, BotData> *connectionsData, MapManager
 
         m_recipes[recipe->getResultId()] = infos;
     }
+}
+
+void CraftManager::reset(SocketIO *sender)
+{
+    m_botData[sender].craftData.recipeQuantities.clear();
+    m_botData[sender].craftData.recipeStack.clear();
+    m_botData[sender].craftData.isCrafting = false;
+    m_botData[sender].craftData.step = 0;
 }
 
 bool CraftManager::processCraft(SocketIO *sender)
@@ -121,7 +129,7 @@ void CraftManager::processCrafting(SocketIO *sender)
 void CraftManager::useCraftingBench(SocketIO *sender)
 {
     // TODO: Hugo FIX
-    if(m_botData[sender].scriptData.activeModule == ModuleType::CRAFT && !m_botData[sender].farmData.farming)
+    if(m_botData[sender].scriptData.activeModule == ManagerType::CRAFT && !m_botData[sender].farmData.farming)
     {
         InteractiveElementInfos ie = m_botData[sender].craftData.craftingBench;
         InteractiveSkillInfos is = m_botData[sender].craftData.craftingBenchSkill;

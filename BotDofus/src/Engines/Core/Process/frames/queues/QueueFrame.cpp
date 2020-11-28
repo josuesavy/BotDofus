@@ -1,12 +1,7 @@
 #include "QueueFrame.h"
 
 QueueFrame::QueueFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
-{
-
-}
-
-void QueueFrame::reset(SocketIO *sender)
+    AbstractFrame(connectionsData)
 {
 
 }

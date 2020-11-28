@@ -15,7 +15,7 @@ QMap<int, Point2D> FightManager::m_cellsPos;
 QMap<Point2D, int> FightManager::m_cellsId;
 
 FightManager::FightManager(QMap<SocketIO *, BotData> *connectionsData, MapManager *mapManager, GroupManager *groupManager, ArenaManager *arenaManager):
-    AbstractManager(ModuleType::FIGHT, connectionsData),
+    AbstractManager(ManagerType::FIGHT, connectionsData),
     m_mapManager(mapManager),
     m_groupManager(groupManager),
     m_arenaManager(arenaManager)
@@ -59,6 +59,14 @@ FightManager::FightManager(QMap<SocketIO *, BotData> *connectionsData, MapManage
         connect(m_mapManager, SIGNAL(hasFinishedMoving(SocketIO*)), this, SLOT(moveSuccess(SocketIO*)));
         connect(m_mapManager, SIGNAL(couldNotMove(SocketIO*)), this, SLOT(moveFailure(SocketIO*)));
         connect(m_mapManager, SIGNAL(mapContentUpdated(SocketIO*)), this, SLOT(processEndFight(SocketIO*)));
+}
+
+void FightManager::reset(SocketIO *sender)
+{
+    m_botData[sender].fightData.botFightData = BotFightData();
+    m_botData[sender].fightData.isBotTurn = false;
+    m_botData[sender].fightData.followingMonsterGroup = 0;
+    m_botData[sender].fightData.hasWon = true;
 }
 
 void FightManager::setRequestedMonsters(SocketIO *sender, RequestedMonsters requestedMonster)
@@ -2077,7 +2085,7 @@ bool FightManager::isSummon(SocketIO *sender, double ennemie)
 
 bool FightManager::processMonsters(SocketIO *sender)
 {
-    if(m_botData[sender].generalData.botState == INACTIVE_STATE && m_botData[sender].scriptData.activeModule == ModuleType::FIGHT)
+    if(m_botData[sender].generalData.botState == INACTIVE_STATE && m_botData[sender].scriptData.activeModule == ManagerType::FIGHT)
     {
         QList<MonsterGroup> groups = getMonstersToFight(sender);
 
@@ -2130,7 +2138,7 @@ void FightManager::processEndFight(SocketIO *sender)
         else
             qDebug()<<"Fin du combat - Défaite";
 
-        if(m_botData[sender].scriptData.isActive && m_botData[sender].scriptData.activeModule == ModuleType::FIGHT)
+        if(m_botData[sender].scriptData.isActive && m_botData[sender].scriptData.activeModule == ManagerType::FIGHT)
         {
             if(m_botData[sender].fightData.hasWon && isMonstersToFight(sender))
             {
@@ -2166,7 +2174,7 @@ void FightManager::moveSuccess(SocketIO *sender)
 
     else if(m_botData[sender].fightData.followingMonsterGroup != INVALID)
     {
-        if(!processMonsters(sender) && m_botData[sender].scriptData.activeModule == ModuleType::FIGHT)
+        if(!processMonsters(sender) && m_botData[sender].scriptData.activeModule == ManagerType::FIGHT)
         {
             emit scriptActionDone(sender);
         }

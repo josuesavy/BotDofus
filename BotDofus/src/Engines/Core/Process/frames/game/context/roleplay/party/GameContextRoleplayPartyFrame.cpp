@@ -1,13 +1,8 @@
 #include "GameContextRoleplayPartyFrame.h"
 
 GameContextRoleplayPartyFrame::GameContextRoleplayPartyFrame(QMap<SocketIO *, BotData> *connectionsData, MapManager *mapManager):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    AbstractFrame(connectionsData),
     m_mapManager(mapManager)
-{
-
-}
-
-void GameContextRoleplayPartyFrame::reset(SocketIO *sender)
 {
 
 }

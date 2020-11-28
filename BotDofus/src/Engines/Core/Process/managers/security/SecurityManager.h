@@ -12,6 +12,12 @@ class SecurityManager : public AbstractManager
 public:
     SecurityManager(QMap<SocketIO*, BotData> *connectionsData);
 
+    /*!
+     * \brief Reset the module
+     * \param sender Bot's particular connection
+     */
+    virtual void reset(SocketIO *sender);
+
     static QByteArray fileChecksum(const QString &fileName, QCryptographicHash::Algorithm hashAlgorithm);
 };
 

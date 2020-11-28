@@ -14,6 +14,12 @@ public:
     ConnectionManager(QMap<SocketIO *, BotData> *connectionsData);
 
     /*!
+     * \brief Reset the module
+     * \param sender Bot's particular connection
+     */
+    virtual void reset(SocketIO *sender);
+
+    /*!
      * \brief Add new connection to data handlers
      * \param connectionInfos Account login informations
      * \return SocketIO Bot's particular connection

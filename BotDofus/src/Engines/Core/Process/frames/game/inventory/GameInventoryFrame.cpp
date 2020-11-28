@@ -1,12 +1,7 @@
 #include "GameInventoryFrame.h"
 
 GameInventoryFrame::GameInventoryFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
-{
-
-}
-
-void GameInventoryFrame::reset(SocketIO *sender)
+    AbstractFrame(connectionsData)
 {
 
 }

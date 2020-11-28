@@ -1,10 +1,18 @@
 #include "InteractionManager.h"
 
 InteractionManager::InteractionManager(QMap<SocketIO *, BotData> *connectionsData, MapManager *mapManager):
-    AbstractManager(ModuleType::INTERACTION, connectionsData),
+    AbstractManager(ManagerType::INTERACTION, connectionsData),
     m_mapManager(mapManager)
 {
 
+}
+
+void InteractionManager::reset(SocketIO *sender)
+{
+    m_botData[sender].interactionData.actionID = INVALID;
+    m_botData[sender].interactionData.finishedAction = true;
+    m_botData[sender].interactionData.interactionId = INVALID;
+    m_botData[sender].interactionData.interactionType = CurrentInteraction::NONE;
 }
 
 bool InteractionManager::processZaap(SocketIO *sender, int mapId)

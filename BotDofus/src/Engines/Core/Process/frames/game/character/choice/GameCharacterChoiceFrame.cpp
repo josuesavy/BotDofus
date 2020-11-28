@@ -1,14 +1,9 @@
 #include "GameCharacterChoiceFrame.h"
 
 GameCharacterChoiceFrame::GameCharacterChoiceFrame(QMap<SocketIO *, BotData> *connectionsData, ConnectionManager *connectionManager, GroupManager *groupManager):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    AbstractFrame(connectionsData),
     m_connectionManager(connectionManager),
     m_groupManager(groupManager)
-{
-
-}
-
-void GameCharacterChoiceFrame::reset(SocketIO *sender)
 {
 
 }

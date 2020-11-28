@@ -1,13 +1,8 @@
 #include "GameAtlasCompassFrame.h"
 
 GameAtlasCompassFrame::GameAtlasCompassFrame(QMap<SocketIO *, BotData> *connectionsData, MapManager *mapManager):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    AbstractFrame(connectionsData),
     m_mapManager(mapManager)
-{
-
-}
-
-void GameAtlasCompassFrame::reset(SocketIO *sender)
 {
 
 }

@@ -1,14 +1,9 @@
 #include "GameCharacterCreationFrame.h"
 
 GameCharacterCreationFrame::GameCharacterCreationFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+    AbstractFrame(connectionsData)
 {
 
-}
-
-void GameCharacterCreationFrame::reset(SocketIO *sender)
-{
-    m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
 }
 
 bool GameCharacterCreationFrame::processMessage(const MessageInfos &data, SocketIO *sender)

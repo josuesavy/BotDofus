@@ -12,6 +12,12 @@ public:
     FarmManager(QMap<SocketIO*, BotData> *connectionsData, MapManager *mapManager);
 
     /*!
+     * \brief Reset the module
+     * \param sender Bot's particular connection
+     */
+    virtual void reset(SocketIO *sender);
+
+    /*!
      * \brief Check if a interactive element can be farm by the character
      * \param element The interactive element to check
      * \return static bool Possibility to farm

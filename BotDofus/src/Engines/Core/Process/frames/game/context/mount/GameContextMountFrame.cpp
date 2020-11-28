@@ -1,12 +1,7 @@
 #include "GameContextMountFrame.h"
 
 GameContextMountFrame::GameContextMountFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
-{
-
-}
-
-void GameContextMountFrame::reset(SocketIO *sender)
+    AbstractFrame(connectionsData)
 {
 
 }

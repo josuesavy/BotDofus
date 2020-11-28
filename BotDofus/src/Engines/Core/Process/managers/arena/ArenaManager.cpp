@@ -1,9 +1,18 @@
 #include "ArenaManager.h"
 
 ArenaManager::ArenaManager(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractManager(ModuleType::ARENA, connectionsData)
+    AbstractManager(ManagerType::ARENA, connectionsData)
 {
 
+}
+
+void ArenaManager::reset(SocketIO *sender)
+{
+    m_botData[sender].arenaData.arenaCurrentStatus = PvpArenaStepEnum::ARENA_STEP_UNREGISTER;
+    m_botData[sender].arenaData.arenaTypeFight = INVALID;
+    m_botData[sender].arenaData.isArenaRegistered = false;
+    m_botData[sender].arenaData.arenaAlliesIds.clear();
+    m_botData[sender].arenaData.arenaReadyPartyMemberIds.clear();
 }
 
 bool ArenaManager::processArena(SocketIO *sender, PvpArenaTypeEnum fightTypeId)

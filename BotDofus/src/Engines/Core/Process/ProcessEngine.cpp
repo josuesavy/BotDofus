@@ -2,11 +2,11 @@
 
 ProcessEngine::ProcessEngine()
 {
-    connect(m_managers[ModuleType::CONNECTION], SIGNAL(connectionAdded(SocketIO*)), this, SLOT(connectToSocket(SocketIO*)));
-    connect(m_managers[ModuleType::CONNECTION], SIGNAL(botDisconnected(SocketIO*)), this, SLOT(resetModules(SocketIO*)));
+    connect(m_managers[ManagerType::CONNECTION], SIGNAL(connectionAdded(SocketIO*)), this, SLOT(connectToSocket(SocketIO*)));
+    connect(m_managers[ManagerType::CONNECTION], SIGNAL(botDisconnected(SocketIO*)), this, SLOT(resetManagers(SocketIO*)));
 
 
-    QMapIterator<ModuleType, AbstractManager*> manager(m_managers);
+    QMapIterator<ManagerType, AbstractManager*> manager(m_managers);
     while (manager.hasNext())
     {
         manager.next();
@@ -19,11 +19,11 @@ ProcessEngine::ProcessEngine()
     }
 }
 
-void ProcessEngine::resetModules(SocketIO *sender)
+void ProcessEngine::resetManagers(SocketIO *sender)
 {
-    foreach(AbstractFrame *frame, m_frames)
+    foreach(AbstractManager *manager, m_managers)
     {
-        frame->reset(sender);
+        manager->reset(sender);
     }
 
     processUpdateRequest(sender);
@@ -78,7 +78,7 @@ bool ProcessEngine::processMessage(const MessageInfos &data, SocketIO *sender)
     }
 
     if (!messageFound)
-        qDebug()<<"MESSAGE PROCESS - Aucun support du message -"<<MessageUtils::getName(data.messageType)<<"- ID :"<<(int)data.messageType<<"\n";
+        qDebug()<<"MESSAGE PROCESS - No message support -"<<MessageUtils::getName(data.messageType)<<"- ID :"<<(int)data.messageType<<"\n";
 
     return messageFound;
 }

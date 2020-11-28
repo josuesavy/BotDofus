@@ -1,14 +1,9 @@
 #include "GameInventoryItemsFrame.h"
 
 GameInventoryItemsFrame::GameInventoryItemsFrame(QMap<SocketIO *, BotData> *connectionsData, ExchangeManager *exchangeManager, StatsManager *statsManager):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    AbstractFrame(connectionsData),
     m_exchangeManager(exchangeManager),
     m_statsManager(statsManager)
-{
-
-}
-
-void GameInventoryItemsFrame::reset(SocketIO *sender)
 {
 
 }
@@ -177,7 +172,7 @@ bool GameInventoryItemsFrame::processMessage(const MessageInfos &data, SocketIO 
         }
 
         else
-            qDebug()<<"StatsModule - Le personnage ne possède pas d'objets dans son inventaire.";
+            qDebug()<<"[GameInventoryItemsFrame] The character does not have any items in his inventory.";
     }
         break;
 
@@ -310,7 +305,7 @@ bool GameInventoryItemsFrame::processMessage(const MessageInfos &data, SocketIO 
                 else
                     m_botData[sender].playerData.inventoryContent[i].isEquipped = false;
 
-                qDebug() << "Equip test:" << m_botData[sender].playerData.inventoryContent[i].isEquipped << message.position << m_statsManager->inventoryPositions.contains((CharacterInventoryPositionEnum)message.position);
+                qDebug() << "[GameInventoryItemsFrame] Equip test:" << m_botData[sender].playerData.inventoryContent[i].isEquipped << message.position << m_statsManager->inventoryPositions.contains((CharacterInventoryPositionEnum)message.position);
             }
         }
     }

@@ -30,6 +30,12 @@ public:
     ~MapManager();
 
     /*!
+     * \brief Reset the module
+     * \param sender Bot's particular connection
+     */
+    virtual void reset(SocketIO *sender);
+
+    /*!
      * \brief stopMoving
      * \param sender Pointer to the bot instance
      *

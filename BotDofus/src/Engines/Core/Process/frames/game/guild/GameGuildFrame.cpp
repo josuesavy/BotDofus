@@ -1,12 +1,7 @@
 #include "GameGuildFrame.h"
 
 GameGuildFrame::GameGuildFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
-{
-
-}
-
-void GameGuildFrame::reset(SocketIO *sender)
+    AbstractFrame(connectionsData)
 {
 
 }

@@ -1,13 +1,8 @@
 #include "GameInitializationFrame.h"
 
 GameInitializationFrame::GameInitializationFrame(QMap<SocketIO *, BotData> *connectionsData, GroupManager *groupManager):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    AbstractFrame(connectionsData),
     m_groupManager(groupManager)
-{
-
-}
-
-void GameInitializationFrame::reset(SocketIO *sender)
 {
 
 }

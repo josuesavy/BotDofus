@@ -1,14 +1,9 @@
 #include "GameApproachFrame.h"
 
 GameApproachFrame::GameApproachFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+    AbstractFrame(connectionsData)
 {
 
-}
-
-void GameApproachFrame::reset(SocketIO *sender)
-{
-    m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
 }
 
 bool GameApproachFrame::processMessage(const MessageInfos &data, SocketIO *sender)

@@ -14,7 +14,7 @@ public:
     bool processMessage(const MessageInfos &data, SocketIO *sender);
 
 private slots:
-    void resetModules(SocketIO *sender);
+    void resetManagers(SocketIO *sender);
     void processUpdateRequest(SocketIO *sender);
     void connectToSocket(SocketIO* sender);
 

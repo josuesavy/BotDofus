@@ -1,11 +1,23 @@
 #include "GroupManager.h"
 
 GroupManager::GroupManager(QMap<SocketIO *, BotData> *connectionsData, MapManager *mapManager):
-    AbstractManager(ModuleType::MAP, connectionsData),
+    AbstractManager(ManagerType::MAP, connectionsData),
     m_mapManager(mapManager)
 {
     connect(m_mapManager, SIGNAL(mapContentUpdated(SocketIO*)), this, SLOT(followUpUpdate(SocketIO*)));
     connect(m_mapManager, SIGNAL(couldNotMove(SocketIO*)), this, SLOT(followUpFailure(SocketIO*)));
+}
+
+void GroupManager::reset(SocketIO *sender)
+{
+    m_botData[sender].groupData.isInGroup = false;
+    m_botData[sender].groupData.masterId = INVALID;
+    m_botData[sender].groupData.partyId = INVALID;
+    m_botData[sender].groupData.isFollowing = false;
+    m_botData[sender].groupData.hasRequestedFollowUp = false;
+    m_botData[sender].groupData.masterPosition.x = INVALID;
+    m_botData[sender].groupData.masterPosition.y = INVALID;
+    m_botData[sender].groupData.members.clear();
 }
 
 void GroupManager::setFollowUpEnabled(SocketIO *sender, bool followUp)

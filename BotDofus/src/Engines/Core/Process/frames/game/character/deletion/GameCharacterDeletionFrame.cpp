@@ -1,12 +1,7 @@
 #include "GameCharacterDeletionFrame.h"
 
 GameCharacterDeletionFrame::GameCharacterDeletionFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
-{
-
-}
-
-void GameCharacterDeletionFrame::reset(SocketIO *sender)
+    AbstractFrame(connectionsData)
 {
 
 }

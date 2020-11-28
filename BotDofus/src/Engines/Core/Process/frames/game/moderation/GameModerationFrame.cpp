@@ -1,13 +1,8 @@
 #include "GameModerationFrame.h"
 
 GameModerationFrame::GameModerationFrame(QMap<SocketIO *, BotData> *connectionsData, MapManager *mapManager):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    AbstractFrame(connectionsData),
     m_mapManager(mapManager)
-{
-
-}
-
-void GameModerationFrame::reset(SocketIO *sender)
 {
 
 }

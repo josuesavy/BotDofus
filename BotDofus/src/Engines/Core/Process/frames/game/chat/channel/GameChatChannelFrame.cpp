@@ -1,12 +1,7 @@
 #include "GameChatChannelFrame.h"
 
 GameChatChannelFrame::GameChatChannelFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
-{
-
-}
-
-void GameChatChannelFrame::reset(SocketIO *sender)
+    AbstractFrame(connectionsData)
 {
 
 }

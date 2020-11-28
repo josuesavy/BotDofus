@@ -1,13 +1,8 @@
 #include "GameInteractiveZaapFrame.h"
 
 GameInteractiveZaapFrame::GameInteractiveZaapFrame(QMap<SocketIO *, BotData> *connectionsData, InteractionManager *interactionManager):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    AbstractFrame(connectionsData),
     m_interactionManager(interactionManager)
-{
-
-}
-
-void GameInteractiveZaapFrame::reset(SocketIO *sender)
 {
 
 }

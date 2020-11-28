@@ -1,14 +1,9 @@
 #include "GameInventoryExchangesFrame.h"
 
 GameInventoryExchangesFrame::GameInventoryExchangesFrame(QMap<SocketIO *, BotData> *connectionsData, CraftManager *craftManager, ExchangeManager *exchangeManager):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    AbstractFrame(connectionsData),
     m_craftManager(craftManager),
     m_exchangeManager(exchangeManager)
-{
-
-}
-
-void GameInventoryExchangesFrame::reset(SocketIO *sender)
 {
 
 }
@@ -122,7 +117,7 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
         if(m_botData[sender].shopData.isReadyToMerchand)
         {
             if(message.success)
-                qDebug() << "ShopModule - Erreur le mode marchand n'a pas fonctionné";
+                qDebug() << "[GameInventoryExchangesFrame] Merchant mode did not work";
         }
     }
         break;
@@ -230,7 +225,7 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
             info(sender)<<"Vous avez refuser de faire un echange avec"<<m_botData[sender].mapData.playersOnMap[message.source].name;
 
             if(m_botData[sender].generalData.botState != INACTIVE_STATE)
-                qDebug()<<"ERREUR - ExchangeModule ne peut lancer l'échange car le bot est autre qu'inactif";
+                qDebug()<<"[GameInventoryExchangesFrame] Cannot launch the exchange because the character is other than inactive";
         }
     }
         break;

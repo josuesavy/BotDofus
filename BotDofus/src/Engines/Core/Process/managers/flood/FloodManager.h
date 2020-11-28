@@ -49,6 +49,12 @@ public:
     FloodManager(QMap<SocketIO*, BotData> *connectionsData);
 
     /*!
+     * \brief Reset the module
+     * \param sender Bot's particular connection
+     */
+    virtual void reset(SocketIO *sender);
+
+    /*!
      * \brief Defines the range of player levels to flood in PM for the specified bot.
      * \param sender Bot's particular connection
      * \param min Minimum receiver level to flood in PM

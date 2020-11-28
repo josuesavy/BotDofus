@@ -1,14 +1,9 @@
 #include "GameInteractiveFrame.h"
 
 GameInteractiveFrame::GameInteractiveFrame(QMap<SocketIO *, BotData> *connectionsData, InteractionManager *interactionManager, FarmManager *farmManager):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    AbstractFrame(connectionsData),
     m_interactionManager(interactionManager),
     m_farmManager(farmManager)
-{
-
-}
-
-void GameInteractiveFrame::reset(SocketIO *sender)
 {
 
 }
@@ -120,7 +115,7 @@ bool GameInteractiveFrame::processMessage(const MessageInfos &data, SocketIO *se
         {
             m_botData[sender].statisticsData.countTotalGatherLost += 1;
             m_botData[sender].generalData.botState = BotState::INACTIVE_STATE;
-            qDebug() << "Le bot n'a pas pu récolter la ressources d'id" << message.elemId;
+            qDebug() << "The character could not harvest the id resources" << message.elemId;
 
 
             if (m_botData[sender].farmData.interactiveElementsList.size())

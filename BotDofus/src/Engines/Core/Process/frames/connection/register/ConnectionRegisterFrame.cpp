@@ -1,14 +1,9 @@
 #include "ConnectionRegisterFrame.h"
 
 ConnectionRegisterFrame::ConnectionRegisterFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+    AbstractFrame(connectionsData)
 {
 
-}
-
-void ConnectionRegisterFrame::reset(SocketIO *sender)
-{
-    m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
 }
 
 bool ConnectionRegisterFrame::processMessage(const MessageInfos &data, SocketIO *sender)

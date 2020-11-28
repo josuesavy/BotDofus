@@ -1,15 +1,10 @@
 #include "GameActionsSequenceFrame.h"
 
 GameActionsSequenceFrame::GameActionsSequenceFrame(QMap<SocketIO *, BotData> *connectionsData, FightManager *fightManager):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    AbstractFrame(connectionsData),
     m_fightManager(fightManager)
 {
 
-}
-
-void GameActionsSequenceFrame::reset(SocketIO *sender)
-{
-    m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
 }
 
 bool GameActionsSequenceFrame::processMessage(const MessageInfos &data, SocketIO *sender)

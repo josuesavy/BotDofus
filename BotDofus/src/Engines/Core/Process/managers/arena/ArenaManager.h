@@ -9,6 +9,12 @@ public:
     ArenaManager(QMap<SocketIO*, BotData> *connectionsData);
 
     /*!
+     * \brief Reset the module
+     * \param sender Bot's particular connection
+     */
+    virtual void reset(SocketIO *sender);
+
+    /*!
      * \brief processArena
      * \param sender
      * \return bool

@@ -1,13 +1,8 @@
 #include "GameInventoryStorageFrame.h"
 
 GameInventoryStorageFrame::GameInventoryStorageFrame(QMap<SocketIO *, BotData> *connectionsData, InteractionManager *interactionManager):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    AbstractFrame(connectionsData),
     m_interactionManager(interactionManager)
-{
-
-}
-
-void GameInventoryStorageFrame::reset(SocketIO *sender)
 {
 
 }

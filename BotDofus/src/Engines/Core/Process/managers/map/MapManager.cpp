@@ -1,7 +1,7 @@
 #include "MapManager.h"
 
 MapManager::MapManager(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractManager(ModuleType::MAP, connectionsData)
+    AbstractManager(ManagerType::MAP, connectionsData)
 {
     qRegisterMetaType<QList<ChangeMapRequest>>("QList<ChangeMapRequest>");
 }
@@ -9,6 +9,14 @@ MapManager::MapManager(QMap<SocketIO *, BotData> *connectionsData):
 MapManager::~MapManager()
 {
 
+}
+
+void MapManager::reset(SocketIO *sender)
+{
+    m_botData[sender].mapData.botId = INVALID;
+    m_botData[sender].mapData.requestedMaps.clear();
+    m_botData[sender].mapData.confirmationRequest.timer.clear();
+    m_botData[sender].mapData.map = D2PManagerSingleton::get()->getMap(0);
 }
 
 void MapManager::stopMoving(SocketIO *sender)
@@ -64,7 +72,7 @@ void MapManager::stopMoving(SocketIO *sender)
 
 bool MapManager::changeCell(SocketIO *sender, uint cellId)
 {
-    if(m_botData[sender].generalData.botState == BotState::INACTIVE_STATE || (m_botData[sender].scriptData.isActive && m_botData[sender].scriptData.activeModule == ModuleType::MAP))
+    if(m_botData[sender].generalData.botState == BotState::INACTIVE_STATE || (m_botData[sender].scriptData.isActive && m_botData[sender].scriptData.activeModule == ManagerType::MAP))
     {
         // Check if the bot is already in the cell
         if(m_botData[sender].mapData.playersOnMap[m_botData[sender].mapData.botId].cellId == cellId)
@@ -128,7 +136,7 @@ bool MapManager::changeCell(SocketIO *sender, uint cellId)
 
 bool MapManager::changeToNearestCell(SocketIO *sender, uint cellId)
 {
-    if(m_botData[sender].generalData.botState == BotState::INACTIVE_STATE || (m_botData[sender].scriptData.isActive && m_botData[sender].scriptData.activeModule == ModuleType::MAP))
+    if(m_botData[sender].generalData.botState == BotState::INACTIVE_STATE || (m_botData[sender].scriptData.isActive && m_botData[sender].scriptData.activeModule == ManagerType::MAP))
     {
         // Define monster's cell for not walkable
         QList<uint> cells;

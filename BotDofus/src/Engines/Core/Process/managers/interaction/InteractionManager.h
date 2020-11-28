@@ -10,6 +10,12 @@ public:
     InteractionManager(QMap<SocketIO*, BotData> *connectionsData, MapManager *mapManager);
 
     /*!
+     * \brief Reset the module
+     * \param sender Bot's particular connection
+     */
+    virtual void reset(SocketIO *sender);
+
+    /*!
      * \brief Use a zaap on a map
      * \param sender Bot's particular connection
      * \param mapId The map that contain the zaap

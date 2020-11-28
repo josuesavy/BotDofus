@@ -1,14 +1,9 @@
 #include "SubscriptionFrame.h"
 
 SubscriptionFrame::SubscriptionFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+    AbstractFrame(connectionsData)
 {
 
-}
-
-void SubscriptionFrame::reset(SocketIO *sender)
-{
-    m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
 }
 
 bool SubscriptionFrame::processMessage(const MessageInfos &data, SocketIO *sender)

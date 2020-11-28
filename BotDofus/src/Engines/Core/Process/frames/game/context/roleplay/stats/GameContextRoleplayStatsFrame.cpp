@@ -1,13 +1,8 @@
 #include "GameContextRoleplayStatsFrame.h"
 
 GameContextRoleplayStatsFrame::GameContextRoleplayStatsFrame(QMap<SocketIO *, BotData> *connectionsData, StatsManager *statsManager):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    AbstractFrame(connectionsData),
     m_statsManager(statsManager)
-{
-
-}
-
-void GameContextRoleplayStatsFrame::reset(SocketIO *sender)
 {
 
 }

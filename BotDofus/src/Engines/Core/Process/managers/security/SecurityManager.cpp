@@ -1,7 +1,12 @@
 #include "SecurityManager.h"
 
 SecurityManager::SecurityManager(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractManager(ModuleType::UNKNOWN, connectionsData)
+    AbstractManager(ManagerType::UNKNOWN, connectionsData)
+{
+
+}
+
+void SecurityManager::reset(SocketIO *sender)
 {
 
 }

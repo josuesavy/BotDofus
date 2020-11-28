@@ -1,12 +1,7 @@
 #include "GameContextRoleplayObjectsFrame.h"
 
 GameContextRoleplayObjectsFrame::GameContextRoleplayObjectsFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
-{
-
-}
-
-void GameContextRoleplayObjectsFrame::reset(SocketIO *sender)
+    AbstractFrame(connectionsData)
 {
 
 }

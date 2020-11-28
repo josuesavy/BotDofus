@@ -1,14 +1,9 @@
 #include "GameAlmanachFrame.h"
 
 GameAlmanachFrame::GameAlmanachFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+    AbstractFrame(connectionsData)
 {
 
-}
-
-void GameAlmanachFrame::reset(SocketIO *sender)
-{
-    m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
 }
 
 bool GameAlmanachFrame::processMessage(const MessageInfos &data, SocketIO *sender)

@@ -11,14 +11,8 @@ class AbstractFrame : public QObject, public DataHandler
     Q_OBJECT
 
 public:
-    AbstractFrame(ModuleType type, QMap<SocketIO*, BotData> *connectionsData);
+    AbstractFrame(QMap<SocketIO*, BotData> *connectionsData);
     virtual ~AbstractFrame();
-
-    /*!
-     * \brief Reset the module
-     * \param sender Bot's particular connection
-     */
-    virtual void reset(SocketIO *sender) = 0;
 
     /*!
      * \brief Process message
@@ -27,12 +21,6 @@ public:
      * \return bool The message has been process
      */
     virtual bool processMessage(const MessageInfos &data, SocketIO *sender) = 0;
-
-    /*!
-     * \brief Get type of module in progress
-     * \return The module type in progress
-     */
-    ModuleType getType();
 
 signals:
     void requestUpdate(SocketIO *sender);
@@ -43,6 +31,6 @@ signals:
     void requestResetData(SocketIO *sender);
 
 private:
-    ModuleType m_type;
+    ManagerType m_type;
 };
 #endif // ABSTRACTFRAME_H

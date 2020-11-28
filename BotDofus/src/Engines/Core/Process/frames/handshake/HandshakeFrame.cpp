@@ -1,12 +1,7 @@
 #include "HandshakeFrame.h"
 
 HandshakeFrame::HandshakeFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
-{
-
-}
-
-void HandshakeFrame::reset(SocketIO *sender)
+    AbstractFrame(connectionsData)
 {
 
 }

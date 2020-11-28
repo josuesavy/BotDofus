@@ -1,10 +1,16 @@
 #include "FarmManager.h"
 
 FarmManager::FarmManager(QMap<SocketIO *, BotData> *connectionsData, MapManager *mapManager):
-    AbstractManager(ModuleType::FARM, connectionsData),
+    AbstractManager(ManagerType::FARM, connectionsData),
     m_mapManager(mapManager)
 {
     QObject::connect(m_mapManager, SIGNAL(hasFinishedMoving(SocketIO*)), this, SLOT(activateSkill(SocketIO*)));
+}
+
+void FarmManager::reset(SocketIO *sender)
+{
+    m_botData[sender].farmData.moved = false;
+    m_botData[sender].farmData.farming = false;
 }
 
 bool FarmManager::processFarm(SocketIO *sender)

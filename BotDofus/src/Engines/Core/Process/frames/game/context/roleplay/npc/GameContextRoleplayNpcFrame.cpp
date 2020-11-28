@@ -1,13 +1,8 @@
 #include "GameContextRoleplayNpcFrame.h"
 
 GameContextRoleplayNpcFrame::GameContextRoleplayNpcFrame(QMap<SocketIO *, BotData> *connectionsData, InteractionManager *interactionManager):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    AbstractFrame(connectionsData),
     m_interactionManager(interactionManager)
-{
-
-}
-
-void GameContextRoleplayNpcFrame::reset(SocketIO *sender)
 {
 
 }
