@@ -22,9 +22,6 @@ bool GameCharacterCreationFrame::processMessage(const MessageInfos &data, Socket
         messageFound = false;
         break;
 
-    case MessageEnum::CHARACTERCANBECREATEDRESULTMESSAGE:
-        break;
-
     case MessageEnum::CHARACTERCREATIONRESULTMESSAGE:
     {
         CharacterCreationResultMessage message;
@@ -86,9 +83,6 @@ bool GameCharacterCreationFrame::processMessage(const MessageInfos &data, Socket
             }
         }
     }
-        break;
-
-    case MessageEnum::CHARACTERNAMESUGGESTIONFAILUREMESSAGE:
         break;
 
     case MessageEnum::CHARACTERNAMESUGGESTIONSUCCESSMESSAGE:

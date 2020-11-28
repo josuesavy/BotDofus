@@ -23,6 +23,10 @@ bool SecureFrame::processMessage(const MessageInfos &data, SocketIO *sender)
         break;
 
     case MessageEnum::TRUSTSTATUSMESSAGE:
+    {
+        CharactersListRequestMessage answer;
+        sender->send(answer);
+    }
         break;
     }
 

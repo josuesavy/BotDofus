@@ -21,9 +21,6 @@ bool GameCharacterDeletionFrame::processMessage(const MessageInfos &data, Socket
     default :
         messageFound = false;
         break;
-
-    case MessageEnum::CHARACTERDELETIONERRORMESSAGE:
-        break;
     }
 
     return messageFound;

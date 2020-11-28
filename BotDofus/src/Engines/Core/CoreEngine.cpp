@@ -36,13 +36,13 @@ CoreEngine::CoreEngine()
     m_frames.append(new GameCharacterDeletionFrame(&m_botData));
     m_frames.append(new GameCharacterStatsFrame(&m_botData, static_cast<StatsManager*>(m_managers[ModuleType::STATS])));
     m_frames.append(new GameCharacterStatusFrame(&m_botData));
-    m_frames.append(new GameChatFrame(&m_botData));
+    m_frames.append(new GameChatFrame(&m_botData, static_cast<FightManager*>(m_managers[ModuleType::FIGHT])));
     m_frames.append(new GameContextFrame(&m_botData, static_cast<FightManager*>(m_managers[ModuleType::FIGHT]), static_cast<MapManager*>(m_managers[ModuleType::MAP])));
     m_frames.append(new GameContextFightFrame(&m_botData, static_cast<FightManager*>(m_managers[ModuleType::FIGHT])));
     m_frames.append(new GameContextFightCharacterFrame(&m_botData, static_cast<FightManager*>(m_managers[ModuleType::FIGHT]), static_cast<GroupManager*>(m_managers[ModuleType::GROUP])));
     m_frames.append(new GameContextMountFrame(&m_botData));
     m_frames.append(new GameContextNotificationFrame(&m_botData));
-    m_frames.append(new GameContextRoleplayFrame(&m_botData, static_cast<FloodManager*>(m_managers[ModuleType::FLOOD])));
+    m_frames.append(new GameContextRoleplayFrame(&m_botData, static_cast<MapManager*>(m_managers[ModuleType::MAP]), static_cast<FloodManager*>(m_managers[ModuleType::FLOOD])));
     m_frames.append(new GameContextRoleplayDeathFrame(&m_botData, static_cast<StatsManager*>(m_managers[ModuleType::STATS])));
     m_frames.append(new GameContextRoleplayFightFrame(&m_botData));
     m_frames.append(new GameContextRoleplayFightArenaFrame(&m_botData));

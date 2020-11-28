@@ -21,21 +21,6 @@ bool GameActionsFrame::processMessage(const MessageInfos &data, SocketIO *sender
     default :
         messageFound = false;
         break;
-
-    case MessageEnum::ABSTRACTGAMEACTIONMESSAGE:
-        break;
-
-    case MessageEnum::ABSTRACTGAMEACTIONWITHACKMESSAGE:
-        break;
-
-    case MessageEnum::GAMEACTIONACKNOWLEDGEMENTMESSAGE:
-        break;
-
-    case MessageEnum::GAMEACTIONNOOPMESSAGE:
-        break;
-
-    case MessageEnum::GAMEACTIONSPAMMESSAGE:
-        break;
     }
 
     return messageFound;

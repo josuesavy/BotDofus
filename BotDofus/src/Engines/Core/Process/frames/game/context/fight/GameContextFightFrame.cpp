@@ -203,9 +203,6 @@ bool GameContextFightFrame::processMessage(const MessageInfos &data, SocketIO *s
     }
         break;
 
-    case MessageEnum::GAMEFIGHTSPECTATORJOINMESSAGE:
-        break;
-
     case MessageEnum::GAMEFIGHTSTARTINGMESSAGE:
     {
         GameFightStartingMessage message;
@@ -276,9 +273,6 @@ bool GameContextFightFrame::processMessage(const MessageInfos &data, SocketIO *s
         else
             m_botData[sender].fightData.isBotTurn = false;
     }
-        break;
-
-    case MessageEnum::GAMEFIGHTTURNSTARTPLAYINGMESSAGE:
         break;
 
     case MessageEnum::GAMEFIGHTUPDATETEAMMESSAGE:

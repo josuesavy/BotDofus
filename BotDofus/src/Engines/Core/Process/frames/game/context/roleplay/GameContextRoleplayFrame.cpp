@@ -1,7 +1,8 @@
 #include "GameContextRoleplayFrame.h"
 
-GameContextRoleplayFrame::GameContextRoleplayFrame(QMap<SocketIO *, BotData> *connectionsData, FloodManager *floodManager):
+GameContextRoleplayFrame::GameContextRoleplayFrame(QMap<SocketIO *, BotData> *connectionsData, MapManager *mapManager, FloodManager *floodManager):
     AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    m_mapManager(mapManager),
     m_floodManager(floodManager)
 {
 
@@ -52,6 +53,9 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
             m_botData[sender].mapData.playersOnMap[rolePlay->contextualId].level = rolePlay->alignmentInfos.characterPower - rolePlay->contextualId;
             m_botData[sender].mapData.playersOnMap[rolePlay->contextualId].direction = rolePlay->disposition->direction;
             m_botData[sender].mapData.playersOnMap[rolePlay->contextualId].name = rolePlay->name;
+
+            debug(sender) << "name:" << rolePlay->name;
+            debug(sender) << "level:" << rolePlay->alignmentInfos.characterPower - rolePlay->contextualId;
 
             if (m_botData[sender].floodData.channelList.contains(CHANNELPRIVATE))
             {
@@ -150,6 +154,257 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
 
     case MessageEnum::MAPCOMPLEMENTARYINFORMATIONSDATAMESSAGE:
     {
+        MapComplementaryInformationsDataMessage message;
+        message.deserialize(&reader);
+
+        if(m_botData[sender].mapData.gameContext == GameContextEnum::ROLE_PLAY &&  m_botData[sender].generalData.botState != FIGHTING_STATE)
+            m_botData[sender].generalData.botState = INACTIVE_STATE;
+
+        m_botData[sender].mapData.playersOnMap.clear();
+        m_botData[sender].mapData.interactivesOnMap.clear();
+        m_botData[sender].mapData.npcsOnMap.clear();
+        m_botData[sender].mapData.monsterGroupsOnMap.clear();
+
+        // Get interactive elements
+        foreach(QSharedPointer<InteractiveElement> interactiveClass, message.interactiveElements)
+        {
+            if(interactiveClass->onCurrentMap)
+            {
+                InteractiveElementInfos mainElementInfos;
+                mainElementInfos.elementId = interactiveClass->elementId;
+                mainElementInfos.elementTypeId = interactiveClass->elementTypeId;
+
+                // Enable skills
+                foreach(QSharedPointer<InteractiveElementSkill> skill, interactiveClass->enabledSkills)
+                {
+                    InteractiveSkillInfos enabledInfos;
+                    enabledInfos.ID = skill->skillId;
+                    enabledInfos.UID = skill->skillInstanceUid;
+                    mainElementInfos.enabledSkills<<enabledInfos;
+                }
+
+                // Disable skills
+                foreach (QSharedPointer<InteractiveElementSkill> skill, interactiveClass->disabledSkills)
+                {
+                    InteractiveSkillInfos disabledInfos;
+                    disabledInfos.ID = skill->skillId;
+                    disabledInfos.UID = skill->skillInstanceUid;
+                    mainElementInfos.disabledSkills<<disabledInfos;
+                }
+
+                m_botData[sender].mapData.interactivesOnMap<<mainElementInfos;
+
+                m_botData[sender].interactionData.interactives.clear();
+                foreach (InteractiveElementInfos e, m_botData[sender].mapData.interactivesOnMap)
+                {
+                    InteractiveDisplayInfos i;
+                    i.id = e.elementId;
+                    i.cellId = m_botData[sender].mapData.map.getInteractiveElementCellID(e.elementId);
+
+                    if(e.elementTypeId > 0 && e.elementTypeId < 337) // Le max c'est 336 pour les elements interactifs
+                        i.name = qSharedPointerCast<InteractiveData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::INTERACTIVES, e.elementTypeId))->getName();
+
+                    m_botData[sender].interactionData.interactives << i;
+                }
+
+                if(interactiveClass->elementTypeId >= 0)
+                {
+                    QSharedPointer<InteractiveData> element = qSharedPointerCast<InteractiveData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::INTERACTIVES, interactiveClass->elementTypeId));
+                    qDebug()<<"InteractiveElement - Nom :"<<element->getName()<<" CellID :"<<m_botData[sender].mapData.map.getInteractiveElementCellID(interactiveClass->elementId)<<" TypeID :"<<interactiveClass->elementTypeId;
+                }
+            }
+        }
+
+        // Get actors in map
+        foreach(QSharedPointer<GameRolePlayActorInformations> base, message.actors)
+        {
+            // Get players
+            if(base->getTypes().contains(ClassEnum::GAMEROLEPLAYCHARACTERINFORMATIONS))
+            {
+                QSharedPointer<GameRolePlayCharacterInformations> rolePlay = qSharedPointerCast<GameRolePlayCharacterInformations>(base);
+
+                EntityInfos infos;
+                infos.entityId = rolePlay->contextualId;
+                infos.cellId = rolePlay->disposition->cellId;
+                infos.level = rolePlay->alignmentInfos.characterPower - rolePlay->contextualId;
+                infos.direction = rolePlay->disposition->direction;
+                infos.name = rolePlay->name;
+                infos.look = rolePlay->look;
+
+                if(rolePlay->contextualId != m_botData[sender].mapData.botId)
+                {
+                    if(!m_botData[sender].statisticsData.countTotalMetPlayers.contains(rolePlay->name))
+                        m_botData[sender].statisticsData.countTotalMetPlayers.append(rolePlay->name);
+                }
+
+                m_botData[sender].mapData.playersOnMap[infos.entityId] = infos;
+                qDebug()<<"GameRolePlay - Nom :"<<infos.name<<" Niveau :"<<infos.level<<" CellID :"<<infos.cellId<<" ContextualID :"<<rolePlay->contextualId;
+            }
+
+            // Get NPC
+            else if(base->getTypes().contains(ClassEnum::GAMEROLEPLAYNPCINFORMATIONS))
+            {
+                QSharedPointer<GameRolePlayNpcInformations> npc = qSharedPointerCast<GameRolePlayNpcInformations>(base);
+
+                NpcInfos infos;
+                infos.npcId = npc->npcId;
+                infos.contextualId = npc->contextualId;
+                infos.cellId = npc->disposition->cellId;
+
+                m_botData[sender].mapData.npcsOnMap[npc->npcId] = infos;
+                qDebug()<<"NPC - Nom :"<<qSharedPointerCast<NpcData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::NPCS, npc->npcId))->getName()<<"CellId :"<<npc->disposition->cellId<<" ContextualID :"<<npc->contextualId;
+            }
+
+            // Get NPC with quest
+            else if(base->getTypes().contains(ClassEnum::GAMEROLEPLAYNPCWITHQUESTINFORMATIONS))
+            {
+                QSharedPointer<GameRolePlayNpcWithQuestInformations> npc = qSharedPointerCast<GameRolePlayNpcWithQuestInformations>(base);
+
+                NpcQuestInfos infos;
+                infos.npcId = npc->npcId;
+                infos.contextualId = npc->contextualId;
+                infos.cellId = npc->disposition->cellId;
+
+                m_botData[sender].mapData.npcsQuestOnMap[npc->npcId] = infos;
+                qDebug()<<"NPC QUEST - Nom :"<<qSharedPointerCast<NpcData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::NPCS, npc->npcId))->getName()<<"CellId :"<<npc->disposition->cellId<<" ContextualID :"<<npc->contextualId;
+            }
+
+            // Get merchants
+            else if(base->getTypes().contains(ClassEnum::GAMEROLEPLAYMERCHANTINFORMATIONS))
+            {
+                QSharedPointer<GameRolePlayMerchantInformations> merchant = qSharedPointerCast<GameRolePlayMerchantInformations>(base);
+
+                MerchantInfos infos;
+                infos.name = merchant->name;
+                infos.merchantId = merchant->contextualId;
+                infos.sellType = merchant->sellType;
+                infos.options = merchant->options;
+                infos.cellId = merchant->disposition->cellId;
+
+                m_botData[sender].mapData.merchantsOnMap[merchant->sellType] = infos;
+                qDebug()<<"MERCHANT - Nom :"<<infos.name<<"CellId :"<<infos.merchantId<<" ContextualID :"<<infos.merchantId;
+            }
+
+            // Get groups monsters
+            else if(base->getTypes().contains(ClassEnum::GAMEROLEPLAYGROUPMONSTERINFORMATIONS))
+            {
+                QSharedPointer<GameRolePlayGroupMonsterInformations> monsterGroup = qSharedPointerCast<GameRolePlayGroupMonsterInformations>(base);
+
+                MonsterGroup botMonsterGroup;
+                botMonsterGroup.cellID = monsterGroup->disposition->cellId;
+                botMonsterGroup.contextualID = monsterGroup->contextualId;
+
+                int totalLevel = 0;
+
+                QSharedPointer<MonsterData> monsterData = qSharedPointerCast<MonsterData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::MONSTERS, monsterGroup->staticInfos->mainCreatureLightInfos.genericId));
+                foreach(MonsterGradeData grade, monsterData->getGrades())
+                {
+
+                    if(grade.getGrade() == monsterGroup->staticInfos->mainCreatureLightInfos.grade)
+                    {
+                        Monster botMonster;
+                        botMonster.id = monsterData->getId();
+                        botMonster.level = grade.getLevel();
+
+                        botMonsterGroup.monsters<<botMonster;
+
+                        totalLevel += grade.getLevel();
+                        break;
+                    }
+                }
+
+                foreach(QSharedPointer<MonsterInGroupInformations> monster, monsterGroup->staticInfos->underlings)
+                {
+                    monsterData = qSharedPointerCast<MonsterData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::MONSTERS, monster->genericId));
+
+                    foreach(MonsterGradeData grade, monsterData->getGrades())
+                    {
+                        if(grade.getGrade() == monster->grade)
+                        {
+                            Monster botMonster;
+                            botMonster.id = monsterData->getId();
+                            botMonster.level = grade.getLevel();
+
+                            botMonsterGroup.monsters<<botMonster;
+
+                            totalLevel += grade.getLevel();
+                            break;
+                        }
+                    }
+                }
+
+                botMonsterGroup.level = totalLevel;
+
+                m_botData[sender].mapData.monsterGroupsOnMap[monsterGroup->contextualId] = botMonsterGroup;
+
+                qDebug()<<"GroupMonster - Nom du monstre p. :"<<qSharedPointerCast<MonsterData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::MONSTERS, monsterGroup->staticInfos->mainCreatureLightInfos.genericId))->getName() <<" Niveau du groupe :"<<totalLevel <<" N. de monstres :"<<monsterGroup->staticInfos->underlings.size()+1 <<" CellID :"<<monsterGroup->disposition->cellId <<" ContextualID :"<<monsterGroup->contextualId;
+            }
+
+            else
+                qDebug() << "ERROR - MapModule don't found actor type.";
+        }
+
+        if(!m_botData[sender].mapData.requestedMaps.isEmpty())
+        {
+            MapSide side;
+
+            if(m_botData[sender].mapData.map.getTopMapId() == m_botData[sender].mapData.requestedMaps.first().mapId)
+                side = MapSide::TOP;
+
+            else if(m_botData[sender].mapData.map.getBottomMapId() == m_botData[sender].mapData.requestedMaps.first().mapId)
+                side = MapSide::BOTTOM;
+
+            else if(m_botData[sender].mapData.map.getRightMapId() == m_botData[sender].mapData.requestedMaps.first().mapId)
+                side = MapSide::RIGHT;
+
+            else if(m_botData[sender].mapData.map.getLeftMapId() == m_botData[sender].mapData.requestedMaps.first().mapId)
+                side = MapSide::LEFT;
+
+            else
+            {
+                qDebug()<<"MapModule - Changement de zone à la carte";
+
+                Map requestedMap = D2PManagerSingleton::get()->getMap(m_botData[sender].mapData.requestedMaps.first().mapId);
+
+                if(m_botData[sender].mapData.map.getPosition().getX() == requestedMap.getPosition().getX() && m_botData[sender].mapData.map.getPosition().getY()-1 == requestedMap.getPosition().getY())
+                {
+                    side = MapSide::TOP;
+                    m_botData[sender].mapData.requestedMaps[0].mapId = m_botData[sender].mapData.map.getTopMapId();
+                }
+
+                else if(m_botData[sender].mapData.map.getPosition().getX() == requestedMap.getPosition().getX() && m_botData[sender].mapData.map.getPosition().getY()+1 == requestedMap.getPosition().getY())
+                {
+                    side = MapSide::BOTTOM;
+                    m_botData[sender].mapData.requestedMaps[0].mapId = m_botData[sender].mapData.map.getBottomMapId();
+                }
+
+                else if(m_botData[sender].mapData.map.getPosition().getX()+1 == requestedMap.getPosition().getX() && m_botData[sender].mapData.map.getPosition().getY() == requestedMap.getPosition().getY())
+                {
+                    side = MapSide::RIGHT;
+                    m_botData[sender].mapData.requestedMaps[0].mapId = m_botData[sender].mapData.map.getRightMapId();
+                }
+
+                else if(m_botData[sender].mapData.map.getPosition().getX()-1 == requestedMap.getPosition().getX() && m_botData[sender].mapData.map.getPosition().getY() == requestedMap.getPosition().getY())
+                {
+                    side = MapSide::LEFT;
+                    m_botData[sender].mapData.requestedMaps[0].mapId = m_botData[sender].mapData.map.getLeftMapId();
+                }
+
+                else
+                    qDebug()<<"ERREUR - MapModule n'a pas de map"<<m_botData[sender].mapData.requestedMaps.first().mapId<< "autour de la"<< m_botData[sender].mapData.map.getMapId();
+            }
+
+            m_mapManager->changeMap(sender, side, m_botData[sender].mapData.requestedMaps.first().cellId);
+        }
+
+        else if(m_botData[sender].generalData.botState == BotState::INACTIVE_STATE && m_botData[sender].scriptData.isActive && m_botData[sender].scriptData.activeModule == ModuleType::MAP)
+        {
+            //action(sender)<<"Moving DONE";
+            emit scriptActionDone(sender);
+        }
+
+        emit m_mapManager->mapContentUpdated(sender);
+
         MapRunningFightListRequestMessage answer;
         sender->send(answer);
     }

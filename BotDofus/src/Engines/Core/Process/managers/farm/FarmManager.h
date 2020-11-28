@@ -6,6 +6,8 @@
 
 class FarmManager : public AbstractManager
 {
+    Q_OBJECT
+
 public:
     FarmManager(QMap<SocketIO*, BotData> *connectionsData, MapManager *mapManager);
 

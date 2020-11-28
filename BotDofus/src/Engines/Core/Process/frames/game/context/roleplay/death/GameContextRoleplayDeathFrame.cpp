@@ -40,7 +40,7 @@ bool GameContextRoleplayDeathFrame::processMessage(const MessageInfos &data, Soc
             m_botData[sender].playerData.hasSentRequestFreeSoul = false;
         }
 
-        if(m_botData[sender].scriptData.activeModule == getType())
+        if(m_botData[sender].scriptData.activeModule == ModuleType::STATS)
             emit scriptActionDone(sender);
     }
         break;

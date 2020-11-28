@@ -6,6 +6,8 @@
 
 class GameCharacterStatsFrame : public AbstractFrame
 {
+    Q_OBJECT
+
 public:
     GameCharacterStatsFrame(QMap<SocketIO*, BotData> *connectionsData, StatsManager *statsManager);
 

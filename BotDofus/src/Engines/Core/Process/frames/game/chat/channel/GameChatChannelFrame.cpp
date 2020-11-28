@@ -21,9 +21,6 @@ bool GameChatChannelFrame::processMessage(const MessageInfos &data, SocketIO *se
     default :
         messageFound = false;
         break;
-
-    case MessageEnum::ENABLEDCHANNELSMESSAGE:
-        break;
     }
 
     return messageFound;

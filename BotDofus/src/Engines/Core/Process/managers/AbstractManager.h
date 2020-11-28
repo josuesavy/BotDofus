@@ -28,9 +28,6 @@ signals:
     void scriptActionFailure(SocketIO *sender);
     void requestResetData(SocketIO *sender);
 
-protected:
-    QMap<SocketIO *, BotData> *m_connectionsData;
-
 private:
     ModuleType m_type;
 };

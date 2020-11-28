@@ -113,7 +113,7 @@ public:
 
     void rejoinCharacter(SocketIO *sender, QString character);
 
-private slots:
+public slots:
     void processConfirmation();
     void processMapPath(QList<ChangeMapRequest> requestedMaps, SocketIO *sender);
 

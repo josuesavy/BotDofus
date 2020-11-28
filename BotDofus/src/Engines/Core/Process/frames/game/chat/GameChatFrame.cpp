@@ -1,7 +1,8 @@
 #include "GameChatFrame.h"
 
-GameChatFrame::GameChatFrame(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::CONNECTION, connectionsData)
+GameChatFrame::GameChatFrame(QMap<SocketIO *, BotData> *connectionsData, FightManager *fightManager):
+    AbstractFrame(ModuleType::CONNECTION, connectionsData),
+    m_fightManager(fightManager)
 {
 
 }
@@ -75,6 +76,16 @@ bool GameChatFrame::processMessage(const MessageInfos &data, SocketIO *sender)
             chat.output = "<b>"+message.senderName+"</b> : "+message.content;
 
         m_botData[sender].generalData.logMessages<<chat;
+
+        if(message.content == "fight")
+        {
+            m_botData[sender].scriptData.activeModule = ModuleType::FIGHT;
+            if(m_fightManager->processMonsters(sender))
+                qDebug()<<"IS GOING TO FIGHT";
+
+            else
+                qDebug()<<"NO MONSTERS";
+        }
     }
         break;
 

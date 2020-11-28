@@ -39,9 +39,6 @@ bool GameActionsSequenceFrame::processMessage(const MessageInfos &data, SocketIO
         }
     }
         break;
-
-    case MessageEnum::SEQUENCESTARTMESSAGE:
-        break;
     }
 
     return messageFound;

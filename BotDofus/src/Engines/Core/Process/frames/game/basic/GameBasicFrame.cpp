@@ -53,12 +53,6 @@ bool GameBasicFrame::processMessage(const MessageInfos &data, SocketIO *sender)
     }
         break;
 
-    case MessageEnum::BASICNOOPERATIONMESSAGE:
-        break;
-
-    case MessageEnum::BASICTIMEMESSAGE:
-        break;
-
     case MessageEnum::SEQUENCENUMBERREQUESTMESSAGE:
     {
         if (m_botData[sender].connectionData.greetingMessageIsInitialized > 1)

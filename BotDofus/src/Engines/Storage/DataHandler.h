@@ -29,6 +29,14 @@ struct Point3D : Point2D
     float z = INVALID;
 };
 
+enum class DofusVersion
+{
+    MAJOR = 2,
+    MINOR = 57,
+    CODE = 10,
+    BUILD = 15,
+};
+
 enum class SuperTypeId
 {
     RING = 3,

@@ -64,7 +64,7 @@ void MapManager::stopMoving(SocketIO *sender)
 
 bool MapManager::changeCell(SocketIO *sender, uint cellId)
 {
-    if(m_botData[sender].generalData.botState == BotState::INACTIVE_STATE || (m_botData[sender].scriptData.isActive && m_botData[sender].scriptData.activeModule == getType()))
+    if(m_botData[sender].generalData.botState == BotState::INACTIVE_STATE || (m_botData[sender].scriptData.isActive && m_botData[sender].scriptData.activeModule == ModuleType::MAP))
     {
         // Check if the bot is already in the cell
         if(m_botData[sender].mapData.playersOnMap[m_botData[sender].mapData.botId].cellId == cellId)
@@ -128,7 +128,7 @@ bool MapManager::changeCell(SocketIO *sender, uint cellId)
 
 bool MapManager::changeToNearestCell(SocketIO *sender, uint cellId)
 {
-    if(m_botData[sender].generalData.botState == BotState::INACTIVE_STATE || (m_botData[sender].scriptData.isActive && m_botData[sender].scriptData.activeModule == getType()))
+    if(m_botData[sender].generalData.botState == BotState::INACTIVE_STATE || (m_botData[sender].scriptData.isActive && m_botData[sender].scriptData.activeModule == ModuleType::MAP))
     {
         // Define monster's cell for not walkable
         QList<uint> cells;

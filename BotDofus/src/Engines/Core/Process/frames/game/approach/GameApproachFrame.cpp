@@ -22,9 +22,6 @@ bool GameApproachFrame::processMessage(const MessageInfos &data, SocketIO *sende
         messageFound = false;
         break;
 
-    case MessageEnum::ACCOUNTCAPABILITIESMESSAGE:
-        break;
-
     case MessageEnum::ACCOUNTLOGGINGKICKEDMESSAGE:
     {
         AccountLoggingKickedMessage message;
@@ -69,18 +66,6 @@ bool GameApproachFrame::processMessage(const MessageInfos &data, SocketIO *sende
     }
         break;
 
-    case MessageEnum::ALREADYCONNECTEDMESSAGE:
-        break;
-
-    case MessageEnum::AUTHENTICATIONTICKETACCEPTEDMESSAGE:
-    {
-        //qDebug()<<"CONNEXION - Communication avec le serveur"<< qSharedPointerCast<ServerData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::SERVERS, m_botData[sender].connectionData.connectionInfos.serverId))->getName() << "etablie";
-    }
-        break;
-
-    case MessageEnum::AUTHENTICATIONTICKETREFUSEDMESSAGE:
-        break;
-
     case MessageEnum::HELLOGAMEMESSAGE:
     {
         info(sender) << "Connecté au serveur de jeu.";
@@ -90,18 +75,6 @@ bool GameApproachFrame::processMessage(const MessageInfos &data, SocketIO *sende
         answer.ticket = m_botData[sender].connectionData.ticket;
         sender->send(answer);
     }
-        break;
-
-    case MessageEnum::RELOGINTOKENSTATUSMESSAGE:
-        break;
-
-    case MessageEnum::SERVEROPTIONALFEATURESMESSAGE:
-        break;
-
-    case MessageEnum::SERVERSESSIONCONSTANTSMESSAGE:
-        break;
-
-    case MessageEnum::SERVERSETTINGSMESSAGE:
         break;
     }
 

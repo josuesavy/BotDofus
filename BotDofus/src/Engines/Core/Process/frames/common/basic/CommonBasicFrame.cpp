@@ -21,18 +21,6 @@ bool CommonBasicFrame::processMessage(const MessageInfos &data, SocketIO *sender
     default :
         messageFound = false;
         break;
-
-    case MessageEnum::BASICPINGMESSAGE:
-        break;
-
-    case MessageEnum::BASICPONGMESSAGE:
-        break;
-
-    case MessageEnum::BASICSTATMESSAGE:
-        break;
-
-    case MessageEnum::BASICSTATWITHDATAMESSAGE:
-        break;
     }
 
     return messageFound;

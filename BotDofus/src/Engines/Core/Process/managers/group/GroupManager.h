@@ -6,6 +6,8 @@
 
 class GroupManager : public AbstractManager
 {
+    Q_OBJECT
+
 public:
     GroupManager(QMap<SocketIO*, BotData> *connectionsData, MapManager *mapManager);
 

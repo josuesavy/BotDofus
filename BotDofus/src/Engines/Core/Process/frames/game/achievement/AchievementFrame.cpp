@@ -22,15 +22,6 @@ bool AchievementFrame::processMessage(const MessageInfos &data, SocketIO *sender
         messageFound = false;
         break;
 
-    case MessageEnum::ACHIEVEMENTDETAILEDLISTMESSAGE:
-        break;
-
-    case MessageEnum::ACHIEVEMENTDETAILSMESSAGE:
-        break;
-
-    case MessageEnum::ACHIEVEMENTFINISHEDINFORMATIONMESSAGE:
-        break;
-
     case MessageEnum::ACHIEVEMENTFINISHEDMESSAGE:
     {
         AchievementFinishedMessage message;
@@ -96,13 +87,6 @@ bool AchievementFrame::processMessage(const MessageInfos &data, SocketIO *sender
 
         info(sender) << "Succès :<b>[" << qSharedPointerCast<AchievementData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::ACHIEVEMENTS, message.achievementId))->getName() << "]</b> accepté.";
     }
-        break;
-
-    case MessageEnum::FRIENDGUILDSETWARNONACHIEVEMENTCOMPLETEMESSAGE:
-        break;
-
-    case MessageEnum::FRIENDGUILDWARNONACHIEVEMENTCOMPLETESTATEMESSAGE:
-        messageFound = true;
         break;
     }
 

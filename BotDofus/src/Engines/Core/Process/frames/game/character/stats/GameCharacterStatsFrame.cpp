@@ -163,9 +163,6 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
     }
         break;
 
-    case MessageEnum::FIGHTERSTATSLISTMESSAGE:
-        break;
-
     case MessageEnum::LIFEPOINTSREGENBEGINMESSAGE:
     {
         LifePointsRegenBeginMessage message;
@@ -181,7 +178,7 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
         queue.timer = new QTimer(this);
         m_botData[sender].playerData.regenRate = message.regenRate/10;
 
-        QObject::connect(queue.timer, SIGNAL(timeout()), this, SLOT(passiveHealing()));
+        QObject::connect(queue.timer, SIGNAL(timeout()), m_statsManager, SLOT(passiveHealing()));
         queue.timer->setSingleShot(false);
         queue.timer->setInterval(1000);
         queue.timer->start();
@@ -199,7 +196,7 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
 
                 emit m_statsManager->healed(sender);
 
-                if(m_botData[sender].scriptData.activeModule == getType())
+                if(m_botData[sender].scriptData.activeModule == ModuleType::STATS)
                     emit scriptActionDone(sender);
             }
 
@@ -228,7 +225,7 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
             LifeRegenQueue q = i.next();
             if (q.sender == sender)
             {
-                QObject::disconnect(q.timer, SIGNAL(timeout()), this, SLOT(passiveHealing()));
+                QObject::disconnect(q.timer, SIGNAL(timeout()), m_statsManager, SLOT(passiveHealing()));
                 q.timer->stop();
                 delete q.timer;
                 i.remove();

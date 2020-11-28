@@ -7,14 +7,6 @@
 #include "src/Engines/Core/Process/Frames/AbstractFrame.h"
 #include "src/Engines/Core/Process/Managers/connection/ConnectionManager.h"
 
-enum class DofusVersion
-{
-    MAJOR = 2,
-    MINOR = 57,
-    CODE = 9,
-    BUILD = 13,
-};
-
 class ConnectionFrame : public AbstractFrame
 {
 public:

@@ -23,9 +23,6 @@ bool ConnectionFrame::processMessage(const MessageInfos &data, SocketIO *sender)
         messageFound = false;
         break;
 
-    case MessageEnum::CREDENTIALSACKNOWLEDGEMENTMESSAGE:
-        break;
-
     case MessageEnum::HELLOCONNECTMESSAGE:
     {
         HelloConnectMessage message;
@@ -54,9 +51,6 @@ bool ConnectionFrame::processMessage(const MessageInfos &data, SocketIO *sender)
         ckmsg.key = m_connectionManager->getFlashKey();
         sender->send(ckmsg);
     }
-        break;
-
-    case MessageEnum::IDENTIFICATIONACCOUNTFORCEMESSAGE:
         break;
 
     case MessageEnum::IDENTIFICATIONFAILEDBANNEDMESSAGE:
@@ -88,7 +82,7 @@ bool ConnectionFrame::processMessage(const MessageInfos &data, SocketIO *sender)
 
         error(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.popup.accessDenied.badVersion").arg(oldVersion).arg(newVersion);
 
-        qDebug() << "INFOS - ConnectionModule : Bad version " << oldVersion << "->" << newVersion;
+        qDebug() << "[ConnectionFrame] Bad version " << oldVersion << "->" << newVersion;
 
         sender->disconnect();
     }
@@ -113,12 +107,6 @@ bool ConnectionFrame::processMessage(const MessageInfos &data, SocketIO *sender)
 
         info(sender) << "Connecté avec succès.";
     }
-        break;
-
-    case MessageEnum::IDENTIFICATIONSUCCESSWITHLOGINTOKENMESSAGE:
-        break;
-
-    case MessageEnum::MIGRATEDSERVERLISTMESSAGE:
         break;
 
     case MessageEnum::SELECTEDSERVERDATAEXTENDEDMESSAGE:
@@ -359,9 +347,6 @@ bool ConnectionFrame::processMessage(const MessageInfos &data, SocketIO *sender)
             }
         }
     }
-        break;
-
-    case MessageEnum::SERVERSTATUSUPDATEMESSAGE:
         break;
     }
 

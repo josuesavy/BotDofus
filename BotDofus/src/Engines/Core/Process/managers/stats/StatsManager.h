@@ -183,7 +183,7 @@ public:
 
     void quitDidactiel(SocketIO *sender);
 
-private slots:
+public slots:
 
     /*!
      * \brief Heal's event finished

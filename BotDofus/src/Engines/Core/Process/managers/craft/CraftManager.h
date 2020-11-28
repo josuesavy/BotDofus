@@ -6,6 +6,8 @@
 
 class CraftManager : public AbstractManager
 {
+    Q_OBJECT
+
 public:
     CraftManager(QMap<SocketIO*, BotData> *connectionsData, MapManager *mapManager);
 
