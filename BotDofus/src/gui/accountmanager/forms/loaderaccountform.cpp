@@ -267,7 +267,7 @@ void LoaderAccountForm::on_pushButtonLoad_clicked()
 
                     if(ui->comboBoxMaster->currentIndex())
                     {
-                        query.prepare("SELECT login character FROM accounts WHERE login=(:login)");
+                        query.prepare("SELECT login, character FROM accounts WHERE login=(:login)");
                         query.bindValue(":login", ui->comboBoxMaster->currentText());
                         if (query.exec())
                         {
@@ -276,7 +276,7 @@ void LoaderAccountForm::on_pushButtonLoad_clicked()
                                 QString character = query.value(1).toString();
 
                                 if(!character.isEmpty())
-                                    m_accounts[i].masterGroup = query.value(1).toString();
+                                    m_accounts[i].masterGroup = character;
                                 else
                                     QMessageBox::critical(this,"Erreur",QString("Aucun personnage enregistré sur le compte <b>%1</b>").arg(query.value(0).toString()));
                             }
