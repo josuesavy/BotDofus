@@ -54,9 +54,6 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
             m_botData[sender].mapData.playersOnMap[rolePlay->contextualId].direction = rolePlay->disposition->direction;
             m_botData[sender].mapData.playersOnMap[rolePlay->contextualId].name = rolePlay->name;
 
-            debug(sender) << "name:" << rolePlay->name;
-            debug(sender) << "level:" << rolePlay->alignmentInfos.characterPower - rolePlay->contextualId;
-
             if (m_botData[sender].floodData.channelList.contains(CHANNELPRIVATE))
             {
                 if (m_botData[sender].generalData.botState == INACTIVE_STATE &&
