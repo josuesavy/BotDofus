@@ -83,6 +83,82 @@ bool ConnectionFrame::processMessage(const MessageInfos &data, SocketIO *sender)
     }
         break;
 
+    case MessageEnum::IDENTIFICATIONFAILEDMESSAGE:
+    {
+        IdentificationFailedMessage message;
+        message.deserialize(&reader);
+
+        QString failReason;
+        switch ((IdentificationFailureReasonEnum)message.reason)
+        {
+        case IdentificationFailureReasonEnum::WRONG_CREDENTIALS:
+            failReason = "Nom de compte ou mot de passe incorrect.";
+            break;
+
+        case IdentificationFailureReasonEnum::BANNED:
+        {
+            QSqlQuery query;
+            query.prepare("UPDATE accounts SET isbanned = :isbanned WHERE login = :login");
+            query.bindValue(":isbanned", 1);
+            query.bindValue(":login", m_botData[sender].connectionData.connectionInfos.login);
+            query.exec();
+
+            failReason = "Le compte est banni définitivement - N'hesitez pas à le reporter sur le forum";
+        }
+            break;
+
+        case IdentificationFailureReasonEnum::KICKED:
+            failReason = "Expulsé";
+            break;
+
+        case IdentificationFailureReasonEnum::IN_MAINTENANCE:
+            failReason = D2OManagerSingleton::get()->getI18N()->getText(412383);
+            break;
+
+        case IdentificationFailureReasonEnum::TOO_MANY_ON_IP:
+            failReason = "Un défaut de sécurité de votre connexion Internet a été relevé : votre adresse IP publique n'est pas constante, et ne permet pas d'authentifier votre connexion. Contactez votre administrateur réseau ou votre FAI, afin de vous assurer que votre connexion puisse conserver une IP identique entre l'identification et le choix du serveur de jeu. Cette 'inconstance' de l'IP se produit principalement dans les réseaux possédant plusieurs connexion Internet en parallèle, lorsque les connexions réseau sont balancées entre les différents points d'accès Internet.";
+            break;
+
+        case IdentificationFailureReasonEnum::TIME_OUT:
+            failReason = "Temps de connexion écoulé";
+            break;
+
+        case IdentificationFailureReasonEnum::BAD_IPRANGE:
+            failReason = "Adresse ip incorrecte";
+            break;
+
+        case IdentificationFailureReasonEnum::CREDENTIALS_RESET:
+            failReason = "Reset des identifiants";
+            break;
+
+        case IdentificationFailureReasonEnum::EMAIL_UNVALIDATED:
+            failReason = "Email du compte non-verifié";
+            break;
+
+        case IdentificationFailureReasonEnum::OTP_TIMEOUT:
+            failReason = "Temps de connexion écoulé";
+            break;
+
+        case IdentificationFailureReasonEnum::SERVICE_UNAVAILABLE:
+            failReason = "Service non disponible";
+            break;
+
+        case IdentificationFailureReasonEnum::UNKNOWN_AUTH_ERROR:
+            failReason = "Erreur de connexion inconnue";
+            break;
+
+        case IdentificationFailureReasonEnum::SPARE:
+            failReason = "Erreur de connexion inconnue : Spare";
+            break;
+        }
+
+        m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
+
+        error(sender)<<"Connexion refusée."<<failReason;
+        sender->disconnect();
+    }
+        break;
+
     case MessageEnum::IDENTIFICATIONSUCCESSMESSAGE:
     {
         IdentificationSuccessMessage message;
