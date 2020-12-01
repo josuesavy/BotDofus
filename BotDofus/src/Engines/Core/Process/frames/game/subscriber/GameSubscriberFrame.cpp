@@ -53,6 +53,15 @@ bool GameSubscriberFrame::processMessage(const MessageInfos &data, SocketIO *sen
         info(sender) << text;
     }
         break;
+
+    case MessageEnum::SUBSCRIPTIONZONEMESSAGE:
+    {
+        SubscriptionZoneMessage message;
+        message.deserialize(&reader);
+
+        qDebug() << "SubscriptionZoneMessage:" << message.active;
+    }
+        break;
     }
 
     return messageFound;

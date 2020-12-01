@@ -18,6 +18,15 @@ bool GameContextRoleplayPartyFrame::processMessage(const MessageInfos &data, Soc
         messageFound = false;
         break;
 
+    case MessageEnum::DUNGEONPARTYFINDERREGISTERERRORMESSAGE:
+    {
+        DungeonPartyFinderRegisterErrorMessage message;
+        message.deserialize(&reader);
+
+        error(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.teamSearch.registerError");
+    }
+        break;
+
     case MessageEnum::PARTYCANNOTJOINERRORMESSAGE:
     {
         PartyCannotJoinErrorMessage message;

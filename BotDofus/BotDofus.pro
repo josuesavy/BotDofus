@@ -62,6 +62,11 @@ FORMS += \
 # A list of filenames of header (.h) files used when building the project.
 HEADERS += \
     src/Engines/Core/CoreEngine.h \
+    src/Engines/Core/Process/frames/game/context/roleplay/emote/GameContextRoleplayEmoteFrame.h \
+    src/Engines/Core/Process/frames/game/look/GameLookFrame.h \
+    src/Engines/Core/Process/frames/game/preset/GamePresetFrame.h \
+    src/Engines/Core/Process/frames/game/prism/GamePrismFrame.h \
+    src/Engines/Core/Process/frames/game/tinsel/GameTinselFrame.h \
     src/Engines/Core/Process/managers/arena/ArenaManager.h \
     src/Engines/Core/Process/managers/craft/CraftManager.h \
     src/Engines/Core/Process/managers/exchange/ExchangeManager.h \
@@ -77,6 +82,7 @@ HEADERS += \
     src/Engines/Core/Process/frames/common/basic/CommonBasicFrame.h \
     src/Engines/Core/Process/frames/connection/ConnectionFrame.h \
     src/Engines/Core/Process/frames/connection/register/ConnectionRegisterFrame.h \
+    src/Engines/Core/Process/frames/connection/search/ConnectionSearchFrame.h \
     src/Engines/Core/Process/frames/game/achievement/AchievementFrame.h \
     src/Engines/Core/Process/frames/game/actions/GameActionsFrame.h \
     src/Engines/Core/Process/frames/game/actions/fight/GameActionsFightFrame.h \
@@ -1958,6 +1964,11 @@ HEADERS += \
 # A list of source code files to be used when building the project.
 SOURCES += \
     src/Engines/Core/CoreEngine.cpp \
+    src/Engines/Core/Process/frames/game/context/roleplay/emote/GameContextRoleplayEmoteFrame.cpp \
+    src/Engines/Core/Process/frames/game/look/GameLookFrame.cpp \
+    src/Engines/Core/Process/frames/game/preset/GamePresetFrame.cpp \
+    src/Engines/Core/Process/frames/game/prism/GamePrismFrame.cpp \
+    src/Engines/Core/Process/frames/game/tinsel/GameTinselFrame.cpp \
     src/Engines/Core/Process/managers/arena/ArenaManager.cpp \
     src/Engines/Core/Process/managers/craft/CraftManager.cpp \
     src/Engines/Core/Process/managers/exchange/ExchangeManager.cpp \
@@ -1973,6 +1984,7 @@ SOURCES += \
     src/Engines/Core/Process/frames/common/basic/CommonBasicFrame.cpp \
     src/Engines/Core/Process/frames/connection/ConnectionFrame.cpp \
     src/Engines/Core/Process/frames/connection/register/ConnectionRegisterFrame.cpp \
+    src/Engines/Core/Process/frames/connection/search/ConnectionSearchFrame.cpp \
     src/Engines/Core/Process/frames/game/achievement/AchievementFrame.cpp \
     src/Engines/Core/Process/frames/game/actions/GameActionsFrame.cpp \
     src/Engines/Core/Process/frames/game/actions/fight/GameActionsFightFrame.cpp \

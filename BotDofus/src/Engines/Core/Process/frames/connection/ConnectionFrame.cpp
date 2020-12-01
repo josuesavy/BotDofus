@@ -257,7 +257,7 @@ bool ConnectionFrame::processMessage(const MessageInfos &data, SocketIO *sender)
             case ServerStatusEnum::FULL:
                 m_error = m_error + "Full";
                 break;
-                //case ServerStatusEnum::STATUS_UNKNOWN:
+            case ServerStatusEnum::STATUS_UNKNOWN:
             default:
                 m_error = m_error + "Unknown";
                 break;
@@ -288,9 +288,10 @@ bool ConnectionFrame::processMessage(const MessageInfos &data, SocketIO *sender)
         case ServerConnectionErrorEnum::SERVER_CONNECTION_ERROR_SERVER_OVERLOAD:
             m_error = "serverFull";
             break;
-            //case ServerConnectionErrorEnum::SERVER_CONNECTION_ERROR_NO_REASON:
+        case ServerConnectionErrorEnum::SERVER_CONNECTION_ERROR_NO_REASON:
         default:
             m_error = "NoReason";
+            break;
         }
 
         error(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.server.cantChoose."+m_error);

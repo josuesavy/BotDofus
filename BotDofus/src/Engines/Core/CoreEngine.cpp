@@ -22,6 +22,7 @@ CoreEngine::CoreEngine()
     m_frames.append(new CommonBasicFrame(&m_botData));
     m_frames.append(new ConnectionFrame(&m_botData, static_cast<ConnectionManager*>(m_managers[ManagerType::CONNECTION])));
     m_frames.append(new ConnectionRegisterFrame(&m_botData));
+    m_frames.append(new ConnectionSearchFrame(&m_botData));
     m_frames.append(new AchievementFrame(&m_botData));
     m_frames.append(new GameActionsFrame(&m_botData));
     m_frames.append(new GameActionsFightFrame(&m_botData, static_cast<FightManager*>(m_managers[ManagerType::FIGHT])));
@@ -44,6 +45,7 @@ CoreEngine::CoreEngine()
     m_frames.append(new GameContextNotificationFrame(&m_botData));
     m_frames.append(new GameContextRoleplayFrame(&m_botData, static_cast<MapManager*>(m_managers[ManagerType::MAP]), static_cast<FloodManager*>(m_managers[ManagerType::FLOOD])));
     m_frames.append(new GameContextRoleplayDeathFrame(&m_botData, static_cast<StatsManager*>(m_managers[ManagerType::STATS])));
+    m_frames.append(new GameContextRoleplayEmoteFrame(&m_botData));
     m_frames.append(new GameContextRoleplayFightFrame(&m_botData));
     m_frames.append(new GameContextRoleplayFightArenaFrame(&m_botData));
     m_frames.append(new GameContextRoleplayJobFrame(&m_botData));

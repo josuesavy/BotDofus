@@ -137,6 +137,15 @@ bool GameContextFightFrame::processMessage(const MessageInfos &data, SocketIO *s
     }
         break;
 
+    case MessageEnum::GAMEFIGHTPLACEMENTSWAPPOSITIONSERRORMESSAGE:
+    {
+        GameFightPlacementSwapPositionsErrorMessage message;
+        message.deserialize(&reader);
+
+        error(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.fight.swapPositionRequestError");
+    }
+        break;
+
     case MessageEnum::GAMEFIGHTPLACEMENTSWAPPOSITIONSMESSAGE:
     {
         GameEntitiesDispositionMessage message;

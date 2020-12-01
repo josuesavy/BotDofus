@@ -100,6 +100,8 @@ bool GameInteractiveFrame::processMessage(const MessageInfos &data, SocketIO *se
         InteractiveUseErrorMessage message;
         message.deserialize(&reader);
 
+        error(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.popup.impossible_action");
+
         if (m_botData[sender].generalData.botState == BotState::CRAFTING_STATE && m_botData[sender].craftData.isCrafting)
         {
             m_botData[sender].generalData.botState = BotState::INACTIVE_STATE;

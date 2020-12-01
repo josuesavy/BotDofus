@@ -58,14 +58,6 @@ bool AchievementFrame::processMessage(const MessageInfos &data, SocketIO *sender
         break;
 
     case MessageEnum::ACHIEVEMENTREWARDERRORMESSAGE:
-    {
-        AchievementRewardErrorMessage message;
-        message.deserialize(&reader);
-
-        //m_botData[sender].statisticsData.countTotalNotValidatedAchievement += 1;
-
-        error(sender) << "Succès :<b>[" << qSharedPointerCast<AchievementData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::ACHIEVEMENTS, message.achievementId))->getName() << "]</b> non accepté.";
-    }
         break;
 
     case MessageEnum::ACHIEVEMENTREWARDSUCCESSMESSAGE:

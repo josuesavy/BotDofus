@@ -44,6 +44,56 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
     }
         break;
 
+    case MessageEnum::EXCHANGEERRORMESSAGE:
+    {
+        ExchangeErrorMessage message;
+        message.deserialize(&reader);
+
+        QString typeError = "ui.exchange.";
+
+        switch ((ExchangeErrorEnum)message.errorType)
+        {
+        case ExchangeErrorEnum::BUY_ERROR:
+            typeError += "cantExchangeBuyError";
+            break;
+        case ExchangeErrorEnum::SELL_ERROR:
+            typeError += "cantExchangeSellError";
+            break;
+        case ExchangeErrorEnum::BID_SEARCH_ERROR:
+            typeError += "cantExchangeBIDSearchError";
+            break;
+        case ExchangeErrorEnum::REQUEST_IMPOSSIBLE:
+            typeError += "cantExchange";
+            break;
+        case ExchangeErrorEnum::MOUNT_PADDOCK_ERROR:
+            typeError += "cantExchangeMountPaddockError";
+            break;
+        case ExchangeErrorEnum::REQUEST_CHARACTER_GUEST:
+            typeError += "cantExchangeCharacterGuest";
+            break;
+        case ExchangeErrorEnum::REQUEST_CHARACTER_OCCUPIED:
+            typeError += "cantExchangeCharacterOccupied";
+            break;
+        case ExchangeErrorEnum::REQUEST_CHARACTER_OVERLOADED:
+            typeError += "cantExchangeCharacterOverloaded";
+            break;
+        case ExchangeErrorEnum::REQUEST_CHARACTER_RESTRICTED:
+            typeError += "cantExchangeCharacterRestricted";
+            break;
+        case ExchangeErrorEnum::REQUEST_CHARACTER_TOOL_TOO_FAR:
+            break;
+        case ExchangeErrorEnum::REQUEST_CHARACTER_NOT_SUSCRIBER:
+            typeError += "cantExchangeCharacterNotSuscriber";
+            break;
+        case ExchangeErrorEnum::REQUEST_CHARACTER_JOB_NOT_EQUIPED:
+            typeError += "cantExchangeCharacterJobNotEquiped";
+            break;
+        }
+
+        error(sender) << D2OManagerSingleton::get()->getI18N()->getText(typeError);
+    }
+        break;
+
     case MessageEnum::EXCHANGEISREADYMESSAGE:
     {
         ExchangeIsReadyMessage message;

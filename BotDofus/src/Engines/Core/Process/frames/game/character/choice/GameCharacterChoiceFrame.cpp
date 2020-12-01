@@ -198,6 +198,15 @@ bool GameCharacterChoiceFrame::processMessage(const MessageInfos &data, SocketIO
         }
     }
         break;
+
+    case MessageEnum::CHARACTERSLISTERRORMESSAGE:
+    {
+        error(sender) << "La liste des personnages n'a pas pu être récupérée.";
+
+        m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
+        sender->disconnect();
+    }
+        break;
     }
 
     return messageFound;

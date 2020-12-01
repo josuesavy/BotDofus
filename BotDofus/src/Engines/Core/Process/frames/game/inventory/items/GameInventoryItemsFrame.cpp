@@ -185,6 +185,70 @@ bool GameInventoryItemsFrame::processMessage(const MessageInfos &data, SocketIO 
     }
         break;
 
+    case MessageEnum::MIMICRYOBJECTERRORMESSAGE:
+    {
+        MimicryObjectErrorMessage message;
+        message.deserialize(&reader);
+
+        QString mimicryErrorText;
+
+        if ((ObjectErrorEnum)message.reason == ObjectErrorEnum::SYMBIOTIC_OBJECT_ERROR)
+        {
+            switch (message.errorCode)
+            {
+            case -1:
+                mimicryErrorText = D2OManagerSingleton::get()->getI18N()->getText("ui.error.state");
+                break;
+            case -2:
+                mimicryErrorText = D2OManagerSingleton::get()->getI18N()->getText("ui.charSel.deletionErrorUnsecureMode");
+                break;
+            case -7:
+                mimicryErrorText = D2OManagerSingleton::get()->getI18N()->getText("ui.mimicry.error.foodType");
+                break;
+            case -8:
+                mimicryErrorText = D2OManagerSingleton::get()->getI18N()->getText("ui.mimicry.error.foodLevel");
+                break;
+            case -9:
+                mimicryErrorText = D2OManagerSingleton::get()->getI18N()->getText("ui.mimicry.error.noValidMimicry");
+                break;
+            case -10:
+                mimicryErrorText = D2OManagerSingleton::get()->getI18N()->getText("ui.mimicry.error.noValidHost");
+                break;
+            case -11:
+                mimicryErrorText = D2OManagerSingleton::get()->getI18N()->getText("ui.mimicry.error.noValidFood");
+                break;
+            case -16:
+                mimicryErrorText = D2OManagerSingleton::get()->getI18N()->getText("ui.mimicry.error.noMimicryAssociated");
+                break;
+            case -17:
+                mimicryErrorText = D2OManagerSingleton::get()->getI18N()->getText("ui.mimicry.error.sameSkin");
+                break;
+            case -3:
+            case -4:
+            case -5:
+            case -6:
+            case -12:
+            case -13:
+            case -14:
+            case -15:
+                mimicryErrorText = D2OManagerSingleton::get()->getI18N()->getText("ui.popup.impossible_action");
+                break;
+            default:
+                mimicryErrorText = D2OManagerSingleton::get()->getI18N()->getText("ui.common.unknownFail");
+            }
+
+            if (message.preview)
+            {
+                error(sender) << mimicryErrorText;
+            }
+            else
+            {
+                info(sender) << mimicryErrorText;
+            }
+        }
+    }
+        break;
+
     case MessageEnum::OBJECTADDEDMESSAGE:
     {
         ObjectAddedMessage message;
@@ -342,6 +406,61 @@ bool GameInventoryItemsFrame::processMessage(const MessageInfos &data, SocketIO 
         message.deserialize(&reader);
 
         m_botData[sender].statisticsData.countTotalResourcesGather += message.baseQuantity;
+    }
+        break;
+
+    case MessageEnum::WRAPPEROBJECTERRORMESSAGE:
+    {
+        WrapperObjectErrorMessage message;
+        message.deserialize(&reader);
+
+        if((ObjectErrorEnum)message.reason == ObjectErrorEnum::SYMBIOTIC_OBJECT_ERROR)
+        {
+            QString wrapperErrorText;
+
+            switch(message.errorCode)
+            {
+            case -1:
+                wrapperErrorText = D2OManagerSingleton::get()->getI18N()->getText("ui.error.state");
+                break;
+            case -2:
+                wrapperErrorText = D2OManagerSingleton::get()->getI18N()->getText("ui.charSel.deletionErrorUnsecureMode");
+                break;
+            case -7:
+                wrapperErrorText = D2OManagerSingleton::get()->getI18N()->getText("ui.mimicry.error.foodType");
+                break;
+            case -8:
+                wrapperErrorText = D2OManagerSingleton::get()->getI18N()->getText("ui.mimicry.error.invalidWrapperObject");
+                break;
+            case -10:
+                wrapperErrorText = D2OManagerSingleton::get()->getI18N()->getText("ui.mimicry.error.noValidHost");
+                break;
+            case -16:
+                wrapperErrorText = D2OManagerSingleton::get()->getI18N()->getText("ui.mimicry.error.noWrapperAssociated");
+                break;
+            case -18:
+                wrapperErrorText = D2OManagerSingleton::get()->getI18N()->getText("ui.mimicry.error.noAssociationWithLivingObject");
+                break;
+            case -19:
+                wrapperErrorText = D2OManagerSingleton::get()->getI18N()->getText("ui.mimicry.error.alreadyWrapped");
+                break;
+            case -20:
+                wrapperErrorText = D2OManagerSingleton::get()->getI18N()->getText("ui.mimicry.error.invalidCriterion");
+                break;
+            case -3:
+            case -4:
+            case -6:
+            case -12:
+            case -14:
+            case -15:
+                wrapperErrorText = D2OManagerSingleton::get()->getI18N()->getText("ui.popup.impossible_action");
+                break;
+            default:
+                wrapperErrorText = D2OManagerSingleton::get()->getI18N()->getText("ui.common.unknownFail");
+            }
+
+            error(sender) << wrapperErrorText;
+        }
     }
         break;
     }

@@ -17,6 +17,30 @@ bool GameContextMountFrame::processMessage(const MessageInfos &data, SocketIO *s
         messageFound = false;
         break;
 
+    case MessageEnum::MOUNTEQUIPEDERRORMESSAGE:
+    {
+        MountEquipedErrorMessage message;
+        message.deserialize(&reader);
+
+        QString typeError;
+
+        switch ((MountEquipedErrorEnum)message.errorType)
+        {
+        case MountEquipedErrorEnum::UNSET:
+            typeError += "UNSET";
+            break;
+        case MountEquipedErrorEnum::SET:
+            typeError += "SET";
+            break;
+        case MountEquipedErrorEnum::RIDING:
+            typeError += "RIDING";
+            break;
+        }
+
+        // TODO: display typeError in logger
+    }
+        break;
+
     case MessageEnum::MOUNTRIDINGMESSAGE:
     {
         MountRidingMessage message;
