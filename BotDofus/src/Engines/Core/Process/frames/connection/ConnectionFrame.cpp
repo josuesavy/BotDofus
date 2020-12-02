@@ -297,6 +297,25 @@ bool ConnectionFrame::processMessage(const MessageInfos &data, SocketIO *sender)
         error(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.server.cantChoose."+m_error);
         error(sender)<< D2OManagerSingleton::get()->getI18N()->getText("ui.popup.connectionRefused");
 
+        QSqlQuery query;
+        query.prepare("SELECT idaccounts FROM accounts WHERE login = (:login)");
+        query.bindValue(":login", m_botData[sender].connectionData.connectionInfos.login);
+
+        if (query.exec())
+        {
+            if (query.next())
+            {
+                int idAccount = query.value(0).toInt();
+
+                query.prepare("DELETE FROM creation WHERE idaccounts = :idaccounts");
+                query.bindValue(":idaccounts", idAccount);
+                query.exec();
+            }
+        }
+
+        m_botData[sender].connectionData.connectionInfos.characterCreated = false;
+        m_botData[sender].connectionData.connectionInfos.needToCreateCharacter = false;
+
         m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
         sender->disconnect();
     }
