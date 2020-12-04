@@ -5,7 +5,8 @@
 #include <QtSql/QtSql>
 
 #include "src/Engines/Core/Process/frames/AbstractFrame.h"
-#include "src/Engines/Core/Process/Managers/connection/ConnectionManager.h"
+#include "src/Engines/Core/Process/managers/connection/ConnectionManager.h"
+#include "src/gui/main/forms/dialogs/treewidgetdialog.h"
 
 class ConnectionFrame : public AbstractFrame
 {

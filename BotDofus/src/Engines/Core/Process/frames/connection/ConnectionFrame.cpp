@@ -340,7 +340,8 @@ bool ConnectionFrame::processMessage(const MessageInfos &data, SocketIO *sender)
 
         else if(m_botData[sender].connectionData.connectionInfos.connectionTo == ConnectionTo::SERVER || m_botData[sender].connectionData.connectionInfos.serverId == INVALID)
         {
-            QStringList items;
+            TreeWidgetDialog treeWidgetDialog;
+            treeWidgetDialog.setParent(nullptr, Qt::Dialog);
 
             foreach (const GameServerInformations &infos, message.servers)
             {
@@ -348,17 +349,45 @@ bool ConnectionFrame::processMessage(const MessageInfos &data, SocketIO *sender)
                 {
                     QSharedPointer<ServerData> server = qSharedPointerCast<ServerData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::SERVERS, infos.id));
 
-                    items.append(QString("%1 - %2 (%3 pers.)").arg(infos.id).arg(server->getName()).arg(infos.charactersCount));
+                    QIcon statusServer;
+                    switch ((ServerStatusEnum)infos.status)
+                    {
+                    case ServerStatusEnum::SAVING:
+                    case ServerStatusEnum::STARTING:
+                        statusServer = QIcon(":/icons/bullet_orange_32px.ico");
+                        break;
+
+                    case ServerStatusEnum::ONLINE:
+                        statusServer = QIcon(":/icons/bullet_green_32px.ico");
+                        break;
+                    case ServerStatusEnum::OFFLINE:
+                    case ServerStatusEnum::STOPING:
+                    case ServerStatusEnum::NOJOIN:
+                        statusServer = QIcon(":/icons/bullet_red_32px.ico");
+                        break;
+
+                    case ServerStatusEnum::FULL:
+                        statusServer = QIcon(":/icons/bullet_blue_32px.ico");
+                        break;
+                    }
+
+                    QPair<double, QPair<QIcon, QString>> serverItem;
+                    serverItem.first = infos.id;
+                    serverItem.second.first = statusServer;
+                    serverItem.second.second = QString("%1 (%2)").arg(server->getName()).arg(infos.charactersCount);
+
+                    treeWidgetDialog.addItem(serverItem);
                 }
             }
 
-            bool ok;
-            QString item = QInputDialog::getItem(nullptr, tr("Choisissez un serveur"), tr("Serveur :"), items, 0, false, &ok);
-            if (ok && !item.isEmpty())
+            if(treeWidgetDialog.exec() == QDialog::Accepted)
             {
-                action(sender)<<"Connexion au serveur"<<item.split(" - ").at(1).split(" (").at(0)+"...";
+                QPair<double, QPair<QIcon, QString>> serverItem;
+                serverItem = treeWidgetDialog.getItemSelected();
+
+                action(sender)<<"Connexion au serveur"<<serverItem.second.second.split('(').at(0) +"...";
                 ServerSelectionMessage answer;
-                answer.serverId = item.split(" - ").at(0).toUInt();
+                answer.serverId = (uint)serverItem.first;
                 sender->send(answer);
             }
             else

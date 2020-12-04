@@ -51,6 +51,7 @@ FORMS += \
     src/gui/main/forms/dialogs/addfloodmessagedialog.ui \
     src/gui/main/forms/dialogs/addspelldialog.ui \
     src/gui/main/forms/dialogs/smileysdialog.ui \
+    src/gui/main/forms/dialogs/treewidgetdialog.ui \
     src/gui/main/forms/fightform.ui \
     src/gui/main/forms/floodform.ui \
     src/gui/main/forms/inventoryform.ui \
@@ -1952,6 +1953,7 @@ HEADERS += \
     src/gui/main/forms/dialogs/addfloodmessagedialog.h \
     src/gui/main/forms/dialogs/addspelldialog.h \
     src/gui/main/forms/dialogs/smileysdialog.h \
+    src/gui/main/forms/dialogs/treewidgetdialog.h \
     src/gui/main/forms/fightform.h \
     src/gui/main/forms/floodform.h \
     src/gui/main/forms/inventoryform.h \
@@ -3741,6 +3743,7 @@ SOURCES += \
     src/gui/main/forms/dialogs/addfloodmessagedialog.cpp \
     src/gui/main/forms/dialogs/addspelldialog.cpp \
     src/gui/main/forms/dialogs/smileysdialog.cpp \
+    src/gui/main/forms/dialogs/treewidgetdialog.cpp \
     src/gui/main/forms/fightform.cpp \
     src/gui/main/forms/floodform.cpp \
     src/gui/main/forms/inventoryform.cpp \

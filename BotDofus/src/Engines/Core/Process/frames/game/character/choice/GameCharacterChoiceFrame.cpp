@@ -146,20 +146,40 @@ bool GameCharacterChoiceFrame::processMessage(const MessageInfos &data, SocketIO
 
         else if(m_botData[sender].connectionData.connectionInfos.connectionTo == ConnectionTo::CHARACTER || m_botData[sender].connectionData.connectionInfos.connectionTo == ConnectionTo::SERVER || m_botData[sender].connectionData.connectionInfos.character.isEmpty())
         {
-            QStringList items;
-            foreach(QSharedPointer<CharacterBaseInformations> infos, message.characters)
-                items.append(QString("%1 - %2 Niv.%3").arg(QString::number(infos->id, 'f', 0)).arg(infos->name).arg(infos->level));
+            TreeWidgetDialog treeWidgetDialog;
+            treeWidgetDialog.setParent(nullptr, Qt::Dialog);
 
-            bool ok;
-            QString item = QInputDialog::getItem(nullptr, tr("Choisissez un personnage"), tr("Personnage :"), items, 0, false, &ok);
-            if (ok && !item.isEmpty())
+            QString path;
+            QSqlQuery query;
+            query.prepare("SELECT d2p FROM globalParameters");
+            if(query.exec())
             {
-                action(sender) << "Sélection du personnage" << item.split(" - ").at(1).split(" Niv.").at(0) + "...";
-                CharacterSelectionMessage answer;
-                answer.id = item.split(" - ").at(0).toDouble();
-                sender->send(answer);
+                while(query.next())
+                {
+                    path = query.value(0).toString();
+                }
             }
 
+            foreach(QSharedPointer<CharacterBaseInformations> infos, message.characters)
+            {
+                QPair<double, QPair<QIcon, QString>> serverItem;
+                serverItem.first = infos->id;
+                serverItem.second.first = QIcon(QString("%1/gfx/heads/SmallHead_%2%3.png").arg(path).arg(infos->breed).arg(infos->sex));
+                serverItem.second.second = QString("%1 (%2)").arg(infos->name).arg(infos->level);
+
+                treeWidgetDialog.addItem(serverItem);
+            }
+
+            if(treeWidgetDialog.exec() == QDialog::Accepted)
+            {
+                QPair<double, QPair<QIcon, QString>> characterItem;
+                characterItem = treeWidgetDialog.getItemSelected();
+
+                action(sender) << "Sélection du personnage" << characterItem.second.second.split('(').at(0) + "...";
+                CharacterSelectionMessage answer;
+                answer.id = characterItem.first;
+                sender->send(answer);
+            }
             else
                 sender->disconnect();
         }
