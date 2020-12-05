@@ -18,6 +18,8 @@ bool GameAtlasCompassFrame::processMessage(const MessageInfos &data, SocketIO *s
         messageFound = false;
         break;
 
+//    case MessageEnum::COMPASSUPDATEMESSAGE:
+//    case MessageEnum::COMPASSUPDATEPVPSEEKMESSAGE:
     case MessageEnum::COMPASSUPDATEPARTYMEMBERMESSAGE:
     {
         CompassUpdatePartyMemberMessage message;

@@ -64,6 +64,7 @@ FORMS += \
 HEADERS += \
     src/Engines/Core/CoreEngine.h \
     src/Engines/Core/Process/frames/game/context/roleplay/emote/GameContextRoleplayEmoteFrame.h \
+    src/Engines/Core/Process/frames/game/context/roleplay/treasureHunt/GameContextRoleplayTreasureHuntFrame.h \
     src/Engines/Core/Process/frames/game/look/GameLookFrame.h \
     src/Engines/Core/Process/frames/game/preset/GamePresetFrame.h \
     src/Engines/Core/Process/frames/game/prism/GamePrismFrame.h \
@@ -1967,6 +1968,7 @@ HEADERS += \
 SOURCES += \
     src/Engines/Core/CoreEngine.cpp \
     src/Engines/Core/Process/frames/game/context/roleplay/emote/GameContextRoleplayEmoteFrame.cpp \
+    src/Engines/Core/Process/frames/game/context/roleplay/treasureHunt/GameContextRoleplayTreasureHuntFrame.cpp \
     src/Engines/Core/Process/frames/game/look/GameLookFrame.cpp \
     src/Engines/Core/Process/frames/game/preset/GamePresetFrame.cpp \
     src/Engines/Core/Process/frames/game/prism/GamePrismFrame.cpp \

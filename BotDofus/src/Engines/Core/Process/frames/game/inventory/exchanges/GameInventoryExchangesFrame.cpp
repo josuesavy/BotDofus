@@ -172,6 +172,15 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
     }
         break;
 
+    case MessageEnum::EXCHANGEMOUNTSTAKENFROMPADDOCKMESSAGE:
+    {
+        ExchangeMountsTakenFromPaddockMessage message;
+        message.deserialize(&reader);
+
+        info(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.mount.takenFromPaddock").arg(message.name).arg(QString("[%1,%2").arg(message.worldX).arg(message.worldY)).arg(message.ownername);
+    }
+        break;
+
     case MessageEnum::EXCHANGEOBJECTADDEDMESSAGE:
     {
         ExchangeObjectAddedMessage message;

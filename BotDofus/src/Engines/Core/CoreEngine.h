@@ -36,6 +36,7 @@
 #include "src/Engines/Core/Process/frames/game/context/roleplay/party/GameContextRoleplayPartyFrame.h"
 #include "src/Engines/Core/Process/frames/game/context/roleplay/quest/GameContextRoleplayQuestFrame.h"
 #include "src/Engines/Core/Process/frames/game/context/roleplay/stats/GameContextRoleplayStatsFrame.h"
+#include "src/Engines/Core/Process/frames/game/context/roleplay/treasureHunt/GameContextRoleplayTreasureHuntFrame.h"
 #include "src/Engines/Core/Process/frames/game/dialog/GameDialogFrame.h"
 #include "src/Engines/Core/Process/frames/game/friend/GameFriendFrame.h"
 #include "src/Engines/Core/Process/frames/game/guild/GameGuildFrame.h"

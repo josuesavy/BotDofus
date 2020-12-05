@@ -154,6 +154,15 @@ bool GameContextFrame::processMessage(const MessageInfos &data, SocketIO *sender
         }
     }
         break;
+
+    case MessageEnum::SHOWCELLSPECTATORMESSAGE:
+    {
+        ShowCellSpectatorMessage message;
+        message.deserialize(&reader);
+
+        action(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.fight.showCell").arg(message.playerName).arg(QString("{cell,%1::%2}").arg(message.cellId).arg(message.cellId));
+    }
+        break;
     }
 
     return messageFound;

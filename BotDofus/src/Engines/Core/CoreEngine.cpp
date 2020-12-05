@@ -54,6 +54,7 @@ CoreEngine::CoreEngine()
     m_frames.append(new GameContextRoleplayPartyFrame(&m_botData, static_cast<MapManager*>(m_managers[ManagerType::MAP])));
     m_frames.append(new GameContextRoleplayQuestFrame(&m_botData));
     m_frames.append(new GameContextRoleplayStatsFrame(&m_botData, static_cast<StatsManager*>(m_managers[ManagerType::STATS])));
+    m_frames.append(new GameContextRoleplayTreasureHuntFrame(&m_botData));
     m_frames.append(new GameDialogFrame(&m_botData, static_cast<InteractionManager*>(m_managers[ManagerType::INTERACTION])));
     m_frames.append(new GameFriendFrame(&m_botData));
     m_frames.append(new GameGuildFrame(&m_botData));
