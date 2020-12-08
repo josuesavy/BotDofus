@@ -27,8 +27,11 @@ bool GameContextFightFrame::processMessage(const MessageInfos &data, SocketIO *s
 
         bool hasWon = true;
 
-        if((FightOutcomeEnum)message.results.first()->outcome != FightOutcomeEnum::RESULT_VICTORY)
-            hasWon = false;
+        if (!message.results.isEmpty())
+        {
+            if((FightOutcomeEnum)message.results.first()->outcome != FightOutcomeEnum::RESULT_VICTORY)
+                hasWon = false;
+        }
 
         m_botData[sender].fightData.hasWon = hasWon;
 

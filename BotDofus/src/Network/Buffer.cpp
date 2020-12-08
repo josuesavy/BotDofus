@@ -1,9 +1,9 @@
 #include "Buffer.h"
 
 Buffer::Buffer():
-    m_part(0),
     m_remainingBytes(0),
-    _instance_id(0) // ADD
+    m_part(0),
+    _instance_id(0)
 {
 
 }

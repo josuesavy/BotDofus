@@ -261,7 +261,9 @@ void InteractionManager::moved(SocketIO *sender)
             if (qSharedPointerCast<InteractiveData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::INTERACTIVES, e.elementTypeId))->getName() == "Zaap")
             {
                 id = e.elementId;
-                skill = e.enabledSkills.first().UID;
+
+                if (!e.enabledSkills.isEmpty())
+                    skill = e.enabledSkills.first().UID;
             }
         }
 
@@ -332,27 +334,33 @@ void InteractionManager::noMovement(SocketIO *sender)
 
 void InteractionManager::finishAction()
 {
-    if (m_botData[finishedAction.first()].interactionData.interactionType == CurrentInteraction::NPC)
+    if (!finishedAction.isEmpty())
     {
-        LeaveDialogRequestMessage message;
-        finishedAction.first()->send(message);
+        if (m_botData[finishedAction.first()].interactionData.interactionType == CurrentInteraction::NPC)
+        {
+            LeaveDialogRequestMessage message;
+            finishedAction.first()->send(message);
+
+            m_botData[finishedAction.first()].interactionData.finishedAction = true;
+            finishedAction.removeFirst();
+            return;
+        }
+
+        if (!m_botData[finishedAction.first()].interactionData.finishedAction)
+            emit scriptActionDone(finishedAction.first());
 
         m_botData[finishedAction.first()].interactionData.finishedAction = true;
         finishedAction.removeFirst();
-        return;
     }
-
-    if (!m_botData[finishedAction.first()].interactionData.finishedAction)
-        emit scriptActionDone(finishedAction.first());
-
-    m_botData[finishedAction.first()].interactionData.finishedAction = true;
-    finishedAction.removeFirst();
 }
 
 void InteractionManager::confirmAction()
 {
-    emit scriptActionDone(m_confirmAction.first());
-    m_confirmAction.removeFirst();
+    if (!m_confirmAction.isEmpty())
+    {
+        emit scriptActionDone(m_confirmAction.first());
+        m_confirmAction.removeFirst();
+    }
 }
 
 void InteractionManager::clearBankData(SocketIO *sender)

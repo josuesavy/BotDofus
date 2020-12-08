@@ -108,6 +108,7 @@ bool GameCharacterChoiceFrame::processMessage(const MessageInfos &data, SocketIO
     case MessageEnum::CHARACTERSLISTMESSAGE:
     {
         action(sender)<<"Réception de la liste des personnages.";
+
         CharactersListMessage message;
         message.deserialize(&reader);
 
@@ -135,16 +136,25 @@ bool GameCharacterChoiceFrame::processMessage(const MessageInfos &data, SocketIO
 
         else if(!m_botData[sender].connectionData.connectionInfos.needToCreateCharacter && m_botData[sender].connectionData.connectionInfos.characterCreated)
         {
-            action(sender) << "Sélection du personnage" << message.characters.first()->name + "...";
-            m_botData[sender].playerData.breed = message.characters.first()->breed;
+            if (!message.characters.isEmpty())
+            {
+                action(sender) << "Sélection du personnage" << message.characters.first()->name + "...";
+                m_botData[sender].playerData.breed = message.characters.first()->breed;
 
-            CharacterFirstSelectionMessage answer;
-            answer.doTutorial = false;
-            answer.id = message.characters.at(0)->id;
-            sender->send(answer);
+                CharacterFirstSelectionMessage answer;
+                answer.doTutorial = false;
+                answer.id = message.characters.first()->id;
+                sender->send(answer);
+            }
+
+            else
+            {
+                error(sender)<<"Vous n'avez pas de personnage sur ce serveur.";
+                sender->disconnect();
+            }
         }
 
-        else if(m_botData[sender].connectionData.connectionInfos.connectionTo == ConnectionTo::CHARACTER || m_botData[sender].connectionData.connectionInfos.connectionTo == ConnectionTo::SERVER || m_botData[sender].connectionData.connectionInfos.character.isEmpty())
+        else if(m_botData[sender].connectionData.connectionInfos.connectionTo == ConnectionTo::CHARACTER || m_botData[sender].connectionData.connectionInfos.connectionTo == ConnectionTo::SERVER || m_botData[sender].connectionData.connectionInfos.character.isEmpty() && !message.characters.isEmpty())
         {
             TreeWidgetDialog treeWidgetDialog;
             treeWidgetDialog.setParent(nullptr, Qt::Dialog);

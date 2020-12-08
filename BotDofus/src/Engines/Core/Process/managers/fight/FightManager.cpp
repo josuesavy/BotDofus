@@ -1880,7 +1880,10 @@ SpellType FightManager::getSpellType(SocketIO *sender, int spellID)
     QSharedPointer<SpellData> spellData = qSharedPointerCast<SpellData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::SPELLS, spellID));
     int spellLevelID = spellData->getSpellLevels()[m_botData[sender].playerData.spells[spellID].spellLevel-1];
     QSharedPointer<SpellLevelData> spellLevelData = qSharedPointerCast<SpellLevelData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::SPELLLEVELS, spellLevelID));
-    int effectID = spellLevelData->getEffects().first().getEffectId();
+
+    int effectID = (int)SpellType::UNKOWN;
+    if (!spellLevelData->getEffects().isEmpty())
+        effectID = spellLevelData->getEffects().first().getEffectId();
 
     switch(effectID)
     {

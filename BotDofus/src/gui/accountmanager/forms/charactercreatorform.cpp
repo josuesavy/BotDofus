@@ -300,7 +300,8 @@ void CharacterCreatorForm::on_pushButtonSave_clicked()
                     headerIdList << headData->getId();
             }
 
-            headerId = generateRandomNumber(headerIdList.first(), headerIdList.last());
+            if (!headerIdList.isEmpty())
+                headerId = generateRandomNumber(headerIdList.first(), headerIdList.last());
         }
         else
             headerId = ui->comboBoxHead->currentData().toInt();

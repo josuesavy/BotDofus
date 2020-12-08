@@ -4,15 +4,15 @@
 //BotStatsModule SocketIO::m_botStatsModule;
 
 SocketIO::SocketIO(const bool tryConnect) :
-    m_port(0),
-    m_socket(NULL),
+    m_maxLatency(0),
+    m_latencyTotal(0),
+    m_sampleCount(0),
+    m_sampleTotalCount(0),
     m_isActive(false),
     m_isServerSwitched(false),
-    m_tryUntilConnect(false),
-    m_latencyTotal(0),
-    m_maxLatency(0),
-    m_sampleCount(0),
-    m_sampleTotalCount(0)
+    m_socket(nullptr),
+    m_port(0),
+  m_tryUntilConnect(false)
 {
     m_socket = new QTcpSocket();
     m_socket->setProxy(m_proxy);
@@ -84,7 +84,10 @@ void SocketIO::send(AbstractMessage &message)
 void SocketIO::disconnect()
 {
     if(m_isActive)
-        m_socket->disconnectFromHost(), m_isActive = false;
+    {
+        m_socket->disconnectFromHost();
+        m_isActive = false;
+    }
 }
 
 bool SocketIO::isActive() const
@@ -105,33 +108,36 @@ void SocketIO::dataReceived()
                 m_sampleCount++;
                 m_sampleTotalCount++;
 
-                int latency = m_timers.first().elapsed();
-                m_timers.removeFirst();
-
-                m_latencyList<<latency;
-                m_latencyTotal += latency;
-
-                if(latency > m_maxLatency)
-                    m_maxLatency = latency;
-
-                if(m_latencyList.size() > LATENCY_BUFFER_SIZE)
+                if (!m_timers.isEmpty())
                 {
-                    int toBeRemoved = m_latencyList.first();
-                    m_latencyList.removeFirst();
-                    m_latencyTotal -= toBeRemoved;
-                    m_sampleCount--;
+                    int latency = m_timers.first().elapsed();
+                    m_timers.removeFirst();
 
-                    if(toBeRemoved == m_maxLatency)
+                    m_latencyList<<latency;
+                    m_latencyTotal += latency;
+
+                    if(latency > m_maxLatency)
+                        m_maxLatency = latency;
+
+                    if(m_latencyList.size() > LATENCY_BUFFER_SIZE)
                     {
-                        int maxLatency = m_latencyList.first();
+                        int toBeRemoved = m_latencyList.first();
+                        m_latencyList.removeFirst();
+                        m_latencyTotal -= toBeRemoved;
+                        m_sampleCount--;
 
-                        for(int i = 0; i < m_latencyList.size(); i++)
+                        if(toBeRemoved == m_maxLatency)
                         {
-                            if(maxLatency < m_latencyList[i])
-                                maxLatency = m_latencyList[i];
-                        }
+                            int maxLatency = m_latencyList.first();
 
-                        m_maxLatency = maxLatency;
+                            for(int i = 0; i < m_latencyList.size(); i++)
+                            {
+                                if(maxLatency < m_latencyList[i])
+                                    maxLatency = m_latencyList[i];
+                            }
+
+                            m_maxLatency = maxLatency;
+                        }
                     }
                 }
             }
@@ -232,7 +238,7 @@ QString SocketIO::getCurrentHostIp() const
     return m_randMainServerIp;
 }
 
-int SocketIO::getCurrentHostPort() const
+unsigned short SocketIO::getCurrentHostPort() const
 {
     return m_port;
 }

@@ -15,7 +15,6 @@ ConnectionDialog::ConnectionDialog(QWidget *parent) :
     else
         qDebug()<<"Le fichier"<<USER_DATA_PATH<<"ne peut pas etre ouvert/créé";
 
-    //QTimer::singleShot(0, this, SLOT(init()));
     init();
 }
 
@@ -51,7 +50,7 @@ void ConnectionDialog::on_lineEditPathDofus_textChanged(const QString &arg1)
                 {
                     D2O = m_path + "/data/common";
                     D2P = m_path + "/content";
-                    I18N = m_path + "/data/i18n/i18n_fr.d2i";
+                    I18N = m_path + QString("/data/i18n/i18n_%1.d2i").arg("fr");
 
                     QSqlQuery query;
                     query.prepare("INSERT INTO globalParameters (d2o , d2p , i18n, dofus_path) SELECT :d2o , :d2p , :i18n, :dofus_path WHERE NOT EXISTS (SELECT dofus_path FROM globalParameters WHERE d2o = :d2o AND d2p = :d2p AND i18n = :i18n)");

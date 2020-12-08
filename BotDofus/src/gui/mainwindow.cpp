@@ -116,75 +116,81 @@ void MainWindow::addAccount(const QList<ConnectionInfos> &accounts)
 
         QList<AccountForm*> accountFormsToAutoConnect;
 
-        if(accounts.first().masterGroup.isEmpty())
+        if (!accounts.isEmpty())
         {
-            // Remplissement de la liste de comptes avec leur Widget
-            for(int i = 0; i < accounts.size(); i++)
+            if(accounts.first().masterGroup.isEmpty())
             {
-                progressDlg.setLabelText(QString("Chargement du compte <b>%1</b>...").arg(accounts.at(i).alias.isEmpty() ? accounts.at(i).login: accounts.at(i).alias));
-                progressDlg.setValue(i+1);
-                qApp->processEvents();
+                // Remplissement de la liste de comptes avec leur Widget
+                for(int i = 0; i < accounts.size(); i++)
+                {
+                    progressDlg.setLabelText(QString("Chargement du compte <b>%1</b>...").arg(accounts.at(i).alias.isEmpty() ? accounts.at(i).login: accounts.at(i).alias));
+                    progressDlg.setValue(i+1);
+                    qApp->processEvents();
 
-                AccountForm *accountForm = new AccountForm(&m_engine, accounts.at(i));
-                connect(accountForm, SIGNAL(remove(AccountForm*, bool)), this, SLOT(remove(AccountForm*, bool)));
-                ui->stackedWidget->addWidget(accountForm);
+                    AccountForm *accountForm = new AccountForm(&m_engine, accounts.at(i));
+                    connect(accountForm, SIGNAL(remove(AccountForm*, bool)), this, SLOT(remove(AccountForm*, bool)));
+                    ui->stackedWidget->addWidget(accountForm);
 
-                QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidgetAccount);
-                item->setData(0, 1, accounts.at(i).alias.isEmpty() ? accounts.at(i).login: accounts.at(i).alias);
-                item->setData(0, 2, (uint)ConnectionState::DISCONNECTED);
-                item->setData(0, 4, QPixmap(":/icons/user.png"));
-                item->setData(0, Qt::UserRole, QVariant::fromValue(accountForm));
+                    QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidgetAccount);
+                    item->setData(0, 1, accounts.at(i).alias.isEmpty() ? accounts.at(i).login: accounts.at(i).alias);
+                    item->setData(0, 2, (uint)ConnectionState::DISCONNECTED);
+                    item->setData(0, 4, QPixmap(":/icons/user.png"));
+                    item->setData(0, Qt::UserRole, QVariant::fromValue(accountForm));
 
-                m_accountForms << accountForm;
-                accountFormsToAutoConnect << accountForm;
-                ui->treeWidgetAccount->addTopLevelItem(item);
-            }
-        }
-
-        else
-        {
-            // Add Master
-            AccountForm *accountFormMaster = new AccountForm(&m_engine, accounts.first());
-            connect(accountFormMaster, SIGNAL(remove(AccountForm*, bool)), this, SLOT(remove(AccountForm*, bool)));
-            ui->stackedWidget->addWidget(accountFormMaster);
-
-            QTreeWidgetItem *parentItem = new QTreeWidgetItem(ui->treeWidgetAccount);
-            parentItem->setData(0, 1, accounts.first().alias.isEmpty() ? accounts.first().login: accounts.first().alias);
-            parentItem->setData(0, 2, (uint)ConnectionState::DISCONNECTED);
-            parentItem->setData(0, 4, QPixmap(":/icons/user.png"));
-            parentItem->setData(0, Qt::UserRole, QVariant::fromValue(accountFormMaster));
-
-            m_accountForms << accountFormMaster;
-            accountFormsToAutoConnect << accountFormMaster;
-
-            QList<AccountForm *> accountFormsChilds;
-
-            // Add Slaves
-            for(int i = 1; i < accounts.size(); i++)
-            {
-                progressDlg.setLabelText(QString("Chargement du groupe de <b>%1</b> (%2/%3)...").arg(accounts.at(i).masterGroup).arg(i+1).arg(accounts.size()));
-                progressDlg.setValue(i+1);
-                qApp->processEvents();
-
-                AccountForm *accountFormSlave = new AccountForm(&m_engine, accounts.at(i));
-                connect(accountFormSlave, SIGNAL(remove(AccountForm*, bool)), this, SLOT(remove(AccountForm*, bool)));
-                ui->stackedWidget->addWidget(accountFormSlave);
-
-                QTreeWidgetItem *childItem = new QTreeWidgetItem();
-                childItem->setData(0, 1, accounts.at(i).alias.isEmpty() ? accounts.at(i).login: accounts.at(i).alias);
-                childItem->setData(0, 2, (uint)ConnectionState::DISCONNECTED);
-                childItem->setData(0, 4, QPixmap(":/icons/user.png"));
-                childItem->setData(0, Qt::UserRole, QVariant::fromValue(accountFormSlave));
-
-                m_accountForms << accountFormSlave;
-                accountFormsChilds << accountFormSlave;
-                accountFormsToAutoConnect << accountFormSlave;
-                parentItem->addChild(childItem);
+                    m_accountForms << accountForm;
+                    accountFormsToAutoConnect << accountForm;
+                    ui->treeWidgetAccount->addTopLevelItem(item);
+                }
             }
 
-            accountFormMaster->setAccountFormChilds(accountFormsChilds);
+            else
+            {
+                if (!accounts.isEmpty())
+                {
+                    // Add Master
+                    AccountForm *accountFormMaster = new AccountForm(&m_engine, accounts.first());
+                    connect(accountFormMaster, SIGNAL(remove(AccountForm*, bool)), this, SLOT(remove(AccountForm*, bool)));
+                    ui->stackedWidget->addWidget(accountFormMaster);
 
-            ui->treeWidgetAccount->addTopLevelItem(parentItem);
+                    QTreeWidgetItem *parentItem = new QTreeWidgetItem(ui->treeWidgetAccount);
+                    parentItem->setData(0, 1, accounts.first().alias.isEmpty() ? accounts.first().login: accounts.first().alias);
+                    parentItem->setData(0, 2, (uint)ConnectionState::DISCONNECTED);
+                    parentItem->setData(0, 4, QPixmap(":/icons/user.png"));
+                    parentItem->setData(0, Qt::UserRole, QVariant::fromValue(accountFormMaster));
+
+                    m_accountForms << accountFormMaster;
+                    accountFormsToAutoConnect << accountFormMaster;
+
+                    QList<AccountForm *> accountFormsChilds;
+
+                    // Add Slaves
+                    for(int i = 1; i < accounts.size(); i++)
+                    {
+                        progressDlg.setLabelText(QString("Chargement du groupe de <b>%1</b> (%2/%3)...").arg(accounts.at(i).masterGroup).arg(i+1).arg(accounts.size()));
+                        progressDlg.setValue(i+1);
+                        qApp->processEvents();
+
+                        AccountForm *accountFormSlave = new AccountForm(&m_engine, accounts.at(i));
+                        connect(accountFormSlave, SIGNAL(remove(AccountForm*, bool)), this, SLOT(remove(AccountForm*, bool)));
+                        ui->stackedWidget->addWidget(accountFormSlave);
+
+                        QTreeWidgetItem *childItem = new QTreeWidgetItem();
+                        childItem->setData(0, 1, accounts.at(i).alias.isEmpty() ? accounts.at(i).login: accounts.at(i).alias);
+                        childItem->setData(0, 2, (uint)ConnectionState::DISCONNECTED);
+                        childItem->setData(0, 4, QPixmap(":/icons/user.png"));
+                        childItem->setData(0, Qt::UserRole, QVariant::fromValue(accountFormSlave));
+
+                        m_accountForms << accountFormSlave;
+                        accountFormsChilds << accountFormSlave;
+                        accountFormsToAutoConnect << accountFormSlave;
+                        parentItem->addChild(childItem);
+                    }
+
+                    accountFormMaster->setAccountFormChilds(accountFormsChilds);
+
+                    ui->treeWidgetAccount->addTopLevelItem(parentItem);
+                }
+            }
         }
 
         if(!ui->treeWidgetAccount->selectedItems().size() && ui->treeWidgetAccount->topLevelItemCount())
@@ -298,6 +304,16 @@ void MainWindow::on_treeWidgetAccount_itemExpanded(QTreeWidgetItem *item)
 {
     ui->treeWidgetAccount->setCurrentItem(item);
     ui->stackedWidget->setCurrentWidget(item->data(0, Qt::UserRole).value<AccountForm*>());
+}
+
+void MainWindow::on_treeWidgetAccount_itemSelectionChanged()
+{
+    if (!ui->treeWidgetAccount->selectedItems().isEmpty())
+    {
+        QTreeWidgetItem *item = ui->treeWidgetAccount->selectedItems().first();
+        ui->treeWidgetAccount->setCurrentItem(item);
+        ui->stackedWidget->setCurrentWidget(item->data(0, Qt::UserRole).value<AccountForm*>());
+    }
 }
 
 QList<QTreeWidgetItem *> MainWindow::getTreeWidgetItems()

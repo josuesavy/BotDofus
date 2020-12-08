@@ -52,6 +52,7 @@ private slots:
     void on_treeWidgetAccount_itemPressed(QTreeWidgetItem *item, int column);
     void on_treeWidgetAccount_itemCollapsed(QTreeWidgetItem *item);
     void on_treeWidgetAccount_itemExpanded(QTreeWidgetItem *item);
+    void on_treeWidgetAccount_itemSelectionChanged();
 
 private:
     Ui::MainWindow *ui;

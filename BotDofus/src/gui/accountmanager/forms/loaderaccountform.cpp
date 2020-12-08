@@ -325,16 +325,19 @@ void LoaderAccountForm::on_pushButtonLoad_clicked()
             }
         }
 
-        if(!account.first().masterGroup.isEmpty())
+        if (!account.isEmpty())
         {
-            int indexMaster = 0;
-            for(int i = 0; i < account.size(); i++)
+            if(!account.first().masterGroup.isEmpty())
             {
-                if(account.at(i).masterGroup == account.at(i).character)
-                    indexMaster = i;
-            }
+                int indexMaster = 0;
+                for(int i = 0; i < account.size(); i++)
+                {
+                    if(account.at(i).masterGroup == account.at(i).character)
+                        indexMaster = i;
+                }
 
-            account.swapItemsAt(indexMaster, 0);
+                account.swapItemsAt(indexMaster, 0);
+            }
         }
 
         emit loadAccount(account); // Direction addAccount() MainWindow
@@ -348,13 +351,16 @@ void LoaderAccountForm::on_treeWidgetAccounts_itemChanged(QTreeWidgetItem *item,
 {
     if(column == 0)
     {
-        if(ui->treeWidgetAccounts->selectedItems().first() == item)
+        if (!ui->treeWidgetAccounts->selectedItems().isEmpty())
         {
-            QSqlQuery query;
-            query.prepare("UPDATE accounts SET alias=:alias WHERE login=:login");
-            query.bindValue(":alias", item->text(0));
-            query.bindValue(":login", item->text(1));
-            query.exec();
+            if(ui->treeWidgetAccounts->selectedItems().first() == item)
+            {
+                QSqlQuery query;
+                query.prepare("UPDATE accounts SET alias=:alias WHERE login=:login");
+                query.bindValue(":alias", item->text(0));
+                query.bindValue(":login", item->text(1));
+                query.exec();
+            }
         }
     }
 }

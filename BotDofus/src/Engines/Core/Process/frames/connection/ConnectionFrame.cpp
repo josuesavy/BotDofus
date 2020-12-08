@@ -163,6 +163,7 @@ bool ConnectionFrame::processMessage(const MessageInfos &data, SocketIO *sender)
     {
         IdentificationSuccessMessage message;
         message.deserialize(&reader);
+
         m_botData[sender].playerData.accountId = message.accountId;
         m_botData[sender].playerData.subscriptionEndDate = message.subscriptionEndDate;
         m_botData[sender].playerData.subscriptionElapsedDuration = message.subscriptionElapsedDuration;
