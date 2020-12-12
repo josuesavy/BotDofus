@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QtSql/QtSql>
+#include <QCloseEvent>
 
 #include "src/Engines/Core/CoreEngine.h"
 #include "forms/loaderaccountform.h"
