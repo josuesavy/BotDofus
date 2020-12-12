@@ -21,11 +21,11 @@ Canvas {
     Connections
     {
         target: mapForm
-        onEntityTypesChanged: canvas.requestPaint()
-        onCollisionTypesChanged: canvas.requestPaint()
-        onInteractiveTypesChanged: canvas.requestPaint()
-        onCellClickedChanged: canvas.requestPaint()
-        onDisplayCellIdsChanged: canvas.requestPaint()
+        function onEntityTypesChanged() { canvas.requestPaint() }
+        function onCollisionTypesChanged() { canvas.requestPaint() }
+        function onInteractiveTypesChanged() { canvas.requestPaint() }
+        function onCellClickedChanged() { canvas.requestPaint() }
+        function onDisplayCellIdsChanged() { canvas.requestPaint() }
     }
 
     clip:true
