@@ -1,9 +1,9 @@
 #ifndef GAMECONTEXTROLEPLAYFRAME_H
 #define GAMECONTEXTROLEPLAYFRAME_H
 
-#include "src/Engines/Core/Process/frames/AbstractFrame.h"
-#include "src/Engines/Core/Process/Managers/map/MapManager.h"
-#include "src/Engines/Core/Process/Managers/flood/FloodManager.h"
+#include "src/engines/core/process/frames/AbstractFrame.h"
+#include "src/engines/core/process/managers/map/MapManager.h"
+#include "src/engines/core/process/managers/flood/FloodManager.h"
 
 class GameContextRoleplayFrame : public AbstractFrame
 {

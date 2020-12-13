@@ -1,7 +1,7 @@
 #ifndef GAMECONTEXTMOUNTFRAME_H
 #define GAMECONTEXTMOUNTFRAME_H
 
-#include "src/Engines/Core/Process/frames/AbstractFrame.h"
+#include "src/engines/core/process/frames/AbstractFrame.h"
 
 class GameContextMountFrame : public AbstractFrame
 {

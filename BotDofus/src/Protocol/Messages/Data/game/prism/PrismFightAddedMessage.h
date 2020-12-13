@@ -1,9 +1,9 @@
 #ifndef PRISMFIGHTADDEDMESSAGE_H
 #define PRISMFIGHTADDEDMESSAGE_H
 
-#include "src/Protocol/Types/Data/game/prism/PrismFightersInformation.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
+#include "src/protocol/types/data/game/prism/PrismFightersInformation.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/messages/AbstractMessage.h"
 
 class PrismFightAddedMessage : public AbstractMessage
 {

@@ -3,8 +3,8 @@
 
 #include "src/Public.h"
 #include "ClassEnum.h"
-#include "src/Engines/IO/Network/Reader.h"
-#include "src/Engines/IO/Network/Writer.h"
+#include "src/engines/io/network/Reader.h"
+#include "src/engines/io/network/Writer.h"
 
 class AbstractClass
 {

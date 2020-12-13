@@ -7,7 +7,7 @@
 #include <QSystemTrayIcon>
 #include <QProgressDialog>
 
-#include "src/Engines/Core/Process/ProcessEngine.h"
+#include "src/engines/core/process/ProcessEngine.h"
 
 #include "accountmanager/accountmanagerdialog.h"
 #include "main/accountform.h"

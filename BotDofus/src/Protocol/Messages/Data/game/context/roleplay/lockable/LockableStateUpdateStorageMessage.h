@@ -1,9 +1,9 @@
 #ifndef LOCKABLESTATEUPDATESTORAGEMESSAGE_H
 #define LOCKABLESTATEUPDATESTORAGEMESSAGE_H
 
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
-#include "src/Protocol/Messages/Data/game/context/roleplay/lockable/LockableStateUpdateAbstractMessage.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/messages/AbstractMessage.h"
+#include "src/protocol/messages/data/game/context/roleplay/lockable/LockableStateUpdateAbstractMessage.h"
 
 class LockableStateUpdateStorageMessage : public LockableStateUpdateAbstractMessage
 {

@@ -3,8 +3,8 @@
 
 #include <QtSql/QtSql>
 
-#include "src/Engines/Core/Process/frames/AbstractFrame.h"
-#include "src/Engines/Core/Process/Managers/security/SecurityManager.h"
+#include "src/engines/core/process/frames/AbstractFrame.h"
+#include "src/engines/core/process/managers/security/SecurityManager.h"
 
 class SecurityFrame : public AbstractFrame
 {

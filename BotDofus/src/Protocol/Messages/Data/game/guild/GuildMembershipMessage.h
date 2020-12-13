@@ -1,10 +1,10 @@
 #ifndef GUILDMEMBERSHIPMESSAGE_H
 #define GUILDMEMBERSHIPMESSAGE_H
 
-#include "src/Protocol/Types/Data/game/context/roleplay/GuildInformations.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
-#include "src/Protocol/Messages/Data/game/guild/GuildJoinedMessage.h"
+#include "src/protocol/types/data/game/context/roleplay/GuildInformations.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/messages/AbstractMessage.h"
+#include "src/protocol/messages/data/game/guild/GuildJoinedMessage.h"
 
 class GuildMembershipMessage : public GuildJoinedMessage
 {

@@ -5,10 +5,10 @@
 #include <QList>
 #include <QRect>
 
-#include "src/Engines/IO/Network/Reader.h"
-#include "src/Engines/IO/D2O/GameDataTypeDeclarator.h"
-#include "src/Engines/IO/I18n/I18nFile.h"
-#include "src/Engines/IO/D2O/D2OField.h"
+#include "src/engines/io/network/Reader.h"
+#include "src/engines/io/d2o/game/GameDataTypeDeclarator.h"
+#include "src/engines/io/i18n/I18nFile.h"
+#include "src/engines/io/d2o/manager/D2OField.h"
 
 class AbstractGameData
 {

@@ -1,10 +1,10 @@
 #ifndef ALLIANCEMEMBERSHIPMESSAGE_H
 #define ALLIANCEMEMBERSHIPMESSAGE_H
 
-#include "src/Protocol/Types/Data/game/context/roleplay/AllianceInformations.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
-#include "src/Protocol/Messages/Data/game/alliance/AllianceJoinedMessage.h"
+#include "src/protocol/types/data/game/context/roleplay/AllianceInformations.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/messages/AbstractMessage.h"
+#include "src/protocol/messages/data/game/alliance/AllianceJoinedMessage.h"
 
 class AllianceMembershipMessage : public AllianceJoinedMessage
 {

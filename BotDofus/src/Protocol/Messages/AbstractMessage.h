@@ -2,8 +2,8 @@
 #define ABSTRACTMESSAGE_H
 
 #include "MessageEnum.h"
-#include "src/Engines/IO/Network/Reader.h"
-#include "src/Engines/IO/Network/Writer.h"
+#include "src/engines/io/network/Reader.h"
+#include "src/engines/io/network/Writer.h"
 
 class AbstractMessage
 {

@@ -1,9 +1,9 @@
 #ifndef PARTYMEMBERREMOVEMESSAGE_H
 #define PARTYMEMBERREMOVEMESSAGE_H
 
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
-#include "src/Protocol/Messages/Data/game/context/roleplay/party/AbstractPartyEventMessage.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/messages/AbstractMessage.h"
+#include "src/protocol/messages/data/game/context/roleplay/party/AbstractPartyEventMessage.h"
 
 class PartyMemberRemoveMessage : public AbstractPartyEventMessage
 {

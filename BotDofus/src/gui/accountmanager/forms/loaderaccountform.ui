@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>526</width>
-    <height>348</height>
+    <width>328</width>
+    <height>317</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -242,6 +242,16 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>treeWidgetAccounts</tabstop>
+  <tabstop>pushButtonImportAccounts</tabstop>
+  <tabstop>pushButtonExportAccounts</tabstop>
+  <tabstop>pushButtonDelete</tabstop>
+  <tabstop>comboBoxMaster</tabstop>
+  <tabstop>comboBoxConnectionTo</tabstop>
+  <tabstop>checkBoxConnectionAuto</tabstop>
+  <tabstop>pushButtonLoad</tabstop>
+ </tabstops>
  <resources>
   <include location="../../../../res/resources.qrc"/>
  </resources>

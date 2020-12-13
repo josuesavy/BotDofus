@@ -1,12 +1,12 @@
 #ifndef SLAVESWITCHCONTEXTMESSAGE_H
 #define SLAVESWITCHCONTEXTMESSAGE_H
 
-#include "src/Protocol/Types/Data/game/data/items/SpellItem.h"
-#include "src/Protocol/Types/Data/game/character/characteristic/CharacterCharacteristicsInformations.h"
-#include "src/Protocol/Types/Data/game/shortcut/Shortcut.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/data/game/data/items/SpellItem.h"
+#include "src/protocol/types/data/game/character/characteristic/CharacterCharacteristicsInformations.h"
+#include "src/protocol/types/data/game/shortcut/Shortcut.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 #include "src/Protocol/Types/ClassManager.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
+#include "src/protocol/messages/AbstractMessage.h"
 
 class SlaveSwitchContextMessage : public AbstractMessage
 {

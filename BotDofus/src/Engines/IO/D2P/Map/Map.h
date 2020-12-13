@@ -1,9 +1,9 @@
 ﻿#pragma once
 
 #include "WorldPoint.h"
-#include "src/Engines/IO/Network/Reader.h"
+#include "src/engines/io/network/Reader.h"
 #include "CellData.h"
-#include "src/Engines/IO/D2P/GeneralInformation/CompressedMap.h"
+#include "src/engines/io/d2p/manager/CompressedMap.h"
 #include "Fixture.h"
 #include "Layer.h"
 #include "src/Public.h"

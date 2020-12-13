@@ -17,7 +17,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="icon">
@@ -430,6 +430,31 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>lineEditAccount</tabstop>
+  <tabstop>lineEditPassword</tabstop>
+  <tabstop>groupBoxOptions</tabstop>
+  <tabstop>spinBox</tabstop>
+  <tabstop>spinBox_2</tabstop>
+  <tabstop>pushButtonAddAccount</tabstop>
+  <tabstop>lineEditAccountName</tabstop>
+  <tabstop>lineEditPassword_2</tabstop>
+  <tabstop>lineEditEmail</tabstop>
+  <tabstop>lineEditNickname</tabstop>
+  <tabstop>pushButtonRefreshAccountName</tabstop>
+  <tabstop>pushButtonRefreshPassword</tabstop>
+  <tabstop>pushButtonRefreshEmail</tabstop>
+  <tabstop>pushButtonRefreshNickname</tabstop>
+  <tabstop>pushButtonLockAccountName</tabstop>
+  <tabstop>pushButtonLockPassword</tabstop>
+  <tabstop>pushButtonLockEmail</tabstop>
+  <tabstop>pushButtonLockNickname</tabstop>
+  <tabstop>textEditConsole</tabstop>
+  <tabstop>pushButtonRefreshGlobal</tabstop>
+  <tabstop>pushButtonValidate</tabstop>
+  <tabstop>pushButtonSettings</tabstop>
+ </tabstops>
  <resources>
   <include location="../../../../res/resources.qrc"/>
  </resources>

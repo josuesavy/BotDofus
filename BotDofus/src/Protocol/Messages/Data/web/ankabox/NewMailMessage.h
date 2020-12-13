@@ -1,9 +1,9 @@
 #ifndef NEWMAILMESSAGE_H
 #define NEWMAILMESSAGE_H
 
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
-#include "src/Protocol/Messages/Data/web/ankabox/MailStatusMessage.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/messages/AbstractMessage.h"
+#include "src/protocol/messages/data/web/ankabox/MailStatusMessage.h"
 
 class NewMailMessage : public MailStatusMessage
 {

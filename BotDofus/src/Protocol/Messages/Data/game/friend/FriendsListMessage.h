@@ -1,10 +1,10 @@
 #ifndef FRIENDSLISTMESSAGE_H
 #define FRIENDSLISTMESSAGE_H
 
-#include "src/Protocol/Types/Data/game/friend/FriendInformations.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/data/game/friend/FriendInformations.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 #include "src/Protocol/Types/ClassManager.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
+#include "src/protocol/messages/AbstractMessage.h"
 
 class FriendsListMessage : public AbstractMessage
 {

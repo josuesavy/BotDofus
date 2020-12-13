@@ -1,8 +1,8 @@
 #ifndef EXCHANGEBUYOKMESSAGE_H
 #define EXCHANGEBUYOKMESSAGE_H
 
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/messages/AbstractMessage.h"
 
 class ExchangeBuyOkMessage : public AbstractMessage
 {

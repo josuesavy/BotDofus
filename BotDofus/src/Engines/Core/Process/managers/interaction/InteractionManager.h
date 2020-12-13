@@ -1,8 +1,8 @@
 #ifndef INTERACTIONMANAGER_H
 #define INTERACTIONMANAGER_H
 
-#include "src/Engines/Core/Process/managers/AbstractManager.h"
-#include "src/Engines/Core/Process/Managers/map/MapManager.h"
+#include "src/engines/core/process/managers/AbstractManager.h"
+#include "src/engines/core/process/managers/map/MapManager.h"
 
 class InteractionManager : public AbstractManager
 {

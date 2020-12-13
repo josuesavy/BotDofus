@@ -16,9 +16,9 @@
 #include "src/gui/main/forms/settingsform.h"
 #include "src/gui/main/forms/statisticsform.h"
 
-#include "src/Engines/Core/Process/ProcessEngine.h"
-#include "src/Engines/Storage/DataHandler.h"
-#include "src/Engines/Misc/Logging/LogOutput.h"
+#include "src/engines/core/process/ProcessEngine.h"
+#include "src/engines/DataHandler.h"
+#include "src/engines/utils/Logger/LogOutput.h"
 
 namespace Ui {
 class AccountForm;

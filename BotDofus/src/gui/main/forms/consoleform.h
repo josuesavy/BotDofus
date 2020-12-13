@@ -5,8 +5,8 @@
 
 #include "dialogs/smileysdialog.h"
 
-#include "src/Engines/Core/Process/ProcessEngine.h"
-#include "src/Engines/Storage/DataHandler.h"
+#include "src/engines/core/process/ProcessEngine.h"
+#include "src/engines/DataHandler.h"
 #include "src/Public.h"
 
 // Canaux Dofus

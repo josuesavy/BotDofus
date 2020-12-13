@@ -2,7 +2,7 @@
 #define MESSAGEUTILS_H
 
 #include "src/Public.h"
-#include "src/Protocol/Messages/MessageEnum.h"
+#include "src/protocol/messages/messageEnum.h"
 
 class MessageUtils
 {

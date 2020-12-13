@@ -1,9 +1,9 @@
 #ifndef HOUSEGUILDRIGHTSMESSAGE_H
 #define HOUSEGUILDRIGHTSMESSAGE_H
 
-#include "src/Protocol/Types/Data/game/context/roleplay/GuildInformations.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
+#include "src/protocol/types/data/game/context/roleplay/GuildInformations.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/messages/AbstractMessage.h"
 
 class HouseGuildRightsMessage : public AbstractMessage
 {

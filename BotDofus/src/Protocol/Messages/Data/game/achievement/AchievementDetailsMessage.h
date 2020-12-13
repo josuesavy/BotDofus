@@ -1,9 +1,9 @@
 #ifndef ACHIEVEMENTDETAILSMESSAGE_H
 #define ACHIEVEMENTDETAILSMESSAGE_H
 
-#include "src/Protocol/Types/Data/game/achievement/Achievement.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
+#include "src/protocol/types/data/game/achievement/Achievement.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/messages/AbstractMessage.h"
 
 class AchievementDetailsMessage : public AbstractMessage
 {

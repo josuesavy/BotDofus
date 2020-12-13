@@ -1,8 +1,8 @@
 #ifndef GAMECHATFRAME_H
 #define GAMECHATFRAME_H
 
-#include "src/Engines/Core/Process/frames/AbstractFrame.h"
-#include "src/Engines/Core/Process/Managers/fight/FightManager.h"
+#include "src/engines/core/process/frames/AbstractFrame.h"
+#include "src/engines/core/process/managers/fight/FightManager.h"
 
 class GameChatFrame : public AbstractFrame
 {

@@ -1,8 +1,8 @@
 #ifndef GAMECONTEXTROLEPLAYSTATSFRAME_H
 #define GAMECONTEXTROLEPLAYSTATSFRAME_H
 
-#include "src/Engines/Core/Process/frames/AbstractFrame.h"
-#include "src/Engines/Core/Process/Managers/stats/StatsManager.h"
+#include "src/engines/core/process/frames/AbstractFrame.h"
+#include "src/engines/core/process/managers/stats/StatsManager.h"
 
 class GameContextRoleplayStatsFrame : public AbstractFrame
 {

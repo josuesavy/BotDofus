@@ -4,8 +4,8 @@
 #include <QInputDialog>
 #include <QtSql/QtSql>
 
-#include "src/Engines/Core/Process/frames/AbstractFrame.h"
-#include "src/Engines/Core/Process/managers/connection/ConnectionManager.h"
+#include "src/engines/core/process/frames/AbstractFrame.h"
+#include "src/engines/core/process/managers/connection/ConnectionManager.h"
 #include "src/gui/main/forms/dialogs/treewidgetdialog.h"
 
 class ConnectionFrame : public AbstractFrame

@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include "src/Engines/IO/Network/Reader.h"
-#include "src/Engines/IO/D2P/Enums/EnumDeclarator.h"
+#include "src/engines/io/network/Reader.h"
+#include "src/engines/io/d2p/map/elements/enums/ElementTypesEnum.h"
 #include "GraphicalElement.h"
 #include "SoundElement.h"
 

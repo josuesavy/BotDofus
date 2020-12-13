@@ -11,8 +11,8 @@
 #include <initializer_list>
 #include <QCryptographicHash>
 
-#include "src/Engines/IO/Network/Reader.h"
-#include "src/Engines/IO/Network/Writer.h"
+#include "src/engines/io/network/Reader.h"
+#include "src/engines/io/network/Writer.h"
 
 typedef unsigned char byte;
 

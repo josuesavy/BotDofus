@@ -1,10 +1,10 @@
 #ifndef FIGHTMANAGER_H
 #define FIGHTMANAGER_H
 
-#include "src/Engines/Core/Process/managers/AbstractManager.h"
-#include "src/Engines/Core/Process/Managers/map/MapManager.h"
-#include "src/Engines/Core/Process/Managers/group/GroupManager.h"
-#include "src/Engines/Core/Process/Managers/arena/ArenaManager.h"
+#include "src/engines/core/process/managers/AbstractManager.h"
+#include "src/engines/core/process/managers/map/MapManager.h"
+#include "src/engines/core/process/managers/group/GroupManager.h"
+#include "src/engines/core/process/managers/arena/ArenaManager.h"
 
 #include <QTime>
 #include <QMap>

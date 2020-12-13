@@ -1,8 +1,8 @@
 #ifndef PROCESSENGINE_H
 #define PROCESSENGINE_H
 
-#include "src/Engines/Core/CoreEngine.h"
-#include "src/Engines/Core/Process/managers/connection/ConnectionManager.h"
+#include "src/engines/core/CoreEngine.h"
+#include "src/engines/core/process/managers/connection/ConnectionManager.h"
 
 class ProcessEngine : public CoreEngine
 {

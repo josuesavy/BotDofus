@@ -1,11 +1,11 @@
 #ifndef BASICWHOISMESSAGE_H
 #define BASICWHOISMESSAGE_H
 
-#include "src/Protocol/Types/Data/game/social/AbstractSocialGroupInfos.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Engines/IO/Network/Utils/BooleanByteWrapper.h"
+#include "src/protocol/types/data/game/social/AbstractSocialGroupInfos.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/engines/io/network/utils/BooleanByteWrapper.h"
 #include "src/Protocol/Types/ClassManager.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
+#include "src/protocol/messages/AbstractMessage.h"
 
 class BasicWhoIsMessage : public AbstractMessage
 {

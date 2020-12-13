@@ -1,15 +1,15 @@
 #ifndef GAMEFIGHTRESUMEWITHSLAVESMESSAGE_H
 #define GAMEFIGHTRESUMEWITHSLAVESMESSAGE_H
 
-#include "src/Protocol/Types/Data/game/context/fight/GameFightResumeSlaveInfo.h"
-#include "src/Protocol/Types/Data/game/action/fight/FightDispellableEffectExtendedInformations.h"
-#include "src/Protocol/Types/Data/game/actions/fight/GameActionMark.h"
-#include "src/Protocol/Types/Data/game/idol/Idol.h"
-#include "src/Protocol/Types/Data/game/context/fight/GameFightEffectTriggerCount.h"
-#include "src/Protocol/Types/Data/game/context/fight/GameFightSpellCooldown.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
-#include "src/Protocol/Messages/Data/game/context/fight/GameFightResumeMessage.h"
+#include "src/protocol/types/data/game/context/fight/GameFightResumeSlaveInfo.h"
+#include "src/protocol/types/data/game/action/fight/FightDispellableEffectExtendedInformations.h"
+#include "src/protocol/types/data/game/actions/fight/GameActionMark.h"
+#include "src/protocol/types/data/game/idol/Idol.h"
+#include "src/protocol/types/data/game/context/fight/GameFightEffectTriggerCount.h"
+#include "src/protocol/types/data/game/context/fight/GameFightSpellCooldown.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/messages/AbstractMessage.h"
+#include "src/protocol/messages/data/game/context/fight/GameFightResumeMessage.h"
 
 class GameFightResumeWithSlavesMessage : public GameFightResumeMessage
 {

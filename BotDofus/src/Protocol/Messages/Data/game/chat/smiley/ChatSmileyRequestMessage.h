@@ -1,8 +1,8 @@
 #ifndef CHATSMILEYREQUESTMESSAGE_H
 #define CHATSMILEYREQUESTMESSAGE_H
 
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/messages/AbstractMessage.h"
 
 class ChatSmileyRequestMessage : public AbstractMessage
 {

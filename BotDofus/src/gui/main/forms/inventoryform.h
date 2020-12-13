@@ -5,8 +5,8 @@
 #include <QInputDialog>
 #include <QPushButton>
 
-#include "src/Engines/Core/Process/ProcessEngine.h"
-#include "src/Engines/Storage/DataHandler.h"
+#include "src/engines/core/process/ProcessEngine.h"
+#include "src/engines/DataHandler.h"
 
 namespace Ui {
 class InventoryForm;

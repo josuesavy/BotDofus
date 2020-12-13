@@ -1,9 +1,9 @@
 #ifndef STARTUPACTIONFINISHEDMESSAGE_H
 #define STARTUPACTIONFINISHEDMESSAGE_H
 
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Engines/IO/Network/Utils/BooleanByteWrapper.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/engines/io/network/utils/BooleanByteWrapper.h"
+#include "src/protocol/messages/AbstractMessage.h"
 
 class StartupActionFinishedMessage : public AbstractMessage
 {

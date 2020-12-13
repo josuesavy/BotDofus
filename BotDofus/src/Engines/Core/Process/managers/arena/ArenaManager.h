@@ -1,7 +1,7 @@
 #ifndef ARENAMANAGER_H
 #define ARENAMANAGER_H
 
-#include "src/Engines/Core/Process/managers/AbstractManager.h"
+#include "src/engines/core/process/managers/AbstractManager.h"
 
 class ArenaManager : public AbstractManager
 {

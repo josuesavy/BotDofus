@@ -1,9 +1,9 @@
 #ifndef GAMEBASICFRAME_H
 #define GAMEBASICFRAME_H
 
-#include "src/Engines/Core/Process/frames/AbstractFrame.h"
-#include "src/Engines/Core/Process/Managers/connection/ConnectionManager.h"
-#include "src/Engines/IO/D2O/Misc/ParamsDecoder.h"
+#include "src/engines/core/process/frames/AbstractFrame.h"
+#include "src/engines/core/process/managers/connection/ConnectionManager.h"
+#include "src/engines/utils/ParamsDecoder.h"
 
 class GameBasicFrame : public AbstractFrame
 {

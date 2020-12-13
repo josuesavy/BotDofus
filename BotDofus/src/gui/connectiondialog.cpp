@@ -11,7 +11,60 @@ ConnectionDialog::ConnectionDialog(QWidget *parent) :
     m_db.setDatabaseName(USER_DATA_PATH);
 
     if(m_db.open())
+    {
         qDebug() << "Connected Successfully to DB !";
+
+        QSqlQuery query;
+        QString request = "CREATE TABLE IF NOT EXISTS accounts ("
+                          "idaccounts	INTEGER,"
+                          "alias	TEXT,"
+                          "login	NUMERIC,"
+                          "password	TEXT,"
+                          "character	TEXT,"
+                          "serverid	INTEGER,"
+                          "isbanned	INTEGER,"
+                          "lastconnection	INTEGER,"
+                          "PRIMARY KEY(idaccounts))";
+
+        query.prepare(request);
+        if (!query.exec())
+        {
+            qDebug() << "'account' database was not created!";
+        }
+
+
+        request = "CREATE TABLE IF NOT EXISTS globalParameters ("
+                  "d2o	TEXT,"
+                  "d2p	TEXT,"
+                  "i18n	TEXT,"
+                  "dofus_path	TEXT)";
+
+        query.prepare(request);
+        if (!query.exec())
+        {
+            qDebug() << "'globalParameters' database was not created!";
+        }
+
+
+        request = "CREATE TABLE IF NOT EXISTS creation ("
+                  "idcreation	INTEGER,"
+                  "name	TEXT,"
+                  "server	INTEGER,"
+                  "breed	INTEGER,"
+                  "sex	INTEGER,"
+                  "head	INTEGER,"
+                  "colors	TEXT,"
+                  "didactiel	INTEGER,"
+                  "idaccounts	INTEGER NOT NULL,"
+                  "PRIMARY KEY(idcreation AUTOINCREMENT))";
+
+        query.prepare(request);
+        if (!query.exec())
+        {
+            qDebug() << "'creation' database was not created!";
+        }
+
+    }
     else
         qDebug()<<"Le fichier"<<USER_DATA_PATH<<"ne peut pas etre ouvert/créé";
 

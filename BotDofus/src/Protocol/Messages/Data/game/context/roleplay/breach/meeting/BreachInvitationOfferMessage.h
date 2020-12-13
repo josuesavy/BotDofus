@@ -1,9 +1,9 @@
 #ifndef BREACHINVITATIONOFFERMESSAGE_H
 #define BREACHINVITATIONOFFERMESSAGE_H
 
-#include "src/Protocol/Types/Data/game/character/CharacterMinimalInformations.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
+#include "src/protocol/types/data/game/character/CharacterMinimalInformations.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/messages/AbstractMessage.h"
 
 class BreachInvitationOfferMessage : public AbstractMessage
 {

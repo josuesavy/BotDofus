@@ -1,11 +1,11 @@
 #ifndef JOBCRAFTERDIRECTORYENTRYMESSAGE_H
 #define JOBCRAFTERDIRECTORYENTRYMESSAGE_H
 
-#include "src/Protocol/Types/Data/game/context/roleplay/job/JobCrafterDirectoryEntryPlayerInfo.h"
-#include "src/Protocol/Types/Data/game/context/roleplay/job/JobCrafterDirectoryEntryJobInfo.h"
-#include "src/Protocol/Types/Data/game/look/EntityLook.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
+#include "src/protocol/types/data/game/context/roleplay/job/JobCrafterDirectoryEntryPlayerInfo.h"
+#include "src/protocol/types/data/game/context/roleplay/job/JobCrafterDirectoryEntryJobInfo.h"
+#include "src/protocol/types/data/game/look/EntityLook.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/messages/AbstractMessage.h"
 
 class JobCrafterDirectoryEntryMessage : public AbstractMessage
 {

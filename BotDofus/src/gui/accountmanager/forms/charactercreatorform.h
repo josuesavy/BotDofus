@@ -10,9 +10,9 @@
 #include <QDebug>
 #include <QtSql/QtSql>
 
-#include "src/Engines/Storage/DataHandler.h"
-#include "src/Engines/Core/Process/ProcessEngine.h"
-#include "src/Engines/IO/D2O/D2OManager.h"
+#include "src/engines/DataHandler.h"
+#include "src/engines/core/process/ProcessEngine.h"
+#include "src/engines/io/d2o/D2OManager.h"
 
 namespace Ui {
 class CharacterCreatorForm;

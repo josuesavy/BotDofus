@@ -24,12 +24,6 @@
        <number>24</number>
       </property>
       <widget class="QFrame" name="frame">
-       <property name="minimumSize">
-        <size>
-         <width>200</width>
-         <height>0</height>
-        </size>
-       </property>
        <property name="maximumSize">
         <size>
          <width>300</width>
@@ -153,12 +147,6 @@
         </item>
         <item row="0" column="0">
          <widget class="QTreeWidget" name="treeWidgetAccount">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
           <attribute name="headerVisible">
            <bool>false</bool>
           </attribute>
@@ -391,8 +379,10 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
-  <tabstop>treeWidgetAccount</tabstop>
+  <tabstop>pushButtonAccountManager_2</tabstop>
   <tabstop>pushButtonAccountManager</tabstop>
+  <tabstop>pushButton</tabstop>
+  <tabstop>treeWidgetAccount</tabstop>
  </tabstops>
  <resources>
   <include location="../../res/resources.qrc"/>

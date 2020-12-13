@@ -1,8 +1,8 @@
 #ifndef RSAMANAGER_H
 #define RSAMANAGER_H
 
-#include "src/Engines/IO/Network/Reader.h"
-#include "src/Engines/IO/Network/Writer.h"
+#include "src/engines/io/network/Reader.h"
+#include "src/engines/io/network/Writer.h"
 
 #include <QPointer>
 

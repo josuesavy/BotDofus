@@ -32,7 +32,7 @@ SocketIO *ConnectionManager::addConnection(const ConnectionInfos &connectionInfo
     SocketIO *socket = new SocketIO;
 
     m_botData[socket].connectionData.connectionInfos = connectionInfos;
-    m_botData[socket].connectionData.connectionInfos.isCharged = true;
+    m_botData[socket].connectionData.connectionInfos.isLoaded = true;
 
     connectionAdded(socket);
     QObject::connect(socket, SIGNAL(connected()), this, SLOT(hasConnected()));
@@ -48,7 +48,7 @@ void ConnectionManager::removeConnection(SocketIO *sender)
         if (m_botData[sender].connectionData.connectionState == ConnectionState::CONNECTED)
             disconnect(sender);
 
-        m_botData[sender].connectionData.connectionInfos.isCharged = false;
+        m_botData[sender].connectionData.connectionInfos.isLoaded = false;
         m_botData.erase(m_botData.find(sender));
 
         delete sender;

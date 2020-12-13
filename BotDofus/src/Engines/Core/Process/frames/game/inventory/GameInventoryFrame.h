@@ -1,7 +1,7 @@
 #ifndef GAMEINVENTORYFRAME_H
 #define GAMEINVENTORYFRAME_H
 
-#include "src/Engines/Core/Process/frames/AbstractFrame.h"
+#include "src/engines/core/process/frames/AbstractFrame.h"
 
 class GameInventoryFrame : public AbstractFrame
 {

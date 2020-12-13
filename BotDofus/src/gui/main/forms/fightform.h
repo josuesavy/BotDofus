@@ -5,8 +5,8 @@
 #include <QDialogButtonBox>
 #include <QFormLayout>
 
-#include "src/Engines/Core/Process/ProcessEngine.h"
-#include "src/Engines/Storage/DataHandler.h"
+#include "src/engines/core/process/ProcessEngine.h"
+#include "src/engines/DataHandler.h"
 #include "src/gui/main/forms/dialogs/addspelldialog.h"
 
 namespace Ui {
