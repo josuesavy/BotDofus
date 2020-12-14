@@ -104,7 +104,7 @@ void FightManager::setAskForHelp(SocketIO *sender, bool isAskForHelp)
     m_botData[sender].fightData.lockAskForHelp = isAskForHelp;
 }
 
-void FightManager::setExpel(SocketIO *sender, bool isExpel, double id)
+void FightManager::setExpel(SocketIO *sender, bool isExpel)
 {
     m_botData[sender].fightData.lockExpel = isExpel;
 }

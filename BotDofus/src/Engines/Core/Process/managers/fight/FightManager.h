@@ -136,7 +136,7 @@ public:
      * \param isExpel Expulsion or not
      * \param id The character's identify
      */
-    void setExpel(SocketIO *sender, bool isExpel, double id = INVALID);
+    void setExpel(SocketIO *sender, bool isExpel);
 
 
     /*!

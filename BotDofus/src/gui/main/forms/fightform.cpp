@@ -220,13 +220,22 @@ void FightForm::on_comboBoxCloseFight_currentIndexChanged(int index)
 {
     switch (index) {
     case 0: // Aucun
+    {
         m_engine->getFightManager().setClosed(m_sender, false);
+        m_engine->getFightManager().setExpel(m_sender, false);
+    }
         break;
     case 1: // Bloquer si quelqu'un entre
-        // TODO : make a cup of coffe LOL
+    {
+        m_engine->getFightManager().setClosed(m_sender, true);
+        m_engine->getFightManager().setExpel(m_sender, true);
+    }
         break;
     case 2: // Bloquer
+    {
         m_engine->getFightManager().setClosed(m_sender, true);
+        m_engine->getFightManager().setExpel(m_sender, false);
+    }
         break;
     }
 }
