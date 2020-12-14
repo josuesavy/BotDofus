@@ -326,9 +326,6 @@ bool GameContextRoleplayPartyFrame::processMessage(const MessageInfos &data, Soc
     }
         break;
 
-    case MessageEnum::PARTYUPDATELIGHTMESSAGE:
-        break;
-
     case MessageEnum::PARTYUPDATEMESSAGE:
     {
         PartyUpdateMessage message;
@@ -339,7 +336,6 @@ bool GameContextRoleplayPartyFrame::processMessage(const MessageInfos &data, Soc
             if(message.memberInformations->mapId)
             {
                 Map map = D2PManagerSingleton::get()->getMap(message.memberInformations->mapId);
-
                 m_botData[sender].groupData.masterPosition.x = map.getPosition().getX();
                 m_botData[sender].groupData.masterPosition.y = map.getPosition().getY();
             }

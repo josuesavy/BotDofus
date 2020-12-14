@@ -143,11 +143,11 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
             if(message.success)
             {
                 m_exchangeManager->updateExchange(sender);
-                action(sender)<<"Succès de l'échange";
+                info(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.exchange.success");
             }
 
             else
-                error(sender)<<"Echec de l'échange";
+                info(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.exchange.cancel");
         }
 
         else
@@ -262,7 +262,7 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
         ExchangeRequestedTradeMessage message;
         message.deserialize(&reader);
 
-        warn(sender)<<m_botData[sender].mapData.playersOnMap[message.source].name << "veut faire échange avec vous !";
+        warn(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.exchange.resquestMessage").arg(m_botData[sender].mapData.playersOnMap[message.source].name);
 
         m_botData[sender].exchangeData.sourceId = message.source;
 
@@ -271,8 +271,6 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
             action(sender) << "Accept de l'echange...";
             ExchangeAcceptMessage answer;
             sender->send(answer);
-
-            info(sender) << "Vous acceptez de faire échange avec" << m_botData[sender].mapData.playersOnMap[message.source].name+".";
         }
 
         else
@@ -280,8 +278,6 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
             action(sender) << "Refus de l'echange...";
             LeaveDialogRequestMessage answer;
             sender->send(answer);
-
-            info(sender)<<"Vous avez refuser de faire un echange avec"<<m_botData[sender].mapData.playersOnMap[message.source].name;
 
             if(m_botData[sender].generalData.botState != INACTIVE_STATE)
                 qDebug()<<"[GameInventoryExchangesFrame] Cannot launch the exchange because the character is other than inactive";
@@ -456,20 +452,6 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
     }
         break;
 
-    case MessageEnum::EXCHANGESTARTEDBIDSELLERMESSAGE:
-    {
-        ExchangeStartedBidSellerMessage message;
-        message.deserialize(&reader);
-    }
-        break;
-
-    case MessageEnum::EXCHANGESTARTEDTAXCOLLECTORSHOPMESSAGE:
-    {
-        ExchangeStartedTaxCollectorShopMessage message;
-        message.deserialize(&reader);
-    }
-        break;
-
     case MessageEnum::EXCHANGESTARTEDWITHPODSMESSAGE:
     {
         m_botData[sender].exchangeData.currentKamas = 0;
@@ -480,7 +462,9 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
         if(m_botData[sender].mapData.playersOnMap[m_botData[sender].exchangeData.sourceId].name == m_botData[sender].groupData.master)
         {
             m_botData[sender].exchangeData.isExchangingWithMaster = true;
+
             info(sender)<<"Vous êtes actuellement en échange avec"<<m_botData[sender].mapData.playersOnMap[m_botData[sender].exchangeData.sourceId].name<<"(chef)..";
+
             ExchangeObjectMoveKamaMessage answer;
             answer.quantity = m_botData[sender].playerData.kamas;
             sender->send(answer);
@@ -554,56 +538,12 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
     }
         break;
 
-    case MessageEnum::EXCHANGESTARTOKEVOLUTIVEOBJECTRECYCLETRADEMESSAGE:
-    {
-        ExchangeStartOkEvolutiveObjectRecycleTradeMessage message;
-        message.deserialize(&reader);
-    }
-        break;
-
-    case MessageEnum::EXCHANGESTARTOKNPCSHOPMESSAGE:
-    {
-        ExchangeStartOkNpcShopMessage message;
-        message.deserialize(&reader);
-    }
-        break;
-
-    case MessageEnum::EXCHANGESTARTOKNPCTRADEMESSAGE:
-    {
-        ExchangeStartOkNpcTradeMessage message;
-        message.deserialize(&reader);
-    }
-        break;
-
-    case MessageEnum::EXCHANGESTARTOKRECYCLETRADEMESSAGE:
-    {
-        ExchangeStartOkRecycleTradeMessage message;
-        message.deserialize(&reader);
-    }
-        break;
-
-    case MessageEnum::EXCHANGESTARTOKRUNESTRADEMESSAGE:
-    {
-        ExchangeStartOkRunesTradeMessage message;
-        message.deserialize(&reader);
-    }
-        break;
-
     case MessageEnum::EXCHANGETYPESEXCHANGERDESCRIPTIONFORUSERMESSAGE:
     {
         ExchangeTypesExchangerDescriptionForUserMessage message;
         message.deserialize(&reader);
 
         m_botData[sender].shopData.itemInSell << message.typeDescription;
-    }
-        break;
-
-    case MessageEnum::EXCHANGETYPESITEMSEXCHANGERDESCRIPTIONFORUSERMESSAGE:
-    {
-        ExchangeTypesItemsExchangerDescriptionForUserMessage message;
-        message.deserialize(&reader);
-
-
     }
         break;
     }
