@@ -12,7 +12,7 @@
 
 #define INVALID -1
 
-#define MAJ_VERSION "2.57.4.5"
+#define MAJ_VERSION "2.57.12.17"
 
 #define PUBLIC_PATH "src/Public.h"
 #define READER_PATH "src/engines/io/network/Reader.h"
@@ -41,8 +41,8 @@
 #define ENUM_UTILS_PATH "src/protocol/enums"
 #define ENUM_DECLARATOR_NAME "EnumDeclarator"
 
-#define DATA_PATH "src/engines/io/d2o/data"
-#define DATA_UTILS_PATH "src/engines/io/d2o"
+#define DATA_PATH "src/engines/io/d2o/game/data"
+#define DATA_UTILS_PATH "src/engines/io/d2o/game"
 #define DATA_BASE_NAME "AbstractGameData"
 #define DATA_DECLARATOR_NAME "GameDataDeclarator"
 #define DATA_TYPE_DECLARATOR_NAME "GameDataTypeDeclarator"
