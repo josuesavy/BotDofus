@@ -1,7 +1,7 @@
 #ifndef EFFECTINSTANCEDICEDATA_H
 #define EFFECTINSTANCEDICEDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 #include "src/engines/io/d2o/game/data/effects/instances/EffectInstanceIntegerData.h"
 
 class EffectInstanceDiceData : public EffectInstanceIntegerData

@@ -1,7 +1,7 @@
 #ifndef PLAYLISTDATA_H
 #define PLAYLISTDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 #include "src/engines/io/d2o/game/data/ambientSounds/PlaylistSoundData.h"
 
 class PlaylistData : public AbstractGameData

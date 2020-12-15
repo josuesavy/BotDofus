@@ -2,7 +2,7 @@
 #define CHARACTERCREATIONREQUESTMESSAGE_H
 
 #include "src/engines/io/network/utils/FuncTree.h"
-#include "src/Protocol/Enums/Data/PlayableBreedEnum.h"
+#include "src/protocol/enums/data/PlayableBreedEnum.h"
 #include "src/protocol/messages/AbstractMessage.h"
 
 class CharacterCreationRequestMessage : public AbstractMessage

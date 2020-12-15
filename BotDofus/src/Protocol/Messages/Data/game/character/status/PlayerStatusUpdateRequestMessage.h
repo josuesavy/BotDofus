@@ -3,7 +3,7 @@
 
 #include "src/protocol/types/data/game/character/status/PlayerStatus.h"
 #include "src/engines/io/network/utils/FuncTree.h"
-#include "src/Protocol/Types/ClassManager.h"
+#include "src/protocol/types/ClassManager.h"
 #include "src/protocol/messages/AbstractMessage.h"
 
 class PlayerStatusUpdateRequestMessage : public AbstractMessage

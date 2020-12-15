@@ -4,7 +4,7 @@
 #include "src/protocol/types/data/game/social/AbstractSocialGroupInfos.h"
 #include "src/engines/io/network/utils/FuncTree.h"
 #include "src/engines/io/network/utils/BooleanByteWrapper.h"
-#include "src/Protocol/Types/ClassManager.h"
+#include "src/protocol/types/ClassManager.h"
 #include "src/protocol/messages/AbstractMessage.h"
 
 class BasicWhoIsMessage : public AbstractMessage

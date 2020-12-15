@@ -1,7 +1,7 @@
 #ifndef CREATUREBONETYPEDATA_H
 #define CREATUREBONETYPEDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 
 class CreatureBoneTypeData : public AbstractGameData
 {

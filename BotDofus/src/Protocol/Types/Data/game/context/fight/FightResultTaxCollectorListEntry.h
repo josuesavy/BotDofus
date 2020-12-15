@@ -1,10 +1,10 @@
 #ifndef FIGHTRESULTTAXCOLLECTORLISTENTRY_H
 #define FIGHTRESULTTAXCOLLECTORLISTENTRY_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/context/roleplay/BasicGuildInformations.h"
-#include "src/Protocol/Types/Data/game/context/fight/FightResultFighterListEntry.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/context/roleplay/BasicGuildInformations.h"
+#include "src/protocol/types/data/game/context/fight/FightResultFighterListEntry.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class FightResultTaxCollectorListEntry : public FightResultFighterListEntry
 {

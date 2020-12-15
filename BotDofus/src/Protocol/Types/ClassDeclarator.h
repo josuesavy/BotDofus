@@ -166,6 +166,7 @@
 #include "src/protocol/types/data/game/context/roleplay/MonsterBoosts.h"
 #include "src/protocol/types/data/game/context/roleplay/MonsterInGroupInformations.h"
 #include "src/protocol/types/data/game/context/roleplay/MonsterInGroupLightInformations.h"
+#include "src/protocol/types/data/game/context/roleplay/npc/MapNpcQuestInfo.h"
 #include "src/protocol/types/data/game/context/roleplay/ObjectItemInRolePlay.h"
 #include "src/protocol/types/data/game/context/roleplay/party/DungeonPartyFinderPlayer.h"
 #include "src/protocol/types/data/game/context/roleplay/party/entity/PartyEntityBaseInformation.h"

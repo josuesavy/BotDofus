@@ -3,7 +3,7 @@
 #include "src/engines/io/network/Reader.h"
 #include "D2OClassDefinition.h"
 #include "src/engines/io/i18n/I18nFile.h"
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 
 
 class D2OFileAccessor

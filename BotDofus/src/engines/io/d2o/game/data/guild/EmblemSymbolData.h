@@ -1,7 +1,7 @@
 #ifndef EMBLEMSYMBOLDATA_H
 #define EMBLEMSYMBOLDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 
 class EmblemSymbolData : public AbstractGameData
 {

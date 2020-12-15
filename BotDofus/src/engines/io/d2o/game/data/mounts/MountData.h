@@ -1,7 +1,7 @@
 #ifndef MOUNTDATA_H
 #define MOUNTDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 #include "src/engines/io/d2o/game/data/effects/EffectInstanceData.h"
 
 class MountData : public AbstractGameData

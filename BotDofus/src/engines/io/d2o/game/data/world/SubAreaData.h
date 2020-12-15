@@ -1,7 +1,7 @@
 #ifndef SUBAREADATA_H
 #define SUBAREADATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 
 class SubAreaData : public AbstractGameData
 {
@@ -13,6 +13,7 @@ public:
   QList<double> getMapIds() const;
   QRect getBounds() const;
   QList<int> getShape() const;
+  int getWorldmapId() const;
   QList<uint> getCustomWorldMap() const;
   int getPackId() const;
   uint getLevel() const;
@@ -42,6 +43,7 @@ public:
   QList<double> m_mapIds;
   QRect m_bounds;
   QList<int> m_shape;
+  int m_worldmapId;
   QList<uint> m_customWorldMap;
   int m_packId;
   uint m_level;

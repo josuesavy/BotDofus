@@ -1,7 +1,7 @@
 #ifndef ITEMCRITERIONOPERATORDATA_H
 #define ITEMCRITERIONOPERATORDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 
 class ItemCriterionOperatorData : public AbstractGameData
 {

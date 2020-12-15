@@ -1,10 +1,10 @@
 #ifndef FIGHTRESULTEXPERIENCEDATA_H
 #define FIGHTRESULTEXPERIENCEDATA_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/context/fight/FightResultAdditionalData.h"
-#include "src/Engines/IO/Network/Utils/BooleanByteWrapper.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/context/fight/FightResultAdditionalData.h"
+#include "src/engines/io/network/utils/BooleanByteWrapper.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class FightResultExperienceData : public FightResultAdditionalData
 {

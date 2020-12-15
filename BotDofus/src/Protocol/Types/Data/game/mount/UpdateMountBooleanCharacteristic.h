@@ -1,9 +1,9 @@
 #ifndef UPDATEMOUNTBOOLEANCHARACTERISTIC_H
 #define UPDATEMOUNTBOOLEANCHARACTERISTIC_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/mount/UpdateMountCharacteristic.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/mount/UpdateMountCharacteristic.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class UpdateMountBooleanCharacteristic : public UpdateMountCharacteristic
 {

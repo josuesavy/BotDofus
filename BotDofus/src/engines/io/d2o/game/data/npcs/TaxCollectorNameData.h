@@ -1,7 +1,7 @@
 #ifndef TAXCOLLECTORNAMEDATA_H
 #define TAXCOLLECTORNAMEDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 
 class TaxCollectorNameData : public AbstractGameData
 {

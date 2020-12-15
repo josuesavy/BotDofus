@@ -1,7 +1,7 @@
 #ifndef EFFECTDATA_H
 #define EFFECTDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 
 class EffectData : public AbstractGameData
 {
@@ -24,6 +24,7 @@ public:
   int getBonusType() const;
   bool getUseInFight() const;
   uint getEffectPriority() const;
+  double getEffectPowerRate() const;
   int getElementId() const;
   QString getDescription() const;
   virtual void loadData(const QList<D2OField*> &fields, I18nFile *I18n);
@@ -46,6 +47,7 @@ public:
   int m_bonusType;
   bool m_useInFight;
   uint m_effectPriority;
+  double m_effectPowerRate;
   int m_elementId;
 };
 

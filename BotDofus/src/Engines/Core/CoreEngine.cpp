@@ -12,10 +12,9 @@ CoreEngine::CoreEngine()
     m_managers[ManagerType::CONNECTION] = new ConnectionManager(&m_botData);
     m_managers[ManagerType::INTERACTION] = new InteractionManager(&m_botData, static_cast<MapManager*>(m_managers[ManagerType::MAP]));
     m_managers[ManagerType::GROUP] = new GroupManager(&m_botData, static_cast<MapManager*>(m_managers[ManagerType::MAP]));
-    m_managers[ManagerType::FIGHT] = new FightManager(&m_botData, static_cast<MapManager*>(m_managers[ManagerType::MAP]), static_cast<GroupManager*>(m_managers[ManagerType::GROUP]), static_cast<ArenaManager*>(m_managers[ManagerType::ARENA]));
+    m_managers[ManagerType::FIGHT] = new FightManager(&m_botData, static_cast<MapManager*>(m_managers[ManagerType::MAP]), static_cast<GroupManager*>(m_managers[ManagerType::GROUP]));
     m_managers[ManagerType::FARM] = new FarmManager(&m_botData, static_cast<MapManager*>(m_managers[ManagerType::MAP]));
     m_managers[ManagerType::CRAFT] = new CraftManager(&m_botData, static_cast<MapManager*>(m_managers[ManagerType::MAP]));
-    m_managers[ManagerType::ARENA] = new ArenaManager(&m_botData);
     m_managers[ManagerType::SECURITY] = new SecurityManager(&m_botData);
 
 
@@ -74,7 +73,6 @@ CoreEngine::CoreEngine()
     m_frames.append(new SecurityFrame(&m_botData));
     m_frames.append(new ServerBasicFrame(&m_botData));
     m_frames.append(new SubscriptionFrame(&m_botData));
-    m_frames.append(new WebAnkaboxFrame(&m_botData));
 
     qDebug()<<"[CoreEngine] Initialized ! ("<<t.elapsed()<<"ms)";
 }

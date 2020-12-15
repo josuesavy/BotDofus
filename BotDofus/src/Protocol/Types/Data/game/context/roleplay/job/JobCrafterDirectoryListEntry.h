@@ -1,10 +1,10 @@
 #ifndef JOBCRAFTERDIRECTORYLISTENTRY_H
 #define JOBCRAFTERDIRECTORYLISTENTRY_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/context/roleplay/job/JobCrafterDirectoryEntryPlayerInfo.h"
-#include "src/Protocol/Types/Data/game/context/roleplay/job/JobCrafterDirectoryEntryJobInfo.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/context/roleplay/job/JobCrafterDirectoryEntryPlayerInfo.h"
+#include "src/protocol/types/data/game/context/roleplay/job/JobCrafterDirectoryEntryJobInfo.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class JobCrafterDirectoryListEntry : public AbstractClass
 {

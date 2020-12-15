@@ -35,6 +35,11 @@ QList<int> SubAreaData::getShape() const
   return m_shape;
 }
 
+int SubAreaData::getWorldmapId() const
+{
+  return m_worldmapId;
+}
+
 QList<uint> SubAreaData::getCustomWorldMap() const
 {
   return m_customWorldMap;
@@ -177,6 +182,9 @@ void SubAreaData::loadData(const QList<D2OField*> &fields, I18nFile *I18n)
       foreach(const QByteArray &data, readVector(field->getValue()))
           m_shape << readInt(data);
     }
+    
+    else if(field->getName() == "worldmapId")
+        m_worldmapId = readInt(field->getValue());
     
     else if(field->getName() == "customWorldMap")
     {

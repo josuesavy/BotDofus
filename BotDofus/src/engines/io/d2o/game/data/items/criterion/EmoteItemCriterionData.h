@@ -1,7 +1,7 @@
 #ifndef EMOTEITEMCRITERIONDATA_H
 #define EMOTEITEMCRITERIONDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/ItemCriterionData.h"
 
 class EmoteItemCriterionData : public ItemCriterionData

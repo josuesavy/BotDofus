@@ -1,7 +1,7 @@
 #ifndef HAVENBAGFURNITUREDATA_H
 #define HAVENBAGFURNITUREDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 
 class HavenbagFurnitureData : public AbstractGameData
 {

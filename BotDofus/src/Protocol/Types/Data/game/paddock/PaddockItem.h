@@ -1,10 +1,10 @@
 #ifndef PADDOCKITEM_H
 #define PADDOCKITEM_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/mount/ItemDurability.h"
-#include "src/Protocol/Types/Data/game/context/roleplay/ObjectItemInRolePlay.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/mount/ItemDurability.h"
+#include "src/protocol/types/data/game/context/roleplay/ObjectItemInRolePlay.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class PaddockItem : public ObjectItemInRolePlay
 {

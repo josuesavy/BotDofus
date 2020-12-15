@@ -1,7 +1,7 @@
 #ifndef SPEAKINGITEMTEXTDATA_H
 #define SPEAKINGITEMTEXTDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 
 class SpeakingItemTextData : public AbstractGameData
 {

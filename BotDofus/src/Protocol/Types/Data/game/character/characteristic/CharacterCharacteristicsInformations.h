@@ -1,11 +1,11 @@
 #ifndef CHARACTERCHARACTERISTICSINFORMATIONS_H
 #define CHARACTERCHARACTERISTICSINFORMATIONS_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/character/alignment/ActorExtendedAlignmentInformations.h"
-#include "src/Protocol/Types/Data/game/character/characteristic/CharacterBaseCharacteristic.h"
-#include "src/Protocol/Types/Data/game/character/characteristic/CharacterSpellModification.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/character/alignment/ActorExtendedAlignmentInformations.h"
+#include "src/protocol/types/data/game/character/characteristic/CharacterBaseCharacteristic.h"
+#include "src/protocol/types/data/game/character/characteristic/CharacterSpellModification.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class CharacterCharacteristicsInformations : public AbstractClass
 {

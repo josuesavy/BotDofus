@@ -1,7 +1,7 @@
 #ifndef WORLDMAPDATA_H
 #define WORLDMAPDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 
 class WorldMapData : public AbstractGameData
 {
@@ -19,6 +19,7 @@ public:
   int getTotalWidth() const;
   int getTotalHeight() const;
   QList<QString> getZoom() const;
+  bool getVisibleOnMap() const;
   QString getName() const;
   virtual void loadData(const QList<D2OField*> &fields, I18nFile *I18n);
 
@@ -35,6 +36,7 @@ public:
   int m_totalWidth;
   int m_totalHeight;
   QList<QString> m_zoom;
+  bool m_visibleOnMap;
 };
 
 #endif // WORLDMAPDATA_H

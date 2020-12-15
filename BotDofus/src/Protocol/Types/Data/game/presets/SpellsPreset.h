@@ -1,10 +1,10 @@
 #ifndef SPELLSPRESET_H
 #define SPELLSPRESET_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/presets/SpellForPreset.h"
-#include "src/Protocol/Types/Data/game/presets/Preset.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/presets/SpellForPreset.h"
+#include "src/protocol/types/data/game/presets/Preset.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class SpellsPreset : public Preset
 {

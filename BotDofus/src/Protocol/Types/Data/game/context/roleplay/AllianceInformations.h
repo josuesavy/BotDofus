@@ -1,10 +1,10 @@
 #ifndef ALLIANCEINFORMATIONS_H
 #define ALLIANCEINFORMATIONS_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/guild/GuildEmblem.h"
-#include "src/Protocol/Types/Data/game/context/roleplay/BasicNamedAllianceInformations.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/guild/GuildEmblem.h"
+#include "src/protocol/types/data/game/context/roleplay/BasicNamedAllianceInformations.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class AllianceInformations : public BasicNamedAllianceInformations
 {

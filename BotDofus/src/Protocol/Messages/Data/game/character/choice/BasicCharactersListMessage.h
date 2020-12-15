@@ -3,7 +3,7 @@
 
 #include "src/protocol/types/data/game/character/choice/CharacterBaseInformations.h"
 #include "src/engines/io/network/utils/FuncTree.h"
-#include "src/Protocol/Types/ClassManager.h"
+#include "src/protocol/types/ClassManager.h"
 #include "src/protocol/messages/AbstractMessage.h"
 
 class BasicCharactersListMessage : public AbstractMessage

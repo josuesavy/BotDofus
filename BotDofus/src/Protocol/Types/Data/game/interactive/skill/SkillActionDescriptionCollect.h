@@ -1,9 +1,9 @@
 #ifndef SKILLACTIONDESCRIPTIONCOLLECT_H
 #define SKILLACTIONDESCRIPTIONCOLLECT_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/interactive/skill/SkillActionDescriptionTimed.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/interactive/skill/SkillActionDescriptionTimed.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class SkillActionDescriptionCollect : public SkillActionDescriptionTimed
 {

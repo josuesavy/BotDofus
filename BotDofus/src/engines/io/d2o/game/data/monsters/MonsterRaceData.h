@@ -1,7 +1,7 @@
 #ifndef MONSTERRACEDATA_H
 #define MONSTERRACEDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 
 class MonsterRaceData : public AbstractGameData
 {

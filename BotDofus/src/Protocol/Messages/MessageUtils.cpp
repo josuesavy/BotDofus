@@ -110,6 +110,12 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   else if(messageEnum == MessageEnum::DEBUGINCLIENTMESSAGE)
       return "DebugInClientMessage";
   
+  else if(messageEnum == MessageEnum::ACHIEVEMENTALMOSTFINISHEDDETAILEDLISTMESSAGE)
+      return "AchievementAlmostFinishedDetailedListMessage";
+  
+  else if(messageEnum == MessageEnum::ACHIEVEMENTALMOSTFINISHEDDETAILEDLISTREQUESTMESSAGE)
+      return "AchievementAlmostFinishedDetailedListRequestMessage";
+  
   else if(messageEnum == MessageEnum::ACHIEVEMENTDETAILEDLISTMESSAGE)
       return "AchievementDetailedListMessage";
   
@@ -1214,8 +1220,8 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   else if(messageEnum == MessageEnum::GAMEROLEPLAYARENAFIGHTPROPOSITIONMESSAGE)
       return "GameRolePlayArenaFightPropositionMessage";
   
-  else if(messageEnum == MessageEnum::GAMEROLEPLAYARENAINVITATIONCANDIDATESANSWER)
-      return "GameRolePlayArenaInvitationCandidatesAnswer";
+  else if(messageEnum == MessageEnum::GAMEROLEPLAYARENAINVITATIONCANDIDATESANSWERMESSAGE)
+      return "GameRolePlayArenaInvitationCandidatesAnswerMessage";
   
   else if(messageEnum == MessageEnum::GAMEROLEPLAYARENALEAGUEREWARDSMESSAGE)
       return "GameRolePlayArenaLeagueRewardsMessage";
@@ -1523,8 +1529,8 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   else if(messageEnum == MessageEnum::ENTITYTALKMESSAGE)
       return "EntityTalkMessage";
   
-  else if(messageEnum == MessageEnum::MAPNPCSQUESTSTATUSUPDATEMESSAGE)
-      return "MapNpcsQuestStatusUpdateMessage";
+  else if(messageEnum == MessageEnum::LISTMAPNPCSQUESTSTATUSUPDATEMESSAGE)
+      return "ListMapNpcsQuestStatusUpdateMessage";
   
   else if(messageEnum == MessageEnum::NPCDIALOGCREATIONMESSAGE)
       return "NpcDialogCreationMessage";
@@ -2393,9 +2399,6 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   else if(messageEnum == MessageEnum::EXCHANGECRAFTERJOBLEVELUPMESSAGE)
       return "ExchangeCrafterJobLevelupMessage";
   
-  else if(messageEnum == MessageEnum::EXCHANGECRAFTINFORMATIONOBJECTMESSAGE)
-      return "ExchangeCraftInformationObjectMessage";
-  
   else if(messageEnum == MessageEnum::EXCHANGECRAFTPAYMENTMODIFICATIONREQUESTMESSAGE)
       return "ExchangeCraftPaymentModificationRequestMessage";
   
@@ -2993,9 +2996,6 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   else if(messageEnum == MessageEnum::CINEMATICMESSAGE)
       return "CinematicMessage";
   
-  else if(messageEnum == MessageEnum::URLOPENMESSAGE)
-      return "URLOpenMessage";
-  
   else if(messageEnum == MessageEnum::SHORTCUTBARADDERRORMESSAGE)
       return "ShortcutBarAddErrorMessage";
   
@@ -3151,12 +3151,6 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   
   else if(messageEnum == MessageEnum::ACCOUNTINFORMATIONSUPDATEMESSAGE)
       return "AccountInformationsUpdateMessage";
-  
-  else if(messageEnum == MessageEnum::MAILSTATUSMESSAGE)
-      return "MailStatusMessage";
-  
-  else if(messageEnum == MessageEnum::NEWMAILMESSAGE)
-      return "NewMailMessage";
   
   else if(messageEnum == MessageEnum::HAAPIAPIKEYMESSAGE)
       return "HaapiApiKeyMessage";

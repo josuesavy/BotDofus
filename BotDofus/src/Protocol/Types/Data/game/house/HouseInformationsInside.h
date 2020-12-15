@@ -1,11 +1,11 @@
 #ifndef HOUSEINFORMATIONSINSIDE_H
 #define HOUSEINFORMATIONSINSIDE_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/house/HouseInstanceInformations.h"
-#include "src/Protocol/Types/Data/game/house/HouseInformations.h"
-#include "src/Protocol/Types/ClassManager.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/house/HouseInstanceInformations.h"
+#include "src/protocol/types/data/game/house/HouseInformations.h"
+#include "src/protocol/types/ClassManager.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class HouseInformationsInside : public HouseInformations
 {

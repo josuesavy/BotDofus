@@ -1,7 +1,7 @@
 #ifndef SEXITEMCRITERIONDATA_H
 #define SEXITEMCRITERIONDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/ItemCriterionData.h"
 
 class SexItemCriterionData : public ItemCriterionData

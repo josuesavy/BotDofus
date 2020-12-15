@@ -1,7 +1,7 @@
 #ifndef ALIGNMENTGIFTDATA_H
 #define ALIGNMENTGIFTDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 
 class AlignmentGiftData : public AbstractGameData
 {

@@ -1,7 +1,7 @@
 #ifndef ACHIEVEMENTPROGRESSDATA_H
 #define ACHIEVEMENTPROGRESSDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 
 class AchievementProgressData : public AbstractGameData
 {

@@ -90,6 +90,11 @@ uint EffectData::getEffectPriority() const
   return m_effectPriority;
 }
 
+double EffectData::getEffectPowerRate() const
+{
+  return m_effectPowerRate;
+}
+
 int EffectData::getElementId() const
 {
   return m_elementId;
@@ -159,6 +164,9 @@ void EffectData::loadData(const QList<D2OField*> &fields, I18nFile *I18n)
     
     else if(field->getName() == "effectPriority")
         m_effectPriority = readUInt(field->getValue());
+    
+    else if(field->getName() == "effectPowerRate")
+        m_effectPowerRate = readDouble(field->getValue());
     
     else if(field->getName() == "elementId")
         m_elementId = readInt(field->getValue());

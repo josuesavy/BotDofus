@@ -1,7 +1,7 @@
 #ifndef MAPCOORDINATESDATA_H
 #define MAPCOORDINATESDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 
 class MapCoordinatesData : public AbstractGameData
 {

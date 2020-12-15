@@ -18,11 +18,6 @@ void HouseInformationsForSell::serializeAs_HouseInformationsForSell(Writer *outp
     qDebug()<<"ERREUR - HouseInformationsForSell -"<<"Forbidden value (" << this->modelId << ") on element modelId.";
   }
   output->writeVarInt((int)this->modelId);
-  if(this->ownerAccountId < 0)
-  {
-    qDebug()<<"ERREUR - HouseInformationsForSell -"<<"Forbidden value (" << this->ownerAccountId << ") on element ownerAccountId.";
-  }
-  output->writeInt((int)this->ownerAccountId);
   output->writeUTF(this->ownerName);
   output->writeUTF(this->ownerCharacterName);
   if(this->worldX < -255 || this->worldX > 255)
@@ -43,9 +38,9 @@ void HouseInformationsForSell::serializeAs_HouseInformationsForSell(Writer *outp
   output->writeByte(this->nbRoom);
   output->writeByte(this->nbChest);
   output->writeShort((short)this->skillListIds.size());
-  for(uint _i12 = 0; _i12 < this->skillListIds.size(); _i12++)
+  for(uint _i11 = 0; _i11 < this->skillListIds.size(); _i11++)
   {
-    output->writeInt((int)this->skillListIds[_i12]);
+    output->writeInt((int)this->skillListIds[_i11]);
   }
   output->writeBool(this->isLocked);
   if(this->price < 0 || this->price > 9.007199254740992E15)
@@ -62,11 +57,10 @@ void HouseInformationsForSell::deserialize(Reader *input)
 
 void HouseInformationsForSell::deserializeAs_HouseInformationsForSell(Reader *input)
 {
-  auto _val12 = 0;
+  auto _val11 = 0;
   this->_instanceIdFunc(input);
   this->_secondHandFunc(input);
   this->_modelIdFunc(input);
-  this->_ownerAccountIdFunc(input);
   this->_ownerNameFunc(input);
   this->_ownerCharacterNameFunc(input);
   this->_worldXFunc(input);
@@ -75,10 +69,10 @@ void HouseInformationsForSell::deserializeAs_HouseInformationsForSell(Reader *in
   this->_nbRoomFunc(input);
   this->_nbChestFunc(input);
   uint _skillListIdsLen = input->readUShort();
-  for(uint _i12 = 0; _i12 < _skillListIdsLen; _i12++)
+  for(uint _i11 = 0; _i11 < _skillListIdsLen; _i11++)
   {
-    _val12 = input->readInt();
-    this->skillListIds.append(_val12);
+    _val11 = input->readInt();
+    this->skillListIds.append(_val11);
   }
   this->_isLockedFunc(input);
   this->_priceFunc(input);
@@ -94,7 +88,6 @@ void HouseInformationsForSell::deserializeAsyncAs_HouseInformationsForSell(FuncT
   tree.addChild(std::bind(&HouseInformationsForSell::_instanceIdFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&HouseInformationsForSell::_secondHandFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&HouseInformationsForSell::_modelIdFunc, this, std::placeholders::_1));
-  tree.addChild(std::bind(&HouseInformationsForSell::_ownerAccountIdFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&HouseInformationsForSell::_ownerNameFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&HouseInformationsForSell::_ownerCharacterNameFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&HouseInformationsForSell::_worldXFunc, this, std::placeholders::_1));
@@ -127,15 +120,6 @@ void HouseInformationsForSell::_modelIdFunc(Reader *input)
   if(this->modelId < 0)
   {
     qDebug()<<"ERREUR - HouseInformationsForSell -"<<"Forbidden value (" << this->modelId << ") on element of HouseInformationsForSell.modelId.";
-  }
-}
-
-void HouseInformationsForSell::_ownerAccountIdFunc(Reader *input)
-{
-  this->ownerAccountId = input->readInt();
-  if(this->ownerAccountId < 0)
-  {
-    qDebug()<<"ERREUR - HouseInformationsForSell -"<<"Forbidden value (" << this->ownerAccountId << ") on element of HouseInformationsForSell.ownerAccountId.";
   }
 }
 
@@ -225,7 +209,6 @@ bool HouseInformationsForSell::operator==(const HouseInformationsForSell &compar
   if(instanceId == compared.instanceId)
   if(secondHand == compared.secondHand)
   if(modelId == compared.modelId)
-  if(ownerAccountId == compared.ownerAccountId)
   if(ownerName == compared.ownerName)
   if(ownerCharacterName == compared.ownerCharacterName)
   if(worldX == compared.worldX)

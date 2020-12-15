@@ -4,7 +4,7 @@
 #include "src/protocol/types/data/game/context/fight/FightResultListEntry.h"
 #include "src/protocol/types/data/game/context/roleplay/party/NamedPartyTeamWithOutcome.h"
 #include "src/engines/io/network/utils/FuncTree.h"
-#include "src/Protocol/Types/ClassManager.h"
+#include "src/protocol/types/ClassManager.h"
 #include "src/protocol/messages/AbstractMessage.h"
 
 class GameFightEndMessage : public AbstractMessage

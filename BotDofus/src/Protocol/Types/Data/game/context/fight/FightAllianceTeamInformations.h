@@ -1,9 +1,9 @@
 #ifndef FIGHTALLIANCETEAMINFORMATIONS_H
 #define FIGHTALLIANCETEAMINFORMATIONS_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/context/fight/FightTeamInformations.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/context/fight/FightTeamInformations.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class FightAllianceTeamInformations : public FightTeamInformations
 {

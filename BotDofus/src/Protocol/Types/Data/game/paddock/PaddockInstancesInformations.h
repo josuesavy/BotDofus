@@ -1,11 +1,11 @@
 #ifndef PADDOCKINSTANCESINFORMATIONS_H
 #define PADDOCKINSTANCESINFORMATIONS_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/paddock/PaddockBuyableInformations.h"
-#include "src/Protocol/Types/Data/game/paddock/PaddockInformations.h"
-#include "src/Protocol/Types/ClassManager.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/paddock/PaddockBuyableInformations.h"
+#include "src/protocol/types/data/game/paddock/PaddockInformations.h"
+#include "src/protocol/types/ClassManager.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class PaddockInstancesInformations : public PaddockInformations
 {

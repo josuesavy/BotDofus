@@ -1,9 +1,9 @@
 #ifndef INTERACTIVEELEMENTNAMEDSKILL_H
 #define INTERACTIVEELEMENTNAMEDSKILL_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/interactive/InteractiveElementSkill.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/interactive/InteractiveElementSkill.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class InteractiveElementNamedSkill : public InteractiveElementSkill
 {

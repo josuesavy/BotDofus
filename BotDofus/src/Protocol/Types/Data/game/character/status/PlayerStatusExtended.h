@@ -1,9 +1,9 @@
 #ifndef PLAYERSTATUSEXTENDED_H
 #define PLAYERSTATUSEXTENDED_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/character/status/PlayerStatus.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/character/status/PlayerStatus.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class PlayerStatusExtended : public PlayerStatus
 {

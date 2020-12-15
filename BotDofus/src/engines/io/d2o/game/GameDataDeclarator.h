@@ -92,6 +92,7 @@
 #include "src/engines/io/d2o/game/data/items/criterion/BonusSetItemCriterionData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/BreedItemCriterionData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/CommunityItemCriterionData.h"
+#include "src/engines/io/d2o/game/data/items/criterion/CriterionUtilsData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/DayItemCriterionData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/EmoteItemCriterionData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/FriendlistItemCriterionData.h"
@@ -165,7 +166,6 @@
 #include "src/engines/io/d2o/game/data/misc/PackData.h"
 #include "src/engines/io/d2o/game/data/misc/SubhintData.h"
 #include "src/engines/io/d2o/game/data/misc/TipsData.h"
-#include "src/engines/io/d2o/game/data/misc/UrlData.h"
 #include "src/engines/io/d2o/game/data/monsters/CompanionData.h"
 #include "src/engines/io/d2o/game/data/monsters/CompanionCharacteristicData.h"
 #include "src/engines/io/d2o/game/data/monsters/CompanionSpellData.h"
@@ -189,6 +189,9 @@
 #include "src/engines/io/d2o/game/data/npcs/TaxCollectorFirstnameData.h"
 #include "src/engines/io/d2o/game/data/npcs/TaxCollectorNameData.h"
 #include "src/engines/io/d2o/game/data/playlists/PlaylistData.h"
+#include "src/engines/io/d2o/game/data/popup/PopupButtonData.h"
+#include "src/engines/io/d2o/game/data/popup/PopupInformationData.h"
+#include "src/engines/io/d2o/game/data/progression/FeatureDescriptionData.h"
 #include "src/engines/io/d2o/game/data/quest/AchievementData.h"
 #include "src/engines/io/d2o/game/data/quest/AchievementCategoryData.h"
 #include "src/engines/io/d2o/game/data/quest/AchievementObjectiveData.h"
@@ -344,6 +347,7 @@ enum class GameDataEnum
     BONUSSETITEMCRITERIONDATA,
     BREEDITEMCRITERIONDATA,
     COMMUNITYITEMCRITERIONDATA,
+    CRITERIONUTILSDATA,
     DAYITEMCRITERIONDATA,
     EMOTEITEMCRITERIONDATA,
     FRIENDLISTITEMCRITERIONDATA,
@@ -417,7 +421,6 @@ enum class GameDataEnum
     PACKDATA,
     SUBHINTDATA,
     TIPSDATA,
-    URLDATA,
     COMPANIONDATA,
     COMPANIONCHARACTERISTICDATA,
     COMPANIONSPELLDATA,
@@ -441,6 +444,9 @@ enum class GameDataEnum
     TAXCOLLECTORFIRSTNAMEDATA,
     TAXCOLLECTORNAMEDATA,
     PLAYLISTDATA,
+    POPUPBUTTONDATA,
+    POPUPINFORMATIONDATA,
+    FEATUREDESCRIPTIONDATA,
     ACHIEVEMENTDATA,
     ACHIEVEMENTCATEGORYDATA,
     ACHIEVEMENTOBJECTIVEDATA,

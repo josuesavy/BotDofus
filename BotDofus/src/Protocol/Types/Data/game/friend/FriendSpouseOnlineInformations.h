@@ -1,12 +1,12 @@
 #ifndef FRIENDSPOUSEONLINEINFORMATIONS_H
 #define FRIENDSPOUSEONLINEINFORMATIONS_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/friend/FriendSpouseInformations.h"
-#include "src/Protocol/Types/Data/game/look/EntityLook.h"
-#include "src/Protocol/Types/Data/game/context/roleplay/GuildInformations.h"
-#include "src/Engines/IO/Network/Utils/BooleanByteWrapper.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/friend/FriendSpouseInformations.h"
+#include "src/protocol/types/data/game/look/EntityLook.h"
+#include "src/protocol/types/data/game/context/roleplay/GuildInformations.h"
+#include "src/engines/io/network/utils/BooleanByteWrapper.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class FriendSpouseOnlineInformations : public FriendSpouseInformations
 {

@@ -65,6 +65,11 @@ QList<QString> WorldMapData::getZoom() const
   return m_zoom;
 }
 
+bool WorldMapData::getVisibleOnMap() const
+{
+  return m_visibleOnMap;
+}
+
 QString WorldMapData::getName() const
 {
   return m_I18n->getText(m_nameId);
@@ -117,6 +122,9 @@ void WorldMapData::loadData(const QList<D2OField*> &fields, I18nFile *I18n)
       foreach(const QByteArray &data, readVector(field->getValue()))
           m_zoom << readUTF(data);
     }
+    
+    else if(field->getName() == "visibleOnMap")
+        m_visibleOnMap = readBool(field->getValue());
     
   }
 }

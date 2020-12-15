@@ -1,8 +1,8 @@
 #ifndef TAXCOLLECTORBASICINFORMATIONS_H
 #define TAXCOLLECTORBASICINFORMATIONS_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class TaxCollectorBasicInformations : public AbstractClass
 {

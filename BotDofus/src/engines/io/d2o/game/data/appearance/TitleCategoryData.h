@@ -1,7 +1,7 @@
 #ifndef TITLECATEGORYDATA_H
 #define TITLECATEGORYDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 
 class TitleCategoryData : public AbstractGameData
 {

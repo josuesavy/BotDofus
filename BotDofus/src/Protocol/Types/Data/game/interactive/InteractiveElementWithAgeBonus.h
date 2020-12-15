@@ -1,9 +1,9 @@
 #ifndef INTERACTIVEELEMENTWITHAGEBONUS_H
 #define INTERACTIVEELEMENTWITHAGEBONUS_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/interactive/InteractiveElement.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/interactive/InteractiveElement.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class InteractiveElementWithAgeBonus : public InteractiveElement
 {

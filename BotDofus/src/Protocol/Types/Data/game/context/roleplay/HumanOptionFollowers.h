@@ -1,10 +1,10 @@
 #ifndef HUMANOPTIONFOLLOWERS_H
 #define HUMANOPTIONFOLLOWERS_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/look/IndexedEntityLook.h"
-#include "src/Protocol/Types/Data/game/context/roleplay/HumanOption.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/look/IndexedEntityLook.h"
+#include "src/protocol/types/data/game/context/roleplay/HumanOption.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class HumanOptionFollowers : public HumanOption
 {

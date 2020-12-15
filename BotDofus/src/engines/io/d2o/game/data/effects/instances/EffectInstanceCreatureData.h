@@ -1,7 +1,7 @@
 #ifndef EFFECTINSTANCECREATUREDATA_H
 #define EFFECTINSTANCECREATUREDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 #include "src/engines/io/d2o/game/data/effects/EffectInstanceData.h"
 
 class EffectInstanceCreatureData : public EffectInstanceData

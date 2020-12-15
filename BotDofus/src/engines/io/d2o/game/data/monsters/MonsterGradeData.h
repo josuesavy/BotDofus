@@ -1,7 +1,7 @@
 #ifndef MONSTERGRADEDATA_H
 #define MONSTERGRADEDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 #include "src/engines/io/d2o/game/data/monsters/MonsterBonusCharacteristicsData.h"
 
 class MonsterGradeData : public AbstractGameData

@@ -1,7 +1,7 @@
 #ifndef SPELLLEVELDATA_H
 #define SPELLLEVELDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 #include "src/engines/io/d2o/game/data/effects/instances/EffectInstanceDiceData.h"
 
 class SpellLevelData : public AbstractGameData

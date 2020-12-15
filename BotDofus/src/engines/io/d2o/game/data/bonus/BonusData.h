@@ -1,7 +1,7 @@
 #ifndef BONUSDATA_H
 #define BONUSDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 
 class BonusData : public AbstractGameData
 {

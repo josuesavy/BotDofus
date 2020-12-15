@@ -4,7 +4,6 @@
 #include "src/engines/core/process/managers/AbstractManager.h"
 #include "src/engines/core/process/managers/map/MapManager.h"
 #include "src/engines/core/process/managers/group/GroupManager.h"
-#include "src/engines/core/process/managers/arena/ArenaManager.h"
 
 #include <QTime>
 #include <QMap>
@@ -66,7 +65,7 @@ class FightManager : public AbstractManager
     Q_OBJECT
 
 public:
-    FightManager(QMap<SocketIO*, BotData> *connectionsData, MapManager *mapManager, GroupManager *groupManager, ArenaManager *arenaManager);
+    FightManager(QMap<SocketIO*, BotData> *connectionsData, MapManager *mapManager, GroupManager *groupManager);
 
     /*!
      * \brief Reset the module
@@ -523,7 +522,6 @@ public:
 
     MapManager *m_mapManager;
     GroupManager *m_groupManager;
-    ArenaManager *m_arenaManager;
     static QMap<int, Point2D> m_cellsPos;
     static QMap<Point2D, int> m_cellsId;
     QTime fightTimer;

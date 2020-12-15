@@ -1,7 +1,7 @@
 #ifndef SOUNDBONESDATA_H
 #define SOUNDBONESDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 #include "src/engines/io/d2o/game/data/sounds/SoundAnimationData.h"
 
 class SoundBonesData : public AbstractGameData

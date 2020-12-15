@@ -4,7 +4,7 @@
 #include "src/protocol/types/data/game/social/GuildFactSheetInformations.h"
 #include "src/protocol/types/data/game/character/CharacterMinimalGuildPublicInformations.h"
 #include "src/engines/io/network/utils/FuncTree.h"
-#include "src/Protocol/Types/ClassManager.h"
+#include "src/protocol/types/ClassManager.h"
 #include "src/protocol/messages/AbstractMessage.h"
 
 class GuildFactsMessage : public AbstractMessage

@@ -1,11 +1,11 @@
 #ifndef TAXCOLLECTORSTATICEXTENDEDINFORMATIONS_H
 #define TAXCOLLECTORSTATICEXTENDEDINFORMATIONS_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/context/roleplay/AllianceInformations.h"
-#include "src/Protocol/Types/Data/game/context/TaxCollectorStaticInformations.h"
-#include "src/Protocol/Types/Data/game/context/roleplay/GuildInformations.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/context/roleplay/AllianceInformations.h"
+#include "src/protocol/types/data/game/context/TaxCollectorStaticInformations.h"
+#include "src/protocol/types/data/game/context/roleplay/GuildInformations.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class TaxCollectorStaticExtendedInformations : public TaxCollectorStaticInformations
 {

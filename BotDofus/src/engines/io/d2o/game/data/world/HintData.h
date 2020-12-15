@@ -1,7 +1,7 @@
 #ifndef HINTDATA_H
 #define HINTDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 
 class HintData : public AbstractGameData
 {

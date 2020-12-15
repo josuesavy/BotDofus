@@ -1,7 +1,7 @@
 #ifndef RANKNAMEDATA_H
 #define RANKNAMEDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 
 class RankNameData : public AbstractGameData
 {

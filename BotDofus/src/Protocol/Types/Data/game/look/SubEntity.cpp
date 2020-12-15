@@ -1,5 +1,5 @@
 #include "SubEntity.h"
-#include "src/Protocol/Types/Data/game/look/EntityLook.h"
+#include "src/protocol/types/data/game/look/EntityLook.h"
 
 void SubEntity::serialize(Writer *output)
 {

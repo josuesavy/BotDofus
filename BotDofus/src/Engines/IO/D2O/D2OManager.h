@@ -9,7 +9,7 @@
 #include "game/GameDataTypeDeclarator.h"
 #include "src/engines/io/i18n/I18nFile.h"
 #include "game/GameDataConverter.h"
-#include "AbstractGameData.h"
+#include "game/AbstractGameData.h"
 #include "game/data/items/ItemData.h"
 #include "src/engines/io/utils/Singleton.h"
 

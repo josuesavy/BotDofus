@@ -1,7 +1,7 @@
 #ifndef ALMANAXCALENDARDATA_H
 #define ALMANAXCALENDARDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 
 class AlmanaxCalendarData : public AbstractGameData
 {

@@ -1,8 +1,8 @@
 #ifndef HOUSEINFORMATIONSFORSELL_H
 #define HOUSEINFORMATIONSFORSELL_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class HouseInformationsForSell : public AbstractClass
 {
@@ -19,7 +19,6 @@ public:
   uint instanceId;
   bool secondHand;
   uint modelId;
-  uint ownerAccountId;
   QString ownerName;
   QString ownerCharacterName;
   int worldX;
@@ -35,7 +34,6 @@ private:
   void _instanceIdFunc(Reader *input);
   void _secondHandFunc(Reader *input);
   void _modelIdFunc(Reader *input);
-  void _ownerAccountIdFunc(Reader *input);
   void _ownerNameFunc(Reader *input);
   void _ownerCharacterNameFunc(Reader *input);
   void _worldXFunc(Reader *input);

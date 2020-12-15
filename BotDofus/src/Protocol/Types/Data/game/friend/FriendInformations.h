@@ -1,9 +1,9 @@
 #ifndef FRIENDINFORMATIONS_H
 #define FRIENDINFORMATIONS_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/friend/AbstractContactInformations.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/friend/AbstractContactInformations.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class FriendInformations : public AbstractContactInformations
 {

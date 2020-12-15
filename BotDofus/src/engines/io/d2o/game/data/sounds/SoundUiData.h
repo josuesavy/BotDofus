@@ -1,7 +1,7 @@
 #ifndef SOUNDUIDATA_H
 #define SOUNDUIDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 #include "src/engines/io/d2o/game/data/sounds/SoundUiElementData.h"
 
 class SoundUiData : public AbstractGameData

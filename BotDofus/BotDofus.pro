@@ -127,9 +127,7 @@ HEADERS += \
     src/engines/core/process/frames/security/SecurityFrame.h \
     src/engines/core/process/frames/server/basic/ServerBasicFrame.h \
     src/engines/core/process/frames/subscription/SubscriptionFrame.h \
-    src/engines/core/process/frames/web/ankabox/WebAnkaboxFrame.h \
     src/engines/core/process/managers/AbstractManager.h \
-    src/engines/core/process/managers/arena/ArenaManager.h \
     src/engines/core/process/managers/connection/ConnectionManager.h \
     src/engines/core/process/managers/craft/CraftManager.h \
     src/engines/core/process/managers/exchange/ExchangeManager.h \
@@ -141,8 +139,8 @@ HEADERS += \
     src/engines/core/process/managers/map/MapManager.h \
     src/engines/core/process/managers/security/SecurityManager.h \
     src/engines/core/process/managers/stats/StatsManager.h \
-    src/engines/io/d2o/AbstractGameData.h \
     src/engines/io/d2o/D2OManager.h \
+    src/engines/io/d2o/game/AbstractGameData.h \
     src/engines/io/d2o/game/GameDataConverter.h \
     src/engines/io/d2o/game/GameDataDeclarator.h \
     src/engines/io/d2o/game/GameDataTypeDeclarator.h \
@@ -249,6 +247,7 @@ HEADERS += \
     src/engines/io/d2o/game/data/items/criterion/BonusSetItemCriterionData.h \
     src/engines/io/d2o/game/data/items/criterion/BreedItemCriterionData.h \
     src/engines/io/d2o/game/data/items/criterion/CommunityItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/CriterionUtilsData.h \
     src/engines/io/d2o/game/data/items/criterion/DayItemCriterionData.h \
     src/engines/io/d2o/game/data/items/criterion/EmoteItemCriterionData.h \
     src/engines/io/d2o/game/data/items/criterion/FriendlistItemCriterionData.h \
@@ -310,7 +309,6 @@ HEADERS += \
     src/engines/io/d2o/game/data/misc/PackData.h \
     src/engines/io/d2o/game/data/misc/SubhintData.h \
     src/engines/io/d2o/game/data/misc/TipsData.h \
-    src/engines/io/d2o/game/data/misc/UrlData.h \
     src/engines/io/d2o/game/data/monsters/CompanionCharacteristicData.h \
     src/engines/io/d2o/game/data/monsters/CompanionData.h \
     src/engines/io/d2o/game/data/monsters/CompanionSpellData.h \
@@ -334,6 +332,9 @@ HEADERS += \
     src/engines/io/d2o/game/data/npcs/TaxCollectorFirstnameData.h \
     src/engines/io/d2o/game/data/npcs/TaxCollectorNameData.h \
     src/engines/io/d2o/game/data/playlists/PlaylistData.h \
+    src/engines/io/d2o/game/data/popup/PopupButtonData.h \
+    src/engines/io/d2o/game/data/popup/PopupInformationData.h \
+    src/engines/io/d2o/game/data/progression/FeatureDescriptionData.h \
     src/engines/io/d2o/game/data/quest/AchievementCategoryData.h \
     src/engines/io/d2o/game/data/quest/AchievementData.h \
     src/engines/io/d2o/game/data/quest/AchievementObjectiveData.h \
@@ -600,6 +601,8 @@ HEADERS += \
     src/protocol/messages/data/debug/DebugClearHighlightCellsMessage.h \
     src/protocol/messages/data/debug/DebugHighlightCellsMessage.h \
     src/protocol/messages/data/debug/DebugInClientMessage.h \
+    src/protocol/messages/data/game/achievement/AchievementAlmostFinishedDetailedListMessage.h \
+    src/protocol/messages/data/game/achievement/AchievementAlmostFinishedDetailedListRequestMessage.h \
     src/protocol/messages/data/game/achievement/AchievementDetailedListMessage.h \
     src/protocol/messages/data/game/achievement/AchievementDetailedListRequestMessage.h \
     src/protocol/messages/data/game/achievement/AchievementDetailsMessage.h \
@@ -1001,7 +1004,7 @@ HEADERS += \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaFightAnswerMessage.h \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaFightPropositionMessage.h \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaFighterStatusMessage.h \
-    src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaInvitationCandidatesAnswer.h \
+    src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaInvitationCandidatesAnswerMessage.h \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaLeagueRewardsMessage.h \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaRegisterMessage.h \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaRegistrationStatusMessage.h \
@@ -1076,7 +1079,7 @@ HEADERS += \
     src/protocol/messages/data/game/context/roleplay/npc/AlliancePrismDialogQuestionMessage.h \
     src/protocol/messages/data/game/context/roleplay/npc/AllianceTaxCollectorDialogQuestionExtendedMessage.h \
     src/protocol/messages/data/game/context/roleplay/npc/EntityTalkMessage.h \
-    src/protocol/messages/data/game/context/roleplay/npc/MapNpcsQuestStatusUpdateMessage.h \
+    src/protocol/messages/data/game/context/roleplay/npc/ListMapNpcsQuestStatusUpdateMessage.h \
     src/protocol/messages/data/game/context/roleplay/npc/NpcDialogCreationMessage.h \
     src/protocol/messages/data/game/context/roleplay/npc/NpcDialogQuestionMessage.h \
     src/protocol/messages/data/game/context/roleplay/npc/NpcDialogReplyMessage.h \
@@ -1364,7 +1367,6 @@ HEADERS += \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeBuyOkMessage.h \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeCraftCountModifiedMessage.h \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeCraftCountRequestMessage.h \
-    src/protocol/messages/data/game/inventory/exchanges/ExchangeCraftInformationObjectMessage.h \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeCraftPaymentModificationRequestMessage.h \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeCraftPaymentModifiedMessage.h \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeCraftResultMagicWithObjectDescMessage.h \
@@ -1561,7 +1563,6 @@ HEADERS += \
     src/protocol/messages/data/game/pvp/UpdateMapPlayersAgressableStatusMessage.h \
     src/protocol/messages/data/game/pvp/UpdateSelfAgressableStatusMessage.h \
     src/protocol/messages/data/game/script/CinematicMessage.h \
-    src/protocol/messages/data/game/script/URLOpenMessage.h \
     src/protocol/messages/data/game/shortcut/ShortcutBarAddErrorMessage.h \
     src/protocol/messages/data/game/shortcut/ShortcutBarAddRequestMessage.h \
     src/protocol/messages/data/game/shortcut/ShortcutBarContentMessage.h \
@@ -1614,8 +1615,6 @@ HEADERS += \
     src/protocol/messages/data/security/RawDataMessage.h \
     src/protocol/messages/data/server/basic/SystemMessageDisplayMessage.h \
     src/protocol/messages/data/subscription/AccountInformationsUpdateMessage.h \
-    src/protocol/messages/data/web/ankabox/MailStatusMessage.h \
-    src/protocol/messages/data/web/ankabox/NewMailMessage.h \
     src/protocol/messages/data/web/haapi/HaapiApiKeyMessage.h \
     src/protocol/messages/data/web/haapi/HaapiApiKeyRequestMessage.h \
     src/protocol/messages/data/web/haapi/HaapiAuthErrorMessage.h \
@@ -1806,6 +1805,7 @@ HEADERS += \
     src/protocol/types/data/game/context/roleplay/job/JobCrafterDirectorySettings.h \
     src/protocol/types/data/game/context/roleplay/job/JobDescription.h \
     src/protocol/types/data/game/context/roleplay/job/JobExperience.h \
+    src/protocol/types/data/game/context/roleplay/npc/MapNpcQuestInfo.h \
     src/protocol/types/data/game/context/roleplay/party/DungeonPartyFinderPlayer.h \
     src/protocol/types/data/game/context/roleplay/party/NamedPartyTeam.h \
     src/protocol/types/data/game/context/roleplay/party/NamedPartyTeamWithOutcome.h \
@@ -2029,9 +2029,7 @@ SOURCES += \
     src/engines/core/process/frames/security/SecurityFrame.cpp \
     src/engines/core/process/frames/server/basic/ServerBasicFrame.cpp \
     src/engines/core/process/frames/subscription/SubscriptionFrame.cpp \
-    src/engines/core/process/frames/web/ankabox/WebAnkaboxFrame.cpp \
     src/engines/core/process/managers/AbstractManager.cpp \
-    src/engines/core/process/managers/arena/ArenaManager.cpp \
     src/engines/core/process/managers/connection/ConnectionManager.cpp \
     src/engines/core/process/managers/craft/CraftManager.cpp \
     src/engines/core/process/managers/exchange/ExchangeManager.cpp \
@@ -2043,8 +2041,8 @@ SOURCES += \
     src/engines/core/process/managers/map/MapManager.cpp \
     src/engines/core/process/managers/security/SecurityManager.cpp \
     src/engines/core/process/managers/stats/StatsManager.cpp \
-    src/engines/io/d2o/AbstractGameData.cpp \
     src/engines/io/d2o/D2OManager.cpp \
+    src/engines/io/d2o/game/AbstractGameData.cpp \
     src/engines/io/d2o/game/GameDataConverter.cpp \
     src/engines/io/d2o/game/data/abuse/AbuseReasonsData.cpp \
     src/engines/io/d2o/game/data/alignments/AlignmentBalanceData.cpp \
@@ -2149,6 +2147,7 @@ SOURCES += \
     src/engines/io/d2o/game/data/items/criterion/BonusSetItemCriterionData.cpp \
     src/engines/io/d2o/game/data/items/criterion/BreedItemCriterionData.cpp \
     src/engines/io/d2o/game/data/items/criterion/CommunityItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/CriterionUtilsData.cpp \
     src/engines/io/d2o/game/data/items/criterion/DayItemCriterionData.cpp \
     src/engines/io/d2o/game/data/items/criterion/EmoteItemCriterionData.cpp \
     src/engines/io/d2o/game/data/items/criterion/FriendlistItemCriterionData.cpp \
@@ -2210,7 +2209,6 @@ SOURCES += \
     src/engines/io/d2o/game/data/misc/PackData.cpp \
     src/engines/io/d2o/game/data/misc/SubhintData.cpp \
     src/engines/io/d2o/game/data/misc/TipsData.cpp \
-    src/engines/io/d2o/game/data/misc/UrlData.cpp \
     src/engines/io/d2o/game/data/monsters/CompanionCharacteristicData.cpp \
     src/engines/io/d2o/game/data/monsters/CompanionData.cpp \
     src/engines/io/d2o/game/data/monsters/CompanionSpellData.cpp \
@@ -2234,6 +2232,9 @@ SOURCES += \
     src/engines/io/d2o/game/data/npcs/TaxCollectorFirstnameData.cpp \
     src/engines/io/d2o/game/data/npcs/TaxCollectorNameData.cpp \
     src/engines/io/d2o/game/data/playlists/PlaylistData.cpp \
+    src/engines/io/d2o/game/data/popup/PopupButtonData.cpp \
+    src/engines/io/d2o/game/data/popup/PopupInformationData.cpp \
+    src/engines/io/d2o/game/data/progression/FeatureDescriptionData.cpp \
     src/engines/io/d2o/game/data/quest/AchievementCategoryData.cpp \
     src/engines/io/d2o/game/data/quest/AchievementData.cpp \
     src/engines/io/d2o/game/data/quest/AchievementObjectiveData.cpp \
@@ -2394,6 +2395,8 @@ SOURCES += \
     src/protocol/messages/data/debug/DebugClearHighlightCellsMessage.cpp \
     src/protocol/messages/data/debug/DebugHighlightCellsMessage.cpp \
     src/protocol/messages/data/debug/DebugInClientMessage.cpp \
+    src/protocol/messages/data/game/achievement/AchievementAlmostFinishedDetailedListMessage.cpp \
+    src/protocol/messages/data/game/achievement/AchievementAlmostFinishedDetailedListRequestMessage.cpp \
     src/protocol/messages/data/game/achievement/AchievementDetailedListMessage.cpp \
     src/protocol/messages/data/game/achievement/AchievementDetailedListRequestMessage.cpp \
     src/protocol/messages/data/game/achievement/AchievementDetailsMessage.cpp \
@@ -2795,7 +2798,7 @@ SOURCES += \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaFightAnswerMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaFightPropositionMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaFighterStatusMessage.cpp \
-    src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaInvitationCandidatesAnswer.cpp \
+    src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaInvitationCandidatesAnswerMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaLeagueRewardsMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaRegisterMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaRegistrationStatusMessage.cpp \
@@ -2870,7 +2873,7 @@ SOURCES += \
     src/protocol/messages/data/game/context/roleplay/npc/AlliancePrismDialogQuestionMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/npc/AllianceTaxCollectorDialogQuestionExtendedMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/npc/EntityTalkMessage.cpp \
-    src/protocol/messages/data/game/context/roleplay/npc/MapNpcsQuestStatusUpdateMessage.cpp \
+    src/protocol/messages/data/game/context/roleplay/npc/ListMapNpcsQuestStatusUpdateMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/npc/NpcDialogCreationMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/npc/NpcDialogQuestionMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/npc/NpcDialogReplyMessage.cpp \
@@ -3158,7 +3161,6 @@ SOURCES += \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeBuyOkMessage.cpp \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeCraftCountModifiedMessage.cpp \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeCraftCountRequestMessage.cpp \
-    src/protocol/messages/data/game/inventory/exchanges/ExchangeCraftInformationObjectMessage.cpp \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeCraftPaymentModificationRequestMessage.cpp \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeCraftPaymentModifiedMessage.cpp \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeCraftResultMagicWithObjectDescMessage.cpp \
@@ -3355,7 +3357,6 @@ SOURCES += \
     src/protocol/messages/data/game/pvp/UpdateMapPlayersAgressableStatusMessage.cpp \
     src/protocol/messages/data/game/pvp/UpdateSelfAgressableStatusMessage.cpp \
     src/protocol/messages/data/game/script/CinematicMessage.cpp \
-    src/protocol/messages/data/game/script/URLOpenMessage.cpp \
     src/protocol/messages/data/game/shortcut/ShortcutBarAddErrorMessage.cpp \
     src/protocol/messages/data/game/shortcut/ShortcutBarAddRequestMessage.cpp \
     src/protocol/messages/data/game/shortcut/ShortcutBarContentMessage.cpp \
@@ -3408,8 +3409,6 @@ SOURCES += \
     src/protocol/messages/data/security/RawDataMessage.cpp \
     src/protocol/messages/data/server/basic/SystemMessageDisplayMessage.cpp \
     src/protocol/messages/data/subscription/AccountInformationsUpdateMessage.cpp \
-    src/protocol/messages/data/web/ankabox/MailStatusMessage.cpp \
-    src/protocol/messages/data/web/ankabox/NewMailMessage.cpp \
     src/protocol/messages/data/web/haapi/HaapiApiKeyMessage.cpp \
     src/protocol/messages/data/web/haapi/HaapiApiKeyRequestMessage.cpp \
     src/protocol/messages/data/web/haapi/HaapiAuthErrorMessage.cpp \
@@ -3597,6 +3596,7 @@ SOURCES += \
     src/protocol/types/data/game/context/roleplay/job/JobCrafterDirectorySettings.cpp \
     src/protocol/types/data/game/context/roleplay/job/JobDescription.cpp \
     src/protocol/types/data/game/context/roleplay/job/JobExperience.cpp \
+    src/protocol/types/data/game/context/roleplay/npc/MapNpcQuestInfo.cpp \
     src/protocol/types/data/game/context/roleplay/party/DungeonPartyFinderPlayer.cpp \
     src/protocol/types/data/game/context/roleplay/party/NamedPartyTeam.cpp \
     src/protocol/types/data/game/context/roleplay/party/NamedPartyTeamWithOutcome.cpp \

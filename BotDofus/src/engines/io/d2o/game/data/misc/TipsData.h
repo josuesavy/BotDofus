@@ -1,7 +1,7 @@
 #ifndef TIPSDATA_H
 #define TIPSDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 
 class TipsData : public AbstractGameData
 {

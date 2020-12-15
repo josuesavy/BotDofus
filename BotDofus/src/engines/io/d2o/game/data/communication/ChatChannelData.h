@@ -1,7 +1,7 @@
 #ifndef CHATCHANNELDATA_H
 #define CHATCHANNELDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 
 class ChatChannelData : public AbstractGameData
 {

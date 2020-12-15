@@ -14,11 +14,10 @@ bool operator<(const Point2D &left, const Point2D & right)
 QMap<int, Point2D> FightManager::m_cellsPos;
 QMap<Point2D, int> FightManager::m_cellsId;
 
-FightManager::FightManager(QMap<SocketIO *, BotData> *connectionsData, MapManager *mapManager, GroupManager *groupManager, ArenaManager *arenaManager):
+FightManager::FightManager(QMap<SocketIO *, BotData> *connectionsData, MapManager *mapManager, GroupManager *groupManager):
     AbstractManager(ManagerType::FIGHT, connectionsData),
     m_mapManager(mapManager),
-    m_groupManager(groupManager),
-    m_arenaManager(arenaManager)
+    m_groupManager(groupManager)
 {
     int param4 = 0;
         int param1 = 0;

@@ -1,7 +1,7 @@
 #ifndef SUBHINTDATA_H
 #define SUBHINTDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 
 class SubhintData : public AbstractGameData
 {

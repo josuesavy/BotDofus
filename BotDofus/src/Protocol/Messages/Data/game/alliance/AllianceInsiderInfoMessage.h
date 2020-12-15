@@ -5,7 +5,7 @@
 #include "src/protocol/types/data/game/social/GuildInsiderFactSheetInformations.h"
 #include "src/protocol/types/data/game/prism/PrismSubareaEmptyInfo.h"
 #include "src/engines/io/network/utils/FuncTree.h"
-#include "src/Protocol/Types/ClassManager.h"
+#include "src/protocol/types/ClassManager.h"
 #include "src/protocol/messages/AbstractMessage.h"
 
 class AllianceInsiderInfoMessage : public AbstractMessage

@@ -1,10 +1,10 @@
 #ifndef PADDOCKCONTENTINFORMATIONS_H
 #define PADDOCKCONTENTINFORMATIONS_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/paddock/MountInformationsForPaddock.h"
-#include "src/Protocol/Types/Data/game/paddock/PaddockInformations.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/paddock/MountInformationsForPaddock.h"
+#include "src/protocol/types/data/game/paddock/PaddockInformations.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class PaddockContentInformations : public PaddockInformations
 {

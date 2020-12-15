@@ -1,7 +1,7 @@
 #ifndef BREACHWORLDMAPCOORDINATEDATA_H
 #define BREACHWORLDMAPCOORDINATEDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 
 class BreachWorldMapCoordinateData : public AbstractGameData
 {

@@ -1,7 +1,7 @@
 #ifndef SERVERPOPULATIONDATA_H
 #define SERVERPOPULATIONDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 
 class ServerPopulationData : public AbstractGameData
 {

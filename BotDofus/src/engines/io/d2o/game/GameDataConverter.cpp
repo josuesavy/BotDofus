@@ -275,6 +275,9 @@ QSharedPointer<AbstractGameData> GameDataConverter::getClass(const QString &name
   else if(name == "CommunityItemCriterion")
       return QSharedPointer<AbstractGameData>(new CommunityItemCriterionData());
   
+  else if(name == "CriterionUtils")
+      return QSharedPointer<AbstractGameData>(new CriterionUtilsData());
+  
   else if(name == "DayItemCriterion")
       return QSharedPointer<AbstractGameData>(new DayItemCriterionData());
   
@@ -494,9 +497,6 @@ QSharedPointer<AbstractGameData> GameDataConverter::getClass(const QString &name
   else if(name == "Tips")
       return QSharedPointer<AbstractGameData>(new TipsData());
   
-  else if(name == "Url")
-      return QSharedPointer<AbstractGameData>(new UrlData());
-  
   else if(name == "Companion")
       return QSharedPointer<AbstractGameData>(new CompanionData());
   
@@ -565,6 +565,15 @@ QSharedPointer<AbstractGameData> GameDataConverter::getClass(const QString &name
   
   else if(name == "Playlist")
       return QSharedPointer<AbstractGameData>(new PlaylistData());
+  
+  else if(name == "PopupButton")
+      return QSharedPointer<AbstractGameData>(new PopupButtonData());
+  
+  else if(name == "PopupInformation")
+      return QSharedPointer<AbstractGameData>(new PopupInformationData());
+  
+  else if(name == "FeatureDescription")
+      return QSharedPointer<AbstractGameData>(new FeatureDescriptionData());
   
   else if(name == "Achievement")
       return QSharedPointer<AbstractGameData>(new AchievementData());
@@ -1076,9 +1085,6 @@ GameDataTypeEnum GameDataConverter::getEnum(const QString &name)
   else if(name == "Tips")
       return GameDataTypeEnum::TIPS;
   
-  else if(name == "Url")
-      return GameDataTypeEnum::URL;
-  
   else if(name == "Companions")
       return GameDataTypeEnum::COMPANIONS;
   
@@ -1135,6 +1141,12 @@ GameDataTypeEnum GameDataConverter::getEnum(const QString &name)
   
   else if(name == "Playlists")
       return GameDataTypeEnum::PLAYLISTS;
+  
+  else if(name == "PopupInformations")
+      return GameDataTypeEnum::POPUPINFORMATIONS;
+  
+  else if(name == "FeatureDescriptions")
+      return GameDataTypeEnum::FEATUREDESCRIPTIONS;
   
   else if(name == "Achievements")
       return GameDataTypeEnum::ACHIEVEMENTS;

@@ -1,7 +1,7 @@
 #ifndef ALIGNMENTRANKJNTGIFTDATA_H
 #define ALIGNMENTRANKJNTGIFTDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 
 class AlignmentRankJntGiftData : public AbstractGameData
 {

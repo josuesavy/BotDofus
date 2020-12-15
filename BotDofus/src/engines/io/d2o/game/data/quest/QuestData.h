@@ -1,7 +1,7 @@
 #ifndef QUESTDATA_H
 #define QUESTDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 
 class QuestData : public AbstractGameData
 {

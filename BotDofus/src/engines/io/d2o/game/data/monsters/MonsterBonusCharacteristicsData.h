@@ -1,7 +1,7 @@
 #ifndef MONSTERBONUSCHARACTERISTICSDATA_H
 #define MONSTERBONUSCHARACTERISTICSDATA_H
 
-#include "src/engines/io/d2o/AbstractGameData.h"
+#include "src/engines/io/d2o/game/AbstractGameData.h"
 
 class MonsterBonusCharacteristicsData : public AbstractGameData
 {
