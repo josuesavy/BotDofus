@@ -1,0 +1,11 @@
+#ifndef HAVENBAGSHAREBITENUM_H
+#define HAVENBAGSHAREBITENUM_H
+
+enum class HavenBagShareBitEnum
+{
+    HAVEN_BAG_NONE = 0,
+    HAVEN_BAG_FRIENDS = 1,
+    HAVEN_BAG_GUILD = 2
+};
+
+#endif // HAVENBAGSHAREBITENUM_H
