@@ -667,10 +667,9 @@ struct FightData
     FightTypeEnum fightType;
     FightTeamsOptions options;
     bool lockPartyOnly = false;
-    bool lockSecret = false;
-    bool lockClosed = false;
+    int lockSecret = 0;
+    int lockClosed = 0;
     bool lockAskForHelp = false;
-    bool lockExpel = false;
     int comeAboutDistance = INVALID;
     RequestedMonsters requestedMonsters;
     int followingMonsterGroup = INVALID;

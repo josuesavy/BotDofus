@@ -107,6 +107,15 @@ bool GameBasicFrame::processMessage(const MessageInfos &data, SocketIO *sender)
         QString output = infoData->getText();
         output = ParamsDecoder::applyParams(output, message.parameters);
 
+        if (infoData->getMessageId() == 36 && infoData->getTypeId() == 0 && m_botData[sender].fightData.lockSecret == 1)
+        {
+            debug(sender) << "Fermeture du mode spectateur";
+
+            GameFightOptionToggleMessage answer;
+            answer.option = (uint)FightOptionsEnum::FIGHT_OPTION_SET_SECRET;
+            sender->send(answer);
+        }
+
         qDebug()<<"TextInformationMessage -"<<output<<" Params -"<<message.parameters;
 
         switch((TextInformationTypeEnum)infoData->getTypeId())

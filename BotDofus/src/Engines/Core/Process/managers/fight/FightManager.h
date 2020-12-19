@@ -110,7 +110,7 @@ public:
      * \param sender Bot's particular connection
      * \param isSecret Watch or not
      */
-    void setSecret(SocketIO *sender, bool isSecret);
+    void setSecret(SocketIO *sender, int value);
 
 
     /*!
@@ -118,7 +118,7 @@ public:
      * \param sender Bot's particular connection
      * \param isClosed Opening or not
      */
-    void setClosed(SocketIO *sender, bool isClosed);
+    void setClosed(SocketIO *sender, int value);
 
 
     /*!
@@ -127,15 +127,6 @@ public:
      * \param isAskForHelp Help or not
      */
     void setAskForHelp(SocketIO *sender, bool isAskForHelp);
-
-
-    /*!
-     * \brief Enable expulsion of another player when him is enter in the fight
-     * \param sender Bot's particular connection
-     * \param isExpel Expulsion or not
-     * \param id The character's identify
-     */
-    void setExpel(SocketIO *sender, bool isExpel);
 
 
     /*!

@@ -87,6 +87,86 @@ bool GameContextFightFrame::processMessage(const MessageInfos &data, SocketIO *s
     }
         break;
 
+    case MessageEnum::GAMEFIGHTJOINMESSAGE:
+        {
+            GameFightJoinMessage message;
+            message.deserialize(&reader);
+
+            m_botData[sender].fightData.fightType = (FightTypeEnum)message.fightType;
+            m_botData[sender].generalData.botState = FIGHTING_STATE;
+            m_botData[sender].fightData.botFightData.durationByEffect.clear();
+            m_botData[sender].fightData.botFightData.lastTurnCastBySpell.clear();
+            m_botData[sender].fightData.botFightData.totalCastByCellBySpell.clear();
+            m_botData[sender].fightData.botFightData.totalCastBySpell.clear();
+            m_botData[sender].fightData.botFightData.processingSpells.clear();
+            m_botData[sender].fightData.isBotTurn = false;
+            m_botData[sender].fightData.botFightData.isReady = false;
+
+            if(m_botData[sender].fightData.fightType == FightTypeEnum::FIGHT_TYPE_AGRESSION)
+                warn(sender)<<"Aggression...";
+
+            else if(m_botData[sender].fightData.fightType == FightTypeEnum::FIGHT_TYPE_PVP_ARENA)
+            {
+                m_botData[sender].arenaData.arenaCurrentStatus = PvpArenaStepEnum::ARENA_STEP_STARTING_FIGHT;
+                m_botData[sender].arenaData.isArenaRegistered = false;
+
+                action(sender)<<"Début du koli";
+            }
+
+            else
+            {
+                if(m_botData[sender].generalData.botState == FIGHTING_STATE)
+                {
+                    if((m_botData[sender].fightData.lockAskForHelp && !m_botData[sender].fightData.options.isAskingForHelp) ||
+                            (!m_botData[sender].fightData.lockAskForHelp && m_botData[sender].fightData.options.isAskingForHelp))
+                    {
+                        debug(sender)<< "Demande d'aide signalé";
+
+                        GameFightOptionToggleMessage answer;
+                        answer.option = (uint)FightOptionsEnum::FIGHT_OPTION_ASK_FOR_HELP;
+                        sender->send(answer);
+                    }
+
+                    if((m_botData[sender].fightData.lockSecret == 2 && !m_botData[sender].fightData.options.isSecret) ||
+                            (m_botData[sender].fightData.lockSecret == 0 && m_botData[sender].fightData.options.isSecret))
+                    {
+                        debug(sender) << "Fermeture du mode spectateur";
+
+                        GameFightOptionToggleMessage answer;
+                        answer.option = (uint)FightOptionsEnum::FIGHT_OPTION_SET_SECRET;
+                        sender->send(answer);
+                    }
+
+                    if((m_botData[sender].fightData.lockClosed == 2 && !m_botData[sender].fightData.options.isClosed) ||
+                            (m_botData[sender].fightData.lockClosed == 0 && m_botData[sender].fightData.options.isClosed))
+                    {
+                        debug(sender) << "Fermeture du combat";
+
+                        GameFightOptionToggleMessage answer;
+                        answer.option = (uint)FightOptionsEnum::FIGHT_OPTION_SET_CLOSED;
+                        sender->send(answer);
+                    }
+
+                    if((m_botData[sender].fightData.lockPartyOnly && !m_botData[sender].fightData.options.isRestrictedToOnly) ||
+                            (!m_botData[sender].fightData.lockAskForHelp && m_botData[sender].fightData.options.isAskingForHelp))
+                    {
+                        debug(sender) << "Fermeture du combat aux personnages étranger de votre groupe";
+
+                        GameFightOptionToggleMessage answer;
+                        answer.option = (uint)FightOptionsEnum::FIGHT_OPTION_SET_TO_PARTY_ONLY;
+                        sender->send(answer);
+                    }
+                }
+            }
+
+            if(m_botData[sender].scriptData.isActive) // TODO
+            {
+                if(m_botData[sender].scriptData.activeModule != ManagerType::FIGHT)
+                    emit scriptActionCancel(sender);
+            }
+        }
+            break;
+
     case MessageEnum::GAMEFIGHTLEAVEMESSAGE:
     {
         GameFightLeaveMessage message;
@@ -291,12 +371,17 @@ bool GameContextFightFrame::processMessage(const MessageInfos &data, SocketIO *s
         {
             if (m_botData[sender].mapData.botId != members->id)
             {
-                if(m_botData[sender].generalData.botState == FIGHTING_STATE && m_botData[sender].fightData.lockExpel && members->id != INVALID)
+                if(m_botData[sender].generalData.botState == FIGHTING_STATE && m_botData[sender].fightData.lockClosed == 1 && members->id != INVALID)
                 {
                     action(sender) << "Un joueur inconnu est entré dans le combat. Expulsion de ce joueur...";
                     GameContextKickMessage gckmsg;
                     gckmsg.targetId = members->id;
                     sender->send(gckmsg);
+
+                    debug(sender) << "Fermeture du combat";
+                    GameFightOptionToggleMessage answer;
+                    answer.option = (uint)FightOptionsEnum::FIGHT_OPTION_SET_CLOSED;
+                    sender->send(answer);
                 }
             }
         }

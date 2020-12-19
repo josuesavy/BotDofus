@@ -88,24 +88,19 @@ void FightManager::setPartyOnly(SocketIO *sender, bool isPartyOnly)
     m_botData[sender].fightData.lockPartyOnly = isPartyOnly;
 }
 
-void FightManager::setSecret(SocketIO *sender, bool isSecret)
+void FightManager::setSecret(SocketIO *sender, int value)
 {
-    m_botData[sender].fightData.lockSecret = isSecret;
+    m_botData[sender].fightData.lockSecret = value;
 }
 
-void FightManager::setClosed(SocketIO *sender, bool isClosed)
+void FightManager::setClosed(SocketIO *sender, int value)
 {
-    m_botData[sender].fightData.lockClosed = isClosed;
+    m_botData[sender].fightData.lockClosed = value;
 }
 
 void FightManager::setAskForHelp(SocketIO *sender, bool isAskForHelp)
 {
     m_botData[sender].fightData.lockAskForHelp = isAskForHelp;
-}
-
-void FightManager::setExpel(SocketIO *sender, bool isExpel)
-{
-    m_botData[sender].fightData.lockExpel = isExpel;
 }
 
 void FightManager::giveUpFight(SocketIO *sender)
@@ -327,7 +322,6 @@ void FightManager::processTurn(SocketIO *sender)
     {
         RequestedSpell requested = m_botData[sender].fightData.botFightData.processingSpells.first();
 
-        // Waiting to move
         if(m_botData[sender].fightData.botFightData.movementsWaiting)
         {
             if(m_botData[sender].fightData.botFightData.processingIA == FightIA::FEARFUL || m_botData[sender].fightData.botFightData.processingIA == FightIA::FOLLOWER || m_botData[sender].fightData.botFightData.processingIA == FightIA::AGGRESSIVE)
@@ -394,7 +388,6 @@ void FightManager::processTurn(SocketIO *sender)
             }
         }
 
-        // Waiting for cast spells
         else if(m_botData[sender].fightData.botFightData.spellsWaiting)
         {
             m_botData[sender].fightData.botFightData.spellsWaiting = false;
