@@ -57,10 +57,6 @@ public:
 
 public slots:
     void updateInterface();
-    void writeConsole(QString content);
-
-signals:
-    void addConsoleLineRequest(QString content);
 
 private slots:
     void on_lineEditConsole_returnPressed();

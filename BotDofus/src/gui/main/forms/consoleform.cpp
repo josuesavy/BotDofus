@@ -11,8 +11,6 @@ ConsoleForm::ConsoleForm(ProcessEngine *engine, const ConnectionInfos &infos, So
     m_engine = engine;
     m_infos = infos;
     m_sender = sender;
-
-    connect(this, SIGNAL(addConsoleLineRequest(QString)), this, SLOT(writeConsole(QString)));
 }
 
 ConsoleForm::~ConsoleForm()
@@ -103,98 +101,93 @@ void ConsoleForm::updateInterface()
             switch (infos.generalData.logMessages[i].channel)
             {
             default:
-                emit addConsoleLineRequest("<font color=red> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] - La chaine demandée n'existe pas</font>");
+                ui->textBrowserConsole->append("<font color=red> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] - La chaine demandée n'existe pas</font>");
                 break;
 
             case CHANNELDEBUG:
-                emit addConsoleLineRequest("<font color="+QString(DEBUG_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] (Debug) "+htmlOutput+"</font>");
+                ui->textBrowserConsole->append("<font color="+QString(DEBUG_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] (Debug) "+htmlOutput+"</font>");
                 break;
 
             case CHANNELGLOBAL:
-                emit addConsoleLineRequest("<font color="+QString(GLOBAL_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] "+htmlOutput+"</font>");
+                ui->textBrowserConsole->append("<font color="+QString(GLOBAL_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] "+htmlOutput+"</font>");
                 break;
 
             case CHANNELTEAM:
-                emit addConsoleLineRequest("<font color="+QString(TEAM_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] (Equipe) "+htmlOutput+"</font>");
+                ui->textBrowserConsole->append("<font color="+QString(TEAM_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] (Equipe) "+htmlOutput+"</font>");
                 break;
 
             case CHANNELGUILD:
-                emit addConsoleLineRequest("<font color="+QString(GUILD_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] (Guilde) "+htmlOutput+"</font>");
+                ui->textBrowserConsole->append("<font color="+QString(GUILD_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] (Guilde) "+htmlOutput+"</font>");
                 break;
 
             case CHANNELALLIANCE:
-                emit addConsoleLineRequest("<font color="+QString(ALLIANCE_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] (Alliance) "+htmlOutput+"</font>");
+                ui->textBrowserConsole->append("<font color="+QString(ALLIANCE_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] (Alliance) "+htmlOutput+"</font>");
                 break;
 
             case CHANNELPARTY:
-                emit addConsoleLineRequest("<font color="+QString(PARTY_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] (Groupe) "+htmlOutput+"</font>");
+                ui->textBrowserConsole->append("<font color="+QString(PARTY_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] (Groupe) "+htmlOutput+"</font>");
                 break;
 
             case CHANNELSALES:
-                emit addConsoleLineRequest("<font color="+QString(SALES_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] (Commerce) "+htmlOutput+"</font>");
+                ui->textBrowserConsole->append("<font color="+QString(SALES_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] (Commerce) "+htmlOutput+"</font>");
                 break;
 
             case CHANNELSEEK:
-                emit addConsoleLineRequest("<font color="+QString(SEEK_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] (Recrutement) "+htmlOutput+"</font>");
+                ui->textBrowserConsole->append("<font color="+QString(SEEK_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] (Recrutement) "+htmlOutput+"</font>");
                 break;
 
             case CHANNELNOOB:
-                emit addConsoleLineRequest("<font color="+QString(NOOB_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] - "+htmlOutput+"</font>");
+                ui->textBrowserConsole->append("<font color="+QString(NOOB_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] - "+htmlOutput+"</font>");
                 break;
 
             case CHANNELADMIN:
-                emit addConsoleLineRequest("<font color="+QString(ADMIN_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] - "+htmlOutput+"</font>");
+                ui->textBrowserConsole->append("<font color="+QString(ADMIN_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] - "+htmlOutput+"</font>");
                 break;
 
             case CHANNELADS:
-                emit addConsoleLineRequest("<font color="+QString(ADS_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] (Communauté FR) "+htmlOutput+"</font>");
+                ui->textBrowserConsole->append("<font color="+QString(ADS_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] (Communauté FR) "+htmlOutput+"</font>");
                 break;
 
             case CHANNELARENA:
-                emit addConsoleLineRequest("<font color="+QString(ARENA_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] (Kolizéum) "+htmlOutput+"</font>");
+                ui->textBrowserConsole->append("<font color="+QString(ARENA_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] (Kolizéum) "+htmlOutput+"</font>");
                 break;
 
             case CHANNELPRIVATE:
-                emit addConsoleLineRequest("<font color="+QString(PRIVATE_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] "+htmlOutput+"</font>");
+                ui->textBrowserConsole->append("<font color="+QString(PRIVATE_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] "+htmlOutput+"</font>");
                 break;
 
             case CHANNELINFO:
-                emit addConsoleLineRequest("<font color="+QString(INFO_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] "+htmlOutput+"</font>");
+                ui->textBrowserConsole->append("<font color="+QString(INFO_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] "+htmlOutput+"</font>");
                 break;
 
             case CHANNELFIGHTLOG:
-                emit addConsoleLineRequest("<font color="+QString(FIGHT_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] "+htmlOutput+"</font>");
+                ui->textBrowserConsole->append("<font color="+QString(FIGHT_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] "+htmlOutput+"</font>");
                 break;
 
             case CHANNELALERT:
-                emit addConsoleLineRequest("<font color="+QString(ERROR_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] "+htmlOutput+"</font>");
+                ui->textBrowserConsole->append("<font color="+QString(ERROR_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] "+htmlOutput+"</font>");
                 break;
 
             case CHANNELACTION:
-                emit addConsoleLineRequest("<font color="+QString(ACTION_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] "+htmlOutput+"</font>");
+                ui->textBrowserConsole->append("<font color="+QString(ACTION_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] "+htmlOutput+"</font>");
                 break;
 
             case CHANNELWARN:
-                emit addConsoleLineRequest("<font color="+QString(WARN_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] "+htmlOutput+"</font>");
+                ui->textBrowserConsole->append("<font color="+QString(WARN_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] "+htmlOutput+"</font>");
                 break;
 
             case CHANNELCOMMUNITY:
-                emit addConsoleLineRequest("<font color="+QString(COMMUNITY_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] "+htmlOutput+"</font>");
+                ui->textBrowserConsole->append("<font color="+QString(COMMUNITY_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] "+htmlOutput+"</font>");
                 break;
 
             case CHANNELPROMOTION:
-                emit addConsoleLineRequest("<font color="+QString(PROMOTION_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] "+htmlOutput+"</font>");
+                ui->textBrowserConsole->append("<font color="+QString(PROMOTION_COLOR)+"> ["+getTime(infos.generalData.logMessages[i].timeStamp)+"] "+htmlOutput+"</font>");
                 break;
             }
         }
 
         m_logMessageCount = infos.generalData.logMessageCount;
     }
-}
-
-void ConsoleForm::writeConsole(QString content)
-{
-    ui->textBrowserConsole->append(content);
 }
 
 void ConsoleForm::on_lineEditConsole_returnPressed()
