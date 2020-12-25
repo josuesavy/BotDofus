@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>370</width>
-    <height>299</height>
+    <width>391</width>
+    <height>265</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -165,9 +165,18 @@
   <zorder>groupBoxPrivate</zorder>
   <zorder>radioButtonPublic</zorder>
   <zorder>radioButtonPrivate</zorder>
-  <zorder>pushButtonAdd</zorder>
-  <zorder>pushButtonCancel</zorder>
  </widget>
+ <tabstops>
+  <tabstop>lineEditMessage</tabstop>
+  <tabstop>radioButtonPublic</tabstop>
+  <tabstop>comboBoxCanal</tabstop>
+  <tabstop>timeEdit</tabstop>
+  <tabstop>radioButtonPrivate</tabstop>
+  <tabstop>checkBoxSomeonEntersMap</tabstop>
+  <tabstop>checkBoxSomeoneLeavesMap</tabstop>
+  <tabstop>pushButtonAdd</tabstop>
+  <tabstop>pushButtonCancel</tabstop>
+ </tabstops>
  <resources>
   <include location="../../../../../res/resources.qrc"/>
  </resources>

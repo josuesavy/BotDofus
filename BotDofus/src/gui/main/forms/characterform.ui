@@ -918,6 +918,19 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>tabWidgetCharacter</tabstop>
+  <tabstop>pushButtonAddVitality</tabstop>
+  <tabstop>pushButtonAddWisdom</tabstop>
+  <tabstop>pushButtonAddStrength</tabstop>
+  <tabstop>pushButtonAddIntelligence</tabstop>
+  <tabstop>pushButtonAddChance</tabstop>
+  <tabstop>pushButtonAddAgility</tabstop>
+  <tabstop>pushButtonResetCharacteristics</tabstop>
+  <tabstop>comboBoxBoostAuto</tabstop>
+  <tabstop>tableWidgetSpells</tabstop>
+  <tabstop>tableWidgetJobs</tabstop>
+ </tabstops>
  <resources>
   <include location="../../../../res/resources.qrc"/>
  </resources>

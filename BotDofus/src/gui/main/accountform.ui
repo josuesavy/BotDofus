@@ -373,6 +373,7 @@
  <tabstops>
   <tabstop>pushButtonDisconnection</tabstop>
   <tabstop>pushButtonFile</tabstop>
+  <tabstop>pushButtonGroupSettings</tabstop>
   <tabstop>pushButtonClose</tabstop>
   <tabstop>tabWidget</tabstop>
  </tabstops>

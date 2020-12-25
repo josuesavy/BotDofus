@@ -113,6 +113,12 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>checkBoxEnableFlood</tabstop>
+  <tabstop>tableWidgetFlood</tabstop>
+  <tabstop>pushButtonAddFlood</tabstop>
+  <tabstop>pushButtonDeleteFlood</tabstop>
+ </tabstops>
  <resources>
   <include location="../../../../res/resources.qrc"/>
  </resources>

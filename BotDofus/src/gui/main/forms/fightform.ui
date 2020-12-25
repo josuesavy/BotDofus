@@ -22,7 +22,7 @@
  }</string>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_15">
       <attribute name="icon">
@@ -462,6 +462,21 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>tabWidgetFight</tabstop>
+  <tabstop>tableWidgetSpells</tabstop>
+  <tabstop>pushButtonMoveTopSpell</tabstop>
+  <tabstop>pushButtonMoveDownSpell</tabstop>
+  <tabstop>pushButtonAddSpell</tabstop>
+  <tabstop>pushButtonDeleteSpell</tabstop>
+  <tabstop>comboBoxPositionFight</tabstop>
+  <tabstop>comboBoxCloseFight</tabstop>
+  <tabstop>comboBoxSpectator</tabstop>
+  <tabstop>comboBoxSpeedFight</tabstop>
+  <tabstop>comboBoxBehavior</tabstop>
+  <tabstop>spinBoxRegenerationMin</tabstop>
+  <tabstop>spinBoxRegenerationMax</tabstop>
+ </tabstops>
  <resources>
   <include location="../../../../res/resources.qrc"/>
  </resources>

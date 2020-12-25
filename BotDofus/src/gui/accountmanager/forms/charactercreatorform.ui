@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>402</width>
-    <height>412</height>
+    <width>389</width>
+    <height>419</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -330,6 +330,27 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>listWidgetAccounts</tabstop>
+  <tabstop>groupBoxCreatePlayer</tabstop>
+  <tabstop>lineEditName</tabstop>
+  <tabstop>comboBoxServer</tabstop>
+  <tabstop>comboBoxBreed</tabstop>
+  <tabstop>comboBoxGender</tabstop>
+  <tabstop>comboBoxHead</tabstop>
+  <tabstop>checkBoxRandomBreed</tabstop>
+  <tabstop>checkBoxRandomGender</tabstop>
+  <tabstop>checkBoxRandomHead</tabstop>
+  <tabstop>checkBoxRandomColor</tabstop>
+  <tabstop>pushButtonSkin</tabstop>
+  <tabstop>pushButtonHair</tabstop>
+  <tabstop>pushButtonClothing_1</tabstop>
+  <tabstop>pushButtonClothing_2</tabstop>
+  <tabstop>pushButtonClothing_3</tabstop>
+  <tabstop>pushButtonResetColor</tabstop>
+  <tabstop>checkBoxSkipDidactiel</tabstop>
+  <tabstop>pushButtonSave</tabstop>
+ </tabstops>
  <resources>
   <include location="../../../../res/resources.qrc"/>
  </resources>

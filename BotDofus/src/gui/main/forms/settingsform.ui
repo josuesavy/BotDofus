@@ -1197,6 +1197,46 @@ border: 0px;</string>
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>tabWidgetOptions</tabstop>
+  <tabstop>checkBoxAutoReconnect</tabstop>
+  <tabstop>checkBoxAutoAcceptAchievement</tabstop>
+  <tabstop>comboBoxStatus</tabstop>
+  <tabstop>groupBox_6</tabstop>
+  <tabstop>lineEditHostProxy</tabstop>
+  <tabstop>spinBoxPortProxy</tabstop>
+  <tabstop>lineEditAccountProxy</tabstop>
+  <tabstop>lineEditPasswordProxy</tabstop>
+  <tabstop>pushButtonCheckAndApplyProxy</tabstop>
+  <tabstop>checkBoxEnablePlanif</tabstop>
+  <tabstop>pushButton_50</tabstop>
+  <tabstop>pushButton_51</tabstop>
+  <tabstop>pushButton</tabstop>
+  <tabstop>pushButton_3</tabstop>
+  <tabstop>pushButton_5</tabstop>
+  <tabstop>pushButton_7</tabstop>
+  <tabstop>pushButton_9</tabstop>
+  <tabstop>pushButton_13</tabstop>
+  <tabstop>pushButton_14</tabstop>
+  <tabstop>pushButton_17</tabstop>
+  <tabstop>pushButton_15</tabstop>
+  <tabstop>pushButton_22</tabstop>
+  <tabstop>pushButton_23</tabstop>
+  <tabstop>pushButton_19</tabstop>
+  <tabstop>pushButton_46</tabstop>
+  <tabstop>pushButton_38</tabstop>
+  <tabstop>pushButton_31</tabstop>
+  <tabstop>pushButton_40</tabstop>
+  <tabstop>pushButton_41</tabstop>
+  <tabstop>pushButton_36</tabstop>
+  <tabstop>pushButton_33</tabstop>
+  <tabstop>pushButton_47</tabstop>
+  <tabstop>pushButton_34</tabstop>
+  <tabstop>pushButton_45</tabstop>
+  <tabstop>pushButton_28</tabstop>
+  <tabstop>pushButton_48</tabstop>
+  <tabstop>pushButtonApply</tabstop>
+ </tabstops>
  <resources>
   <include location="../../../../res/resources.qrc"/>
  </resources>

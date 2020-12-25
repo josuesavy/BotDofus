@@ -211,6 +211,14 @@
    <header location="global">QtQuickWidgets/QQuickWidget</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>checkBoxDisplayCellIds</tabstop>
+  <tabstop>pushButtonTop</tabstop>
+  <tabstop>pushButtonLeft</tabstop>
+  <tabstop>pushButtonRight</tabstop>
+  <tabstop>pushButtonBottom</tabstop>
+  <tabstop>quickWidget</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
