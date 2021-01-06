@@ -113,18 +113,18 @@ void Map::initializeMap(CompressedMap *compressedMap)
     uchar backgroundcount = reader.readByte();
 
     for (int i = 0; i < backgroundcount; i++)
-        Fixture fixture(&reader);
+        m_backgroundFixtures<<Fixture(&reader);
 
     uchar foregroundcount = reader.readByte();
 
     for (int i = 0; i < foregroundcount; i++)
-        Fixture fixture(&reader);
+        m_foregroundFixtures<<Fixture(&reader);
 
     reader.readInt();
     int groundCRC = reader.readInt();
     uchar layerscount = reader.readByte();
     for (int i = 0; i < layerscount; i++)
-        Layer(&reader, this);
+        m_layers<<Layer(&reader, this);
 
     for (int i = 0; i < 560; i++)
         m_cellData<<CellData(i, &reader, this);
@@ -164,6 +164,21 @@ int Map::getSubAreaId() const
 QList<CellData> Map::getCellData() const
 {
     return m_cellData;
+}
+
+QList<Fixture> Map::getBackgroundFixtures() const
+{
+    return m_backgroundFixtures;
+}
+
+QList<Fixture> Map::getForegroundFixtures() const
+{
+    return m_foregroundFixtures;
+}
+
+QList<Layer> Map::getLayers() const
+{
+    return m_layers;
 }
 
 WorldPoint Map::getPosition() const

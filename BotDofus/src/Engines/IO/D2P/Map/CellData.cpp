@@ -14,6 +14,8 @@ CellData::CellData(int id, Reader *reader, Map *map)
         m_nonWalkableDuringFight = (tmpBytes& 2) != 0;
         m_nonWalkableDuringRP = (tmpBytes & 4) != 0;
         m_los = (tmpBytes & 8) == 0;
+        m_blue = (tmpBytes & 16) != 0;
+        m_red = (tmpBytes & 32) != 0;
         m_visible = (tmpBytes & 64) != 0;
         m_farmCell = (tmpBytes & 128) != 0;
 
@@ -58,12 +60,14 @@ CellData::CellData(int id, Reader *reader, Map *map)
         m_walkable = (losmov & 1) == 1;
         m_visible = (losmov & 64) >> 6 == 1;
         m_farmCell = (losmov & 32) >> 5 == 1;
+        m_blue = (losmov & 16) >> 4 == 1;
+        m_red = (losmov & 8) >> 3 == 1;
         m_nonWalkableDuringRP = (losmov & 128) >> 7 == 1;
         m_nonWalkableDuringFight = (losmov & 4) >> 2 == 1;
     }
 
     m_speed = reader->readByte();
-    m_mapChangeData = reader->readByte(); // a tester sinon de base c'est unsigned
+    m_mapChangeData = reader->readUByte();
 
     if(map->getMapVersion() > 5)
         m_moveZone = reader->readUByte();

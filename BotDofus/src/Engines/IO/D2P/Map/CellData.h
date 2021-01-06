@@ -41,4 +41,6 @@ private:
     bool m_visible;
     bool m_havenbagCell;
     bool m_los;
+    bool m_blue;
+    bool m_red;
 };
