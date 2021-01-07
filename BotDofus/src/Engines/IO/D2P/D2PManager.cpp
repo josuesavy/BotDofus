@@ -42,8 +42,12 @@ const QPixmap D2PManager::getImage(QString id)
     QByteArray data;
 
     foreach(D2PFile *file, m_folder_2->getFolderContent())
+    {
         if(file->getContentImage().contains(id))
+        {
             data = file->getContentImage().value(id)->getData();
+        }
+    }
 
     QPixmap img ;
     img.loadFromData(data);
@@ -101,7 +105,7 @@ CompressedMap* D2PManager::getCompressedMap(uint mapId)
         if ((*D2PFile)->getContentMap().contains(mapId) )
             return (*D2PFile)->getContentMap()[mapId];
 
-    qDebug()<<"ERREUR - D2PManager The map id"<<mapId<<"doesn't exist!";
+    qDebug()<<"ERROR - D2PManager The map id"<<mapId<<"doesn't exist!";
 
     return NULL;
 }

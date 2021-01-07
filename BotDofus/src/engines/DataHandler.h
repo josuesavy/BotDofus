@@ -845,19 +845,6 @@ struct GeneralData
     BotState botState = INVALID_STATE;
 };
 
-struct ArenaData
-{
-    PvpArenaStepEnum arenaCurrentStatus = PvpArenaStepEnum::ARENA_STEP_UNREGISTER;
-    uint arenaTypeFight = INVALID;
-    bool isArenaRegistered = false;
-    QList<double> arenaAlliesIds;
-    QList<double> arenaReadyPartyMemberIds;
-    ArenaRanksInfos arenaRankSoloInfos;
-    ArenaRanksInfos arenaRankDuelInfos;
-    ArenaRanksInfos arenaRankGroupInfos;
-    ArenaLeague arenaLeague;
-};
-
 struct StatisticsData
 {
     // Characteristics
@@ -910,19 +897,6 @@ struct StatisticsData
     int countTotalNewQuest = 0;
 };
 
-struct ShopData
-{
-    QList<RequestTradeObject> requestTradeObjectsInExchangeShop;
-    QList<RequestTradeObject> requestTradeObjectsInMerchand;
-    QList<RequestTradeObject> tradeObjectsInMerchand;
-    bool isReadyToMerchand = false;
-    QList<uint> typesItemsCanSell;
-    uint maxItemLevel = INVALID;
-    uint maxItemPerAccount = INVALID;
-    QList<uint> itemInSell;
-    QList<uint> objectsTypeSelected;
-};
-
 struct MerchandData
 {
     QList<QSharedPointer<ObjectItemToSell>> objectsItemToSell;
@@ -942,9 +916,7 @@ struct BotData
     ExchangeData exchangeData;
     ConnectionData connectionData;
     InteractionData interactionData;
-    ArenaData arenaData;
     StatisticsData statisticsData;
-    ShopData shopData;
     MerchandData merchandData;
 };
 

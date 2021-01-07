@@ -35,13 +35,6 @@ bool GameContextFightFrame::processMessage(const MessageInfos &data, SocketIO *s
 
         m_botData[sender].fightData.hasWon = hasWon;
 
-        if(m_botData[sender].fightData.fightType == FightTypeEnum::FIGHT_TYPE_PVP_ARENA)
-        {
-            m_botData[sender].arenaData.arenaCurrentStatus = PvpArenaStepEnum::ARENA_STEP_UNREGISTER;
-            m_botData[sender].arenaData.isArenaRegistered = false;
-            m_botData[sender].arenaData.arenaReadyPartyMemberIds.clear();
-        }
-
         if(m_botData[sender].fightData.fightType == FightTypeEnum::FIGHT_TYPE_AGRESSION)
         {
             if(hasWon)
@@ -104,14 +97,6 @@ bool GameContextFightFrame::processMessage(const MessageInfos &data, SocketIO *s
 
             if(m_botData[sender].fightData.fightType == FightTypeEnum::FIGHT_TYPE_AGRESSION)
                 warn(sender)<<"Aggression...";
-
-            else if(m_botData[sender].fightData.fightType == FightTypeEnum::FIGHT_TYPE_PVP_ARENA)
-            {
-                m_botData[sender].arenaData.arenaCurrentStatus = PvpArenaStepEnum::ARENA_STEP_STARTING_FIGHT;
-                m_botData[sender].arenaData.isArenaRegistered = false;
-
-                action(sender)<<"Début du koli";
-            }
 
             else
             {

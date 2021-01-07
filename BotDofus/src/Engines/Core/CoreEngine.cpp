@@ -46,7 +46,6 @@ CoreEngine::CoreEngine()
     m_frames.append(new GameContextRoleplayDeathFrame(&m_botData, static_cast<StatsManager*>(m_managers[ManagerType::STATS])));
     m_frames.append(new GameContextRoleplayEmoteFrame(&m_botData));
     m_frames.append(new GameContextRoleplayFightFrame(&m_botData));
-    m_frames.append(new GameContextRoleplayFightArenaFrame(&m_botData));
     m_frames.append(new GameContextRoleplayJobFrame(&m_botData));
     m_frames.append(new GameContextRoleplayNpcFrame(&m_botData, static_cast<InteractionManager*>(m_managers[ManagerType::INTERACTION])));
     m_frames.append(new GameContextRoleplayObjectsFrame(&m_botData));

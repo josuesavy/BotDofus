@@ -29,7 +29,6 @@
 #include "src/engines/core/process/frames/game/context/roleplay/death/GameContextRoleplayDeathFrame.h"
 #include "src/engines/core/process/frames/game/context/roleplay/emote/GameContextRoleplayEmoteFrame.h"
 #include "src/engines/core/process/frames/game/context/roleplay/fight/GameContextRoleplayFightFrame.h"
-#include "src/engines/core/process/frames/game/context/roleplay/fight/arena/GameContextRoleplayFightArenaFrame.h"
 #include "src/engines/core/process/frames/game/context/roleplay/job/GameContextRoleplayJobFrame.h"
 #include "src/engines/core/process/frames/game/context/roleplay/npc/GameContextRoleplayNpcFrame.h"
 #include "src/engines/core/process/frames/game/context/roleplay/objects/GameContextRoleplayObjectsFrame.h"
