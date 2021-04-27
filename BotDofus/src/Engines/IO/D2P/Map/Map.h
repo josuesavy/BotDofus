@@ -26,9 +26,9 @@ public:
     int getBottomMapId() const;
     int getSubAreaId() const;
     QList<CellData> getCellData() const;
-    QList<Fixture> getBackgroundFixtures() const;
-    QList<Fixture> getForegroundFixtures() const;
-    QList<Layer> getLayers() const;
+//    QList<Fixture> getBackgroundFixtures() const;
+//    QList<Fixture> getForegroundFixtures() const;
+//    QList<Layer> getLayers() const;
     WorldPoint getPosition() const;
     int getMapVersion() const;
     int getInteractiveElementCellID(int elementId) const;
@@ -56,9 +56,9 @@ private:
     int m_mapVersion;
     WorldPoint m_position;
     QList<CellData> m_cellData;
-    QList<Fixture> m_backgroundFixtures;
-    QList<Fixture> m_foregroundFixtures;
-    QList<Layer> m_layers;
+//    QList<Fixture> m_backgroundFixtures;
+//    QList<Fixture> m_foregroundFixtures;
+//    QList<Layer> m_layers;
     QMap<int, int> m_interactiveElements;
     QList<uint> m_fixedMapChangers;
     static QByteArray m_encryptionKey;

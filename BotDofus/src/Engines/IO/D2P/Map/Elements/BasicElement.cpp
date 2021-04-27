@@ -6,12 +6,16 @@ BasicElement::BasicElement(Reader *reader, Map *map, int cellId)
 
     switch ((ElementTypesEnum)be)
     {
-    case ElementTypesEnum::GRAPHICAL: {
-        GraphicalElement ge(reader, map, cellId); }
+    case ElementTypesEnum::GRAPHICAL:
+    {
+        GraphicalElement ge(reader, map, cellId);
+    }
         break;
 
-    case ElementTypesEnum::SOUND: {
-        SoundElement se(reader); }
+    case ElementTypesEnum::SOUND:
+    {
+        SoundElement se(reader);
+    }
         break;
 
     default:
