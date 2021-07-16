@@ -67,9 +67,12 @@ void FloodManager::sendChatMessage(SocketIO *sender, const QString &messageConte
 {
     if (m_botData[sender].connectionData.connectionState == ConnectionState::CONNECTED)
     {
+        QSharedPointer<PlayerSearchCharacterNameInformation> playerSearchCharacterNameInformation;
+        playerSearchCharacterNameInformation->name = receiver;
+
         ChatClientPrivateMessage message;
         message.content = messageContent.toUtf8();
-        message.receiver = receiver;
+        message.receiver = playerSearchCharacterNameInformation;
         sender->send(message);
     }
 }

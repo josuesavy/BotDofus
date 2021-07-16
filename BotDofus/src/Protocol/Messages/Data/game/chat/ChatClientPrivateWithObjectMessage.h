@@ -2,6 +2,7 @@
 #define CHATCLIENTPRIVATEWITHOBJECTMESSAGE_H
 
 #include "src/protocol/types/data/game/data/items/ObjectItem.h"
+#include "src/protocol/types/data/common/AbstractPlayerSearchInformation.h"
 #include "src/engines/io/network/utils/FuncTree.h"
 #include "src/protocol/messages/AbstractMessage.h"
 #include "src/protocol/messages/data/game/chat/ChatClientPrivateMessage.h"

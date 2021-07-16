@@ -1,6 +1,7 @@
 #ifndef IDENTIFICATIONSUCCESSMESSAGE_H
 #define IDENTIFICATIONSUCCESSMESSAGE_H
 
+#include "src/protocol/types/data/common/AccountTagInformation.h"
 #include "src/engines/io/network/utils/FuncTree.h"
 #include "src/engines/io/network/utils/BooleanByteWrapper.h"
 #include "src/protocol/messages/AbstractMessage.h"
@@ -17,7 +18,7 @@ public:
   IdentificationSuccessMessage();
 
   QString login;
-  QString nickname;
+  AccountTagInformation accountTag;
   uint accountId;
   uint communityId;
   bool hasRights;
@@ -32,7 +33,7 @@ public:
 private:
   void deserializeByteBoxes(Reader *input);
   void _loginFunc(Reader *input);
-  void _nicknameFunc(Reader *input);
+  void _accountTagtreeFunc(Reader *input);
   void _accountIdFunc(Reader *input);
   void _communityIdFunc(Reader *input);
   void _secretQuestionFunc(Reader *input);
@@ -40,6 +41,8 @@ private:
   void _subscriptionElapsedDurationFunc(Reader *input);
   void _subscriptionEndDateFunc(Reader *input);
   void _havenbagAvailableRoomFunc(Reader *input);
+
+  FuncTree _accountTagtree;
 };
 
 #endif // IDENTIFICATIONSUCCESSMESSAGE_H

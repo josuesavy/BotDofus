@@ -2,7 +2,7 @@
 #define CHARACTERSPELLMODIFICATION_H
 
 #include "src/protocol/types/AbstractClass.h"
-#include "src/protocol/types/data/game/character/characteristic/CharacterBaseCharacteristic.h"
+#include "src/protocol/types/data/game/character/characteristic/CharacterCharacteristicDetailed.h"
 #include "src/engines/io/network/utils/FuncTree.h"
 
 class CharacterSpellModification : public AbstractClass
@@ -19,7 +19,7 @@ public:
 
   uint modificationType;
   uint spellId;
-  CharacterBaseCharacteristic value;
+  QSharedPointer<CharacterCharacteristicDetailed> value;
 
 private:
   void _modificationTypeFunc(Reader *input);

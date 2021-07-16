@@ -14,6 +14,7 @@ public:
   QRect getBounds() const;
   uint getWorldmapId() const;
   bool getHasWorldMap() const;
+  bool getHasSuggestion() const;
   QString getName() const;
   virtual void loadData(const QList<D2OField*> &fields, I18nFile *I18n);
 
@@ -25,6 +26,7 @@ public:
   QRect m_bounds;
   uint m_worldmapId;
   bool m_hasWorldMap;
+  bool m_hasSuggestion;
 };
 
 #endif // AREADATA_H

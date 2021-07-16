@@ -16,7 +16,7 @@ public:
   void deserializeAsyncAs_CharacterStatsListMessage(FuncTree tree);
   CharacterStatsListMessage();
 
-  CharacterCharacteristicsInformations stats;
+  QSharedPointer<CharacterCharacteristicsInformations> stats;
 
 private:
   void _statstreeFunc(Reader *input);

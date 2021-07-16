@@ -1,7 +1,9 @@
 #ifndef FRIENDADDREQUESTMESSAGE_H
 #define FRIENDADDREQUESTMESSAGE_H
 
+#include "src/protocol/types/data/common/AbstractPlayerSearchInformation.h"
 #include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/types/ClassManager.h"
 #include "src/protocol/messages/AbstractMessage.h"
 
 class FriendAddRequestMessage : public AbstractMessage
@@ -15,10 +17,12 @@ public:
   void deserializeAsyncAs_FriendAddRequestMessage(FuncTree tree);
   FriendAddRequestMessage();
 
-  QString name;
+  QSharedPointer<AbstractPlayerSearchInformation> target;
 
 private:
-  void _nameFunc(Reader *input);
+  void _targettreeFunc(Reader *input);
+
+  FuncTree _targettree;
 };
 
 #endif // FRIENDADDREQUESTMESSAGE_H

@@ -4,6 +4,7 @@
 #include "src/protocol/types/AbstractClass.h"
 #include "src/protocol/types/data/game/character/status/PlayerStatus.h"
 #include "src/protocol/types/data/game/friend/AcquaintanceInformation.h"
+#include "src/protocol/types/data/common/AccountTagInformation.h"
 #include "src/protocol/types/ClassManager.h"
 #include "src/engines/io/network/utils/FuncTree.h"
 

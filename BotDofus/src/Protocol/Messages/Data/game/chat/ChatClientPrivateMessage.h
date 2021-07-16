@@ -1,7 +1,9 @@
 #ifndef CHATCLIENTPRIVATEMESSAGE_H
 #define CHATCLIENTPRIVATEMESSAGE_H
 
+#include "src/protocol/types/data/common/AbstractPlayerSearchInformation.h"
 #include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/types/ClassManager.h"
 #include "src/protocol/messages/AbstractMessage.h"
 #include "src/protocol/messages/data/game/chat/ChatAbstractClientMessage.h"
 
@@ -16,10 +18,12 @@ public:
   void deserializeAsyncAs_ChatClientPrivateMessage(FuncTree tree);
   ChatClientPrivateMessage();
 
-  QString receiver;
+  QSharedPointer<AbstractPlayerSearchInformation> receiver;
 
 private:
-  void _receiverFunc(Reader *input);
+  void _receivertreeFunc(Reader *input);
+
+  FuncTree _receivertree;
 };
 
 #endif // CHATCLIENTPRIVATEMESSAGE_H

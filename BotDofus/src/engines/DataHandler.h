@@ -32,9 +32,9 @@ struct Point3D : Point2D
 enum class DofusVersion
 {
     MAJOR = 2,
-    MINOR = 58,
-    CODE = 3,
-    BUILD = 3,
+    MINOR = 60,
+    CODE = 1,
+    BUILD = 4,
 };
 
 enum class SuperTypeId
@@ -50,6 +50,142 @@ enum class SuperTypeId
     DOFUS = 13,
     COMPANION = 23,
     PETS_OR_MOUNT = 12,
+};
+
+enum class StatIds
+{
+    UNKNOWN = -1,
+    LIFE_POINTS = 97,
+    ACTION_POINTS = 1,
+    STATS_POINTS,
+    SPELL_POINTS,
+    LEVEL,
+    STRENGTH = 10,
+    VITALITY = 11,
+    WISDOM = 12,
+    CHANCE = 13,
+    AGILITY = 14,
+    INTELLIGENCE = 15,
+    ALL_DAMAGES_BONUS = 16,
+    DAMAGES_FACTOR,
+    CRITICAL_HIT = 18,
+    RANGE = 19,
+    DAMAGES_PHYSICAL_REDUCTION,
+    EXPERIENCE_BOOST,
+    MOVEMENT_POINTS = 23,
+    INVISIBILITY = 24,
+    DAMAGES_PERCENT,
+    MAX_SUMMONED_CREATURES_BOOST,
+    DODGE_PA_LOST_PROBABILITY = 27,
+    DODGE_PM_LOST_PROBABILITY = 28,
+    ENERGY_POINTS = 29,
+    ALIGNMENT_VALUE,
+    WEAPON_DAMAGES_PERCENT,
+    PHYSICAL_DAMAGES_BONUS = 32,
+    EARTH_ELEMENT_RESIST_PERCENT = 33,
+    FIRE_ELEMENT_RESIST_PERCENT = 34,
+    WATER_ELEMENT_RESIST_PERCENT = 35,
+    AIR_ELEMENT_RESIST_PERCENT = 36,
+    NEUTRAL_ELEMENT_RESIST_PERCENT = 37,
+    DIFFERENT_LOOK,
+    CRITICAL_MISS = 39,
+    WEIGHT,
+    RESTRICTION_ON_MYSELF,
+    RESTRICTION_ON_OTHER,
+    ALIGNMENT_SIDE,
+    INITIATIVE = 44,
+    SHOP_REDUCTION_PERCENTAGE,
+    ALIGNMENT_RANK,
+    MAX_ENERGY_POINTS = 47,
+    MAGIC_FIND,
+    HEAL_BONUS = 49,
+    REFLECT_DAMAGE = 50,
+    ENERGY_LOOSE,
+    HONOUR_POINTS,
+    DISHOUNOUR_POINTS,
+    EARTH_ELEMENT_REDUCTION = 54,
+    FIRE_ELEMENT_REDUCTION = 55,
+    WATER_ELEMENT_REDUCTION = 56,
+    AIR_ELEMENT_REDUCTION = 57,
+    NEUTRAL_ELEMENT_REDUCTION = 58,
+    PVP_EARTH_ELEMENT_RESIST_PERCENT = 59,
+    PVP_FIRE_ELEMENT_RESIST_PERCENT = 60,
+    PVP_WATER_ELEMENT_RESIST_PERCENT = 61,
+    PVP_AIR_ELEMENT_RESIST_PERCENT = 62,
+    PVP_NEUTRAL_ELEMENT_RESIST_PERCENT = 63,
+    PVP_EARTH_ELEMENT_REDUCTION = 64,
+    PVP_FIRE_ELEMENT_REDUCTION = 65,
+    PVP_WATER_ELEMENT_REDUCTION = 66,
+    PVP_AIR_ELEMENT_REDUCTION = 67,
+    PVP_NEUTRAL_ELEMENT_REDUCTION = 68,
+    TRAP_DAMAGE_BONUS_PERCENT = 69,
+    TRAP_DAMAGE_BONUS,
+    FAKE_SKILL_FOR_STATES,
+    SOUL_CAPTURE_BONUS,
+    RIDE_XP_BONUS,
+    CONFUSION = 74,
+    PERMANENT_DAMAGE_PERCENT = 75,
+    UNLUCKY = 76,
+    MAXIMIZE_ROLL = 77,
+    TACKLE_EVADE = 78,
+    TACKLE_BLOCK = 79,
+    ALLIANCE_AUTO_AGGRESS_RANGE,
+    ALLIANCE_AUTO_AGGRESS_RESISTANCE,
+    AP_ATTACK = 82,
+    MP_ATTACK = 83,
+    PUSH_DAMAGE_BONUS = 84,
+    PUSH_DAMAGE_REDUCTION = 85,
+    CRITICAL_DAMAGE_BONUS = 86,
+    CRITICAL_DAMAGE_REDUCTION = 87,
+    EARTH_DAMAGE_BONUS = 88,
+    FIRE_DAMAGE_BONUS = 89,
+    WATER_DAMAGE_BONUS = 90,
+    AIR_DAMAGE_BONUS = 91,
+    NEUTRAL_DAMAGE_BONUS = 92,
+    MAX_BOMB_SUMMON = 93,
+    BOMB_COMBO_BONUS = 94,
+    MAX_LIFE = 95,
+    SHIELD = 96,
+    CUR_LIFE,
+    DAMAGES_PERCENT_SPELL = 98,
+    EXTRA_SCALE_FLAT,
+    PASS_TURN,
+    RESIST_PERCENT = 101,
+    CUR_PERMANENT_DAMAGE = 102,
+    WEAPON_POWER = 103,
+    INCOMING_DAMAGE_PERCENT_MULTIPLICATOR = 104,
+    INCOMING_DAMAGE_HEAL_PERCENT_MULTIPLICATOR = 105,
+    GLYPH_POWER = 106,
+    DEALT_DAMAGE_MULTIPLIER = 107,
+    STOP_XP,
+    HUNTER,
+    RUNE_POWER = 110,
+    DEALT_DAMAGE_MULTIPLIER_MELEE,
+    DEALT_DAMAGE_MULTIPLIER_DISTANCE,
+    DEALT_DAMAGE_MULTIPLIER_WEAPON,
+    RECEIVED_DAMAGE_MULTIPLIER_MELEE,
+    DEALT_DAMAGE_MULTIPLIER_SPELLS,
+    RECEIVED_DAMAGE_MULTIPLIER_DISTANCE,
+    RECEIVED_DAMAGE_MULTIPLIER_WEAPON,
+    RECEIVED_DAMAGE_MULTIPLIER_SPELLS,
+    AGILITY_INITIAL_PERCENT,
+    STRENGTH_INITIAL_PERCENT,
+    CHANCE_INITIAL_PERCENT,
+    INTELLIGENCE_INITIAL_PERCENT,
+    VITALITY_INITIAL_PERCENT,
+    WISDOM_INITIAL_PERCENT,
+    TACKLE_EVADE_INITIAL_PERCENT,
+    TACKLE_BLOCK_INITIAL_PERCENT,
+    ACTION_POINTS_INITIAL_PERCENT,
+    MOVEMENT_POINTS_INITIAL_PERCENT,
+    AP_ATTACK_INITIAL_PERCENT,
+    MP_ATTACK_INITIAL_PERCENT,
+    DODGE_PA_LOST_PROBABILITY_INITIAL_PERCENT,
+    DODGE_PM_LOST_PROBABILITY_INITIAL_PERCENT,
+    EXTRA_SCALE_PERCENT,
+    CHARAC_COUNT,
+    MAX_ACTION_POINTS = 144,
+    MAX_MOVEMENT_POINTS = 145,
 };
 
 enum class CurrentInteraction
@@ -171,84 +307,17 @@ struct InventoryObject
 
 struct Stats
 {
-    Pods pods;
-    short criticalHitWeapon = INVALID;
-    int agressable = INVALID;
-    int experience = INVALID;
-    int experienceLevelFloor = INVALID;
-    int experienceNextLevelFloor = INVALID;
-    int statsPoints = INVALID;
-    int spellsPoints = INVALID;
-    int lifePoints = INVALID;
-    int maxLifePoints = INVALID;
-    int energyPoints = INVALID;
-    int maxEnergyPoints = INVALID;
-    int actionPointsCurrent = INVALID;
-    int movementPointsCurrent = INVALID;
-    int statsRequiredIntelligence = INVALID;
-    int statsRequiredAgility = INVALID;
-    int statsRequiredChance = INVALID;
-    int statsRequiredWisdom = INVALID;
-    int statsRequiredVitality = INVALID;
-    int statsRequiredStrength = INVALID;
-    CharacterBaseCharacteristic initiative;
-    CharacterBaseCharacteristic prospecting;
-    CharacterBaseCharacteristic actionPoints;
-    CharacterBaseCharacteristic movementPoints;
-    CharacterBaseCharacteristic strength;
-    CharacterBaseCharacteristic vitality; 
-    CharacterBaseCharacteristic wisdom;
-    CharacterBaseCharacteristic chance;
-    CharacterBaseCharacteristic agility;
-    CharacterBaseCharacteristic intelligence;
-    CharacterBaseCharacteristic range;
-    CharacterBaseCharacteristic summonableCreaturesBoost;
-    CharacterBaseCharacteristic reflect;
-    CharacterBaseCharacteristic criticalHit; 
-    CharacterBaseCharacteristic criticalMiss;
-    CharacterBaseCharacteristic healBonus;
-    CharacterBaseCharacteristic allDamagesBonus;
-    CharacterBaseCharacteristic weaponDamagesBonusPercent;
-    CharacterBaseCharacteristic damagesBonusPercent;
-    CharacterBaseCharacteristic trapBonus;
-    CharacterBaseCharacteristic glyphBonusPercent;
-    CharacterBaseCharacteristic trapBonusPercent;
-    CharacterBaseCharacteristic permanentDamagePercent;
-    CharacterBaseCharacteristic tackleBlock;
-    CharacterBaseCharacteristic tackleEvade;
-    CharacterBaseCharacteristic PAAttack;
-    CharacterBaseCharacteristic PMAttack;
-    CharacterBaseCharacteristic pushDamageBonus;
-    CharacterBaseCharacteristic criticalDamageBonus;
-    CharacterBaseCharacteristic neutralDamageBonus;
-    CharacterBaseCharacteristic earthDamageBonus;
-    CharacterBaseCharacteristic waterDamageBonus;
-    CharacterBaseCharacteristic airDamageBonus;
-    CharacterBaseCharacteristic fireDamageBonus;
-    CharacterBaseCharacteristic dodgePALostProbability;
-    CharacterBaseCharacteristic dodgePMLostProbability;
-    CharacterBaseCharacteristic neutralElementResistPercent;
-    CharacterBaseCharacteristic earthElementResistPercent;
-    CharacterBaseCharacteristic waterElementResistPercent;
-    CharacterBaseCharacteristic airElementResistPercent;
-    CharacterBaseCharacteristic fireElementResistPercent;
-    CharacterBaseCharacteristic neutralElementReduction;
-    CharacterBaseCharacteristic earthElementReduction;
-    CharacterBaseCharacteristic waterElementReduction;
-    CharacterBaseCharacteristic airElementReduction;
-    CharacterBaseCharacteristic fireElementReduction;
-    CharacterBaseCharacteristic pushDamageReduction;
-    CharacterBaseCharacteristic criticalDamageReduction;
-    CharacterBaseCharacteristic pvpNeutralElementResistPercent;
-    CharacterBaseCharacteristic pvpEarthElementResistPercent;
-    CharacterBaseCharacteristic pvpWaterElementResistPercent;
-    CharacterBaseCharacteristic pvpAirElementResistPercent;
-    CharacterBaseCharacteristic pvpFireElementResistPercent;
-    CharacterBaseCharacteristic pvpNeutralElementReduction;
-    CharacterBaseCharacteristic pvpEarthElementReduction;
-    CharacterBaseCharacteristic pvpWaterElementReduction;
-    CharacterBaseCharacteristic pvpAirElementReduction;
-    CharacterBaseCharacteristic pvpFireElementReduction;
+    int characteristicId = INVALID;
+    int total = INVALID;
+};
+
+struct DetailedStats : Stats
+{
+    int base;
+    int additional;
+    int objectsAndMountBonus;
+    int alignGiftBonus;
+    int contextModif;
 };
 
 
@@ -371,7 +440,9 @@ struct MerchantInfos
     double merchantId = INVALID;
     uint sellType = INVALID;
     int cellId = INVALID;
+    int direction = INVALID;
     QList<QSharedPointer<HumanOption>> options;
+    QSharedPointer<EntityLook> look;
 };
 
 struct NpcDisplayInfos
@@ -410,7 +481,10 @@ struct EntityInfos
 struct FightEntityInfos : EntityInfos
 {
     bool isAlive = true;
-    GameFightMinimalStats stats;
+    QMap<uint,DetailedStats> stats;
+    double summoner;
+    bool summoned;
+    uint invisibilityState;
     TeamEnum teamId = TeamEnum::TEAM_SPECTATOR;
 };
 
@@ -697,6 +771,7 @@ struct MapData
     QList<ChangeMapRequest> requestedMaps;
     QMap<uint, MonsterGroup> monsterGroupsOnMap;
     QList<InteractiveElementInfos> interactivesOnMap;
+    QList<InteractiveElementInfos> doorsOnMap;
     RequestedPathInfos requestedPath;
     MovingConfirmationRequest confirmationRequest;
     QMap<uint, uint> objectGroundListAdded;
@@ -704,7 +779,9 @@ struct MapData
 
 struct PlayerData
 {
-    Stats stats;
+    QMap<uint,DetailedStats> stats;
+    QList<QSharedPointer<CharacterSpellModification>> spellModifications;
+    Pods pods;
     uint kamas = 0;
     uint dofus = 0;
     bool ring = false;
@@ -730,6 +807,16 @@ struct PlayerData
     PlayerLifeStatusEnum lifeStatus = PlayerLifeStatusEnum::STATUS_ALIVE_AND_KICKING;
     QPixmap headPixmap;
     QPixmap fullPixmap;
+
+    int experience = INVALID;
+    int experienceLevelFloor = INVALID;
+    int experienceNextLevelFloor = INVALID;
+    int statsRequiredIntelligence = INVALID;
+    int statsRequiredAgility = INVALID;
+    int statsRequiredChance = INVALID;
+    int statsRequiredWisdom = INVALID;
+    int statsRequiredVitality = INVALID;
+    int statsRequiredStrength = INVALID;
 };
 
 struct ConnectionData

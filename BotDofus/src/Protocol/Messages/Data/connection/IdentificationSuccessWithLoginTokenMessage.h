@@ -1,6 +1,7 @@
 #ifndef IDENTIFICATIONSUCCESSWITHLOGINTOKENMESSAGE_H
 #define IDENTIFICATIONSUCCESSWITHLOGINTOKENMESSAGE_H
 
+#include "src/protocol/types/data/common/AccountTagInformation.h"
 #include "src/engines/io/network/utils/FuncTree.h"
 #include "src/protocol/messages/AbstractMessage.h"
 #include "src/protocol/messages/data/connection/IdentificationSuccessMessage.h"

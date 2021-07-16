@@ -21,13 +21,15 @@ public:
 
   double masterId;
   double slaveId;
+  uint slaveTurn;
   QList<SpellItem> slaveSpells;
-  CharacterCharacteristicsInformations slaveStats;
+  QSharedPointer<CharacterCharacteristicsInformations> slaveStats;
   QList<QSharedPointer<Shortcut>> shortcuts;
 
 private:
   void _masterIdFunc(Reader *input);
   void _slaveIdFunc(Reader *input);
+  void _slaveTurnFunc(Reader *input);
   void _slaveSpellstreeFunc(Reader *input);
   void _slaveSpellsFunc(Reader *input);
   void _slaveStatstreeFunc(Reader *input);

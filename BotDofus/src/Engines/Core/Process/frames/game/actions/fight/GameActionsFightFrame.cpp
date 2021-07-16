@@ -24,7 +24,7 @@ bool GameActionsFightFrame::processMessage(const MessageInfos &data, SocketIO *s
         message.deserialize(&reader);
 
         m_botData[sender].fightData.fighters[message.targetId].isAlive = false;
-        m_botData[sender].fightData.fighters[message.targetId].stats.lifePoints = 0;
+        m_botData[sender].fightData.fighters[message.targetId].stats[(uint)StatIds::LIFE_POINTS].total = 0;
     }
         break;
 
@@ -51,10 +51,10 @@ bool GameActionsFightFrame::processMessage(const MessageInfos &data, SocketIO *s
             QSharedPointer<FightTemporaryBoostEffect> effect = qSharedPointerCast<FightTemporaryBoostEffect>(message.effect);
 
             if (message.actionId == 168)
-                m_botData[sender].fightData.fighters[message.sourceId].stats.actionPoints -= effect->delta;
+                m_botData[sender].fightData.fighters[message.sourceId].stats[(uint)StatIds::ACTION_POINTS].total -= effect->delta;
 
             else if (message.actionId == 169)
-                m_botData[sender].fightData.fighters[message.sourceId].stats.actionPoints -= effect->delta;
+                m_botData[sender].fightData.fighters[message.sourceId].stats[(uint)StatIds::ACTION_POINTS].total -= effect->delta;
         }
     }
         break;
@@ -64,13 +64,13 @@ bool GameActionsFightFrame::processMessage(const MessageInfos &data, SocketIO *s
         GameActionFightLifeAndShieldPointsLostMessage message;
         message.deserialize(&reader);
 
-        m_botData[sender].fightData.fighters[message.targetId].stats.lifePoints -= message.loss;
-        m_botData[sender].fightData.fighters[message.targetId].stats.maxLifePoints -= message.permanentDamages;
+        m_botData[sender].fightData.fighters[message.targetId].stats[(uint)StatIds::LIFE_POINTS].total -= message.loss;
+        m_botData[sender].fightData.fighters[message.targetId].stats[(uint)StatIds::MAX_LIFE].total -= message.permanentDamages;
 
         if(m_botData[sender].fightData.botFightData.botId == message.targetId)
         {
-            m_botData[sender].playerData.stats.lifePoints -= message.loss;
-            m_botData[sender].playerData.stats.maxLifePoints -= message.permanentDamages;
+            m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].total -= message.loss;
+            m_botData[sender].playerData.stats[(uint)StatIds::MAX_LIFE].total -= message.permanentDamages;
         }
     }
         break;
@@ -80,10 +80,10 @@ bool GameActionsFightFrame::processMessage(const MessageInfos &data, SocketIO *s
         GameActionFightLifePointsGainMessage message;
         message.deserialize(&reader);
 
-        m_botData[sender].fightData.fighters[message.targetId].stats.lifePoints += message.delta;
+        m_botData[sender].fightData.fighters[message.targetId].stats[(uint)StatIds::LIFE_POINTS].total += message.delta;
 
         if(m_botData[sender].fightData.botFightData.botId == message.targetId)
-            m_botData[sender].playerData.stats.lifePoints += message.delta;
+            m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].total += message.delta;
     }
         break;
 
@@ -92,13 +92,13 @@ bool GameActionsFightFrame::processMessage(const MessageInfos &data, SocketIO *s
         GameActionFightLifePointsLostMessage message;
         message.deserialize(&reader);
 
-        m_botData[sender].fightData.fighters[message.targetId].stats.lifePoints -= message.loss;
-        m_botData[sender].fightData.fighters[message.targetId].stats.maxLifePoints -= message.permanentDamages;
+        m_botData[sender].fightData.fighters[message.targetId].stats[(uint)StatIds::LIFE_POINTS].total -= message.loss;
+        m_botData[sender].fightData.fighters[message.targetId].stats[(uint)StatIds::MAX_LIFE].total -= message.permanentDamages;
 
         if(m_botData[sender].fightData.botFightData.botId == message.targetId)
         {
-            m_botData[sender].playerData.stats.lifePoints -= message.loss;
-            m_botData[sender].playerData.stats.maxLifePoints -= message.permanentDamages;
+            m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].total -= message.loss;
+            m_botData[sender].playerData.stats[(uint)StatIds::MAX_LIFE].total -= message.permanentDamages;
         }
     }
         break;
@@ -117,12 +117,12 @@ bool GameActionsFightFrame::processMessage(const MessageInfos &data, SocketIO *s
         case 101:
         case 102:
         case 120:
-            m_botData[sender].fightData.fighters[message.sourceId].stats.actionPoints += message.delta;
+            m_botData[sender].fightData.fighters[message.sourceId].stats[(uint)StatIds::ACTION_POINTS].total += message.delta;
             break;
         case 78:
         case 127:
         case 129:
-            m_botData[sender].fightData.fighters[message.sourceId].stats.movementPoints += message.delta;
+            m_botData[sender].fightData.fighters[message.sourceId].stats[(uint)StatIds::MOVEMENT_POINTS].total += message.delta;
             break;
         }
     }

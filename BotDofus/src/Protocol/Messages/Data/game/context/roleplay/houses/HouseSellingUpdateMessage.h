@@ -1,6 +1,7 @@
 #ifndef HOUSESELLINGUPDATEMESSAGE_H
 #define HOUSESELLINGUPDATEMESSAGE_H
 
+#include "src/protocol/types/data/common/AccountTagInformation.h"
 #include "src/engines/io/network/utils/FuncTree.h"
 #include "src/protocol/messages/AbstractMessage.h"
 
@@ -19,14 +20,16 @@ public:
   uint instanceId;
   bool secondHand;
   double realPrice;
-  QString buyerName;
+  AccountTagInformation buyerTag;
 
 private:
   void _houseIdFunc(Reader *input);
   void _instanceIdFunc(Reader *input);
   void _secondHandFunc(Reader *input);
   void _realPriceFunc(Reader *input);
-  void _buyerNameFunc(Reader *input);
+  void _buyerTagtreeFunc(Reader *input);
+
+  FuncTree _buyerTagtree;
 };
 
 #endif // HOUSESELLINGUPDATEMESSAGE_H

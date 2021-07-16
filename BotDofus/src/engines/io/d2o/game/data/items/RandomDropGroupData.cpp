@@ -20,6 +20,11 @@ QList<RandomDropItemData> RandomDropGroupData::getRandomDropItems() const
   return m_randomDropItems;
 }
 
+bool RandomDropGroupData::getDisplayContent() const
+{
+  return m_displayContent;
+}
+
 bool RandomDropGroupData::getDisplayChances() const
 {
   return m_displayChances;
@@ -45,6 +50,9 @@ void RandomDropGroupData::loadData(const QList<D2OField*> &fields, I18nFile *I18
       foreach(const QByteArray &data, readVector(field->getValue()))
           m_randomDropItems << *qSharedPointerCast<RandomDropItemData>(readObject(data, field)).data();
     }
+    
+    else if(field->getName() == "displayContent")
+        m_displayContent = readBool(field->getValue());
     
     else if(field->getName() == "displayChances")
         m_displayChances = readBool(field->getValue());

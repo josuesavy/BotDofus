@@ -72,84 +72,43 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
     {
         CharacterStatsListMessage message;
         message.deserialize(&reader);
-        Stats temp;
-        temp.spellsPoints = message.stats.spellsPoints;
-        temp.lifePoints = message.stats.lifePoints;
-        temp.maxLifePoints = message.stats.maxLifePoints;
-        temp.energyPoints = message.stats.energyPoints;
-        temp.maxEnergyPoints = message.stats.maxEnergyPoints;
-        temp.actionPointsCurrent = message.stats.actionPointsCurrent;
-        temp.movementPointsCurrent = message.stats.movementPointsCurrent;
-        temp.initiative = message.stats.initiative;
-        temp.prospecting = message.stats.prospecting;
-        temp.actionPoints = message.stats.actionPoints;
-        temp.movementPoints = message.stats.movementPoints;
-        temp.strength = message.stats.strength;
-        temp.vitality = message.stats.vitality;
-        temp.wisdom = message.stats.wisdom;
-        temp.chance = message.stats.chance;
-        temp.agility = message.stats.agility;
-        temp.intelligence = message.stats.intelligence;
-        temp.range = message.stats.range;
-        temp.summonableCreaturesBoost = message.stats.summonableCreaturesBoost;
-        temp.reflect = message.stats.reflect;
-        temp.criticalHit = message.stats.criticalHit;
-        temp.criticalHitWeapon = message.stats.criticalHitWeapon;
-        temp.criticalMiss = message.stats.criticalMiss;
-        temp.healBonus = message.stats.healBonus;
-        temp.allDamagesBonus = message.stats.allDamagesBonus;
-        temp.weaponDamagesBonusPercent = message.stats.weaponDamagesBonusPercent;
-        temp.damagesBonusPercent = message.stats.damagesBonusPercent;
-        temp.trapBonus = message.stats.trapBonus;
-        temp.glyphBonusPercent = message.stats.glyphBonusPercent;
-        temp.trapBonusPercent = message.stats.trapBonusPercent;
-        temp.permanentDamagePercent = message.stats.permanentDamagePercent;
-        temp.tackleBlock = message.stats.tackleBlock;
-        temp.tackleEvade = message.stats.tackleEvade;
-        temp.PAAttack = message.stats.PAAttack;
-        temp.PMAttack = message.stats.PMAttack;
-        temp.pushDamageBonus = message.stats.pushDamageBonus;
-        temp.criticalDamageBonus = message.stats.criticalDamageBonus;
-        temp.neutralDamageBonus = message.stats.neutralDamageBonus;
-        temp.earthDamageBonus = message.stats.earthDamageBonus;
-        temp.waterDamageBonus = message.stats.waterDamageBonus;
-        temp.airDamageBonus = message.stats.airDamageBonus;
-        temp.fireDamageBonus = message.stats.fireDamageBonus;
-        temp.dodgePALostProbability = message.stats.dodgePALostProbability;
-        temp.dodgePMLostProbability = message.stats.dodgePMLostProbability;
-        temp.neutralElementResistPercent = message.stats.neutralElementResistPercent;
-        temp.earthElementResistPercent = message.stats.earthElementResistPercent;
-        temp.waterElementResistPercent = message.stats.waterElementResistPercent;
-        temp.airElementResistPercent = message.stats.airElementResistPercent;
-        temp.fireElementResistPercent = message.stats.fireElementResistPercent;
-        temp.neutralElementReduction = message.stats.neutralElementReduction;
-        temp.earthElementReduction = message.stats.earthElementReduction;
-        temp.waterElementReduction = message.stats.waterElementReduction;
-        temp.airElementReduction = message.stats.airElementReduction;
-        temp.fireElementReduction = message.stats.fireElementReduction;
-        temp.pushDamageReduction = message.stats.pushDamageReduction;
-        temp.criticalDamageReduction = message.stats.criticalDamageReduction;
-        temp.pvpNeutralElementResistPercent = message.stats.pvpNeutralElementResistPercent;
-        temp.pvpEarthElementResistPercent = message.stats.pvpEarthElementResistPercent;
-        temp.pvpWaterElementResistPercent = message.stats.pvpWaterElementResistPercent;
-        temp.pvpAirElementResistPercent = message.stats.pvpAirElementResistPercent;
-        temp.pvpFireElementResistPercent = message.stats.pvpFireElementResistPercent;
-        temp.pvpNeutralElementReduction = message.stats.pvpNeutralElementReduction;
-        temp.pvpEarthElementReduction = message.stats.pvpEarthElementReduction;
-        temp.pvpWaterElementReduction = message.stats.pvpWaterElementReduction;
-        temp.pvpAirElementReduction = message.stats.pvpAirElementReduction;
-        temp.pvpFireElementReduction = message.stats.pvpFireElementReduction;
-        temp.experience = message.stats.experience;
-        temp.experienceLevelFloor = message.stats.experienceLevelFloor;
-        temp.experienceNextLevelFloor = message.stats.experienceNextLevelFloor;
-        temp.spellsPoints = message.stats.spellsPoints;
-        temp.statsPoints = message.stats.statsPoints;
 
-        if (temp.pods.max == 0)
-            temp.pods = m_botData[sender].playerData.stats.pods;
+        QMap<uint,DetailedStats> temp;
+
+        foreach (QSharedPointer<CharacterCharacteristic> characterCharacteristic, message.stats->characteristics)
+        {
+            if (characterCharacteristic->getTypes().contains(ClassEnum::CHARACTERCHARACTERISTICDETAILED))
+            {
+                QSharedPointer<CharacterCharacteristicDetailed> characterCharacteristicDetailed = qSharedPointerCast<CharacterCharacteristicDetailed>(characterCharacteristic);
+
+                DetailedStats tempDetailedStats;
+                tempDetailedStats.base = characterCharacteristicDetailed->base;
+                tempDetailedStats.additional = characterCharacteristicDetailed->additional;
+                tempDetailedStats.objectsAndMountBonus = characterCharacteristicDetailed->objectsAndMountBonus;
+                tempDetailedStats.alignGiftBonus = characterCharacteristicDetailed->alignGiftBonus;
+                tempDetailedStats.contextModif = characterCharacteristicDetailed->contextModif;
+
+                temp[characterCharacteristic->characteristicId] = tempDetailedStats;
+            }
+
+            else if (characterCharacteristic->getTypes().contains(ClassEnum::CHARACTERCHARACTERISTICVALUE))
+            {
+                QSharedPointer<CharacterCharacteristicValue> characterCharacteristicValue = qSharedPointerCast<CharacterCharacteristicValue>(characterCharacteristic);
+
+                DetailedStats tempStats;
+                tempStats.total = characterCharacteristicValue->total;
+
+                temp[characterCharacteristicValue->characteristicId] = tempStats;
+            }
+        }
+
+        m_botData[sender].playerData.experience = message.stats->experience;
+        m_botData[sender].playerData.experienceLevelFloor = message.stats->experienceLevelFloor;
+        m_botData[sender].playerData.experienceNextLevelFloor = message.stats->experienceNextLevelFloor;
+        m_botData[sender].playerData.spellModifications = message.stats->spellModifications;
 
         m_botData[sender].playerData.stats = temp;
-        m_botData[sender].playerData.kamas = message.stats.kamas;
+        m_botData[sender].playerData.kamas = message.stats->kamas;
 
         m_statsManager->updateRequiredStats(sender);
 
@@ -182,8 +141,8 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
         if (m_botData[sender].generalData.botState == BotState::REGENERATING_STATE)
         {
             double p = (double)m_botData[sender].playerData.healPercentage/100.0;
-            int max = m_botData[sender].playerData.stats.maxLifePoints;
-            int life = m_botData[sender].playerData.stats.lifePoints;
+            int max = m_botData[sender].playerData.stats[(uint)StatIds::MAX_LIFE].total;
+            int life = m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].total;
 
             if (p*max >= life)
             {
@@ -236,8 +195,8 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
     {
         UpdateLifePointsMessage message;
         message.deserialize(&reader);
-        m_botData[sender].playerData.stats.lifePoints = message.lifePoints;
-        m_botData[sender].playerData.stats.maxLifePoints = message.maxLifePoints;
+        m_botData[sender].playerData.stats[(int)StatIds::LIFE_POINTS].total = message.lifePoints;
+        m_botData[sender].playerData.stats[(int)StatIds::MAX_LIFE].total = message.maxLifePoints;
     }
         break;
     }

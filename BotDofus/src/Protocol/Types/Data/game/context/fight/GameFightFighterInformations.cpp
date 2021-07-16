@@ -40,7 +40,7 @@ void GameFightFighterInformations::deserializeAs_GameFightFighterInformations(Re
   this->spawnInfo->deserialize(input);
   this->_waveFunc(input);
   uint _id3 = input->readUShort();
-  this->stats = qSharedPointerCast<GameFightMinimalStats>(ClassManagerSingleton::get()->getClass(_id3));
+  this->stats = qSharedPointerCast<GameFightCharacteristics>(ClassManagerSingleton::get()->getClass(_id3));
   this->stats->deserialize(input);
   uint _previousPositionsLen = input->readUShort();
   for(uint _i4 = 0; _i4 < _previousPositionsLen; _i4++)
@@ -86,7 +86,7 @@ void GameFightFighterInformations::_waveFunc(Reader *input)
 void GameFightFighterInformations::_statstreeFunc(Reader *input)
 {
   uint _id = input->readUShort();
-  this->stats = qSharedPointerCast<GameFightMinimalStats>(ClassManagerSingleton::get()->getClass(_id));
+  this->stats = qSharedPointerCast<GameFightCharacteristics>(ClassManagerSingleton::get()->getClass(_id));
   this->stats->deserializeAsync(this->_statstree);
 }
 

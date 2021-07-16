@@ -265,10 +265,10 @@ bool GameContextFightFrame::processMessage(const MessageInfos &data, SocketIO *s
                 QSharedPointer<FightTemporaryBoostEffect> effect = qSharedPointerCast<FightTemporaryBoostEffect>(baseEffect->effect);
 
                 if (baseEffect->actionId == 168)
-                    m_botData[sender].fightData.fighters[baseEffect->sourceId].stats.actionPoints -= effect->delta;
+                    m_botData[sender].fightData.fighters[baseEffect->sourceId].stats[(uint)StatIds::ACTION_POINTS].total -= effect->delta;
 
                 else if (baseEffect->actionId == 169)
-                    m_botData[sender].fightData.fighters[baseEffect->sourceId].stats.actionPoints -= effect->delta;
+                    m_botData[sender].fightData.fighters[baseEffect->sourceId].stats[(uint)StatIds::ACTION_POINTS].total -= effect->delta;
             }
         }
 

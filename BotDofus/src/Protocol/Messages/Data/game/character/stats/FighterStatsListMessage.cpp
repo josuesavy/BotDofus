@@ -7,7 +7,7 @@ void FighterStatsListMessage::serialize(Writer *output)
 
 void FighterStatsListMessage::serializeAs_FighterStatsListMessage(Writer *output)
 {
-  this->stats.serializeAs_CharacterCharacteristicsInformations(output);
+  this->stats->serializeAs_CharacterCharacteristicsInformations(output);
 }
 
 void FighterStatsListMessage::deserialize(Reader *input)
@@ -17,8 +17,8 @@ void FighterStatsListMessage::deserialize(Reader *input)
 
 void FighterStatsListMessage::deserializeAs_FighterStatsListMessage(Reader *input)
 {
-  this->stats = CharacterCharacteristicsInformations();
-  this->stats.deserialize(input);
+  this->stats = QSharedPointer<CharacterCharacteristicsInformations>(new CharacterCharacteristicsInformations() );
+  this->stats->deserialize(input);
 }
 
 void FighterStatsListMessage::deserializeAsync(FuncTree tree)
@@ -33,8 +33,8 @@ void FighterStatsListMessage::deserializeAsyncAs_FighterStatsListMessage(FuncTre
 
 void FighterStatsListMessage::_statstreeFunc(Reader *input)
 {
-  this->stats = CharacterCharacteristicsInformations();
-  this->stats.deserializeAsync(this->_statstree);
+  this->stats = QSharedPointer<CharacterCharacteristicsInformations>(new CharacterCharacteristicsInformations() );
+  this->stats->deserializeAsync(this->_statstree);
 }
 
 FighterStatsListMessage::FighterStatsListMessage()

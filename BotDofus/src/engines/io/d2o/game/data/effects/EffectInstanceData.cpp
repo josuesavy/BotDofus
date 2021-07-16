@@ -40,7 +40,7 @@ int EffectInstanceData::getDelay() const
   return m_delay;
 }
 
-int EffectInstanceData::getRandom() const
+double EffectInstanceData::getRandom() const
 {
   return m_random;
 }
@@ -141,7 +141,7 @@ void EffectInstanceData::loadData(const QList<D2OField*> &fields, I18nFile *I18n
         m_delay = readInt(field->getValue());
     
     else if(field->getName() == "random")
-        m_random = readInt(field->getValue());
+        m_random = readDouble(field->getValue());
     
     else if(field->getName() == "group")
         m_group = readInt(field->getValue());

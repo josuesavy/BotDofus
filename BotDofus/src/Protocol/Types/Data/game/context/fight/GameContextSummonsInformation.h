@@ -4,7 +4,7 @@
 #include "src/protocol/types/AbstractClass.h"
 #include "src/protocol/types/data/game/context/fight/SpawnInformation.h"
 #include "src/protocol/types/data/game/look/EntityLook.h"
-#include "src/protocol/types/data/game/context/fight/GameFightMinimalStats.h"
+#include "src/protocol/types/data/game/context/fight/GameFightCharacteristics.h"
 #include "src/protocol/types/data/game/context/fight/GameContextBasicSpawnInformation.h"
 #include "src/protocol/types/ClassManager.h"
 #include "src/engines/io/network/utils/FuncTree.h"
@@ -24,7 +24,7 @@ public:
   QSharedPointer<SpawnInformation> spawnInformation;
   uint wave;
   QSharedPointer<EntityLook> look;
-  QSharedPointer<GameFightMinimalStats> stats;
+  QSharedPointer<GameFightCharacteristics> stats;
   QList<QSharedPointer<GameContextBasicSpawnInformation>> summons;
 
 private:

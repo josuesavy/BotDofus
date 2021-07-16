@@ -175,6 +175,11 @@ QString ItemData::getCraftVisible() const
   return m_craftVisible;
 }
 
+QString ItemData::getCraftConditional() const
+{
+  return m_craftConditional;
+}
+
 QString ItemData::getCraftFeasible() const
 {
   return m_craftFeasible;
@@ -378,6 +383,9 @@ void ItemData::loadData(const QList<D2OField*> &fields, I18nFile *I18n)
     
     else if(field->getName() == "craftVisible")
         m_craftVisible = readUTF(field->getValue());
+    
+    else if(field->getName() == "craftConditional")
+        m_craftConditional = readUTF(field->getValue());
     
     else if(field->getName() == "craftFeasible")
         m_craftFeasible = readUTF(field->getValue());

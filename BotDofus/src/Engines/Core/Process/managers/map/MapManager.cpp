@@ -521,7 +521,10 @@ void MapManager::changeDirection(SocketIO *sender, Directions dir)
 
 void MapManager::rejoinCharacter(SocketIO *sender, QString character)
 {
+    QSharedPointer<PlayerSearchCharacterNameInformation> playerSearchCharacterNameInformation;
+    playerSearchCharacterNameInformation->name = character;
+
     FriendJoinRequestMessage message;
-    message.name = character;
+    message.target = playerSearchCharacterNameInformation;
     sender->send(message);
 }

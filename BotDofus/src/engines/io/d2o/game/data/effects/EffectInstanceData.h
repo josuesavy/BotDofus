@@ -14,7 +14,7 @@ public:
   QString getTargetMask() const;
   int getDuration() const;
   int getDelay() const;
-  int getRandom() const;
+  double getRandom() const;
   int getGroup() const;
   int getModificator() const;
   bool getTrigger() const;
@@ -38,7 +38,7 @@ public:
   QString m_targetMask;
   int m_duration;
   int m_delay;
-  int m_random;
+  double m_random;
   int m_group;
   int m_modificator;
   bool m_trigger;

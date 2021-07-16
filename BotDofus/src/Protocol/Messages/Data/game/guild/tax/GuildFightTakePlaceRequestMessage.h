@@ -16,7 +16,7 @@ public:
   void deserializeAsyncAs_GuildFightTakePlaceRequestMessage(FuncTree tree);
   GuildFightTakePlaceRequestMessage();
 
-  int replacedCharacterId;
+  double replacedCharacterId;
 
 private:
   void _replacedCharacterIdFunc(Reader *input);

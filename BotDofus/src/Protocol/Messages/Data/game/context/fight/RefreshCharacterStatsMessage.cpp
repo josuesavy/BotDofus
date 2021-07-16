@@ -12,7 +12,7 @@ void RefreshCharacterStatsMessage::serializeAs_RefreshCharacterStatsMessage(Writ
     qDebug()<<"ERREUR - RefreshCharacterStatsMessage -"<<"Forbidden value (" << this->fighterId << ") on element fighterId.";
   }
   output->writeDouble(this->fighterId);
-  this->stats->serializeAs_GameFightMinimalStats(output);
+  this->stats->serializeAs_GameFightCharacteristics(output);
 }
 
 void RefreshCharacterStatsMessage::deserialize(Reader *input)
@@ -23,7 +23,7 @@ void RefreshCharacterStatsMessage::deserialize(Reader *input)
 void RefreshCharacterStatsMessage::deserializeAs_RefreshCharacterStatsMessage(Reader *input)
 {
   this->_fighterIdFunc(input);
-  this->stats = QSharedPointer<GameFightMinimalStats>(new GameFightMinimalStats() );
+  this->stats = QSharedPointer<GameFightCharacteristics>(new GameFightCharacteristics() );
   this->stats->deserialize(input);
 }
 
@@ -49,7 +49,7 @@ void RefreshCharacterStatsMessage::_fighterIdFunc(Reader *input)
 
 void RefreshCharacterStatsMessage::_statstreeFunc(Reader *input)
 {
-  this->stats = QSharedPointer<GameFightMinimalStats>(new GameFightMinimalStats() );
+  this->stats = QSharedPointer<GameFightCharacteristics>(new GameFightCharacteristics() );
   this->stats->deserializeAsync(this->_statstree);
 }
 

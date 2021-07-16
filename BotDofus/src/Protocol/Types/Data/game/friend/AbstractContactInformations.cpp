@@ -12,7 +12,7 @@ void AbstractContactInformations::serializeAs_AbstractContactInformations(Writer
     qDebug()<<"ERREUR - AbstractContactInformations -"<<"Forbidden value (" << this->accountId << ") on element accountId.";
   }
   output->writeInt((int)this->accountId);
-  output->writeUTF(this->accountName);
+  this->accountTag.serializeAs_AccountTagInformation(output);
 }
 
 void AbstractContactInformations::deserialize(Reader *input)
@@ -23,7 +23,8 @@ void AbstractContactInformations::deserialize(Reader *input)
 void AbstractContactInformations::deserializeAs_AbstractContactInformations(Reader *input)
 {
   this->_accountIdFunc(input);
-  this->_accountNameFunc(input);
+  this->accountTag = AccountTagInformation();
+  this->accountTag.deserialize(input);
 }
 
 void AbstractContactInformations::deserializeAsync(FuncTree tree)
@@ -34,7 +35,7 @@ void AbstractContactInformations::deserializeAsync(FuncTree tree)
 void AbstractContactInformations::deserializeAsyncAs_AbstractContactInformations(FuncTree tree)
 {
   tree.addChild(std::bind(&AbstractContactInformations::_accountIdFunc, this, std::placeholders::_1));
-  tree.addChild(std::bind(&AbstractContactInformations::_accountNameFunc, this, std::placeholders::_1));
+  this->_accountTagtree = tree.addChild(std::bind(&AbstractContactInformations::_accountTagtreeFunc, this, std::placeholders::_1));
 }
 
 void AbstractContactInformations::_accountIdFunc(Reader *input)
@@ -46,9 +47,10 @@ void AbstractContactInformations::_accountIdFunc(Reader *input)
   }
 }
 
-void AbstractContactInformations::_accountNameFunc(Reader *input)
+void AbstractContactInformations::_accountTagtreeFunc(Reader *input)
 {
-  this->accountName = input->readUTF();
+  this->accountTag = AccountTagInformation();
+  this->accountTag.deserializeAsync(this->_accountTagtree);
 }
 
 AbstractContactInformations::AbstractContactInformations()
@@ -59,7 +61,8 @@ AbstractContactInformations::AbstractContactInformations()
 bool AbstractContactInformations::operator==(const AbstractContactInformations &compared)
 {
   if(accountId == compared.accountId)
-  if(accountName == compared.accountName)
+  if(accountTag == compared.accountTag)
+  if(_accountTagtree == compared._accountTagtree)
   return true;
   
   return false;

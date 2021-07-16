@@ -42,6 +42,7 @@ public:
   uint getFavoriteSubAreasBonus() const;
   int getCraftXpRatio() const;
   QString getCraftVisible() const;
+  QString getCraftConditional() const;
   QString getCraftFeasible() const;
   bool getNeedUseConfirm() const;
   bool getIsDestructible() const;
@@ -94,6 +95,7 @@ public:
   uint m_favoriteSubAreasBonus;
   int m_craftXpRatio;
   QString m_craftVisible;
+  QString m_craftConditional;
   QString m_craftFeasible;
   bool m_needUseConfirm;
   bool m_isDestructible;

@@ -323,6 +323,9 @@ QSharedPointer<AbstractGameData> GameDataConverter::getClass(const QString &name
   else if(name == "MapCharactersItemCriterion")
       return QSharedPointer<AbstractGameData>(new MapCharactersItemCriterionData());
   
+  else if(name == "MapItemCriterion")
+      return QSharedPointer<AbstractGameData>(new MapItemCriterionData());
+  
   else if(name == "MariedItemCriterion")
       return QSharedPointer<AbstractGameData>(new MariedItemCriterionData());
   
@@ -571,6 +574,12 @@ QSharedPointer<AbstractGameData> GameDataConverter::getClass(const QString &name
   
   else if(name == "PopupInformation")
       return QSharedPointer<AbstractGameData>(new PopupInformationData());
+  
+  else if(name == "ActivitySuggestion")
+      return QSharedPointer<AbstractGameData>(new ActivitySuggestionData());
+  
+  else if(name == "ActivitySuggestionsCategory")
+      return QSharedPointer<AbstractGameData>(new ActivitySuggestionsCategoryData());
   
   else if(name == "FeatureDescription")
       return QSharedPointer<AbstractGameData>(new FeatureDescriptionData());
@@ -1144,6 +1153,12 @@ GameDataTypeEnum GameDataConverter::getEnum(const QString &name)
   
   else if(name == "PopupInformations")
       return GameDataTypeEnum::POPUPINFORMATIONS;
+  
+  else if(name == "ActivitySuggestions")
+      return GameDataTypeEnum::ACTIVITYSUGGESTIONS;
+  
+  else if(name == "ActivitySuggestionsCategories")
+      return GameDataTypeEnum::ACTIVITYSUGGESTIONSCATEGORIES;
   
   else if(name == "FeatureDescriptions")
       return GameDataTypeEnum::FEATUREDESCRIPTIONS;

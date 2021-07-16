@@ -134,8 +134,11 @@ void GroupManager::updateTeams()
 
                 m_botData[i.key()].groupData.playerNameInvited = m_botData[slave].connectionData.connectionInfos.character;
 
+                QSharedPointer<PlayerSearchCharacterNameInformation> playerSearchCharacterNameInformation;
+                playerSearchCharacterNameInformation->name = m_botData[slave].connectionData.connectionInfos.character;
+
                 PartyInvitationRequestMessage answer;
-                answer.name = m_botData[slave].connectionData.connectionInfos.character;
+                answer.target = playerSearchCharacterNameInformation;
                 i.key()->send(answer);
             }
         }
@@ -149,8 +152,11 @@ void GroupManager::teleportSlavesToMaster(SocketIO *sender, const QString master
     {
         action(sender) << "Demande de rejoindre le chef";
 
+        QSharedPointer<PlayerSearchCharacterNameInformation> playerSearchCharacterNameInformation;
+        playerSearchCharacterNameInformation->name = master;
+
         FriendJoinRequestMessage answer;
-        answer.name = master;
+        answer.target = playerSearchCharacterNameInformation;
         sender->send(answer);
     }
 }

@@ -262,6 +262,7 @@ HEADERS += \
     src/engines/io/d2o/game/data/items/criterion/KamaItemCriterionData.h \
     src/engines/io/d2o/game/data/items/criterion/LevelItemCriterionData.h \
     src/engines/io/d2o/game/data/items/criterion/MapCharactersItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/MapItemCriterionData.h \
     src/engines/io/d2o/game/data/items/criterion/MariedItemCriterionData.h \
     src/engines/io/d2o/game/data/items/criterion/MonsterGroupChallengeCriterionData.h \
     src/engines/io/d2o/game/data/items/criterion/MonthItemCriterionData.h \
@@ -333,6 +334,8 @@ HEADERS += \
     src/engines/io/d2o/game/data/playlists/PlaylistData.h \
     src/engines/io/d2o/game/data/popup/PopupButtonData.h \
     src/engines/io/d2o/game/data/popup/PopupInformationData.h \
+    src/engines/io/d2o/game/data/progression/ActivitySuggestionData.h \
+    src/engines/io/d2o/game/data/progression/ActivitySuggestionsCategoryData.h \
     src/engines/io/d2o/game/data/progression/FeatureDescriptionData.h \
     src/engines/io/d2o/game/data/quest/AchievementCategoryData.h \
     src/engines/io/d2o/game/data/quest/AchievementData.h \
@@ -600,6 +603,7 @@ HEADERS += \
     src/protocol/messages/data/debug/DebugClearHighlightCellsMessage.h \
     src/protocol/messages/data/debug/DebugHighlightCellsMessage.h \
     src/protocol/messages/data/debug/DebugInClientMessage.h \
+    src/protocol/messages/data/debug/DumpedEntityStatsMessage.h \
     src/protocol/messages/data/game/achievement/AchievementAlmostFinishedDetailedListMessage.h \
     src/protocol/messages/data/game/achievement/AchievementAlmostFinishedDetailedListRequestMessage.h \
     src/protocol/messages/data/game/achievement/AchievementDetailedListMessage.h \
@@ -774,6 +778,7 @@ HEADERS += \
     src/protocol/messages/data/game/character/stats/LifePointsRegenEndMessage.h \
     src/protocol/messages/data/game/character/stats/ResetCharacterStatsRequestMessage.h \
     src/protocol/messages/data/game/character/stats/UpdateLifePointsMessage.h \
+    src/protocol/messages/data/game/character/stats/UpdateSpellModifierMessage.h \
     src/protocol/messages/data/game/character/status/PlayerStatusUpdateErrorMessage.h \
     src/protocol/messages/data/game/character/status/PlayerStatusUpdateMessage.h \
     src/protocol/messages/data/game/character/status/PlayerStatusUpdateRequestMessage.h \
@@ -924,6 +929,7 @@ HEADERS += \
     src/protocol/messages/data/game/context/roleplay/ChangeMapMessage.h \
     src/protocol/messages/data/game/context/roleplay/CurrentMapInstanceMessage.h \
     src/protocol/messages/data/game/context/roleplay/CurrentMapMessage.h \
+    src/protocol/messages/data/game/context/roleplay/DiceRollRequestMessage.h \
     src/protocol/messages/data/game/context/roleplay/ErrorMapNotFoundMessage.h \
     src/protocol/messages/data/game/context/roleplay/GameRolePlayShowActorMessage.h \
     src/protocol/messages/data/game/context/roleplay/GameRolePlayShowActorWithEventMessage.h \
@@ -1172,6 +1178,7 @@ HEADERS += \
     src/protocol/messages/data/game/context/roleplay/quest/QuestValidatedMessage.h \
     src/protocol/messages/data/game/context/roleplay/quest/RefreshFollowedQuestsOrderRequestMessage.h \
     src/protocol/messages/data/game/context/roleplay/quest/UnfollowQuestObjectiveRequestMessage.h \
+    src/protocol/messages/data/game/context/roleplay/quest/ViewQuestListMessage.h \
     src/protocol/messages/data/game/context/roleplay/spell/SpellVariantActivationMessage.h \
     src/protocol/messages/data/game/context/roleplay/spell/SpellVariantActivationRequestMessage.h \
     src/protocol/messages/data/game/context/roleplay/stats/StatsUpgradeRequestMessage.h \
@@ -1259,8 +1266,8 @@ HEADERS += \
     src/protocol/messages/data/game/guild/GuildInformationsPaddocksMessage.h \
     src/protocol/messages/data/game/guild/GuildInfosUpgradeMessage.h \
     src/protocol/messages/data/game/guild/GuildInvitationAnswerMessage.h \
-    src/protocol/messages/data/game/guild/GuildInvitationByNameMessage.h \
     src/protocol/messages/data/game/guild/GuildInvitationMessage.h \
+    src/protocol/messages/data/game/guild/GuildInvitationSearchMessage.h \
     src/protocol/messages/data/game/guild/GuildInvitationStateRecrutedMessage.h \
     src/protocol/messages/data/game/guild/GuildInvitationStateRecruterMessage.h \
     src/protocol/messages/data/game/guild/GuildInvitedMessage.h \
@@ -1556,6 +1563,10 @@ HEADERS += \
     src/protocol/messages/data/game/prism/PrismsListMessage.h \
     src/protocol/messages/data/game/prism/PrismsListRegisterMessage.h \
     src/protocol/messages/data/game/prism/PrismsListUpdateMessage.h \
+    src/protocol/messages/data/game/progression/suggestion/ActivityHideRequestMessage.h \
+    src/protocol/messages/data/game/progression/suggestion/ActivityLockRequestMessage.h \
+    src/protocol/messages/data/game/progression/suggestion/ActivitySuggestionsMessage.h \
+    src/protocol/messages/data/game/progression/suggestion/ActivitySuggestionsRequestMessage.h \
     src/protocol/messages/data/game/pvp/AlignmentRankUpdateMessage.h \
     src/protocol/messages/data/game/pvp/SetEnableAVARequestMessage.h \
     src/protocol/messages/data/game/pvp/SetEnablePVPRequestMessage.h \
@@ -1636,6 +1647,10 @@ HEADERS += \
     src/protocol/types/ClassDeclarator.h \
     src/protocol/types/ClassEnum.h \
     src/protocol/types/ClassManager.h \
+    src/protocol/types/data/common/AbstractPlayerSearchInformation.h \
+    src/protocol/types/data/common/AccountTagInformation.h \
+    src/protocol/types/data/common/PlayerSearchCharacterNameInformation.h \
+    src/protocol/types/data/common/PlayerSearchTagInformation.h \
     src/protocol/types/data/common/basic/StatisticData.h \
     src/protocol/types/data/common/basic/StatisticDataBoolean.h \
     src/protocol/types/data/common/basic/StatisticDataByte.h \
@@ -1672,7 +1687,10 @@ HEADERS += \
     src/protocol/types/data/game/character/CharacterMinimalPlusLookInformations.h \
     src/protocol/types/data/game/character/alignment/ActorAlignmentInformations.h \
     src/protocol/types/data/game/character/alignment/ActorExtendedAlignmentInformations.h \
-    src/protocol/types/data/game/character/characteristic/CharacterBaseCharacteristic.h \
+    src/protocol/types/data/game/character/characteristic/CharacterCharacteristic.h \
+    src/protocol/types/data/game/character/characteristic/CharacterCharacteristicDetailed.h \
+    src/protocol/types/data/game/character/characteristic/CharacterCharacteristicValue.h \
+    src/protocol/types/data/game/character/characteristic/CharacterCharacteristics.h \
     src/protocol/types/data/game/character/characteristic/CharacterCharacteristicsInformations.h \
     src/protocol/types/data/game/character/characteristic/CharacterSpellModification.h \
     src/protocol/types/data/game/character/choice/CharacterBaseInformations.h \
@@ -1726,6 +1744,7 @@ HEADERS += \
     src/protocol/types/data/game/context/fight/GameContextSummonsInformation.h \
     src/protocol/types/data/game/context/fight/GameFightAIInformations.h \
     src/protocol/types/data/game/context/fight/GameFightCharacterInformations.h \
+    src/protocol/types/data/game/context/fight/GameFightCharacteristics.h \
     src/protocol/types/data/game/context/fight/GameFightEffectTriggerCount.h \
     src/protocol/types/data/game/context/fight/GameFightEntityInformation.h \
     src/protocol/types/data/game/context/fight/GameFightFighterEntityLightInformation.h \
@@ -1735,8 +1754,6 @@ HEADERS += \
     src/protocol/types/data/game/context/fight/GameFightFighterNamedInformations.h \
     src/protocol/types/data/game/context/fight/GameFightFighterNamedLightInformations.h \
     src/protocol/types/data/game/context/fight/GameFightFighterTaxCollectorLightInformations.h \
-    src/protocol/types/data/game/context/fight/GameFightMinimalStats.h \
-    src/protocol/types/data/game/context/fight/GameFightMinimalStatsPreparation.h \
     src/protocol/types/data/game/context/fight/GameFightMonsterInformations.h \
     src/protocol/types/data/game/context/fight/GameFightMonsterWithAlignmentInformations.h \
     src/protocol/types/data/game/context/fight/GameFightMutantInformations.h \
@@ -2161,6 +2178,7 @@ SOURCES += \
     src/engines/io/d2o/game/data/items/criterion/KamaItemCriterionData.cpp \
     src/engines/io/d2o/game/data/items/criterion/LevelItemCriterionData.cpp \
     src/engines/io/d2o/game/data/items/criterion/MapCharactersItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/MapItemCriterionData.cpp \
     src/engines/io/d2o/game/data/items/criterion/MariedItemCriterionData.cpp \
     src/engines/io/d2o/game/data/items/criterion/MonsterGroupChallengeCriterionData.cpp \
     src/engines/io/d2o/game/data/items/criterion/MonthItemCriterionData.cpp \
@@ -2232,6 +2250,8 @@ SOURCES += \
     src/engines/io/d2o/game/data/playlists/PlaylistData.cpp \
     src/engines/io/d2o/game/data/popup/PopupButtonData.cpp \
     src/engines/io/d2o/game/data/popup/PopupInformationData.cpp \
+    src/engines/io/d2o/game/data/progression/ActivitySuggestionData.cpp \
+    src/engines/io/d2o/game/data/progression/ActivitySuggestionsCategoryData.cpp \
     src/engines/io/d2o/game/data/progression/FeatureDescriptionData.cpp \
     src/engines/io/d2o/game/data/quest/AchievementCategoryData.cpp \
     src/engines/io/d2o/game/data/quest/AchievementData.cpp \
@@ -2393,6 +2413,7 @@ SOURCES += \
     src/protocol/messages/data/debug/DebugClearHighlightCellsMessage.cpp \
     src/protocol/messages/data/debug/DebugHighlightCellsMessage.cpp \
     src/protocol/messages/data/debug/DebugInClientMessage.cpp \
+    src/protocol/messages/data/debug/DumpedEntityStatsMessage.cpp \
     src/protocol/messages/data/game/achievement/AchievementAlmostFinishedDetailedListMessage.cpp \
     src/protocol/messages/data/game/achievement/AchievementAlmostFinishedDetailedListRequestMessage.cpp \
     src/protocol/messages/data/game/achievement/AchievementDetailedListMessage.cpp \
@@ -2567,6 +2588,7 @@ SOURCES += \
     src/protocol/messages/data/game/character/stats/LifePointsRegenEndMessage.cpp \
     src/protocol/messages/data/game/character/stats/ResetCharacterStatsRequestMessage.cpp \
     src/protocol/messages/data/game/character/stats/UpdateLifePointsMessage.cpp \
+    src/protocol/messages/data/game/character/stats/UpdateSpellModifierMessage.cpp \
     src/protocol/messages/data/game/character/status/PlayerStatusUpdateErrorMessage.cpp \
     src/protocol/messages/data/game/character/status/PlayerStatusUpdateMessage.cpp \
     src/protocol/messages/data/game/character/status/PlayerStatusUpdateRequestMessage.cpp \
@@ -2717,6 +2739,7 @@ SOURCES += \
     src/protocol/messages/data/game/context/roleplay/ChangeMapMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/CurrentMapInstanceMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/CurrentMapMessage.cpp \
+    src/protocol/messages/data/game/context/roleplay/DiceRollRequestMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/ErrorMapNotFoundMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/GameRolePlayShowActorMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/GameRolePlayShowActorWithEventMessage.cpp \
@@ -2965,6 +2988,7 @@ SOURCES += \
     src/protocol/messages/data/game/context/roleplay/quest/QuestValidatedMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/quest/RefreshFollowedQuestsOrderRequestMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/quest/UnfollowQuestObjectiveRequestMessage.cpp \
+    src/protocol/messages/data/game/context/roleplay/quest/ViewQuestListMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/spell/SpellVariantActivationMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/spell/SpellVariantActivationRequestMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/stats/StatsUpgradeRequestMessage.cpp \
@@ -3052,8 +3076,8 @@ SOURCES += \
     src/protocol/messages/data/game/guild/GuildInformationsPaddocksMessage.cpp \
     src/protocol/messages/data/game/guild/GuildInfosUpgradeMessage.cpp \
     src/protocol/messages/data/game/guild/GuildInvitationAnswerMessage.cpp \
-    src/protocol/messages/data/game/guild/GuildInvitationByNameMessage.cpp \
     src/protocol/messages/data/game/guild/GuildInvitationMessage.cpp \
+    src/protocol/messages/data/game/guild/GuildInvitationSearchMessage.cpp \
     src/protocol/messages/data/game/guild/GuildInvitationStateRecrutedMessage.cpp \
     src/protocol/messages/data/game/guild/GuildInvitationStateRecruterMessage.cpp \
     src/protocol/messages/data/game/guild/GuildInvitedMessage.cpp \
@@ -3349,6 +3373,10 @@ SOURCES += \
     src/protocol/messages/data/game/prism/PrismsListMessage.cpp \
     src/protocol/messages/data/game/prism/PrismsListRegisterMessage.cpp \
     src/protocol/messages/data/game/prism/PrismsListUpdateMessage.cpp \
+    src/protocol/messages/data/game/progression/suggestion/ActivityHideRequestMessage.cpp \
+    src/protocol/messages/data/game/progression/suggestion/ActivityLockRequestMessage.cpp \
+    src/protocol/messages/data/game/progression/suggestion/ActivitySuggestionsMessage.cpp \
+    src/protocol/messages/data/game/progression/suggestion/ActivitySuggestionsRequestMessage.cpp \
     src/protocol/messages/data/game/pvp/AlignmentRankUpdateMessage.cpp \
     src/protocol/messages/data/game/pvp/SetEnableAVARequestMessage.cpp \
     src/protocol/messages/data/game/pvp/SetEnablePVPRequestMessage.cpp \
@@ -3426,6 +3454,10 @@ SOURCES += \
     src/protocol/messages/data/web/haapi/HaapiValidationRequestMessage.cpp \
     src/protocol/messages/data/wtf/ClientYouAreDrunkMessage.cpp \
     src/protocol/types/ClassManager.cpp \
+    src/protocol/types/data/common/AbstractPlayerSearchInformation.cpp \
+    src/protocol/types/data/common/AccountTagInformation.cpp \
+    src/protocol/types/data/common/PlayerSearchCharacterNameInformation.cpp \
+    src/protocol/types/data/common/PlayerSearchTagInformation.cpp \
     src/protocol/types/data/common/basic/StatisticData.cpp \
     src/protocol/types/data/common/basic/StatisticDataBoolean.cpp \
     src/protocol/types/data/common/basic/StatisticDataByte.cpp \
@@ -3462,7 +3494,10 @@ SOURCES += \
     src/protocol/types/data/game/character/CharacterMinimalPlusLookInformations.cpp \
     src/protocol/types/data/game/character/alignment/ActorAlignmentInformations.cpp \
     src/protocol/types/data/game/character/alignment/ActorExtendedAlignmentInformations.cpp \
-    src/protocol/types/data/game/character/characteristic/CharacterBaseCharacteristic.cpp \
+    src/protocol/types/data/game/character/characteristic/CharacterCharacteristic.cpp \
+    src/protocol/types/data/game/character/characteristic/CharacterCharacteristicDetailed.cpp \
+    src/protocol/types/data/game/character/characteristic/CharacterCharacteristicValue.cpp \
+    src/protocol/types/data/game/character/characteristic/CharacterCharacteristics.cpp \
     src/protocol/types/data/game/character/characteristic/CharacterCharacteristicsInformations.cpp \
     src/protocol/types/data/game/character/characteristic/CharacterSpellModification.cpp \
     src/protocol/types/data/game/character/choice/CharacterBaseInformations.cpp \
@@ -3516,6 +3551,7 @@ SOURCES += \
     src/protocol/types/data/game/context/fight/GameContextSummonsInformation.cpp \
     src/protocol/types/data/game/context/fight/GameFightAIInformations.cpp \
     src/protocol/types/data/game/context/fight/GameFightCharacterInformations.cpp \
+    src/protocol/types/data/game/context/fight/GameFightCharacteristics.cpp \
     src/protocol/types/data/game/context/fight/GameFightEffectTriggerCount.cpp \
     src/protocol/types/data/game/context/fight/GameFightEntityInformation.cpp \
     src/protocol/types/data/game/context/fight/GameFightFighterEntityLightInformation.cpp \
@@ -3525,8 +3561,6 @@ SOURCES += \
     src/protocol/types/data/game/context/fight/GameFightFighterNamedInformations.cpp \
     src/protocol/types/data/game/context/fight/GameFightFighterNamedLightInformations.cpp \
     src/protocol/types/data/game/context/fight/GameFightFighterTaxCollectorLightInformations.cpp \
-    src/protocol/types/data/game/context/fight/GameFightMinimalStats.cpp \
-    src/protocol/types/data/game/context/fight/GameFightMinimalStatsPreparation.cpp \
     src/protocol/types/data/game/context/fight/GameFightMonsterInformations.cpp \
     src/protocol/types/data/game/context/fight/GameFightMonsterWithAlignmentInformations.cpp \
     src/protocol/types/data/game/context/fight/GameFightMutantInformations.cpp \

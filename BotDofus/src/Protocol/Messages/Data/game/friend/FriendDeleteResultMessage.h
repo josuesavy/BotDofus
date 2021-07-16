@@ -1,6 +1,7 @@
 #ifndef FRIENDDELETERESULTMESSAGE_H
 #define FRIENDDELETERESULTMESSAGE_H
 
+#include "src/protocol/types/data/common/AccountTagInformation.h"
 #include "src/engines/io/network/utils/FuncTree.h"
 #include "src/protocol/messages/AbstractMessage.h"
 
@@ -16,11 +17,13 @@ public:
   FriendDeleteResultMessage();
 
   bool success;
-  QString name;
+  AccountTagInformation tag;
 
 private:
   void _successFunc(Reader *input);
-  void _nameFunc(Reader *input);
+  void _tagtreeFunc(Reader *input);
+
+  FuncTree _tagtree;
 };
 
 #endif // FRIENDDELETERESULTMESSAGE_H

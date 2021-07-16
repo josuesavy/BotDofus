@@ -110,6 +110,9 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   else if(messageEnum == MessageEnum::DEBUGINCLIENTMESSAGE)
       return "DebugInClientMessage";
   
+  else if(messageEnum == MessageEnum::DUMPEDENTITYSTATSMESSAGE)
+      return "DumpedEntityStatsMessage";
+  
   else if(messageEnum == MessageEnum::ACHIEVEMENTALMOSTFINISHEDDETAILEDLISTMESSAGE)
       return "AchievementAlmostFinishedDetailedListMessage";
   
@@ -631,6 +634,9 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   
   else if(messageEnum == MessageEnum::UPDATELIFEPOINTSMESSAGE)
       return "UpdateLifePointsMessage";
+  
+  else if(messageEnum == MessageEnum::UPDATESPELLMODIFIERMESSAGE)
+      return "UpdateSpellModifierMessage";
   
   else if(messageEnum == MessageEnum::PLAYERSTATUSUPDATEERRORMESSAGE)
       return "PlayerStatusUpdateErrorMessage";
@@ -1180,6 +1186,9 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   
   else if(messageEnum == MessageEnum::GAMEROLEPLAYDELAYEDOBJECTUSEMESSAGE)
       return "GameRolePlayDelayedObjectUseMessage";
+  
+  else if(messageEnum == MessageEnum::DICEROLLREQUESTMESSAGE)
+      return "DiceRollRequestMessage";
   
   else if(messageEnum == MessageEnum::DOCUMENTREADINGBEGINMESSAGE)
       return "DocumentReadingBeginMessage";
@@ -1811,6 +1820,9 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   else if(messageEnum == MessageEnum::UNFOLLOWQUESTOBJECTIVEREQUESTMESSAGE)
       return "UnfollowQuestObjectiveRequestMessage";
   
+  else if(messageEnum == MessageEnum::VIEWQUESTLISTMESSAGE)
+      return "ViewQuestListMessage";
+  
   else if(messageEnum == MessageEnum::SPELLVARIANTACTIVATIONMESSAGE)
       return "SpellVariantActivationMessage";
   
@@ -2087,11 +2099,11 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   else if(messageEnum == MessageEnum::GUILDINVITATIONANSWERMESSAGE)
       return "GuildInvitationAnswerMessage";
   
-  else if(messageEnum == MessageEnum::GUILDINVITATIONBYNAMEMESSAGE)
-      return "GuildInvitationByNameMessage";
-  
   else if(messageEnum == MessageEnum::GUILDINVITATIONMESSAGE)
       return "GuildInvitationMessage";
+  
+  else if(messageEnum == MessageEnum::GUILDINVITATIONSEARCHMESSAGE)
+      return "GuildInvitationSearchMessage";
   
   else if(messageEnum == MessageEnum::GUILDINVITATIONSTATERECRUTEDMESSAGE)
       return "GuildInvitationStateRecrutedMessage";
@@ -2977,6 +2989,18 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   
   else if(messageEnum == MessageEnum::PRISMUSEREQUESTMESSAGE)
       return "PrismUseRequestMessage";
+  
+  else if(messageEnum == MessageEnum::ACTIVITYHIDEREQUESTMESSAGE)
+      return "ActivityHideRequestMessage";
+  
+  else if(messageEnum == MessageEnum::ACTIVITYLOCKREQUESTMESSAGE)
+      return "ActivityLockRequestMessage";
+  
+  else if(messageEnum == MessageEnum::ACTIVITYSUGGESTIONSMESSAGE)
+      return "ActivitySuggestionsMessage";
+  
+  else if(messageEnum == MessageEnum::ACTIVITYSUGGESTIONSREQUESTMESSAGE)
+      return "ActivitySuggestionsRequestMessage";
   
   else if(messageEnum == MessageEnum::ALIGNMENTRANKUPDATEMESSAGE)
       return "AlignmentRankUpdateMessage";

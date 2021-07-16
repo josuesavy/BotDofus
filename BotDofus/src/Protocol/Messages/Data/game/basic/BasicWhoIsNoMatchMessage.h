@@ -1,7 +1,9 @@
 #ifndef BASICWHOISNOMATCHMESSAGE_H
 #define BASICWHOISNOMATCHMESSAGE_H
 
+#include "src/protocol/types/data/common/AbstractPlayerSearchInformation.h"
 #include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/types/ClassManager.h"
 #include "src/protocol/messages/AbstractMessage.h"
 
 class BasicWhoIsNoMatchMessage : public AbstractMessage
@@ -15,10 +17,12 @@ public:
   void deserializeAsyncAs_BasicWhoIsNoMatchMessage(FuncTree tree);
   BasicWhoIsNoMatchMessage();
 
-  QString search;
+  QSharedPointer<AbstractPlayerSearchInformation> target;
 
 private:
-  void _searchFunc(Reader *input);
+  void _targettreeFunc(Reader *input);
+
+  FuncTree _targettree;
 };
 
 #endif // BASICWHOISNOMATCHMESSAGE_H

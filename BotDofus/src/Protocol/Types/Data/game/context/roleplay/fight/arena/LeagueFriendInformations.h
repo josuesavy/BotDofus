@@ -3,6 +3,7 @@
 
 #include "src/protocol/types/AbstractClass.h"
 #include "src/protocol/types/data/game/friend/AbstractContactInformations.h"
+#include "src/protocol/types/data/common/AccountTagInformation.h"
 #include "src/engines/io/network/utils/FuncTree.h"
 #include "src/protocol/enums/data/PlayableBreedEnum.h"
 

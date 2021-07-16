@@ -245,8 +245,8 @@ void AccountForm::updateInterface()
             else if(infos.mapData.gameContext == GameContextEnum::FIGHT)
                 ui->progressBarExperience->setFormat(QString("%1 (%p%)").arg(infos.fightData.fighters[infos.fightData.botFightData.botId].level));
 
-            ui->progressBarExperience->setMaximum(infos.playerData.stats.experienceNextLevelFloor-infos.playerData.stats.experienceLevelFloor);
-            ui->progressBarExperience->setValue(infos.playerData.stats.experience-infos.playerData.stats.experienceLevelFloor);
+            ui->progressBarExperience->setMaximum(infos.playerData.experienceNextLevelFloor-infos.playerData.experienceLevelFloor);
+            ui->progressBarExperience->setValue(infos.playerData.experience-infos.playerData.experienceLevelFloor);
         }
 
         // Abonnement du personnage
@@ -324,18 +324,18 @@ void AccountForm::updateInterface()
 
 
         // Energie du personnage
-        ui->progressBarEnergy->setMaximum(infos.playerData.stats.maxEnergyPoints);
-        ui->progressBarEnergy->setValue(infos.playerData.stats.energyPoints);
+        ui->progressBarEnergy->setMaximum(infos.playerData.stats[(uint)StatIds::MAX_ENERGY_POINTS].total);
+        ui->progressBarEnergy->setValue(infos.playerData.stats[(uint)StatIds::ENERGY_POINTS].total);
 
 
         // Vie du personnage
-        ui->progressBarLife->setMaximum(infos.playerData.stats.maxLifePoints);
-        ui->progressBarLife->setValue(infos.playerData.stats.lifePoints);
+        ui->progressBarLife->setMaximum(infos.playerData.stats[(uint)StatIds::MAX_LIFE].total);
+        ui->progressBarLife->setValue(infos.playerData.stats[(uint)StatIds::LIFE_POINTS].total);
 
 
         // Pods du personnage
-        ui->progressBarPods->setMaximum(infos.playerData.stats.pods.max);
-        ui->progressBarPods->setValue(infos.playerData.stats.pods.current);
+        ui->progressBarPods->setMaximum(infos.playerData.pods.max);
+        ui->progressBarPods->setValue(infos.playerData.pods.current);
 
 
         // Kamas du personnage

@@ -50,7 +50,7 @@ bool GameInventoryStorageFrame::processMessage(const MessageInfos &data, SocketI
                 if (m_interactionManager->concernedByBankTake(sender, o->objectGID))
                     toTake << o;
 
-            int freePods = m_botData[sender].playerData.stats.pods.max - m_botData[sender].playerData.stats.pods.current;
+            int freePods = m_botData[sender].playerData.pods.max - m_botData[sender].playerData.pods.current;
             for (int i = 0; i < toTake.size(); i++)
             {
                 for (int j = 0; j < m_botData[sender].interactionData.bankData.take.size(); j++)

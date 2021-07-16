@@ -108,6 +108,7 @@
 #include "src/engines/io/d2o/game/data/items/criterion/KamaItemCriterionData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/LevelItemCriterionData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/MapCharactersItemCriterionData.h"
+#include "src/engines/io/d2o/game/data/items/criterion/MapItemCriterionData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/MariedItemCriterionData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/MonsterGroupChallengeCriterionData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/MonthItemCriterionData.h"
@@ -191,6 +192,8 @@
 #include "src/engines/io/d2o/game/data/playlists/PlaylistData.h"
 #include "src/engines/io/d2o/game/data/popup/PopupButtonData.h"
 #include "src/engines/io/d2o/game/data/popup/PopupInformationData.h"
+#include "src/engines/io/d2o/game/data/progression/ActivitySuggestionData.h"
+#include "src/engines/io/d2o/game/data/progression/ActivitySuggestionsCategoryData.h"
 #include "src/engines/io/d2o/game/data/progression/FeatureDescriptionData.h"
 #include "src/engines/io/d2o/game/data/quest/AchievementData.h"
 #include "src/engines/io/d2o/game/data/quest/AchievementCategoryData.h"
@@ -363,6 +366,7 @@ enum class GameDataEnum
     KAMAITEMCRITERIONDATA,
     LEVELITEMCRITERIONDATA,
     MAPCHARACTERSITEMCRITERIONDATA,
+    MAPITEMCRITERIONDATA,
     MARIEDITEMCRITERIONDATA,
     MONSTERGROUPCHALLENGECRITERIONDATA,
     MONTHITEMCRITERIONDATA,
@@ -446,6 +450,8 @@ enum class GameDataEnum
     PLAYLISTDATA,
     POPUPBUTTONDATA,
     POPUPINFORMATIONDATA,
+    ACTIVITYSUGGESTIONDATA,
+    ACTIVITYSUGGESTIONSCATEGORYDATA,
     FEATUREDESCRIPTIONDATA,
     ACHIEVEMENTDATA,
     ACHIEVEMENTCATEGORYDATA,

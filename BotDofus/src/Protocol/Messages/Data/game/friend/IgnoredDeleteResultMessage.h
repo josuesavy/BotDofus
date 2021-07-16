@@ -1,6 +1,7 @@
 #ifndef IGNOREDDELETERESULTMESSAGE_H
 #define IGNOREDDELETERESULTMESSAGE_H
 
+#include "src/protocol/types/data/common/AccountTagInformation.h"
 #include "src/engines/io/network/utils/FuncTree.h"
 #include "src/engines/io/network/utils/BooleanByteWrapper.h"
 #include "src/protocol/messages/AbstractMessage.h"
@@ -17,12 +18,14 @@ public:
   IgnoredDeleteResultMessage();
 
   bool success;
-  QString name;
+  AccountTagInformation tag;
   bool session;
 
 private:
   void deserializeByteBoxes(Reader *input);
-  void _nameFunc(Reader *input);
+  void _tagtreeFunc(Reader *input);
+
+  FuncTree _tagtree;
 };
 
 #endif // IGNOREDDELETERESULTMESSAGE_H

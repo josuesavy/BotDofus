@@ -11,6 +11,7 @@ public:
   QString getName() const;
   QString getDescription() const;
   QList<RandomDropItemData> getRandomDropItems() const;
+  bool getDisplayContent() const;
   bool getDisplayChances() const;
   virtual void loadData(const QList<D2OField*> &fields, I18nFile *I18n);
 
@@ -18,6 +19,7 @@ public:
   QString m_name;
   QString m_description;
   QList<RandomDropItemData> m_randomDropItems;
+  bool m_displayContent;
   bool m_displayChances;
 };
 

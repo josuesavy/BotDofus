@@ -33,43 +33,43 @@ void StatsManager::increaseStat(SocketIO *sender, PlayerD2OFields stat)
     {
     case PlayerD2OFields::AGILITY:
     {
-        message.boostPoint = m_botData[sender].playerData.stats.statsRequiredAgility;
-        m_botData[sender].statisticsData.countTotalPointAgility += m_botData[sender].playerData.stats.statsRequiredAgility;
+        message.boostPoint = m_botData[sender].playerData.statsRequiredAgility;
+        m_botData[sender].statisticsData.countTotalPointAgility += m_botData[sender].playerData.statsRequiredAgility;
     }
         break;
 
     case PlayerD2OFields::STRENGTH:
     {
-        message.boostPoint = m_botData[sender].playerData.stats.statsRequiredStrength;
-        m_botData[sender].statisticsData.countTotalPointStrength += m_botData[sender].playerData.stats.statsRequiredStrength;
+        message.boostPoint = m_botData[sender].playerData.statsRequiredStrength;
+        m_botData[sender].statisticsData.countTotalPointStrength += m_botData[sender].playerData.statsRequiredStrength;
     }
         break;
 
     case PlayerD2OFields::INTELLIGENCE:
     {
-        message.boostPoint = m_botData[sender].playerData.stats.statsRequiredIntelligence;
-        m_botData[sender].statisticsData.countTotalPointIntelligence += m_botData[sender].playerData.stats.statsRequiredIntelligence;
+        message.boostPoint = m_botData[sender].playerData.statsRequiredIntelligence;
+        m_botData[sender].statisticsData.countTotalPointIntelligence += m_botData[sender].playerData.statsRequiredIntelligence;
     }
         break;
 
     case PlayerD2OFields::CHANCE:
     {
-        message.boostPoint = m_botData[sender].playerData.stats.statsRequiredChance;
-        m_botData[sender].statisticsData.countTotalPointChance += m_botData[sender].playerData.stats.statsRequiredChance;
+        message.boostPoint = m_botData[sender].playerData.statsRequiredChance;
+        m_botData[sender].statisticsData.countTotalPointChance += m_botData[sender].playerData.statsRequiredChance;
     }
         break;
 
     case PlayerD2OFields::WISDOM:
     {
-        message.boostPoint = m_botData[sender].playerData.stats.statsRequiredWisdom;
-        m_botData[sender].statisticsData.countTotalPointWisdom += m_botData[sender].playerData.stats.statsRequiredWisdom;
+        message.boostPoint = m_botData[sender].playerData.statsRequiredWisdom;
+        m_botData[sender].statisticsData.countTotalPointWisdom += m_botData[sender].playerData.statsRequiredWisdom;
     }
         break;
 
     case PlayerD2OFields::VITALITY:
     {
-        message.boostPoint = m_botData[sender].playerData.stats.statsRequiredVitality;
-        m_botData[sender].statisticsData.countTotalPointVitality += m_botData[sender].playerData.stats.statsRequiredVitality;
+        message.boostPoint = m_botData[sender].playerData.statsRequiredVitality;
+        m_botData[sender].statisticsData.countTotalPointVitality += m_botData[sender].playerData.statsRequiredVitality;
     }
         break;
     }
@@ -100,74 +100,74 @@ void StatsManager::updateRequiredStats(SocketIO *sender)
 
     for(int i = 0; i < breed->getStatsPointsForVitality().size(); i++)
     {
-        if(m_botData[sender].playerData.stats.vitality.base < breed->getStatsPointsForVitality()[i][0])
+        if(m_botData[sender].playerData.stats[(int)StatIds::VITALITY].base < breed->getStatsPointsForVitality()[i][0])
         {
-            m_botData[sender].playerData.stats.statsRequiredVitality = breed->getStatsPointsForVitality()[i - 1][1];
+            m_botData[sender].playerData.statsRequiredVitality = breed->getStatsPointsForVitality()[i - 1][1];
             break;
         }
 
         else
-            m_botData[sender].playerData.stats.statsRequiredVitality = breed->getStatsPointsForVitality()[i][1];
+            m_botData[sender].playerData.statsRequiredVitality = breed->getStatsPointsForVitality()[i][1];
     }
 
     for(int i = 0; i < breed->getStatsPointsForWisdom().size(); i++)
     {
-        if(m_botData[sender].playerData.stats.wisdom.base < breed->getStatsPointsForWisdom()[i][0])
+        if(m_botData[sender].playerData.stats[(int)StatIds::WISDOM].base < breed->getStatsPointsForWisdom()[i][0])
         {
-            m_botData[sender].playerData.stats.statsRequiredWisdom = breed->getStatsPointsForWisdom()[i - 1][1];
+            m_botData[sender].playerData.statsRequiredWisdom = breed->getStatsPointsForWisdom()[i - 1][1];
             break;
         }
 
         else
-            m_botData[sender].playerData.stats.statsRequiredWisdom = breed->getStatsPointsForWisdom()[i][1];
+            m_botData[sender].playerData.statsRequiredWisdom = breed->getStatsPointsForWisdom()[i][1];
     }
 
     for(int i = 0; i < breed->getStatsPointsForStrength().size(); i++)
     {
-        if(m_botData[sender].playerData.stats.strength.base < breed->getStatsPointsForStrength()[i][0])
+        if(m_botData[sender].playerData.stats[(int)StatIds::STRENGTH].base < breed->getStatsPointsForStrength()[i][0])
         {
-            m_botData[sender].playerData.stats.statsRequiredStrength = breed->getStatsPointsForStrength()[i - 1][1];
+            m_botData[sender].playerData.statsRequiredStrength = breed->getStatsPointsForStrength()[i - 1][1];
             break;
         }
 
         else
-            m_botData[sender].playerData.stats.statsRequiredStrength = breed->getStatsPointsForStrength()[i][1];
+            m_botData[sender].playerData.statsRequiredStrength = breed->getStatsPointsForStrength()[i][1];
     }
 
     for(int i = 0; i < breed->getStatsPointsForIntelligence().size(); i++)
     {
-        if(m_botData[sender].playerData.stats.intelligence.base < breed->getStatsPointsForIntelligence()[i][0])
+        if(m_botData[sender].playerData.stats[(int)StatIds::INTELLIGENCE].base < breed->getStatsPointsForIntelligence()[i][0])
         {
-            m_botData[sender].playerData.stats.statsRequiredIntelligence = breed->getStatsPointsForIntelligence()[i - 1][1];
+            m_botData[sender].playerData.statsRequiredIntelligence = breed->getStatsPointsForIntelligence()[i - 1][1];
             break;
         }
 
         else
-            m_botData[sender].playerData.stats.statsRequiredIntelligence = breed->getStatsPointsForIntelligence()[i][1];
+            m_botData[sender].playerData.statsRequiredIntelligence = breed->getStatsPointsForIntelligence()[i][1];
     }
 
     for(int i = 0; i < breed->getStatsPointsForChance().size(); i++)
     {
-        if(m_botData[sender].playerData.stats.chance.base < breed->getStatsPointsForChance()[i][0])
+        if(m_botData[sender].playerData.stats[(int)StatIds::CHANCE].base < breed->getStatsPointsForChance()[i][0])
         {
-            m_botData[sender].playerData.stats.statsRequiredChance = breed->getStatsPointsForChance()[i - 1][1];
+            m_botData[sender].playerData.statsRequiredChance = breed->getStatsPointsForChance()[i - 1][1];
             break;
         }
 
         else
-            m_botData[sender].playerData.stats.statsRequiredChance = breed->getStatsPointsForChance()[i][1];
+            m_botData[sender].playerData.statsRequiredChance = breed->getStatsPointsForChance()[i][1];
     }
 
     for(int i = 0; i < breed->getStatsPointsForAgility().size(); i++)
     {
-        if(m_botData[sender].playerData.stats.agility.base < breed->getStatsPointsForAgility()[i][0])
+        if(m_botData[sender].playerData.stats[(int)StatIds::AGILITY].base < breed->getStatsPointsForAgility()[i][0])
         {
-            m_botData[sender].playerData.stats.statsRequiredAgility = breed->getStatsPointsForAgility()[i - 1][1];
+            m_botData[sender].playerData.statsRequiredAgility = breed->getStatsPointsForAgility()[i - 1][1];
             break;
         }
 
         else
-            m_botData[sender].playerData.stats.statsRequiredAgility = breed->getStatsPointsForAgility()[i][1];
+            m_botData[sender].playerData.statsRequiredAgility = breed->getStatsPointsForAgility()[i][1];
     }
 }
 
@@ -287,7 +287,7 @@ bool StatsManager::healEat(SocketIO* sender)
 
 bool StatsManager::needsHeal(SocketIO *sender)
 {
-    float ratio = (((float)m_botData[sender].playerData.stats.lifePoints-0)/((float)m_botData[sender].playerData.stats.maxLifePoints-0))*100;
+    float ratio = (((float)m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].total-0)/((float)m_botData[sender].playerData.stats[(uint)StatIds::MAX_LIFE].total-0))*100;
 
     if(ratio <= m_botData[sender].playerData.minRegenRatio)
         return true;
@@ -305,7 +305,7 @@ bool StatsManager::needsToGoToPhoenix(SocketIO *sender)
 
 bool StatsManager::needsToGoToBank(SocketIO *sender)
 {
-    float ratio = (float)m_botData[sender].playerData.stats.pods.current/(float)m_botData[sender].playerData.stats.pods.max*100;
+    float ratio = (float)m_botData[sender].playerData.pods.current/(float)m_botData[sender].playerData.pods.max*100;
 
     if(ratio >= m_botData[sender].scriptData.podsLimitRatio)
         return true;
@@ -366,8 +366,8 @@ void StatsManager::setRegenUseObjectsEnabled(SocketIO *sender, bool enabled)
 
 void StatsManager::regenOptimizer(SocketIO *sender)
 {
-    int life = m_botData[sender].playerData.stats.lifePoints;
-    int maxLife = m_botData[sender].playerData.stats.maxLifePoints;
+    int life = m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].total;
+    int maxLife = m_botData[sender].playerData.stats[(uint)StatIds::MAX_LIFE].total;
     double p = (double)m_botData[sender].playerData.healPercentage/100.0;
 
     int wanted = p*maxLife;
@@ -514,8 +514,8 @@ void StatsManager::passiveHealing()
         passiveRegen.removeAt(index);
     }
 
-    int life = m_botData[sender].playerData.stats.lifePoints + m_botData[sender].playerData.regenRate;
-    m_botData[sender].playerData.stats.lifePoints = (life >= m_botData[sender].playerData.stats.maxLifePoints) ? m_botData[sender].playerData.stats.maxLifePoints : life;
+    int life = m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].total + m_botData[sender].playerData.regenRate;
+    m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].total = (life >= m_botData[sender].playerData.stats[(uint)StatIds::MAX_LIFE].total) ? m_botData[sender].playerData.stats[(uint)StatIds::MAX_LIFE].total : life;
 }
 
 bool StatsManager::canEquipItem(uint gid)

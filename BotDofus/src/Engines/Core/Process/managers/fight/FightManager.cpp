@@ -208,7 +208,7 @@ QList<uint> FightManager::getFighters(SocketIO *sender)
     QList<uint> fighters;
     foreach(const FightEntityInfos fighter, m_botData[sender].fightData.fighters)
     {
-        if(fighter.isAlive && (GameActionFightInvisibilityStateEnum)fighter.stats.invisibilityState != GameActionFightInvisibilityStateEnum::INVISIBLE)
+        if(fighter.isAlive && (GameActionFightInvisibilityStateEnum)fighter.invisibilityState != GameActionFightInvisibilityStateEnum::INVISIBLE)
         {
             fighters<<fighter.cellId;
         }
@@ -274,7 +274,7 @@ QList<uint> FightManager::getEnemies(SocketIO *sender)
     QList<uint> enemies;
     foreach(const FightEntityInfos fighter, m_botData[sender].fightData.fighters)
     {
-        if(fighter.isAlive && m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].teamId != fighter.teamId && (GameActionFightInvisibilityStateEnum)fighter.stats.invisibilityState != GameActionFightInvisibilityStateEnum::INVISIBLE)
+        if(fighter.isAlive && m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].teamId != fighter.teamId && (GameActionFightInvisibilityStateEnum)fighter.invisibilityState != GameActionFightInvisibilityStateEnum::INVISIBLE)
         {
             enemies<<fighter.cellId;
         }
@@ -362,6 +362,7 @@ void FightManager::processTurn(SocketIO *sender)
                             if(moveToRange(sender, requested.spellID, cell, strictMoving))
                             {
                                 m_botData[sender].fightData.botFightData.movementsWaiting = false;
+                                processTurn(sender);
                                 return;
                             }
                         }
@@ -729,13 +730,13 @@ SpellInabilityReason FightManager::canCastSpellNextTurn(SocketIO *sender, int sp
     QMap<int ,int> totalCastBySpell = m_botData[sender].fightData.botFightData.totalCastBySpell;
     QMap<int, int> durationByEffect = m_botData[sender].fightData.botFightData.durationByEffect;
     QMap<int, QMap<int, int> > totalCastByCellBySpell = m_botData[sender].fightData.botFightData.totalCastByCellBySpell;
-    int actionPoints = m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].stats.actionPoints;
+    int actionPoints = m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].stats[(uint)StatIds::ACTION_POINTS].total;
 
-    m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].stats.actionPoints += 6;
+    m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].stats[(uint)StatIds::ACTION_POINTS].total += 6;
 
     if(m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].level >= 100)
     {
-        m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].stats.actionPoints ++;
+        m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].stats[(uint)StatIds::ACTION_POINTS].total ++;
     }
 
     processEndTurn(sender);
@@ -745,7 +746,7 @@ SpellInabilityReason FightManager::canCastSpellNextTurn(SocketIO *sender, int sp
     m_botData[sender].fightData.botFightData.totalCastBySpell = totalCastBySpell;
     m_botData[sender].fightData.botFightData.durationByEffect = durationByEffect;
     m_botData[sender].fightData.botFightData.totalCastByCellBySpell = totalCastByCellBySpell;
-    m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].stats.actionPoints = actionPoints;
+    m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].stats[(uint)StatIds::ACTION_POINTS].total = actionPoints;
 
     return reason;
 }
@@ -776,7 +777,7 @@ SpellInabilityReason FightManager::canCastSpell(SocketIO *sender, int spellID)
         return SpellInabilityReason::UNKNOWN;
     }
 
-    if ((spellLevelID != 0 && m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].stats.actionPoints < spellLevelsData->getApCost()) || (weaponData.data() != NULL && m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].stats.actionPoints < weaponData->getApCost()))
+    if ((spellLevelID != 0 && m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].stats[(uint)StatIds::ACTION_POINTS].total < spellLevelsData->getApCost()) || (weaponData.data() != NULL && m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].stats[(uint)StatIds::ACTION_POINTS].total < weaponData->getApCost()))
     {
         return SpellInabilityReason::ACTION_POINTS;
     }
@@ -797,7 +798,7 @@ SpellInabilityReason FightManager::canCastSpell(SocketIO *sender, int spellID)
     int invocationNumber = 0;
     foreach (FightEntityInfos fighter, m_botData[sender].fightData.fighters)
     {
-        if (fighter.stats.summoner == m_botData[sender].fightData.botFightData.botId)
+        if (fighter.summoner == m_botData[sender].fightData.botFightData.botId)
         {
             invocationNumber ++;
         }
@@ -805,8 +806,8 @@ SpellInabilityReason FightManager::canCastSpell(SocketIO *sender, int spellID)
 
     if (effects.size() > 0 && effects[0].getEffectId() == 181)
     {
-        Stats stats = m_botData[sender].playerData.stats;
-        int total = stats.summonableCreaturesBoost.base + stats.summonableCreaturesBoost.objectsAndMountBonus + stats.summonableCreaturesBoost.alignGiftBonus + stats.summonableCreaturesBoost.contextModif;
+        QMap<uint,DetailedStats> stats = m_botData[sender].playerData.stats;
+        int total = stats[(uint)StatIds::MAX_SUMMONED_CREATURES_BOOST].base + stats[(uint)StatIds::MAX_SUMMONED_CREATURES_BOOST].objectsAndMountBonus + stats[(uint)StatIds::MAX_SUMMONED_CREATURES_BOOST].alignGiftBonus + stats[(uint)StatIds::MAX_SUMMONED_CREATURES_BOOST].contextModif;//stats.summonableCreaturesBoost.base + stats.summonableCreaturesBoost.objectsAndMountBonus + stats.summonableCreaturesBoost.alignGiftBonus + stats.summonableCreaturesBoost.contextModif;
 
         if (invocationNumber >= total)
         {
@@ -877,7 +878,7 @@ SpellInabilityReason FightManager::canCastSpellOnCell(SocketIO *sender, int spel
         minRange = 0;
     }
 
-    int maxRange = (spellLevelID != 0) ? (int)(spellLevelData->getRange() + (spellLevelData->getRangeCanBeBoosted() ? m_botData[sender].playerData.stats.range.objectsAndMountBonus : 0)) : spellLevelData->getRange();
+    int maxRange = (spellLevelID != 0) ? (int)(spellLevelData->getRange() + (spellLevelData->getRangeCanBeBoosted() ? m_botData[sender].playerData.stats[(uint)StatIds::RANGE].objectsAndMountBonus : 0)) : spellLevelData->getRange();
 
     if ((spellLevelID != 0 && spellLevelData->getCastInDiagonal()) || (weaponData != NULL && weaponData->getCastInDiagonal()))
     {
@@ -1330,7 +1331,7 @@ void FightManager::addFighter(SocketIO *sender, const QSharedPointer<GameFightFi
     FightEntityInfos infos;
     infos.isAlive = fighter->spawnInfo->alive;
     infos.entityId = fighter->contextualId;
-    infos.stats = *fighter->stats;
+    //infos.stats = *fighter->stats;
     infos.cellId = fighter->disposition->cellId;
     infos.direction = fighter->disposition->direction;
     infos.teamId = (TeamEnum)fighter->spawnInfo->teamId;
@@ -1391,7 +1392,7 @@ bool FightManager::castNear(SocketIO *sender, int spellID, int cibleID)
             minRange = 1;
         }
 
-        int maxRange = (spellLevelID != 0) ? (int)(spellLevelData->getRange() + (spellLevelData->getRangeCanBeBoosted() ? m_botData[sender].playerData.stats.range.objectsAndMountBonus : 0)) : spellLevelData->getRange();
+        int maxRange = (spellLevelID != 0) ? (int)(spellLevelData->getRange() + (spellLevelData->getRangeCanBeBoosted() ? m_botData[sender].playerData.stats[(uint)StatIds::RANGE].objectsAndMountBonus : 0)) : spellLevelData->getRange();
 
         if ((spellLevelID != 0 && spellLevelData->getCastInDiagonal()) || (weaponData != NULL && weaponData->getCastInDiagonal()))
         {
@@ -1472,7 +1473,7 @@ bool FightManager::castAway(SocketIO *sender, int spellID, int cibleID)
             minRange = 1;
         }
 
-        int maxRange = (spellLevelID != 0) ? (int)(spellLevelData->getRange() + (spellLevelData->getRangeCanBeBoosted() ? m_botData[sender].playerData.stats.range.objectsAndMountBonus : 0)) : spellLevelData->getRange();
+        int maxRange = (spellLevelID != 0) ? (int)(spellLevelData->getRange() + (spellLevelData->getRangeCanBeBoosted() ? m_botData[sender].playerData.stats[(uint)StatIds::RANGE].objectsAndMountBonus : 0)) : spellLevelData->getRange();
 
         if ((spellLevelID != 0 && spellLevelData->getCastInDiagonal()) || (weaponData != NULL && weaponData->getCastInDiagonal()))
         {
@@ -1519,7 +1520,7 @@ bool FightManager::castAway(SocketIO *sender, int spellID, int cibleID)
 
 bool FightManager::moveNear(SocketIO *sender, int cibleID, int distanceWanted, bool moveOnlyIfDistancePossible)
 {
-    int movementPoints = m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].stats.movementPoints;
+    int movementPoints = m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].stats[(uint)StatIds::MOVEMENT_POINTS].total;
 
     if(movementPoints != 0 && cibleID != INVALID)
     {
@@ -1571,7 +1572,7 @@ bool FightManager::moveNear(SocketIO *sender, int cibleID, int distanceWanted, b
 
 bool FightManager::moveAway(SocketIO *sender, int cibleID, int distanceWanted, bool moveOnlyIfDistancePossible)
 {
-    int movementPoints = m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].stats.movementPoints;
+    int movementPoints = m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].stats[(uint)StatIds::MOVEMENT_POINTS].total;
 
     if(movementPoints != 0 && cibleID != INVALID)
     {
@@ -1703,7 +1704,7 @@ bool FightManager::moveToRange(SocketIO *sender, int spellID, int cellID, bool m
         minRange = 1;
     }
 
-    int maxRange = (spellLevelID != 0) ? (int)(spellLevelData->getRange() + (spellLevelData->getRangeCanBeBoosted() ? m_botData[sender].playerData.stats.range.objectsAndMountBonus : 0)) : spellLevelData->getRange();
+    int maxRange = (spellLevelID != 0) ? (int)(spellLevelData->getRange() + (spellLevelData->getRangeCanBeBoosted() ? m_botData[sender].playerData.stats[(uint)StatIds::RANGE].objectsAndMountBonus : 0)) : spellLevelData->getRange();
 
     if ((spellLevelID != 0 && spellLevelData->getCastInDiagonal()) || (weaponData != NULL && weaponData->getCastInDiagonal()))
     {
@@ -1781,33 +1782,33 @@ QMap<int, int> FightManager::getSuddenDamage(SocketIO *sender, int spellID, int 
                     {
                         origineDamageMin.append(effect.m_diceNum);
                         origineDamageMax.append(effect.m_diceSide);
-                        puissance = m_botData[sender].playerData.stats.damagesBonusPercent.base + m_botData[sender].playerData.stats.damagesBonusPercent.additionnal + m_botData[sender].playerData.stats.damagesBonusPercent.contextModif + m_botData[sender].playerData.stats.damagesBonusPercent.alignGiftBonus + m_botData[sender].playerData.stats.damagesBonusPercent.objectsAndMountBonus;
+                        puissance = m_botData[sender].playerData.stats[(uint)StatIds::DAMAGES_PERCENT].base + m_botData[sender].playerData.stats[(uint)StatIds::DAMAGES_PERCENT].additional + m_botData[sender].playerData.stats[(uint)StatIds::DAMAGES_PERCENT].contextModif + m_botData[sender].playerData.stats[(uint)StatIds::DAMAGES_PERCENT].alignGiftBonus + m_botData[sender].playerData.stats[(uint)StatIds::DAMAGES_PERCENT].objectsAndMountBonus;
 
                         if(D2OManagerSingleton::get()->getI18N()->getText(spellData->m_descriptionId).contains("dommages Feu"))
                         {
-                            characteristic = m_botData[sender].playerData.stats.intelligence.base + m_botData[sender].playerData.stats.intelligence.additionnal + m_botData[sender].playerData.stats.intelligence.contextModif + m_botData[sender].playerData.stats.intelligence.alignGiftBonus + m_botData[sender].playerData.stats.intelligence.objectsAndMountBonus;
-                            fixedDamageBonus = m_botData[sender].playerData.stats.allDamagesBonus.base + m_botData[sender].playerData.stats.allDamagesBonus.additionnal + m_botData[sender].playerData.stats.allDamagesBonus.contextModif + m_botData[sender].playerData.stats.allDamagesBonus.alignGiftBonus + m_botData[sender].playerData.stats.allDamagesBonus.objectsAndMountBonus + m_botData[sender].playerData.stats.fireDamageBonus.base + m_botData[sender].playerData.stats.fireDamageBonus.additionnal + m_botData[sender].playerData.stats.fireDamageBonus.contextModif + m_botData[sender].playerData.stats.fireDamageBonus.alignGiftBonus + m_botData[sender].playerData.stats.fireDamageBonus.objectsAndMountBonus;
+                            characteristic = m_botData[sender].playerData.stats[(uint)StatIds::INTELLIGENCE].base + m_botData[sender].playerData.stats[(uint)StatIds::INTELLIGENCE].additional + m_botData[sender].playerData.stats[(uint)StatIds::INTELLIGENCE].contextModif + m_botData[sender].playerData.stats[(uint)StatIds::INTELLIGENCE].alignGiftBonus + m_botData[sender].playerData.stats[(uint)StatIds::INTELLIGENCE].objectsAndMountBonus;
+                            fixedDamageBonus = m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].base + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].additional + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].contextModif + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].alignGiftBonus + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].objectsAndMountBonus + m_botData[sender].playerData.stats[(uint)StatIds::FIRE_DAMAGE_BONUS].base + m_botData[sender].playerData.stats[(uint)StatIds::FIRE_DAMAGE_BONUS].additional + m_botData[sender].playerData.stats[(uint)StatIds::FIRE_DAMAGE_BONUS].contextModif + m_botData[sender].playerData.stats[(uint)StatIds::FIRE_DAMAGE_BONUS].alignGiftBonus + m_botData[sender].playerData.stats[(uint)StatIds::FIRE_DAMAGE_BONUS].objectsAndMountBonus;
                             elementSpell = 0;
                         }
 
                         else if(D2OManagerSingleton::get()->getI18N()->getText(spellData->m_descriptionId).contains("dommages Air"))
                         {
-                            characteristic = m_botData[sender].playerData.stats.agility.base + m_botData[sender].playerData.stats.agility.additionnal + m_botData[sender].playerData.stats.agility.contextModif + m_botData[sender].playerData.stats.agility.alignGiftBonus + m_botData[sender].playerData.stats.agility.objectsAndMountBonus;
-                            fixedDamageBonus = m_botData[sender].playerData.stats.allDamagesBonus.base + m_botData[sender].playerData.stats.allDamagesBonus.additionnal + m_botData[sender].playerData.stats.allDamagesBonus.contextModif + m_botData[sender].playerData.stats.allDamagesBonus.alignGiftBonus + m_botData[sender].playerData.stats.allDamagesBonus.objectsAndMountBonus + m_botData[sender].playerData.stats.airDamageBonus.base + m_botData[sender].playerData.stats.airDamageBonus.additionnal + m_botData[sender].playerData.stats.airDamageBonus.contextModif + m_botData[sender].playerData.stats.airDamageBonus.alignGiftBonus + m_botData[sender].playerData.stats.airDamageBonus.objectsAndMountBonus;
+                            characteristic = m_botData[sender].playerData.stats[(uint)StatIds::AGILITY].base + m_botData[sender].playerData.stats[(uint)StatIds::AGILITY].additional + m_botData[sender].playerData.stats[(uint)StatIds::AGILITY].contextModif + m_botData[sender].playerData.stats[(uint)StatIds::AGILITY].alignGiftBonus + m_botData[sender].playerData.stats[(uint)StatIds::AGILITY].objectsAndMountBonus;
+                            fixedDamageBonus = m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].base + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].additional + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].contextModif + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].alignGiftBonus + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].objectsAndMountBonus + m_botData[sender].playerData.stats[(uint)StatIds::AIR_DAMAGE_BONUS].base + m_botData[sender].playerData.stats[(uint)StatIds::AIR_DAMAGE_BONUS].additional + m_botData[sender].playerData.stats[(uint)StatIds::AIR_DAMAGE_BONUS].contextModif + m_botData[sender].playerData.stats[(uint)StatIds::AIR_DAMAGE_BONUS].alignGiftBonus + m_botData[sender].playerData.stats[(uint)StatIds::AIR_DAMAGE_BONUS].objectsAndMountBonus;
                             elementSpell = 1;
                         }
 
                         else if(D2OManagerSingleton::get()->getI18N()->getText(spellData->m_descriptionId).contains("dommages Terre"))
                         {
-                            characteristic = m_botData[sender].playerData.stats.strength.base + m_botData[sender].playerData.stats.strength.additionnal + m_botData[sender].playerData.stats.strength.contextModif + m_botData[sender].playerData.stats.strength.alignGiftBonus + m_botData[sender].playerData.stats.strength.objectsAndMountBonus;
-                            fixedDamageBonus = m_botData[sender].playerData.stats.allDamagesBonus.base + m_botData[sender].playerData.stats.allDamagesBonus.additionnal + m_botData[sender].playerData.stats.allDamagesBonus.contextModif + m_botData[sender].playerData.stats.allDamagesBonus.alignGiftBonus + m_botData[sender].playerData.stats.allDamagesBonus.objectsAndMountBonus + m_botData[sender].playerData.stats.earthDamageBonus.base + m_botData[sender].playerData.stats.earthDamageBonus.additionnal + m_botData[sender].playerData.stats.earthDamageBonus.contextModif + m_botData[sender].playerData.stats.earthDamageBonus.alignGiftBonus + m_botData[sender].playerData.stats.earthDamageBonus.objectsAndMountBonus;
+                            characteristic = m_botData[sender].playerData.stats[(uint)StatIds::STRENGTH].base + m_botData[sender].playerData.stats[(uint)StatIds::STRENGTH].additional + m_botData[sender].playerData.stats[(uint)StatIds::STRENGTH].contextModif + m_botData[sender].playerData.stats[(uint)StatIds::STRENGTH].alignGiftBonus + m_botData[sender].playerData.stats[(uint)StatIds::STRENGTH].objectsAndMountBonus;
+                            fixedDamageBonus = m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].base + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].additional + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].contextModif + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].alignGiftBonus + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].objectsAndMountBonus + m_botData[sender].playerData.stats[(uint)StatIds::EARTH_DAMAGE_BONUS].base + m_botData[sender].playerData.stats[(uint)StatIds::EARTH_DAMAGE_BONUS].additional + m_botData[sender].playerData.stats[(uint)StatIds::EARTH_DAMAGE_BONUS].contextModif + m_botData[sender].playerData.stats[(uint)StatIds::EARTH_DAMAGE_BONUS].alignGiftBonus + m_botData[sender].playerData.stats[(uint)StatIds::EARTH_DAMAGE_BONUS].objectsAndMountBonus;
                             elementSpell = 2;
                         }
 
                         else if(D2OManagerSingleton::get()->getI18N()->getText(spellData->m_descriptionId).contains("dommages Eau"))
                         {
-                            characteristic = m_botData[sender].playerData.stats.chance.base + m_botData[sender].playerData.stats.chance.additionnal + m_botData[sender].playerData.stats.chance.contextModif + m_botData[sender].playerData.stats.chance.alignGiftBonus + m_botData[sender].playerData.stats.chance.objectsAndMountBonus;
-                            fixedDamageBonus = m_botData[sender].playerData.stats.allDamagesBonus.base + m_botData[sender].playerData.stats.allDamagesBonus.additionnal + m_botData[sender].playerData.stats.allDamagesBonus.contextModif + m_botData[sender].playerData.stats.allDamagesBonus.alignGiftBonus + m_botData[sender].playerData.stats.allDamagesBonus.objectsAndMountBonus + m_botData[sender].playerData.stats.waterDamageBonus.base + m_botData[sender].playerData.stats.waterDamageBonus.additionnal + m_botData[sender].playerData.stats.waterDamageBonus.contextModif + m_botData[sender].playerData.stats.waterDamageBonus.alignGiftBonus + m_botData[sender].playerData.stats.waterDamageBonus.objectsAndMountBonus;
+                            characteristic = m_botData[sender].playerData.stats[(uint)StatIds::CHANCE].base + m_botData[sender].playerData.stats[(uint)StatIds::CHANCE].additional + m_botData[sender].playerData.stats[(uint)StatIds::CHANCE].contextModif + m_botData[sender].playerData.stats[(uint)StatIds::CHANCE].alignGiftBonus + m_botData[sender].playerData.stats[(uint)StatIds::CHANCE].objectsAndMountBonus;
+                            fixedDamageBonus = m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].base + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].additional + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].contextModif + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].alignGiftBonus + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].objectsAndMountBonus + m_botData[sender].playerData.stats[(uint)StatIds::WATER_DAMAGE_BONUS].base + m_botData[sender].playerData.stats[(uint)StatIds::WATER_DAMAGE_BONUS].additional + m_botData[sender].playerData.stats[(uint)StatIds::WATER_DAMAGE_BONUS].contextModif + m_botData[sender].playerData.stats[(uint)StatIds::WATER_DAMAGE_BONUS].alignGiftBonus + m_botData[sender].playerData.stats[(uint)StatIds::WATER_DAMAGE_BONUS].objectsAndMountBonus;
                             elementSpell = 3;
                         }
 
@@ -1831,26 +1832,26 @@ QMap<int, int> FightManager::getSuddenDamage(SocketIO *sender, int spellID, int 
             {
             case 0: // Feu
             {
-                fixedResistance = fighter.stats.fireElementReduction;
-                resistancePercent = fighter.stats.fireElementResistPercent;
+                fixedResistance = 0;//fighter.stats.fireElementReduction;
+                resistancePercent = 0;//fighter.stats.fireElementResistPercent;
             }
                 break;
             case 1: // Air
             {
-                fixedResistance = fighter.stats.airElementReduction;
-                resistancePercent = fighter.stats.airElementResistPercent;
+                fixedResistance = 0;//fighter.stats.airElementReduction;
+                resistancePercent = 0;//fighter.stats.airElementResistPercent;
             }
                 break;
             case 2: // Terre
             {
-                fixedResistance = fighter.stats.earthElementReduction;
-                resistancePercent = fighter.stats.earthElementResistPercent;
+                fixedResistance = 0;//fighter.stats.earthElementReduction;
+                resistancePercent = 0;//fighter.stats.earthElementResistPercent;
             }
                 break;
             case 3: // Eau
             {
-                fixedResistance = fighter.stats.waterElementReduction;
-                resistancePercent = fighter.stats.waterElementResistPercent;
+                fixedResistance = 0;//fighter.stats.waterElementReduction;
+                resistancePercent = 0;//fighter.stats.waterElementResistPercent;
             }
                 break;
             }
@@ -2071,7 +2072,7 @@ bool FightManager::isSummon(SocketIO *sender, double ennemie)
     while (module.hasNext())
     {
         module.next();
-        if(module.key() == ennemie && module.value().stats.summoned)
+        if(module.key() == ennemie && module.value().summoned)
             return true;
     }
 
@@ -2110,11 +2111,6 @@ bool FightManager::processMonsters(SocketIO *sender)
                     return true;
                 }
             }
-        }
-
-        else
-        {
-
         }
     }
 

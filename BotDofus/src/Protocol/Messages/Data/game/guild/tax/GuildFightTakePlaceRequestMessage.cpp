@@ -8,7 +8,11 @@ void GuildFightTakePlaceRequestMessage::serialize(Writer *output)
 void GuildFightTakePlaceRequestMessage::serializeAs_GuildFightTakePlaceRequestMessage(Writer *output)
 {
   GuildFightJoinRequestMessage::serializeAs_GuildFightJoinRequestMessage(output);
-  output->writeInt((int)this->replacedCharacterId);
+  if(this->replacedCharacterId < 0 || this->replacedCharacterId > 9.007199254740992E15)
+  {
+    qDebug()<<"ERREUR - GuildFightTakePlaceRequestMessage -"<<"Forbidden value (" << this->replacedCharacterId << ") on element replacedCharacterId.";
+  }
+  output->writeVarLong((double)this->replacedCharacterId);
 }
 
 void GuildFightTakePlaceRequestMessage::deserialize(Reader *input)
@@ -35,7 +39,11 @@ void GuildFightTakePlaceRequestMessage::deserializeAsyncAs_GuildFightTakePlaceRe
 
 void GuildFightTakePlaceRequestMessage::_replacedCharacterIdFunc(Reader *input)
 {
-  this->replacedCharacterId = input->readInt();
+  this->replacedCharacterId = input->readVarUhLong();
+  if(this->replacedCharacterId < 0 || this->replacedCharacterId > 9.007199254740992E15)
+  {
+    qDebug()<<"ERREUR - GuildFightTakePlaceRequestMessage -"<<"Forbidden value (" << this->replacedCharacterId << ") on element of GuildFightTakePlaceRequestMessage.replacedCharacterId.";
+  }
 }
 
 GuildFightTakePlaceRequestMessage::GuildFightTakePlaceRequestMessage()

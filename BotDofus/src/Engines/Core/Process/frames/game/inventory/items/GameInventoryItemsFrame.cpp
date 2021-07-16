@@ -166,7 +166,7 @@ bool GameInventoryItemsFrame::processMessage(const MessageInfos &data, SocketIO 
                 }
             }
 
-            if(m_botData[sender].playerData.stats.lifePoints != m_botData[sender].playerData.stats.maxLifePoints)
+            if(m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].total != m_botData[sender].playerData.stats[(uint)StatIds::MAX_LIFE].total)
                 if(!m_statsManager->healEat(sender))
                     m_statsManager->healSit(sender);
         }
@@ -180,8 +180,8 @@ bool GameInventoryItemsFrame::processMessage(const MessageInfos &data, SocketIO 
     {
         InventoryWeightMessage message;
         message.deserialize(&reader);
-        m_botData[sender].playerData.stats.pods.current = message.inventoryWeight;
-        m_botData[sender].playerData.stats.pods.max = message.weightMax;
+        m_botData[sender].playerData.pods.current = message.inventoryWeight;
+        m_botData[sender].playerData.pods.max = message.weightMax;
     }
         break;
 

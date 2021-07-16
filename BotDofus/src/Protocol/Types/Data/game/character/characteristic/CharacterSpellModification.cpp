@@ -13,7 +13,7 @@ void CharacterSpellModification::serializeAs_CharacterSpellModification(Writer *
     qDebug()<<"ERREUR - CharacterSpellModification -"<<"Forbidden value (" << this->spellId << ") on element spellId.";
   }
   output->writeVarShort((int)this->spellId);
-  this->value.serializeAs_CharacterBaseCharacteristic(output);
+  this->value->serializeAs_CharacterCharacteristicDetailed(output);
 }
 
 void CharacterSpellModification::deserialize(Reader *input)
@@ -25,8 +25,8 @@ void CharacterSpellModification::deserializeAs_CharacterSpellModification(Reader
 {
   this->_modificationTypeFunc(input);
   this->_spellIdFunc(input);
-  this->value = CharacterBaseCharacteristic();
-  this->value.deserialize(input);
+  this->value = QSharedPointer<CharacterCharacteristicDetailed>(new CharacterCharacteristicDetailed() );
+  this->value->deserialize(input);
 }
 
 void CharacterSpellModification::deserializeAsync(FuncTree tree)
@@ -61,8 +61,8 @@ void CharacterSpellModification::_spellIdFunc(Reader *input)
 
 void CharacterSpellModification::_valuetreeFunc(Reader *input)
 {
-  this->value = CharacterBaseCharacteristic();
-  this->value.deserializeAsync(this->_valuetree);
+  this->value = QSharedPointer<CharacterCharacteristicDetailed>(new CharacterCharacteristicDetailed() );
+  this->value->deserializeAsync(this->_valuetree);
 }
 
 CharacterSpellModification::CharacterSpellModification()

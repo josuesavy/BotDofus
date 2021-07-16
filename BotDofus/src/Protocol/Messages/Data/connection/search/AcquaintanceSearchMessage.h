@@ -1,6 +1,7 @@
 #ifndef ACQUAINTANCESEARCHMESSAGE_H
 #define ACQUAINTANCESEARCHMESSAGE_H
 
+#include "src/protocol/types/data/common/AccountTagInformation.h"
 #include "src/engines/io/network/utils/FuncTree.h"
 #include "src/protocol/messages/AbstractMessage.h"
 
@@ -15,10 +16,12 @@ public:
   void deserializeAsyncAs_AcquaintanceSearchMessage(FuncTree tree);
   AcquaintanceSearchMessage();
 
-  QString nickname;
+  AccountTagInformation tag;
 
 private:
-  void _nicknameFunc(Reader *input);
+  void _tagtreeFunc(Reader *input);
+
+  FuncTree _tagtree;
 };
 
 #endif // ACQUAINTANCESEARCHMESSAGE_H

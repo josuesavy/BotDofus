@@ -40,6 +40,11 @@ bool AreaData::getHasWorldMap() const
   return m_hasWorldMap;
 }
 
+bool AreaData::getHasSuggestion() const
+{
+  return m_hasSuggestion;
+}
+
 QString AreaData::getName() const
 {
   return m_I18n->getText(m_nameId);
@@ -74,6 +79,9 @@ void AreaData::loadData(const QList<D2OField*> &fields, I18nFile *I18n)
     
     else if(field->getName() == "hasWorldMap")
         m_hasWorldMap = readBool(field->getValue());
+    
+    else if(field->getName() == "hasSuggestion")
+        m_hasSuggestion = readBool(field->getValue());
     
   }
 }

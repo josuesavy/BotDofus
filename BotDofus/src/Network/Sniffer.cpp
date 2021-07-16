@@ -148,6 +148,15 @@ void Sniffer::processServerData()
         default:
             break;
 
+        case MessageEnum::PROTOCOLREQUIRED:
+        {
+            ProtocolRequired message;
+            message.deserialize(&reader);
+
+            qDebug() << "VERSION:" <<message.version;
+        }
+            break;
+
         case MessageEnum::CHARACTERSELECTEDSUCCESSMESSAGE:
         {
             CharacterSelectedSuccessMessage message;

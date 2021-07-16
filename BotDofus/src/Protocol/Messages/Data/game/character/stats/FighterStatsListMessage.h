@@ -16,7 +16,7 @@ public:
   void deserializeAsyncAs_FighterStatsListMessage(FuncTree tree);
   FighterStatsListMessage();
 
-  CharacterCharacteristicsInformations stats;
+  QSharedPointer<CharacterCharacteristicsInformations> stats;
 
 private:
   void _statstreeFunc(Reader *input);

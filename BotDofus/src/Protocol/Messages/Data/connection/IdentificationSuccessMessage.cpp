@@ -13,7 +13,7 @@ void IdentificationSuccessMessage::serializeAs_IdentificationSuccessMessage(Writ
   _box0 = BooleanByteWrapper::setFlag(_box0, 2, this->wasAlreadyConnected);
   output->writeByte(_box0);
   output->writeUTF(this->login);
-  output->writeUTF(this->nickname);
+  this->accountTag.serializeAs_AccountTagInformation(output);
   if(this->accountId < 0)
   {
     qDebug()<<"ERREUR - IdentificationSuccessMessage -"<<"Forbidden value (" << this->accountId << ") on element accountId.";
@@ -56,7 +56,8 @@ void IdentificationSuccessMessage::deserializeAs_IdentificationSuccessMessage(Re
 {
   this->deserializeByteBoxes(input);
   this->_loginFunc(input);
-  this->_nicknameFunc(input);
+  this->accountTag = AccountTagInformation();
+  this->accountTag.deserialize(input);
   this->_accountIdFunc(input);
   this->_communityIdFunc(input);
   this->_secretQuestionFunc(input);
@@ -75,7 +76,7 @@ void IdentificationSuccessMessage::deserializeAsyncAs_IdentificationSuccessMessa
 {
   tree.addChild(std::bind(&IdentificationSuccessMessage::deserializeByteBoxes, this, std::placeholders::_1));
   tree.addChild(std::bind(&IdentificationSuccessMessage::_loginFunc, this, std::placeholders::_1));
-  tree.addChild(std::bind(&IdentificationSuccessMessage::_nicknameFunc, this, std::placeholders::_1));
+  this->_accountTagtree = tree.addChild(std::bind(&IdentificationSuccessMessage::_accountTagtreeFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&IdentificationSuccessMessage::_accountIdFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&IdentificationSuccessMessage::_communityIdFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&IdentificationSuccessMessage::_secretQuestionFunc, this, std::placeholders::_1));
@@ -98,9 +99,10 @@ void IdentificationSuccessMessage::_loginFunc(Reader *input)
   this->login = input->readUTF();
 }
 
-void IdentificationSuccessMessage::_nicknameFunc(Reader *input)
+void IdentificationSuccessMessage::_accountTagtreeFunc(Reader *input)
 {
-  this->nickname = input->readUTF();
+  this->accountTag = AccountTagInformation();
+  this->accountTag.deserializeAsync(this->_accountTagtree);
 }
 
 void IdentificationSuccessMessage::_accountIdFunc(Reader *input)

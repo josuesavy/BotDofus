@@ -4,6 +4,7 @@
 #include "src/protocol/types/AbstractClass.h"
 #include "src/protocol/types/data/game/context/roleplay/GuildInformations.h"
 #include "src/protocol/types/data/game/house/HouseInstanceInformations.h"
+#include "src/protocol/types/data/common/AccountTagInformation.h"
 #include "src/engines/io/network/utils/FuncTree.h"
 
 class HouseGuildedInformations : public HouseInstanceInformations

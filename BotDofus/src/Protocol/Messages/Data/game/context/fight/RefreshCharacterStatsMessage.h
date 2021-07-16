@@ -1,7 +1,7 @@
 #ifndef REFRESHCHARACTERSTATSMESSAGE_H
 #define REFRESHCHARACTERSTATSMESSAGE_H
 
-#include "src/protocol/types/data/game/context/fight/GameFightMinimalStats.h"
+#include "src/protocol/types/data/game/context/fight/GameFightCharacteristics.h"
 #include "src/engines/io/network/utils/FuncTree.h"
 #include "src/protocol/messages/AbstractMessage.h"
 
@@ -17,7 +17,7 @@ public:
   RefreshCharacterStatsMessage();
 
   double fighterId;
-  QSharedPointer<GameFightMinimalStats> stats;
+  QSharedPointer<GameFightCharacteristics> stats;
 
 private:
   void _fighterIdFunc(Reader *input);
