@@ -19,7 +19,7 @@ void DataConverter::serialize()
 
     m_source = new SourceSerializer(m_output+"/"+DATA_UTILS_PATH, classInfos);
 
-      m_source->getHeader().addInclude(QString(DATA_UTILS_PATH)+"/"+QString(DATA_DECLARATOR_NAME)+".h");
+    m_source->getHeader().addInclude(QString(DATA_UTILS_PATH)+"/"+QString(DATA_DECLARATOR_NAME)+".h");
     m_source->getHeader().addInclude(QString(DATA_UTILS_PATH)+"/"+QString(DATA_TYPE_DECLARATOR_NAME )+".h");
 
     FunctionData getClass;
