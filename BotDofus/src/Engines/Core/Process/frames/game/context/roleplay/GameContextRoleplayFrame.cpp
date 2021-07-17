@@ -212,8 +212,11 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
 //                    m_botData[sender].mapData.interactivesOnMap<<mainElementInfos;
 //                }
 
-                QSharedPointer<InteractiveData> element = qSharedPointerCast<InteractiveData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::INTERACTIVES, interactiveClass->elementTypeId));
-                qDebug()<<"[InteractiveElement] Name:"<<element->getName()<<" CellID:"<<m_botData[sender].mapData.map.getInteractiveElementCellID(interactiveClass->elementId)<<" TypeID:"<<interactiveClass->elementTypeId;
+                if (interactiveClass->elementTypeId >= 0)
+                {
+                    QSharedPointer<InteractiveData> element = qSharedPointerCast<InteractiveData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::INTERACTIVES, interactiveClass->elementTypeId));
+                    qDebug()<<"[InteractiveElement] Name:"<<element->getName()<<" CellID:"<<m_botData[sender].mapData.map.getInteractiveElementCellID(interactiveClass->elementId)<<" TypeID:"<<interactiveClass->elementTypeId;
+                }
             }
         }
 

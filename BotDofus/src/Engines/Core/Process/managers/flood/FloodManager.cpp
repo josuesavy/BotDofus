@@ -67,7 +67,7 @@ void FloodManager::sendChatMessage(SocketIO *sender, const QString &messageConte
 {
     if (m_botData[sender].connectionData.connectionState == ConnectionState::CONNECTED)
     {
-        QSharedPointer<PlayerSearchCharacterNameInformation> playerSearchCharacterNameInformation;
+        QSharedPointer<PlayerSearchCharacterNameInformation> playerSearchCharacterNameInformation = QSharedPointer<PlayerSearchCharacterNameInformation>(new PlayerSearchCharacterNameInformation);
         playerSearchCharacterNameInformation->name = receiver;
 
         ChatClientPrivateMessage message;

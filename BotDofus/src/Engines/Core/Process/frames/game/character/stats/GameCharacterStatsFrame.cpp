@@ -77,28 +77,28 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
 
         foreach (QSharedPointer<CharacterCharacteristic> characterCharacteristic, message.stats->characteristics)
         {
+            DetailedStats detailedStats;
+
             if (characterCharacteristic->getTypes().contains(ClassEnum::CHARACTERCHARACTERISTICDETAILED))
             {
                 QSharedPointer<CharacterCharacteristicDetailed> characterCharacteristicDetailed = qSharedPointerCast<CharacterCharacteristicDetailed>(characterCharacteristic);
 
-                DetailedStats tempDetailedStats;
-                tempDetailedStats.base = characterCharacteristicDetailed->base;
-                tempDetailedStats.additional = characterCharacteristicDetailed->additional;
-                tempDetailedStats.objectsAndMountBonus = characterCharacteristicDetailed->objectsAndMountBonus;
-                tempDetailedStats.alignGiftBonus = characterCharacteristicDetailed->alignGiftBonus;
-                tempDetailedStats.contextModif = characterCharacteristicDetailed->contextModif;
+                detailedStats.base = characterCharacteristicDetailed->base;
+                detailedStats.additional = characterCharacteristicDetailed->additional;
+                detailedStats.objectsAndMountBonus = characterCharacteristicDetailed->objectsAndMountBonus;
+                detailedStats.alignGiftBonus = characterCharacteristicDetailed->alignGiftBonus;
+                detailedStats.contextModif = characterCharacteristicDetailed->contextModif;
 
-                temp[characterCharacteristic->characteristicId] = tempDetailedStats;
+                temp[characterCharacteristic->characteristicId] = detailedStats;
             }
 
             else if (characterCharacteristic->getTypes().contains(ClassEnum::CHARACTERCHARACTERISTICVALUE))
             {
                 QSharedPointer<CharacterCharacteristicValue> characterCharacteristicValue = qSharedPointerCast<CharacterCharacteristicValue>(characterCharacteristic);
 
-                DetailedStats tempStats;
-                tempStats.total = characterCharacteristicValue->total;
+                detailedStats.total = characterCharacteristicValue->total;
 
-                temp[characterCharacteristicValue->characteristicId] = tempStats;
+                temp[characterCharacteristicValue->characteristicId] = detailedStats;
             }
         }
 
