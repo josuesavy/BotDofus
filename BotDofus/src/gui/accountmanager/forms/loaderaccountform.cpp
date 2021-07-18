@@ -41,7 +41,7 @@ void LoaderAccountForm::initialization()
                 query.value(1).toString(),
                 query.value(2).toString(),
                 query.value(7).toUInt() != 0? QDateTime::fromTime_t(query.value(7).toUInt()).toString("dd/MM/yyyy hh:mm:ss"): "",
-                query.value(6).toBool()? "Oui": "Non"
+                query.value(6).toBool()? "Yes": "No"
             };
             ui->treeWidgetAccounts->addTopLevelItem(new QTreeWidgetItem(QStringList(infoAccount)));
 
@@ -64,7 +64,7 @@ void LoaderAccountForm::on_treeWidgetAccounts_itemSelectionChanged()
     if(ui->treeWidgetAccounts->selectedItems().size() > 1 && ui->treeWidgetAccounts->selectedItems().size() <= 8)
     {
         ui->comboBoxMaster->clear();
-        ui->comboBoxMaster->addItem("Ne pas faire de groupe");
+        ui->comboBoxMaster->addItem("Do not make a group");
         ui->comboBoxMaster->setEnabled(true);
 
         for(int i = 0; i < ui->treeWidgetAccounts->selectedItems().size(); i++)
@@ -73,7 +73,7 @@ void LoaderAccountForm::on_treeWidgetAccounts_itemSelectionChanged()
     else
     {
         ui->comboBoxMaster->clear();
-        ui->comboBoxMaster->addItem("Ne pas faire de groupe");
+        ui->comboBoxMaster->addItem("Do not make a group");
         ui->comboBoxMaster->setEnabled(false);
     }
 }
@@ -145,7 +145,7 @@ void LoaderAccountForm::on_treeWidgetAccounts_itemDoubleClicked(QTreeWidgetItem 
 
 void LoaderAccountForm::on_pushButtonImportAccounts_clicked()
 {
-    QString path = QFileDialog::getOpenFileName(this, "Selectionner un fichier");
+    QString path = QFileDialog::getOpenFileName(this);
 
     QFile file(path);
     if (file.open(QIODevice::ReadOnly) && file.size())
@@ -175,9 +175,9 @@ void LoaderAccountForm::on_pushButtonImportAccounts_clicked()
         query.prepare(request);
 
         if(query.exec())
-            QMessageBox::information(this,"Importation","Importation des comptes effectués !");
+            QMessageBox::information(this,"Import","Importing successful accounts!");
         else
-            QMessageBox::critical(this,"Erreur", query.lastError().text());
+            QMessageBox::critical(this,"Error", query.lastError().text());
 
         file.close();
     }
@@ -187,7 +187,7 @@ void LoaderAccountForm::on_pushButtonImportAccounts_clicked()
 
 void LoaderAccountForm::on_pushButtonExportAccounts_clicked()
 {
-    QString path = QFileDialog::getSaveFileName(this, "Selectionner un dossier");
+    QString path = QFileDialog::getSaveFileName(this);
 
     QFile file(path);
     if (file.open(QIODevice::WriteOnly))
@@ -207,7 +207,7 @@ void LoaderAccountForm::on_pushButtonExportAccounts_clicked()
 
         file.close();
 
-        QMessageBox::information(this,"Exportation","Exportation des comptes effectuée !");
+        QMessageBox::information(this,"Export","Export of completed accounts!");
     }
 }
 
@@ -215,7 +215,7 @@ void LoaderAccountForm::on_pushButtonDelete_clicked()
 {
     if(ui->treeWidgetAccounts->selectedItems().count() != 0)
     {
-        int answ = QMessageBox::warning(this, "Confirmation", "Etes-vous sûr de vouloir effectuer la suppression.", QMessageBox::Yes | QMessageBox::No);
+        int answ = QMessageBox::warning(this, "Confirm", "Are you sure you want to delete.", QMessageBox::Yes | QMessageBox::No);
         if(answ == QMessageBox::Yes)
         {
             QSqlQuery query;
@@ -244,7 +244,7 @@ void LoaderAccountForm::on_pushButtonDelete_clicked()
             ui->pushButtonLoad->setEnabled(false);
     }
     else
-        QMessageBox::critical(this,"Erreur","Veuillez sélectionné un compte dans la liste");
+        QMessageBox::critical(this,"Error","Please select a account in the list");
 }
 
 void LoaderAccountForm::on_pushButtonLoad_clicked()
@@ -278,7 +278,7 @@ void LoaderAccountForm::on_pushButtonLoad_clicked()
                                 if(!character.isEmpty())
                                     m_accounts[i].masterGroup = character;
                                 else
-                                    QMessageBox::critical(this,"Erreur",QString("Aucun personnage enregistré sur le compte <b>%1</b>").arg(query.value(0).toString()));
+                                    QMessageBox::critical(this,"Error",QString("No characters registered on the <b>%1</b> account").arg(query.value(0).toString()));
                             }
                         }
                     }
@@ -344,7 +344,7 @@ void LoaderAccountForm::on_pushButtonLoad_clicked()
     }
 
     else
-        QMessageBox::critical(this,"Erreur","Veuillez sélectionnez un compte dans la liste.");
+        QMessageBox::critical(this,"Error","Please select a account in the list");
 }
 
 void LoaderAccountForm::on_treeWidgetAccounts_itemChanged(QTreeWidgetItem *item, int column)

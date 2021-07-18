@@ -36,8 +36,8 @@ void MainWindow::initTrayMenu()
     trayIcon->setToolTip("SweatedBox");
 
     QMenu * menu = new QMenu(this);
-    QAction * viewWindow = new QAction("Afficher", this);
-    QAction * quitAction = new QAction("Quitter", this);
+    QAction * viewWindow = new QAction("Maximize", this);
+    QAction * quitAction = new QAction("Quit", this);
 
     connect(viewWindow, SIGNAL(triggered()), this, SLOT(show()));
     connect(quitAction, SIGNAL(triggered()), this, SLOT(close()));
@@ -76,7 +76,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
     if(isActive)
     {
-        int answ = QMessageBox::warning(this, "Attention", "Etes-vous sûr de vouloir fermer SweatedBox ?\nIl y a un ou plusieur bot actuellement en ligne.", QMessageBox::Yes | QMessageBox::No);
+        int answ = QMessageBox::warning(this, "Warning", "Are you sur you wan to close SweatedBox?\nThere is one or more bots currently online.", QMessageBox::Yes | QMessageBox::No);
         if(answ == QMessageBox::No)
         {
             event->ignore();
@@ -101,14 +101,14 @@ void MainWindow::addAccount(const QList<ConnectionInfos> &accounts)
     }
 
     if (alreadyExist)
-        QMessageBox::critical(NULL,"Erreur","Le compte est déjà chargé en mémoire");
+        QMessageBox::critical(NULL,"Error","The account is already loaded into memory");
 
     else
     {
         QProgressDialog progressDlg(this);
         progressDlg.setWindowModality(Qt::WindowModal);
         progressDlg.setMinimumWidth(350);
-        progressDlg.setWindowTitle("Chargement des comptes");
+        progressDlg.setWindowTitle("Loading accounts");
         progressDlg.setCancelButton(nullptr);
         progressDlg.setAutoClose(true);
         progressDlg.setMaximum(accounts.size());
@@ -123,7 +123,7 @@ void MainWindow::addAccount(const QList<ConnectionInfos> &accounts)
                 // Remplissement de la liste de comptes avec leur Widget
                 for(int i = 0; i < accounts.size(); i++)
                 {
-                    progressDlg.setLabelText(QString("Chargement du compte <b>%1</b>...").arg(accounts.at(i).alias.isEmpty() ? accounts.at(i).login: accounts.at(i).alias));
+                    progressDlg.setLabelText(QString("Loading the <b>%1</b> account...").arg(accounts.at(i).alias.isEmpty() ? accounts.at(i).login: accounts.at(i).alias));
                     progressDlg.setValue(i+1);
                     qApp->processEvents();
 
@@ -166,7 +166,7 @@ void MainWindow::addAccount(const QList<ConnectionInfos> &accounts)
                     // Add Slaves
                     for(int i = 1; i < accounts.size(); i++)
                     {
-                        progressDlg.setLabelText(QString("Chargement du groupe de <b>%1</b> (%2/%3)...").arg(accounts.at(i).masterGroup).arg(i+1).arg(accounts.size()));
+                        progressDlg.setLabelText(QString("Loading <b>%1's</b> group (%2/%3)...").arg(accounts.at(i).masterGroup).arg(i+1).arg(accounts.size()));
                         progressDlg.setValue(i+1);
                         qApp->processEvents();
 
@@ -271,7 +271,7 @@ void MainWindow::on_actionMinimize_triggered()
     hide();
 
     QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::MessageIcon(QSystemTrayIcon::Information);
-    trayIcon->showMessage("SweatedBox", ("SweatedBox est réduit. Pour l'afficher de nouveau cliquez sur l'icône."), icon, 2000);
+    trayIcon->showMessage("SweatedBox", ("SweatedBox is reduced. To display it again click on the icon."), icon, 2000);
 }
 
 void MainWindow::on_treeWidgetAccount_itemClicked(QTreeWidgetItem *item, int column)

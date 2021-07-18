@@ -45,6 +45,9 @@
    </item>
    <item row="1" column="0" colspan="2">
     <widget class="QLabel" name="label_2">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
        <horstretch>0</horstretch>
@@ -52,7 +55,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>Pensez à tenir votre client Dofus à jour</string>
+      <string>Don't forget to always keep your Dofus client up to date.</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -62,7 +65,7 @@
    <item row="5" column="1">
     <widget class="QPushButton" name="pushButton_2">
      <property name="text">
-      <string>Annuler</string>
+      <string>Cancel</string>
      </property>
      <property name="icon">
       <iconset resource="../../res/resources.qrc">
@@ -96,7 +99,7 @@
    <item row="5" column="0">
     <widget class="QPushButton" name="pushButtonConnect">
      <property name="text">
-      <string>Connexion</string>
+      <string>Connection</string>
      </property>
      <property name="icon">
       <iconset resource="../../res/resources.qrc">
@@ -107,16 +110,20 @@
    <item row="2" column="0" colspan="2">
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>Emplacement de Dofus</string>
+      <string>Dofus location</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="0" column="0">
-       <widget class="QLineEdit" name="lineEditPathDofus"/>
+       <widget class="QLineEdit" name="lineEditPathDofus">
+        <property name="placeholderText">
+         <string>Dofus location</string>
+        </property>
+       </widget>
       </item>
       <item row="0" column="1">
        <widget class="QPushButton" name="pushButtonBrowser">
         <property name="text">
-         <string>Parcourir...</string>
+         <string>Browser...</string>
         </property>
        </widget>
       </item>

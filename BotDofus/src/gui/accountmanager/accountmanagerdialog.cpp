@@ -13,9 +13,9 @@ AccountManagerDialog::AccountManagerDialog(QWidget *parent) :
     addAccountForm = new AddAccountForm(ui->tabWidget);
     characterCreatorForm = new CharacterCreatorForm(ui->tabWidget);
 
-    ui->tabWidget->addTab(loaderAccountForm, "Charger des comptes");
-    ui->tabWidget->addTab(addAccountForm, "Ajouter des comptes");
-    ui->tabWidget->addTab(characterCreatorForm, "Ajouter un personnage");
+    ui->tabWidget->addTab(loaderAccountForm, "Load accounts");
+    ui->tabWidget->addTab(addAccountForm, "Add accounts");
+    ui->tabWidget->addTab(characterCreatorForm, "Add a character");
     //ui->tabWidget->addTab(new QWidget(),"Abonner des comptes");
 
     //ui->tabWidget->setTabEnabled(3, false);
@@ -48,4 +48,18 @@ void AccountManagerDialog::closeEvent(QCloseEvent *event)
 void AccountManagerDialog::on_buttonBox_accepted()
 {
     accept();
+}
+
+void AccountManagerDialog::on_checkBoxCloseAfterLoaded_stateChanged(int arg1)
+{
+    switch (arg1)
+    {
+    case (int)Qt::Unchecked:
+        // TODO: check in the database if the data exist and change value
+        break;
+    case (int)Qt::PartiallyChecked:
+        break;
+    case (int)Qt::Checked:
+        break;
+    }
 }

@@ -30,7 +30,7 @@
    <item row="0" column="1">
     <widget class="QCheckBox" name="checkBoxDisplayCellIds">
      <property name="text">
-      <string>Afficher les cellids</string>
+      <string>Display cellids</string>
      </property>
     </widget>
    </item>
@@ -71,7 +71,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>OUEST</string>
+        <string>WEST</string>
        </property>
       </widget>
      </item>
@@ -84,7 +84,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>NORD</string>
+        <string>NORTH</string>
        </property>
       </widget>
      </item>
@@ -97,7 +97,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>EST</string>
+        <string>EAST</string>
        </property>
       </widget>
      </item>
@@ -110,7 +110,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>SUD</string>
+        <string>SOUTH</string>
        </property>
       </widget>
      </item>

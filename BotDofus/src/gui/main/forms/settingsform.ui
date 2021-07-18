@@ -30,7 +30,7 @@
         <normaloff>:/icons/add_on_16px.ico</normaloff>:/icons/add_on_16px.ico</iconset>
       </attribute>
       <attribute name="title">
-       <string>Générales</string>
+       <string>General</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_30">
        <item row="4" column="0">
@@ -49,20 +49,20 @@
        <item row="0" column="0">
         <widget class="QGroupBox" name="groupBox_2">
          <property name="title">
-          <string>Automatisation</string>
+          <string>Automating</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_3">
           <item row="0" column="0">
            <widget class="QCheckBox" name="checkBoxAutoReconnect">
             <property name="text">
-             <string>Reconnexion automatique</string>
+             <string>Automatic reconnection</string>
             </property>
            </widget>
           </item>
           <item row="1" column="0">
            <widget class="QCheckBox" name="checkBoxAutoAcceptAchievement">
             <property name="text">
-             <string>Valider automatiquement les succès</string>
+             <string>Automatically validate achievements</string>
             </property>
            </widget>
           </item>
@@ -72,29 +72,29 @@
        <item row="3" column="0">
         <widget class="QGroupBox" name="groupBox">
          <property name="title">
-          <string>Status en jeu</string>
+          <string>Status in game</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_2">
           <item row="0" column="0">
            <widget class="QComboBox" name="comboBoxStatus">
             <item>
              <property name="text">
-              <string>Disponible</string>
+              <string>Available</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Absent</string>
+              <string>Away</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Absent...</string>
+              <string>Away...</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Privé</string>
+              <string>Private</string>
              </property>
             </item>
             <item>
@@ -144,7 +144,7 @@
        <item row="0" column="0" colspan="3">
         <widget class="QGroupBox" name="groupBox_6">
          <property name="title">
-          <string>Activer le proxy</string>
+          <string>Enable proxy</string>
          </property>
          <property name="checkable">
           <bool>true</bool>
@@ -156,7 +156,7 @@
           <item row="2" column="0" colspan="2">
            <widget class="QLabel" name="label_24">
             <property name="text">
-             <string>Nom d'utilisateur :</string>
+             <string>Username:</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -166,14 +166,14 @@
           <item row="2" column="2">
            <widget class="QLineEdit" name="lineEditAccountProxy">
             <property name="placeholderText">
-             <string>Non d'utilisateur</string>
+             <string>Username</string>
             </property>
            </widget>
           </item>
           <item row="3" column="0" colspan="2">
            <widget class="QLabel" name="label_25">
             <property name="text">
-             <string>Mot de passe :</string>
+             <string>Password:</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -186,7 +186,7 @@
              <enum>QLineEdit::Password</enum>
             </property>
             <property name="placeholderText">
-             <string>Mot de passe</string>
+             <string>Password</string>
             </property>
            </widget>
           </item>
@@ -203,14 +203,14 @@
           <item row="0" column="2">
            <widget class="QLineEdit" name="lineEditHostProxy">
             <property name="placeholderText">
-             <string>Hôte</string>
+             <string>Host</string>
             </property>
            </widget>
           </item>
           <item row="0" column="0" colspan="2">
            <widget class="QLabel" name="label_26">
             <property name="text">
-             <string>Hôte :</string>
+             <string>Host:</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -220,7 +220,7 @@
           <item row="1" column="0" colspan="2">
            <widget class="QLabel" name="label_27">
             <property name="text">
-             <string>Port :</string>
+             <string>Port:</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -259,7 +259,7 @@
        <item row="1" column="1">
         <widget class="QPushButton" name="pushButtonCheckAndApplyProxy">
          <property name="text">
-          <string>Vérifier et appliquer ce proxy</string>
+          <string>Check and apply the proxy</string>
          </property>
         </widget>
        </item>
@@ -278,7 +278,7 @@
         <normaloff>:/icons/clock_15_16px.ico</normaloff>:/icons/clock_15_16px.ico</iconset>
       </attribute>
       <attribute name="title">
-       <string>Planification</string>
+       <string>Schedule</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_33">
        <item row="0" column="0">
@@ -286,7 +286,7 @@
          <item>
           <widget class="QCheckBox" name="checkBoxEnablePlanif">
            <property name="text">
-            <string>Activer la planification</string>
+            <string>Enable schedule</string>
            </property>
           </widget>
          </item>
@@ -341,7 +341,7 @@ border: 0px;</string>
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Connecter</string>
+            <string>Connected</string>
            </property>
           </widget>
          </item>
@@ -383,7 +383,7 @@ border: 0px;</string>
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Déconnecter</string>
+            <string>Disconnected</string>
            </property>
           </widget>
          </item>
@@ -1187,7 +1187,7 @@ border: 0px;</string>
        <item row="2" column="0">
         <widget class="QPushButton" name="pushButtonApply">
          <property name="text">
-          <string>Appliquer</string>
+          <string>Apply</string>
          </property>
         </widget>
        </item>

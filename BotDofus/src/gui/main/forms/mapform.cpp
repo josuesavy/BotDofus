@@ -80,7 +80,7 @@ void MapForm::showInfos(uint cell)
             if(!txt.isEmpty())
                 txt += "\n";
 
-            txt += QString("<b><center>Niveau %1<center></b>").arg(monsters.level);
+            txt += QString("<b><center>Level %1<center></b>").arg(monsters.level);
             txt += QString("<hr>");
 
             foreach(Monster monster, monsters.monsters)
@@ -98,7 +98,7 @@ void MapForm::showInfos(uint cell)
             if(!txt.isEmpty())
                 txt += "\n";
 
-            txt += QString("%1 (Niv. %2)").arg(entity.name).arg(entity.level);
+            txt += QString("%1 (Lvl. %2)").arg(entity.name).arg(entity.level);
         }
     }
 

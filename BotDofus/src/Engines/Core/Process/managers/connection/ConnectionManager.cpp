@@ -170,7 +170,7 @@ void ConnectionManager::hasDisconnected()
     if(m_botData.contains(sender))
     {
         if(m_botData[sender].connectionData.connectionState == ConnectionState::CONNECTED)
-            warn(sender)<<"La connexion avec le serveur a été interrompue.";
+            warn(sender)<< D2OManagerSingleton::get()->getI18N()->getText("ui.popup.unexpectedSocketClosure.text").replace("\n", "");
 
         info(sender)<<"Déconnecté";
 

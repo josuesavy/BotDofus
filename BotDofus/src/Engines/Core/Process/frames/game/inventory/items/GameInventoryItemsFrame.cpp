@@ -166,7 +166,7 @@ bool GameInventoryItemsFrame::processMessage(const MessageInfos &data, SocketIO 
                 }
             }
 
-            if(m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].total != m_botData[sender].playerData.stats[(uint)StatIds::MAX_LIFE].total)
+            if(m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].base != m_botData[sender].playerData.stats[(uint)StatIds::MAX_LIFE].base)
                 if(!m_statsManager->healEat(sender))
                     m_statsManager->healSit(sender);
         }

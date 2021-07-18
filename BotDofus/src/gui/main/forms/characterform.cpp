@@ -70,13 +70,13 @@ void CharacterForm::updateInterface()
         if(infos.mapData.gameContext == GameContextEnum::ROLE_PLAY)
         {
             QSharedPointer<BreedData> breed = qSharedPointerCast<BreedData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::BREEDS, (int)infos.playerData.breed));
-            ui->labelDescription->setText(QString("%1, Niveau %2").arg(breed->getShortName()).arg(infos.mapData.playersOnMap[infos.mapData.botId].level));
+            ui->labelDescription->setText(QString("%1, Level %2").arg(breed->getShortName()).arg(infos.mapData.playersOnMap[infos.mapData.botId].level));
         }
 
         else if(infos.mapData.gameContext == GameContextEnum::FIGHT)
         {
             QSharedPointer<BreedData> breed = qSharedPointerCast<BreedData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::BREEDS, (int)infos.playerData.breed));
-            ui->labelDescription->setText(QString("%1, Niveau %2").arg(breed->getShortName()).arg(infos.fightData.fighters[infos.fightData.botFightData.botId].level));
+            ui->labelDescription->setText(QString("%1, Level %2").arg(breed->getShortName()).arg(infos.fightData.fighters[infos.fightData.botFightData.botId].level));
         }
 
 
@@ -91,13 +91,16 @@ void CharacterForm::updateInterface()
                                              infos.playerData.stats[(uint)StatIds::MOVEMENT_POINTS].contextModif +
                                              infos.playerData.stats[(uint)StatIds::MOVEMENT_POINTS].objectsAndMountBonus +
                                              infos.playerData.stats[(uint)StatIds::MOVEMENT_POINTS].additional));
-        ui->labelInitiative->setText(QString("%1/%2")
-                                     .arg((infos.playerData.stats[(uint)StatIds::INITIATIVE].base +infos.playerData.stats[(uint)StatIds::INITIATIVE].alignGiftBonus +
-                                           infos.playerData.stats[(uint)StatIds::INITIATIVE].contextModif + infos.playerData.stats[(uint)StatIds::INITIATIVE].objectsAndMountBonus +
-                                           infos.playerData.stats[(uint)StatIds::INITIATIVE].additional)*infos.playerData.stats[(uint)StatIds::LIFE_POINTS].total / infos.playerData.stats[(uint)StatIds::MAX_LIFE].total)
-                                     .arg(infos.playerData.stats[(uint)StatIds::INITIATIVE].base + infos.playerData.stats[(uint)StatIds::INITIATIVE].alignGiftBonus +
-                                          infos.playerData.stats[(uint)StatIds::INITIATIVE].contextModif + infos.playerData.stats[(uint)StatIds::INITIATIVE].objectsAndMountBonus +
-                                          infos.playerData.stats[(uint)StatIds::INITIATIVE].additional));
+        if (m_engine->getStatsManager().getMaxHealthPoints(m_sender) != 0)
+        {
+            ui->labelInitiative->setText(QString("%1/%2")
+                                         .arg((infos.playerData.stats[(uint)StatIds::INITIATIVE].base +infos.playerData.stats[(uint)StatIds::INITIATIVE].alignGiftBonus +
+                                         infos.playerData.stats[(uint)StatIds::INITIATIVE].contextModif + infos.playerData.stats[(uint)StatIds::INITIATIVE].objectsAndMountBonus +
+                    infos.playerData.stats[(uint)StatIds::INITIATIVE].additional)*m_engine->getStatsManager().getHealthPoints(m_sender) / m_engine->getStatsManager().getMaxHealthPoints(m_sender))
+                    .arg(infos.playerData.stats[(uint)StatIds::INITIATIVE].base + infos.playerData.stats[(uint)StatIds::INITIATIVE].alignGiftBonus +
+                    infos.playerData.stats[(uint)StatIds::INITIATIVE].contextModif + infos.playerData.stats[(uint)StatIds::INITIATIVE].objectsAndMountBonus +
+                    infos.playerData.stats[(uint)StatIds::INITIATIVE].additional));
+        }
         ui->labelProspecting->setText(QString::number(infos.playerData.stats[(uint)StatIds::MAGIC_FIND].base +
                                                       infos.playerData.stats[(uint)StatIds::MAGIC_FIND].alignGiftBonus +
                                                       infos.playerData.stats[(uint)StatIds::MAGIC_FIND].contextModif +
@@ -345,7 +348,7 @@ void CharacterForm::on_pushButtonAddAgility_clicked()
 
 void CharacterForm::on_pushButtonResetCharacteristics_clicked()
 {
-    int answ = QMessageBox::warning(this, "Attention", "Etes-vous sûr de vouloir réinitialiser vos caractéristiques ?", QMessageBox::Yes | QMessageBox::No);
+    int answ = QMessageBox::warning(this, "Warning", "Are you sur you want to reset your characteristics?", QMessageBox::Yes | QMessageBox::No);
     if(answ == QMessageBox::Yes)
         m_engine->getStatsManager().resetStat(m_sender);
 }

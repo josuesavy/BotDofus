@@ -216,7 +216,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Bienvenue dans SweatedBox !&lt;/span&gt;&lt;/p&gt;&lt;hr/&gt;&lt;p&gt;La partie gauche de cette fenêtre affiche la liste de vos comptes dofus. Cette liste est vide car vous n'avez pas encore chargés de comptes.&lt;/p&gt;&lt;p&gt;Pour charger un compte cliquez sur le bouton &lt;span style=&quot; font-weight:600;&quot;&gt;Gestionnaire de compte&lt;/span&gt; juste au dessous de cette liste.&lt;/p&gt;&lt;p&gt;Vous pouvez appuyer sur &lt;span style=&quot; font-weight:600;&quot;&gt;F1&lt;/span&gt; pour obtenir de l'aide et visiter le site de SweatedBox &lt;a href=&quot;www.google.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#007af4;&quot;&gt;www.sweatedbox.com&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Welcome to SweatedBox!&lt;/span&gt;&lt;/p&gt;&lt;hr/&gt;&lt;p&gt;The left part of this window contains the list of your dofus's accounts. This list is empty because you have not yet loaded any accounts.&lt;/p&gt;&lt;p&gt;For load a account click on the &lt;span style=&quot; font-weight:600;&quot;&gt;Account manager&lt;/span&gt; button just below this list.&lt;/p&gt;&lt;p&gt;You can press the &lt;span style=&quot; font-weight:600;&quot;&gt;F1&lt;/span&gt; key to get instant help, or visit SweatedBox website &lt;a href=&quot;www.google.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#007af4;&quot;&gt;www.sweatedbox.com&lt;/span&gt;&lt;/a&gt; for more information and latest news.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="scaledContents">
             <bool>true</bool>
@@ -241,7 +241,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Gestionnaire de compte</string>
+            <string>Account manager</string>
            </property>
            <property name="icon">
             <iconset resource="../../res/resources.qrc">
@@ -286,25 +286,25 @@
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>Fichier</string>
+     <string>File</string>
     </property>
     <addaction name="actionAccountManager"/>
     <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
     <property name="title">
-     <string>Edition</string>
+     <string>Edit</string>
     </property>
    </widget>
    <widget class="QMenu" name="menuDisplay">
     <property name="title">
-     <string>Affichage</string>
+     <string>View</string>
     </property>
     <addaction name="actionMinimize"/>
    </widget>
    <widget class="QMenu" name="menuTools">
     <property name="title">
-     <string>Outils</string>
+     <string>Tools</string>
     </property>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -337,7 +337,10 @@
      <normaloff>:/icons/user_16px.ico</normaloff>:/icons/user_16px.ico</iconset>
    </property>
    <property name="text">
-    <string>Gestionnaire du compte</string>
+    <string>Account manager</string>
+   </property>
+   <property name="toolTip">
+    <string>Account manager</string>
    </property>
   </action>
   <action name="actionAbout">
@@ -346,7 +349,10 @@
      <normaloff>:/icons/information_16px.ico</normaloff>:/icons/information_16px.ico</iconset>
    </property>
    <property name="text">
-    <string>En savoir plus..</string>
+    <string>About...</string>
+   </property>
+   <property name="toolTip">
+    <string>About...</string>
    </property>
   </action>
   <action name="actionQuit">
@@ -355,7 +361,10 @@
      <normaloff>:/icons/cancel_16px.ico</normaloff>:/icons/cancel_16px.ico</iconset>
    </property>
    <property name="text">
-    <string>Quitter</string>
+    <string>Quit</string>
+   </property>
+   <property name="toolTip">
+    <string>Quit</string>
    </property>
   </action>
   <action name="actionDocumentation">
@@ -373,7 +382,7 @@
      <normaloff>:/icons/application_put_16px.ico</normaloff>:/icons/application_put_16px.ico</iconset>
    </property>
    <property name="text">
-    <string>Minimiser</string>
+    <string>Minimize</string>
    </property>
   </action>
  </widget>

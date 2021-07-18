@@ -31,7 +31,7 @@ void AddAccountForm::on_pushButtonAddAccount_clicked()
                 QString password = ui->lineEditPassword->text();
 
                 if(begin > end)
-                    QMessageBox::critical(this,"Erreur","La valeur de la première itération doit être inférieur à celle de la deuxième.");
+                    QMessageBox::critical(this,"Error","The value of the first iteration must be less than that of the second.");
 
                 else
                 {
@@ -53,7 +53,7 @@ void AddAccountForm::on_pushButtonAddAccount_clicked()
 
                     if(query.exec())
                     {
-                        QMessageBox::information(this,"Sauvegarde","Les comptes ont été ajoutés !");
+                        QMessageBox::information(this,"Save","The accounts has been added!");
 
                         ui->lineEditAccount->clear();
                         ui->lineEditPassword->clear();
@@ -64,7 +64,7 @@ void AddAccountForm::on_pushButtonAddAccount_clicked()
             }
 
             else
-                QMessageBox::critical(this,"Erreur", "Le caractère '<b>%</b>' n'est pas définis dans le nom de compte.");
+                QMessageBox::critical(this,"Error", "The character '<b>% </b>' is not defined in the account name.");
         }
 
         else
@@ -75,20 +75,20 @@ void AddAccountForm::on_pushButtonAddAccount_clicked()
 
             if(query.exec())
             {
-                QMessageBox::information(this,"Sauvegarde","Le compte a été ajouté !");
+                QMessageBox::information(this,"Save","The account has been added!");
 
                 ui->lineEditAccount->clear();
                 ui->lineEditPassword->clear();
             }
             else
-                QMessageBox::critical(this,"Erreur", query.lastError().text());
+                QMessageBox::critical(this,"Error", query.lastError().text());
         }
 
         emit updateListAccounts(); // initialization() in LoaderAccountForm
     }
 
     else
-        QMessageBox::critical(this,"Erreur", "Veuillez remplir les champs de connexion.");
+        QMessageBox::critical(this,"Error", "Please fill in the login fields.");
 }
 
 void AddAccountForm::on_pushButtonRefreshAccountName_clicked()

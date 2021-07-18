@@ -30,7 +30,7 @@
         <normaloff>:/icons/sword_16px.ico</normaloff>:/icons/sword_16px.ico</iconset>
       </attribute>
       <attribute name="title">
-       <string>Equipements</string>
+       <string>Equipments</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_14">
        <property name="leftMargin">
@@ -75,7 +75,7 @@
          </column>
          <column>
           <property name="text">
-           <string>Quantité</string>
+           <string>Quantity</string>
           </property>
          </column>
          <column>
@@ -90,17 +90,17 @@
          </column>
          <column>
           <property name="text">
-           <string>Equiper</string>
+           <string>Equip</string>
           </property>
          </column>
          <column>
           <property name="text">
-           <string>Jeter</string>
+           <string>Throw</string>
           </property>
          </column>
          <column>
           <property name="text">
-           <string>Supprimer</string>
+           <string>Delete</string>
           </property>
          </column>
         </widget>
@@ -113,7 +113,7 @@
         <normaloff>:/icons/flask_16px.ico</normaloff>:/icons/flask_16px.ico</iconset>
       </attribute>
       <attribute name="title">
-       <string>Objets utilisables</string>
+       <string>Usable objects</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2">
        <property name="leftMargin">
@@ -158,7 +158,7 @@
          </column>
          <column>
           <property name="text">
-           <string>Quantité</string>
+           <string>Quantity</string>
           </property>
          </column>
          <column>
@@ -168,17 +168,17 @@
          </column>
          <column>
           <property name="text">
-           <string>Utiliser</string>
+           <string>Use</string>
           </property>
          </column>
          <column>
           <property name="text">
-           <string>Jeter</string>
+           <string>Throw</string>
           </property>
          </column>
          <column>
           <property name="text">
-           <string>Supprimer</string>
+           <string>Delete</string>
           </property>
          </column>
         </widget>
@@ -191,7 +191,7 @@
         <normaloff>:/icons/apple_16px.ico</normaloff>:/icons/apple_16px.ico</iconset>
       </attribute>
       <attribute name="title">
-       <string>Ressources</string>
+       <string>Resources</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_3">
        <property name="leftMargin">
@@ -236,7 +236,7 @@
          </column>
          <column>
           <property name="text">
-           <string>Quantité</string>
+           <string>Quantity</string>
           </property>
          </column>
          <column>
@@ -246,12 +246,12 @@
          </column>
          <column>
           <property name="text">
-           <string>Jeter</string>
+           <string>Throw</string>
           </property>
          </column>
          <column>
           <property name="text">
-           <string>Supprimer</string>
+           <string>Delete</string>
           </property>
          </column>
         </widget>
@@ -264,7 +264,7 @@
         <normaloff>:/icons/key_16px.ico</normaloff>:/icons/key_16px.ico</iconset>
       </attribute>
       <attribute name="title">
-       <string>Objets de quête</string>
+       <string>Quest items</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_4">
        <property name="leftMargin">
@@ -309,7 +309,7 @@
          </column>
          <column>
           <property name="text">
-           <string>Quantité</string>
+           <string>Quantity</string>
           </property>
          </column>
          <column>

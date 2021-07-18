@@ -23,13 +23,13 @@ AccountForm::AccountForm(ProcessEngine *engine, const ConnectionInfos &infos, QW
 
     // Initialisation des tabs
     ui->tabWidget->addTab(consoleForm,QIcon(":/icons/text_align_left_16px.ico"),"Console");
-    ui->tabWidget->addTab(characterForm,QIcon(":/icons/user_16px.ico"),"Personnage");
-    ui->tabWidget->addTab(inventoryForm,QIcon(":/icons/luggage_brown_16px.ico"),"Inventaire");
-    ui->tabWidget->addTab(mapForm,QIcon(":/icons/map_16px.ico"),"Carte");
+    ui->tabWidget->addTab(characterForm,QIcon(":/icons/user_16px.ico"),"Character");
+    ui->tabWidget->addTab(inventoryForm,QIcon(":/icons/luggage_brown_16px.ico"),"Inventory");
+    ui->tabWidget->addTab(mapForm,QIcon(":/icons/map_16px.ico"),"Map");
     ui->tabWidget->addTab(floodForm,QIcon(":/icons/comment_16px.ico"),"Flood");
-    ui->tabWidget->addTab(fightForm,QIcon(":/icons/sword_16px.ico"),"Combat");
-    ui->tabWidget->addTab(statisticsForm,QIcon(":/icons/statistics_16px.ico"),"Statistiques");
-    ui->tabWidget->addTab(settingsForm,QIcon(":/icons/cog_16px.ico"),"Options");
+    ui->tabWidget->addTab(fightForm,QIcon(":/icons/sword_16px.ico"),"Fight");
+    ui->tabWidget->addTab(statisticsForm,QIcon(":/icons/statistics_16px.ico"),"Statistics");
+    ui->tabWidget->addTab(settingsForm,QIcon(":/icons/cog_16px.ico"),"Settings");
     ui->tabWidget->setCurrentIndex(0);
 
     updateInterface();
@@ -265,59 +265,59 @@ void AccountForm::updateInterface()
         case BotState::MOVING_STATE:
         {
             ui->labelIconStatus->setPixmap(QPixmap(":/icons/bullet_green_16px.ico"));
-            ui->labelStatus->setText(tr("Déplacement"));
+            ui->labelStatus->setText(tr("Moving"));
         }
             break;
         case BotState::MAP_TRANSITION_STATE:
         case BotState::CALCULATING_STATE:
         {
             ui->labelIconStatus->setPixmap(QPixmap(":/icons/bullet_red_16px.ico"));
-            ui->labelStatus->setText(tr("Occupé"));
+            ui->labelStatus->setText(tr("Busy"));
         }
             break;
         case BotState::FARMING_STATE:
         {
             ui->labelIconStatus->setPixmap(QPixmap(":/icons/bullet_green_16px.ico"));
-            ui->labelStatus->setText(tr("Récolte"));
+            ui->labelStatus->setText(tr("Harvest"));
         }
             break;
         case BotState::BANKING_STATE:
         {
             ui->labelIconStatus->setPixmap(QPixmap(":/icons/bullet_green_16px.ico"));
-            ui->labelStatus->setText(tr("Banque"));
+            ui->labelStatus->setText(tr("Bank"));
         }
             break;
         case BotState::INVALID_STATE:
-            ui->labelStatus->setText(tr("Invalide"));
+            ui->labelStatus->setText(tr("Invalid"));
             break;
         case BotState::CRAFTING_STATE:
         {
             ui->labelIconStatus->setPixmap(QPixmap(":/icons/bullet_green_16px.ico"));
-            ui->labelStatus->setText(tr("Artisanat"));
+            ui->labelStatus->setText(tr("Craft"));
         }
             break;
         case BotState::FIGHTING_STATE:
         {
             ui->labelIconStatus->setPixmap(QPixmap(":/icons/bullet_green_16px.ico"));
-            ui->labelStatus->setText(tr("Combat"));
+            ui->labelStatus->setText(tr("Fight"));
         }
             break;
         case BotState::INACTIVE_STATE:
         {
             ui->labelIconStatus->setPixmap(QPixmap(":/icons/bullet_green_16px.ico"));
-            ui->labelStatus->setText(tr("Inactif"));
+            ui->labelStatus->setText(tr("Inactive"));
         }
             break;
         case BotState::EXCHANGING_STATE:
         {
             ui->labelIconStatus->setPixmap(QPixmap(":/icons/bullet_green_16px.ico"));
-            ui->labelStatus->setText(tr("Échange"));
+            ui->labelStatus->setText(tr("Exchange"));
         }
             break;
         case BotState::REGENERATING_STATE:
         {
             ui->labelIconStatus->setPixmap(QPixmap(":/icons/bullet_green_16px.ico"));
-            ui->labelStatus->setText(tr("Régénération"));
+            ui->labelStatus->setText(tr("Regeneration"));
         }
             break;
         }
@@ -329,8 +329,8 @@ void AccountForm::updateInterface()
 
 
         // Vie du personnage
-        ui->progressBarLife->setMaximum(infos.playerData.stats[(uint)StatIds::MAX_LIFE].total);
-        ui->progressBarLife->setValue(infos.playerData.stats[(uint)StatIds::LIFE_POINTS].total);
+        ui->progressBarLife->setMaximum(m_engine->getStatsManager().getMaxHealthPoints(m_sender));
+        ui->progressBarLife->setValue(m_engine->getStatsManager().getHealthPoints(m_sender));
 
 
         // Pods du personnage
@@ -350,7 +350,7 @@ void AccountForm::updateInterface()
     if (infos.connectionData.connectionState == ConnectionState::DISCONNECTED)
     {
         ui->pushButtonDisconnection->setIcon(QIcon(":/icons/connect_16px.ico"));
-        ui->pushButtonDisconnection->setToolTip(tr("Connexion"));
+        ui->pushButtonDisconnection->setToolTip(tr("Connection"));
 
         for(int i = 1; i <= ui->tabWidget->count()-2; i++)
             ui->tabWidget->setTabEnabled(i, false);
@@ -378,7 +378,7 @@ void AccountForm::updateInterface()
         ui->labelKamas->clear();
 
         ui->labelIconStatus->setPixmap(QPixmap(":/icons/bullet_red_16px.ico"));
-        ui->labelStatus->setText(tr("Déconnecté"));
+        ui->labelStatus->setText(tr("Disconnected"));
     }
 }
 
@@ -393,7 +393,7 @@ void AccountForm::on_pushButtonDisconnection_clicked()
 
 void AccountForm::on_actionLoadScript_triggered()
 {
-    QString path = QFileDialog::getOpenFileName(nullptr, "Selectionner un fichier");
+    QString path = QFileDialog::getOpenFileName(nullptr, "Select a file");
 
     menuScript->clear(); // Reinitialisation du menu
     if(!path.isEmpty())
@@ -403,14 +403,14 @@ void AccountForm::on_actionLoadScript_triggered()
         menuScript->addAction(ui->actionRunScript);
         m_path = path;
 
-        m_engine->info(m_sender) << "Script chargé.";
+        m_engine->info(m_sender) << "Script loaded.";
     }
     else
     {
         ui->pushButtonFile->setText(QFileInfo(path).fileName());
         menuScript->addAction(ui->actionLoadScript);
 
-        m_engine->info(m_sender) << "Script déchargé.";
+        m_engine->info(m_sender) << "Script unloaded.";
     }
 
     ui->pushButtonFile->setMenu(menuScript);
@@ -418,7 +418,7 @@ void AccountForm::on_actionLoadScript_triggered()
 
 void AccountForm::on_actionRunScript_triggered()
 {
-    if(ui->actionRunScript->text() == "Démarrer le script")
+    if(ui->actionRunScript->text() == "Start the script")
     {
         bool p = false;
 
@@ -435,15 +435,15 @@ void AccountForm::on_actionRunScript_triggered()
         if (!p)
         {
             ui->actionRunScript->setIcon(QIcon(":/icons/script_delete_16px.ico"));
-            ui->actionRunScript->setText(tr("Arrêter le script"));
+            ui->actionRunScript->setText(tr("Stop the script"));
         }
     }
-    else if(ui->actionRunScript->text() == "Arrêter le script")
+    else if(ui->actionRunScript->text() == "Stop the script")
     {
         loadPath(QString(), true);
 
         ui->actionRunScript->setIcon(QIcon(":/icons/script_go_16px.ico"));
-        ui->actionRunScript->setText(tr("Démarrer le script"));
+        ui->actionRunScript->setText(tr("Start the script"));
     }
 }
 
@@ -451,7 +451,7 @@ void AccountForm::on_pushButtonClose_clicked()
 {
     if (m_sender->isActive())
     {
-        int answ = QMessageBox::warning(this, "Attention", "Etes-vous sûr de vouloir fermer ce compte ?\nIl est actuellement en ligne.", QMessageBox::Yes | QMessageBox::No);
+        int answ = QMessageBox::warning(this, "Warning", "Are you sur you want to close this account?\nIt's currently online.", QMessageBox::Yes | QMessageBox::No);
         if(answ == QMessageBox::Yes)
         {
             if(m_accountFormChilds.size())

@@ -77,15 +77,15 @@ void InventoryForm::updateInterface()
                 ui->tableWidgetEquipment->setItem(indexEquipment, 2, new QTableWidgetItem(QString::number(i.GID)));
 
                 if(!i.isEquipped)
-                    ui->tableWidgetEquipment->setItem(indexEquipment, 3, new QTableWidgetItem(QString("Non équipé")));
+                    ui->tableWidgetEquipment->setItem(indexEquipment, 3, new QTableWidgetItem(QString("Not equipped")));
                 else
                     ui->tableWidgetEquipment->setItem(indexEquipment, 3, new QTableWidgetItem(itemTypeData->getName()));
 
 
                 if(!i.isEquipped)
-                    pushButtonEquipEquipement = new QPushButton("Equiper");
+                    pushButtonEquipEquipement = new QPushButton("Equip");
                 else
-                    pushButtonEquipEquipement = new QPushButton("Déséquiper");
+                    pushButtonEquipEquipement = new QPushButton("Unequip");
 
                 if (c->getLevel() <= level)
                 {
@@ -95,15 +95,15 @@ void InventoryForm::updateInterface()
                 else
                 {
                     pushButtonEquipEquipement = nullptr;
-                    ui->tableWidgetEquipment->setItem(indexEquipment, 4, new QTableWidgetItem(QString("Niv.%1 requis").arg(c->getLevel())));
+                    ui->tableWidgetEquipment->setItem(indexEquipment, 4, new QTableWidgetItem(QString("Lvl.%1 required").arg(c->getLevel())));
                 }
 
 
-                pushButtonThrowEquipement = new QPushButton("Jeter");
+                pushButtonThrowEquipement = new QPushButton("Throw");
                 connect(pushButtonThrowEquipement, SIGNAL(clicked()), this, SLOT(throwEquipement()));
                 ui->tableWidgetEquipment->setCellWidget(indexEquipment, 5, pushButtonThrowEquipement);
 
-                pushButtonDeleteEquipement = new QPushButton("Supprimer");
+                pushButtonDeleteEquipement = new QPushButton("Delete");
                 connect(pushButtonDeleteEquipement, SIGNAL(clicked()), this, SLOT(deleteEquipement()));
                 ui->tableWidgetEquipment->setCellWidget(indexEquipment, 6, pushButtonDeleteEquipement);
 
@@ -118,15 +118,15 @@ void InventoryForm::updateInterface()
                 ui->tableWidgetUsableItems->setItem(indexConsumable, 1, new QTableWidgetItem(QString::number(i.quantity)));
                 ui->tableWidgetUsableItems->setItem(indexConsumable, 2, new QTableWidgetItem(QString::number(i.GID)));
 
-                pushButtonUseUsableItem = new QPushButton("Utiliser");
+                pushButtonUseUsableItem = new QPushButton("Use");
                 connect(pushButtonUseUsableItem, SIGNAL(clicked()), this, SLOT(useUsable()));
                 ui->tableWidgetUsableItems->setCellWidget(indexConsumable, 3, pushButtonUseUsableItem);
 
-                pushButtonThrowUsableItem = new QPushButton("Jeter");
+                pushButtonThrowUsableItem = new QPushButton("Throw");
                 connect(pushButtonThrowUsableItem, SIGNAL(clicked()), this, SLOT(throwUsable()));
                 ui->tableWidgetUsableItems->setCellWidget(indexConsumable, 4, pushButtonThrowUsableItem);
 
-                pushButtonDeleteUsableItem = new QPushButton("Supprimer");
+                pushButtonDeleteUsableItem = new QPushButton("Delete");
                 connect(pushButtonDeleteUsableItem, SIGNAL(clicked()), this, SLOT(deleteUsable()));
                 ui->tableWidgetUsableItems->setCellWidget(indexConsumable, 5, pushButtonDeleteUsableItem);
 
@@ -141,11 +141,11 @@ void InventoryForm::updateInterface()
                 ui->tableWidgetResources->setItem(indexResource, 1, new QTableWidgetItem(QString::number(i.quantity)));
                 ui->tableWidgetResources->setItem(indexResource, 2, new QTableWidgetItem(QString::number(i.GID)));
 
-                pushButtonThrowResource = new QPushButton("Jeter");
+                pushButtonThrowResource = new QPushButton("Throw");
                 connect(pushButtonThrowResource, SIGNAL(clicked()), this, SLOT(throwResource()));
                 ui->tableWidgetResources->setCellWidget(indexResource, 3, pushButtonThrowResource);
 
-                pushButtonDeleteResource = new QPushButton("Supprimer");
+                pushButtonDeleteResource = new QPushButton("Delete");
                 connect(pushButtonDeleteResource, SIGNAL(clicked()), this, SLOT(deleteResource()));
                 ui->tableWidgetResources->setCellWidget(indexResource, 4, pushButtonDeleteResource);
 
@@ -259,7 +259,7 @@ void InventoryForm::throwEquipement()
         if(quantity > 1)
         {
             bool ok;
-            int q = QInputDialog::getInt(this, tr("Confirmation"), tr("Quantité"), quantity, 0, quantity, 1, &ok);
+            int q = QInputDialog::getInt(this, tr("Confirmation"), tr("Quantity"), quantity, 0, quantity, 1, &ok);
             if (ok && q != 0)
                 quantity = q;
             else
@@ -296,7 +296,7 @@ void InventoryForm::deleteEquipement()
         if(quantity > 1)
         {
             bool ok;
-            int q = QInputDialog::getInt(this, tr("Confirmation"), tr("Quantité"), quantity, 0, quantity, 1, &ok);
+            int q = QInputDialog::getInt(this, tr("Confirmation"), tr("Quantity"), quantity, 0, quantity, 1, &ok);
             if (ok && q != 0)
                 quantity = q;
             else
@@ -357,7 +357,7 @@ void InventoryForm::throwUsable()
         if(quantity > 1)
         {
             bool ok;
-            int q = QInputDialog::getInt(this, tr("Confirmation"), tr("Quantité"), quantity, 0, quantity, 1, &ok);
+            int q = QInputDialog::getInt(this, tr("Confirmation"), tr("Quantity"), quantity, 0, quantity, 1, &ok);
             if (ok && q != 0)
                 quantity = q;
             else
@@ -394,7 +394,7 @@ void InventoryForm::deleteUsable()
         if(quantity > 1)
         {
             bool ok;
-            int q = QInputDialog::getInt(this, tr("Confirmation"), tr("Quantité"), quantity, 0, quantity, 1, &ok);
+            int q = QInputDialog::getInt(this, tr("Confirmation"), tr("Quantity"), quantity, 0, quantity, 1, &ok);
             if (ok && q != 0)
                 quantity = q;
             else
@@ -431,7 +431,7 @@ void InventoryForm::throwResource()
         if(quantity > 1)
         {
             bool ok;
-            int q = QInputDialog::getInt(this, tr("Confirmation"), tr("Quantité"), quantity, 0, quantity, 1, &ok);
+            int q = QInputDialog::getInt(this, tr("Confirmation"), tr("Quantity"), quantity, 0, quantity, 1, &ok);
             if (ok && q != 0)
                 quantity = q;
             else
@@ -468,7 +468,7 @@ void InventoryForm::deleteResource()
         if(quantity > 1)
         {
             bool ok;
-            int q = QInputDialog::getInt(this, tr("Confirmation"), tr("Quantité"), quantity, 0, quantity, 1, &ok);
+            int q = QInputDialog::getInt(this, tr("Confirmation"), tr("Quantity"), quantity, 0, quantity, 1, &ok);
             if (ok && q != 0)
                 quantity = q;
             else

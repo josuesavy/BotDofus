@@ -35,6 +35,8 @@ signals:
 private slots:
     void on_buttonBox_accepted();
 
+    void on_checkBoxCloseAfterLoaded_stateChanged(int arg1);
+
 private:
     Ui::AccountManagerDialog *ui;
 

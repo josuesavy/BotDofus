@@ -287,7 +287,7 @@ bool StatsManager::healEat(SocketIO* sender)
 
 bool StatsManager::needsHeal(SocketIO *sender)
 {
-    float ratio = (((float)m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].total-0)/((float)m_botData[sender].playerData.stats[(uint)StatIds::MAX_LIFE].total-0))*100;
+    float ratio = (((float)m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].base-0)/((float)m_botData[sender].playerData.stats[(uint)StatIds::MAX_LIFE].base-0))*100;
 
     if(ratio <= m_botData[sender].playerData.minRegenRatio)
         return true;
@@ -359,6 +359,20 @@ void StatsManager::quitDidactiel(SocketIO *sender)
     }
 }
 
+int StatsManager::getHealthPoints(SocketIO *sender)
+{
+    int _loc_ = getMaxHealthPoints(sender) + m_botData[sender].playerData.stats[(uint)StatIds::CUR_LIFE].base + m_botData[sender].playerData.stats[(uint)StatIds::CUR_PERMANENT_DAMAGE].base;
+    qDebug() << "HealthPoints:" << _loc_;
+    return _loc_;
+}
+
+int StatsManager::getMaxHealthPoints(SocketIO *sender)
+{
+    int _loc_ = m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].base + m_botData[sender].playerData.stats[(uint)StatIds::VITALITY].base - m_botData[sender].playerData.stats[(uint)StatIds::CUR_PERMANENT_DAMAGE].base;
+    qDebug() << "MaxHealthPoints:" << _loc_;
+    return _loc_;
+}
+
 void StatsManager::setRegenUseObjectsEnabled(SocketIO *sender, bool enabled)
 {
     m_botData[sender].playerData.regenUseObjects = enabled;
@@ -366,8 +380,8 @@ void StatsManager::setRegenUseObjectsEnabled(SocketIO *sender, bool enabled)
 
 void StatsManager::regenOptimizer(SocketIO *sender)
 {
-    int life = m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].total;
-    int maxLife = m_botData[sender].playerData.stats[(uint)StatIds::MAX_LIFE].total;
+    int life = m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].base;
+    int maxLife = m_botData[sender].playerData.stats[(uint)StatIds::MAX_LIFE].base;
     double p = (double)m_botData[sender].playerData.healPercentage/100.0;
 
     int wanted = p*maxLife;
@@ -514,8 +528,9 @@ void StatsManager::passiveHealing()
         passiveRegen.removeAt(index);
     }
 
-    int life = m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].total + m_botData[sender].playerData.regenRate;
-    m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].total = (life >= m_botData[sender].playerData.stats[(uint)StatIds::MAX_LIFE].total) ? m_botData[sender].playerData.stats[(uint)StatIds::MAX_LIFE].total : life;
+    int life = m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].base + m_botData[sender].playerData.regenRate;
+    //m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].base = (life >= m_botData[sender].playerData.stats[(uint)StatIds::MAX_LIFE].base) ? m_botData[sender].playerData.stats[(uint)StatIds::MAX_LIFE].base : life;
+    m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].base = (life >= getMaxHealthPoints(sender)) ? getMaxHealthPoints(sender) : life;
 }
 
 bool StatsManager::canEquipItem(uint gid)

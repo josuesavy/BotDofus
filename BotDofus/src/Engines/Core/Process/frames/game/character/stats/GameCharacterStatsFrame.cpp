@@ -102,6 +102,8 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
             }
         }
 
+
+
         m_botData[sender].playerData.experience = message.stats->experience;
         m_botData[sender].playerData.experienceLevelFloor = message.stats->experienceLevelFloor;
         m_botData[sender].playerData.experienceNextLevelFloor = message.stats->experienceNextLevelFloor;
@@ -141,8 +143,8 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
         if (m_botData[sender].generalData.botState == BotState::REGENERATING_STATE)
         {
             double p = (double)m_botData[sender].playerData.healPercentage/100.0;
-            int max = m_botData[sender].playerData.stats[(uint)StatIds::MAX_LIFE].total;
-            int life = m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].total;
+            int max = m_botData[sender].playerData.stats[(uint)StatIds::MAX_LIFE].base;
+            int life = m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].base;
 
             if (p*max >= life)
             {
@@ -195,8 +197,8 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
     {
         UpdateLifePointsMessage message;
         message.deserialize(&reader);
-        m_botData[sender].playerData.stats[(int)StatIds::LIFE_POINTS].total = message.lifePoints;
-        m_botData[sender].playerData.stats[(int)StatIds::MAX_LIFE].total = message.maxLifePoints;
+        m_botData[sender].playerData.stats[(int)StatIds::LIFE_POINTS].base = message.lifePoints;
+        m_botData[sender].playerData.stats[(int)StatIds::MAX_LIFE].base = message.maxLifePoints;
     }
         break;
     }

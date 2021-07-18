@@ -76,24 +76,24 @@ void QTreeWidgetItemDelegate::drawStatus(QPainter *painter, uint connectionState
     QString action;
 
     if(connectionState == (uint)ConnectionState::DISCONNECTED)
-        action = "Déconnecté";
+        action = "Disconnected";
     else if (connectionState == (uint)ConnectionState::TRANSITION)
-        action = "Connexion";
+        action = "Connection";
     else
     {
         switch (botState)
         {
-        case BotState::MOVING_STATE:            action = "Déplacement"; break;
+        case BotState::MOVING_STATE:            action = "Moving"; break;
         case BotState::MAP_TRANSITION_STATE:
-        case BotState::CALCULATING_STATE:       action = "Occupé"; break;
-        case BotState::FARMING_STATE:           action = "Récolte"; break;
-        case BotState::BANKING_STATE:           action = "Banque"; break;
+        case BotState::CALCULATING_STATE:       action = "Busy"; break;
+        case BotState::FARMING_STATE:           action = "Harvest"; break;
+        case BotState::BANKING_STATE:           action = "Bank"; break;
         case BotState::INVALID_STATE:           action = "Invalide"; break;
-        case BotState::CRAFTING_STATE:          action = "Artisanat"; break;
-        case BotState::FIGHTING_STATE:          action = "Combat"; break;
-        case BotState::INACTIVE_STATE:          action = "Inactif"; break;
-        case BotState::EXCHANGING_STATE:        action = "Échange"; break;
-        case BotState::REGENERATING_STATE:      action = "Régénération"; break;
+        case BotState::CRAFTING_STATE:          action = "Craft"; break;
+        case BotState::FIGHTING_STATE:          action = "Fight"; break;
+        case BotState::INACTIVE_STATE:          action = "Inactive"; break;
+        case BotState::EXCHANGING_STATE:        action = "Exchange"; break;
+        case BotState::REGENERATING_STATE:      action = "Regeneration"; break;
         }
     }
 

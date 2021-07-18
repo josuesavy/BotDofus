@@ -288,7 +288,7 @@ void ConsoleForm::on_pushButtonSend_clicked()
 void ConsoleForm::on_comboBoxCanal_currentIndexChanged(int index)
 {
     if(index == 5)
-        ui->lineEditConsole->setPlaceholderText("Nom_Joueur [message]");
+        ui->lineEditConsole->setPlaceholderText("Player_Name [message]");
     else
         ui->lineEditConsole->setPlaceholderText("");
 }

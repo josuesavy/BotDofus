@@ -19,6 +19,9 @@ bool SecureFrame::processMessage(const MessageInfos &data, SocketIO *sender)
 
     case MessageEnum::TRUSTSTATUSMESSAGE:
     {
+        TrustStatusMessage message;
+        message.deserialize(&reader);
+
         CharactersListRequestMessage answer;
         sender->send(answer);
     }

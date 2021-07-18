@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>328</width>
+    <width>355</width>
     <height>317</height>
    </rect>
   </property>
@@ -30,7 +30,7 @@
    <item row="1" column="1">
     <widget class="QPushButton" name="pushButtonImportAccounts">
      <property name="text">
-      <string>Importer</string>
+      <string>Import</string>
      </property>
      <property name="icon">
       <iconset resource="../../../../res/resources.qrc">
@@ -41,7 +41,7 @@
    <item row="1" column="3">
     <widget class="QPushButton" name="pushButtonDelete">
      <property name="text">
-      <string>Supprimer</string>
+      <string>Delete</string>
      </property>
      <property name="icon">
       <iconset resource="../../../../res/resources.qrc">
@@ -52,7 +52,7 @@
    <item row="2" column="0" colspan="4">
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>Options avancées</string>
+      <string>Advanced options</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="1" column="0">
@@ -71,7 +71,7 @@
       <item row="1" column="1">
        <widget class="QCheckBox" name="checkBoxConnectionAuto">
         <property name="text">
-         <string>Connexion automatique</string>
+         <string>Automatic connection</string>
         </property>
        </widget>
       </item>
@@ -93,7 +93,7 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>Chef du groupe :</string>
+           <string>Group leader:</string>
           </property>
          </widget>
         </item>
@@ -101,7 +101,7 @@
          <widget class="QComboBox" name="comboBoxMaster">
           <item>
            <property name="text">
-            <string>Ne pas faire de groupe</string>
+            <string>Do not make a group</string>
            </property>
           </item>
          </widget>
@@ -109,7 +109,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_2">
           <property name="text">
-           <string>Connexion vers :</string>
+           <string>Connection to:</string>
           </property>
          </widget>
         </item>
@@ -120,7 +120,7 @@
           </property>
           <item>
            <property name="text">
-            <string>Choix du serveur</string>
+            <string>Server choice</string>
            </property>
            <property name="icon">
             <iconset resource="../../../../res/resources.qrc">
@@ -129,7 +129,7 @@
           </item>
           <item>
            <property name="text">
-            <string>Choix de personnage</string>
+            <string>Character choice</string>
            </property>
            <property name="icon">
             <iconset resource="../../../../res/resources.qrc">
@@ -138,7 +138,7 @@
           </item>
           <item>
            <property name="text">
-            <string>Accès direct au jeu</string>
+            <string>Direct access to the game</string>
            </property>
            <property name="icon">
             <iconset resource="../../../../res/resources.qrc">
@@ -155,7 +155,7 @@
    <item row="1" column="2">
     <widget class="QPushButton" name="pushButtonExportAccounts">
      <property name="text">
-      <string>Exporter</string>
+      <string>Export</string>
      </property>
      <property name="icon">
       <iconset resource="../../../../res/resources.qrc">
@@ -179,22 +179,22 @@
      </attribute>
      <column>
       <property name="text">
-       <string>Alias</string>
+       <string>a.k.a</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>Nom de compte</string>
+       <string>Account name</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>Dernière utilisation</string>
+       <string>Last use</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>Banni</string>
+       <string>Banned</string>
       </property>
      </column>
     </widget>
@@ -217,7 +217,7 @@
      <item>
       <widget class="QPushButton" name="pushButtonLoad">
        <property name="text">
-        <string>Charger</string>
+        <string>Load</string>
        </property>
        <property name="icon">
         <iconset resource="../../../../res/resources.qrc">

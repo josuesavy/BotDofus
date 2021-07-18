@@ -95,7 +95,7 @@
    <item row="1" column="3">
     <widget class="QPushButton" name="pushButtonSend">
      <property name="text">
-      <string>Envoyer</string>
+      <string>Send</string>
      </property>
      <property name="icon">
       <iconset resource="../../../../res/resources.qrc">

@@ -66,7 +66,7 @@ ConnectionDialog::ConnectionDialog(QWidget *parent) :
 
     }
     else
-        qDebug()<<"Le fichier"<<USER_DATA_PATH<<"ne peut pas etre ouvert/créé";
+        qDebug()<<"The"<<USER_DATA_PATH<<" file cannot be opened / created";
 
     init();
 }
@@ -78,17 +78,20 @@ ConnectionDialog::~ConnectionDialog()
 
 void ConnectionDialog::on_pushButtonBrowser_clicked()
 {
-    QString path = QFileDialog::getExistingDirectory(nullptr, "Selectionner un répertoire");
-    m_path = path;
-    ui->lineEditPathDofus->setText(path);
+    QString path = QFileDialog::getExistingDirectory(this);
+    if (!path.isEmpty())
+    {
+        m_path = path;
+        ui->lineEditPathDofus->setText(path);
+    }
 }
 
 void ConnectionDialog::on_lineEditPathDofus_textChanged(const QString &arg1)
 {
     if(arg1.isEmpty())
     {
-        ui->labelCheck->setStyleSheet("");
-        ui->labelCheck->setText(QString(tr("Sélectionnez le dossier '<b>Dofus</b>'")));
+        ui->labelCheck->setStyleSheet(QString());
+        ui->labelCheck->setText(QString(tr("Select '<b>Dofus</b>' folder")));
     }
     else
     {
@@ -115,17 +118,20 @@ void ConnectionDialog::on_lineEditPathDofus_textChanged(const QString &arg1)
                     {
                         // ServerHandlerSingleton::get()->init();
                         D2OManagerSingleton::get()->init(D2O, I18N);
+                        qApp->processEvents();
                         D2PManagerSingleton::get()->init(D2P);
+                        qApp->processEvents();
                         PathfindingMap::initialize();
+                        qApp->processEvents();
                     }
 
                     // Pour l'emplacement valide
                     ui->labelCheck->setStyleSheet("color: rgba(85, 170, 0, 175);");
-                    ui->labelCheck->setText(QString(tr("Emplacement Dofus valide.")));
+                    ui->labelCheck->setText(QString(tr("Valid Dofus location.")));
                     ui->lineEditPathDofus->setEnabled(false);
                     ui->pushButtonConnect->setEnabled(true);
                     ui->pushButtonConnect->setFocus(Qt::FocusReason::MouseFocusReason);
-                    ui->labelStatus->setText(tr("En attente de connexion..."));
+                    ui->labelStatus->setText(tr("Waiting for connection..."));
                     ui->progressBar->setValue(40);
                     qApp->processEvents();
                 }
@@ -134,10 +140,10 @@ void ConnectionDialog::on_lineEditPathDofus_textChanged(const QString &arg1)
                 {
                     // Pour l'emplacement non valide
                     ui->labelCheck->setStyleSheet("color: rgba(255, 0, 0);");
-                    ui->labelCheck->setText(QString(tr("Emplacement Dofus non valide")));
+                    ui->labelCheck->setText(QString(tr("Invalid dofus location.")));
                     ui->lineEditPathDofus->setEnabled(true);
                     ui->pushButtonConnect->setEnabled(false);
-                    ui->labelStatus->setText(tr("Initialisation des données du jeu..."));
+                    ui->labelStatus->setText(tr("Initializing game data..."));
                     ui->progressBar->setValue(10);
                     qApp->processEvents();
                 }
@@ -147,10 +153,10 @@ void ConnectionDialog::on_lineEditPathDofus_textChanged(const QString &arg1)
             {
                 // Pour l'emplacement non valide
                 ui->labelCheck->setStyleSheet("color: rgba(255, 0, 0);");
-                ui->labelCheck->setText(QString(tr("Emplacement Dofus non valide")));
+                ui->labelCheck->setText(QString(tr("Invalid dofus location.")));
                 ui->lineEditPathDofus->setEnabled(true);
                 ui->pushButtonConnect->setEnabled(false);
-                ui->labelStatus->setText(tr("Initialisation des données du jeu..."));
+                ui->labelStatus->setText(tr("Initializing game data..."));
                 ui->progressBar->setValue(10);
                 qApp->processEvents();
             }
@@ -160,10 +166,10 @@ void ConnectionDialog::on_lineEditPathDofus_textChanged(const QString &arg1)
         {
             // Pour l'emplacement non valide
             ui->labelCheck->setStyleSheet("color: rgba(255, 0, 0);");
-            ui->labelCheck->setText(QString(tr("Emplacement Dofus non valide")));
+            ui->labelCheck->setText(QString(tr("Invalid dofus location.")));
             ui->lineEditPathDofus->setEnabled(true);
             ui->pushButtonConnect->setEnabled(false);
-            ui->labelStatus->setText(tr("Initialisation des données du jeu..."));
+            ui->labelStatus->setText(tr("Initializing game data..."));
             ui->progressBar->setValue(10);
             qApp->processEvents();
         }
@@ -172,17 +178,17 @@ void ConnectionDialog::on_lineEditPathDofus_textChanged(const QString &arg1)
 
 void ConnectionDialog::on_pushButtonConnect_clicked()
 {
-    ui->labelStatus->setText(tr("Connexion au serveur..."));
+    ui->labelStatus->setText(tr("Connection to server in progress..."));
     ui->progressBar->setValue(60);
     qApp->processEvents();
     // TODO : Etablir la connexion au serveur..
 
-    ui->labelStatus->setText(tr("Connexion au compte en cours..."));
+    ui->labelStatus->setText(tr("Connection to account in progress..."));
     ui->progressBar->setValue(80);
     qApp->processEvents();
     // TODO : Etablir la connexion au compte SweatedBox..
 
-    ui->labelStatus->setText(tr("Lancement de SweatedBox..."));
+    ui->labelStatus->setText(tr("Launch SweatedBox..."));
     ui->progressBar->setValue(100);
     qApp->processEvents();
 
@@ -212,9 +218,9 @@ void ConnectionDialog::init()
 
     if(ui->lineEditPathDofus->text().isEmpty())
     {
-        ui->labelCheck->setText(QString(tr("Sélectionnez le dossier '<b>Dofus</b>'")));
+        ui->labelCheck->setText(QString(tr("Select '<b>Dofus</b>' folder")));
         ui->pushButtonConnect->setEnabled(false);
-        ui->labelStatus->setText(tr("Initialisation des données du jeu..."));
+        ui->labelStatus->setText(tr("Initializing game data..."));
         ui->progressBar->setValue(10);
     }
 }

@@ -30,7 +30,7 @@
         <normaloff>:/icons/theater_16px.ico</normaloff>:/icons/theater_16px.ico</iconset>
       </attribute>
       <attribute name="title">
-       <string>Caractéristiques</string>
+       <string>Characteristics</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_7">
        <item row="1" column="0">
@@ -58,7 +58,7 @@
           </sizepolicy>
          </property>
          <property name="title">
-          <string>Caractéristiques</string>
+          <string>Characteristics</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_9">
           <item row="2" column="1">
@@ -113,7 +113,7 @@
           <item row="1" column="0">
            <widget class="QLabel" name="label_17">
             <property name="text">
-             <string>Sagesse</string>
+             <string>Wisdom</string>
             </property>
            </widget>
           </item>
@@ -127,7 +127,7 @@
           <item row="0" column="0">
            <widget class="QLabel" name="label_16">
             <property name="text">
-             <string>Vitalité</string>
+             <string>Vitality</string>
             </property>
            </widget>
           </item>
@@ -173,7 +173,7 @@
           <item row="2" column="0">
            <widget class="QLabel" name="label_18">
             <property name="text">
-             <string>Force</string>
+             <string>Strength</string>
             </property>
            </widget>
           </item>
@@ -206,7 +206,7 @@
           <item row="5" column="0">
            <widget class="QLabel" name="label_21">
             <property name="text">
-             <string>Agilité</string>
+             <string>Agility</string>
             </property>
            </widget>
           </item>
@@ -285,7 +285,7 @@
           <item row="6" column="0">
            <widget class="QLabel" name="label_22">
             <property name="text">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Capital des points&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Stats points&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
            </widget>
           </item>
@@ -436,7 +436,7 @@
           <item row="7" column="0">
            <widget class="QLabel" name="label">
             <property name="text">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Booster automatiquement :&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Automatically boost&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
            </widget>
           </item>
@@ -449,17 +449,17 @@
             </item>
             <item>
              <property name="text">
-              <string>Vitalité</string>
+              <string>Vitality</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Sagesse</string>
+              <string>Wisdom</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Force</string>
+              <string>Strength</string>
              </property>
             </item>
             <item>
@@ -474,7 +474,7 @@
             </item>
             <item>
              <property name="text">
-              <string>Agilité</string>
+              <string>Agility</string>
              </property>
             </item>
            </widget>
@@ -505,7 +505,7 @@
           </sizepolicy>
          </property>
          <property name="title">
-          <string>Résumé</string>
+          <string>Resume</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_8">
           <item row="0" column="2">
@@ -601,7 +601,7 @@
              </sizepolicy>
             </property>
             <property name="text">
-             <string>PM</string>
+             <string>MP</string>
             </property>
            </widget>
           </item>
@@ -662,7 +662,7 @@
              </sizepolicy>
             </property>
             <property name="text">
-             <string>Portée</string>
+             <string>Range</string>
             </property>
            </widget>
           </item>
@@ -704,7 +704,7 @@
              </sizepolicy>
             </property>
             <property name="text">
-             <string>PA</string>
+             <string>AP</string>
             </property>
            </widget>
           </item>
@@ -807,7 +807,7 @@
         <normaloff>:/icons/magic_wand_2_16px.ico</normaloff>:/icons/magic_wand_2_16px.ico</iconset>
       </attribute>
       <attribute name="title">
-       <string>Sorts</string>
+       <string>Spells</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_10">
        <property name="leftMargin">
@@ -843,12 +843,12 @@
          </column>
          <column>
           <property name="text">
-           <string>Nom</string>
+           <string>Name</string>
           </property>
          </column>
          <column>
           <property name="text">
-           <string>Niveau</string>
+           <string>Level</string>
           </property>
          </column>
         </widget>
@@ -861,7 +861,7 @@
         <normaloff>:/icons/ax_16px.ico</normaloff>:/icons/ax_16px.ico</iconset>
       </attribute>
       <attribute name="title">
-       <string>Métiers</string>
+       <string>Jobs</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_11">
        <property name="leftMargin">
@@ -897,12 +897,12 @@
          </column>
          <column>
           <property name="text">
-           <string>Nom</string>
+           <string>Name</string>
           </property>
          </column>
          <column>
           <property name="text">
-           <string>Niveau</string>
+           <string>Level</string>
           </property>
          </column>
          <column>

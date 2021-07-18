@@ -326,7 +326,7 @@
         <item row="0" column="2">
          <widget class="QPushButton" name="pushButtonGroupSettings">
           <property name="text">
-           <string>Options du groupe</string>
+           <string>Group options</string>
           </property>
           <property name="icon">
            <iconset resource="../../../res/resources.qrc">
@@ -352,7 +352,7 @@
      <normaloff>:/icons/script_add_16px.ico</normaloff>:/icons/script_add_16px.ico</iconset>
    </property>
    <property name="text">
-    <string>Charger un script</string>
+    <string>Load a script</string>
    </property>
   </action>
   <action name="actionRunScript">
@@ -361,12 +361,15 @@
      <normaloff>:/icons/script_go_16px.ico</normaloff>:/icons/script_go_16px.ico</iconset>
    </property>
    <property name="text">
-    <string>Démarrer le script</string>
+    <string>Start the script</string>
    </property>
   </action>
   <action name="actionTeleportSlavesToMaster">
    <property name="text">
-    <string>Téléporter les mules vers le chef</string>
+    <string>Teleport the mules to the leader</string>
+   </property>
+   <property name="toolTip">
+    <string>Teleport the mules to the leader</string>
    </property>
   </action>
  </widget>

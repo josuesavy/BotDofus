@@ -59,7 +59,7 @@ bool ConnectionRegisterFrame::processMessage(const MessageInfos &data, SocketIO 
     case MessageEnum::NICKNAMEREGISTRATIONMESSAGE:
     {
         bool ok;
-        QString text = QInputDialog::getText(nullptr, tr("Choix du pseudo de compte"), tr("Pseudo :"), QLineEdit::Normal, QString(), &ok);
+        QString text = QInputDialog::getText(nullptr, tr("Choice of account nickname"), tr("Nickname:"), QLineEdit::Normal, QString(), &ok);
         if (ok && !text.isEmpty())
         {
             NicknameChoiceRequestMessage answer;

@@ -189,6 +189,9 @@ public:
 
     void quitDidactiel(SocketIO *sender);
 
+    int getHealthPoints(SocketIO* sender);
+    int getMaxHealthPoints(SocketIO* sender);
+
 public slots:
 
     /*!

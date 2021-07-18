@@ -168,11 +168,11 @@ void FightForm::on_pushButtonAddSpell_clicked()
                 if(requestedSpell.spellCible == SpellCible::ENEMY)
                     ui->tableWidgetSpells->setItem(indexSpell, 1, new QTableWidgetItem("Ennemie"));
                 else if(requestedSpell.spellCible == SpellCible::ALLY)
-                    ui->tableWidgetSpells->setItem(indexSpell, 1, new QTableWidgetItem("Allié"));
+                    ui->tableWidgetSpells->setItem(indexSpell, 1, new QTableWidgetItem("Ally"));
                 else if(requestedSpell.spellCible == SpellCible::DIRECTION)
                     ui->tableWidgetSpells->setItem(indexSpell, 1, new QTableWidgetItem("Direction"));
                 else if(requestedSpell.spellCible == SpellCible::SELF)
-                    ui->tableWidgetSpells->setItem(indexSpell, 1, new QTableWidgetItem("Moi"));
+                    ui->tableWidgetSpells->setItem(indexSpell, 1, new QTableWidgetItem("Me"));
 
                 ui->tableWidgetSpells->setItem(indexSpell, 2, new QTableWidgetItem(QString::number(requestedSpell.castNb)));
 

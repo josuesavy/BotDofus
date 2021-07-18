@@ -62,7 +62,7 @@ void SettingsForm::updateInterface()
 void SettingsForm::hasConnected()
 {
     ui->labelLoader->setStyleSheet("color: rgba(85, 170, 0, 175);");
-    ui->labelLoader->setText(QString(tr("Le serveur proxy semble être en place.")));
+    ui->labelLoader->setText(QString(tr("The proxy server appears to be in place.")));
     m_sender->setProxy(m_proxy);
 
     ui->progressBarCheckProxy->hide();
@@ -71,7 +71,7 @@ void SettingsForm::hasConnected()
 void SettingsForm::hasDisconnected()
 {
     ui->labelLoader->setStyleSheet("color: rgba(255, 0, 0);");
-    ui->labelLoader->setText(QString(tr("Le serveur proxy ne semble pas être en place.")));
+    ui->labelLoader->setText(QString(tr("The proxy server does not appear to be in place.")));
 
     ui->progressBarCheckProxy->hide();
 }
@@ -144,7 +144,7 @@ void SettingsForm::on_comboBoxStatus_currentIndexChanged(int index)
     else if(index == 2)
     {
         bool ok;
-        QString text = QInputDialog::getText(this, tr("Message d'absence"), tr("Raison de l'absence :"), QLineEdit::Normal, QString(), &ok);
+        QString text = QInputDialog::getText(this, tr("Away message"), tr("Away reason :"), QLineEdit::Normal, QString(), &ok);
         if (ok && !text.isEmpty())
             m_engine->getStatsManager().setPlayerStatusUpdate(m_sender, PlayerStatusEnum::PLAYER_STATUS_AFK, text);
         else if(ok && text.isEmpty())
