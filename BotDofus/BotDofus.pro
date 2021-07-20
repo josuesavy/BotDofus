@@ -63,6 +63,7 @@ FORMS += \
 # A list of filenames of header (.h) files used when building the project.
 HEADERS += \
     src/Public.h \
+    src/engines/DBManager.h \
     src/engines/DataHandler.h \
     src/engines/core/CoreEngine.h \
     src/engines/core/process/ProcessEngine.h \
@@ -1981,6 +1982,7 @@ HEADERS += \
 # A list of source code files to be used when building the project.
 SOURCES += \
     src/Public.cpp \
+    src/engines/DBManager.cpp \
     src/engines/DataHandler.cpp \
     src/engines/core/CoreEngine.cpp \
     src/engines/core/process/ProcessEngine.cpp \

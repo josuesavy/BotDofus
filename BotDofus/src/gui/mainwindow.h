@@ -8,6 +8,7 @@
 #include <QProgressDialog>
 
 #include "src/engines/core/process/ProcessEngine.h"
+#include "src/engines/DBManager.h"
 
 #include "accountmanager/accountmanagerdialog.h"
 #include "main/accountform.h"
@@ -22,7 +23,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(DBManager *dbManager, QWidget *parent = nullptr);
     ~MainWindow();
 
     void initTrayMenu();
@@ -60,6 +61,7 @@ private:
     QSystemTrayIcon *trayIcon;
 
     ProcessEngine m_engine;
+    DBManager *m_dbManager;
 
     QList<AccountForm*> m_accountForms;
 

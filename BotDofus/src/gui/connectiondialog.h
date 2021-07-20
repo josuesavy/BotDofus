@@ -7,6 +7,7 @@
 #include <QtSql/QtSql>
 
 #include "mainwindow.h"
+#include "src/engines/DBManager.h"
 #include "src/engines/io/d2o/D2OManager.h"
 #include "src/engines/io/d2p/D2PManager.h"
 #include "src/engines/io/i18n/I18nFileAccessor.h"
@@ -41,6 +42,8 @@ private:
     QList<ConnectionInfos> m_accounts;
 
     QSqlDatabase m_db;
+
+    DBManager *m_dbManager;
 };
 
 #endif // CONNECTIONDIALOG_H
