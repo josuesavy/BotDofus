@@ -88,6 +88,8 @@ private:
 
     int m_mapId;
     QList<uint> m_playersOnMap;
+    QList<uint> m_npcsOnMap;
+    QList<uint> m_merchantsOnMap;
     QList<uint> m_monstersOnMap;
     QList<uint> m_defenderOnMap;
     QList<uint> m_challengerOnMap;
@@ -95,7 +97,9 @@ private:
     QList<InteractiveDisplayInfos> interactiveDisplayInfosList;
     QList<MonsterGroup> monsterGroupList;
     QList<EntityInfos> entityInfosList;
+    QList<MerchantInfos> merchantInfosList;
     QList<NpcInfos> npcInfosList;
+    QList<NpcQuestInfos> npcQuestInfosList;
 };
 
 #endif // MAPFORM_H
