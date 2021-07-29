@@ -62,6 +62,7 @@ FORMS += \
 
 # A list of filenames of header (.h) files used when building the project.
 HEADERS += \
+    src/Helper.h \
     src/Public.h \
     src/engines/DataHandler.h \
     src/engines/core/CoreEngine.h \

@@ -2,12 +2,15 @@
 #include "gui/connectiondialog.h"
 #include "gui/theme.h"
 #include "src/network/Sniffer.h"
+#include "Helper.h"
 
 #include <QApplication>
 #include <QDebug>
 
 int main(int argc, char *argv[])
 {
+    SetUnhandledExceptionFilter(ExceptionFilter);
+
     QApplication a(argc, argv);
 
     // Chargement du thème
