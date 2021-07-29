@@ -79,8 +79,12 @@ QMap<uint, Map> D2PManager::parseAllMap()
     QMap<uint, Map> allMap;
 
     foreach (D2PFile *D2Pfile, m_folder->getFolderContent())
+    {
         foreach (CompressedMap *compressedMap, D2Pfile->getContentMap())
+        {
             allMap[compressedMap->getMapId()] = Map(compressedMap);
+        }
+    }
 
     return allMap;
 }
@@ -102,8 +106,12 @@ CompressedMap* D2PManager::getCompressedMap(uint mapId)
         qDebug()<<"ERROR - D2PManager is not initialized!";
 
     for (QList<D2PFile*>::const_iterator D2PFile = m_folder->getFolderContent().begin(); D2PFile != m_folder->getFolderContent().end(); ++D2PFile)
-        if ((*D2PFile)->getContentMap().contains(mapId) )
+    {
+        if ((*D2PFile)->getContentMap().contains(mapId))
+        {
             return (*D2PFile)->getContentMap()[mapId];
+        }
+    }
 
     qDebug()<<"ERROR - D2PManager The map id"<<mapId<<"doesn't exist!";
 

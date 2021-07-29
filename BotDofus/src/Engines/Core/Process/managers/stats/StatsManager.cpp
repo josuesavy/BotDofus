@@ -361,16 +361,12 @@ void StatsManager::quitDidactiel(SocketIO *sender)
 
 int StatsManager::getHealthPoints(SocketIO *sender)
 {
-    int _loc_ = getMaxHealthPoints(sender) + m_botData[sender].playerData.stats[(uint)StatIds::CUR_LIFE].base + m_botData[sender].playerData.stats[(uint)StatIds::CUR_PERMANENT_DAMAGE].base;
-    qDebug() << "HealthPoints:" << _loc_;
-    return _loc_;
+    return getMaxHealthPoints(sender) + m_botData[sender].playerData.stats[(uint)StatIds::CUR_LIFE].base + m_botData[sender].playerData.stats[(uint)StatIds::CUR_PERMANENT_DAMAGE].base;
 }
 
 int StatsManager::getMaxHealthPoints(SocketIO *sender)
 {
-    int _loc_ = m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].base + m_botData[sender].playerData.stats[(uint)StatIds::VITALITY].base - m_botData[sender].playerData.stats[(uint)StatIds::CUR_PERMANENT_DAMAGE].base;
-    qDebug() << "MaxHealthPoints:" << _loc_;
-    return _loc_;
+    return m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].base + m_botData[sender].playerData.stats[(uint)StatIds::VITALITY].base - m_botData[sender].playerData.stats[(uint)StatIds::CUR_PERMANENT_DAMAGE].base;
 }
 
 void StatsManager::setRegenUseObjectsEnabled(SocketIO *sender, bool enabled)

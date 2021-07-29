@@ -33,8 +33,8 @@ enum class DofusVersion
 {
     MAJOR = 2,
     MINOR = 60,
-    CODE = 1,
-    BUILD = 4,
+    CODE = 2,
+    BUILD = 7,
 };
 
 enum class SuperTypeId
@@ -502,6 +502,19 @@ struct InteractiveElementInfos
     QList<InteractiveSkillInfos> disabledSkills;
 };
 
+struct StatedElementsInfos
+{
+    uint elementId;
+    uint elementState;
+    uint elementCellId;
+};
+
+struct InteractiveElementDoorInfos
+{
+    uint cellId;
+    InteractiveElementInfos interactiveElementInfos;
+};
+
 struct InteractiveElementAction
 {
     uint position;
@@ -771,7 +784,8 @@ struct MapData
     QList<ChangeMapRequest> requestedMaps;
     QMap<uint, MonsterGroup> monsterGroupsOnMap;
     QList<InteractiveElementInfos> interactivesOnMap;
-    QList<InteractiveElementInfos> doorsOnMap;
+    QList<StatedElementsInfos> statedElementsOnMap;
+    QList<InteractiveElementDoorInfos> doorsOnMap;
     RequestedPathInfos requestedPath;
     MovingConfirmationRequest confirmationRequest;
     QMap<uint, uint> objectGroundListAdded;

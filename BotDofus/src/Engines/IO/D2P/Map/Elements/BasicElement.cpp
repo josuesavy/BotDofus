@@ -1,4 +1,6 @@
 ﻿#include "BasicElement.h"
+#include "SoundElement.h"
+#include "GraphicalElement.h"
 
 BasicElement::BasicElement(Reader *reader, Map *map, int cellId)
 {
@@ -8,17 +10,22 @@ BasicElement::BasicElement(Reader *reader, Map *map, int cellId)
     {
     case ElementTypesEnum::GRAPHICAL:
     {
-        GraphicalElement ge(reader, map, cellId);
+        m_element = new GraphicalElement(reader, map, cellId);
     }
         break;
 
     case ElementTypesEnum::SOUND:
     {
-        SoundElement se(reader);
+        m_element = new SoundElement(reader);
     }
         break;
 
     default:
         break;
     }
+}
+
+BasicElement *BasicElement::getElement()
+{
+    return m_element;
 }

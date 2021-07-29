@@ -22,11 +22,16 @@ GraphicalElement::GraphicalElement(Reader *reader, Map *map, int cellId)
         short offsetY = reader->readShort();
     }
     uchar altitude = reader->readByte();
-    uint identifier = reader->readUInt();
+    m_identifier = reader->readUInt();
 
-    if(identifier != 0)
-        map->m_interactiveElements[identifier] = cellId;
+    if(m_identifier != 0)
+        map->m_interactiveElements[m_identifier] = cellId;
 
     if(elementId == FIXEDMAPCHANGER_GRAPHICAL_ID)
         map->m_fixedMapChangers<<cellId;
+}
+
+uint GraphicalElement::getIdentifier()
+{
+    return m_identifier;
 }

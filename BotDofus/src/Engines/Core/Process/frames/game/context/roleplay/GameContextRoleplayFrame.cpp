@@ -153,14 +153,29 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
             m_botData[sender].generalData.botState = INACTIVE_STATE;
 
 
+        // Browser StatedElements
+        m_botData[sender].mapData.statedElementsOnMap.clear();
+        foreach (StatedElement statedElement, message.statedElements)
+        {
+            if (statedElement.onCurrentMap)
+            {
+                StatedElementsInfos statedElementsInfos;
+                statedElementsInfos.elementId = statedElement.elementId;
+                statedElementsInfos.elementCellId = statedElement.elementCellId;
+                statedElementsInfos.elementState = statedElement.elementState;
+
+                m_botData[sender].mapData.statedElementsOnMap<<statedElementsInfos;
+            }
+        }
+
         // Get interactive elements
         m_botData[sender].mapData.doorsOnMap.clear();
         m_botData[sender].mapData.interactivesOnMap.clear();
 
         foreach(QSharedPointer<InteractiveElement> interactiveClass, message.interactiveElements)
         {
-//            QList<int> doorSkillIds = { 184, 183, 187, 198, 114 };
-//            QList<int> doorTypeIds = { -1, 128, 168, 16 };
+            QList<int> doorSkillIds = { 184, 183, 187, 198, 114 };
+            QList<int> doorTypeIds = { -1, 128, 168, 16 };
 
             if(interactiveClass->onCurrentMap)
             {
@@ -188,20 +203,21 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
 
 //                if (doorTypeIds.contains(interactiveClass->elementTypeId) && interactiveClass->enabledSkills.size() > 0 && doorSkillIds.contains(interactiveClass->enabledSkills.first()->skillId))
 //                {
-//                    QList<Layer> layers = m_botData[sender].mapData.map.getLayers();
-//                    foreach (Layer layer, layers)
+//                    foreach (Layer layer, m_botData[sender].mapData.map.getLayers())
 //                    {
-//                        QList<MapCell> cells = layer.getCells();
-//                        foreach (MapCell cell, cells)
+//                        foreach (MapCell cell, layer.getMapCells())
 //                        {
-//                            QList<BasicElement> basicElements = cell.getElements();
-//                            foreach (BasicElement basicElement, basicElements)
+//                            foreach (BasicElement basicElement, cell.getBasicElements())
 //                            {
-//                                QSharedPointer<GraphicalElement> graphicalElement = qSharedPointerCast<GraphicalElement>(basicElement.getElementFromType());
+//                                GraphicalElement *graphicalElement = static_cast<GraphicalElement*>(basicElement.getElement());
 //                                if (graphicalElement->getIdentifier() == interactiveClass->elementId)
 //                                {
-//                                    m_botData[sender].mapData.doorsOnMap<<mainElementInfos;
+//                                    InteractiveElementDoorInfos interactiveElementDoorInfos;
+//                                    interactiveElementDoorInfos.interactiveElementInfos = mainElementInfos;
+//                                    interactiveElementDoorInfos.cellId = cell.getCellId();
+//                                    m_botData[sender].mapData.doorsOnMap<<interactiveElementDoorInfos;
 //                                }
+//                                delete graphicalElement;
 //                            }
 //                        }
 //                    }
@@ -212,21 +228,19 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
 //                    m_botData[sender].mapData.interactivesOnMap<<mainElementInfos;
 //                }
 
-                if (interactiveClass->elementTypeId >= 0)
+                //qDebug() << "Size door:" << m_botData[sender].mapData.doorsOnMap.size();
+
+                m_botData[sender].mapData.interactivesOnMap<<mainElementInfos;
+
+                if (interactiveClass->elementTypeId > INVALID)
                 {
                     QSharedPointer<InteractiveData> element = qSharedPointerCast<InteractiveData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::INTERACTIVES, interactiveClass->elementTypeId));
-                    qDebug()<<"[InteractiveElement] Name:"<<element->getName()<<" CellID:"<<m_botData[sender].mapData.map.getInteractiveElementCellID(interactiveClass->elementId)<<" TypeID:"<<interactiveClass->elementTypeId;
+                    qDebug()<<"[InteractiveElement] Name:"<<element->getName()<<" CellID:"<<m_botData[sender].mapData.map.getInteractiveElementCellID(interactiveClass->elementId)<<" TypeID:"<<interactiveClass->elementTypeId<< "EnableSkill size:"<<mainElementInfos.enabledSkills.size()<< "DisableSkill size:"<<mainElementInfos.disabledSkills.size();
                 }
-            }
-        }
-
-
-        // Browser StatedElements
-        foreach (StatedElement statedElement, message.statedElements)
-        {
-            if (statedElement.onCurrentMap)
-            {
-                m_botData[sender].mapData.map.getInteractiveElementCellID(statedElement.elementId);
+                else
+                {
+                    qDebug()<<"[InteractiveElement] Name: \"Porte\" CellID:"<<m_botData[sender].mapData.map.getInteractiveElementCellID(interactiveClass->elementId)<<" TypeID:"<<interactiveClass->elementTypeId<< "EnableSkill ID:"<<mainElementInfos.enabledSkills.at(0).ID<< "EnableSkill UID:"<<mainElementInfos.enabledSkills.at(0).UID;
+                }
             }
         }
 
@@ -274,7 +288,9 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
                 infos.cellId = npc->disposition->cellId;
 
                 m_botData[sender].mapData.npcsOnMap[npc->npcId] = infos;
-                qDebug()<<"NPC - Name:"<<qSharedPointerCast<NpcData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::NPCS, npc->npcId))->getName()<<"CellId:"<<npc->disposition->cellId<<" ContextualID:"<<npc->contextualId;
+
+                QSharedPointer<NpcData> npcData = qSharedPointerCast<NpcData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::NPCS, npc->npcId));
+                qDebug()<<"NPC - Name:"<<npcData->getName()<<"CellId:"<<npc->disposition->cellId<<" ContextualID:"<<npc->contextualId;
             }
 
             // Get NPC with quest
@@ -288,7 +304,12 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
                 infos.cellId = npc->disposition->cellId;
 
                 m_botData[sender].mapData.npcsQuestOnMap[npc->npcId] = infos;
-                qDebug()<<"NPC QUEST - Name:"<<qSharedPointerCast<NpcData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::NPCS, npc->npcId))->getName()<<"CellId:"<<npc->disposition->cellId<<" ContextualID:"<<npc->contextualId;
+
+                if (npc->npcId > INVALID)
+                {
+                    QSharedPointer<NpcData> npcData =  qSharedPointerCast<NpcData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::NPCS, npc->npcId));
+                    qDebug()<<"NPC QUEST - Name:"<<npcData->getName()<<"CellId:"<<npc->disposition->cellId<<" ContextualID:"<<npc->contextualId;
+                }
             }
 
             // Get merchants
@@ -323,7 +344,6 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
                 QSharedPointer<MonsterData> monsterData = qSharedPointerCast<MonsterData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::MONSTERS, monsterGroup->staticInfos->mainCreatureLightInfos.genericId));
                 foreach(MonsterGradeData grade, monsterData->getGrades())
                 {
-
                     if(grade.getGrade() == monsterGroup->staticInfos->mainCreatureLightInfos.grade)
                     {
                         Monster botMonster;
@@ -339,14 +359,14 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
 
                 foreach(QSharedPointer<MonsterInGroupInformations> monster, monsterGroup->staticInfos->underlings)
                 {
-                    monsterData = qSharedPointerCast<MonsterData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::MONSTERS, monster->genericId));
-
                     foreach(MonsterGradeData grade, monsterData->getGrades())
                     {
                         if(grade.getGrade() == monster->grade)
                         {
+                            QSharedPointer<MonsterData> md = qSharedPointerCast<MonsterData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::MONSTERS, monster->genericId));
+
                             Monster botMonster;
-                            botMonster.id = monsterData->getId();
+                            botMonster.id = md->getId();
                             botMonster.level = grade.getLevel();
 
                             botMonsterGroup.monsters<<botMonster;
@@ -361,7 +381,11 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
 
                 m_botData[sender].mapData.monsterGroupsOnMap[monsterGroup->contextualId] = botMonsterGroup;
 
-                qDebug()<<"GroupMonster - monster's name p. :"<<qSharedPointerCast<MonsterData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::MONSTERS, monsterGroup->staticInfos->mainCreatureLightInfos.genericId))->getName() <<" groupe's level :"<<totalLevel <<" number of monstres :"<<monsterGroup->staticInfos->underlings.size()+1 <<" CellID :"<<monsterGroup->disposition->cellId <<" ContextualID :"<<monsterGroup->contextualId;
+                if (monsterGroup->staticInfos->mainCreatureLightInfos.genericId > INVALID)
+                {
+                    QSharedPointer<MonsterData> md = qSharedPointerCast<MonsterData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::MONSTERS, monsterGroup->staticInfos->mainCreatureLightInfos.genericId));
+                    qDebug()<<"GroupMonster - monster's name p. :"<<md->getName() <<" groupe's level :"<<totalLevel <<" number of monstres :"<<monsterGroup->staticInfos->underlings.size()+1 <<" CellID :"<<monsterGroup->disposition->cellId <<" ContextualID :"<<monsterGroup->contextualId;
+                }
             }
 
             else
@@ -375,17 +399,27 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
             InteractiveDisplayInfos i;
             i.id = e.elementId;
             i.cellId = m_botData[sender].mapData.map.getInteractiveElementCellID(e.elementId);
-            i.name = qSharedPointerCast<InteractiveData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::INTERACTIVES, e.elementTypeId))->getName();
+            if (e.elementTypeId > INVALID)
+            {
+                i.name = qSharedPointerCast<InteractiveData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::INTERACTIVES, e.elementTypeId))->getName();
+            }
+            else
+            {
+                i.name = "Porte";
+            }
 
             m_botData[sender].interactionData.interactives << i;
         }
 
-        foreach (InteractiveElementInfos interactiveElementInfos, m_botData[sender].mapData.doorsOnMap)
+        foreach (InteractiveElementDoorInfos interactiveElementDoorInfos, m_botData[sender].mapData.doorsOnMap)
         {
             InteractiveDisplayInfos interactiveDisplayInfos;
-            interactiveDisplayInfos.id = interactiveElementInfos.elementId;
-            interactiveDisplayInfos.cellId = m_botData[sender].mapData.map.getInteractiveElementCellID(interactiveElementInfos.elementId);
-            //interactiveDisplayInfos.name = qSharedPointerCast<InteractiveData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::INTERACTIVES, interactiveElementInfos.elementTypeId))->getName();
+            interactiveDisplayInfos.id = interactiveElementDoorInfos.interactiveElementInfos.elementId;
+            interactiveDisplayInfos.cellId = m_botData[sender].mapData.map.getInteractiveElementCellID(interactiveElementDoorInfos.interactiveElementInfos.elementId);
+            if (interactiveElementDoorInfos.interactiveElementInfos.elementTypeId > INVALID)
+            {
+                interactiveDisplayInfos.name = qSharedPointerCast<InteractiveData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::INTERACTIVES, interactiveElementDoorInfos.interactiveElementInfos.elementTypeId))->getName();
+            }
 
             m_botData[sender].interactionData.interactives << interactiveDisplayInfos;
         }

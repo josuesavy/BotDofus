@@ -87,6 +87,7 @@ private:
     const BotData &getData() const;
 
     int m_mapId;
+    QList<uint> m_interactivesOnMap;
     QList<uint> m_playersOnMap;
     QList<uint> m_npcsOnMap;
     QList<uint> m_merchantsOnMap;

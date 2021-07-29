@@ -12,11 +12,13 @@ D2PFolder::D2PFolder(const QString &folderName) :
     {
         dirIt.next();
         if (QFileInfo(dirIt.filePath()).isFile())
+        {
             if (QFileInfo(dirIt.filePath()).suffix() == "d2p")
             {
                 m_folderContent.push_back(new D2PFile(dirIt.filePath()));
                 m_D2PFileCount++;
             }
+        }
     }
 
     if (m_D2PFileCount == 0)

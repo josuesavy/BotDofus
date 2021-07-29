@@ -24,6 +24,9 @@ bool GameInteractiveFrame::processMessage(const MessageInfos &data, SocketIO *se
         InteractiveElementUpdatedMessage message;
         message.deserialize(&reader);
 
+        QList<int> doorSkillIds = { 184, 183, 187, 198, 114 };
+        QList<int> doorTypeIds = { -1, 128, 168, 16 };
+
         if(message.interactiveElement->onCurrentMap)
         {
             for (int i = 0; i < m_botData[sender].mapData.interactivesOnMap.size(); i++)
@@ -52,7 +55,34 @@ bool GameInteractiveFrame::processMessage(const MessageInfos &data, SocketIO *se
                         mainElementInfos.disabledSkills<<disabledInfos;
                     }
 
-                    m_botData[sender].mapData.interactivesOnMap.replace(i, mainElementInfos);
+                    if (doorTypeIds.contains(message.interactiveElement->elementTypeId) && message.interactiveElement->enabledSkills.size() > 0 && doorSkillIds.contains(message.interactiveElement->enabledSkills.first()->skillId))
+                    {
+                        foreach (Layer layer, m_botData[sender].mapData.map.getLayers())
+                        {
+                            foreach (MapCell cell, layer.getMapCells())
+                            {
+                                foreach (BasicElement basicElement, cell.getBasicElements())
+                                {
+                                    GraphicalElement *graphicalElement = static_cast<GraphicalElement*>(basicElement.getElement());
+                                    if (graphicalElement->getIdentifier() == message.interactiveElement->elementId)
+                                    {
+                                        InteractiveElementDoorInfos interactiveElementDoorInfos;
+                                        interactiveElementDoorInfos.interactiveElementInfos = mainElementInfos;
+                                        interactiveElementDoorInfos.cellId = cell.getCellId();
+                                        m_botData[sender].mapData.doorsOnMap.replace(i, interactiveElementDoorInfos);
+                                    }
+                                    delete graphicalElement;
+                                }
+                            }
+                        }
+                    }
+
+                    else
+                    {
+                        m_botData[sender].mapData.interactivesOnMap.replace(i, mainElementInfos);
+                    }
+
+                    //m_botData[sender].mapData.interactivesOnMap.replace(i, mainElementInfos);
                 }
             }
         }
@@ -147,6 +177,23 @@ bool GameInteractiveFrame::processMessage(const MessageInfos &data, SocketIO *se
         break;
 
     case MessageEnum::STATEDELEMENTUPDATEDMESSAGE:
+    {
+        StatedElementUpdatedMessage message;
+        message.deserialize(&reader);
+
+        for (int i = 0; i < m_botData[sender].mapData.statedElementsOnMap.size(); i++)
+        {
+            if (message.statedElement.elementId == m_botData[sender].mapData.statedElementsOnMap[i].elementId)
+            {
+                StatedElementsInfos statedElementsInfos;
+                statedElementsInfos.elementId = message.statedElement.elementId;
+                statedElementsInfos.elementCellId = message.statedElement.elementCellId;
+                statedElementsInfos.elementState = message.statedElement.elementState;
+
+                m_botData[sender].mapData.statedElementsOnMap.replace(i, statedElementsInfos);
+            }
+        }
+    }
         break;
     }
 

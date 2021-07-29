@@ -18,8 +18,7 @@ Canvas {
     signal mouseUp(int x, int y);
     signal mouseOut();
 
-    Connections
-    {
+    Connections {
         target: mapForm
         function onEntityTypesChanged() { canvas.requestPaint() }
         function onCollisionTypesChanged() { canvas.requestPaint() }
@@ -37,12 +36,39 @@ Canvas {
     antialiasing: true
     onPaint: draw();
 
-    function draw()
-    {
+    function cellCoords(cellId ) {
+        return { x:cellId % 14,	 y:Math.floor(cellId / 14) }
+    }
+
+    function initCells() {
+        tileWidth = canvas.width/14*13.5/14;
+        tileHeight = canvas.height/20*19/20;
+
+        var startX = 0;
+        var startY = 0;
+        var cell = 0;
+        var b;
+        for (var a = 0; a < 20; a++) {
+            for (b = 0; b < 14; b++) {
+                var p = cellCoords(cell);
+                cellPos[cell] = { x:startX + b, y:startY + b, pixelX: p.x * tileWidth + (p.y % 2 == 1 ? tileWidth / 2 : 0), pixelY: p.y * tileHeight / 2 };
+                cell++;
+            }
+            startX++;
+
+            for (b = 0; b < 14; b++) {
+                p = cellCoords(cell);
+                cellPos[cell] = { x:startX + b, y:startY + b, pixelX: p.x * tileWidth + (p.y % 2 == 1 ? tileWidth / 2 : 0), pixelY: p.y * tileHeight / 2 };
+                cell++;
+            }
+            startY--;
+        }
+    }
+
+    function draw() {
         initCells();
 
-        if(mapForm.collisionTypes.length !== 0)
-        {
+        if(mapForm.collisionTypes.length !== 0) {
             var ctx = canvas.getContext("2d");
             ctx.reset();
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -54,11 +80,9 @@ Canvas {
 
             ctx.translate(0, tileHeight/2);
 
-            for(var cellId in cellPos)
-            {
+            for(var cellId in cellPos) {
                 // Affichage de la grille
-                if(mapForm.cellChangeColor == cellId)
-                {
+                if(mapForm.cellChangeColor == cellId) {
                     if(mapForm.cellClicked)
                         drawTile(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, 0xBBBBBB, 0xBBBBBB);
                     else
@@ -76,8 +100,7 @@ Canvas {
                     drawTile(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, 0x777777);
 
                 // Interactive
-                if(mapForm.interactiveTypes[cellId] !== MapForm.NOTHING)
-                {
+                if(mapForm.interactiveTypes[cellId] !== MapForm.NOTHING) {
                     if(mapForm.interactiveTypes[cellId] === MapForm.INTERACTIVE)
                         drawSquare(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, 0x94a8c6);
 
@@ -86,8 +109,7 @@ Canvas {
                 }
 
                 // Entitée
-                if(mapForm.entityTypes[cellId] !== MapForm.NOTHING)
-                {
+                if(mapForm.entityTypes[cellId] !== MapForm.NOTHING) {
                     if(mapForm.entityTypes[cellId] === MapForm.PLAYER)
                         drawCircle(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, 0x8076d0);
 
@@ -111,8 +133,7 @@ Canvas {
         }
     }
 
-    function drawTile(target, x, y, color, borderColor)
-    {
+    function drawTile(target, x, y, color, borderColor) {
         target.save();
 
         if(color !== undefined)
@@ -140,8 +161,7 @@ Canvas {
         target.restore();
     }
 
-    function drawCircle(target, x, y, color, shadow, who)
-    {
+    function drawCircle(target, x, y, color, shadow, who) {
         target.save();
 
         if(shadow !== undefined)
@@ -168,8 +188,7 @@ Canvas {
         target.restore();
     }
 
-    function drawSquare(target, x, y, color)
-    {
+    function drawSquare(target, x, y, color) {
         target.save();
 
         if(color !== undefined)
@@ -185,8 +204,7 @@ Canvas {
         target.restore();
     }
 
-    function drawText(target, x, y, cell)
-    {
+    function drawText(target, x, y, cell) {
         target.save();
 
         target.beginPath();
@@ -198,42 +216,7 @@ Canvas {
         target.restore();
     }
 
-    function initCells()
-    {
-        tileWidth = canvas.width/14*13.5/14;
-        tileHeight = canvas.height/20*19/20;
-
-        var startX = 0;
-        var startY = 0;
-        var cell = 0;
-        var b;
-        for (var a = 0; a < 20; a++)
-        {
-            for (b = 0; b < 14; b++)
-            {
-                var p = cellCoords(cell);
-                cellPos[cell] = { x:startX + b, y:startY + b, pixelX: p.x * tileWidth + (p.y % 2 == 1 ? tileWidth / 2 : 0), pixelY: p.y * tileHeight / 2 };
-                cell++;
-            }
-            startX++;
-
-            for (b = 0; b < 14; b++)
-            {
-                p = cellCoords(cell);
-                cellPos[cell] = { x:startX + b, y:startY + b, pixelX: p.x * tileWidth + (p.y % 2 == 1 ? tileWidth / 2 : 0), pixelY: p.y * tileHeight / 2 };
-                cell++;
-            }
-            startY--;
-        }
-    }
-
-    function cellCoords(cellId )
-    {
-        return { x:cellId % 14,	 y:Math.floor(cellId / 14) }
-    }
-
-    function addEventListener(event, handler, ignored)
-    {
+    function addEventListener(event, handler, ignored) {
         if (event === 'mousemove')
             canvas.mouseMove.connect(handler);
 
@@ -247,8 +230,7 @@ Canvas {
             canvas.mouseOut.connect(handler);
     }
 
-    function removeEventListener(event, handler, ignored)
-    {
+    function removeEventListener(event, handler, ignored) {
         if (event === 'mousemove')
             canvas.mouseMove.disconnect(handler);
 
@@ -289,13 +271,11 @@ Canvas {
         tileWidth = canvas.width/14*13.5/14;
         tileHeight = canvas.height/20*19/20;
 
-        for(var i in mapForm.entityTypes)
-        {
-            var data = mapForm.entityTypes[i];
+        for(var i in mapForm.entityTypes) {
             var cellPosX = cellPos[i].pixelX + tileWidth / 2 ;
             var cellPosY = cellPos[i].pixelY + tileHeight / 2;
-            if(Math.sqrt(Math.pow(x - 0 - cellPosX,2) + Math.pow(y - 12 - cellPosY,2)) < tileHeight / 2)
-            {
+
+            if(Math.sqrt(Math.pow(x - 0 - cellPosX,2) + Math.pow(y - 12 - cellPosY,2)) < tileHeight / 2) {
                 mapForm.cellClicked = true;
                 mapForm.cellChangeColor=i;
                 return
@@ -312,13 +292,11 @@ Canvas {
         var cellPosX;
         var cellPosY;
 
-        for(var i in cellPos)
-        {
+        for(var i in cellPos) {
             cellPosX = cellPos[i].pixelX + tileWidth / 2 ;
             cellPosY = cellPos[i].pixelY + tileHeight / 2;
 
-            if(Math.sqrt(Math.pow(x - 0 - cellPosX,2) + Math.pow(y - 12 - cellPosY,2)) < tileHeight / 2)
-            {
+            if(Math.sqrt(Math.pow(x - 0 - cellPosX,2) + Math.pow(y - 12 - cellPosY,2)) < tileHeight / 2) {
                 mapForm.cellClicked = false;
                 mapForm.cellChangeColor=i;
 
@@ -330,7 +308,6 @@ Canvas {
 
                 else
                     mapForm.changeCell(i);
-
 
                 return
             }
@@ -346,13 +323,11 @@ Canvas {
         var cellPosX;
         var cellPosY;
 
-        for(var i in cellPos)
-        {
+        for(var i in cellPos) {
             cellPosX = cellPos[i].pixelX + tileWidth / 2 ;
             cellPosY = cellPos[i].pixelY + tileHeight / 2;
 
-            if(Math.sqrt(Math.pow(x - 0 - cellPosX,2) + Math.pow(y - 12 - cellPosY,2)) < tileHeight / 2)
-            {
+            if(Math.sqrt(Math.pow(x - 0 - cellPosX,2) + Math.pow(y - 12 - cellPosY,2)) < tileHeight / 2) {
                 mapForm.showInfos(i);
                 return;
             }

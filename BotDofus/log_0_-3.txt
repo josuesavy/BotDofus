@@ -1,0 +1,16 @@
+[InteractiveElement] Name: "Porte" CellID: 485  TypeID: -1 EnableSkill ID: 184 EnableSkill UID: 129248574
+[InteractiveElement] Name: "Porte" CellID: 326  TypeID: -1 EnableSkill ID: 184 EnableSkill UID: 129248575
+[InteractiveElement] Name: "Porte" CellID: 361  TypeID: -1 EnableSkill ID: 184 EnableSkill UID: 129248576
+[InteractiveElement] Name: "Ortie"  CellID: 253  TypeID: 254 EnableSkill size: 1 DisableSkill size: 0
+GameRolePlay - Name: "Servin-de-Creduchav"  Level: 2  CellID: 19  ContextualID: 2.92999e+11
+GameRolePlay - Name: "Tanjirokai"  Level: 3  CellID: 350  ContextualID: 3.15842e+11
+GameRolePlay - Name: "Kahanyel"  Level: 3  CellID: 354  ContextualID: 3.15842e+11
+GameRolePlay - Name: "Scarrow"  Level: 19  CellID: 469  ContextualID: 3.15768e+11
+GameRolePlay - Name: "Lhaj-hee"  Level: 19  CellID: 349  ContextualID: 3.15638e+11
+GameRolePlay - Name: "Haruiko"  Level: 10  CellID: 16  ContextualID: 3.1568e+11
+NPC - Name: "Berb Nhin" CellId: 387  ContextualID: -20000
+GroupMonster - monster's name p. : "Feu Furieux"  groupe's level : 4  number of monstres : 2  CellID : 183  ContextualID : -20005
+MERCHANT - Name: "Rouc" CellId: 3.14254e+11  ContextualID: 3.14254e+11
+MERCHANT - Name: "Tonton-Tella" CellId: 3.05248e+11  ContextualID: 3.05248e+11
+MERCHANT - Name: "Elisterine" CellId: 3.15339e+11  ContextualID: 3.15339e+11
+MERCHANT - Name: "Adibass" CellId: 3.13396e+11  ContextualID: 3.13396e+11
