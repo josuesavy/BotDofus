@@ -936,6 +936,7 @@ struct InteractionData
     bool finishedAction = true;
     int interactionId = INVALID;
     QList<InteractiveDisplayInfos> interactives;
+    QList<NpcDisplayInfos> npcs;
     CurrentInteraction interactionType = CurrentInteraction::NONE;
 };
 

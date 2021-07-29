@@ -426,22 +426,22 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
 
         foreach (uint npc, m_botData[sender].mapData.npcsOnMap.keys())
         {
-            InteractiveDisplayInfos i;
+            NpcDisplayInfos i;
             i.id = npc;
             i.cellId = m_botData[sender].mapData.npcsOnMap[npc].cellId;
             i.name = qSharedPointerCast<NpcData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::NPCS, npc))->getName();
 
-            m_botData[sender].interactionData.interactives << i;
+            m_botData[sender].interactionData.npcs << i;
         }
 
         foreach (uint npc, m_botData[sender].mapData.npcsQuestOnMap.keys())
         {
-            InteractiveDisplayInfos i;
+            NpcDisplayInfos i;
             i.id = npc;
             i.cellId = m_botData[sender].mapData.npcsQuestOnMap[npc].cellId;
             i.name = qSharedPointerCast<NpcData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::NPCS, npc))->getName();
 
-            m_botData[sender].interactionData.interactives << i;
+            m_botData[sender].interactionData.npcs << i;
         }
 
         if(!m_botData[sender].mapData.requestedMaps.isEmpty())
