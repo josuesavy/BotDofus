@@ -273,7 +273,7 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
                         m_botData[sender].statisticsData.countTotalMetPlayers.append(rolePlay->name);
                 }
 
-                m_botData[sender].mapData.playersOnMap[infos.entityId] = infos;
+                m_botData[sender].mapData.playersOnMap[rolePlay->contextualId] = infos;
                 qDebug()<<"GameRolePlay - Name:"<<infos.name<<" Level:"<<infos.level<<" CellID:"<<infos.cellId<<" ContextualID:"<<rolePlay->contextualId;
             }
 
@@ -326,8 +326,8 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
                 infos.options = merchant->options;
                 infos.cellId = merchant->disposition->cellId;
 
-                m_botData[sender].mapData.merchantsOnMap[merchant->sellType] = infos;
-                qDebug()<<"MERCHANT - Name:"<<infos.name<<"CellId:"<<infos.merchantId<<" ContextualID:"<<infos.merchantId;
+                m_botData[sender].mapData.merchantsOnMap[merchant->contextualId] = infos;
+                qDebug()<<"MERCHANT - Name:"<<infos.name<<"CellId:"<<infos.cellId<<" ContextualID:"<<infos.merchantId;
             }
 
             // Get groups monsters

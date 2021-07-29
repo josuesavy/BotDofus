@@ -283,7 +283,6 @@ void MapForm::updateMap()
                 //}
             }
 
-
             QList<CellData> mapCells = infos.mapData.map.getCellData();
             QList<int> collisions;
             QList<int> interactives;
@@ -299,7 +298,6 @@ void MapForm::updateMap()
 
                 else
                     collisions<<((uint)MapViewerCellEnum::COLLISION_NO_SIGHT);
-
 
                 if(m_monstersOnMap.contains(i))
                     entities<<((uint)MapViewerCellEnum::MONSTER);
