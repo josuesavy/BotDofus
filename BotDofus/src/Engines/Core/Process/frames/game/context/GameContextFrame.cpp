@@ -19,29 +19,29 @@ bool GameContextFrame::processMessage(const MessageInfos &data, SocketIO *sender
         messageFound = false;
         break;
 
-    case MessageEnum::GAMECAUTIOUSMAPMOVEMENTMESSAGE:
-    {
-        GameCautiousMapMovementMessage message;
-        message.deserialize(&reader);
+//    case MessageEnum::GAMECAUTIOUSMAPMOVEMENTMESSAGE:
+//    {
+//        GameCautiousMapMovementMessage message;
+//        message.deserialize(&reader);
 
-        if (m_botData[sender].mapData.gameContext == GameContextEnum::ROLE_PLAY)
-        {
-            if (m_botData[sender].mapData.botId == message.actorId)
-            {
-                action(sender)<< "Vous êtes dans l'obligation de marcher";
-                m_botData[sender].mapData.confirmationRequest.elapsedTime.start();
-                m_botData[sender].mapData.requestedPath.timer.start();
-                m_botData[sender].mapData.confirmationRequest.timer->setSingleShot(true);
-                m_botData[sender].mapData.confirmationRequest.timer->setInterval(m_botData[sender].mapData.confirmationRequest.estimatedTime);
-                connect(m_botData[sender].mapData.confirmationRequest.timer.data(), SIGNAL(timeout()), m_mapManager, SLOT(processConfirmation()));
-                m_botData[sender].mapData.confirmationRequest.timer->start();
+//        if (m_botData[sender].mapData.gameContext == GameContextEnum::ROLE_PLAY)
+//        {
+//            if (m_botData[sender].mapData.botId == message.actorId)
+//            {
+//                action(sender)<< "Vous êtes dans l'obligation de marcher";
+//                m_botData[sender].mapData.confirmationRequest.elapsedTime.start();
+//                m_botData[sender].mapData.requestedPath.timer.start();
+//                m_botData[sender].mapData.confirmationRequest.timer->setSingleShot(true);
+//                m_botData[sender].mapData.confirmationRequest.timer->setInterval(m_botData[sender].mapData.confirmationRequest.estimatedTime);
+//                connect(m_botData[sender].mapData.confirmationRequest.timer.data(), SIGNAL(timeout()), m_mapManager, SLOT(processConfirmation()));
+//                m_botData[sender].mapData.confirmationRequest.timer->start();
 
-                if(m_botData[sender].generalData.botState == BotState::INACTIVE_STATE && m_botData[sender].scriptData.isActive && m_botData[sender].scriptData.activeModule == ManagerType::MAP)
-                    emit scriptActionDone(sender);
-            }
-        }
-    }
-        break;
+//                if(m_botData[sender].generalData.botState == BotState::INACTIVE_STATE && m_botData[sender].scriptData.isActive && m_botData[sender].scriptData.activeModule == ManagerType::MAP)
+//                    emit scriptActionDone(sender);
+//            }
+//        }
+//    }
+//        break;
 
     case MessageEnum::GAMECONTEXTCREATEMESSAGE:
     {
@@ -95,6 +95,7 @@ bool GameContextFrame::processMessage(const MessageInfos &data, SocketIO *sender
     }
         break;
 
+    case MessageEnum::GAMECAUTIOUSMAPMOVEMENTMESSAGE:
     case MessageEnum::GAMEMAPMOVEMENTMESSAGE:
     {
         GameMapMovementMessage message;
