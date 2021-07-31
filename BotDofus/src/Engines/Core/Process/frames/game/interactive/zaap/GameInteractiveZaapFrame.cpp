@@ -45,7 +45,7 @@ bool GameInteractiveZaapFrame::processMessage(const MessageInfos &data, SocketIO
                     reply.mapId = m_botData[sender].interactionData.interactionId;
 
                     m_interactionManager->finishedAction << sender;
-                    QTimer::singleShot(15000, this, SLOT(finishAction()));
+                    QTimer::singleShot(15000, m_interactionManager, SLOT(finishAction()));
                     m_botData[sender].interactionData.finishedAction = false;
 
                     sender->send(reply);
@@ -93,7 +93,7 @@ bool GameInteractiveZaapFrame::processMessage(const MessageInfos &data, SocketIO
                     reply.mapId = m_botData[sender].interactionData.interactionId;
 
                     m_interactionManager->finishedAction << sender;
-                    QTimer::singleShot(15000, this, SLOT(finishAction()));
+                    QTimer::singleShot(15000, m_interactionManager, SLOT(finishAction()));
                     m_botData[sender].interactionData.finishedAction = false;
 
                     sender->send(reply);

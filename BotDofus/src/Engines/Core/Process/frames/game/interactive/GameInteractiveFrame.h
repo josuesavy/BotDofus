@@ -8,6 +8,8 @@
 
 class GameInteractiveFrame : public AbstractFrame
 {
+    Q_OBJECT
+
 public:
     GameInteractiveFrame(QMap<SocketIO*, BotData> *connectionsData, InteractionManager *interactionManager, FarmManager *farmManager);
 

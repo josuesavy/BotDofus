@@ -100,7 +100,7 @@ bool GameInteractiveFrame::processMessage(const MessageInfos &data, SocketIO *se
             m_botData[sender].interactionData.npcDialogs.clear();
 
             m_interactionManager->m_confirmAction << sender;
-            QTimer::singleShot(1000, this, SLOT(confirmAction()));
+            QTimer::singleShot(1000, m_interactionManager, SLOT(confirmAction()));
         }
     }
         break;

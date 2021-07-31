@@ -6,6 +6,8 @@
 
 class GameDialogFrame : public AbstractFrame
 {
+    Q_OBJECT
+
 public:
     GameDialogFrame(QMap<SocketIO*, BotData> *connectionsData, InteractionManager *interactionManager);
 

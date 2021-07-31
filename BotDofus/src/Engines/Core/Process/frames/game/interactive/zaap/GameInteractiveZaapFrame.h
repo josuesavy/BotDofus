@@ -6,6 +6,8 @@
 
 class GameInteractiveZaapFrame : public AbstractFrame
 {
+    Q_OBJECT
+
 public:
     GameInteractiveZaapFrame(QMap<SocketIO*, BotData> *connectionsData, InteractionManager *interactionManager);
 

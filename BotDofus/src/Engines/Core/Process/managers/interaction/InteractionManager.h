@@ -6,8 +6,11 @@
 
 class InteractionManager : public AbstractManager
 {
+    Q_OBJECT
+
 public:
     InteractionManager(QMap<SocketIO*, BotData> *connectionsData, MapManager *mapManager);
+    ~InteractionManager();
 
     /*!
      * \brief Reset the module

@@ -7,6 +7,11 @@ InteractionManager::InteractionManager(QMap<SocketIO *, BotData> *connectionsDat
 
 }
 
+InteractionManager::~InteractionManager()
+{
+
+}
+
 void InteractionManager::reset(SocketIO *sender)
 {
     m_botData[sender].interactionData.actionID = INVALID;
