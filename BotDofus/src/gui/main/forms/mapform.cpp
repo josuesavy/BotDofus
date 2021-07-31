@@ -55,7 +55,7 @@ void MapForm::useInteractive(uint cell)
 {
     foreach (InteractiveDisplayInfos interactive, interactiveDisplayInfosList)
     {
-        if(interactive.cellId == cell && interactive.name.isEmpty())
+        if(interactive.cellId == cell)
         {
             m_engine->getInteractionManager().processUse(m_sender, interactive.id);
             break;

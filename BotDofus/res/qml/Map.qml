@@ -306,7 +306,7 @@ Canvas {
                 if (mapForm.interactiveTypes[i] === MapForm.USABLE)
                     mapForm.useInteractive(i);
 
-                else if(mapForm.collisionTypes[i] === MapForm.COLLISION_WITH_SIGHT || mapForm.collisionTypes[i] === MapForm.COLLISION_NO_SIGHT)
+                else if(mapForm.collisionTypes[i] === MapForm.COLLISION_WITH_SIGHT || mapForm.collisionTypes[i] === MapForm.COLLISION_NO_SIGHT || mapForm.interactiveTypes[i] === MapForm.INTERACTIVE)
                     mapForm.changeToNearestCell(i);
 
                 else
