@@ -171,11 +171,10 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
         // Get interactive elements
         m_botData[sender].mapData.doorsOnMap.clear();
         m_botData[sender].mapData.interactivesOnMap.clear();
-
         foreach(QSharedPointer<InteractiveElement> interactiveClass, message.interactiveElements)
         {
-            QList<int> doorSkillIds = { 184, 183, 187, 198, 114 };
-            QList<int> doorTypeIds = { -1, 128, 168, 16 };
+            QList<int> doorSkillIds = { 184, 183, 187, 198, 114 }; // Utiliser, Se rendre à Incarnam, Sortir, [@ref Multienclos], Utiliser
+            QList<int> doorTypeIds = { -1, 128, 168, 16 }; // Porte, Statue de classe, Banque, Zaap
 
             if(interactiveClass->onCurrentMap)
             {
@@ -201,45 +200,45 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
                     mainElementInfos.disabledSkills<<disabledInfos;
                 }
 
-//                if (doorTypeIds.contains(interactiveClass->elementTypeId) && interactiveClass->enabledSkills.size() > 0 && doorSkillIds.contains(interactiveClass->enabledSkills.first()->skillId))
-//                {
-//                    foreach (Layer layer, m_botData[sender].mapData.map.getLayers())
-//                    {
-//                        foreach (MapCell cell, layer.getMapCells())
-//                        {
-//                            foreach (BasicElement basicElement, cell.getBasicElements())
-//                            {
-//                                GraphicalElement *graphicalElement = static_cast<GraphicalElement*>(basicElement.getElement());
-//                                if (graphicalElement->getIdentifier() == interactiveClass->elementId)
-//                                {
-//                                    InteractiveElementDoorInfos interactiveElementDoorInfos;
-//                                    interactiveElementDoorInfos.interactiveElementInfos = mainElementInfos;
-//                                    interactiveElementDoorInfos.cellId = cell.getCellId();
-//                                    m_botData[sender].mapData.doorsOnMap<<interactiveElementDoorInfos;
-//                                }
-//                                delete graphicalElement;
-//                            }
-//                        }
-//                    }
-//                }
+                if (doorTypeIds.contains(interactiveClass->elementTypeId) && interactiveClass->enabledSkills.size() > 0 && doorSkillIds.contains(interactiveClass->enabledSkills.first()->skillId))
+                {
+                    foreach (Layer layer, m_botData[sender].mapData.map.getLayers())
+                    {
+                        foreach (MapCell cell, layer.getMapCells())
+                        {
+                            foreach (BasicElement basicElement, cell.getBasicElements())
+                            {
+                                GraphicalElement *graphicalElement = static_cast<GraphicalElement*>(basicElement.getElement());
+                                if (graphicalElement->getIdentifier() == interactiveClass->elementId)
+                                {
+                                    InteractiveElementDoorInfos interactiveElementDoorInfos;
+                                    interactiveElementDoorInfos.interactiveElementInfos = mainElementInfos;
+                                    interactiveElementDoorInfos.cellId = cell.getCellId();
+                                    m_botData[sender].mapData.doorsOnMap<<interactiveElementDoorInfos;
+                                }
+                                delete graphicalElement;
+                            }
+                        }
+                    }
+                }
 
-//                else
-//                {
-//                    m_botData[sender].mapData.interactivesOnMap<<mainElementInfos;
-//                }
+                else
+                {
+                    m_botData[sender].mapData.interactivesOnMap<<mainElementInfos;
+                }
 
                 //qDebug() << "Size door:" << m_botData[sender].mapData.doorsOnMap.size();
 
-                m_botData[sender].mapData.interactivesOnMap<<mainElementInfos;
+                //m_botData[sender].mapData.interactivesOnMap<<mainElementInfos;
 
                 if (interactiveClass->elementTypeId > INVALID)
                 {
                     QSharedPointer<InteractiveData> element = qSharedPointerCast<InteractiveData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::INTERACTIVES, interactiveClass->elementTypeId));
-                    qDebug()<<"[InteractiveElement] Name:"<<element->getName()<<" CellID:"<<m_botData[sender].mapData.map.getInteractiveElementCellID(interactiveClass->elementId)<<" TypeID:"<<interactiveClass->elementTypeId<< "EnableSkill size:"<<mainElementInfos.enabledSkills.size()<< "DisableSkill size:"<<mainElementInfos.disabledSkills.size();
+                    qDebug()<<"[InteractiveElement] Name:"<<element->getName()<<" CellID:"<<m_botData[sender].mapData.map.getInteractiveElementCellID(interactiveClass->elementId)<<" TypeID:"<<interactiveClass->elementTypeId;
                 }
                 else
                 {
-                    qDebug()<<"[InteractiveElement] Name: \"Porte\" CellID:"<<m_botData[sender].mapData.map.getInteractiveElementCellID(interactiveClass->elementId)<<" TypeID:"<<interactiveClass->elementTypeId<< "EnableSkill ID:"<<mainElementInfos.enabledSkills.at(0).ID<< "EnableSkill UID:"<<mainElementInfos.enabledSkills.at(0).UID;
+                    qDebug()<<"[InteractiveElement] CellID:"<<m_botData[sender].mapData.map.getInteractiveElementCellID(interactiveClass->elementId)<<" TypeID:"<<interactiveClass->elementTypeId;
                 }
             }
         }
@@ -305,11 +304,8 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
 
                 m_botData[sender].mapData.npcsQuestOnMap[npc->npcId] = infos;
 
-                if (npc->npcId > INVALID)
-                {
-                    QSharedPointer<NpcData> npcData =  qSharedPointerCast<NpcData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::NPCS, npc->npcId));
-                    qDebug()<<"NPC QUEST - Name:"<<npcData->getName()<<"CellId:"<<npc->disposition->cellId<<" ContextualID:"<<npc->contextualId;
-                }
+                QSharedPointer<NpcData> npcData =  qSharedPointerCast<NpcData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::NPCS, npc->npcId));
+                qDebug()<<"NPC QUEST - Name:"<<npcData->getName()<<"CellId:"<<npc->disposition->cellId<<" ContextualID:"<<npc->contextualId;
             }
 
             // Get merchants
@@ -399,14 +395,7 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
             InteractiveDisplayInfos i;
             i.id = e.elementId;
             i.cellId = m_botData[sender].mapData.map.getInteractiveElementCellID(e.elementId);
-            if (e.elementTypeId > INVALID)
-            {
-                i.name = qSharedPointerCast<InteractiveData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::INTERACTIVES, e.elementTypeId))->getName();
-            }
-            else
-            {
-                i.name = "Porte";
-            }
+            i.name = qSharedPointerCast<InteractiveData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::INTERACTIVES, e.elementTypeId))->getName();
 
             m_botData[sender].interactionData.interactives << i;
         }
@@ -416,10 +405,6 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
             InteractiveDisplayInfos interactiveDisplayInfos;
             interactiveDisplayInfos.id = interactiveElementDoorInfos.interactiveElementInfos.elementId;
             interactiveDisplayInfos.cellId = m_botData[sender].mapData.map.getInteractiveElementCellID(interactiveElementDoorInfos.interactiveElementInfos.elementId);
-            if (interactiveElementDoorInfos.interactiveElementInfos.elementTypeId > INVALID)
-            {
-                interactiveDisplayInfos.name = qSharedPointerCast<InteractiveData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::INTERACTIVES, interactiveElementDoorInfos.interactiveElementInfos.elementTypeId))->getName();
-            }
 
             m_botData[sender].interactionData.interactives << interactiveDisplayInfos;
         }

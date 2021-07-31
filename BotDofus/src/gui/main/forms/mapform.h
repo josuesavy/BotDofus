@@ -51,6 +51,7 @@ public:
         USABLE,
         MONSTER,
         INTERACTIVE,
+        DOOR,
         COLLISION_NO_SIGHT,
         COLLISION_WITH_SIGHT,
         DEFENDER,

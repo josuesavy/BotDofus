@@ -104,6 +104,9 @@ Canvas {
                     if(mapForm.interactiveTypes[cellId] === MapForm.INTERACTIVE)
                         drawSquare(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, 0x94a8c6);
 
+                    else if (mapForm.interactiveTypes[cellId] === MapForm.DOOR)
+                        drawSquare(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, 0x80eeee);
+
                     else if(mapForm.interactiveTypes[cellId] === MapForm.USABLE)
                         drawSquare(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, 0xe8bc75);
                 }

@@ -277,10 +277,13 @@ void MapForm::updateMap()
             QMap<int, int> interactivesCellId;
             for(int i = 0; i < infos.mapData.interactivesOnMap.size(); i++)
             {
-                //if (infos.mapData.interactivesOnMap[i].elementTypeId > INVALID)
-                //{
-                    interactivesCellId[infos.mapData.map.getInteractiveElementCellID(infos.mapData.interactivesOnMap[i].elementId)] = i;
-                //}
+                interactivesCellId[infos.mapData.map.getInteractiveElementCellID(infos.mapData.interactivesOnMap[i].elementId)] = i;
+            }
+
+            QMap<int, int> doorsCellId;
+            for(int i = 0; i < infos.mapData.doorsOnMap.size(); i++)
+            {
+                doorsCellId[infos.mapData.doorsOnMap[i].cellId] = i;
             }
 
             QList<CellData> mapCells = infos.mapData.map.getCellData();
@@ -329,6 +332,9 @@ void MapForm::updateMap()
                     else
                         interactives<<((uint)MapViewerCellEnum::INTERACTIVE);
                 }
+
+                else if(doorsCellId.keys().contains(i))
+                    interactives<<((uint)MapViewerCellEnum::DOOR);
 
                 else
                     interactives<<MapViewerCellEnum::NOTHING;
