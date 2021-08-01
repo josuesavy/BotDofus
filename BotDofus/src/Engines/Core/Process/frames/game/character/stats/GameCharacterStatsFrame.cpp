@@ -164,7 +164,7 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
                 q.time.start();
 
                 m_statsManager->regenQueue << q;
-                QTimer::singleShot(q.interval*1000, this, SLOT(healFinished()));
+                QTimer::singleShot(q.interval*1000, m_statsManager, SLOT(healFinished()));
             }
         }
     }
