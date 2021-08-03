@@ -27,7 +27,6 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
         //        if(m_botData[sender].mapData.map.getMapId() != message.mapId)
         //            debug(sender)<<"MAP CHANGE FROM "<<m_botData[sender].mapData.map.getPosition().getX()<<m_botData[sender].mapData.map.getPosition().getY()<<" TO "<<D2PManagerSingleton::get()->getMap(message.mapId).getPosition().getX()<<D2PManagerSingleton::get()->getMap(message.mapId).getPosition().getY();
 
-        m_botData[sender].mapData.map = D2PManagerSingleton::get()->getMap(message.mapId);
         MapInformationsRequestMessage answer;
         answer.mapId = message.mapId;
         sender->send(answer);
@@ -148,6 +147,8 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
     {
         MapComplementaryInformationsDataMessage message;
         message.deserialize(&reader);
+
+        m_botData[sender].mapData.map = D2PManagerSingleton::get()->getMap(message.mapId);
 
         if(m_botData[sender].mapData.gameContext == GameContextEnum::ROLE_PLAY &&  m_botData[sender].generalData.botState != FIGHTING_STATE)
             m_botData[sender].generalData.botState = INACTIVE_STATE;
