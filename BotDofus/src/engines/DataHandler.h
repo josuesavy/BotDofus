@@ -34,7 +34,7 @@ enum class DofusVersion
     MAJOR = 2,
     MINOR = 60,
     CODE = 2,
-    BUILD = 7,
+    BUILD = 11,
 };
 
 enum class SuperTypeId
@@ -497,7 +497,7 @@ struct InteractiveSkillInfos
 struct InteractiveElementInfos
 {
     uint elementId;
-    uint elementTypeId;
+    int elementTypeId;
     QList<InteractiveSkillInfos> enabledSkills;
     QList<InteractiveSkillInfos> disabledSkills;
 };

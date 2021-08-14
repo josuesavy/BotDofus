@@ -119,6 +119,8 @@ public:
 
     void rejoinCharacter(SocketIO *sender, QString character);
 
+    QList<int> getDoorSkillIds();
+
 public slots:
     void processConfirmation();
     void processMapPath(QList<ChangeMapRequest> requestedMaps, SocketIO *sender);
@@ -131,6 +133,7 @@ signals:
 
 private:
     QMap<SocketIO*, PathfindingMap*> m_pathfindingThreads;
+    QList<int> m_doorSkillIds;
 };
 
 #endif // MAPMANAGER_H

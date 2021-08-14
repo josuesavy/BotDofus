@@ -4,6 +4,28 @@ MapManager::MapManager(QMap<SocketIO *, BotData> *connectionsData):
     AbstractManager(ManagerType::MAP, connectionsData)
 {
     qRegisterMetaType<QList<ChangeMapRequest>>("QList<ChangeMapRequest>");
+
+    foreach (int index, D2OManagerSingleton::get()->getIndexes(GameDataTypeEnum::SKILLS))
+    {
+        QSharedPointer<SkillData> skill = qSharedPointerCast<SkillData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::SKILLS, index));
+
+        if (skill->getGatheredRessourceItem() == 0 || skill->getGatheredRessourceItem() == INVALID)
+        {
+            if (skill->getCraftableItemIds().isEmpty() && skill->getModifiableItemTypeIds().isEmpty())
+            {
+                if (skill->getCursor() == 0 || skill->getCursor() == 8)
+                {
+                    m_doorSkillIds << index;
+                }
+            }
+        }
+    }
+
+    foreach (int index, D2OManagerSingleton::get()->getIndexes(GameDataTypeEnum::INTERACTIVES))
+    {
+        QSharedPointer<InteractiveData> interactive = qSharedPointerCast<InteractiveData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::INTERACTIVES, index));
+        qDebug() << interactive->getName();
+    }
 }
 
 MapManager::~MapManager()
@@ -247,7 +269,7 @@ bool MapManager::changeMap(SocketIO *sender, MapSide mapSide, int cellId)
             // Fix: bug when you want to change map but it was not possible because there is map not exist
             if(!adjacentMap.isInit())
             {
-                qDebug()<<"ERREUR - MapManager ne peut pas faire changer le bot"<< m_botData[sender].connectionData.connectionInfos.character<<"de map car il n'existe pas de map";
+                qDebug()<<"ERROR - MapManager ne peut pas faire changer le bot"<< m_botData[sender].connectionData.connectionInfos.character<<"de map car il n'existe pas de map";
                 return false;
             }
 
@@ -394,6 +416,7 @@ void MapManager::processConfirmation()
                 i.key()->send(answer);
             }
 
+            m_botData[i.key()].mapData.playersOnMap[m_botData[i.key()].mapData.botId].keyMovements.clear();
             m_botData[i.key()].generalData.botState = INACTIVE_STATE;
             emit hasFinishedMoving(i.key());
 
@@ -527,4 +550,9 @@ void MapManager::rejoinCharacter(SocketIO *sender, QString character)
     FriendJoinRequestMessage message;
     message.target = playerSearchCharacterNameInformation;
     sender->send(message);
+}
+
+QList<int> MapManager::getDoorSkillIds()
+{
+    return m_doorSkillIds;
 }

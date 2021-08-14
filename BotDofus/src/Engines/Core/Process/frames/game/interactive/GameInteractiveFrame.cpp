@@ -24,65 +24,46 @@ bool GameInteractiveFrame::processMessage(const MessageInfos &data, SocketIO *se
         InteractiveElementUpdatedMessage message;
         message.deserialize(&reader);
 
-        QList<int> doorSkillIds = { 184, 183, 187, 198, 114 };
-        QList<int> doorTypeIds = { -1, 128, 168, 16 };
-
         if(message.interactiveElement->onCurrentMap)
         {
+            InteractiveElementInfos mainElementInfos;
+            mainElementInfos.elementId = message.interactiveElement->elementId;
+            mainElementInfos.elementTypeId = message.interactiveElement->elementTypeId;
+
+            // Enable skills
+            foreach(QSharedPointer<InteractiveElementSkill> skill, message.interactiveElement->enabledSkills)
+            {
+                InteractiveSkillInfos enabledInfos;
+                enabledInfos.ID = skill->skillId;
+                enabledInfos.UID = skill->skillInstanceUid;
+                mainElementInfos.enabledSkills<<enabledInfos;
+            }
+
+            // Disable skills
+            foreach (QSharedPointer<InteractiveElementSkill> skill, message.interactiveElement->disabledSkills)
+            {
+                InteractiveSkillInfos disabledInfos;
+                disabledInfos.ID = skill->skillId;
+                disabledInfos.UID = skill->skillInstanceUid;
+                mainElementInfos.disabledSkills<<disabledInfos;
+            }
+
             for (int i = 0; i < m_botData[sender].mapData.interactivesOnMap.size(); i++)
             {
                 if (m_botData[sender].mapData.interactivesOnMap[i].elementId == message.interactiveElement->elementId)
                 {
-                    InteractiveElementInfos mainElementInfos;
-                    mainElementInfos.elementId = message.interactiveElement->elementId;
-                    mainElementInfos.elementTypeId = message.interactiveElement->elementTypeId;
+                    m_botData[sender].mapData.interactivesOnMap.replace(i, mainElementInfos);
+                }
+            }
 
-                    // Enable skills
-                    foreach(QSharedPointer<InteractiveElementSkill> skill, message.interactiveElement->enabledSkills)
-                    {
-                        InteractiveSkillInfos enabledInfos;
-                        enabledInfos.ID = skill->skillId;
-                        enabledInfos.UID = skill->skillInstanceUid;
-                        mainElementInfos.enabledSkills<<enabledInfos;
-                    }
-
-                    // Disable skills
-                    foreach (QSharedPointer<InteractiveElementSkill> skill, message.interactiveElement->disabledSkills)
-                    {
-                        InteractiveSkillInfos disabledInfos;
-                        disabledInfos.ID = skill->skillId;
-                        disabledInfos.UID = skill->skillInstanceUid;
-                        mainElementInfos.disabledSkills<<disabledInfos;
-                    }
-
-                    if (doorTypeIds.contains(message.interactiveElement->elementTypeId) && message.interactiveElement->enabledSkills.size() > 0 && doorSkillIds.contains(message.interactiveElement->enabledSkills.first()->skillId))
-                    {
-                        foreach (Layer layer, m_botData[sender].mapData.map.getLayers())
-                        {
-                            foreach (MapCell cell, layer.getMapCells())
-                            {
-                                foreach (BasicElement basicElement, cell.getBasicElements())
-                                {
-                                    GraphicalElement *graphicalElement = static_cast<GraphicalElement*>(basicElement.getElement());
-                                    if (graphicalElement->getIdentifier() == message.interactiveElement->elementId)
-                                    {
-                                        InteractiveElementDoorInfos interactiveElementDoorInfos;
-                                        interactiveElementDoorInfos.interactiveElementInfos = mainElementInfos;
-                                        interactiveElementDoorInfos.cellId = cell.getCellId();
-                                        m_botData[sender].mapData.doorsOnMap.replace(i, interactiveElementDoorInfos);
-                                    }
-                                    delete graphicalElement;
-                                }
-                            }
-                        }
-                    }
-
-                    else
-                    {
-                        m_botData[sender].mapData.interactivesOnMap.replace(i, mainElementInfos);
-                    }
-
-                    //m_botData[sender].mapData.interactivesOnMap.replace(i, mainElementInfos);
+            for (int i = 0; i < m_botData[sender].mapData.doorsOnMap.size(); i++)
+            {
+                if (m_botData[sender].mapData.doorsOnMap[i].interactiveElementInfos.elementId == message.interactiveElement->elementId)
+                {
+                    InteractiveElementDoorInfos interactiveElementDoorInfos;
+                    interactiveElementDoorInfos.interactiveElementInfos = mainElementInfos;
+                    interactiveElementDoorInfos.cellId = m_botData[sender].mapData.doorsOnMap[i].cellId;
+                    m_botData[sender].mapData.doorsOnMap.replace(i, interactiveElementDoorInfos);
                 }
             }
         }

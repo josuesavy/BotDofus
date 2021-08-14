@@ -66,8 +66,8 @@ bool FuncTree::goDown()
     return true;
 }
 
-bool &FuncTree::operator==(const FuncTree &lhs)
+bool FuncTree::operator ==(const FuncTree &rhs)
 {
-    // TODO : ...
-    //return (bool)lhs;
+    const FuncTree* b = dynamic_cast< const FuncTree* >( &rhs );
+    return b != NULL && *this == *b;
 }

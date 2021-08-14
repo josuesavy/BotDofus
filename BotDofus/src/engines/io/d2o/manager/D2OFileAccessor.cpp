@@ -7,20 +7,37 @@ D2OFileAccessor::D2OFileAccessor(const QString &path, I18nFile *I18n):
 {
     m_reader = new Reader(m_path);
 
+    uint contentOffset = 0;
     QString header = m_reader->readBytes(3).data();
 
     if (header != "D2O")
-        qDebug()<<"ERROR - D2OFileAccessor - D2O file is malformed"<<path;
+    {
+        m_reader->setPosition(0);
+        header = m_reader->readUTF();
+
+        if (header != "AKSF")
+            qDebug()<<"ERROR - D2OFileAccessor - D2O file is malformed (AKSF)"<<path;
+
+        m_reader->readShort();
+        uint len = m_reader->readInt();
+        m_reader->setPosition(m_reader->getPosition() + len);
+        contentOffset = m_reader->getPosition();
+        // TODO: line missing
+        header = m_reader->readBytes(3).data();
+
+        if (header != "D2O")
+            qDebug()<<"ERROR - D2OFileAccessor - D2O file is malformed (D2O)"<<path;
+    }
 
     int indexPos = m_reader->readInt();
-    m_reader->setPosition(indexPos);
+    m_reader->setPosition(indexPos + contentOffset);
 
     int indexCount = m_reader->readInt();
     for (int i = 1; i < indexCount; i += 8)
     {
         int index = m_reader->readInt();
         int pos = m_reader->readInt();
-        m_indexes[index] = pos;
+        m_indexes[index] = pos + contentOffset;
     }
 
     int classesCount = m_reader->readInt();

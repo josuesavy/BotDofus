@@ -162,7 +162,7 @@ QByteArray D2OField::readObject(Reader *reader, const uint &dimention, D2OField 
 
 QByteArray D2OField::readVector(Reader *reader, const uint &dimention, D2OField *D2OField)
 {
-    int listCount = reader->readUInt();
+    int listCount = reader->readInt();
     QList<QByteArray> list;
     for (int i = 0; i < listCount; i++)
         list.append(D2OField->m_listMethod[(int)dimention](reader, dimention + 1));
@@ -179,7 +179,7 @@ QByteArray D2OField::readInt(Reader *reader, const uint &dimention)
     QBuffer buffer;
     QDataStream stream(&buffer);
     buffer.open(QIODevice::WriteOnly);
-    stream<<reader->readUInt();
+    stream<<reader->readInt();
     return buffer.data();
 }
 
@@ -215,7 +215,7 @@ QByteArray D2OField::readI18nIndex(Reader *reader, const uint &dimention)
     QBuffer buffer;
     QDataStream stream(&buffer);
     buffer.open(QIODevice::WriteOnly);
-    stream<<reader->readUInt();
+    stream<<reader->readInt();
     return buffer.data();
 }
 

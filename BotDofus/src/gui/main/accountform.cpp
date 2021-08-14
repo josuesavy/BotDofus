@@ -183,6 +183,7 @@ int AccountForm::loadPath(QString path, bool unload)
 //        m_engine->getScriptModule().unloadFile(m_sender);
 //        return 0;
 //    }
+    return 0;
 }
 
 void AccountForm::autoConnect()

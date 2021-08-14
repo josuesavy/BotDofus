@@ -19,8 +19,7 @@ public:
     bool goUp();
     bool goDown();
 
-
-    bool &operator==(const FuncTree &lhs);
+    bool operator==(const FuncTree &rhs);
 
 private:
     std::function<void (Reader*)> _func;
@@ -30,5 +29,6 @@ private:
     FuncTree *_current;
     uint _index;
 };
+
 
 #endif // FUNCTREE_H
