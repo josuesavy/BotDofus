@@ -14,6 +14,7 @@ public:
   uint getIconId() const;
   QString getActivationCriterion() const;
   QString getCompletionCriterion() const;
+  uint getTargetMonsterId() const;
   QString getName() const;
   QString getDescription() const;
   virtual void loadData(const QList<D2OField*> &fields, I18nFile *I18n);
@@ -26,6 +27,7 @@ public:
   uint m_iconId;
   QString m_activationCriterion;
   QString m_completionCriterion;
+  uint m_targetMonsterId;
 };
 
 #endif // CHALLENGEDATA_H

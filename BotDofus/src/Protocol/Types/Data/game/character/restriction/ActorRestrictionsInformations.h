@@ -37,7 +37,6 @@ public:
   bool cantSpeakToNPC;
   bool cantChangeZone;
   bool cantAttackMonster;
-  bool cantWalk8Directions;
 
 private:
   void deserializeByteBoxes(Reader *input);

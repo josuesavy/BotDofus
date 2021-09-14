@@ -40,6 +40,11 @@ QString ChallengeData::getCompletionCriterion() const
   return m_completionCriterion;
 }
 
+uint ChallengeData::getTargetMonsterId() const
+{
+  return m_targetMonsterId;
+}
+
 QString ChallengeData::getName() const
 {
   return m_I18n->getText(m_nameId);
@@ -82,6 +87,9 @@ void ChallengeData::loadData(const QList<D2OField*> &fields, I18nFile *I18n)
     
     else if(field->getName() == "completionCriterion")
         m_completionCriterion = readUTF(field->getValue());
+    
+    else if(field->getName() == "targetMonsterId")
+        m_targetMonsterId = readUInt(field->getValue());
     
   }
 }

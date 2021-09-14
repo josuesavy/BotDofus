@@ -251,12 +251,13 @@ void LoaderAccountForm::on_pushButtonLoad_clicked()
 {
     if(ui->treeWidgetAccounts->selectionModel()->selectedRows().size())
     {
-        QList<ConnectionInfos> account;
+        QList<ConnectionInfos> accounts;
 
         foreach (QTreeWidgetItem *item, ui->treeWidgetAccounts->selectedItems())
         {
             for (int i = 0; i < m_accounts.size(); i++)
             {
+
                 if (m_accounts[i].login == item->text(1))
                 {
                     m_accounts[i].connectionTo = (ConnectionTo)ui->comboBoxConnectionTo->currentIndex();
@@ -320,27 +321,27 @@ void LoaderAccountForm::on_pushButtonLoad_clicked()
                         }
                     }
 
-                    account<<m_accounts[i];
+                    accounts<<m_accounts[i];
                 }
             }
         }
 
-        if (!account.isEmpty())
+        if (!accounts.isEmpty())
         {
-            if(!account.first().masterGroup.isEmpty())
+            if(!accounts.first().masterGroup.isEmpty())
             {
                 int indexMaster = 0;
-                for(int i = 0; i < account.size(); i++)
+                for(int i = 0; i < accounts.size(); i++)
                 {
-                    if(account.at(i).masterGroup == account.at(i).character)
+                    if(accounts.at(i).masterGroup == accounts.at(i).character)
                         indexMaster = i;
                 }
 
-                account.swapItemsAt(indexMaster, 0);
+                accounts.swapItemsAt(indexMaster, 0);
             }
         }
 
-        emit loadAccount(account); // Direction addAccount() MainWindow
+        emit loadAccount(accounts); // Direction addAccount() MainWindow
     }
 
     else

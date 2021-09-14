@@ -32,9 +32,9 @@ struct Point3D : Point2D
 enum class DofusVersion
 {
     MAJOR = 2,
-    MINOR = 60,
-    CODE = 2,
-    BUILD = 11,
+    MINOR = 61,
+    CODE = 1,
+    BUILD = 12,
 };
 
 enum class SuperTypeId

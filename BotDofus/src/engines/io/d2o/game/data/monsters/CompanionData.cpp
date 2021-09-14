@@ -50,6 +50,11 @@ int CompanionData::getCreatureBoneId() const
   return m_creatureBoneId;
 }
 
+QString CompanionData::getVisibility() const
+{
+  return m_visibility;
+}
+
 QString CompanionData::getName() const
 {
   return m_I18n->getText(m_nameId);
@@ -101,6 +106,9 @@ void CompanionData::loadData(const QList<D2OField*> &fields, I18nFile *I18n)
     
     else if(field->getName() == "creatureBoneId")
         m_creatureBoneId = readInt(field->getValue());
+    
+    else if(field->getName() == "visibility")
+        m_visibility = readUTF(field->getValue());
     
   }
 }

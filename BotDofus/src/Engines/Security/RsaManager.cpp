@@ -43,7 +43,7 @@ QByteArray RsaManager::publicKeyDecrypt(const QByteArray &signature)
     BIO_free_all(bp_dofus);
     m_outputSignatureVector = QByteArray((const char*)outputSignature, buflen);
     delete outputSignature;
-    delete DPKey;
+    delete[] DPKey;
 
     return m_outputSignatureVector;
 }
@@ -65,7 +65,7 @@ QByteArray RsaManager::loginPublicKeyEncrypt(const QByteArray &credentials)
 
     m_outputCredentialsVector = QByteArray((const char*)poutputCredentials, buflen);
     delete poutputCredentials;
-    delete loginPublicKeyByte;
+    delete[] loginPublicKeyByte;
 
     return m_outputCredentialsVector;
 }

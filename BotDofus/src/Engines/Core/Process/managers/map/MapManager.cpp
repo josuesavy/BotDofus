@@ -20,12 +20,6 @@ MapManager::MapManager(QMap<SocketIO *, BotData> *connectionsData):
             }
         }
     }
-
-    foreach (int index, D2OManagerSingleton::get()->getIndexes(GameDataTypeEnum::INTERACTIVES))
-    {
-        QSharedPointer<InteractiveData> interactive = qSharedPointerCast<InteractiveData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::INTERACTIVES, index));
-        qDebug() << interactive->getName();
-    }
 }
 
 MapManager::~MapManager()
@@ -439,7 +433,7 @@ void MapManager::processConfirmation()
     }
 
     if(!found)
-        qDebug()<<"ERREUR - MapManager - processConfirmation - Sender not found";
+        qDebug()<<"ERROR - MapManager - processConfirmation - Sender not found";
 }
 
 void MapManager::processMapPath(QList<ChangeMapRequest> requestedMaps, SocketIO *sender)

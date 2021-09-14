@@ -130,6 +130,7 @@ HEADERS += \
     src/engines/core/process/frames/security/SecurityFrame.h \
     src/engines/core/process/frames/server/basic/ServerBasicFrame.h \
     src/engines/core/process/frames/subscription/SubscriptionFrame.h \
+    src/engines/core/process/frames/web/WebHaapiFrame.h \
     src/engines/core/process/managers/AbstractManager.h \
     src/engines/core/process/managers/connection/ConnectionManager.h \
     src/engines/core/process/managers/craft/CraftManager.h \
@@ -148,7 +149,6 @@ HEADERS += \
     src/engines/io/d2o/game/GameDataDeclarator.h \
     src/engines/io/d2o/game/GameDataTypeDeclarator.h \
     src/engines/io/d2o/game/data/abuse/AbuseReasonsData.h \
-    src/engines/io/d2o/game/data/alignments/AlignmentBalanceData.h \
     src/engines/io/d2o/game/data/alignments/AlignmentEffectData.h \
     src/engines/io/d2o/game/data/alignments/AlignmentGiftData.h \
     src/engines/io/d2o/game/data/alignments/AlignmentOrderData.h \
@@ -335,6 +335,8 @@ HEADERS += \
     src/engines/io/d2o/game/data/npcs/NpcMessageData.h \
     src/engines/io/d2o/game/data/npcs/TaxCollectorFirstnameData.h \
     src/engines/io/d2o/game/data/npcs/TaxCollectorNameData.h \
+    src/engines/io/d2o/game/data/optionalFeatures/CustomModeBreedSpellData.h \
+    src/engines/io/d2o/game/data/optionalFeatures/ForgettableSpellData.h \
     src/engines/io/d2o/game/data/playlists/PlaylistData.h \
     src/engines/io/d2o/game/data/popup/PopupButtonData.h \
     src/engines/io/d2o/game/data/popup/PopupInformationData.h \
@@ -387,8 +389,6 @@ HEADERS += \
     src/engines/io/d2o/game/data/spells/SpellVariantData.h \
     src/engines/io/d2o/game/data/temporis/AchievementProgressData.h \
     src/engines/io/d2o/game/data/temporis/AchievementProgressStepData.h \
-    src/engines/io/d2o/game/data/temporis/CustomModeBreedSpellData.h \
-    src/engines/io/d2o/game/data/temporis/ForgettableSpellData.h \
     src/engines/io/d2o/game/data/world/AreaData.h \
     src/engines/io/d2o/game/data/world/DungeonData.h \
     src/engines/io/d2o/game/data/world/HintCategoryData.h \
@@ -794,6 +794,7 @@ HEADERS += \
     src/protocol/messages/data/game/chat/ChatClientPrivateMessage.h \
     src/protocol/messages/data/game/chat/ChatClientPrivateWithObjectMessage.h \
     src/protocol/messages/data/game/chat/ChatErrorMessage.h \
+    src/protocol/messages/data/game/chat/ChatKolizeumServerMessage.h \
     src/protocol/messages/data/game/chat/ChatServerCopyMessage.h \
     src/protocol/messages/data/game/chat/ChatServerCopyWithObjectMessage.h \
     src/protocol/messages/data/game/chat/ChatServerMessage.h \
@@ -837,6 +838,7 @@ HEADERS += \
     src/protocol/messages/data/game/context/GameMapMovementMessage.h \
     src/protocol/messages/data/game/context/GameMapMovementRequestMessage.h \
     src/protocol/messages/data/game/context/GameMapNoMovementMessage.h \
+    src/protocol/messages/data/game/context/GameMapSpeedMovementMessage.h \
     src/protocol/messages/data/game/context/GameRefreshMonsterBoostsMessage.h \
     src/protocol/messages/data/game/context/ShowCellMessage.h \
     src/protocol/messages/data/game/context/ShowCellRequestMessage.h \
@@ -885,6 +887,7 @@ HEADERS += \
     src/protocol/messages/data/game/context/fight/RefreshCharacterStatsMessage.h \
     src/protocol/messages/data/game/context/fight/SlaveNoLongerControledMessage.h \
     src/protocol/messages/data/game/context/fight/SlaveSwitchContextMessage.h \
+    src/protocol/messages/data/game/context/fight/arena/ArenaFighterIdleMessage.h \
     src/protocol/messages/data/game/context/fight/arena/ArenaFighterLeaveMessage.h \
     src/protocol/messages/data/game/context/fight/breach/BreachGameFightEndMessage.h \
     src/protocol/messages/data/game/context/fight/challenge/ChallengeInfoMessage.h \
@@ -1015,6 +1018,7 @@ HEADERS += \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaFighterStatusMessage.h \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaInvitationCandidatesAnswerMessage.h \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaLeagueRewardsMessage.h \
+    src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaPlayerBehavioursMessage.h \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaRegisterMessage.h \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaRegistrationStatusMessage.h \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaSwitchToFightServerMessage.h \
@@ -1182,7 +1186,9 @@ HEADERS += \
     src/protocol/messages/data/game/context/roleplay/quest/QuestValidatedMessage.h \
     src/protocol/messages/data/game/context/roleplay/quest/RefreshFollowedQuestsOrderRequestMessage.h \
     src/protocol/messages/data/game/context/roleplay/quest/UnfollowQuestObjectiveRequestMessage.h \
-    src/protocol/messages/data/game/context/roleplay/quest/ViewQuestListMessage.h \
+    src/protocol/messages/data/game/context/roleplay/quest/WatchQuestListMessage.h \
+    src/protocol/messages/data/game/context/roleplay/quest/WatchQuestStepInfoMessage.h \
+    src/protocol/messages/data/game/context/roleplay/quest/WatchQuestStepInfoRequestMessage.h \
     src/protocol/messages/data/game/context/roleplay/spell/SpellVariantActivationMessage.h \
     src/protocol/messages/data/game/context/roleplay/spell/SpellVariantActivationRequestMessage.h \
     src/protocol/messages/data/game/context/roleplay/stats/StatsUpgradeRequestMessage.h \
@@ -1529,6 +1535,8 @@ HEADERS += \
     src/protocol/messages/data/game/look/AccessoryPreviewErrorMessage.h \
     src/protocol/messages/data/game/look/AccessoryPreviewMessage.h \
     src/protocol/messages/data/game/look/AccessoryPreviewRequestMessage.h \
+    src/protocol/messages/data/game/moderation/PopupWarningCloseRequestMessage.h \
+    src/protocol/messages/data/game/moderation/PopupWarningClosedMessage.h \
     src/protocol/messages/data/game/moderation/PopupWarningMessage.h \
     src/protocol/messages/data/game/modificator/AreaFightModificatorUpdateMessage.h \
     src/protocol/messages/data/game/presets/IconNamedPresetSaveRequestMessage.h \
@@ -2048,6 +2056,7 @@ SOURCES += \
     src/engines/core/process/frames/security/SecurityFrame.cpp \
     src/engines/core/process/frames/server/basic/ServerBasicFrame.cpp \
     src/engines/core/process/frames/subscription/SubscriptionFrame.cpp \
+    src/engines/core/process/frames/web/WebHaapiFrame.cpp \
     src/engines/core/process/managers/AbstractManager.cpp \
     src/engines/core/process/managers/connection/ConnectionManager.cpp \
     src/engines/core/process/managers/craft/CraftManager.cpp \
@@ -2064,7 +2073,6 @@ SOURCES += \
     src/engines/io/d2o/game/AbstractGameData.cpp \
     src/engines/io/d2o/game/GameDataConverter.cpp \
     src/engines/io/d2o/game/data/abuse/AbuseReasonsData.cpp \
-    src/engines/io/d2o/game/data/alignments/AlignmentBalanceData.cpp \
     src/engines/io/d2o/game/data/alignments/AlignmentEffectData.cpp \
     src/engines/io/d2o/game/data/alignments/AlignmentGiftData.cpp \
     src/engines/io/d2o/game/data/alignments/AlignmentOrderData.cpp \
@@ -2251,6 +2259,8 @@ SOURCES += \
     src/engines/io/d2o/game/data/npcs/NpcMessageData.cpp \
     src/engines/io/d2o/game/data/npcs/TaxCollectorFirstnameData.cpp \
     src/engines/io/d2o/game/data/npcs/TaxCollectorNameData.cpp \
+    src/engines/io/d2o/game/data/optionalFeatures/CustomModeBreedSpellData.cpp \
+    src/engines/io/d2o/game/data/optionalFeatures/ForgettableSpellData.cpp \
     src/engines/io/d2o/game/data/playlists/PlaylistData.cpp \
     src/engines/io/d2o/game/data/popup/PopupButtonData.cpp \
     src/engines/io/d2o/game/data/popup/PopupInformationData.cpp \
@@ -2303,8 +2313,6 @@ SOURCES += \
     src/engines/io/d2o/game/data/spells/SpellVariantData.cpp \
     src/engines/io/d2o/game/data/temporis/AchievementProgressData.cpp \
     src/engines/io/d2o/game/data/temporis/AchievementProgressStepData.cpp \
-    src/engines/io/d2o/game/data/temporis/CustomModeBreedSpellData.cpp \
-    src/engines/io/d2o/game/data/temporis/ForgettableSpellData.cpp \
     src/engines/io/d2o/game/data/world/AreaData.cpp \
     src/engines/io/d2o/game/data/world/DungeonData.cpp \
     src/engines/io/d2o/game/data/world/HintCategoryData.cpp \
@@ -2604,6 +2612,7 @@ SOURCES += \
     src/protocol/messages/data/game/chat/ChatClientPrivateMessage.cpp \
     src/protocol/messages/data/game/chat/ChatClientPrivateWithObjectMessage.cpp \
     src/protocol/messages/data/game/chat/ChatErrorMessage.cpp \
+    src/protocol/messages/data/game/chat/ChatKolizeumServerMessage.cpp \
     src/protocol/messages/data/game/chat/ChatServerCopyMessage.cpp \
     src/protocol/messages/data/game/chat/ChatServerCopyWithObjectMessage.cpp \
     src/protocol/messages/data/game/chat/ChatServerMessage.cpp \
@@ -2647,6 +2656,7 @@ SOURCES += \
     src/protocol/messages/data/game/context/GameMapMovementMessage.cpp \
     src/protocol/messages/data/game/context/GameMapMovementRequestMessage.cpp \
     src/protocol/messages/data/game/context/GameMapNoMovementMessage.cpp \
+    src/protocol/messages/data/game/context/GameMapSpeedMovementMessage.cpp \
     src/protocol/messages/data/game/context/GameRefreshMonsterBoostsMessage.cpp \
     src/protocol/messages/data/game/context/ShowCellMessage.cpp \
     src/protocol/messages/data/game/context/ShowCellRequestMessage.cpp \
@@ -2695,6 +2705,7 @@ SOURCES += \
     src/protocol/messages/data/game/context/fight/RefreshCharacterStatsMessage.cpp \
     src/protocol/messages/data/game/context/fight/SlaveNoLongerControledMessage.cpp \
     src/protocol/messages/data/game/context/fight/SlaveSwitchContextMessage.cpp \
+    src/protocol/messages/data/game/context/fight/arena/ArenaFighterIdleMessage.cpp \
     src/protocol/messages/data/game/context/fight/arena/ArenaFighterLeaveMessage.cpp \
     src/protocol/messages/data/game/context/fight/breach/BreachGameFightEndMessage.cpp \
     src/protocol/messages/data/game/context/fight/challenge/ChallengeInfoMessage.cpp \
@@ -2825,6 +2836,7 @@ SOURCES += \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaFighterStatusMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaInvitationCandidatesAnswerMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaLeagueRewardsMessage.cpp \
+    src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaPlayerBehavioursMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaRegisterMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaRegistrationStatusMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaSwitchToFightServerMessage.cpp \
@@ -2992,7 +3004,9 @@ SOURCES += \
     src/protocol/messages/data/game/context/roleplay/quest/QuestValidatedMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/quest/RefreshFollowedQuestsOrderRequestMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/quest/UnfollowQuestObjectiveRequestMessage.cpp \
-    src/protocol/messages/data/game/context/roleplay/quest/ViewQuestListMessage.cpp \
+    src/protocol/messages/data/game/context/roleplay/quest/WatchQuestListMessage.cpp \
+    src/protocol/messages/data/game/context/roleplay/quest/WatchQuestStepInfoMessage.cpp \
+    src/protocol/messages/data/game/context/roleplay/quest/WatchQuestStepInfoRequestMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/spell/SpellVariantActivationMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/spell/SpellVariantActivationRequestMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/stats/StatsUpgradeRequestMessage.cpp \
@@ -3339,6 +3353,8 @@ SOURCES += \
     src/protocol/messages/data/game/look/AccessoryPreviewErrorMessage.cpp \
     src/protocol/messages/data/game/look/AccessoryPreviewMessage.cpp \
     src/protocol/messages/data/game/look/AccessoryPreviewRequestMessage.cpp \
+    src/protocol/messages/data/game/moderation/PopupWarningCloseRequestMessage.cpp \
+    src/protocol/messages/data/game/moderation/PopupWarningClosedMessage.cpp \
     src/protocol/messages/data/game/moderation/PopupWarningMessage.cpp \
     src/protocol/messages/data/game/modificator/AreaFightModificatorUpdateMessage.cpp \
     src/protocol/messages/data/game/presets/IconNamedPresetSaveRequestMessage.cpp \

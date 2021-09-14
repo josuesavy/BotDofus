@@ -16,6 +16,7 @@ public:
   QList<uint> getCharacteristics() const;
   QList<uint> getSpells() const;
   int getCreatureBoneId() const;
+  QString getVisibility() const;
   QString getName() const;
   QString getDescription() const;
   virtual void loadData(const QList<D2OField*> &fields, I18nFile *I18n);
@@ -30,6 +31,7 @@ public:
   QList<uint> m_characteristics;
   QList<uint> m_spells;
   int m_creatureBoneId;
+  QString m_visibility;
 };
 
 #endif // COMPANIONDATA_H

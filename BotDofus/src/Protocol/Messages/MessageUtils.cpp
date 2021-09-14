@@ -680,6 +680,9 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   else if(messageEnum == MessageEnum::CHATERRORMESSAGE)
       return "ChatErrorMessage";
   
+  else if(messageEnum == MessageEnum::CHATKOLIZEUMSERVERMESSAGE)
+      return "ChatKolizeumServerMessage";
+  
   else if(messageEnum == MessageEnum::CHATSERVERCOPYMESSAGE)
       return "ChatServerCopyMessage";
   
@@ -727,6 +730,9 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   
   else if(messageEnum == MessageEnum::DUNGEONKEYRINGUPDATEMESSAGE)
       return "DungeonKeyRingUpdateMessage";
+  
+  else if(messageEnum == MessageEnum::ARENAFIGHTERIDLEMESSAGE)
+      return "ArenaFighterIdleMessage";
   
   else if(messageEnum == MessageEnum::ARENAFIGHTERLEAVEMESSAGE)
       return "ArenaFighterLeaveMessage";
@@ -961,6 +967,9 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   
   else if(messageEnum == MessageEnum::GAMEMAPNOMOVEMENTMESSAGE)
       return "GameMapNoMovementMessage";
+  
+  else if(messageEnum == MessageEnum::GAMEMAPSPEEDMOVEMENTMESSAGE)
+      return "GameMapSpeedMovementMessage";
   
   else if(messageEnum == MessageEnum::GAMEREFRESHMONSTERBOOSTSMESSAGE)
       return "GameRefreshMonsterBoostsMessage";
@@ -1234,6 +1243,9 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   
   else if(messageEnum == MessageEnum::GAMEROLEPLAYARENALEAGUEREWARDSMESSAGE)
       return "GameRolePlayArenaLeagueRewardsMessage";
+  
+  else if(messageEnum == MessageEnum::GAMEROLEPLAYARENAPLAYERBEHAVIOURSMESSAGE)
+      return "GameRolePlayArenaPlayerBehavioursMessage";
   
   else if(messageEnum == MessageEnum::GAMEROLEPLAYARENAREGISTERMESSAGE)
       return "GameRolePlayArenaRegisterMessage";
@@ -1820,8 +1832,14 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   else if(messageEnum == MessageEnum::UNFOLLOWQUESTOBJECTIVEREQUESTMESSAGE)
       return "UnfollowQuestObjectiveRequestMessage";
   
-  else if(messageEnum == MessageEnum::VIEWQUESTLISTMESSAGE)
-      return "ViewQuestListMessage";
+  else if(messageEnum == MessageEnum::WATCHQUESTLISTMESSAGE)
+      return "WatchQuestListMessage";
+  
+  else if(messageEnum == MessageEnum::WATCHQUESTSTEPINFOMESSAGE)
+      return "WatchQuestStepInfoMessage";
+  
+  else if(messageEnum == MessageEnum::WATCHQUESTSTEPINFOREQUESTMESSAGE)
+      return "WatchQuestStepInfoRequestMessage";
   
   else if(messageEnum == MessageEnum::SPELLVARIANTACTIVATIONMESSAGE)
       return "SpellVariantActivationMessage";
@@ -2875,6 +2893,12 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   
   else if(messageEnum == MessageEnum::ACCESSORYPREVIEWREQUESTMESSAGE)
       return "AccessoryPreviewRequestMessage";
+  
+  else if(messageEnum == MessageEnum::POPUPWARNINGCLOSEDMESSAGE)
+      return "PopupWarningClosedMessage";
+  
+  else if(messageEnum == MessageEnum::POPUPWARNINGCLOSEREQUESTMESSAGE)
+      return "PopupWarningCloseRequestMessage";
   
   else if(messageEnum == MessageEnum::POPUPWARNINGMESSAGE)
       return "PopupWarningMessage";

@@ -32,7 +32,6 @@ void ActorRestrictionsInformations::serializeAs_ActorRestrictionsInformations(Wr
   _box2 = BooleanByteWrapper::setFlag(_box2, 1, this->cantSpeakToNPC);
   _box2 = BooleanByteWrapper::setFlag(_box2, 2, this->cantChangeZone);
   _box2 = BooleanByteWrapper::setFlag(_box2, 3, this->cantAttackMonster);
-  _box2 = BooleanByteWrapper::setFlag(_box2, 4, this->cantWalk8Directions);
   output->writeByte(_box2);
 }
 
@@ -81,7 +80,6 @@ void ActorRestrictionsInformations::deserializeByteBoxes(Reader *input)
   this->cantSpeakToNPC = BooleanByteWrapper::getFlag(_box2, 1);
   this->cantChangeZone = BooleanByteWrapper::getFlag(_box2, 2);
   this->cantAttackMonster = BooleanByteWrapper::getFlag(_box2, 3);
-  this->cantWalk8Directions = BooleanByteWrapper::getFlag(_box2, 4);
 }
 
 ActorRestrictionsInformations::ActorRestrictionsInformations()
@@ -111,7 +109,6 @@ bool ActorRestrictionsInformations::operator==(const ActorRestrictionsInformatio
   if(cantSpeakToNPC == compared.cantSpeakToNPC)
   if(cantChangeZone == compared.cantChangeZone)
   if(cantAttackMonster == compared.cantAttackMonster)
-  if(cantWalk8Directions == compared.cantWalk8Directions)
   return true;
   
   return false;

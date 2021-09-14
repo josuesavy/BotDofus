@@ -5,9 +5,6 @@ QSharedPointer<AbstractGameData> GameDataConverter::getClass(const QString &name
   if(name == "AbuseReasons")
       return QSharedPointer<AbstractGameData>(new AbuseReasonsData());
   
-  else if(name == "AlignmentBalance")
-      return QSharedPointer<AbstractGameData>(new AlignmentBalanceData());
-  
   else if(name == "AlignmentEffect")
       return QSharedPointer<AbstractGameData>(new AlignmentEffectData());
   
@@ -566,6 +563,12 @@ QSharedPointer<AbstractGameData> GameDataConverter::getClass(const QString &name
   else if(name == "TaxCollectorName")
       return QSharedPointer<AbstractGameData>(new TaxCollectorNameData());
   
+  else if(name == "CustomModeBreedSpell")
+      return QSharedPointer<AbstractGameData>(new CustomModeBreedSpellData());
+  
+  else if(name == "ForgettableSpell")
+      return QSharedPointer<AbstractGameData>(new ForgettableSpellData());
+  
   else if(name == "Playlist")
       return QSharedPointer<AbstractGameData>(new PlaylistData());
   
@@ -722,12 +725,6 @@ QSharedPointer<AbstractGameData> GameDataConverter::getClass(const QString &name
   else if(name == "AchievementProgressStep")
       return QSharedPointer<AbstractGameData>(new AchievementProgressStepData());
   
-  else if(name == "CustomModeBreedSpell")
-      return QSharedPointer<AbstractGameData>(new CustomModeBreedSpellData());
-  
-  else if(name == "ForgettableSpell")
-      return QSharedPointer<AbstractGameData>(new ForgettableSpellData());
-  
   else if(name == "Area")
       return QSharedPointer<AbstractGameData>(new AreaData());
   
@@ -841,9 +838,6 @@ GameDataTypeEnum GameDataConverter::getEnum(const QString &name)
 {
   if(name == "AbuseReasons")
       return GameDataTypeEnum::ABUSEREASONS;
-  
-  else if(name == "AlignmentBalance")
-      return GameDataTypeEnum::ALIGNMENTBALANCE;
   
   else if(name == "AlignmentEffect")
       return GameDataTypeEnum::ALIGNMENTEFFECT;
@@ -1148,6 +1142,12 @@ GameDataTypeEnum GameDataConverter::getEnum(const QString &name)
   else if(name == "TaxCollectorNames")
       return GameDataTypeEnum::TAXCOLLECTORNAMES;
   
+  else if(name == "CustomModeBreedSpells")
+      return GameDataTypeEnum::CUSTOMMODEBREEDSPELLS;
+  
+  else if(name == "ForgettableSpells")
+      return GameDataTypeEnum::FORGETTABLESPELLS;
+  
   else if(name == "Playlists")
       return GameDataTypeEnum::PLAYLISTS;
   
@@ -1267,12 +1267,6 @@ GameDataTypeEnum GameDataConverter::getEnum(const QString &name)
   
   else if(name == "AchievementProgressSteps")
       return GameDataTypeEnum::ACHIEVEMENTPROGRESSSTEPS;
-  
-  else if(name == "CustomModeBreedSpells")
-      return GameDataTypeEnum::CUSTOMMODEBREEDSPELLS;
-  
-  else if(name == "ForgettableSpells")
-      return GameDataTypeEnum::FORGETTABLESPELLS;
   
   else if(name == "Areas")
       return GameDataTypeEnum::AREAS;

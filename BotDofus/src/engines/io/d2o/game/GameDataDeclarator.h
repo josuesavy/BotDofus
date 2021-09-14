@@ -2,7 +2,6 @@
 #define GAMEDATADECLARATOR_H
 
 #include "src/engines/io/d2o/game/data/abuse/AbuseReasonsData.h"
-#include "src/engines/io/d2o/game/data/alignments/AlignmentBalanceData.h"
 #include "src/engines/io/d2o/game/data/alignments/AlignmentEffectData.h"
 #include "src/engines/io/d2o/game/data/alignments/AlignmentGiftData.h"
 #include "src/engines/io/d2o/game/data/alignments/AlignmentOrderData.h"
@@ -189,6 +188,8 @@
 #include "src/engines/io/d2o/game/data/npcs/NpcMessageData.h"
 #include "src/engines/io/d2o/game/data/npcs/TaxCollectorFirstnameData.h"
 #include "src/engines/io/d2o/game/data/npcs/TaxCollectorNameData.h"
+#include "src/engines/io/d2o/game/data/optionalFeatures/CustomModeBreedSpellData.h"
+#include "src/engines/io/d2o/game/data/optionalFeatures/ForgettableSpellData.h"
 #include "src/engines/io/d2o/game/data/playlists/PlaylistData.h"
 #include "src/engines/io/d2o/game/data/popup/PopupButtonData.h"
 #include "src/engines/io/d2o/game/data/popup/PopupInformationData.h"
@@ -241,8 +242,6 @@
 #include "src/engines/io/d2o/game/data/spells/SpellVariantData.h"
 #include "src/engines/io/d2o/game/data/temporis/AchievementProgressData.h"
 #include "src/engines/io/d2o/game/data/temporis/AchievementProgressStepData.h"
-#include "src/engines/io/d2o/game/data/temporis/CustomModeBreedSpellData.h"
-#include "src/engines/io/d2o/game/data/temporis/ForgettableSpellData.h"
 #include "src/engines/io/d2o/game/data/world/AreaData.h"
 #include "src/engines/io/d2o/game/data/world/DungeonData.h"
 #include "src/engines/io/d2o/game/data/world/HintData.h"
@@ -260,7 +259,6 @@
 enum class GameDataEnum
 {
     ABUSEREASONSDATA,
-    ALIGNMENTBALANCEDATA,
     ALIGNMENTEFFECTDATA,
     ALIGNMENTGIFTDATA,
     ALIGNMENTORDERDATA,
@@ -447,6 +445,8 @@ enum class GameDataEnum
     NPCMESSAGEDATA,
     TAXCOLLECTORFIRSTNAMEDATA,
     TAXCOLLECTORNAMEDATA,
+    CUSTOMMODEBREEDSPELLDATA,
+    FORGETTABLESPELLDATA,
     PLAYLISTDATA,
     POPUPBUTTONDATA,
     POPUPINFORMATIONDATA,
@@ -499,8 +499,6 @@ enum class GameDataEnum
     SPELLVARIANTDATA,
     ACHIEVEMENTPROGRESSDATA,
     ACHIEVEMENTPROGRESSSTEPDATA,
-    CUSTOMMODEBREEDSPELLDATA,
-    FORGETTABLESPELLDATA,
     AREADATA,
     DUNGEONDATA,
     HINTDATA,
