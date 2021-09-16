@@ -15,8 +15,9 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets             # Using widgets
 # General project configuration options.
 CONFIG += c++11
 
-#QMAKE_CXXFLAGS_DEBUG -= -O
-#QMAKE_CXXFLAGS_RELEASE += -O3
+QMAKE_MAC_SDK = macosx
+QMAKE_CXXFLAGS_DEBUG -= -O
+QMAKE_CXXFLAGS_RELEASE += -O3
 
 # Software's informations
 TARGET = BotDofus
@@ -25,10 +26,16 @@ TEMPLATE = app
 
 # Declaring Other Libraries
 LIBS += -lz
+#LIBS += -L"include/zlib"
+
 
 # For Windows
 win32: INCLUDEPATH += "C:\OpenSSL-Win32\include"
 win32: LIBS+= -L"C:\OpenSSL-Win32\lib" -llibeay32 -lssleay32
+#win32: LIBS += C:\Users\SAVY\Documents\Qt Creator projects\build-BotDofus-Desktop_Qt_5_13_0_MinGW_32_bit-Debug\libeay32
+#win32:INCLUDEPATH += "include\openssl\debug\x86\include"
+#win32:LIBS += -L"include\openssl\debug\x86\lib" -llibeay32 -lssleay32 # x86
+#win32:LIBS+= -L"include/openssl/lib" -llibeay64 -lssleay64 # x64
 
 
 # Display warnings about Qt features deprecated

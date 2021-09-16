@@ -26,6 +26,9 @@ bool GameModerationFrame::processMessage(const MessageInfos &data, SocketIO *sen
         warn(sender) << message.author << ":" << message.content;
         warn(sender) << "Détails :" << message.lockDuration;
 
+        PopupWarningCloseRequestMessage answer;
+        sender->send(answer);
+
         // TODO : Stop all actions if it's a modo :s
         m_mapManager->stopMoving(sender);
     }

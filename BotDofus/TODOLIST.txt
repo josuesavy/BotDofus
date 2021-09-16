@@ -33,7 +33,7 @@ Inventaire
  [OK] Pour certains items de type différent (hat, ring, etc..) quand on l'equipe, c'est pas actualiser dans l'inventaire à car ya pas de paquet pour
 
 Combat
- [ ] Revoir l'IA en combat, il semblerait qu'il peut attaquer avant de bouger mais fait le contraire
+ [ ] Revoir l'IA en combat, il semblerait qu'il a déjà la po pour attaquer mais il bouge avant alors qu'il peut le faire après
 
 Statistiques
  [ ] Rajouter le flood (Total messages, reussis, echoues)
@@ -45,5 +45,6 @@ Divers
  [ ] Lors de la connexion d'un groupe, vérifier si tous sont sur le même serveur (bof)
  [ ] Revoir le pathfinding, il semblerait qu'il soit cassé
  [ ] Vérifier si CheckFileRequestMessage fonctionne bien
+ [ ] Quand on reconnecte le bot, il parle d'une histoire de régénération
  [ ] Des fois quand le bot se fait déco pour inactivité les logs sur la console sont pas mis à jour obligé de le reco pour avoir les dernière log sur la console
  [ ] Le bot plante sur certaines map genre quand on demande à D2OManagerSingleton pour une data (localisation: 3,-18:Astrub - Dans le paquet MapComplementaryInformationsDataMessage)

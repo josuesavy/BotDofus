@@ -33,8 +33,8 @@ enum class DofusVersion
 {
     MAJOR = 2,
     MINOR = 61,
-    CODE = 1,
-    BUILD = 12,
+    CODE = 3,
+    BUILD = 4,
 };
 
 enum class SuperTypeId
@@ -728,6 +728,18 @@ struct FloodMessage
     int levelMax = 200;
 };
 
+struct ShieldCertificate
+{
+    uint id;
+    uint version;
+    QString content;
+    bool useBasicNetworkInfo;
+    bool useAdvancedNetworkInfo;
+    bool useBasicInfo;
+    bool useUserInfo;
+    bool filterVirtualNetwork;
+};
+
 // Datas
 
 struct BankData
@@ -848,6 +860,9 @@ struct ConnectionData
     int rawDataRequestIndex = INVALID;
     int greetingMessageIsInitialized = 0;
     bool hasRequestedDisconnection = false;
+    bool shieldActive = false;
+    QString haapiSessionKey;
+    QString haapiApiKey;
 };
 
 struct FloodData

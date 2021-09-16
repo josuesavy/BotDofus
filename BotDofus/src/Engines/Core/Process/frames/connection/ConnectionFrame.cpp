@@ -91,8 +91,13 @@ bool ConnectionFrame::processMessage(const MessageInfos &data, SocketIO *sender)
         QString failReason;
         switch ((IdentificationFailureReasonEnum)message.reason)
         {
+
+        case IdentificationFailureReasonEnum::BAD_VERSION:
+            failReason = D2OManagerSingleton::get()->getI18N()->getText("ui.popup.accessDenied.badVersion");
+            break;
+
         case IdentificationFailureReasonEnum::WRONG_CREDENTIALS:
-            failReason = "Nom de compte ou mot de passe incorrect.";
+            failReason = D2OManagerSingleton::get()->getI18N()->getText("ui.popup.accessDenied.wrongCredentials");
             break;
 
         case IdentificationFailureReasonEnum::BANNED:
@@ -103,58 +108,77 @@ bool ConnectionFrame::processMessage(const MessageInfos &data, SocketIO *sender)
             query.bindValue(":login", m_botData[sender].connectionData.connectionInfos.login);
             query.exec();
 
-            failReason = "Le compte est banni définitivement - N'hesitez pas à le reporter sur le forum";
+            failReason = D2OManagerSingleton::get()->getI18N()->getText("ui.popup.accessDenied.banned");
         }
             break;
 
         case IdentificationFailureReasonEnum::KICKED:
-            failReason = "Expulsé";
+            failReason = D2OManagerSingleton::get()->getI18N()->getText("ui.popup.accessDenied.kicked");
             break;
 
         case IdentificationFailureReasonEnum::IN_MAINTENANCE:
-            failReason = D2OManagerSingleton::get()->getI18N()->getText(412383);
+            failReason = D2OManagerSingleton::get()->getI18N()->getText("ui.popup.accessDenied.inMaintenance");
             break;
 
         case IdentificationFailureReasonEnum::TOO_MANY_ON_IP:
-            failReason = "Un défaut de sécurité de votre connexion Internet a été relevé : votre adresse IP publique n'est pas constante, et ne permet pas d'authentifier votre connexion. Contactez votre administrateur réseau ou votre FAI, afin de vous assurer que votre connexion puisse conserver une IP identique entre l'identification et le choix du serveur de jeu. Cette 'inconstance' de l'IP se produit principalement dans les réseaux possédant plusieurs connexion Internet en parallèle, lorsque les connexions réseau sont balancées entre les différents points d'accès Internet.";
+            failReason = D2OManagerSingleton::get()->getI18N()->getText("ui.popup.accessDenied.toomanyonip");
             break;
 
         case IdentificationFailureReasonEnum::TIME_OUT:
-            failReason = "Temps de connexion écoulé";
+            failReason = D2OManagerSingleton::get()->getI18N()->getText("ui.popup.accessDenied.timeout");
             break;
 
         case IdentificationFailureReasonEnum::BAD_IPRANGE:
-            failReason = "Adresse ip incorrecte";
+            failReason = D2OManagerSingleton::get()->getI18N()->getText("ui.popup.accessDenied.badIpRange");
             break;
 
         case IdentificationFailureReasonEnum::CREDENTIALS_RESET:
-            failReason = "Reset des identifiants";
+            failReason = D2OManagerSingleton::get()->getI18N()->getText("ui.popup.accessDenied.credentialsReset");
             break;
 
         case IdentificationFailureReasonEnum::EMAIL_UNVALIDATED:
-            failReason = "Email du compte non-verifié";
+            failReason = D2OManagerSingleton::get()->getI18N()->getText("ui.popup.accessDenied.unvalidatedEmail");
             break;
 
         case IdentificationFailureReasonEnum::OTP_TIMEOUT:
-            failReason = "Temps de connexion écoulé";
+            failReason = D2OManagerSingleton::get()->getI18N()->getText("ui.popup.accessDenied.otpTimeout");
+            break;
+
+        case IdentificationFailureReasonEnum::LOCKED:
+            failReason = D2OManagerSingleton::get()->getI18N()->getText("ui.popup.accessDenied.locked");
+            break;
+
+        case IdentificationFailureReasonEnum::ANONYMOUS_IP_FORBIDDEN:
+            failReason = D2OManagerSingleton::get()->getI18N()->getText("ui.popup.accessDenied.anonymousIp");
             break;
 
         case IdentificationFailureReasonEnum::SERVICE_UNAVAILABLE:
-            failReason = "Service non disponible";
+            failReason = D2OManagerSingleton::get()->getI18N()->getText("ui.popup.accessDenied.serviceUnavailable");
+            break;
+
+        case IdentificationFailureReasonEnum::EXTERNAL_ACCOUNT_LINK_REFUSED:
+            failReason = D2OManagerSingleton::get()->getI18N()->getText("ui.popup.accessDenied.guestAccountNotFound");
+            break;
+
+        case IdentificationFailureReasonEnum::EXTERNAL_ACCOUNT_ALREADY_LINKED:
             break;
 
         case IdentificationFailureReasonEnum::UNKNOWN_AUTH_ERROR:
-            failReason = "Erreur de connexion inconnue";
+            failReason = D2OManagerSingleton::get()->getI18N()->getText("ui.popup.accessDenied.unknown");
             break;
 
         case IdentificationFailureReasonEnum::SPARE:
             failReason = "Erreur de connexion inconnue : Spare";
             break;
+
+        default:
+            failReason = D2OManagerSingleton::get()->getI18N()->getText("ui.popup.accessDenied");
+        break;
         }
 
         m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
 
-        error(sender)<<"Connexion refusée."<<failReason;
+        error(sender)<<failReason;
         sender->disconnect();
     }
         break;
