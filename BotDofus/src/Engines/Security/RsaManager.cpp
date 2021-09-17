@@ -25,7 +25,7 @@ RsaManager::RsaManager()
 
 QByteArray RsaManager::publicKeyDecrypt(const QByteArray &signature)
 {
-    char * DPKey = new char[m_publicKey.size()];
+    char * DPKey = new char[m_publicKey.size()+1];
     strcpy(DPKey, m_publicKey.toStdString().c_str());
 
     BIO *bp_dofus = BIO_new_mem_buf(DPKey, -1);
@@ -50,7 +50,7 @@ QByteArray RsaManager::publicKeyDecrypt(const QByteArray &signature)
 
 QByteArray RsaManager::loginPublicKeyEncrypt(const QByteArray &credentials)
 {
-    char * loginPublicKeyByte = new char[m_loginPublicKey.size()];
+    char * loginPublicKeyByte = new char[m_loginPublicKey.size()+1];
     strcpy(loginPublicKeyByte, m_loginPublicKey.toStdString().c_str());
 
     BIO *bp_login = BIO_new_mem_buf(loginPublicKeyByte, -1);
