@@ -10,13 +10,13 @@ BasicElement::BasicElement(Reader *reader, Map *map, int cellId)
     {
     case ElementTypesEnum::GRAPHICAL:
     {
-        m_element = new GraphicalElement(reader, map, cellId);
+        m_element = QSharedPointer<BasicElement>(new GraphicalElement(reader, map, cellId));
     }
         break;
 
     case ElementTypesEnum::SOUND:
     {
-        m_element = new SoundElement(reader);
+        m_element = QSharedPointer<BasicElement>(new SoundElement(reader));
     }
         break;
 
@@ -25,7 +25,7 @@ BasicElement::BasicElement(Reader *reader, Map *map, int cellId)
     }
 }
 
-BasicElement *BasicElement::getElement()
+QSharedPointer<BasicElement> BasicElement::getElement()
 {
     return m_element;
 }

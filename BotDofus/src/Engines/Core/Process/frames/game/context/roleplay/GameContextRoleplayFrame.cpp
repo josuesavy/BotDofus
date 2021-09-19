@@ -232,7 +232,7 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
                         {
                             foreach (BasicElement basicElement, cell.getBasicElements())
                             {
-                                GraphicalElement *graphicalElement = static_cast<GraphicalElement*>(basicElement.getElement());
+                                QSharedPointer<GraphicalElement> graphicalElement = qSharedPointerCast<GraphicalElement>(QSharedPointer<BasicElement>(basicElement.getElement()));
                                 if (graphicalElement->getIdentifier() == interactiveClass->elementId)
                                 {
                                     InteractiveElementDoorInfos interactiveElementDoorInfos;
@@ -240,7 +240,6 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
                                     interactiveElementDoorInfos.cellId = cell.getCellId();
                                     m_botData[sender].mapData.doorsOnMap<<interactiveElementDoorInfos;
                                 }
-                                delete graphicalElement;
                             }
                         }
                     }

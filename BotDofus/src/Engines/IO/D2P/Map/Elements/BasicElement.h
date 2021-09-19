@@ -15,8 +15,8 @@ public:
     BasicElement()=default;
     BasicElement(Reader *reader, Map *map, int cellId);
 
-    BasicElement *getElement();
+    QSharedPointer<BasicElement> getElement();
 
 private:
-    BasicElement *m_element;
+    QSharedPointer<BasicElement> m_element;
 };
