@@ -47,4 +47,4 @@ Divers
  [ ] Vérifier si CheckFileRequestMessage fonctionne bien
  [ ] Quand on reconnecte le bot, il parle d'une histoire de régénération
  [ ] Des fois quand le bot se fait déco pour inactivité les logs sur la console sont pas mis à jour obligé de le reco pour avoir les dernière log sur la console
- [ ] Le bot plante sur certaines map genre quand on demande à D2OManagerSingleton pour une data (localisation: 3,-18:Astrub - Dans le paquet MapComplementaryInformationsDataMessage)
+ [OK] Le bot plante sur certaines map genre quand on demande à D2OManagerSingleton pour une data (localisation: 3,-18:Astrub - Dans le paquet MapComplementaryInformationsDataMessage)
