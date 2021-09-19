@@ -366,7 +366,7 @@ int StatsManager::getHealthPoints(SocketIO *sender)
 
 int StatsManager::getMaxHealthPoints(SocketIO *sender)
 {
-    return m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].base + qMax(0, m_botData[sender].playerData.stats[(uint)StatIds::VITALITY].base) - m_botData[sender].playerData.stats[(uint)StatIds::CUR_PERMANENT_DAMAGE].base;
+    return m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].base + m_botData[sender].playerData.stats[(uint)StatIds::VITALITY].base - m_botData[sender].playerData.stats[(uint)StatIds::CUR_PERMANENT_DAMAGE].base;
 }
 
 void StatsManager::setRegenUseObjectsEnabled(SocketIO *sender, bool enabled)

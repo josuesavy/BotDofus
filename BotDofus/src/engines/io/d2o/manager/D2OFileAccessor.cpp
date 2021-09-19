@@ -22,7 +22,6 @@ D2OFileAccessor::D2OFileAccessor(const QString &path, I18nFile *I18n):
         uint len = m_reader->readInt();
         m_reader->setPosition(m_reader->getPosition() + len);
         contentOffset = m_reader->getPosition();
-        // TODO: line missing
         header = m_reader->readBytes(3).data();
 
         if (header != "D2O")

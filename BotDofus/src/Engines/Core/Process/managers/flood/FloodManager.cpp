@@ -103,7 +103,7 @@ void FloodManager::initFlood(SocketIO *sender, const QList<Channel> &channels)
         switch (channel)
         {
         default:
-            qDebug()<<"ERREUR - FloodManager ne connait pas cette channel"<<channel;
+            qDebug()<<"ERROR - FloodManager does not know this channel"<<channel;
             break;
 
         case CHANNELSALES:
