@@ -186,15 +186,6 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
 
             if(interactiveClass->onCurrentMap)
             {
-                if (interactiveClass->getTypes().contains(ClassEnum::INTERACTIVEELEMENT))
-                    qDebug() << "INTERACTIVEELEMENT";
-                else if (interactiveClass->getTypes().contains(ClassEnum::INTERACTIVEELEMENTNAMEDSKILL))
-                    qDebug() << "INTERACTIVEELEMENTNAMEDSKILL";
-                else if (interactiveClass->getTypes().contains(ClassEnum::INTERACTIVEELEMENTSKILL))
-                    qDebug() << "INTERACTIVEELEMENTSKILL";
-                else if (interactiveClass->getTypes().contains(ClassEnum::INTERACTIVEELEMENTWITHAGEBONUS))
-                    qDebug() << "INTERACTIVEELEMENTWITHAGEBONUS";
-
                 InteractiveElementInfos mainElementInfos;
                 mainElementInfos.elementId = interactiveClass->elementId;
                 mainElementInfos.elementTypeId = interactiveClass->elementTypeId;
@@ -206,9 +197,6 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
                     enabledInfos.ID = (int)skill->skillId;
                     enabledInfos.UID = (int)skill->skillInstanceUid;
                     mainElementInfos.enabledSkills<<enabledInfos;
-
-                    qDebug() << "en_skillId:" << skill->skillId;
-                    qDebug() << "en_skillId:" << enabledInfos.ID;
                 }
 
                 // Disable skills
@@ -218,9 +206,6 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
                     disabledInfos.ID = (int)skill->skillId;
                     disabledInfos.UID = (int)skill->skillInstanceUid;
                     mainElementInfos.disabledSkills<<disabledInfos;
-
-                    qDebug() << "di_skillId:" << skill->skillId;
-                    qDebug() << "di_skillId:" << disabledInfos.ID;
                 }
 
 

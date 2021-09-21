@@ -298,12 +298,8 @@ void CharacterForm::updateInterface()
 
 void CharacterForm::loadCharacterFullUrl(QNetworkReply *reply)
 {
-    //qDebug() << "NetworkError:" << reply->error();
-
-    QByteArray uii = reply->readAll();
-
     QPixmap pixmap;
-    pixmap.loadFromData(uii);
+    pixmap.loadFromData(reply->readAll());
     ui->labelImage->setPixmap(pixmap);
     reply->deleteLater();
 }

@@ -404,7 +404,6 @@ void StatsManager::regenOptimizer(SocketIO *sender)
     if (m_botData[sender].playerData.healInventory.isEmpty())
     {
         warn(sender) << "Vous n'avez plus d'objets consommables pour vous régénérer";
-        action(sender) << "Début de la régénération assise...";
         m_botData[sender].generalData.botState = BotState::INACTIVE_STATE;
         m_botData[sender].playerData.healInventory.clear();
         healSit(sender);

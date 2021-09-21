@@ -1253,6 +1253,9 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   else if(messageEnum == MessageEnum::GAMEROLEPLAYARENAREGISTRATIONSTATUSMESSAGE)
       return "GameRolePlayArenaRegistrationStatusMessage";
   
+  else if(messageEnum == MessageEnum::GAMEROLEPLAYARENAREGISTRATIONWARNINGMESSAGE)
+      return "GameRolePlayArenaRegistrationWarningMessage";
+  
   else if(messageEnum == MessageEnum::GAMEROLEPLAYARENASWITCHTOFIGHTSERVERMESSAGE)
       return "GameRolePlayArenaSwitchToFightServerMessage";
   

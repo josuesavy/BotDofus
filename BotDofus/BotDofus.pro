@@ -1028,6 +1028,7 @@ HEADERS += \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaPlayerBehavioursMessage.h \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaRegisterMessage.h \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaRegistrationStatusMessage.h \
+    src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaRegistrationWarningMessage.h \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaSwitchToFightServerMessage.h \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaSwitchToGameServerMessage.h \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaUnregisterMessage.h \
@@ -2846,6 +2847,7 @@ SOURCES += \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaPlayerBehavioursMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaRegisterMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaRegistrationStatusMessage.cpp \
+    src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaRegistrationWarningMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaSwitchToFightServerMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaSwitchToGameServerMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaUnregisterMessage.cpp \

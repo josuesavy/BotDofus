@@ -418,6 +418,7 @@
 #include "src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaPlayerBehavioursMessage.h"
 #include "src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaRegisterMessage.h"
 #include "src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaRegistrationStatusMessage.h"
+#include "src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaRegistrationWarningMessage.h"
 #include "src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaSwitchToFightServerMessage.h"
 #include "src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaSwitchToGameServerMessage.h"
 #include "src/protocol/messages/data/game/context/roleplay/fight/arena/GameRolePlayArenaUnregisterMessage.h"
