@@ -350,6 +350,11 @@ void StatsManager::defineSkinHead(SocketIO *sender, QPixmap pixmap)
     m_botData[sender].playerData.headPixmap = pixmap;
 }
 
+void StatsManager::defineSkinFull(SocketIO *sender, QPixmap pixmap)
+{
+    m_botData[sender].playerData.fullPixmap = pixmap;
+}
+
 void StatsManager::quitDidactiel(SocketIO *sender)
 {
     if(m_botData[sender].connectionData.connectionState == ConnectionState::CONNECTED && m_botData[sender].generalData.botState == BotState::INACTIVE_STATE)

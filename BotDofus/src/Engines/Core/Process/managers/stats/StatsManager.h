@@ -186,6 +186,7 @@ public:
 
 
     void defineSkinHead(SocketIO *sender, QPixmap pixmap);
+    void defineSkinFull(SocketIO *sender, QPixmap pixmap);
 
     void quitDidactiel(SocketIO *sender);
 

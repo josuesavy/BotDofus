@@ -18,6 +18,7 @@ CharacterForm::CharacterForm(ProcessEngine *engine, const ConnectionInfos &infos
     QObject::connect(managerFaceSkin, SIGNAL(finished(QNetworkReply*)), this, SLOT(loadCharacterFaceUrl(QNetworkReply*)));
     QObject::connect(managerFullSkin, SIGNAL(finished(QNetworkReply*)), this, SLOT(loadCharacterFullUrl(QNetworkReply*)));
 
+    ui->labelImage->setPixmap(QPixmap(":/icons/character.png"));
     ui->tableWidgetSpells->horizontalHeader()->setSectionResizeMode(1,QHeaderView::Stretch);
     ui->tableWidgetJobs->horizontalHeader()->setSectionResizeMode(1,QHeaderView::Stretch);
 }
@@ -58,11 +59,10 @@ void CharacterForm::updateInterface()
             QUrl characterFullUrl(EntityLookParser::getUrl(infos.mapData.playersOnMap[infos.mapData.botId].look, EntityRendererType::FULL, EntityRendererOrientation::DIAGONAL_RIGHT));
             QUrl characterFaceUrl(EntityLookParser::getUrl(infos.mapData.playersOnMap[infos.mapData.botId].look, EntityRendererType::FACE, EntityRendererOrientation::DIAGONAL_RIGHT));
 
-//            qDebug() << characterFullUrl;
-//            qDebug() << characterFaceUrl;
-
             managerFaceSkin->get(QNetworkRequest(characterFaceUrl));
             managerFullSkin->get(QNetworkRequest(characterFullUrl));
+
+            ui->labelImage->setPixmap(infos.playerData.fullPixmap);
         }
 
 
@@ -271,7 +271,6 @@ void CharacterForm::updateInterface()
         QSharedPointer<JobData> jobData;
         foreach(const JobExperience &e, infos.craftData.jobs)
         {
-            //qDebug() << "Name job:" << jobData->getName();
             if(e.jobLevel != 1 && (qRound(100*((double)(e.jobXP-e.jobXpLevelFloor)/(double)(e.jobXpNextLevelFloor-e.jobXpLevelFloor)))) != 0)
             {
                 jobData = qSharedPointerCast<JobData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::JOBS, e.jobId));
@@ -300,7 +299,7 @@ void CharacterForm::loadCharacterFullUrl(QNetworkReply *reply)
 {
     QPixmap pixmap;
     pixmap.loadFromData(reply->readAll());
-    ui->labelImage->setPixmap(pixmap);
+    m_engine->getStatsManager().defineSkinFull(m_sender, pixmap);
     reply->deleteLater();
 }
 

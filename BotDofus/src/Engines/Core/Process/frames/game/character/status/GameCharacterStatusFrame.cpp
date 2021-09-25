@@ -24,24 +24,28 @@ bool GameCharacterStatusFrame::processMessage(const MessageInfos &data, SocketIO
 
         if(psumsg.accountId == m_botData[sender].playerData.accountId)
         {
+            QString status;
+
             switch((PlayerStatusEnum)psumsg.status->statusId)
             {
             case PlayerStatusEnum::PLAYER_STATUS_AVAILABLE:
-                info(sender) << "Statut disponible activé.";
+                status = D2OManagerSingleton::get()->getI18N()->getText("ui.chat.status.availiable");
                 break;
 
             case PlayerStatusEnum::PLAYER_STATUS_AFK:
-                info(sender) << "Statut absent activé.";
+                status = D2OManagerSingleton::get()->getI18N()->getText("ui.chat.status.away");
                 break;
 
             case PlayerStatusEnum::PLAYER_STATUS_PRIVATE:
-                info(sender) << "Statut privé activé.";
+                status = D2OManagerSingleton::get()->getI18N()->getText("ui.chat.status.private");
                 break;
 
             case PlayerStatusEnum::PLAYER_STATUS_SOLO:
-                info(sender) << "Statut solo activé.";
+                status = D2OManagerSingleton::get()->getI18N()->getText("ui.chat.status.solo");
                 break;
             }
+
+            info(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.chat.status.statuschange").arg(status);
         }
     }
         break;
