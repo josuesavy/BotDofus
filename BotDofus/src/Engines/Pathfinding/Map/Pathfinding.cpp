@@ -111,9 +111,7 @@ PathInfos Pathfinding::findPath(uint startId, uint endId, uint mapId, bool mount
             m_cellPos[currentCell.getId()].setInOpenList(false);
         }
 
-       /* if (entities.contains(currentCell.getId()) && (currentCell.getId() == endId))
-            m_cellPos[currentCell.getId()].setWalkable(currentCell.isWalkable());
-        else */if (entities.contains(currentCell.getId()))
+        if (entities.contains(currentCell.getId()))
             m_cellPos[currentCell.getId()].setWalkable(false);
         else
             m_cellPos[currentCell.getId()].setWalkable(currentCell.isWalkable());
@@ -122,11 +120,10 @@ PathInfos Pathfinding::findPath(uint startId, uint endId, uint mapId, bool mount
     }
 
     Node currentNode(m_cellPos[startId]);
-    Node endNode(m_cellPos[endId]);
-    int k = 0;
+
     while (!m_finishSearch)
     {
-        findNeighboringCell(currentNode, /*endNode,*/ diag, entities);
+        findNeighboringCell(currentNode, diag, entities);
 
         if (m_openList.isEmpty())
             return ifNotFound;
@@ -135,7 +132,6 @@ PathInfos Pathfinding::findPath(uint startId, uint endId, uint mapId, bool mount
         currentNode.setInClosedList(true);
         currentNode.setInOpenList(false);
         m_openList.removeAt(0);
-        k++;
     }
 
     Node recreatePath = m_cellPos[endId];
@@ -227,7 +223,7 @@ void Pathfinding::initializeCurrentMap(int mapId)
 }
 
 
-void Pathfinding::findNeighboringCell(Node c_node, /*Node e_node,*/ bool diag = true, QList<uint> entities)
+void Pathfinding::findNeighboringCell(Node c_node, bool diag = true, QList<uint> entities)
 {
     QList<int> top;
     top<<0<<1<<2<<3<<4<<5<<6<<7<<8<<9<<10<<11<<12<<13;
@@ -245,6 +241,38 @@ void Pathfinding::findNeighboringCell(Node c_node, /*Node e_node,*/ bool diag = 
     left<<0<<28<<56<<84<<112<<140<<168<<196<<224<<252<<280<<308<<336<<364<<392<<420<<448<<476<<504<<532;
     QList<int> left_2;
     left_2<<14<<42<<70<<98<<126<<154<<182<<210<<238<<266<<294<<322<<350<<378<<406<<434<<462<<490<<518<<546;
+
+    //                                     *
+    //                                  *  *  *
+    //                               *  *     *  *
+    //                            *  *           *  *
+    //                         *  *        5        *  *
+    //                      *  *  *  *           *  *  *  *
+    //                   *  *     *  *  *     *  *  *     *  *
+    //                *  *           *  *  *  *  *           *  *
+    //             *  *        3        *  *  *        8        *  *
+    //          *  *  *  *           *  *  *  *  *           *  *  *  *
+    //       *  *     *  *  *     *  *  *     *  *  *     *  *  *     *  *
+    //    *  *           *  *  *  *  *           *  *  *  *  *           *  *
+    // *  *        2        *  *  *        O        *  *  *        7        *  *
+    //    *  *           *  *  *  *  *           *  *  *  *  *           *  *
+    //       *  *     *  *  *     *  *  *     *  *  *     *  *  *     *  *
+    //          *  *  *  *           *  *  *  *  *           *  *  *  *
+    //             *  *        1        *  *  *        6        *  *
+    //                *  *           *  *  *  *  *           *  *
+    //                   *  *     *  *  *     *  *  *     *  *
+    //                      *  *  *  *           *  *  *  *
+    //                         *  *        4        *  *
+    //                            *  *           *  *
+    //                               *  *     *  *
+    //                                  *  *  *
+    //                                     *
+
+    //     5
+    //   3   8
+    // 2   x   7
+    //   1   6
+    //     4
 
     Node cell_1 = Node(getCellIdFromPoint(c_node.getX() - 1, c_node.getY() - 1), c_node.getX() - 1, c_node.getY() - 1); // 1
     Node cell_2 = Node(getCellIdFromPoint(c_node.getX() - 1,  c_node.getY()), c_node.getX() - 1,  c_node.getY()); // 2
@@ -309,7 +337,6 @@ void Pathfinding::findNeighboringCell(Node c_node, /*Node e_node,*/ bool diag = 
     if (left_2.contains(c_node.getCellId()))
         removeNeightboring(cellsToAdd, cell_1);
 
-
     foreach (Node cell, cellsToAdd)
     {
         int _floor = m_cellHeight[cell.getCellId()];
@@ -317,7 +344,7 @@ void Pathfinding::findNeighboringCell(Node c_node, /*Node e_node,*/ bool diag = 
 
         if (!((_floor - 30 == currentFloor) || (_floor + 30 == currentFloor) || (_floor == currentFloor)))
             removeNeightboring(cellsToAdd, cell);
-        else if (entities.contains(cell.getCellId()) /*&& e_node.getCellId() != cell.getCellId()*/)
+        else if (entities.contains(cell.getCellId()))
             removeNeightboring(cellsToAdd, cell);
     }
 
@@ -331,16 +358,16 @@ void Pathfinding::addCell(Node cell, Node c_node)
 {
     int _cell = cell.getCellId();
 
+    if(m_cellPos[_cell].getClosed() == true)
+    {
+        m_cellPos[_cell].setParent(c_node.getCellId());
+        m_finishSearch = true;
+        return;
+    }
+
     if (m_cellPos[_cell].getWalkable() == true)
     {
         m_cellPos[_cell].setOrientation(cell.getOrientation());
-
-        if(m_cellPos[_cell].getClosed() == true)
-        {
-            m_cellPos[_cell].setParent(c_node.getCellId());
-            m_finishSearch = true;
-            return;
-        }
 
         if (m_cellPos[_cell].getInOpenList() == false && m_cellPos[_cell].getInClosedList() == false)
         {

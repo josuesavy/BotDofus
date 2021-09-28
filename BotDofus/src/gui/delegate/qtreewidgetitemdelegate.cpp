@@ -23,7 +23,7 @@ void QTreeWidgetItemDelegate::paint(QPainter *painter, const QStyleOptionViewIte
     QImage image = index.data(4).value<QPixmap>().toImage().scaled(38,38,Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 
     if(image.isNull())
-        image = QImage(":/icons/user.png").scaled(32,32);
+        image = QImage(":/icons/user.png").scaled(38,38);
 
     drawSkin(painter, image, center);
     drawPseudo(painter, index.data(1).toString());

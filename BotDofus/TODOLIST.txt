@@ -33,7 +33,7 @@ Inventaire
  [ ] Pour certains items de type différent (hat, ring, etc..) quand on l'equipe, c'est pas actualiser dans l'inventaire à car ya pas de paquet pour
 
 Map
- [ ] L'algo du pathfinding tourne en rond quand le bot est en [2,-18] sur la cellule 533 quand on le demande d'aller à l'east
+ [ ] Antibot sur la banque d'Astrub (191104002): des cellules marchable dans la banque vue de l'extérieur
 
 Combat
  [ ] Revoir l'IA en combat, il semblerait qu'il a déjà la po pour attaquer mais il bouge avant alors qu'il peut le faire après

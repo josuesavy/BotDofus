@@ -62,7 +62,10 @@ void CharacterForm::updateInterface()
             managerFaceSkin->get(QNetworkRequest(characterFaceUrl));
             managerFullSkin->get(QNetworkRequest(characterFullUrl));
 
-            ui->labelImage->setPixmap(infos.playerData.fullPixmap);
+            if (!infos.playerData.fullPixmap.isNull())
+                ui->labelImage->setPixmap(infos.playerData.fullPixmap);
+            else
+                ui->labelImage->setPixmap(QPixmap(":/icons/character.png"));
         }
 
 

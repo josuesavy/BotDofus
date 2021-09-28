@@ -15,10 +15,6 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets             # Using widgets
 # General project configuration options.
 CONFIG += c++11
 
-QMAKE_MAC_SDK = macosx
-QMAKE_CXXFLAGS_DEBUG -= -O
-QMAKE_CXXFLAGS_RELEASE += -O3
-
 # Software's informations
 TARGET = BotDofus
 VERSION = 0.1

@@ -251,13 +251,6 @@ bool MapManager::changeMap(SocketIO *sender, MapSide mapSide, int cellId)
                 edgeCells<<27<<55<<83<<111<<139<<167<<195<<223<<251<<279<<307<<335<<363<<391<<419<<447<<475<<503<<531<<559;
                 adjacentCells<<0<<28<<56<<84<<112<<140<<168<<196<<224<<252<<280<<308<<336<<364<<392<<420<<448<<476<<504<<532;
                 adjacentMap = D2PManagerSingleton::get()->getMap(m_botData[sender].mapData.map.getRightMapId());
-//                qDebug() << "current:" << m_botData[sender].mapData.map.getMapId();
-//                qDebug() << "subarea:" << m_botData[sender].mapData.map.getSubAreaId();
-//                qDebug() << "position-> x:" << m_botData[sender].mapData.map.getPosition().getX() << "y:" << m_botData[sender].mapData.map.getPosition().getY();
-//                qDebug() << "top:" << m_botData[sender].mapData.map.getTopMapId();
-//                qDebug() << "left:" << m_botData[sender].mapData.map.getLeftMapId();
-//                qDebug() << "right:" << m_botData[sender].mapData.map.getRightMapId();
-//                qDebug() << "bottom:" << m_botData[sender].mapData.map.getBottomMapId();
             }
 
             // Fix: bug when you want to change map but it was not possible because there is map not exist
