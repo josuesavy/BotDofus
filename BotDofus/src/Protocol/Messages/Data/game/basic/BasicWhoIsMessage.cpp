@@ -12,7 +12,7 @@ void BasicWhoIsMessage::serializeAs_BasicWhoIsMessage(Writer *output)
   _box0 = BooleanByteWrapper::setFlag(_box0, 1, this->verbose);
   output->writeByte(_box0);
   output->writeByte(this->position);
-  output->writeUTF(this->accountNickname);
+  this->accountTag.serializeAs_AccountTagInformation(output);
   if(this->accountId < 0)
   {
     qDebug()<<"ERREUR - BasicWhoIsMessage -"<<"Forbidden value (" << this->accountId << ") on element accountId.";
@@ -47,7 +47,8 @@ void BasicWhoIsMessage::deserializeAs_BasicWhoIsMessage(Reader *input)
   QSharedPointer<AbstractSocialGroupInfos> _item10 ;
   this->deserializeByteBoxes(input);
   this->_positionFunc(input);
-  this->_accountNicknameFunc(input);
+  this->accountTag = AccountTagInformation();
+  this->accountTag.deserialize(input);
   this->_accountIdFunc(input);
   this->_playerNameFunc(input);
   this->_playerIdFunc(input);
@@ -74,7 +75,7 @@ void BasicWhoIsMessage::deserializeAsyncAs_BasicWhoIsMessage(FuncTree tree)
 {
   tree.addChild(std::bind(&BasicWhoIsMessage::deserializeByteBoxes, this, std::placeholders::_1));
   tree.addChild(std::bind(&BasicWhoIsMessage::_positionFunc, this, std::placeholders::_1));
-  tree.addChild(std::bind(&BasicWhoIsMessage::_accountNicknameFunc, this, std::placeholders::_1));
+  this->_accountTagtree = tree.addChild(std::bind(&BasicWhoIsMessage::_accountTagtreeFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&BasicWhoIsMessage::_accountIdFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&BasicWhoIsMessage::_playerNameFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&BasicWhoIsMessage::_playerIdFunc, this, std::placeholders::_1));
@@ -97,9 +98,10 @@ void BasicWhoIsMessage::_positionFunc(Reader *input)
   this->position = input->readByte();
 }
 
-void BasicWhoIsMessage::_accountNicknameFunc(Reader *input)
+void BasicWhoIsMessage::_accountTagtreeFunc(Reader *input)
 {
-  this->accountNickname = input->readUTF();
+  this->accountTag = AccountTagInformation();
+  this->accountTag.deserializeAsync(this->_accountTagtree);
 }
 
 void BasicWhoIsMessage::_accountIdFunc(Reader *input)

@@ -1,12 +1,12 @@
 #ifndef GUILDINALLIANCEFACTSMESSAGE_H
 #define GUILDINALLIANCEFACTSMESSAGE_H
 
-#include "src/Protocol/Types/Data/game/context/roleplay/BasicNamedAllianceInformations.h"
-#include "src/Protocol/Types/Data/game/social/GuildFactSheetInformations.h"
-#include "src/Protocol/Types/Data/game/character/CharacterMinimalGuildPublicInformations.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
-#include "src/Protocol/Messages/Data/game/guild/GuildFactsMessage.h"
+#include "src/protocol/types/data/game/context/roleplay/BasicNamedAllianceInformations.h"
+#include "src/protocol/types/data/game/social/GuildFactSheetInformations.h"
+#include "src/protocol/types/data/game/character/CharacterMinimalGuildPublicInformations.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/messages/AbstractMessage.h"
+#include "src/protocol/messages/data/game/guild/GuildFactsMessage.h"
 
 class GuildInAllianceFactsMessage : public GuildFactsMessage
 {

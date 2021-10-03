@@ -1,9 +1,9 @@
 #ifndef TELEPORTDESTINATIONSMESSAGE_H
 #define TELEPORTDESTINATIONSMESSAGE_H
 
-#include "src/Protocol/Types/Data/game/interactive/zaap/TeleportDestination.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
+#include "src/protocol/types/data/game/interactive/zaap/TeleportDestination.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/messages/AbstractMessage.h"
 
 class TeleportDestinationsMessage : public AbstractMessage
 {

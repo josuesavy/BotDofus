@@ -8,7 +8,8 @@ void BasicWhoIsRequestMessage::serialize(Writer *output)
 void BasicWhoIsRequestMessage::serializeAs_BasicWhoIsRequestMessage(Writer *output)
 {
   output->writeBool(this->verbose);
-  output->writeUTF(this->search);
+  output->writeShort((short)this->target->getTypes().last());
+  this->target->serialize(output);
 }
 
 void BasicWhoIsRequestMessage::deserialize(Reader *input)
@@ -19,7 +20,9 @@ void BasicWhoIsRequestMessage::deserialize(Reader *input)
 void BasicWhoIsRequestMessage::deserializeAs_BasicWhoIsRequestMessage(Reader *input)
 {
   this->_verboseFunc(input);
-  this->_searchFunc(input);
+  uint _id2 = input->readUShort();
+  this->target = qSharedPointerCast<AbstractPlayerSearchInformation>(ClassManagerSingleton::get()->getClass(_id2));
+  this->target->deserialize(input);
 }
 
 void BasicWhoIsRequestMessage::deserializeAsync(FuncTree tree)
@@ -30,7 +33,7 @@ void BasicWhoIsRequestMessage::deserializeAsync(FuncTree tree)
 void BasicWhoIsRequestMessage::deserializeAsyncAs_BasicWhoIsRequestMessage(FuncTree tree)
 {
   tree.addChild(std::bind(&BasicWhoIsRequestMessage::_verboseFunc, this, std::placeholders::_1));
-  tree.addChild(std::bind(&BasicWhoIsRequestMessage::_searchFunc, this, std::placeholders::_1));
+  this->_targettree = tree.addChild(std::bind(&BasicWhoIsRequestMessage::_targettreeFunc, this, std::placeholders::_1));
 }
 
 void BasicWhoIsRequestMessage::_verboseFunc(Reader *input)
@@ -38,9 +41,11 @@ void BasicWhoIsRequestMessage::_verboseFunc(Reader *input)
   this->verbose = input->readBool();
 }
 
-void BasicWhoIsRequestMessage::_searchFunc(Reader *input)
+void BasicWhoIsRequestMessage::_targettreeFunc(Reader *input)
 {
-  this->search = input->readUTF();
+  uint _id = input->readUShort();
+  this->target = qSharedPointerCast<AbstractPlayerSearchInformation>(ClassManagerSingleton::get()->getClass(_id));
+  this->target->deserializeAsync(this->_targettree);
 }
 
 BasicWhoIsRequestMessage::BasicWhoIsRequestMessage()

@@ -1,13 +1,19 @@
 ﻿#pragma once
 
-#include "src/Engines/IO/Network/Reader.h"
-#include "src/Engines/IO/D2P/Map/Map.h"
+#include "src/engines/io/network/Reader.h"
+#include "src/engines/io/d2p/map/Map.h"
+#include "src/engines/io/d2p/map/elements/BasicElement.h"
 
 #define FIXEDMAPCHANGER_GRAPHICAL_ID 34708
 
-class GraphicalElement
+class GraphicalElement : public BasicElement
 {
 public:
     GraphicalElement(Reader *reader, Map *map, int cellId);
+
+    uint getIdentifier();
+
+private:
+    uint m_identifier;
 };
 

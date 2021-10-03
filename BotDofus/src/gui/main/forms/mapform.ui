@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>588</width>
-    <height>333</height>
+    <width>292</width>
+    <height>165</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,7 +30,7 @@
    <item row="0" column="1">
     <widget class="QCheckBox" name="checkBoxDisplayCellIds">
      <property name="text">
-      <string>Afficher les cellids</string>
+      <string>Display cellids</string>
      </property>
     </widget>
    </item>
@@ -71,7 +71,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>OUEST</string>
+        <string>WEST</string>
        </property>
       </widget>
      </item>
@@ -84,7 +84,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>NORD</string>
+        <string>NORTH</string>
        </property>
       </widget>
      </item>
@@ -97,7 +97,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>EST</string>
+        <string>EAST</string>
        </property>
       </widget>
      </item>
@@ -110,7 +110,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>SUD</string>
+        <string>SOUTH</string>
        </property>
       </widget>
      </item>
@@ -211,6 +211,14 @@
    <header location="global">QtQuickWidgets/QQuickWidget</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>checkBoxDisplayCellIds</tabstop>
+  <tabstop>pushButtonTop</tabstop>
+  <tabstop>pushButtonLeft</tabstop>
+  <tabstop>pushButtonRight</tabstop>
+  <tabstop>pushButtonBottom</tabstop>
+  <tabstop>quickWidget</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

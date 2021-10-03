@@ -1,11 +1,11 @@
 #ifndef GAMEFIGHTMONSTERINFORMATIONS_H
 #define GAMEFIGHTMONSTERINFORMATIONS_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/context/fight/GameFightAIInformations.h"
-#include "src/Protocol/Types/Data/game/context/EntityDispositionInformations.h"
-#include "src/Protocol/Types/Data/game/look/EntityLook.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/context/fight/GameFightAIInformations.h"
+#include "src/protocol/types/data/game/context/EntityDispositionInformations.h"
+#include "src/protocol/types/data/game/look/EntityLook.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class GameFightMonsterInformations : public GameFightAIInformations
 {

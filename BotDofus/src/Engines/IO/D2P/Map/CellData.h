@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "src/Engines/IO/Network/Reader.h"
+#include "src/engines/io/network/Reader.h"
 
 class Map;
 
@@ -20,6 +20,11 @@ public:
     bool isHavenbagCell() const;
     uint getMapChangeData() const;
     uint getMoveZone() const;
+    bool hasLinkedZoneRP() const;
+    uint getLinkedZone() const;
+    bool hasLinkedZoneFight() const;
+    int linkedZoneFight() const;
+
     int getSpeed() const;
     int getFloor() const;
     void setAllowWalk(int w);
@@ -41,4 +46,6 @@ private:
     bool m_visible;
     bool m_havenbagCell;
     bool m_los;
+    bool m_blue;
+    bool m_red;
 };

@@ -23,7 +23,7 @@ void HouseSellingUpdateMessage::serializeAs_HouseSellingUpdateMessage(Writer *ou
     qDebug()<<"ERREUR - HouseSellingUpdateMessage -"<<"Forbidden value (" << this->realPrice << ") on element realPrice.";
   }
   output->writeVarLong((double)this->realPrice);
-  output->writeUTF(this->buyerName);
+  this->buyerTag.serializeAs_AccountTagInformation(output);
 }
 
 void HouseSellingUpdateMessage::deserialize(Reader *input)
@@ -37,7 +37,8 @@ void HouseSellingUpdateMessage::deserializeAs_HouseSellingUpdateMessage(Reader *
   this->_instanceIdFunc(input);
   this->_secondHandFunc(input);
   this->_realPriceFunc(input);
-  this->_buyerNameFunc(input);
+  this->buyerTag = AccountTagInformation();
+  this->buyerTag.deserialize(input);
 }
 
 void HouseSellingUpdateMessage::deserializeAsync(FuncTree tree)
@@ -51,7 +52,7 @@ void HouseSellingUpdateMessage::deserializeAsyncAs_HouseSellingUpdateMessage(Fun
   tree.addChild(std::bind(&HouseSellingUpdateMessage::_instanceIdFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&HouseSellingUpdateMessage::_secondHandFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&HouseSellingUpdateMessage::_realPriceFunc, this, std::placeholders::_1));
-  tree.addChild(std::bind(&HouseSellingUpdateMessage::_buyerNameFunc, this, std::placeholders::_1));
+  this->_buyerTagtree = tree.addChild(std::bind(&HouseSellingUpdateMessage::_buyerTagtreeFunc, this, std::placeholders::_1));
 }
 
 void HouseSellingUpdateMessage::_houseIdFunc(Reader *input)
@@ -86,9 +87,10 @@ void HouseSellingUpdateMessage::_realPriceFunc(Reader *input)
   }
 }
 
-void HouseSellingUpdateMessage::_buyerNameFunc(Reader *input)
+void HouseSellingUpdateMessage::_buyerTagtreeFunc(Reader *input)
 {
-  this->buyerName = input->readUTF();
+  this->buyerTag = AccountTagInformation();
+  this->buyerTag.deserializeAsync(this->_buyerTagtree);
 }
 
 HouseSellingUpdateMessage::HouseSellingUpdateMessage()

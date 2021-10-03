@@ -18,6 +18,7 @@ CharacterForm::CharacterForm(ProcessEngine *engine, const ConnectionInfos &infos
     QObject::connect(managerFaceSkin, SIGNAL(finished(QNetworkReply*)), this, SLOT(loadCharacterFaceUrl(QNetworkReply*)));
     QObject::connect(managerFullSkin, SIGNAL(finished(QNetworkReply*)), this, SLOT(loadCharacterFullUrl(QNetworkReply*)));
 
+    ui->labelImage->setPixmap(QPixmap(":/icons/character.png"));
     ui->tableWidgetSpells->horizontalHeader()->setSectionResizeMode(1,QHeaderView::Stretch);
     ui->tableWidgetJobs->horizontalHeader()->setSectionResizeMode(1,QHeaderView::Stretch);
 }
@@ -58,11 +59,13 @@ void CharacterForm::updateInterface()
             QUrl characterFullUrl(EntityLookParser::getUrl(infos.mapData.playersOnMap[infos.mapData.botId].look, EntityRendererType::FULL, EntityRendererOrientation::DIAGONAL_RIGHT));
             QUrl characterFaceUrl(EntityLookParser::getUrl(infos.mapData.playersOnMap[infos.mapData.botId].look, EntityRendererType::FACE, EntityRendererOrientation::DIAGONAL_RIGHT));
 
-//            qDebug() << characterFullUrl;
-//            qDebug() << characterFaceUrl;
-
             managerFaceSkin->get(QNetworkRequest(characterFaceUrl));
             managerFullSkin->get(QNetworkRequest(characterFullUrl));
+
+            if (!infos.playerData.fullPixmap.isNull())
+                ui->labelImage->setPixmap(infos.playerData.fullPixmap);
+            else
+                ui->labelImage->setPixmap(QPixmap(":/icons/character.png"));
         }
 
 
@@ -70,112 +73,115 @@ void CharacterForm::updateInterface()
         if(infos.mapData.gameContext == GameContextEnum::ROLE_PLAY)
         {
             QSharedPointer<BreedData> breed = qSharedPointerCast<BreedData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::BREEDS, (int)infos.playerData.breed));
-            ui->labelDescription->setText(QString("%1, Niveau %2").arg(breed->getShortName()).arg(infos.mapData.playersOnMap[infos.mapData.botId].level));
+            ui->labelDescription->setText(QString("%1, Level %2").arg(breed->getShortName()).arg(infos.mapData.playersOnMap[infos.mapData.botId].level));
         }
 
         else if(infos.mapData.gameContext == GameContextEnum::FIGHT)
         {
             QSharedPointer<BreedData> breed = qSharedPointerCast<BreedData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::BREEDS, (int)infos.playerData.breed));
-            ui->labelDescription->setText(QString("%1, Niveau %2").arg(breed->getShortName()).arg(infos.fightData.fighters[infos.fightData.botFightData.botId].level));
+            ui->labelDescription->setText(QString("%1, Level %2").arg(breed->getShortName()).arg(infos.fightData.fighters[infos.fightData.botFightData.botId].level));
         }
 
 
         // Display character's characteristics
-        ui->labelAP->setText(QString::number(infos.playerData.stats.actionPoints.base +
-                                             infos.playerData.stats.actionPoints.alignGiftBonus +
-                                             infos.playerData.stats.actionPoints.contextModif +
-                                             infos.playerData.stats.actionPoints.objectsAndMountBonus +
-                                             infos.playerData.stats.actionPoints.additionnal));
-        ui->labelMP->setText(QString::number(infos.playerData.stats.movementPoints.base +
-                                             infos.playerData.stats.movementPoints.alignGiftBonus +
-                                             infos.playerData.stats.movementPoints.contextModif +
-                                             infos.playerData.stats.movementPoints.objectsAndMountBonus +
-                                             infos.playerData.stats.movementPoints.additionnal));
-        ui->labelInitiative->setText(QString("%1/%2")
-                                     .arg((infos.playerData.stats.initiative.base +infos.playerData.stats.initiative.alignGiftBonus +
-                                           infos.playerData.stats.initiative.contextModif + infos.playerData.stats.initiative.objectsAndMountBonus +
-                                           infos.playerData.stats.initiative.additionnal)*infos.playerData.stats.lifePoints / infos.playerData.stats.maxLifePoints)
-                                     .arg(infos.playerData.stats.initiative.base + infos.playerData.stats.initiative.alignGiftBonus +
-                                          infos.playerData.stats.initiative.contextModif + infos.playerData.stats.initiative.objectsAndMountBonus +
-                                          infos.playerData.stats.initiative.additionnal));
-        ui->labelProspecting->setText(QString::number(infos.playerData.stats.prospecting.base +
-                                                      infos.playerData.stats.prospecting.alignGiftBonus +
-                                                      infos.playerData.stats.prospecting.contextModif +
-                                                      infos.playerData.stats.prospecting.objectsAndMountBonus +
-                                                      infos.playerData.stats.prospecting.additionnal));
-        ui->labelRange->setText(QString::number(infos.playerData.stats.range.base +
-                                                infos.playerData.stats.range.alignGiftBonus +
-                                                infos.playerData.stats.range.contextModif +
-                                                infos.playerData.stats.range.objectsAndMountBonus +
-                                                infos.playerData.stats.range.additionnal));
-        ui->labelSummons->setText(QString::number(infos.playerData.stats.summonableCreaturesBoost.base +
-                                                  infos.playerData.stats.summonableCreaturesBoost.alignGiftBonus +
-                                                  infos.playerData.stats.summonableCreaturesBoost.contextModif +
-                                                  infos.playerData.stats.summonableCreaturesBoost.objectsAndMountBonus +
-                                                  infos.playerData.stats.summonableCreaturesBoost.additionnal));
-        ui->labelVitality->setText(QString::number(infos.playerData.stats.vitality.base +
-                                                   infos.playerData.stats.vitality.alignGiftBonus +
-                                                   infos.playerData.stats.vitality.contextModif +
-                                                   infos.playerData.stats.vitality.objectsAndMountBonus +
-                                                   infos.playerData.stats.vitality.additionnal));
-        ui->labelWisdom->setText(QString::number(infos.playerData.stats.wisdom.base +
-                                                 infos.playerData.stats.wisdom.alignGiftBonus +
-                                                 infos.playerData.stats.wisdom.contextModif +
-                                                 infos.playerData.stats.wisdom.objectsAndMountBonus +
-                                                 infos.playerData.stats.wisdom.additionnal));
-        ui->labelStrength->setText(QString::number(infos.playerData.stats.strength.base +
-                                                   infos.playerData.stats.strength.alignGiftBonus +
-                                                   infos.playerData.stats.strength.contextModif +
-                                                   infos.playerData.stats.strength.objectsAndMountBonus +
-                                                   infos.playerData.stats.strength.additionnal));
-        ui->labelIntelligence->setText(QString::number(infos.playerData.stats.intelligence.base +
-                                                       infos.playerData.stats.intelligence.alignGiftBonus +
-                                                       infos.playerData.stats.intelligence.contextModif +
-                                                       infos.playerData.stats.intelligence.objectsAndMountBonus +
-                                                       infos.playerData.stats.intelligence.additionnal));
-        ui->labelChance->setText(QString::number(infos.playerData.stats.chance.base +
-                                                 infos.playerData.stats.chance.alignGiftBonus +
-                                                 infos.playerData.stats.chance.contextModif +
-                                                 infos.playerData.stats.chance.objectsAndMountBonus +
-                                                 infos.playerData.stats.chance.additionnal));
-        ui->labelAgility->setText(QString::number(infos.playerData.stats.agility.base +
-                                                  infos.playerData.stats.agility.alignGiftBonus +
-                                                  infos.playerData.stats.agility.contextModif +
-                                                  infos.playerData.stats.agility.objectsAndMountBonus +
-                                                  infos.playerData.stats.agility.additionnal));
-        ui->labelCapitalPoints->setText(QString("<b>%1</b>").arg(infos.playerData.stats.statsPoints));
+        ui->labelAP->setText(QString::number(infos.playerData.stats[(uint)StatIds::ACTION_POINTS].base +
+                                             infos.playerData.stats[(uint)StatIds::ACTION_POINTS].alignGiftBonus +
+                                             infos.playerData.stats[(uint)StatIds::ACTION_POINTS].contextModif +
+                                             infos.playerData.stats[(uint)StatIds::ACTION_POINTS].objectsAndMountBonus +
+                                             infos.playerData.stats[(uint)StatIds::ACTION_POINTS].additional));
+        ui->labelMP->setText(QString::number(infos.playerData.stats[(uint)StatIds::MOVEMENT_POINTS].base +
+                                             infos.playerData.stats[(uint)StatIds::MOVEMENT_POINTS].alignGiftBonus +
+                                             infos.playerData.stats[(uint)StatIds::MOVEMENT_POINTS].contextModif +
+                                             infos.playerData.stats[(uint)StatIds::MOVEMENT_POINTS].objectsAndMountBonus +
+                                             infos.playerData.stats[(uint)StatIds::MOVEMENT_POINTS].additional));
+        if (m_engine->getStatsManager().getMaxHealthPoints(m_sender) != 0)
+        {
+            ui->labelInitiative->setText(QString("%1/%2")
+                                         .arg((infos.playerData.stats[(uint)StatIds::INITIATIVE].base +infos.playerData.stats[(uint)StatIds::INITIATIVE].alignGiftBonus +
+                                         infos.playerData.stats[(uint)StatIds::INITIATIVE].contextModif + infos.playerData.stats[(uint)StatIds::INITIATIVE].objectsAndMountBonus +
+                    infos.playerData.stats[(uint)StatIds::INITIATIVE].additional)*m_engine->getStatsManager().getHealthPoints(m_sender) / m_engine->getStatsManager().getMaxHealthPoints(m_sender))
+                    .arg(infos.playerData.stats[(uint)StatIds::INITIATIVE].base + infos.playerData.stats[(uint)StatIds::INITIATIVE].alignGiftBonus +
+                    infos.playerData.stats[(uint)StatIds::INITIATIVE].contextModif + infos.playerData.stats[(uint)StatIds::INITIATIVE].objectsAndMountBonus +
+                    infos.playerData.stats[(uint)StatIds::INITIATIVE].additional));
+        }
+        ui->labelProspecting->setText(QString::number(infos.playerData.stats[(uint)StatIds::MAGIC_FIND].base +
+                                                      infos.playerData.stats[(uint)StatIds::MAGIC_FIND].alignGiftBonus +
+                                                      infos.playerData.stats[(uint)StatIds::MAGIC_FIND].contextModif +
+                                                      infos.playerData.stats[(uint)StatIds::MAGIC_FIND].objectsAndMountBonus +
+                                                      infos.playerData.stats[(uint)StatIds::MAGIC_FIND].additional));
+        ui->labelRange->setText(QString::number(infos.playerData.stats[(uint)StatIds::RANGE].base +
+                                                infos.playerData.stats[(uint)StatIds::RANGE].alignGiftBonus +
+                                                infos.playerData.stats[(uint)StatIds::RANGE].contextModif +
+                                                infos.playerData.stats[(uint)StatIds::RANGE].objectsAndMountBonus +
+                                                infos.playerData.stats[(uint)StatIds::RANGE].additional));
+        ui->labelSummons->setText(QString::number(infos.playerData.stats[(uint)StatIds::MAX_SUMMONED_CREATURES_BOOST].base +
+                                                  infos.playerData.stats[(uint)StatIds::MAX_SUMMONED_CREATURES_BOOST].alignGiftBonus +
+                                                  infos.playerData.stats[(uint)StatIds::MAX_SUMMONED_CREATURES_BOOST].contextModif +
+                                                  infos.playerData.stats[(uint)StatIds::MAX_SUMMONED_CREATURES_BOOST].objectsAndMountBonus +
+                                                  infos.playerData.stats[(uint)StatIds::MAX_SUMMONED_CREATURES_BOOST].additional));
+        ui->labelVitality->setText(QString::number(infos.playerData.stats[(uint)StatIds::VITALITY].base +
+                                                   infos.playerData.stats[(uint)StatIds::VITALITY].alignGiftBonus +
+                                                   infos.playerData.stats[(uint)StatIds::VITALITY].contextModif +
+                                                   infos.playerData.stats[(uint)StatIds::VITALITY].objectsAndMountBonus +
+                                                   infos.playerData.stats[(uint)StatIds::VITALITY].additional));
+        ui->labelWisdom->setText(QString::number(infos.playerData.stats[(uint)StatIds::WISDOM].base +
+                                                 infos.playerData.stats[(uint)StatIds::WISDOM].alignGiftBonus +
+                                                 infos.playerData.stats[(uint)StatIds::WISDOM].contextModif +
+                                                 infos.playerData.stats[(uint)StatIds::WISDOM].objectsAndMountBonus +
+                                                 infos.playerData.stats[(uint)StatIds::WISDOM].additional));
+        ui->labelStrength->setText(QString::number(infos.playerData.stats[(uint)StatIds::STRENGTH].base +
+                                                   infos.playerData.stats[(uint)StatIds::STRENGTH].alignGiftBonus +
+                                                   infos.playerData.stats[(uint)StatIds::STRENGTH].contextModif +
+                                                   infos.playerData.stats[(uint)StatIds::STRENGTH].objectsAndMountBonus +
+                                                   infos.playerData.stats[(uint)StatIds::STRENGTH].additional));
+        ui->labelIntelligence->setText(QString::number(infos.playerData.stats[(uint)StatIds::INTELLIGENCE].base +
+                                                       infos.playerData.stats[(uint)StatIds::INTELLIGENCE].alignGiftBonus +
+                                                       infos.playerData.stats[(uint)StatIds::INTELLIGENCE].contextModif +
+                                                       infos.playerData.stats[(uint)StatIds::INTELLIGENCE].objectsAndMountBonus +
+                                                       infos.playerData.stats[(uint)StatIds::INTELLIGENCE].additional));
+        ui->labelChance->setText(QString::number(infos.playerData.stats[(uint)StatIds::CHANCE].base +
+                                                 infos.playerData.stats[(uint)StatIds::CHANCE].alignGiftBonus +
+                                                 infos.playerData.stats[(uint)StatIds::CHANCE].contextModif +
+                                                 infos.playerData.stats[(uint)StatIds::CHANCE].objectsAndMountBonus +
+                                                 infos.playerData.stats[(uint)StatIds::CHANCE].additional));
+        ui->labelAgility->setText(QString::number(infos.playerData.stats[(uint)StatIds::AGILITY].base +
+                                                  infos.playerData.stats[(uint)StatIds::AGILITY].alignGiftBonus +
+                                                  infos.playerData.stats[(uint)StatIds::AGILITY].contextModif +
+                                                  infos.playerData.stats[(uint)StatIds::AGILITY].objectsAndMountBonus +
+                                                  infos.playerData.stats[(uint)StatIds::AGILITY].additional));
+        ui->labelCapitalPoints->setText(QString("<b>%1</b>").arg(infos.playerData.stats[(uint)StatIds::STATS_POINTS].base));
 
 
         // Automatic booster
-        if(infos.playerData.stats.statsPoints != 0)
+        if(infos.playerData.stats[(uint)StatIds::STATS_POINTS].base != 0)
         {
             // Enable buttons stats if there are possibility for improve character's stats
-            if(infos.playerData.stats.statsRequiredVitality != 0)
+            if(infos.playerData.statsRequiredVitality != 0)
                 ui->pushButtonAddVitality->setEnabled(true);
             else
                 ui->pushButtonAddVitality->setEnabled(false);
 
-            if(infos.playerData.stats.statsRequiredWisdom != 0)
+            if(infos.playerData.statsRequiredWisdom != 0)
                 ui->pushButtonAddWisdom->setEnabled(true);
             else
                 ui->pushButtonAddWisdom->setEnabled(false);
 
-            if(infos.playerData.stats.statsRequiredStrength != 0)
+            if(infos.playerData.statsRequiredStrength != 0)
                 ui->pushButtonAddStrength->setEnabled(true);
             else
                 ui->pushButtonAddStrength->setEnabled(false);
 
-            if(infos.playerData.stats.statsRequiredIntelligence != 0)
+            if(infos.playerData.statsRequiredIntelligence != 0)
                 ui->pushButtonAddIntelligence->setEnabled(true);
             else
                 ui->pushButtonAddIntelligence->setEnabled(false);
 
-            if(infos.playerData.stats.statsRequiredChance != 0)
+            if(infos.playerData.statsRequiredChance != 0)
                 ui->pushButtonAddChance->setEnabled(true);
             else
                 ui->pushButtonAddChance->setEnabled(false);
 
-            if(infos.playerData.stats.statsRequiredAgility != 0)
+            if(infos.playerData.statsRequiredAgility != 0)
                 ui->pushButtonAddAgility->setEnabled(true);
             else
                 ui->pushButtonAddAgility->setEnabled(false);
@@ -192,7 +198,7 @@ void CharacterForm::updateInterface()
         }
 
 
-        if(infos.playerData.stats.vitality.base == 0 && infos.playerData.stats.wisdom.base == 0 && infos.playerData.stats.strength.base == 0 && infos.playerData.stats.intelligence.base == 0 && infos.playerData.stats.chance.base == 0 && infos.playerData.stats.agility.base == 0)
+        if(infos.playerData.stats[(uint)StatIds::VITALITY].base == 0 && infos.playerData.stats[(uint)StatIds::WISDOM].base == 0 && infos.playerData.stats[(uint)StatIds::STRENGTH].base == 0 && infos.playerData.stats[(uint)StatIds::INTELLIGENCE].base == 0 && infos.playerData.stats[(uint)StatIds::CHANCE].base == 0 && infos.playerData.stats[(uint)StatIds::AGILITY].base == 0)
             ui->pushButtonResetCharacteristics->setEnabled(false);
         else
             ui->pushButtonResetCharacteristics->setEnabled(true);
@@ -205,33 +211,33 @@ void CharacterForm::updateInterface()
             break;
 
         case 1:
-            if(infos.playerData.stats.statsPoints != 0 && infos.playerData.stats.statsRequiredVitality != 0)
-                m_engine->getStatsModule().increaseStat(m_sender, PlayerD2OFields::VITALITY);
+            if(infos.playerData.stats[(uint)StatIds::STATS_POINTS].base != 0 && infos.playerData.statsRequiredVitality != 0)
+                m_engine->getStatsManager().increaseStat(m_sender, PlayerD2OFields::VITALITY);
             break;
 
         case 2:
-            if(infos.playerData.stats.statsPoints != 0 && infos.playerData.stats.statsRequiredWisdom != 0)
-                m_engine->getStatsModule().increaseStat(m_sender, PlayerD2OFields::WISDOM);
+            if(infos.playerData.stats[(uint)StatIds::STATS_POINTS].base != 0 && infos.playerData.statsRequiredWisdom != 0)
+                m_engine->getStatsManager().increaseStat(m_sender, PlayerD2OFields::WISDOM);
             break;
 
         case 3:
-            if(infos.playerData.stats.statsPoints != 0 && infos.playerData.stats.statsRequiredStrength != 0)
-                m_engine->getStatsModule().increaseStat(m_sender, PlayerD2OFields::STRENGTH);
+            if(infos.playerData.stats[(uint)StatIds::STATS_POINTS].base != 0 && infos.playerData.statsRequiredStrength != 0)
+                m_engine->getStatsManager().increaseStat(m_sender, PlayerD2OFields::STRENGTH);
             break;
 
         case 4:
-            if(infos.playerData.stats.statsPoints != 0 && infos.playerData.stats.statsRequiredIntelligence != 0)
-                m_engine->getStatsModule().increaseStat(m_sender, PlayerD2OFields::INTELLIGENCE);
+            if(infos.playerData.stats[(uint)StatIds::STATS_POINTS].base != 0 && infos.playerData.statsRequiredIntelligence != 0)
+                m_engine->getStatsManager().increaseStat(m_sender, PlayerD2OFields::INTELLIGENCE);
             break;
 
         case 5:
-            if(infos.playerData.stats.statsPoints != 0 && infos.playerData.stats.statsRequiredChance != 0)
-                m_engine->getStatsModule().increaseStat(m_sender, PlayerD2OFields::CHANCE);
+            if(infos.playerData.stats[(uint)StatIds::STATS_POINTS].base != 0 && infos.playerData.statsRequiredChance != 0)
+                m_engine->getStatsManager().increaseStat(m_sender, PlayerD2OFields::CHANCE);
             break;
 
         case 6:
-            if(infos.playerData.stats.statsPoints != 0 && infos.playerData.stats.statsRequiredAgility != 0)
-                m_engine->getStatsModule().increaseStat(m_sender, PlayerD2OFields::AGILITY);
+            if(infos.playerData.stats[(uint)StatIds::STATS_POINTS].base != 0 && infos.playerData.statsRequiredAgility != 0)
+                m_engine->getStatsManager().increaseStat(m_sender, PlayerD2OFields::AGILITY);
             break;
         }
 
@@ -268,7 +274,6 @@ void CharacterForm::updateInterface()
         QSharedPointer<JobData> jobData;
         foreach(const JobExperience &e, infos.craftData.jobs)
         {
-            //qDebug() << "Name job:" << jobData->getName();
             if(e.jobLevel != 1 && (qRound(100*((double)(e.jobXP-e.jobXpLevelFloor)/(double)(e.jobXpNextLevelFloor-e.jobXpLevelFloor)))) != 0)
             {
                 jobData = qSharedPointerCast<JobData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::JOBS, e.jobId));
@@ -295,13 +300,9 @@ void CharacterForm::updateInterface()
 
 void CharacterForm::loadCharacterFullUrl(QNetworkReply *reply)
 {
-    //qDebug() << "NetworkError:" << reply->error();
-
-    QByteArray uii = reply->readAll();
-
     QPixmap pixmap;
-    pixmap.loadFromData(uii);
-    ui->labelImage->setPixmap(pixmap);
+    pixmap.loadFromData(reply->readAll());
+    m_engine->getStatsManager().defineSkinFull(m_sender, pixmap);
     reply->deleteLater();
 }
 
@@ -309,43 +310,43 @@ void CharacterForm::loadCharacterFaceUrl(QNetworkReply *reply)
 {
     QPixmap pixmap;
     pixmap.loadFromData(reply->readAll());
-    m_engine->getStatsModule().defineSkinHead(m_sender, pixmap);
+    m_engine->getStatsManager().defineSkinHead(m_sender, pixmap);
     reply->deleteLater();
 }
 
 void CharacterForm::on_pushButtonAddVitality_clicked()
 {
-    m_engine->getStatsModule().increaseStat(m_sender, PlayerD2OFields::VITALITY);
+    m_engine->getStatsManager().increaseStat(m_sender, PlayerD2OFields::VITALITY);
 }
 
 void CharacterForm::on_pushButtonAddWisdom_clicked()
 {
-    m_engine->getStatsModule().increaseStat(m_sender, PlayerD2OFields::WISDOM);
+    m_engine->getStatsManager().increaseStat(m_sender, PlayerD2OFields::WISDOM);
 }
 
 void CharacterForm::on_pushButtonAddStrength_clicked()
 {
-    m_engine->getStatsModule().increaseStat(m_sender, PlayerD2OFields::STRENGTH);
+    m_engine->getStatsManager().increaseStat(m_sender, PlayerD2OFields::STRENGTH);
 }
 
 void CharacterForm::on_pushButtonAddIntelligence_clicked()
 {
-    m_engine->getStatsModule().increaseStat(m_sender, PlayerD2OFields::INTELLIGENCE);
+    m_engine->getStatsManager().increaseStat(m_sender, PlayerD2OFields::INTELLIGENCE);
 }
 
 void CharacterForm::on_pushButtonAddChance_clicked()
 {
-    m_engine->getStatsModule().increaseStat(m_sender, PlayerD2OFields::CHANCE);
+    m_engine->getStatsManager().increaseStat(m_sender, PlayerD2OFields::CHANCE);
 }
 
 void CharacterForm::on_pushButtonAddAgility_clicked()
 {
-    m_engine->getStatsModule().increaseStat(m_sender, PlayerD2OFields::AGILITY);
+    m_engine->getStatsManager().increaseStat(m_sender, PlayerD2OFields::AGILITY);
 }
 
 void CharacterForm::on_pushButtonResetCharacteristics_clicked()
 {
-    int answ = QMessageBox::warning(this, "Attention", "Etes-vous sûr de vouloir réinitialiser vos caractéristiques ?", QMessageBox::Yes | QMessageBox::No);
+    int answ = QMessageBox::warning(this, "Warning", "Are you sur you want to reset your characteristics?", QMessageBox::Yes | QMessageBox::No);
     if(answ == QMessageBox::Yes)
-        m_engine->getStatsModule().resetStat(m_sender);
+        m_engine->getStatsManager().resetStat(m_sender);
 }

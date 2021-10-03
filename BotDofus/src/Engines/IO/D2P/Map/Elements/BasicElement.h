@@ -1,12 +1,22 @@
 ﻿#pragma once
 
-#include "src/Engines/IO/Network/Reader.h"
-#include "src/Engines/IO/D2P/Enums/EnumDeclarator.h"
-#include "GraphicalElement.h"
-#include "SoundElement.h"
+#include "src/engines/io/network/Reader.h"
+#include "src/engines/io/d2p/map/elements/enums/ElementTypesEnum.h"
+#include "src/engines/io/d2p/map/Map.h"
+//#include "GraphicalElement.h"
+//#include "SoundElement.h"
+
+class SoundElement;
+class GraphicalElement;
 
 class BasicElement
 {
 public:
+    BasicElement()=default;
     BasicElement(Reader *reader, Map *map, int cellId);
+
+    QSharedPointer<BasicElement> getElement();
+
+private:
+    QSharedPointer<BasicElement> m_element;
 };

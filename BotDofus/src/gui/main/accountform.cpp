@@ -10,7 +10,7 @@ AccountForm::AccountForm(ProcessEngine *engine, const ConnectionInfos &infos, QW
     // Liste d'initialisations
     m_engine = engine;
     m_infos = infos;
-    m_sender = m_engine->getConnectionModule().addConnection(m_infos);
+    m_sender = m_engine->getConnectionManager().addConnection(m_infos);
 
     consoleForm = new ConsoleForm(m_engine, m_infos, m_sender, this);
     characterForm = new CharacterForm(m_engine, m_infos, m_sender, this);
@@ -23,13 +23,13 @@ AccountForm::AccountForm(ProcessEngine *engine, const ConnectionInfos &infos, QW
 
     // Initialisation des tabs
     ui->tabWidget->addTab(consoleForm,QIcon(":/icons/text_align_left_16px.ico"),"Console");
-    ui->tabWidget->addTab(characterForm,QIcon(":/icons/user_16px.ico"),"Personnage");
-    ui->tabWidget->addTab(inventoryForm,QIcon(":/icons/luggage_brown_16px.ico"),"Inventaire");
-    ui->tabWidget->addTab(mapForm,QIcon(":/icons/map_16px.ico"),"Carte");
+    ui->tabWidget->addTab(characterForm,QIcon(":/icons/user_16px.ico"),"Character");
+    ui->tabWidget->addTab(inventoryForm,QIcon(":/icons/luggage_brown_16px.ico"),"Inventory");
+    ui->tabWidget->addTab(mapForm,QIcon(":/icons/map_16px.ico"),"Map");
     ui->tabWidget->addTab(floodForm,QIcon(":/icons/comment_16px.ico"),"Flood");
-    ui->tabWidget->addTab(fightForm,QIcon(":/icons/sword_16px.ico"),"Combat");
-    ui->tabWidget->addTab(statisticsForm,QIcon(":/icons/statistics_16px.ico"),"Statistiques");
-    ui->tabWidget->addTab(settingsForm,QIcon(":/icons/cog_16px.ico"),"Options");
+    ui->tabWidget->addTab(fightForm,QIcon(":/icons/sword_16px.ico"),"Fight");
+    ui->tabWidget->addTab(statisticsForm,QIcon(":/icons/statistics_16px.ico"),"Statistics");
+    ui->tabWidget->addTab(settingsForm,QIcon(":/icons/cog_16px.ico"),"Settings");
     ui->tabWidget->setCurrentIndex(0);
 
     updateInterface();
@@ -84,7 +84,7 @@ AccountForm::AccountForm(ProcessEngine *engine, const ConnectionInfos &infos, QW
 
 AccountForm::~AccountForm()
 {
-    m_engine->getConnectionModule().removeConnection(m_sender);
+    m_engine->getConnectionManager().removeConnection(m_sender);
     delete consoleForm;
     delete characterForm;
     delete inventoryForm;
@@ -99,37 +99,6 @@ AccountForm::~AccountForm()
 SocketIO *AccountForm::getSocket()
 {
     return m_sender;
-}
-
-QString AccountForm::getTime(uint timeStamp)
-{
-    QString date = "";
-
-    QTime time = QDateTime::fromTime_t(timeStamp).time();
-    int hours = time.hour();
-    int minutes = time.minute();
-    int seconds = time.second();
-
-    if (hours < 10)
-        date += "0"+QString::number(hours);
-    else
-        date += QString::number(hours);
-
-    date += ":";
-
-    if (minutes < 10)
-        date += "0"+QString::number(minutes);
-    else
-        date += QString::number(minutes);
-
-    date += ":";
-
-    if (seconds < 10)
-        date += "0"+QString::number(seconds);
-    else
-        date += QString::number(seconds);
-
-    return date;
 }
 
 ConnectionInfos AccountForm::getConnectionInfos()
@@ -192,28 +161,53 @@ void AccountForm::setAccountFormChilds(QList<AccountForm *> accountForms)
     m_accountFormChilds = accountForms;
 }
 
-int AccountForm::loadPath(QString path, bool unload)
+void AccountForm::loadScript(QString path)
 {
-    if (!unload)
+    menuScript->clear(); // Reinitialisation du menu
+
+    ui->pushButtonFile->setText(QFileInfo(path).fileName());
+
+    if(!path.isEmpty())
     {
-        if (!m_engine->getScriptModule().loadFile(m_sender, path))
-            return INVALID;
+        menuScript->addAction(ui->actionLoadScript);
+        menuScript->addAction(ui->actionRunScript);
+        m_path = path;
 
-        uint i = m_engine->getScriptModule().parse(m_sender);
-        if (i)
-            return i;
-
-        m_engine->getGroupModule().setFollowUpEnabled(m_sender, false);
-        m_engine->getScriptModule().setActivePath(m_sender, true);
-
-        return 0;
+        m_engine->info(m_sender) << "Script loaded.";
     }
-
     else
     {
-        m_engine->getScriptModule().unloadFile(m_sender);
-        return 0;
+        menuScript->addAction(ui->actionLoadScript);
+
+        m_engine->info(m_sender) << "Script unloaded.";
     }
+
+    ui->pushButtonFile->setMenu(menuScript);
+}
+
+int AccountForm::loadPath(QString path, bool unload)
+{
+    //    if (!unload)
+    //    {
+    //        if (!m_engine->getScriptModule().loadFile(m_sender, path))
+    //            return INVALID;
+
+    //        uint i = m_engine->getScriptModule().parse(m_sender);
+    //        if (i)
+    //            return i;
+
+    //        m_engine->getGroupModule().setFollowUpEnabled(m_sender, false);
+    //        m_engine->getScriptModule().setActivePath(m_sender, true);
+
+    //        return 0;
+    //    }
+
+    //    else
+    //    {
+    //        m_engine->getScriptModule().unloadFile(m_sender);
+    //        return 0;
+    //    }
+    return 0;
 }
 
 void AccountForm::autoConnect()
@@ -267,7 +261,7 @@ void AccountForm::updateInterface()
             ui->labelInfosPosition->setText(QString("<b>[%1,%2]</b> %3 (%4)").arg(infos.mapData.map.getPosition().getX()).arg(infos.mapData.map.getPosition().getY()).arg(area).arg(subAreas->getName()));
 
             if (infos.connectionData.connectionInfos.character != infos.connectionData.connectionInfos.masterGroup && infos.groupData.master == "" && !infos.connectionData.connectionInfos.masterGroup.isEmpty())
-                    m_engine->getGroupModule().setMaster(m_sender, infos.connectionData.connectionInfos.masterGroup);
+                    m_engine->getGroupManager().setMaster(m_sender, infos.connectionData.connectionInfos.masterGroup);
 
             // Experience du personnage
             if(infos.mapData.gameContext == GameContextEnum::ROLE_PLAY)
@@ -276,8 +270,8 @@ void AccountForm::updateInterface()
             else if(infos.mapData.gameContext == GameContextEnum::FIGHT)
                 ui->progressBarExperience->setFormat(QString("%1 (%p%)").arg(infos.fightData.fighters[infos.fightData.botFightData.botId].level));
 
-            ui->progressBarExperience->setMaximum(infos.playerData.stats.experienceNextLevelFloor-infos.playerData.stats.experienceLevelFloor);
-            ui->progressBarExperience->setValue(infos.playerData.stats.experience-infos.playerData.stats.experienceLevelFloor);
+            ui->progressBarExperience->setMaximum(infos.playerData.experienceNextLevelFloor-infos.playerData.experienceLevelFloor);
+            ui->progressBarExperience->setValue(infos.playerData.experience-infos.playerData.experienceLevelFloor);
         }
 
         // Abonnement du personnage
@@ -285,7 +279,7 @@ void AccountForm::updateInterface()
             ui->labelSubscriptionDofus->setText(tr("N/A"));
 
         else if(infos.playerData.subscriptionEndDate != 0)
-            ui->labelSubscriptionDofus->setText(D2OManagerSingleton::get()->getI18N()->getText("ui.connection.subscriberUntil").arg(getTime(infos.playerData.subscriptionEndDate)));
+            ui->labelSubscriptionDofus->setText(dateToString(infos.playerData.subscriptionEndDate));
 
         else
             ui->labelSubscriptionDofus->setText(D2OManagerSingleton::get()->getI18N()->getText("ui.common.non_subscriber"));
@@ -296,107 +290,93 @@ void AccountForm::updateInterface()
         case BotState::MOVING_STATE:
         {
             ui->labelIconStatus->setPixmap(QPixmap(":/icons/bullet_green_16px.ico"));
-            ui->labelStatus->setText(tr("Déplacement"));
+            ui->labelStatus->setText(tr("Moving"));
         }
             break;
         case BotState::MAP_TRANSITION_STATE:
         case BotState::CALCULATING_STATE:
         {
             ui->labelIconStatus->setPixmap(QPixmap(":/icons/bullet_red_16px.ico"));
-            ui->labelStatus->setText(tr("Occupé"));
+            ui->labelStatus->setText(tr("Busy"));
         }
             break;
         case BotState::FARMING_STATE:
         {
             ui->labelIconStatus->setPixmap(QPixmap(":/icons/bullet_green_16px.ico"));
-            ui->labelStatus->setText(tr("Récolte"));
+            ui->labelStatus->setText(tr("Harvest"));
         }
             break;
         case BotState::BANKING_STATE:
         {
             ui->labelIconStatus->setPixmap(QPixmap(":/icons/bullet_green_16px.ico"));
-            ui->labelStatus->setText(tr("Banque"));
+            ui->labelStatus->setText(tr("Bank"));
         }
             break;
         case BotState::INVALID_STATE:
-            ui->labelStatus->setText(tr("Invalide"));
+            ui->labelStatus->setText(tr("Invalid"));
             break;
         case BotState::CRAFTING_STATE:
         {
             ui->labelIconStatus->setPixmap(QPixmap(":/icons/bullet_green_16px.ico"));
-            ui->labelStatus->setText(tr("Artisanat"));
+            ui->labelStatus->setText(tr("Craft"));
         }
             break;
         case BotState::FIGHTING_STATE:
         {
             ui->labelIconStatus->setPixmap(QPixmap(":/icons/bullet_green_16px.ico"));
-            ui->labelStatus->setText(tr("Combat"));
+            ui->labelStatus->setText(tr("Fight"));
         }
             break;
         case BotState::INACTIVE_STATE:
         {
             ui->labelIconStatus->setPixmap(QPixmap(":/icons/bullet_green_16px.ico"));
-            ui->labelStatus->setText(tr("Inactif"));
+            ui->labelStatus->setText(tr("Inactive"));
         }
             break;
         case BotState::EXCHANGING_STATE:
         {
             ui->labelIconStatus->setPixmap(QPixmap(":/icons/bullet_green_16px.ico"));
-            ui->labelStatus->setText(tr("Échange"));
+            ui->labelStatus->setText(tr("Exchange"));
         }
             break;
         case BotState::REGENERATING_STATE:
         {
             ui->labelIconStatus->setPixmap(QPixmap(":/icons/bullet_green_16px.ico"));
-            ui->labelStatus->setText(tr("Régénération"));
+            ui->labelStatus->setText(tr("Regeneration"));
         }
             break;
         }
 
 
         // Energie du personnage
-        ui->progressBarEnergy->setMaximum(infos.playerData.stats.maxEnergyPoints);
-        ui->progressBarEnergy->setValue(infos.playerData.stats.energyPoints);
+        ui->progressBarEnergy->setMaximum(infos.playerData.stats[(uint)StatIds::MAX_ENERGY_POINTS].total);
+        ui->progressBarEnergy->setValue(infos.playerData.stats[(uint)StatIds::ENERGY_POINTS].total);
 
 
         // Vie du personnage
-        ui->progressBarLife->setMaximum(infos.playerData.stats.maxLifePoints);
-        ui->progressBarLife->setValue(infos.playerData.stats.lifePoints);
+        ui->progressBarLife->setMaximum(m_engine->getStatsManager().getMaxHealthPoints(m_sender));
+        ui->progressBarLife->setValue(m_engine->getStatsManager().getHealthPoints(m_sender));
 
 
         // Pods du personnage
-        ui->progressBarPods->setMaximum(infos.playerData.stats.pods.max);
-        ui->progressBarPods->setValue(infos.playerData.stats.pods.current);
+        ui->progressBarPods->setMaximum(infos.playerData.pods.max);
+        ui->progressBarPods->setValue(infos.playerData.pods.current);
 
 
         // Kamas du personnage
         ui->labelKamas->setText(QString("%1 <b>₭</b>").arg(infos.playerData.kamas));
-
-//        if(m_accountFormChilds.size())
-//        {
-//            bool memberNotConnected = false;
-//            foreach(AccountForm *accountForm, m_accountFormChilds)
-//            {
-//                if(accountForm->getData().connectionData.connectionState != ConnectionState::CONNECTED || accountForm->getData().generalData.botState != BotState::INACTIVE_STATE)
-//                    memberNotConnected = true;
-//            }
-
-//            if(!memberNotConnected)
-//            {
-//                m_engine->getGroupModule().setMaster(m_sender, getData().connectionData.connectionInfos.masterGroup);
-//            }
-//        }
     }
 
     if (infos.connectionData.connectionState == ConnectionState::TRANSITION)
     {
-        m_engine->getStatsModule().defineSkinHead(m_sender, QPixmap(":/icons/user.png"));
+        m_engine->getStatsManager().defineSkinHead(m_sender, QPixmap(":/icons/user.png"));
+        m_engine->getStatsManager().defineSkinFull(m_sender, QPixmap(":/icons/character.png"));
     }
 
     if (infos.connectionData.connectionState == ConnectionState::DISCONNECTED)
     {
         ui->pushButtonDisconnection->setIcon(QIcon(":/icons/connect_16px.ico"));
-        ui->pushButtonDisconnection->setToolTip(tr("Connexion"));
+        ui->pushButtonDisconnection->setToolTip(tr("Connection"));
 
         for(int i = 1; i <= ui->tabWidget->count()-2; i++)
             ui->tabWidget->setTabEnabled(i, false);
@@ -424,47 +404,29 @@ void AccountForm::updateInterface()
         ui->labelKamas->clear();
 
         ui->labelIconStatus->setPixmap(QPixmap(":/icons/bullet_red_16px.ico"));
-        ui->labelStatus->setText(tr("Déconnecté"));
+        ui->labelStatus->setText(tr("Disconnected"));
     }
 }
 
 void AccountForm::on_pushButtonDisconnection_clicked()
 {
     if(!m_sender->isActive())
-        m_engine->getConnectionModule().connect(m_sender);
+        m_engine->getConnectionManager().connect(m_sender);
 
     else
-        m_engine->getConnectionModule().disconnect(m_sender);
+        m_engine->getConnectionManager().disconnect(m_sender);
 }
 
 void AccountForm::on_actionLoadScript_triggered()
 {
-    QString path = QFileDialog::getOpenFileName(nullptr, "Selectionner un fichier");
+    QString path = QFileDialog::getOpenFileName(nullptr, "Select a file");
 
-    menuScript->clear(); // Reinitialisation du menu
-    if(!path.isEmpty())
-    {
-        ui->pushButtonFile->setText(QFileInfo(path).fileName());
-        menuScript->addAction(ui->actionLoadScript);
-        menuScript->addAction(ui->actionRunScript);
-        m_path = path;
-
-        m_engine->info(m_sender) << "Script chargé.";
-    }
-    else
-    {
-        ui->pushButtonFile->setText(QFileInfo(path).fileName());
-        menuScript->addAction(ui->actionLoadScript);
-
-        m_engine->info(m_sender) << "Script déchargé.";
-    }
-
-    ui->pushButtonFile->setMenu(menuScript);
+    loadScript(path);
 }
 
 void AccountForm::on_actionRunScript_triggered()
 {
-    if(ui->actionRunScript->text() == "Démarrer le script")
+    if(ui->actionRunScript->text() == "Start the script")
     {
         bool p = false;
 
@@ -481,15 +443,15 @@ void AccountForm::on_actionRunScript_triggered()
         if (!p)
         {
             ui->actionRunScript->setIcon(QIcon(":/icons/script_delete_16px.ico"));
-            ui->actionRunScript->setText(tr("Arrêter le script"));
+            ui->actionRunScript->setText(tr("Stop the script"));
         }
     }
-    else if(ui->actionRunScript->text() == "Arrêter le script")
+    else if(ui->actionRunScript->text() == "Stop the script")
     {
         loadPath(QString(), true);
 
         ui->actionRunScript->setIcon(QIcon(":/icons/script_go_16px.ico"));
-        ui->actionRunScript->setText(tr("Démarrer le script"));
+        ui->actionRunScript->setText(tr("Start the script"));
     }
 }
 
@@ -497,7 +459,7 @@ void AccountForm::on_pushButtonClose_clicked()
 {
     if (m_sender->isActive())
     {
-        int answ = QMessageBox::warning(this, "Attention", "Etes-vous sûr de vouloir fermer ce compte ?\nIl est actuellement en ligne.", QMessageBox::Yes | QMessageBox::No);
+        int answ = QMessageBox::warning(this, "Warning", "Are you sur you want to close this account?\nIt's currently online.", QMessageBox::Yes | QMessageBox::No);
         if(answ == QMessageBox::Yes)
         {
             if(m_accountFormChilds.size())
@@ -505,16 +467,12 @@ void AccountForm::on_pushButtonClose_clicked()
                 foreach(AccountForm *accountForm, m_accountFormChilds)
                 {
                     if (accountForm->getSocket()->isActive())
-                    {
-                        accountForm->getEngine()->getConnectionModule().disconnect(accountForm->getSocket());
-                        emit remove(accountForm, true);
-                    }
+                        accountForm->getEngine()->getConnectionManager().disconnect(accountForm->getSocket());
 
-                    else
-                        emit remove(accountForm, true);
+                    emit remove(accountForm, true);
                 }
             }
-            m_engine->getConnectionModule().disconnect(m_sender);
+            m_engine->getConnectionManager().disconnect(m_sender);
             emit remove(this);
         }
     }
@@ -526,13 +484,9 @@ void AccountForm::on_pushButtonClose_clicked()
             foreach(AccountForm *accountForm, m_accountFormChilds)
             {
                 if (accountForm->getSocket()->isActive())
-                {
-                    accountForm->getEngine()->getConnectionModule().disconnect(accountForm->getSocket());
-                    emit remove(accountForm, true);
-                }
+                    accountForm->getEngine()->getConnectionManager().disconnect(accountForm->getSocket());
 
-                else
-                    emit remove(accountForm, true);
+                emit remove(accountForm, true);
             }
         }
         emit remove(this);
@@ -542,11 +496,11 @@ void AccountForm::on_pushButtonClose_clicked()
 void AccountForm::on_actionTeleportSlavesToMaster_triggered()
 {
     if(m_engine->getData(m_sender).connectionData.connectionInfos.masterGroup != m_engine->getData(m_sender).connectionData.connectionInfos.character)
-        m_engine->getGroupModule().teleportSlavesToMaster(m_sender, m_engine->getData(m_sender).connectionData.connectionInfos.masterGroup);
+        m_engine->getGroupManager().teleportSlavesToMaster(m_sender, m_engine->getData(m_sender).connectionData.connectionInfos.masterGroup);
 
     else
     {
-        foreach(SocketIO *slave, m_engine->getGroupModule().getSlaves(m_sender))
-            m_engine->getGroupModule().teleportSlavesToMaster(slave, m_engine->getData(slave).connectionData.connectionInfos.masterGroup);
+        foreach(SocketIO *slave, m_engine->getGroupManager().getSlaves(m_sender))
+            m_engine->getGroupManager().teleportSlavesToMaster(slave, m_engine->getData(slave).connectionData.connectionInfos.masterGroup);
     }
 }

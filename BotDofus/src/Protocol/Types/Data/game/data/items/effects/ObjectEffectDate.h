@@ -1,9 +1,9 @@
 #ifndef OBJECTEFFECTDATE_H
 #define OBJECTEFFECTDATE_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/data/items/effects/ObjectEffect.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/data/items/effects/ObjectEffect.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class ObjectEffectDate : public ObjectEffect
 {

@@ -7,7 +7,8 @@ void PartyInvitationRequestMessage::serialize(Writer *output)
 
 void PartyInvitationRequestMessage::serializeAs_PartyInvitationRequestMessage(Writer *output)
 {
-  output->writeUTF(this->name);
+  output->writeShort((short)this->target->getTypes().last());
+  this->target->serialize(output);
 }
 
 void PartyInvitationRequestMessage::deserialize(Reader *input)
@@ -17,7 +18,9 @@ void PartyInvitationRequestMessage::deserialize(Reader *input)
 
 void PartyInvitationRequestMessage::deserializeAs_PartyInvitationRequestMessage(Reader *input)
 {
-  this->_nameFunc(input);
+  uint _id1 = input->readUShort();
+  this->target = qSharedPointerCast<AbstractPlayerSearchInformation>(ClassManagerSingleton::get()->getClass(_id1));
+  this->target->deserialize(input);
 }
 
 void PartyInvitationRequestMessage::deserializeAsync(FuncTree tree)
@@ -27,12 +30,14 @@ void PartyInvitationRequestMessage::deserializeAsync(FuncTree tree)
 
 void PartyInvitationRequestMessage::deserializeAsyncAs_PartyInvitationRequestMessage(FuncTree tree)
 {
-  tree.addChild(std::bind(&PartyInvitationRequestMessage::_nameFunc, this, std::placeholders::_1));
+  this->_targettree = tree.addChild(std::bind(&PartyInvitationRequestMessage::_targettreeFunc, this, std::placeholders::_1));
 }
 
-void PartyInvitationRequestMessage::_nameFunc(Reader *input)
+void PartyInvitationRequestMessage::_targettreeFunc(Reader *input)
 {
-  this->name = input->readUTF();
+  uint _id = input->readUShort();
+  this->target = qSharedPointerCast<AbstractPlayerSearchInformation>(ClassManagerSingleton::get()->getClass(_id));
+  this->target->deserializeAsync(this->_targettree);
 }
 
 PartyInvitationRequestMessage::PartyInvitationRequestMessage()

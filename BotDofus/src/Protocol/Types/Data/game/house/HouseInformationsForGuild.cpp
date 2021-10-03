@@ -14,7 +14,7 @@ void HouseInformationsForGuild::serializeAs_HouseInformationsForGuild(Writer *ou
   }
   output->writeInt((int)this->instanceId);
   output->writeBool(this->secondHand);
-  output->writeUTF(this->ownerName);
+  this->ownerTag.serializeAs_AccountTagInformation(output);
   if(this->worldX < -255 || this->worldX > 255)
   {
     qDebug()<<"ERREUR - HouseInformationsForGuild -"<<"Forbidden value (" << this->worldX << ") on element worldX.";
@@ -58,7 +58,8 @@ void HouseInformationsForGuild::deserializeAs_HouseInformationsForGuild(Reader *
   HouseInformations::deserialize(input);
   this->_instanceIdFunc(input);
   this->_secondHandFunc(input);
-  this->_ownerNameFunc(input);
+  this->ownerTag = AccountTagInformation();
+  this->ownerTag.deserialize(input);
   this->_worldXFunc(input);
   this->_worldYFunc(input);
   this->_mapIdFunc(input);
@@ -82,7 +83,7 @@ void HouseInformationsForGuild::deserializeAsyncAs_HouseInformationsForGuild(Fun
   HouseInformations::deserializeAsync(tree);
   tree.addChild(std::bind(&HouseInformationsForGuild::_instanceIdFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&HouseInformationsForGuild::_secondHandFunc, this, std::placeholders::_1));
-  tree.addChild(std::bind(&HouseInformationsForGuild::_ownerNameFunc, this, std::placeholders::_1));
+  this->_ownerTagtree = tree.addChild(std::bind(&HouseInformationsForGuild::_ownerTagtreeFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&HouseInformationsForGuild::_worldXFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&HouseInformationsForGuild::_worldYFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&HouseInformationsForGuild::_mapIdFunc, this, std::placeholders::_1));
@@ -105,9 +106,10 @@ void HouseInformationsForGuild::_secondHandFunc(Reader *input)
   this->secondHand = input->readBool();
 }
 
-void HouseInformationsForGuild::_ownerNameFunc(Reader *input)
+void HouseInformationsForGuild::_ownerTagtreeFunc(Reader *input)
 {
-  this->ownerName = input->readUTF();
+  this->ownerTag = AccountTagInformation();
+  this->ownerTag.deserializeAsync(this->_ownerTagtree);
 }
 
 void HouseInformationsForGuild::_worldXFunc(Reader *input)
@@ -179,13 +181,14 @@ bool HouseInformationsForGuild::operator==(const HouseInformationsForGuild &comp
 {
   if(instanceId == compared.instanceId)
   if(secondHand == compared.secondHand)
-  if(ownerName == compared.ownerName)
+  if(ownerTag == compared.ownerTag)
   if(worldX == compared.worldX)
   if(worldY == compared.worldY)
   if(mapId == compared.mapId)
   if(subAreaId == compared.subAreaId)
   if(skillListIds == compared.skillListIds)
   if(guildshareParams == compared.guildshareParams)
+  if(_ownerTagtree == compared._ownerTagtree)
   if(_skillListIdstree == compared._skillListIdstree)
   return true;
   

@@ -1,8 +1,8 @@
 #ifndef SHORTCUT_H
 #define SHORTCUT_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class Shortcut : public AbstractClass
 {

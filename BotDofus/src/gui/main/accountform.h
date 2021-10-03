@@ -16,11 +16,9 @@
 #include "src/gui/main/forms/settingsform.h"
 #include "src/gui/main/forms/statisticsform.h"
 
-#include "src/Engines/Core/Process/ProcessEngine.h"
-#include "src/Engines/Storage/DataHandler.h"
-#include "src/Engines/Misc/Logging/LogOutput.h"
-
-#define UPDATE_INTERVAL 500
+#include "src/engines/core/process/ProcessEngine.h"
+#include "src/engines/DataHandler.h"
+#include "src/engines/utils/Logger/LogOutput.h"
 
 namespace Ui {
 class AccountForm;
@@ -35,7 +33,6 @@ public:
     ~AccountForm();
 
     SocketIO *getSocket();
-    QString getTime(uint timeStamp);
     ConnectionInfos getConnectionInfos();
     ProcessEngine *getEngine();
 
@@ -52,6 +49,7 @@ public:
     QList<AccountForm*> getAccountFormChilds();
     void setAccountFormChilds(QList<AccountForm*> accountForms);
 
+    void loadScript(QString path);
     int loadPath(QString path, bool unload);
 
     void autoConnect();
@@ -62,13 +60,16 @@ signals:
 public slots:
     void updateInterface();
 
-private slots:
-    void on_pushButtonDisconnection_clicked();
     void on_actionLoadScript_triggered();
     void on_actionRunScript_triggered();
+
+private slots:
+    void on_pushButtonDisconnection_clicked();
     void on_pushButtonClose_clicked();
 
     void on_actionTeleportSlavesToMaster_triggered();
+
+    void on_pushButtonDisableShield_clicked();
 
 private:
     Ui::AccountForm *ui;

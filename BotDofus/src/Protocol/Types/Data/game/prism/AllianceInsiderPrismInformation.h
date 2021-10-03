@@ -1,10 +1,10 @@
 #ifndef ALLIANCEINSIDERPRISMINFORMATION_H
 #define ALLIANCEINSIDERPRISMINFORMATION_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/data/items/ObjectItem.h"
-#include "src/Protocol/Types/Data/game/prism/PrismInformation.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/data/items/ObjectItem.h"
+#include "src/protocol/types/data/game/prism/PrismInformation.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class AllianceInsiderPrismInformation : public PrismInformation
 {

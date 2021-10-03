@@ -11,11 +11,63 @@ ConnectionDialog::ConnectionDialog(QWidget *parent) :
     m_db.setDatabaseName(USER_DATA_PATH);
 
     if(m_db.open())
+    {
         qDebug() << "Connected Successfully to DB !";
-    else
-        qDebug()<<"Le fichier"<<USER_DATA_PATH<<"ne peut pas etre ouvert/créé";
 
-    //QTimer::singleShot(0, this, SLOT(init()));
+        QSqlQuery query;
+        QString request = "CREATE TABLE IF NOT EXISTS accounts ("
+                          "idaccounts	INTEGER,"
+                          "alias	TEXT,"
+                          "login	NUMERIC,"
+                          "password	TEXT,"
+                          "character	TEXT,"
+                          "serverid	INTEGER,"
+                          "isbanned	INTEGER,"
+                          "lastconnection	INTEGER,"
+                          "PRIMARY KEY(idaccounts))";
+
+        query.prepare(request);
+        if (!query.exec())
+        {
+            qDebug() << "'account' database was not created!";
+        }
+
+
+        request = "CREATE TABLE IF NOT EXISTS globalParameters ("
+                  "d2o	TEXT,"
+                  "d2p	TEXT,"
+                  "i18n	TEXT,"
+                  "dofus_path	TEXT)";
+
+        query.prepare(request);
+        if (!query.exec())
+        {
+            qDebug() << "'globalParameters' database was not created!";
+        }
+
+
+        request = "CREATE TABLE IF NOT EXISTS creation ("
+                  "idcreation	INTEGER,"
+                  "name	TEXT,"
+                  "server	INTEGER,"
+                  "breed	INTEGER,"
+                  "sex	INTEGER,"
+                  "head	INTEGER,"
+                  "colors	TEXT,"
+                  "didactiel	INTEGER,"
+                  "idaccounts	INTEGER NOT NULL,"
+                  "PRIMARY KEY(idcreation AUTOINCREMENT))";
+
+        query.prepare(request);
+        if (!query.exec())
+        {
+            qDebug() << "'creation' database was not created!";
+        }
+
+    }
+    else
+        qDebug()<<"The"<<USER_DATA_PATH<<" file cannot be opened / created";
+
     init();
 }
 
@@ -26,17 +78,20 @@ ConnectionDialog::~ConnectionDialog()
 
 void ConnectionDialog::on_pushButtonBrowser_clicked()
 {
-    QString path = QFileDialog::getExistingDirectory(nullptr, "Selectionner un répertoire");
-    m_path = path;
-    ui->lineEditPathDofus->setText(path);
+    QString path = QFileDialog::getExistingDirectory(this);
+    if (!path.isEmpty())
+    {
+        m_path = path;
+        ui->lineEditPathDofus->setText(path);
+    }
 }
 
 void ConnectionDialog::on_lineEditPathDofus_textChanged(const QString &arg1)
 {
     if(arg1.isEmpty())
     {
-        ui->labelCheck->setStyleSheet("");
-        ui->labelCheck->setText(QString(tr("Sélectionnez le dossier '<b>Dofus</b>'")));
+        ui->labelCheck->setStyleSheet(QString());
+        ui->labelCheck->setText(QString(tr("Select '<b>Dofus</b>' folder")));
     }
     else
     {
@@ -51,7 +106,7 @@ void ConnectionDialog::on_lineEditPathDofus_textChanged(const QString &arg1)
                 {
                     D2O = m_path + "/data/common";
                     D2P = m_path + "/content";
-                    I18N = m_path + "/data/i18n/i18n_fr.d2i";
+                    I18N = m_path + QString("/data/i18n/i18n_%1.d2i").arg("fr");
 
                     QSqlQuery query;
                     query.prepare("INSERT INTO globalParameters (d2o , d2p , i18n, dofus_path) SELECT :d2o , :d2p , :i18n, :dofus_path WHERE NOT EXISTS (SELECT dofus_path FROM globalParameters WHERE d2o = :d2o AND d2p = :d2p AND i18n = :i18n)");
@@ -63,17 +118,20 @@ void ConnectionDialog::on_lineEditPathDofus_textChanged(const QString &arg1)
                     {
                         // ServerHandlerSingleton::get()->init();
                         D2OManagerSingleton::get()->init(D2O, I18N);
+                        qApp->processEvents();
                         D2PManagerSingleton::get()->init(D2P);
+                        qApp->processEvents();
                         PathfindingMap::initialize();
+                        qApp->processEvents();
                     }
 
                     // Pour l'emplacement valide
                     ui->labelCheck->setStyleSheet("color: rgba(85, 170, 0, 175);");
-                    ui->labelCheck->setText(QString(tr("Emplacement Dofus valide.")));
+                    ui->labelCheck->setText(QString(tr("Valid Dofus location.")));
                     ui->lineEditPathDofus->setEnabled(false);
                     ui->pushButtonConnect->setEnabled(true);
                     ui->pushButtonConnect->setFocus(Qt::FocusReason::MouseFocusReason);
-                    ui->labelStatus->setText(tr("En attente de connexion..."));
+                    ui->labelStatus->setText(tr("Waiting for connection..."));
                     ui->progressBar->setValue(40);
                     qApp->processEvents();
                 }
@@ -82,10 +140,10 @@ void ConnectionDialog::on_lineEditPathDofus_textChanged(const QString &arg1)
                 {
                     // Pour l'emplacement non valide
                     ui->labelCheck->setStyleSheet("color: rgba(255, 0, 0);");
-                    ui->labelCheck->setText(QString(tr("Emplacement Dofus non valide")));
+                    ui->labelCheck->setText(QString(tr("Invalid dofus location.")));
                     ui->lineEditPathDofus->setEnabled(true);
                     ui->pushButtonConnect->setEnabled(false);
-                    ui->labelStatus->setText(tr("Initialisation des données du jeu..."));
+                    ui->labelStatus->setText(tr("Initializing game data..."));
                     ui->progressBar->setValue(10);
                     qApp->processEvents();
                 }
@@ -95,10 +153,10 @@ void ConnectionDialog::on_lineEditPathDofus_textChanged(const QString &arg1)
             {
                 // Pour l'emplacement non valide
                 ui->labelCheck->setStyleSheet("color: rgba(255, 0, 0);");
-                ui->labelCheck->setText(QString(tr("Emplacement Dofus non valide")));
+                ui->labelCheck->setText(QString(tr("Invalid dofus location.")));
                 ui->lineEditPathDofus->setEnabled(true);
                 ui->pushButtonConnect->setEnabled(false);
-                ui->labelStatus->setText(tr("Initialisation des données du jeu..."));
+                ui->labelStatus->setText(tr("Initializing game data..."));
                 ui->progressBar->setValue(10);
                 qApp->processEvents();
             }
@@ -108,10 +166,10 @@ void ConnectionDialog::on_lineEditPathDofus_textChanged(const QString &arg1)
         {
             // Pour l'emplacement non valide
             ui->labelCheck->setStyleSheet("color: rgba(255, 0, 0);");
-            ui->labelCheck->setText(QString(tr("Emplacement Dofus non valide")));
+            ui->labelCheck->setText(QString(tr("Invalid dofus location.")));
             ui->lineEditPathDofus->setEnabled(true);
             ui->pushButtonConnect->setEnabled(false);
-            ui->labelStatus->setText(tr("Initialisation des données du jeu..."));
+            ui->labelStatus->setText(tr("Initializing game data..."));
             ui->progressBar->setValue(10);
             qApp->processEvents();
         }
@@ -120,17 +178,17 @@ void ConnectionDialog::on_lineEditPathDofus_textChanged(const QString &arg1)
 
 void ConnectionDialog::on_pushButtonConnect_clicked()
 {
-    ui->labelStatus->setText(tr("Connexion au serveur..."));
+    ui->labelStatus->setText(tr("Connection to server in progress..."));
     ui->progressBar->setValue(60);
     qApp->processEvents();
     // TODO : Etablir la connexion au serveur..
 
-    ui->labelStatus->setText(tr("Connexion au compte en cours..."));
+    ui->labelStatus->setText(tr("Connection to account in progress..."));
     ui->progressBar->setValue(80);
     qApp->processEvents();
     // TODO : Etablir la connexion au compte SweatedBox..
 
-    ui->labelStatus->setText(tr("Lancement de SweatedBox..."));
+    ui->labelStatus->setText(tr("Launch SweatedBox..."));
     ui->progressBar->setValue(100);
     qApp->processEvents();
 
@@ -160,9 +218,9 @@ void ConnectionDialog::init()
 
     if(ui->lineEditPathDofus->text().isEmpty())
     {
-        ui->labelCheck->setText(QString(tr("Sélectionnez le dossier '<b>Dofus</b>'")));
+        ui->labelCheck->setText(QString(tr("Select '<b>Dofus</b>' folder")));
         ui->pushButtonConnect->setEnabled(false);
-        ui->labelStatus->setText(tr("Initialisation des données du jeu..."));
+        ui->labelStatus->setText(tr("Initializing game data..."));
         ui->progressBar->setValue(10);
     }
 }

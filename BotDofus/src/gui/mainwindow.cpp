@@ -9,7 +9,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     initTrayMenu();
 
-    ui->treeWidgetAccount->setItemDelegate(new QTreeWidgetItemDelegate);
+    ui->treeWidgetAccount->setItemDelegate(new QTreeWidgetItemDelegate(this));
+    ui->pushButtonQuickAccess->setMenu(ui->menuEdit);
+    ui->pushButtonQuickAccess->setStyleSheet("QPushButton::menu-indicator{width:0px;}");
 
     // Liste de connexions
     connect(ui->pushButtonAccountManager, SIGNAL(clicked()), this, SLOT(on_actionAccountManager_triggered()));
@@ -36,8 +38,8 @@ void MainWindow::initTrayMenu()
     trayIcon->setToolTip("SweatedBox");
 
     QMenu * menu = new QMenu(this);
-    QAction * viewWindow = new QAction("Afficher", this);
-    QAction * quitAction = new QAction("Quitter", this);
+    QAction * viewWindow = new QAction("Maximize", this);
+    QAction * quitAction = new QAction("Quit", this);
 
     connect(viewWindow, SIGNAL(triggered()), this, SLOT(show()));
     connect(quitAction, SIGNAL(triggered()), this, SLOT(close()));
@@ -76,7 +78,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
     if(isActive)
     {
-        int answ = QMessageBox::warning(this, "Attention", "Etes-vous sûr de vouloir fermer SweatedBox ?\nIl y a un ou plusieur bot actuellement en ligne.", QMessageBox::Yes | QMessageBox::No);
+        int answ = QMessageBox::warning(this, "Warning", "Are you sur you wan to close SweatedBox?\nThere is one or more bots currently online.", QMessageBox::Yes | QMessageBox::No);
         if(answ == QMessageBox::No)
         {
             event->ignore();
@@ -101,14 +103,14 @@ void MainWindow::addAccount(const QList<ConnectionInfos> &accounts)
     }
 
     if (alreadyExist)
-        QMessageBox::critical(NULL,"Erreur","Le compte est déjà chargé en mémoire");
+        QMessageBox::critical(NULL,"Error","The account is already loaded into memory");
 
     else
     {
         QProgressDialog progressDlg(this);
         progressDlg.setWindowModality(Qt::WindowModal);
         progressDlg.setMinimumWidth(350);
-        progressDlg.setWindowTitle("Chargement des comptes");
+        progressDlg.setWindowTitle("Loading accounts");
         progressDlg.setCancelButton(nullptr);
         progressDlg.setAutoClose(true);
         progressDlg.setMaximum(accounts.size());
@@ -116,75 +118,81 @@ void MainWindow::addAccount(const QList<ConnectionInfos> &accounts)
 
         QList<AccountForm*> accountFormsToAutoConnect;
 
-        if(accounts.first().masterGroup.isEmpty())
+        if (!accounts.isEmpty())
         {
-            // Remplissement de la liste de comptes avec leur Widget
-            for(int i = 0; i < accounts.size(); i++)
+            if(accounts.first().masterGroup.isEmpty())
             {
-                progressDlg.setLabelText(QString("Chargement du compte <b>%1</b>...").arg(accounts.at(i).alias.isEmpty() ? accounts.at(i).login: accounts.at(i).alias));
-                progressDlg.setValue(i+1);
-                qApp->processEvents();
+                // Remplissement de la liste de comptes avec leur Widget
+                for(int i = 0; i < accounts.size(); i++)
+                {
+                    progressDlg.setLabelText(QString("Loading the <b>%1</b> account...").arg(accounts.at(i).alias.isEmpty() ? accounts.at(i).login: accounts.at(i).alias));
+                    progressDlg.setValue(i+1);
+                    qApp->processEvents();
 
-                AccountForm *accountForm = new AccountForm(&m_engine, accounts.at(i));
-                connect(accountForm, SIGNAL(remove(AccountForm*, bool)), this, SLOT(remove(AccountForm*, bool)));
-                ui->stackedWidget->addWidget(accountForm);
+                    AccountForm *accountForm = new AccountForm(&m_engine, accounts.at(i));
+                    connect(accountForm, SIGNAL(remove(AccountForm*, bool)), this, SLOT(remove(AccountForm*, bool)));
+                    ui->stackedWidget->addWidget(accountForm);
 
-                QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidgetAccount);
-                item->setData(0, 1, accounts.at(i).alias.isEmpty() ? accounts.at(i).login: accounts.at(i).alias);
-                item->setData(0, 2, (uint)ConnectionState::DISCONNECTED);
-                item->setData(0, 4, QPixmap(":/icons/user.png"));
-                item->setData(0, Qt::UserRole, QVariant::fromValue(accountForm));
+                    QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidgetAccount);
+                    item->setData(0, 1, accounts.at(i).alias.isEmpty() ? accounts.at(i).login: accounts.at(i).alias);
+                    item->setData(0, 2, (uint)ConnectionState::DISCONNECTED);
+                    item->setData(0, 4, QPixmap(":/icons/user.png"));
+                    item->setData(0, Qt::UserRole, QVariant::fromValue(accountForm));
 
-                m_accountForms << accountForm;
-                accountFormsToAutoConnect << accountForm;
-                ui->treeWidgetAccount->addTopLevelItem(item);
-            }
-        }
-
-        else
-        {
-            // Add Master
-            AccountForm *accountFormMaster = new AccountForm(&m_engine, accounts.first());
-            connect(accountFormMaster, SIGNAL(remove(AccountForm*, bool)), this, SLOT(remove(AccountForm*, bool)));
-            ui->stackedWidget->addWidget(accountFormMaster);
-
-            QTreeWidgetItem *parentItem = new QTreeWidgetItem(ui->treeWidgetAccount);
-            parentItem->setData(0, 1, accounts.first().alias.isEmpty() ? accounts.first().login: accounts.first().alias);
-            parentItem->setData(0, 2, (uint)ConnectionState::DISCONNECTED);
-            parentItem->setData(0, 4, QPixmap(":/icons/user.png"));
-            parentItem->setData(0, Qt::UserRole, QVariant::fromValue(accountFormMaster));
-
-            m_accountForms << accountFormMaster;
-            accountFormsToAutoConnect << accountFormMaster;
-
-            QList<AccountForm *> accountFormsChilds;
-
-            // Add Slaves
-            for(int i = 1; i < accounts.size(); i++)
-            {
-                progressDlg.setLabelText(QString("Chargement du groupe de <b>%1</b> (%2/%3)...").arg(accounts.at(i).masterGroup).arg(i+1).arg(accounts.size()));
-                progressDlg.setValue(i+1);
-                qApp->processEvents();
-
-                AccountForm *accountFormSlave = new AccountForm(&m_engine, accounts.at(i));
-                connect(accountFormSlave, SIGNAL(remove(AccountForm*, bool)), this, SLOT(remove(AccountForm*, bool)));
-                ui->stackedWidget->addWidget(accountFormSlave);
-
-                QTreeWidgetItem *childItem = new QTreeWidgetItem();
-                childItem->setData(0, 1, accounts.at(i).alias.isEmpty() ? accounts.at(i).login: accounts.at(i).alias);
-                childItem->setData(0, 2, (uint)ConnectionState::DISCONNECTED);
-                childItem->setData(0, 4, QPixmap(":/icons/user.png"));
-                childItem->setData(0, Qt::UserRole, QVariant::fromValue(accountFormSlave));
-
-                m_accountForms << accountFormSlave;
-                accountFormsChilds << accountFormSlave;
-                accountFormsToAutoConnect << accountFormSlave;
-                parentItem->addChild(childItem);
+                    m_accountForms << accountForm;
+                    accountFormsToAutoConnect << accountForm;
+                    ui->treeWidgetAccount->addTopLevelItem(item);
+                }
             }
 
-            accountFormMaster->setAccountFormChilds(accountFormsChilds);
+            else
+            {
+                if (!accounts.isEmpty())
+                {
+                    // Add Master
+                    AccountForm *accountFormMaster = new AccountForm(&m_engine, accounts.first());
+                    connect(accountFormMaster, SIGNAL(remove(AccountForm*, bool)), this, SLOT(remove(AccountForm*, bool)));
+                    ui->stackedWidget->addWidget(accountFormMaster);
 
-            ui->treeWidgetAccount->addTopLevelItem(parentItem);
+                    QTreeWidgetItem *parentItem = new QTreeWidgetItem(ui->treeWidgetAccount);
+                    parentItem->setData(0, 1, accounts.first().alias.isEmpty() ? accounts.first().login: accounts.first().alias);
+                    parentItem->setData(0, 2, (uint)ConnectionState::DISCONNECTED);
+                    parentItem->setData(0, 4, QPixmap(":/icons/user.png"));
+                    parentItem->setData(0, Qt::UserRole, QVariant::fromValue(accountFormMaster));
+
+                    m_accountForms << accountFormMaster;
+                    accountFormsToAutoConnect << accountFormMaster;
+
+                    QList<AccountForm *> accountFormsChilds;
+
+                    // Add Slaves
+                    for(int i = 1; i < accounts.size(); i++)
+                    {
+                        progressDlg.setLabelText(QString("Loading <b>%1's</b> group (%2/%3)...").arg(accounts.at(i).masterGroup).arg(i+1).arg(accounts.size()));
+                        progressDlg.setValue(i+1);
+                        qApp->processEvents();
+
+                        AccountForm *accountFormSlave = new AccountForm(&m_engine, accounts.at(i));
+                        connect(accountFormSlave, SIGNAL(remove(AccountForm*, bool)), this, SLOT(remove(AccountForm*, bool)));
+                        ui->stackedWidget->addWidget(accountFormSlave);
+
+                        QTreeWidgetItem *childItem = new QTreeWidgetItem();
+                        childItem->setData(0, 1, accounts.at(i).alias.isEmpty() ? accounts.at(i).login: accounts.at(i).alias);
+                        childItem->setData(0, 2, (uint)ConnectionState::DISCONNECTED);
+                        childItem->setData(0, 4, QPixmap(":/icons/user.png"));
+                        childItem->setData(0, Qt::UserRole, QVariant::fromValue(accountFormSlave));
+
+                        m_accountForms << accountFormSlave;
+                        accountFormsChilds << accountFormSlave;
+                        accountFormsToAutoConnect << accountFormSlave;
+                        parentItem->addChild(childItem);
+                    }
+
+                    accountFormMaster->setAccountFormChilds(accountFormsChilds);
+
+                    ui->treeWidgetAccount->addTopLevelItem(parentItem);
+                }
+            }
         }
 
         if(!ui->treeWidgetAccount->selectedItems().size() && ui->treeWidgetAccount->topLevelItemCount())
@@ -253,11 +261,11 @@ void MainWindow::on_actionDocumentation_triggered()
 
 void MainWindow::on_actionAccountManager_triggered()
 {
-    AccountManagerDialog accountManagerDialog;
-    connect(&accountManagerDialog, SIGNAL(loadAccount(const QList<ConnectionInfos>&)), this, SLOT(addAccount(const QList<ConnectionInfos>&)));
-    connect(this, SIGNAL(closeAccountManagerDialog()), &accountManagerDialog, SLOT(closeAfterLoaded()));
-    accountManagerDialog.setParent(this, Qt::Dialog);
-    accountManagerDialog.exec();
+    accountManagerDialog = new AccountManagerDialog(this);
+    connect(accountManagerDialog, SIGNAL(loadAccount(const QList<ConnectionInfos>&)), this, SLOT(addAccount(const QList<ConnectionInfos>&)));
+    connect(this, SIGNAL(closeAccountManagerDialog()), accountManagerDialog, SLOT(closeAfterLoaded()));
+    accountManagerDialog->setParent(this, Qt::Dialog);
+    accountManagerDialog->open();
 }
 
 void MainWindow::on_actionMinimize_triggered()
@@ -265,7 +273,7 @@ void MainWindow::on_actionMinimize_triggered()
     hide();
 
     QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::MessageIcon(QSystemTrayIcon::Information);
-    trayIcon->showMessage("SweatedBox", ("SweatedBox est réduit. Pour l'afficher de nouveau cliquez sur l'icône."), icon, 2000);
+    trayIcon->showMessage("SweatedBox", ("SweatedBox is reduced. To display it again click on the icon."), icon, 2000);
 }
 
 void MainWindow::on_treeWidgetAccount_itemClicked(QTreeWidgetItem *item, int column)
@@ -300,6 +308,16 @@ void MainWindow::on_treeWidgetAccount_itemExpanded(QTreeWidgetItem *item)
     ui->stackedWidget->setCurrentWidget(item->data(0, Qt::UserRole).value<AccountForm*>());
 }
 
+void MainWindow::on_treeWidgetAccount_itemSelectionChanged()
+{
+    if (!ui->treeWidgetAccount->selectedItems().isEmpty())
+    {
+        QTreeWidgetItem *item = ui->treeWidgetAccount->selectedItems().first();
+        ui->treeWidgetAccount->setCurrentItem(item);
+        ui->stackedWidget->setCurrentWidget(item->data(0, Qt::UserRole).value<AccountForm*>());
+    }
+}
+
 QList<QTreeWidgetItem *> MainWindow::getTreeWidgetItems()
 {
     QList<QTreeWidgetItem*> items;
@@ -321,3 +339,84 @@ QList<QTreeWidgetItem *> MainWindow::getTreeWidgetItems()
 
     return items;
 }
+
+
+void MainWindow::on_actionConnectAllLoadedAccounts_triggered()
+{
+    foreach(AccountForm *accountForm, m_accountForms)
+    {
+        if (!accountForm->getSocket()->isActive())
+        {
+            accountForm->getEngine()->getConnectionManager().connect(accountForm->getSocket());
+        }
+    }
+}
+
+
+void MainWindow::on_actionDisconnectAllLoadedAccounts_triggered()
+{
+    foreach(AccountForm *accountForm, m_accountForms)
+    {
+        if (accountForm->getSocket()->isActive())
+        {
+            accountForm->getEngine()->getConnectionManager().disconnect(accountForm->getSocket());
+        }
+    }
+}
+
+
+void MainWindow::on_actionUnloadAllLoadedAccounts_triggered()
+{
+    foreach(AccountForm *accountForm, m_accountForms)
+    {
+        if (accountForm->getSocket()->isActive())
+        {
+            accountForm->getEngine()->getConnectionManager().disconnect(accountForm->getSocket());
+        }
+
+        bool hasChilds = accountForm->getAccountFormChilds().size() > 0;
+        remove(accountForm, hasChilds);
+    }
+}
+
+
+void MainWindow::on_actionLoadScriptAllLoadedAccounts_triggered()
+{
+    if (!m_accountForms.isEmpty())
+    {
+        QString path = QFileDialog::getOpenFileName(nullptr, "Select a file");
+
+        foreach(AccountForm *accountForm, m_accountForms)
+        {
+            if (accountForm->getSocket()->isActive())
+            {
+                accountForm->loadScript(path);
+            }
+        }
+    }
+}
+
+
+void MainWindow::on_actionRunScriptAllLoadedAccounts_triggered()
+{
+    foreach(AccountForm *accountForm, m_accountForms)
+    {
+        if (accountForm->getSocket()->isActive() && !accountForm->getData().scriptData.isActive)
+        {
+            accountForm->on_actionRunScript_triggered();
+        }
+    }
+}
+
+
+void MainWindow::on_actionStopScriptAllLoadedAccounts_triggered()
+{
+    foreach(AccountForm *accountForm, m_accountForms)
+    {
+        if (accountForm->getSocket()->isActive() && accountForm->getData().scriptData.isActive)
+        {
+            accountForm->on_actionRunScript_triggered();
+        }
+    }
+}
+

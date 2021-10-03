@@ -89,17 +89,17 @@
      </column>
      <column>
       <property name="text">
-       <string>Texte</string>
+       <string>Text</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>Intervalle</string>
+       <string>Interval</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>Planification</string>
+       <string>Planning</string>
       </property>
      </column>
     </widget>
@@ -107,12 +107,18 @@
    <item row="0" column="0">
     <widget class="QCheckBox" name="checkBoxEnableFlood">
      <property name="text">
-      <string>Activer le flood</string>
+      <string>Enable flood</string>
      </property>
     </widget>
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>checkBoxEnableFlood</tabstop>
+  <tabstop>tableWidgetFlood</tabstop>
+  <tabstop>pushButtonAddFlood</tabstop>
+  <tabstop>pushButtonDeleteFlood</tabstop>
+ </tabstops>
  <resources>
   <include location="../../../../res/resources.qrc"/>
  </resources>

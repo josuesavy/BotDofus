@@ -1,9 +1,9 @@
 #ifndef FIGHTTEMPORARYBOOSTSTATEEFFECT_H
 #define FIGHTTEMPORARYBOOSTSTATEEFFECT_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/actions/fight/FightTemporaryBoostEffect.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/actions/fight/FightTemporaryBoostEffect.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class FightTemporaryBoostStateEffect : public FightTemporaryBoostEffect
 {

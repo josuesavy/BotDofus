@@ -1,10 +1,20 @@
 ﻿#pragma once
 
-#include "src/Engines/IO/Network/Reader.h"
-#include "Elements/BasicElement.h"
+#include "src/engines/io/network/Reader.h"
+#include "elements/BasicElement.h"
+
+class Map;
+class BasicElement;
 
 class MapCell
 {
 public:
     MapCell(Reader *reader, Map *map);
+
+    QList<BasicElement> getBasicElements();
+    short getCellId();
+
+private:
+    QList<BasicElement> m_basicElements;
+    short m_cellId;
 };

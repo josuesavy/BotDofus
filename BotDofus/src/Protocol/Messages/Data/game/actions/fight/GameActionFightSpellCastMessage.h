@@ -1,9 +1,9 @@
 #ifndef GAMEACTIONFIGHTSPELLCASTMESSAGE_H
 #define GAMEACTIONFIGHTSPELLCASTMESSAGE_H
 
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
-#include "src/Protocol/Messages/Data/game/actions/fight/AbstractGameActionFightTargetedAbilityMessage.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/messages/AbstractMessage.h"
+#include "src/protocol/messages/data/game/actions/fight/AbstractGameActionFightTargetedAbilityMessage.h"
 
 class GameActionFightSpellCastMessage : public AbstractGameActionFightTargetedAbilityMessage
 {

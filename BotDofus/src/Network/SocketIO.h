@@ -10,7 +10,7 @@
 
 #include "Buffer.h"
 #include "QMessageBox"
-#include "src/Protocol/Messages/MessageDeclarator.h"
+#include "src/protocol/messages/MessageDeclarator.h"
 //#include "src/core/ServerInteractions/SecurityModule.h"
 //#include "src/core/ServerInteractions/BotStatsModule.h"
 
@@ -26,7 +26,7 @@
 struct ProxyInfos
 {
     QString adress;
-    uint port = INVALID;
+    unsigned short port = INVALID;
     QString username;
     QString password;
     QNetworkProxy::ProxyType type = QNetworkProxy::NoProxy;
@@ -55,7 +55,7 @@ public:
     void setProxy(const ProxyInfos &proxyInfos);
 
     QString getCurrentHostIp() const;
-    int getCurrentHostPort() const;
+    unsigned short getCurrentHostPort() const;
     int getLatencyAverage() const;
     int getSampleCount() const;
     int getSampleTotalCount() const;
@@ -95,7 +95,7 @@ private:
     QTcpSocket *m_socket;
     QString m_serverIp;
     QString m_randMainServerIp;
-    int m_port;
+    unsigned short m_port;
     bool m_tryUntilConnect;
 
     QNetworkProxy m_proxy;

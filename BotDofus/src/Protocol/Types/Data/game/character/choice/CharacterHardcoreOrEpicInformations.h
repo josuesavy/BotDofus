@@ -1,10 +1,10 @@
 #ifndef CHARACTERHARDCOREOREPICINFORMATIONS_H
 #define CHARACTERHARDCOREOREPICINFORMATIONS_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/character/choice/CharacterBaseInformations.h"
-#include "src/Protocol/Types/Data/game/look/EntityLook.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/character/choice/CharacterBaseInformations.h"
+#include "src/protocol/types/data/game/look/EntityLook.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class CharacterHardcoreOrEpicInformations : public CharacterBaseInformations
 {

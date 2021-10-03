@@ -30,7 +30,7 @@
         <normaloff>:/icons/magic_wand_2_16px.ico</normaloff>:/icons/magic_wand_2_16px.ico</iconset>
       </attribute>
       <attribute name="title">
-       <string>Sorts</string>
+       <string>Spells</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2">
        <item row="0" column="0" rowspan="2">
@@ -110,17 +110,17 @@
          </attribute>
          <column>
           <property name="text">
-           <string>Sort</string>
+           <string>Spell</string>
           </property>
          </column>
          <column>
           <property name="text">
-           <string>Cible</string>
+           <string>Target</string>
           </property>
          </column>
          <column>
           <property name="text">
-           <string>Nombre de lancés</string>
+           <string>Casts number</string>
           </property>
          </column>
         </widget>
@@ -210,7 +210,7 @@
        <item row="0" column="0">
         <widget class="QGroupBox" name="groupBox_3">
          <property name="title">
-          <string>Phase de préparation</string>
+          <string>Preparation phase</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_25">
           <item row="0" column="0">
@@ -222,7 +222,7 @@
              </sizepolicy>
             </property>
             <property name="text">
-             <string>Placement en début de combat :</string>
+             <string>Placement at the start of the fight:</string>
             </property>
            </widget>
           </item>
@@ -230,17 +230,17 @@
            <widget class="QComboBox" name="comboBoxCloseFight">
             <item>
              <property name="text">
-              <string>Aucun</string>
+              <string>None</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Bloquer si quelqu'un entre</string>
+              <string>Block if someone comes in</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Bloquer</string>
+              <string>Block</string>
              </property>
             </item>
            </widget>
@@ -248,7 +248,7 @@
           <item row="2" column="0">
            <widget class="QLabel" name="label_2">
             <property name="text">
-             <string>Bloquer l'accès aux spectateurs :</string>
+             <string>Block access to spectators:</string>
             </property>
            </widget>
           </item>
@@ -259,17 +259,17 @@
             </property>
             <item>
              <property name="text">
-              <string>Aucun</string>
+              <string>None</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Proche des ennemies</string>
+              <string>Close to enemies</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Loin des ennemies</string>
+              <string>Far from the enemies</string>
              </property>
             </item>
            </widget>
@@ -277,7 +277,7 @@
           <item row="1" column="0">
            <widget class="QLabel" name="label">
             <property name="text">
-             <string>Bloquer l'accès au combat :</string>
+             <string>Block access to combat:</string>
             </property>
            </widget>
           </item>
@@ -285,17 +285,17 @@
            <widget class="QComboBox" name="comboBoxSpectator">
             <item>
              <property name="text">
-              <string>Aucun</string>
+              <string>None</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Bloquer si quelqu'un entre</string>
+              <string>Block if someone comes in</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Bloquer</string>
+              <string>Block</string>
              </property>
             </item>
            </widget>
@@ -306,7 +306,7 @@
        <item row="1" column="0">
         <widget class="QGroupBox" name="groupBox_4">
          <property name="title">
-          <string>Combat</string>
+          <string>Fight</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_3">
           <item row="0" column="0">
@@ -314,38 +314,38 @@
             <item row="0" column="0">
              <widget class="QLabel" name="label_14">
               <property name="text">
-               <string>Rapidité en combat :</string>
+               <string>Speed in combat:</string>
               </property>
              </widget>
             </item>
             <item row="0" column="1">
              <widget class="QComboBox" name="comboBoxSpeedFight">
               <property name="currentIndex">
-               <number>1</number>
+               <number>0</number>
               </property>
               <item>
                <property name="text">
-                <string>Lente</string>
+                <string>Slow</string>
                </property>
               </item>
               <item>
                <property name="text">
-                <string>Normale</string>
+                <string>Normal</string>
                </property>
               </item>
               <item>
                <property name="text">
-                <string>Rapide</string>
+                <string>Fast</string>
                </property>
               </item>
               <item>
                <property name="text">
-                <string>Ultra rapide</string>
+                <string>Ultra fast</string>
                </property>
               </item>
               <item>
                <property name="text">
-                <string>Suicidaire</string>
+                <string>Suicidal</string>
                </property>
               </item>
              </widget>
@@ -353,28 +353,28 @@
             <item row="1" column="0">
              <widget class="QLabel" name="label_13">
               <property name="text">
-               <string>Comportement :</string>
+               <string>Behaviour:</string>
               </property>
              </widget>
             </item>
             <item row="1" column="1">
              <widget class="QComboBox" name="comboBoxBehavior">
               <property name="currentIndex">
-               <number>2</number>
+               <number>0</number>
               </property>
               <item>
                <property name="text">
-                <string>Fuillard</string>
+                <string>Fugitive</string>
                </property>
               </item>
               <item>
                <property name="text">
-                <string>Aggressif</string>
+                <string>Aggressive</string>
                </property>
               </item>
               <item>
                <property name="text">
-                <string>Passif</string>
+                <string>Passive</string>
                </property>
               </item>
              </widget>
@@ -387,20 +387,20 @@
        <item row="2" column="0">
         <widget class="QGroupBox" name="groupBox_5">
          <property name="title">
-          <string>Régénération de vie</string>
+          <string>Regeneration of life</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_28">
           <item row="0" column="2">
            <widget class="QLabel" name="label_23">
             <property name="text">
-             <string>se régénérer jusqu'à</string>
+             <string>regenerate until</string>
             </property>
            </widget>
           </item>
           <item row="0" column="0">
            <widget class="QLabel" name="label_15">
             <property name="text">
-             <string>Si les points de vie sont inférieurs à</string>
+             <string>If the hit points are less than</string>
             </property>
            </widget>
           </item>
@@ -462,6 +462,21 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>tabWidgetFight</tabstop>
+  <tabstop>tableWidgetSpells</tabstop>
+  <tabstop>pushButtonMoveTopSpell</tabstop>
+  <tabstop>pushButtonMoveDownSpell</tabstop>
+  <tabstop>pushButtonAddSpell</tabstop>
+  <tabstop>pushButtonDeleteSpell</tabstop>
+  <tabstop>comboBoxPositionFight</tabstop>
+  <tabstop>comboBoxCloseFight</tabstop>
+  <tabstop>comboBoxSpectator</tabstop>
+  <tabstop>comboBoxSpeedFight</tabstop>
+  <tabstop>comboBoxBehavior</tabstop>
+  <tabstop>spinBoxRegenerationMin</tabstop>
+  <tabstop>spinBoxRegenerationMax</tabstop>
+ </tabstops>
  <resources>
   <include location="../../../../res/resources.qrc"/>
  </resources>

@@ -1,8 +1,8 @@
 #ifndef GAMEFIGHTPLACEMENTSWAPPOSITIONSCANCELMESSAGE_H
 #define GAMEFIGHTPLACEMENTSWAPPOSITIONSCANCELMESSAGE_H
 
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/messages/AbstractMessage.h"
 
 class GameFightPlacementSwapPositionsCancelMessage : public AbstractMessage
 {

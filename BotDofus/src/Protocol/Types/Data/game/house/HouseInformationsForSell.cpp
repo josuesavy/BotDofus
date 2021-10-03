@@ -18,12 +18,8 @@ void HouseInformationsForSell::serializeAs_HouseInformationsForSell(Writer *outp
     qDebug()<<"ERREUR - HouseInformationsForSell -"<<"Forbidden value (" << this->modelId << ") on element modelId.";
   }
   output->writeVarInt((int)this->modelId);
-  if(this->ownerAccountId < 0)
-  {
-    qDebug()<<"ERREUR - HouseInformationsForSell -"<<"Forbidden value (" << this->ownerAccountId << ") on element ownerAccountId.";
-  }
-  output->writeInt((int)this->ownerAccountId);
-  output->writeUTF(this->ownerName);
+  this->ownerTag.serializeAs_AccountTagInformation(output);
+  output->writeBool(this->hasOwner);
   output->writeUTF(this->ownerCharacterName);
   if(this->worldX < -255 || this->worldX > 255)
   {
@@ -66,8 +62,9 @@ void HouseInformationsForSell::deserializeAs_HouseInformationsForSell(Reader *in
   this->_instanceIdFunc(input);
   this->_secondHandFunc(input);
   this->_modelIdFunc(input);
-  this->_ownerAccountIdFunc(input);
-  this->_ownerNameFunc(input);
+  this->ownerTag = AccountTagInformation();
+  this->ownerTag.deserialize(input);
+  this->_hasOwnerFunc(input);
   this->_ownerCharacterNameFunc(input);
   this->_worldXFunc(input);
   this->_worldYFunc(input);
@@ -94,8 +91,8 @@ void HouseInformationsForSell::deserializeAsyncAs_HouseInformationsForSell(FuncT
   tree.addChild(std::bind(&HouseInformationsForSell::_instanceIdFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&HouseInformationsForSell::_secondHandFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&HouseInformationsForSell::_modelIdFunc, this, std::placeholders::_1));
-  tree.addChild(std::bind(&HouseInformationsForSell::_ownerAccountIdFunc, this, std::placeholders::_1));
-  tree.addChild(std::bind(&HouseInformationsForSell::_ownerNameFunc, this, std::placeholders::_1));
+  this->_ownerTagtree = tree.addChild(std::bind(&HouseInformationsForSell::_ownerTagtreeFunc, this, std::placeholders::_1));
+  tree.addChild(std::bind(&HouseInformationsForSell::_hasOwnerFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&HouseInformationsForSell::_ownerCharacterNameFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&HouseInformationsForSell::_worldXFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&HouseInformationsForSell::_worldYFunc, this, std::placeholders::_1));
@@ -130,18 +127,15 @@ void HouseInformationsForSell::_modelIdFunc(Reader *input)
   }
 }
 
-void HouseInformationsForSell::_ownerAccountIdFunc(Reader *input)
+void HouseInformationsForSell::_ownerTagtreeFunc(Reader *input)
 {
-  this->ownerAccountId = input->readInt();
-  if(this->ownerAccountId < 0)
-  {
-    qDebug()<<"ERREUR - HouseInformationsForSell -"<<"Forbidden value (" << this->ownerAccountId << ") on element of HouseInformationsForSell.ownerAccountId.";
-  }
+  this->ownerTag = AccountTagInformation();
+  this->ownerTag.deserializeAsync(this->_ownerTagtree);
 }
 
-void HouseInformationsForSell::_ownerNameFunc(Reader *input)
+void HouseInformationsForSell::_hasOwnerFunc(Reader *input)
 {
-  this->ownerName = input->readUTF();
+  this->hasOwner = input->readBool();
 }
 
 void HouseInformationsForSell::_ownerCharacterNameFunc(Reader *input)
@@ -225,8 +219,8 @@ bool HouseInformationsForSell::operator==(const HouseInformationsForSell &compar
   if(instanceId == compared.instanceId)
   if(secondHand == compared.secondHand)
   if(modelId == compared.modelId)
-  if(ownerAccountId == compared.ownerAccountId)
-  if(ownerName == compared.ownerName)
+  if(ownerTag == compared.ownerTag)
+  if(hasOwner == compared.hasOwner)
   if(ownerCharacterName == compared.ownerCharacterName)
   if(worldX == compared.worldX)
   if(worldY == compared.worldY)
@@ -236,6 +230,7 @@ bool HouseInformationsForSell::operator==(const HouseInformationsForSell &compar
   if(skillListIds == compared.skillListIds)
   if(isLocked == compared.isLocked)
   if(price == compared.price)
+  if(_ownerTagtree == compared._ownerTagtree)
   if(_skillListIdstree == compared._skillListIdstree)
   return true;
   

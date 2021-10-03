@@ -1,12 +1,12 @@
 #ifndef TAXCOLLECTORINFORMATIONS_H
 #define TAXCOLLECTORINFORMATIONS_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/guild/tax/AdditionalTaxCollectorInformations.h"
-#include "src/Protocol/Types/Data/game/look/EntityLook.h"
-#include "src/Protocol/Types/Data/game/guild/tax/TaxCollectorComplementaryInformations.h"
-#include "src/Protocol/Types/ClassManager.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/guild/tax/AdditionalTaxCollectorInformations.h"
+#include "src/protocol/types/data/game/look/EntityLook.h"
+#include "src/protocol/types/data/game/guild/tax/TaxCollectorComplementaryInformations.h"
+#include "src/protocol/types/ClassManager.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class TaxCollectorInformations : public AbstractClass
 {

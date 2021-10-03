@@ -1,12 +1,14 @@
 ﻿#pragma once
 
 #include "WorldPoint.h"
-#include "src/Engines/IO/Network/Reader.h"
+#include "src/engines/io/network/Reader.h"
 #include "CellData.h"
-#include "src/Engines/IO/D2P/GeneralInformation/CompressedMap.h"
+#include "src/engines/io/d2p/manager/CompressedMap.h"
 #include "Fixture.h"
 #include "Layer.h"
 #include "src/Public.h"
+
+class Layer;
 
 class Map
 {
@@ -26,6 +28,9 @@ public:
     int getBottomMapId() const;
     int getSubAreaId() const;
     QList<CellData> getCellData() const;
+    QList<Fixture> getBackgroundFixtures() const;
+    QList<Fixture> getForegroundFixtures() const;
+    QList<Layer> getLayers() const;
     WorldPoint getPosition() const;
     int getMapVersion() const;
     int getInteractiveElementCellID(int elementId) const;
@@ -53,6 +58,9 @@ private:
     int m_mapVersion;
     WorldPoint m_position;
     QList<CellData> m_cellData;
+    QList<Fixture> m_backgroundFixtures;
+    QList<Fixture> m_foregroundFixtures;
+    QList<Layer> m_layers;
     QMap<int, int> m_interactiveElements;
     QList<uint> m_fixedMapChangers;
     static QByteArray m_encryptionKey;

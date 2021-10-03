@@ -1,10 +1,10 @@
 #ifndef JOBDESCRIPTION_H
 #define JOBDESCRIPTION_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/interactive/skill/SkillActionDescription.h"
-#include "src/Protocol/Types/ClassManager.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/interactive/skill/SkillActionDescription.h"
+#include "src/protocol/types/ClassManager.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class JobDescription : public AbstractClass
 {

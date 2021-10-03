@@ -1,10 +1,10 @@
 #ifndef WATCHINVENTORYCONTENTMESSAGE_H
 #define WATCHINVENTORYCONTENTMESSAGE_H
 
-#include "src/Protocol/Types/Data/game/data/items/ObjectItem.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
-#include "src/Protocol/Messages/Data/game/inventory/items/InventoryContentMessage.h"
+#include "src/protocol/types/data/game/data/items/ObjectItem.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/messages/AbstractMessage.h"
+#include "src/protocol/messages/data/game/inventory/items/InventoryContentMessage.h"
 
 class WatchInventoryContentMessage : public InventoryContentMessage
 {

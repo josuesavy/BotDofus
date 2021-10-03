@@ -1,9 +1,9 @@
 #ifndef STARTUPACTIONADDOBJECT_H
 #define STARTUPACTIONADDOBJECT_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/data/items/ObjectItemInformationWithQuantity.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/data/items/ObjectItemInformationWithQuantity.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class StartupActionAddObject : public AbstractClass
 {

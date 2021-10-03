@@ -8,7 +8,7 @@
 #include <QtSql/QtSql>
 #include <QFileDialog>
 
-#include "src/Engines/Core/CoreEngine.h"
+#include "src/engines/core/CoreEngine.h"
 #include "src/Public.h"
 
 namespace Ui {

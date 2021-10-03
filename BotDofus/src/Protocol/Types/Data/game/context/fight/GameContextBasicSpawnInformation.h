@@ -1,10 +1,10 @@
 #ifndef GAMECONTEXTBASICSPAWNINFORMATION_H
 #define GAMECONTEXTBASICSPAWNINFORMATION_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/context/GameContextActorPositionInformations.h"
-#include "src/Protocol/Types/ClassManager.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/context/GameContextActorPositionInformations.h"
+#include "src/protocol/types/ClassManager.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class GameContextBasicSpawnInformation : public AbstractClass
 {

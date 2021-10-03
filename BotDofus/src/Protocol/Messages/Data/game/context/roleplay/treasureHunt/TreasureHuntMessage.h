@@ -1,11 +1,11 @@
 #ifndef TREASUREHUNTMESSAGE_H
 #define TREASUREHUNTMESSAGE_H
 
-#include "src/Protocol/Types/Data/game/context/roleplay/treasureHunt/TreasureHuntStep.h"
-#include "src/Protocol/Types/Data/game/context/roleplay/treasureHunt/TreasureHuntFlag.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Types/ClassManager.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
+#include "src/protocol/types/data/game/context/roleplay/treasureHunt/TreasureHuntStep.h"
+#include "src/protocol/types/data/game/context/roleplay/treasureHunt/TreasureHuntFlag.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/types/ClassManager.h"
+#include "src/protocol/messages/AbstractMessage.h"
 
 class TreasureHuntMessage : public AbstractMessage
 {

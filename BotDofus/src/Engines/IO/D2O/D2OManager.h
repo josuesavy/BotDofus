@@ -5,13 +5,14 @@
 #include <QDir>
 #include <QDirIterator>
 
-#include "D2OFile.h"
-#include "GameDataTypeDeclarator.h"
-#include "src/Engines/IO/I18n/I18nFile.h"
-#include "GameDataConverter.h"
-#include "AbstractGameData.h"
-#include "Data/items/ItemData.h"
-#include "src/Engines/IO/Singleton.h"
+
+#include "src/engines/io/utils/Singleton.h"
+#include "src/engines/io/i18n/I18nFile.h"
+#include "manager/D2OFile.h"
+#include "game/GameDataTypeDeclarator.h"
+#include "game/GameDataConverter.h"
+#include "game/AbstractGameData.h"
+#include "game/data/items/ItemData.h"
 
 class D2OManagerSingleton;
 

@@ -1,11 +1,11 @@
 #ifndef FIGHTCOMMONINFORMATIONS_H
 #define FIGHTCOMMONINFORMATIONS_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/context/fight/FightTeamInformations.h"
-#include "src/Protocol/Types/Data/game/context/fight/FightOptionsInformations.h"
-#include "src/Protocol/Types/ClassManager.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/context/fight/FightTeamInformations.h"
+#include "src/protocol/types/data/game/context/fight/FightOptionsInformations.h"
+#include "src/protocol/types/ClassManager.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class FightCommonInformations : public AbstractClass
 {

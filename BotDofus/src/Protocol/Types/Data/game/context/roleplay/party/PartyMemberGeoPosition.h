@@ -1,8 +1,8 @@
 #ifndef PARTYMEMBERGEOPOSITION_H
 #define PARTYMEMBERGEOPOSITION_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class PartyMemberGeoPosition : public AbstractClass
 {

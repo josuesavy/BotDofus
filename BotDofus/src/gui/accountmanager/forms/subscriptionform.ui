@@ -107,6 +107,13 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>comboBox</tabstop>
+  <tabstop>comboBox_2</tabstop>
+  <tabstop>textEditConsole</tabstop>
+  <tabstop>pushButton_2</tabstop>
+  <tabstop>pushButton</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

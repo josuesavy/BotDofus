@@ -1,9 +1,9 @@
 #ifndef ALLIANCEBULLETINMESSAGE_H
 #define ALLIANCEBULLETINMESSAGE_H
 
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
-#include "src/Protocol/Messages/Data/game/social/BulletinMessage.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/messages/AbstractMessage.h"
+#include "src/protocol/messages/data/game/social/BulletinMessage.h"
 
 class AllianceBulletinMessage : public BulletinMessage
 {

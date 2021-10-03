@@ -17,17 +17,22 @@ void SlaveSwitchContextMessage::serializeAs_SlaveSwitchContextMessage(Writer *ou
     qDebug()<<"ERREUR - SlaveSwitchContextMessage -"<<"Forbidden value (" << this->slaveId << ") on element slaveId.";
   }
   output->writeDouble(this->slaveId);
-  output->writeShort((short)this->slaveSpells.size());
-  for(uint _i3 = 0; _i3 < this->slaveSpells.size(); _i3++)
+  if(this->slaveTurn < 0)
   {
-    (this->slaveSpells[_i3]).serializeAs_SpellItem(output);
+    qDebug()<<"ERREUR - SlaveSwitchContextMessage -"<<"Forbidden value (" << this->slaveTurn << ") on element slaveTurn.";
   }
-  this->slaveStats.serializeAs_CharacterCharacteristicsInformations(output);
-  output->writeShort((short)this->shortcuts.size());
-  for(uint _i5 = 0; _i5 < this->shortcuts.size(); _i5++)
+  output->writeVarShort((int)this->slaveTurn);
+  output->writeShort((short)this->slaveSpells.size());
+  for(uint _i4 = 0; _i4 < this->slaveSpells.size(); _i4++)
   {
-    output->writeShort((short)qSharedPointerCast<Shortcut>(this->shortcuts[_i5])->getTypes().last());
-    qSharedPointerCast<Shortcut>(this->shortcuts[_i5])->serialize(output);
+    (this->slaveSpells[_i4]).serializeAs_SpellItem(output);
+  }
+  this->slaveStats->serializeAs_CharacterCharacteristicsInformations(output);
+  output->writeShort((short)this->shortcuts.size());
+  for(uint _i6 = 0; _i6 < this->shortcuts.size(); _i6++)
+  {
+    output->writeShort((short)qSharedPointerCast<Shortcut>(this->shortcuts[_i6])->getTypes().last());
+    qSharedPointerCast<Shortcut>(this->shortcuts[_i6])->serialize(output);
   }
 }
 
@@ -38,27 +43,28 @@ void SlaveSwitchContextMessage::deserialize(Reader *input)
 
 void SlaveSwitchContextMessage::deserializeAs_SlaveSwitchContextMessage(Reader *input)
 {
-  SpellItem _item3 ;
-  uint _id5 = 0;
-  QSharedPointer<Shortcut> _item5 ;
+  SpellItem _item4 ;
+  uint _id6 = 0;
+  QSharedPointer<Shortcut> _item6 ;
   this->_masterIdFunc(input);
   this->_slaveIdFunc(input);
+  this->_slaveTurnFunc(input);
   uint _slaveSpellsLen = input->readUShort();
-  for(uint _i3 = 0; _i3 < _slaveSpellsLen; _i3++)
+  for(uint _i4 = 0; _i4 < _slaveSpellsLen; _i4++)
   {
-    _item3 = SpellItem();
-    _item3.deserialize(input);
-    this->slaveSpells.append(_item3);
+    _item4 = SpellItem();
+    _item4.deserialize(input);
+    this->slaveSpells.append(_item4);
   }
-  this->slaveStats = CharacterCharacteristicsInformations();
-  this->slaveStats.deserialize(input);
+  this->slaveStats = QSharedPointer<CharacterCharacteristicsInformations>(new CharacterCharacteristicsInformations() );
+  this->slaveStats->deserialize(input);
   uint _shortcutsLen = input->readUShort();
-  for(uint _i5 = 0; _i5 < _shortcutsLen; _i5++)
+  for(uint _i6 = 0; _i6 < _shortcutsLen; _i6++)
   {
-    _id5 = input->readUShort();
-    _item5 = qSharedPointerCast<Shortcut>(ClassManagerSingleton::get()->getClass(_id5));
-    _item5->deserialize(input);
-    this->shortcuts.append(_item5);
+    _id6 = input->readUShort();
+    _item6 = qSharedPointerCast<Shortcut>(ClassManagerSingleton::get()->getClass(_id6));
+    _item6->deserialize(input);
+    this->shortcuts.append(_item6);
   }
 }
 
@@ -71,6 +77,7 @@ void SlaveSwitchContextMessage::deserializeAsyncAs_SlaveSwitchContextMessage(Fun
 {
   tree.addChild(std::bind(&SlaveSwitchContextMessage::_masterIdFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&SlaveSwitchContextMessage::_slaveIdFunc, this, std::placeholders::_1));
+  tree.addChild(std::bind(&SlaveSwitchContextMessage::_slaveTurnFunc, this, std::placeholders::_1));
   this->_slaveSpellstree = tree.addChild(std::bind(&SlaveSwitchContextMessage::_slaveSpellstreeFunc, this, std::placeholders::_1));
   this->_slaveStatstree = tree.addChild(std::bind(&SlaveSwitchContextMessage::_slaveStatstreeFunc, this, std::placeholders::_1));
   this->_shortcutstree = tree.addChild(std::bind(&SlaveSwitchContextMessage::_shortcutstreeFunc, this, std::placeholders::_1));
@@ -94,6 +101,15 @@ void SlaveSwitchContextMessage::_slaveIdFunc(Reader *input)
   }
 }
 
+void SlaveSwitchContextMessage::_slaveTurnFunc(Reader *input)
+{
+  this->slaveTurn = input->readVarUhShort();
+  if(this->slaveTurn < 0)
+  {
+    qDebug()<<"ERREUR - SlaveSwitchContextMessage -"<<"Forbidden value (" << this->slaveTurn << ") on element of SlaveSwitchContextMessage.slaveTurn.";
+  }
+}
+
 void SlaveSwitchContextMessage::_slaveSpellstreeFunc(Reader *input)
 {
   uint length = input->readUShort();
@@ -112,8 +128,8 @@ void SlaveSwitchContextMessage::_slaveSpellsFunc(Reader *input)
 
 void SlaveSwitchContextMessage::_slaveStatstreeFunc(Reader *input)
 {
-  this->slaveStats = CharacterCharacteristicsInformations();
-  this->slaveStats.deserializeAsync(this->_slaveStatstree);
+  this->slaveStats = QSharedPointer<CharacterCharacteristicsInformations>(new CharacterCharacteristicsInformations() );
+  this->slaveStats->deserializeAsync(this->_slaveStatstree);
 }
 
 void SlaveSwitchContextMessage::_shortcutstreeFunc(Reader *input)

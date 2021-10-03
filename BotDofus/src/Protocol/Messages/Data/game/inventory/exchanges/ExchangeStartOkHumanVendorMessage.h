@@ -1,9 +1,9 @@
 #ifndef EXCHANGESTARTOKHUMANVENDORMESSAGE_H
 #define EXCHANGESTARTOKHUMANVENDORMESSAGE_H
 
-#include "src/Protocol/Types/Data/game/data/items/ObjectItemToSellInHumanVendorShop.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
+#include "src/protocol/types/data/game/data/items/ObjectItemToSellInHumanVendorShop.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/messages/AbstractMessage.h"
 
 class ExchangeStartOkHumanVendorMessage : public AbstractMessage
 {

@@ -1,12 +1,12 @@
 #ifndef GAMEFIGHTSPECTATEMESSAGE_H
 #define GAMEFIGHTSPECTATEMESSAGE_H
 
-#include "src/Protocol/Types/Data/game/action/fight/FightDispellableEffectExtendedInformations.h"
-#include "src/Protocol/Types/Data/game/actions/fight/GameActionMark.h"
-#include "src/Protocol/Types/Data/game/idol/Idol.h"
-#include "src/Protocol/Types/Data/game/context/fight/GameFightEffectTriggerCount.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
+#include "src/protocol/types/data/game/action/fight/FightDispellableEffectExtendedInformations.h"
+#include "src/protocol/types/data/game/actions/fight/GameActionMark.h"
+#include "src/protocol/types/data/game/idol/Idol.h"
+#include "src/protocol/types/data/game/context/fight/GameFightEffectTriggerCount.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/messages/AbstractMessage.h"
 
 class GameFightSpectateMessage : public AbstractMessage
 {

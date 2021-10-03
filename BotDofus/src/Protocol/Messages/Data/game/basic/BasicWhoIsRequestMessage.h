@@ -1,8 +1,10 @@
 #ifndef BASICWHOISREQUESTMESSAGE_H
 #define BASICWHOISREQUESTMESSAGE_H
 
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
+#include "src/protocol/types/data/common/AbstractPlayerSearchInformation.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/types/ClassManager.h"
+#include "src/protocol/messages/AbstractMessage.h"
 
 class BasicWhoIsRequestMessage : public AbstractMessage
 {
@@ -16,11 +18,13 @@ public:
   BasicWhoIsRequestMessage();
 
   bool verbose;
-  QString search;
+  QSharedPointer<AbstractPlayerSearchInformation> target;
 
 private:
   void _verboseFunc(Reader *input);
-  void _searchFunc(Reader *input);
+  void _targettreeFunc(Reader *input);
+
+  FuncTree _targettree;
 };
 
 #endif // BASICWHOISREQUESTMESSAGE_H

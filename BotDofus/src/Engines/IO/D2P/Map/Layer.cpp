@@ -1,4 +1,6 @@
 ﻿#include "Layer.h"
+#include "MapCell.h"
+#include "Map.h"
 
 Layer::Layer(Reader *reader, Map *map)
 {
@@ -6,7 +8,6 @@ Layer::Layer(Reader *reader, Map *map)
 
     if(map->getMapVersion() >= 9)
         layerId = reader->readByte();
-
     else
         layerId = reader->readInt();
 
@@ -15,7 +16,12 @@ Layer::Layer(Reader *reader, Map *map)
     if(cellcount > 0)
     {
         for (int i = 0; i < cellcount; i++)
-            MapCell cell(reader, map);
+            m_mapCells << MapCell(reader, map);
     }
+}
+
+QList<MapCell> Layer::getMapCells()
+{
+    return m_mapCells;
 }
 

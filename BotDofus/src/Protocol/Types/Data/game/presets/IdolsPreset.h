@@ -1,9 +1,9 @@
 #ifndef IDOLSPRESET_H
 #define IDOLSPRESET_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/presets/Preset.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/presets/Preset.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class IdolsPreset : public Preset
 {

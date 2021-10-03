@@ -1,9 +1,9 @@
 #ifndef GAMEFIGHTRESUMESLAVEINFO_H
 #define GAMEFIGHTRESUMESLAVEINFO_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/context/fight/GameFightSpellCooldown.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/context/fight/GameFightSpellCooldown.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class GameFightResumeSlaveInfo : public AbstractClass
 {

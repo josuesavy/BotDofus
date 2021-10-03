@@ -1,10 +1,10 @@
 #ifndef SELECTEDSERVERDATAEXTENDEDMESSAGE_H
 #define SELECTEDSERVERDATAEXTENDEDMESSAGE_H
 
-#include "src/Protocol/Types/Data/connection/GameServerInformations.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
-#include "src/Protocol/Messages/Data/connection/SelectedServerDataMessage.h"
+#include "src/protocol/types/data/connection/GameServerInformations.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/messages/AbstractMessage.h"
+#include "src/protocol/messages/data/connection/SelectedServerDataMessage.h"
 
 class SelectedServerDataExtendedMessage : public SelectedServerDataMessage
 {

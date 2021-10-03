@@ -1,8 +1,9 @@
 ﻿#pragma once
 
-#include "src/Engines/IO/Network/Reader.h"
+#include "src/engines/io/network/Reader.h"
+#include "BasicElement.h"
 
-class SoundElement
+class SoundElement : public BasicElement
 {
 public:
     SoundElement(Reader *reader);

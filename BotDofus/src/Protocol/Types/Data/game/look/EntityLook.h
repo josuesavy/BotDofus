@@ -1,9 +1,9 @@
 #ifndef ENTITYLOOK_H
 #define ENTITYLOOK_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/look/SubEntity.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/look/SubEntity.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class EntityLook : public AbstractClass
 {

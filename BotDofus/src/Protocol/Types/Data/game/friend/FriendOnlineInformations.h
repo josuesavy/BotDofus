@@ -1,14 +1,15 @@
 #ifndef FRIENDONLINEINFORMATIONS_H
 #define FRIENDONLINEINFORMATIONS_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/context/roleplay/GuildInformations.h"
-#include "src/Protocol/Types/Data/game/character/status/PlayerStatus.h"
-#include "src/Protocol/Types/Data/game/friend/FriendInformations.h"
-#include "src/Engines/IO/Network/Utils/BooleanByteWrapper.h"
-#include "src/Protocol/Types/ClassManager.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Enums/Data/PlayableBreedEnum.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/context/roleplay/GuildInformations.h"
+#include "src/protocol/types/data/game/character/status/PlayerStatus.h"
+#include "src/protocol/types/data/game/friend/FriendInformations.h"
+#include "src/protocol/types/data/common/AccountTagInformation.h"
+#include "src/engines/io/network/utils/BooleanByteWrapper.h"
+#include "src/protocol/types/ClassManager.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/enums/data/PlayableBreedEnum.h"
 
 class FriendOnlineInformations : public FriendInformations
 {

@@ -1,9 +1,9 @@
 #ifndef EXCHANGEOBJECTREMOVEDMESSAGE_H
 #define EXCHANGEOBJECTREMOVEDMESSAGE_H
 
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
-#include "src/Protocol/Messages/Data/game/inventory/exchanges/ExchangeObjectMessage.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/messages/AbstractMessage.h"
+#include "src/protocol/messages/data/game/inventory/exchanges/ExchangeObjectMessage.h"
 
 class ExchangeObjectRemovedMessage : public ExchangeObjectMessage
 {

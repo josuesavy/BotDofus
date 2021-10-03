@@ -1,8 +1,8 @@
 #ifndef CLASSMANAGER_H
 #define CLASSMANAGER_H
 
-#include "src/Engines/IO/Singleton.h"
-#include "src/Protocol/Types/AbstractClass.h"
+#include "src/engines/io/utils/Singleton.h"
+#include "src/protocol/types/AbstractClass.h"
 
 class ClassManagerSingleton;
 

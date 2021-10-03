@@ -1,11 +1,11 @@
 #ifndef ALLIANCEFACTSMESSAGE_H
 #define ALLIANCEFACTSMESSAGE_H
 
-#include "src/Protocol/Types/Data/game/social/AllianceFactSheetInformations.h"
-#include "src/Protocol/Types/Data/game/context/roleplay/GuildInAllianceInformations.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Types/ClassManager.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
+#include "src/protocol/types/data/game/social/AllianceFactSheetInformations.h"
+#include "src/protocol/types/data/game/context/roleplay/GuildInAllianceInformations.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/types/ClassManager.h"
+#include "src/protocol/messages/AbstractMessage.h"
 
 class AllianceFactsMessage : public AbstractMessage
 {

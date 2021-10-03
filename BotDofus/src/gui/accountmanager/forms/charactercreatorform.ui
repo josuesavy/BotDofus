@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>402</width>
-    <height>412</height>
+    <width>389</width>
+    <height>419</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <item row="0" column="1" colspan="3">
     <widget class="QGroupBox" name="groupBoxCreatePlayer">
      <property name="title">
-      <string>Créer un personnage</string>
+      <string>Create a character</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -28,7 +28,7 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>Nom :</string>
+           <string>Name:</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -41,14 +41,14 @@
            <string/>
           </property>
           <property name="placeholderText">
-           <string>Laisser vide pour un nom aléatoire</string>
+           <string>Let empty for a name random</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_2">
           <property name="text">
-           <string>Serveur :</string>
+           <string>Server:</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -68,7 +68,7 @@
         <item row="2" column="0">
          <widget class="QLabel" name="label_5">
           <property name="text">
-           <string>Race :</string>
+           <string>Breed:</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -88,14 +88,14 @@
         <item row="2" column="2">
          <widget class="QCheckBox" name="checkBoxRandomBreed">
           <property name="text">
-           <string>Aléatoire</string>
+           <string>Random</string>
           </property>
          </widget>
         </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_6">
           <property name="text">
-           <string>Sexe :</string>
+           <string>Sex:</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -115,7 +115,7 @@
           </property>
           <item>
            <property name="text">
-            <string>Mâle</string>
+            <string>Mal</string>
            </property>
            <property name="icon">
             <iconset resource="../../../../res/resources.qrc">
@@ -124,7 +124,7 @@
           </item>
           <item>
            <property name="text">
-            <string>Femelle</string>
+            <string>Female</string>
            </property>
            <property name="icon">
             <iconset resource="../../../../res/resources.qrc">
@@ -136,14 +136,14 @@
         <item row="3" column="2">
          <widget class="QCheckBox" name="checkBoxRandomGender">
           <property name="text">
-           <string>Aléatoire</string>
+           <string>Random</string>
           </property>
          </widget>
         </item>
         <item row="4" column="0">
          <widget class="QLabel" name="label_7">
           <property name="text">
-           <string>Tête :</string>
+           <string>Head:</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -169,7 +169,7 @@
         <item row="4" column="2">
          <widget class="QCheckBox" name="checkBoxRandomHead">
           <property name="text">
-           <string>Aléatoire</string>
+           <string>Random</string>
           </property>
          </widget>
         </item>
@@ -187,42 +187,42 @@
         <item row="0" column="0">
          <widget class="QPushButton" name="pushButtonSkin">
           <property name="text">
-           <string>Peau</string>
+           <string>Skin</string>
           </property>
          </widget>
         </item>
         <item row="0" column="1">
          <widget class="QPushButton" name="pushButtonHair">
           <property name="text">
-           <string>Cheveux</string>
+           <string>Hair</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
          <widget class="QPushButton" name="pushButtonClothing_1">
           <property name="text">
-           <string>Vêtement 1</string>
+           <string>Clothing 1</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
          <widget class="QPushButton" name="pushButtonClothing_2">
           <property name="text">
-           <string>Vêtement 2</string>
+           <string>Clothing 2</string>
           </property>
          </widget>
         </item>
         <item row="2" column="0">
          <widget class="QPushButton" name="pushButtonClothing_3">
           <property name="text">
-           <string>Vêtement 3</string>
+           <string>Clothing 3</string>
           </property>
          </widget>
         </item>
         <item row="2" column="1">
          <widget class="QPushButton" name="pushButtonResetColor">
           <property name="text">
-           <string>Réinitialiser les couleurs</string>
+           <string>Reset the color</string>
           </property>
          </widget>
         </item>
@@ -233,7 +233,7 @@
         <item row="0" column="1">
          <widget class="QCheckBox" name="checkBoxSkipDidactiel">
           <property name="text">
-           <string>Passer le tutoriel</string>
+           <string>Skip didactiel</string>
           </property>
          </widget>
         </item>
@@ -307,7 +307,7 @@
    <item row="2" column="2">
     <widget class="QPushButton" name="pushButtonSave">
      <property name="text">
-      <string>Sauvegarder</string>
+      <string>Save</string>
      </property>
      <property name="icon">
       <iconset resource="../../../../res/resources.qrc">
@@ -330,6 +330,27 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>listWidgetAccounts</tabstop>
+  <tabstop>groupBoxCreatePlayer</tabstop>
+  <tabstop>lineEditName</tabstop>
+  <tabstop>comboBoxServer</tabstop>
+  <tabstop>comboBoxBreed</tabstop>
+  <tabstop>comboBoxGender</tabstop>
+  <tabstop>comboBoxHead</tabstop>
+  <tabstop>checkBoxRandomBreed</tabstop>
+  <tabstop>checkBoxRandomGender</tabstop>
+  <tabstop>checkBoxRandomHead</tabstop>
+  <tabstop>checkBoxRandomColor</tabstop>
+  <tabstop>pushButtonSkin</tabstop>
+  <tabstop>pushButtonHair</tabstop>
+  <tabstop>pushButtonClothing_1</tabstop>
+  <tabstop>pushButtonClothing_2</tabstop>
+  <tabstop>pushButtonClothing_3</tabstop>
+  <tabstop>pushButtonResetColor</tabstop>
+  <tabstop>checkBoxSkipDidactiel</tabstop>
+  <tabstop>pushButtonSave</tabstop>
+ </tabstops>
  <resources>
   <include location="../../../../res/resources.qrc"/>
  </resources>

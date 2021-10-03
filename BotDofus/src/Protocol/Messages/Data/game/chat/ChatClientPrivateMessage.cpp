@@ -8,7 +8,8 @@ void ChatClientPrivateMessage::serialize(Writer *output)
 void ChatClientPrivateMessage::serializeAs_ChatClientPrivateMessage(Writer *output)
 {
   ChatAbstractClientMessage::serializeAs_ChatAbstractClientMessage(output);
-  output->writeUTF(this->receiver);
+  output->writeShort((short)this->receiver->getTypes().last());
+  this->receiver->serialize(output);
 }
 
 void ChatClientPrivateMessage::deserialize(Reader *input)
@@ -19,7 +20,9 @@ void ChatClientPrivateMessage::deserialize(Reader *input)
 void ChatClientPrivateMessage::deserializeAs_ChatClientPrivateMessage(Reader *input)
 {
   ChatAbstractClientMessage::deserialize(input);
-  this->_receiverFunc(input);
+  uint _id1 = input->readUShort();
+  this->receiver = qSharedPointerCast<AbstractPlayerSearchInformation>(ClassManagerSingleton::get()->getClass(_id1));
+  this->receiver->deserialize(input);
 }
 
 void ChatClientPrivateMessage::deserializeAsync(FuncTree tree)
@@ -30,12 +33,14 @@ void ChatClientPrivateMessage::deserializeAsync(FuncTree tree)
 void ChatClientPrivateMessage::deserializeAsyncAs_ChatClientPrivateMessage(FuncTree tree)
 {
   ChatAbstractClientMessage::deserializeAsync(tree);
-  tree.addChild(std::bind(&ChatClientPrivateMessage::_receiverFunc, this, std::placeholders::_1));
+  this->_receivertree = tree.addChild(std::bind(&ChatClientPrivateMessage::_receivertreeFunc, this, std::placeholders::_1));
 }
 
-void ChatClientPrivateMessage::_receiverFunc(Reader *input)
+void ChatClientPrivateMessage::_receivertreeFunc(Reader *input)
 {
-  this->receiver = input->readUTF();
+  uint _id = input->readUShort();
+  this->receiver = qSharedPointerCast<AbstractPlayerSearchInformation>(ClassManagerSingleton::get()->getClass(_id));
+  this->receiver->deserializeAsync(this->_receivertree);
 }
 
 ChatClientPrivateMessage::ChatClientPrivateMessage()

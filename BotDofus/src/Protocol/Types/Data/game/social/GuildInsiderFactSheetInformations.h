@@ -1,10 +1,10 @@
 #ifndef GUILDINSIDERFACTSHEETINFORMATIONS_H
 #define GUILDINSIDERFACTSHEETINFORMATIONS_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/social/GuildFactSheetInformations.h"
-#include "src/Protocol/Types/Data/game/guild/GuildEmblem.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/social/GuildFactSheetInformations.h"
+#include "src/protocol/types/data/game/guild/GuildEmblem.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class GuildInsiderFactSheetInformations : public GuildFactSheetInformations
 {

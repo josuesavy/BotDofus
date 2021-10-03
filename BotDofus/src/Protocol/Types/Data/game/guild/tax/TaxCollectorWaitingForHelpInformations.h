@@ -1,10 +1,10 @@
 #ifndef TAXCOLLECTORWAITINGFORHELPINFORMATIONS_H
 #define TAXCOLLECTORWAITINGFORHELPINFORMATIONS_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/fight/ProtectedEntityWaitingForHelpInfo.h"
-#include "src/Protocol/Types/Data/game/guild/tax/TaxCollectorComplementaryInformations.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/fight/ProtectedEntityWaitingForHelpInfo.h"
+#include "src/protocol/types/data/game/guild/tax/TaxCollectorComplementaryInformations.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class TaxCollectorWaitingForHelpInformations : public TaxCollectorComplementaryInformations
 {

@@ -7,9 +7,9 @@
 #include <QToolTip>
 #include <QCursor>
 
-#include "src/Engines/Core/Process/ProcessEngine.h"
-#include "src/Engines/Storage/DataHandler.h"
-#include "src/Engines/Misc/PropertyHelper.h"
+#include "src/engines/core/process/ProcessEngine.h"
+#include "src/engines/DataHandler.h"
+#include "src/engines/utils/PropertyHelper.h"
 
 namespace Ui {
 class MapForm;
@@ -40,7 +40,6 @@ public:
     Q_INVOKABLE void changeToNearestCell(uint cell);
     Q_INVOKABLE void useInteractive(uint cell);
     Q_INVOKABLE void showInfos(uint cell);
-    Q_INVOKABLE void hideInfos();
 
     enum MapViewerCellEnum
     {
@@ -52,6 +51,7 @@ public:
         USABLE,
         MONSTER,
         INTERACTIVE,
+        DOOR,
         COLLISION_NO_SIGHT,
         COLLISION_WITH_SIGHT,
         DEFENDER,
@@ -88,15 +88,20 @@ private:
     const BotData &getData() const;
 
     int m_mapId;
+    QList<uint> m_interactivesOnMap;
     QList<uint> m_playersOnMap;
+    QList<uint> m_npcsOnMap;
+    QList<uint> m_merchantsOnMap;
     QList<uint> m_monstersOnMap;
     QList<uint> m_defenderOnMap;
     QList<uint> m_challengerOnMap;
 
-    QList<InteractiveDisplayInfos> inl;
-    QList<MonsterGroup> ml;
-    QList<EntityInfos> pl;
-    QList<NpcInfos> npcl;
+    QList<InteractiveDisplayInfos> interactiveDisplayInfosList;
+    QList<MonsterGroup> monsterGroupList;
+    QList<EntityInfos> entityInfosList;
+    QList<MerchantInfos> merchantInfosList;
+    QList<NpcInfos> npcInfosList;
+    QList<NpcQuestInfos> npcQuestInfosList;
 };
 
 #endif // MAPFORM_H

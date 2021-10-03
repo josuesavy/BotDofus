@@ -1,9 +1,9 @@
 #ifndef PARTYIDOL_H
 #define PARTYIDOL_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/idol/Idol.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/idol/Idol.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class PartyIdol : public Idol
 {

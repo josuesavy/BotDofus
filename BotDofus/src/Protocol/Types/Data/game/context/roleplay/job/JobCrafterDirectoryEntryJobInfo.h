@@ -1,8 +1,8 @@
 #ifndef JOBCRAFTERDIRECTORYENTRYJOBINFO_H
 #define JOBCRAFTERDIRECTORYENTRYJOBINFO_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class JobCrafterDirectoryEntryJobInfo : public AbstractClass
 {

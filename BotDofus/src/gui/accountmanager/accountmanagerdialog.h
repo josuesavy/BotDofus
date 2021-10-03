@@ -3,8 +3,9 @@
 
 #include <QDialog>
 #include <QtSql/QtSql>
+#include <QCloseEvent>
 
-#include "src/Engines/Core/CoreEngine.h"
+#include "src/engines/core/CoreEngine.h"
 #include "forms/loaderaccountform.h"
 #include "forms/addaccountform.h"
 #include "forms/charactercreatorform.h"
@@ -33,6 +34,8 @@ signals:
 
 private slots:
     void on_buttonBox_accepted();
+
+    void on_checkBoxCloseAfterLoaded_stateChanged(int arg1);
 
 private:
     Ui::AccountManagerDialog *ui;

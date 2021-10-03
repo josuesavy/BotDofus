@@ -1,10 +1,10 @@
 #ifndef PLAYERSTATUSUPDATEREQUESTMESSAGE_H
 #define PLAYERSTATUSUPDATEREQUESTMESSAGE_H
 
-#include "src/Protocol/Types/Data/game/character/status/PlayerStatus.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Types/ClassManager.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
+#include "src/protocol/types/data/game/character/status/PlayerStatus.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/types/ClassManager.h"
+#include "src/protocol/messages/AbstractMessage.h"
 
 class PlayerStatusUpdateRequestMessage : public AbstractMessage
 {

@@ -7,7 +7,7 @@ void AcquaintanceSearchMessage::serialize(Writer *output)
 
 void AcquaintanceSearchMessage::serializeAs_AcquaintanceSearchMessage(Writer *output)
 {
-  output->writeUTF(this->nickname);
+  this->tag.serializeAs_AccountTagInformation(output);
 }
 
 void AcquaintanceSearchMessage::deserialize(Reader *input)
@@ -17,7 +17,8 @@ void AcquaintanceSearchMessage::deserialize(Reader *input)
 
 void AcquaintanceSearchMessage::deserializeAs_AcquaintanceSearchMessage(Reader *input)
 {
-  this->_nicknameFunc(input);
+  this->tag = AccountTagInformation();
+  this->tag.deserialize(input);
 }
 
 void AcquaintanceSearchMessage::deserializeAsync(FuncTree tree)
@@ -27,12 +28,13 @@ void AcquaintanceSearchMessage::deserializeAsync(FuncTree tree)
 
 void AcquaintanceSearchMessage::deserializeAsyncAs_AcquaintanceSearchMessage(FuncTree tree)
 {
-  tree.addChild(std::bind(&AcquaintanceSearchMessage::_nicknameFunc, this, std::placeholders::_1));
+  this->_tagtree = tree.addChild(std::bind(&AcquaintanceSearchMessage::_tagtreeFunc, this, std::placeholders::_1));
 }
 
-void AcquaintanceSearchMessage::_nicknameFunc(Reader *input)
+void AcquaintanceSearchMessage::_tagtreeFunc(Reader *input)
 {
-  this->nickname = input->readUTF();
+  this->tag = AccountTagInformation();
+  this->tag.deserializeAsync(this->_tagtree);
 }
 
 AcquaintanceSearchMessage::AcquaintanceSearchMessage()

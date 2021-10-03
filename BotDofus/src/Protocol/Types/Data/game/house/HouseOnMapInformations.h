@@ -1,10 +1,10 @@
 #ifndef HOUSEONMAPINFORMATIONS_H
 #define HOUSEONMAPINFORMATIONS_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/house/HouseInstanceInformations.h"
-#include "src/Protocol/Types/Data/game/house/HouseInformations.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/house/HouseInstanceInformations.h"
+#include "src/protocol/types/data/game/house/HouseInformations.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class HouseOnMapInformations : public HouseInformations
 {

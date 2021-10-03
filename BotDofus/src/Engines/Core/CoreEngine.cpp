@@ -5,96 +5,146 @@ CoreEngine::CoreEngine()
     QTime t;
     t.start();
 
-    m_modules[ModuleType::MAP] = new MapModule(&m_botData);
-    m_modules[ModuleType::STATS] = new StatsModule(&m_botData);
-    m_modules[ModuleType::FLOOD] =  new FloodModule(&m_botData);
-    m_modules[ModuleType::EXCHANGE] = new ExchangeModule(&m_botData);
-    m_modules[ModuleType::CONNECTION] = new ConnectionModule(&m_botData);
-    m_modules[ModuleType::INTERACTION] = new InteractionModule(&m_botData, static_cast<MapModule*>(m_modules[ModuleType::MAP]));
-    m_modules[ModuleType::GROUP] = new GroupModule(&m_botData, static_cast<MapModule*>(m_modules[ModuleType::MAP]));
-    m_modules[ModuleType::FIGHT] = new FightModule(&m_botData, static_cast<MapModule*>(m_modules[ModuleType::MAP]), static_cast<GroupModule*>(m_modules[ModuleType::GROUP]), static_cast<ArenaModule*>(m_modules[ModuleType::ARENA]));
-    m_modules[ModuleType::FARM] = new FarmModule(&m_botData,  static_cast<MapModule*>(m_modules[ModuleType::MAP]));
-    m_modules[ModuleType::CRAFT] = new CraftModule(&m_botData, static_cast<MapModule*>(m_modules[ModuleType::MAP]));
-    m_modules[ModuleType::SCRIPT] = new ScriptModule(&m_botData, static_cast<MapModule*>(m_modules[ModuleType::MAP]), static_cast<FightModule*>(m_modules[ModuleType::FIGHT]), static_cast<FarmModule*>(m_modules[ModuleType::FARM]), static_cast<CraftModule*>(m_modules[ModuleType::CRAFT]), static_cast<InteractionModule*>(m_modules[ModuleType::INTERACTION]), static_cast<GroupModule*>(m_modules[ModuleType::GROUP]), static_cast<StatsModule*>(m_modules[ModuleType::STATS]), static_cast<ConnectionModule*>(m_modules[ModuleType::CONNECTION]));
-    m_modules[ModuleType::ARENA] = new ArenaModule(&m_botData);
-    m_modules[ModuleType::SHOP] = new ShopModule(&m_botData);
+    m_managers[ManagerType::MAP] = new MapManager(&m_botData);
+    m_managers[ManagerType::STATS] = new StatsManager(&m_botData);
+    m_managers[ManagerType::FLOOD] = new FloodManager(&m_botData);
+    m_managers[ManagerType::EXCHANGE] = new ExchangeManager(&m_botData);
+    m_managers[ManagerType::CONNECTION] = new ConnectionManager(&m_botData);
+    m_managers[ManagerType::INTERACTION] = new InteractionManager(&m_botData, static_cast<MapManager*>(m_managers[ManagerType::MAP]));
+    m_managers[ManagerType::GROUP] = new GroupManager(&m_botData, static_cast<MapManager*>(m_managers[ManagerType::MAP]));
+    m_managers[ManagerType::FIGHT] = new FightManager(&m_botData, static_cast<MapManager*>(m_managers[ManagerType::MAP]), static_cast<GroupManager*>(m_managers[ManagerType::GROUP]));
+    m_managers[ManagerType::FARM] = new FarmManager(&m_botData, static_cast<MapManager*>(m_managers[ManagerType::MAP]));
+    m_managers[ManagerType::CRAFT] = new CraftManager(&m_botData, static_cast<MapManager*>(m_managers[ManagerType::MAP]));
+    m_managers[ManagerType::SECURITY] = new SecurityManager(&m_botData);
+
+
+    m_frames.append(new CommonBasicFrame(&m_botData));
+    m_frames.append(new ConnectionFrame(&m_botData, static_cast<ConnectionManager*>(m_managers[ManagerType::CONNECTION])));
+    m_frames.append(new ConnectionRegisterFrame(&m_botData));
+    m_frames.append(new ConnectionSearchFrame(&m_botData));
+    m_frames.append(new AchievementFrame(&m_botData));
+    m_frames.append(new GameActionsFrame(&m_botData));
+    m_frames.append(new GameActionsFightFrame(&m_botData, static_cast<FightManager*>(m_managers[ManagerType::FIGHT])));
+    m_frames.append(new GameActionsSequenceFrame(&m_botData, static_cast<FightManager*>(m_managers[ManagerType::FIGHT])));
+    m_frames.append(new GameAllianceFrame(&m_botData));
+    m_frames.append(new GameAlmanachFrame(&m_botData));
+    m_frames.append(new GameApproachFrame(&m_botData));
+    m_frames.append(new GameAtlasCompassFrame(&m_botData, static_cast<MapManager*>(m_managers[ManagerType::MAP])));
+    m_frames.append(new GameBasicFrame(&m_botData, static_cast<ConnectionManager*>(m_managers[ManagerType::CONNECTION])));
+    m_frames.append(new GameCharacterChoiceFrame(&m_botData, static_cast<ConnectionManager*>(m_managers[ManagerType::CONNECTION]), static_cast<GroupManager*>(m_managers[ManagerType::GROUP])));
+    m_frames.append(new GameCharacterCreationFrame(&m_botData));
+    m_frames.append(new GameCharacterDeletionFrame(&m_botData));
+    m_frames.append(new GameCharacterStatsFrame(&m_botData, static_cast<StatsManager*>(m_managers[ManagerType::STATS])));
+    m_frames.append(new GameCharacterStatusFrame(&m_botData));
+    m_frames.append(new GameChatFrame(&m_botData, static_cast<FightManager*>(m_managers[ManagerType::FIGHT])));
+    m_frames.append(new GameContextFrame(&m_botData, static_cast<FightManager*>(m_managers[ManagerType::FIGHT]), static_cast<MapManager*>(m_managers[ManagerType::MAP])));
+    m_frames.append(new GameContextFightFrame(&m_botData, static_cast<FightManager*>(m_managers[ManagerType::FIGHT])));
+    m_frames.append(new GameContextFightCharacterFrame(&m_botData, static_cast<FightManager*>(m_managers[ManagerType::FIGHT]), static_cast<GroupManager*>(m_managers[ManagerType::GROUP])));
+    m_frames.append(new GameContextMountFrame(&m_botData));
+    m_frames.append(new GameContextNotificationFrame(&m_botData));
+    m_frames.append(new GameContextRoleplayFrame(&m_botData, static_cast<MapManager*>(m_managers[ManagerType::MAP]), static_cast<FloodManager*>(m_managers[ManagerType::FLOOD])));
+    m_frames.append(new GameContextRoleplayDeathFrame(&m_botData, static_cast<StatsManager*>(m_managers[ManagerType::STATS])));
+    m_frames.append(new GameContextRoleplayEmoteFrame(&m_botData));
+    m_frames.append(new GameContextRoleplayFightFrame(&m_botData));
+    m_frames.append(new GameContextRoleplayJobFrame(&m_botData));
+    m_frames.append(new GameContextRoleplayNpcFrame(&m_botData, static_cast<InteractionManager*>(m_managers[ManagerType::INTERACTION])));
+    m_frames.append(new GameContextRoleplayObjectsFrame(&m_botData));
+    m_frames.append(new GameContextRoleplayPartyFrame(&m_botData, static_cast<MapManager*>(m_managers[ManagerType::MAP])));
+    m_frames.append(new GameContextRoleplayQuestFrame(&m_botData));
+    m_frames.append(new GameContextRoleplayStatsFrame(&m_botData, static_cast<StatsManager*>(m_managers[ManagerType::STATS])));
+    m_frames.append(new GameContextRoleplayTreasureHuntFrame(&m_botData));
+    m_frames.append(new GameDialogFrame(&m_botData, static_cast<InteractionManager*>(m_managers[ManagerType::INTERACTION])));
+    m_frames.append(new GameFriendFrame(&m_botData));
+    m_frames.append(new GameGuildFrame(&m_botData));
+    m_frames.append(new GameInitializationFrame(&m_botData, static_cast<GroupManager*>(m_managers[ManagerType::GROUP])));
+    m_frames.append(new GameInteractiveFrame(&m_botData, static_cast<InteractionManager*>(m_managers[ManagerType::INTERACTION]), static_cast<FarmManager*>(m_managers[ManagerType::FARM])));
+    m_frames.append(new GameInteractiveZaapFrame(&m_botData, static_cast<InteractionManager*>(m_managers[ManagerType::INTERACTION])));
+    m_frames.append(new GameInventoryFrame(&m_botData));
+    m_frames.append(new GameInventoryExchangesFrame(&m_botData, static_cast<CraftManager*>(m_managers[ManagerType::CRAFT]), static_cast<ExchangeManager*>(m_managers[ManagerType::EXCHANGE])));
+    m_frames.append(new GameInventoryItemsFrame(&m_botData, static_cast<ExchangeManager*>(m_managers[ManagerType::EXCHANGE]), static_cast<StatsManager*>(m_managers[ManagerType::STATS])));
+    m_frames.append(new GameInventorySpellsFrame(&m_botData));
+    m_frames.append(new GameInventoryStorageFrame(&m_botData, static_cast<InteractionManager*>(m_managers[ManagerType::INTERACTION])));
+    m_frames.append(new GameModerationFrame(&m_botData, static_cast<MapManager*>(m_managers[ManagerType::MAP])));
+    m_frames.append(new GameSubscriberFrame(&m_botData));
+    m_frames.append(new HandshakeFrame(&m_botData));
+    m_frames.append(new QueueFrame(&m_botData));
+    m_frames.append(new SecureFrame(&m_botData));
+    m_frames.append(new SecurityFrame(&m_botData));
+    m_frames.append(new ServerBasicFrame(&m_botData));
+    m_frames.append(new SubscriptionFrame(&m_botData));
+    m_frames.append(new WebHaapiFrame(&m_botData));
 
     qDebug()<<"[CoreEngine] Initialized ! ("<<t.elapsed()<<"ms)";
 }
 
 CoreEngine::~CoreEngine()
 {
-    QMapIterator<ModuleType, AbstractModule*> module(m_modules);
-    while (module.hasNext())
+    QMapIterator<ManagerType, AbstractManager*> manager(m_managers);
+    while (manager.hasNext())
     {
-        module.next();
-        delete module.value();
+        manager.next();
+        delete manager.value();
+    }
+
+    foreach(AbstractFrame *frame, m_frames)
+    {
+        delete frame;
     }
 }
 
-MapModule &CoreEngine::getMapModule()
+MapManager &CoreEngine::getMapManager()
 {
-    return *static_cast<MapModule*>(m_modules[ModuleType::MAP]);
+    return *static_cast<MapManager*>(m_managers[ManagerType::MAP]);
 }
 
-FloodModule &CoreEngine::getFloodModule()
+FloodManager &CoreEngine::getFloodManager()
 {
-    return *static_cast<FloodModule*>(m_modules[ModuleType::FLOOD]);
+    return *static_cast<FloodManager*>(m_managers[ManagerType::FLOOD]);
 }
 
-FightModule &CoreEngine::getFightModule()
+FightManager &CoreEngine::getFightManager()
 {
-    return *static_cast<FightModule*>(m_modules[ModuleType::FIGHT]);
+    return *static_cast<FightManager*>(m_managers[ManagerType::FIGHT]);
 }
 
-FarmModule &CoreEngine::getFarmModule()
+FarmManager &CoreEngine::getFarmManager()
 {
-    return *static_cast<FarmModule*>(m_modules[ModuleType::FARM]);
+    return *static_cast<FarmManager*>(m_managers[ManagerType::FARM]);
 }
 
-ConnectionModule &CoreEngine::getConnectionModule()
+ConnectionManager &CoreEngine::getConnectionManager()
 {
-    return *static_cast<ConnectionModule*>(m_modules[ModuleType::CONNECTION]);
+    return *static_cast<ConnectionManager*>(m_managers[ManagerType::CONNECTION]);
 }
 
-StatsModule &CoreEngine::getStatsModule()
+StatsManager &CoreEngine::getStatsManager()
 {
-    return *static_cast<StatsModule*>(m_modules[ModuleType::STATS]);
+    return *static_cast<StatsManager*>(m_managers[ManagerType::STATS]);
 }
 
-ExchangeModule &CoreEngine::getExchangeModule()
+ExchangeManager &CoreEngine::getExchangeManager()
 {
-    return *static_cast<ExchangeModule*>(m_modules[ModuleType::EXCHANGE]);
+    return *static_cast<ExchangeManager*>(m_managers[ManagerType::EXCHANGE]);
 }
 
-GroupModule &CoreEngine::getGroupModule()
+GroupManager &CoreEngine::getGroupManager()
 {
-    return *static_cast<GroupModule*>(m_modules[ModuleType::GROUP]);
+    return *static_cast<GroupManager*>(m_managers[ManagerType::GROUP]);
 }
 
-CraftModule &CoreEngine::getCraftModule()
+CraftManager &CoreEngine::getCraftManager()
 {
-    return *static_cast<CraftModule*>(m_modules[ModuleType::CRAFT]);
+    return *static_cast<CraftManager*>(m_managers[ManagerType::CRAFT]);
 }
 
-ScriptModule &CoreEngine::getScriptModule()
+InteractionManager &CoreEngine::getInteractionManager()
 {
-    return *static_cast<ScriptModule*>(m_modules[ModuleType::SCRIPT]);
+    return *static_cast<InteractionManager*>(m_managers[ManagerType::INTERACTION]);
 }
 
-InteractionModule &CoreEngine::getInteractionModule()
+SecurityManager &CoreEngine::getSecurityManager()
 {
-    return *static_cast<InteractionModule*>(m_modules[ModuleType::INTERACTION]);
-}
-
-ArenaModule &CoreEngine::getArenaModule()
-{
-    return *static_cast<ArenaModule*>(m_modules[ModuleType::ARENA]);
-}
-
-ShopModule &CoreEngine::getShopModule()
-{
-    return *static_cast<ShopModule*>(m_modules[ModuleType::SHOP]);
+    return *static_cast<SecurityManager*>(m_managers[ManagerType::SECURITY]);
 }
 
 const BotData &CoreEngine::getData(SocketIO *sender)

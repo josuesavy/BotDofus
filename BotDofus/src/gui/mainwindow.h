@@ -7,7 +7,7 @@
 #include <QSystemTrayIcon>
 #include <QProgressDialog>
 
-#include "src/Engines/Core/Process/ProcessEngine.h"
+#include "src/engines/core/process/ProcessEngine.h"
 
 #include "accountmanager/accountmanagerdialog.h"
 #include "main/accountform.h"
@@ -52,9 +52,19 @@ private slots:
     void on_treeWidgetAccount_itemPressed(QTreeWidgetItem *item, int column);
     void on_treeWidgetAccount_itemCollapsed(QTreeWidgetItem *item);
     void on_treeWidgetAccount_itemExpanded(QTreeWidgetItem *item);
+    void on_treeWidgetAccount_itemSelectionChanged();
+
+    void on_actionConnectAllLoadedAccounts_triggered();
+    void on_actionDisconnectAllLoadedAccounts_triggered();
+    void on_actionUnloadAllLoadedAccounts_triggered();
+    void on_actionLoadScriptAllLoadedAccounts_triggered();
+    void on_actionRunScriptAllLoadedAccounts_triggered();
+    void on_actionStopScriptAllLoadedAccounts_triggered();
 
 private:
     Ui::MainWindow *ui;
+
+    AccountManagerDialog *accountManagerDialog;
 
     QSystemTrayIcon *trayIcon;
 

@@ -79,5 +79,6 @@
         <file>icons/hand_16px.ico</file>
         <file>icons/laptop_16px.ico</file>
         <file>icons/diskette_16px.ico</file>
+        <file>icons/bullet_blue_32px.ico</file>
     </qresource>
 </RCC>

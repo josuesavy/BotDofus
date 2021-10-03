@@ -59,60 +59,66 @@ void FightForm::updateInterface()
 
 void FightForm::on_pushButtonMoveTopSpell_clicked()
 {
-    int index = ui->tableWidgetSpells->row(ui->tableWidgetSpells->selectedItems().first());
-
-    if(ui->tableWidgetSpells->selectedItems().count() > 0 && index != 0)
+    if (!ui->tableWidgetSpells->selectedItems().isEmpty())
     {
-        QList<RequestedSpell> rs = m_engine->getFightModule().getRequestedSpells(m_sender);
-        rs.move(index, index-1);
-        m_engine->getFightModule().setRequestedSpells(m_sender, rs);
+        int index = ui->tableWidgetSpells->row(ui->tableWidgetSpells->selectedItems().first());
 
-        QList<QTableWidgetItem*> sourceItems;
-        QList<QTableWidgetItem*> destItems;
-
-        for(int i = 0; i < ui->tableWidgetSpells->columnCount(); i++)
+        if (index)
         {
-            sourceItems << ui->tableWidgetSpells->takeItem(index, i);
-            destItems << ui->tableWidgetSpells->takeItem(index-1, i);
-        }
+            QList<RequestedSpell> rs = m_engine->getFightManager().getRequestedSpells(m_sender);
+            rs.move(index, index-1);
+            m_engine->getFightManager().setRequestedSpells(m_sender, rs);
 
-        for(int i = 0; i < ui->tableWidgetSpells->columnCount(); i++)
-        {
-            ui->tableWidgetSpells->setItem(index, i, destItems.at(i));
-            ui->tableWidgetSpells->setItem(index-1, i, sourceItems.at(i));
-        }
+            QList<QTableWidgetItem*> sourceItems;
+            QList<QTableWidgetItem*> destItems;
 
-        ui->tableWidgetSpells->selectRow(index-1);
+            for(int i = 0; i < ui->tableWidgetSpells->columnCount(); i++)
+            {
+                sourceItems << ui->tableWidgetSpells->takeItem(index, i);
+                destItems << ui->tableWidgetSpells->takeItem(index-1, i);
+            }
+
+            for(int i = 0; i < ui->tableWidgetSpells->columnCount(); i++)
+            {
+                ui->tableWidgetSpells->setItem(index, i, destItems.at(i));
+                ui->tableWidgetSpells->setItem(index-1, i, sourceItems.at(i));
+            }
+
+            ui->tableWidgetSpells->selectRow(index-1);
+        }
     }
 }
 
 void FightForm::on_pushButtonMoveDownSpell_clicked()
 {
-    int index = ui->tableWidgetSpells->row(ui->tableWidgetSpells->selectedItems().first());
-
-    QList<RequestedSpell> rs = m_engine->getFightModule().getRequestedSpells(m_sender);
-
-    if(ui->tableWidgetSpells->selectedItems().count() > 0 && index != rs.size()-1)
+    if (!ui->tableWidgetSpells->selectedItems().isEmpty())
     {
-        rs.move(index, index+1);
-        m_engine->getFightModule().setRequestedSpells(m_sender, rs);
+        int index = ui->tableWidgetSpells->row(ui->tableWidgetSpells->selectedItems().first());
 
-        QList<QTableWidgetItem*> sourceItems;
-        QList<QTableWidgetItem*> destItems;
+        QList<RequestedSpell> rs = m_engine->getFightManager().getRequestedSpells(m_sender);
 
-        for(int i = 0; i < ui->tableWidgetSpells->columnCount(); i++)
+        if (index != rs.size()-1)
         {
-            sourceItems << ui->tableWidgetSpells->takeItem(index, i);
-            destItems << ui->tableWidgetSpells->takeItem(index+1, i);
-        }
+            rs.move(index, index+1);
+            m_engine->getFightManager().setRequestedSpells(m_sender, rs);
 
-        for(int i = 0; i < ui->tableWidgetSpells->columnCount(); i++)
-        {
-            ui->tableWidgetSpells->setItem(index, i, destItems.at(i));
-            ui->tableWidgetSpells->setItem(index+1, i, sourceItems.at(i));
-        }
+            QList<QTableWidgetItem*> sourceItems;
+            QList<QTableWidgetItem*> destItems;
 
-        ui->tableWidgetSpells->selectRow(index+1);
+            for(int i = 0; i < ui->tableWidgetSpells->columnCount(); i++)
+            {
+                sourceItems << ui->tableWidgetSpells->takeItem(index, i);
+                destItems << ui->tableWidgetSpells->takeItem(index+1, i);
+            }
+
+            for(int i = 0; i < ui->tableWidgetSpells->columnCount(); i++)
+            {
+                ui->tableWidgetSpells->setItem(index, i, destItems.at(i));
+                ui->tableWidgetSpells->setItem(index+1, i, sourceItems.at(i));
+            }
+
+            ui->tableWidgetSpells->selectRow(index+1);
+        }
     }
 }
 
@@ -124,42 +130,58 @@ void FightForm::on_pushButtonAddSpell_clicked()
     addSpellDialog.setParent(this, Qt::Dialog);
     if(addSpellDialog.exec() == QDialog::Accepted)
     {
-        while(ui->tableWidgetSpells->rowCount() > 0)
-            ui->tableWidgetSpells->removeRow(0);
+        RequestedSpell requestedSpellToAdd;
+        requestedSpellToAdd.spellID = addSpellDialog.getSpell();
+        requestedSpellToAdd.castNb = addSpellDialog.getNbrCast();
+        requestedSpellToAdd.spellCible = addSpellDialog.getTarget();
 
-        // Creation d'un sort à jouer en combat
-        RequestedSpell r;
-        r.spellID = addSpellDialog.getSpell();
-        r.castNb = addSpellDialog.getNbrCast();
-        r.spellCible = addSpellDialog.getTarget();
+        QList<RequestedSpell> requestedSpells = m_engine->getFightManager().getRequestedSpells(m_sender);
 
-        // On le rajoute à ceux déjà présent
-        QList<RequestedSpell> rs = m_engine->getFightModule().getRequestedSpells(m_sender);
-        rs << r;
-
-        // Actualisation des sorts avec le nouveau
-        m_engine->getFightModule().setRequestedSpells(m_sender, rs);
-
-        int indexSpell = 0;
-        QSharedPointer<SpellData> spellData;
-        foreach(const RequestedSpell &r, rs)
+        bool found = false;
+        foreach (const RequestedSpell &requestedSpell, requestedSpells)
         {
-            spellData = qSharedPointerCast<SpellData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::SPELLS, r.spellID));
-
-            ui->tableWidgetSpells->insertRow(ui->tableWidgetSpells->rowCount());
-            ui->tableWidgetSpells->setItem(indexSpell, 0, new QTableWidgetItem(spellData->getName()));
-            if(r.spellCible == SpellCible::ENEMY)
-                ui->tableWidgetSpells->setItem(indexSpell, 1, new QTableWidgetItem("Ennemie"));
-            else if(r.spellCible == SpellCible::ALLY)
-                ui->tableWidgetSpells->setItem(indexSpell, 1, new QTableWidgetItem("Allié"));
-            else if(r.spellCible == SpellCible::DIRECTION)
-                ui->tableWidgetSpells->setItem(indexSpell, 1, new QTableWidgetItem("Direction"));
-            else if(r.spellCible == SpellCible::SELF)
-                ui->tableWidgetSpells->setItem(indexSpell, 1, new QTableWidgetItem("Moi"));
-            ui->tableWidgetSpells->setItem(indexSpell, 2, new QTableWidgetItem(QString::number(r.castNb)));
-
-            indexSpell++;
+            if (requestedSpell.spellID == requestedSpellToAdd.spellID)
+            {
+                found = true;
+                break;
+            }
         }
+
+        if (!found)
+        {
+            while(ui->tableWidgetSpells->rowCount() > 0)
+                ui->tableWidgetSpells->removeRow(0);
+
+            requestedSpells << requestedSpellToAdd;
+
+            m_engine->getFightManager().setRequestedSpells(m_sender, requestedSpells);
+
+            int indexSpell = 0;
+            QSharedPointer<SpellData> spellData;
+            foreach(const RequestedSpell &requestedSpell, requestedSpells)
+            {
+                spellData = qSharedPointerCast<SpellData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::SPELLS, requestedSpell.spellID));
+
+                ui->tableWidgetSpells->insertRow(ui->tableWidgetSpells->rowCount());
+                ui->tableWidgetSpells->setItem(indexSpell, 0, new QTableWidgetItem(spellData->getName()));
+
+                if(requestedSpell.spellCible == SpellCible::ENEMY)
+                    ui->tableWidgetSpells->setItem(indexSpell, 1, new QTableWidgetItem("Ennemie"));
+                else if(requestedSpell.spellCible == SpellCible::ALLY)
+                    ui->tableWidgetSpells->setItem(indexSpell, 1, new QTableWidgetItem("Ally"));
+                else if(requestedSpell.spellCible == SpellCible::DIRECTION)
+                    ui->tableWidgetSpells->setItem(indexSpell, 1, new QTableWidgetItem("Direction"));
+                else if(requestedSpell.spellCible == SpellCible::SELF)
+                    ui->tableWidgetSpells->setItem(indexSpell, 1, new QTableWidgetItem("Me"));
+
+                ui->tableWidgetSpells->setItem(indexSpell, 2, new QTableWidgetItem(QString::number(requestedSpell.castNb)));
+
+                indexSpell++;
+            }
+        }
+
+        else
+            QMessageBox::critical(this, tr("Error"), tr("This spell has already been added."));
     }
 }
 
@@ -167,9 +189,9 @@ void FightForm::on_pushButtonDeleteSpell_clicked()
 {
     int indexRow = ui->tableWidgetSpells->currentRow();
 
-    QList<RequestedSpell> rs = m_engine->getFightModule().getRequestedSpells(m_sender);
+    QList<RequestedSpell> rs = m_engine->getFightManager().getRequestedSpells(m_sender);
     rs.removeAt(indexRow);
-    m_engine->getFightModule().setRequestedSpells(m_sender, rs);
+    m_engine->getFightManager().setRequestedSpells(m_sender, rs);
 
     for(int i = 0; i < ui->tableWidgetSpells->columnCount(); i++)
     {
@@ -183,13 +205,13 @@ void FightForm::on_comboBoxPositionFight_currentIndexChanged(int index)
 {
     switch (index) {
     case 0: // Aucun
-        m_engine->getFightModule().setFightPlacementPosition(m_sender, FightPlacementPosition::NONE);
+        m_engine->getFightManager().setFightPlacementPosition(m_sender, FightPlacementPosition::NONE);
         break;
     case 1: // Proche des ennemies
-        m_engine->getFightModule().setFightPlacementPosition(m_sender, FightPlacementPosition::NEARFUL);
+        m_engine->getFightManager().setFightPlacementPosition(m_sender, FightPlacementPosition::NEARFUL);
         break;
     case 2: // Loin des ennemies
-        m_engine->getFightModule().setFightPlacementPosition(m_sender, FightPlacementPosition::FARTHER);
+        m_engine->getFightManager().setFightPlacementPosition(m_sender, FightPlacementPosition::FARTHER);
         break;
     }
 }
@@ -198,13 +220,13 @@ void FightForm::on_comboBoxCloseFight_currentIndexChanged(int index)
 {
     switch (index) {
     case 0: // Aucun
-        m_engine->getFightModule().setClosed(m_sender, false);
+        m_engine->getFightManager().setClosed(m_sender, 0);
         break;
     case 1: // Bloquer si quelqu'un entre
-        // TODO : make a cup of coffe LOL
+        m_engine->getFightManager().setClosed(m_sender, 1);
         break;
     case 2: // Bloquer
-        m_engine->getFightModule().setClosed(m_sender, true);
+        m_engine->getFightManager().setClosed(m_sender, 2);
         break;
     }
 }
@@ -213,13 +235,13 @@ void FightForm::on_comboBoxSpectator_currentIndexChanged(int index)
 {
     switch (index) {
     case 0: // Aucun
-        m_engine->getFightModule().setSecret(m_sender, false);
+        m_engine->getFightManager().setSecret(m_sender, 0);
         break;
     case 1: // Bloquer si quelqu'un entre
-        // TODO : make a cup of coffe LOL
+        m_engine->getFightManager().setSecret(m_sender, 1);
         break;
     case 2: // Bloquer
-        m_engine->getFightModule().setSecret(m_sender, true);
+        m_engine->getFightManager().setSecret(m_sender, 2);
         break;
     }
 }
@@ -229,23 +251,23 @@ void FightForm::on_comboBoxBehavior_currentIndexChanged(int index)
     switch (index)
     {
     case 0: // Fuyard, Craintif
-        m_engine->getFightModule().setFightIA(m_sender, FightIA::FEARFUL);
+        m_engine->getFightManager().setFightIA(m_sender, FightIA::FEARFUL);
         break;
     case 1: // Agressif
-        m_engine->getFightModule().setFightIA(m_sender, FightIA::AGGRESSIVE);
+        m_engine->getFightManager().setFightIA(m_sender, FightIA::AGGRESSIVE);
         break;
     case 2: // Passif
-        m_engine->getFightModule().setFightIA(m_sender, FightIA::FOLLOWER);
+        m_engine->getFightManager().setFightIA(m_sender, FightIA::FOLLOWER);
         break;
     }
 }
 
 void FightForm::on_spinBoxRegenerationMin_valueChanged(int arg1)
 {
-    m_engine->getStatsModule().setRegenerationRatio(m_sender, arg1, ui->spinBoxRegenerationMax->value());
+    m_engine->getStatsManager().setRegenerationRatio(m_sender, arg1, ui->spinBoxRegenerationMax->value());
 }
 
 void FightForm::on_spinBoxRegenerationMax_valueChanged(int arg1)
 {
-    m_engine->getStatsModule().setRegenerationRatio(m_sender, ui->spinBoxRegenerationMin->value(), arg1);
+    m_engine->getStatsManager().setRegenerationRatio(m_sender, ui->spinBoxRegenerationMin->value(), arg1);
 }

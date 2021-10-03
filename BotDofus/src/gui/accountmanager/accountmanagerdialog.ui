@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>418</width>
+    <width>454</width>
     <height>359</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Gestionnaire de comptes</string>
+   <string>Account manager</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../../../res/resources.qrc">
@@ -28,7 +28,7 @@
    <item row="1" column="0">
     <widget class="QCheckBox" name="checkBoxCloseAfterLoaded">
      <property name="text">
-      <string>Fermer automatique après le chargement de comptes</string>
+      <string>Close after loading</string>
      </property>
     </widget>
    </item>
@@ -41,6 +41,10 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>checkBoxCloseAfterLoaded</tabstop>
+ </tabstops>
  <resources>
   <include location="../../../res/resources.qrc"/>
  </resources>

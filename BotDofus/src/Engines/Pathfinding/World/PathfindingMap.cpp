@@ -94,7 +94,6 @@ QList<ChangeMapRequest> PathfindingMap::findPath(uint startMapId, uint endMapId,
     loadMapInList(startMapId, startMapId, endMapId);
 
     Map checkArea = D2PManagerSingleton::get()->getMap(startMapId);
-
     QSharedPointer<SubAreaData> subAreaStart = qSharedPointerCast<SubAreaData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::SUBAREAS, checkArea.getSubAreaId()));
     QSharedPointer<AreaData> areaStart = qSharedPointerCast<AreaData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::AREAS, subAreaStart->getAreaId()));
     int areaStartId = areaStart->getSuperAreaId();

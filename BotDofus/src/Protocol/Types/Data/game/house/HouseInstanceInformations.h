@@ -1,9 +1,10 @@
 #ifndef HOUSEINSTANCEINFORMATIONS_H
 #define HOUSEINSTANCEINFORMATIONS_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Engines/IO/Network/Utils/BooleanByteWrapper.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/common/AccountTagInformation.h"
+#include "src/engines/io/network/utils/BooleanByteWrapper.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class HouseInstanceInformations : public AbstractClass
 {
@@ -20,15 +21,18 @@ public:
   uint instanceId;
   bool secondHand;
   bool isLocked;
-  QString ownerName;
+  AccountTagInformation ownerTag;
+  bool hasOwner;
   double price;
   bool isSaleLocked;
 
 private:
   void deserializeByteBoxes(Reader *input);
   void _instanceIdFunc(Reader *input);
-  void _ownerNameFunc(Reader *input);
+  void _ownerTagtreeFunc(Reader *input);
   void _priceFunc(Reader *input);
+
+  FuncTree _ownerTagtree;
 };
 
 #endif // HOUSEINSTANCEINFORMATIONS_H

@@ -1,9 +1,9 @@
 #ifndef GAMEACTIONMARK_H
 #define GAMEACTIONMARK_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/actions/fight/GameActionMarkedCell.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/actions/fight/GameActionMarkedCell.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class GameActionMark : public AbstractClass
 {

@@ -5,7 +5,7 @@
 #include "Node.h"
 #include <QPoint>
 #include <QMap>
-#include "src/Engines/IO/D2P/D2PManager.h"
+#include "src/engines/io/d2p/D2PManager.h"
 
 enum SpeedBehavior
 {

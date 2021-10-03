@@ -1,12 +1,12 @@
 #ifndef GAMEFIGHTMUTANTINFORMATIONS_H
 #define GAMEFIGHTMUTANTINFORMATIONS_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/context/fight/GameFightFighterNamedInformations.h"
-#include "src/Protocol/Types/Data/game/context/EntityDispositionInformations.h"
-#include "src/Protocol/Types/Data/game/look/EntityLook.h"
-#include "src/Protocol/Types/Data/game/character/status/PlayerStatus.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/context/fight/GameFightFighterNamedInformations.h"
+#include "src/protocol/types/data/game/context/EntityDispositionInformations.h"
+#include "src/protocol/types/data/game/look/EntityLook.h"
+#include "src/protocol/types/data/game/character/status/PlayerStatus.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class GameFightMutantInformations : public GameFightFighterNamedInformations
 {

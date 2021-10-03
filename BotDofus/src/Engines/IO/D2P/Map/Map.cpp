@@ -1,4 +1,5 @@
 ﻿#include "Map.h"
+#include "Layer.h"
 
 QByteArray Map::m_encryptionKey("649ae451ca33ec53bbcbcc33becf15f4");
 
@@ -56,7 +57,6 @@ void Map::initializeMap(CompressedMap *compressedMap)
                 encryptedData[i] = encryptedData[i] ^ m_encryptionKey[i % m_encryptionKey.size()];
 
             reader.setBuffer(encryptedData);
-
         }
     }
 
@@ -114,18 +114,21 @@ void Map::initializeMap(CompressedMap *compressedMap)
     uchar backgroundcount = reader.readByte();
 
     for (int i = 0; i < backgroundcount; i++)
-        Fixture fixture(&reader);
+        m_backgroundFixtures<<Fixture(&reader);
+        //Fixture fixture(&reader);
 
     uchar foregroundcount = reader.readByte();
 
     for (int i = 0; i < foregroundcount; i++)
-        Fixture fixture(&reader);
+        m_foregroundFixtures<<Fixture(&reader);
+        //Fixture fixture(&reader);
 
     reader.readInt();
     int groundCRC = reader.readInt();
     uchar layerscount = reader.readByte();
     for (int i = 0; i < layerscount; i++)
-        Layer(&reader, this);
+        m_layers<<Layer(&reader, this);
+        //Layer(&reader, this);
 
     for (int i = 0; i < 560; i++)
         m_cellData<<CellData(i, &reader, this);
@@ -165,6 +168,21 @@ int Map::getSubAreaId() const
 QList<CellData> Map::getCellData() const
 {
     return m_cellData;
+}
+
+QList<Fixture> Map::getBackgroundFixtures() const
+{
+    return m_backgroundFixtures;
+}
+
+QList<Fixture> Map::getForegroundFixtures() const
+{
+    return m_foregroundFixtures;
+}
+
+QList<Layer> Map::getLayers() const
+{
+    return m_layers;
 }
 
 WorldPoint Map::getPosition() const

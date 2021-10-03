@@ -1,10 +1,10 @@
 #ifndef CHARACTERREPLAYWITHREMODELREQUESTMESSAGE_H
 #define CHARACTERREPLAYWITHREMODELREQUESTMESSAGE_H
 
-#include "src/Protocol/Types/Data/game/character/choice/RemodelingInformation.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
-#include "src/Protocol/Messages/Data/game/character/replay/CharacterReplayRequestMessage.h"
+#include "src/protocol/types/data/game/character/choice/RemodelingInformation.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/messages/AbstractMessage.h"
+#include "src/protocol/messages/data/game/character/replay/CharacterReplayRequestMessage.h"
 
 class CharacterReplayWithRemodelRequestMessage : public CharacterReplayRequestMessage
 {

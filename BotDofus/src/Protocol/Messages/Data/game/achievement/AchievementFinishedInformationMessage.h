@@ -1,10 +1,10 @@
 #ifndef ACHIEVEMENTFINISHEDINFORMATIONMESSAGE_H
 #define ACHIEVEMENTFINISHEDINFORMATIONMESSAGE_H
 
-#include "src/Protocol/Types/Data/game/achievement/AchievementAchievedRewardable.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
-#include "src/Protocol/Messages/Data/game/achievement/AchievementFinishedMessage.h"
+#include "src/protocol/types/data/game/achievement/AchievementAchievedRewardable.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/messages/AbstractMessage.h"
+#include "src/protocol/messages/data/game/achievement/AchievementFinishedMessage.h"
 
 class AchievementFinishedInformationMessage : public AchievementFinishedMessage
 {

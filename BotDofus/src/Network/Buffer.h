@@ -4,11 +4,11 @@
 #include <QByteArray>
 #include <QDebug>
 
-#include "src/Protocol/Messages/MessageDeclarator.h"
-#include "src/Protocol/Messages/MessageUtils.h"
-#include "src/Engines/IO/Network/Reader.h"
-#include "src/Engines/IO/Network/Writer.h"
-#include "src/Engines/Security/AesManager.h"
+#include "src/protocol/messages/MessageDeclarator.h"
+#include "src/protocol/messages/MessageUtils.h"
+#include "src/engines/io/network/Reader.h"
+#include "src/engines/io/network/Writer.h"
+#include "src/engines/security/AesManager.h"
 
 struct MessageInfos
 {

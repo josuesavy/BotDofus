@@ -1,9 +1,9 @@
 #ifndef STATISTICDATAINT_H
 #define STATISTICDATAINT_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/common/basic/StatisticData.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/common/basic/StatisticData.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class StatisticDataInt : public StatisticData
 {

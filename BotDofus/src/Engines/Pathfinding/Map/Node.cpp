@@ -37,7 +37,7 @@ Node::Node(const Node &right)
 
 bool Node::operator==(const Node &right)
 {
-    if (m_cellid = right.m_cellid)
+    if (m_cellid == right.m_cellid)
         return true;
 
     return false;

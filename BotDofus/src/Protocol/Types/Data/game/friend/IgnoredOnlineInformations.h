@@ -1,10 +1,11 @@
 #ifndef IGNOREDONLINEINFORMATIONS_H
 #define IGNOREDONLINEINFORMATIONS_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/friend/IgnoredInformations.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Enums/Data/PlayableBreedEnum.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/friend/IgnoredInformations.h"
+#include "src/protocol/types/data/common/AccountTagInformation.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/enums/data/PlayableBreedEnum.h"
 
 class IgnoredOnlineInformations : public IgnoredInformations
 {

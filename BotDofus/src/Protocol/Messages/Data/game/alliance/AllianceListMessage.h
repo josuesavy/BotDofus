@@ -1,9 +1,9 @@
 #ifndef ALLIANCELISTMESSAGE_H
 #define ALLIANCELISTMESSAGE_H
 
-#include "src/Protocol/Types/Data/game/social/AllianceFactSheetInformations.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
+#include "src/protocol/types/data/game/social/AllianceFactSheetInformations.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/messages/AbstractMessage.h"
 
 class AllianceListMessage : public AbstractMessage
 {

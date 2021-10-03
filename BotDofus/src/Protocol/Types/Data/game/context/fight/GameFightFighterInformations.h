@@ -1,14 +1,14 @@
 #ifndef GAMEFIGHTFIGHTERINFORMATIONS_H
 #define GAMEFIGHTFIGHTERINFORMATIONS_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/context/fight/GameContextBasicSpawnInformation.h"
-#include "src/Protocol/Types/Data/game/context/fight/GameFightMinimalStats.h"
-#include "src/Protocol/Types/Data/game/context/GameContextActorInformations.h"
-#include "src/Protocol/Types/Data/game/context/EntityDispositionInformations.h"
-#include "src/Protocol/Types/Data/game/look/EntityLook.h"
-#include "src/Protocol/Types/ClassManager.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/context/fight/GameContextBasicSpawnInformation.h"
+#include "src/protocol/types/data/game/context/fight/GameFightCharacteristics.h"
+#include "src/protocol/types/data/game/context/GameContextActorInformations.h"
+#include "src/protocol/types/data/game/context/EntityDispositionInformations.h"
+#include "src/protocol/types/data/game/look/EntityLook.h"
+#include "src/protocol/types/ClassManager.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class GameFightFighterInformations : public GameContextActorInformations
 {
@@ -24,7 +24,7 @@ public:
 
   QSharedPointer<GameContextBasicSpawnInformation> spawnInfo;
   uint wave;
-  QSharedPointer<GameFightMinimalStats> stats;
+  QSharedPointer<GameFightCharacteristics> stats;
   QList<uint> previousPositions;
 
 private:

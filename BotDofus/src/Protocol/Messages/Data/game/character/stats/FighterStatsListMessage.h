@@ -1,9 +1,9 @@
 #ifndef FIGHTERSTATSLISTMESSAGE_H
 #define FIGHTERSTATSLISTMESSAGE_H
 
-#include "src/Protocol/Types/Data/game/character/characteristic/CharacterCharacteristicsInformations.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
+#include "src/protocol/types/data/game/character/characteristic/CharacterCharacteristicsInformations.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/messages/AbstractMessage.h"
 
 class FighterStatsListMessage : public AbstractMessage
 {
@@ -16,7 +16,7 @@ public:
   void deserializeAsyncAs_FighterStatsListMessage(FuncTree tree);
   FighterStatsListMessage();
 
-  CharacterCharacteristicsInformations stats;
+  QSharedPointer<CharacterCharacteristicsInformations> stats;
 
 private:
   void _statstreeFunc(Reader *input);

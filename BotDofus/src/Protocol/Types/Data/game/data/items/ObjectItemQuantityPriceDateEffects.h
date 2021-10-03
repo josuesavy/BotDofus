@@ -1,10 +1,10 @@
 #ifndef OBJECTITEMQUANTITYPRICEDATEEFFECTS_H
 #define OBJECTITEMQUANTITYPRICEDATEEFFECTS_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/data/items/ObjectEffects.h"
-#include "src/Protocol/Types/Data/game/data/items/ObjectItemGenericQuantity.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/data/items/ObjectEffects.h"
+#include "src/protocol/types/data/game/data/items/ObjectItemGenericQuantity.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class ObjectItemQuantityPriceDateEffects : public ObjectItemGenericQuantity
 {

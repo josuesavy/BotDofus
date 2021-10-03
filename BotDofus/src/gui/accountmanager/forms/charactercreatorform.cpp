@@ -300,7 +300,8 @@ void CharacterCreatorForm::on_pushButtonSave_clicked()
                     headerIdList << headData->getId();
             }
 
-            headerId = generateRandomNumber(headerIdList.first(), headerIdList.last());
+            if (!headerIdList.isEmpty())
+                headerId = generateRandomNumber(headerIdList.first(), headerIdList.last());
         }
         else
             headerId = ui->comboBoxHead->currentData().toInt();
@@ -351,9 +352,9 @@ void CharacterCreatorForm::on_pushButtonSave_clicked()
                         query.bindValue(":idaccounts", idAccount);
 
                         if(query.exec())
-                            QMessageBox::information(this,"Sauvegarde","La demande a été modifié. Elle prendra effet lors de la prochaine connexion de ce compte.");
+                            QMessageBox::information(this,"Save","The request has been modified. It will take effect the next time you connect this account.");
                         else
-                            QMessageBox::critical(this,"Sauvegarde","Oops, une erreur s'est produite. Veuillez réessayez ultérieurement.");
+                            QMessageBox::critical(this,"Save","Oops, an error has occurred. Please try again later.");
                     }
 
                     else
@@ -369,9 +370,9 @@ void CharacterCreatorForm::on_pushButtonSave_clicked()
                         query.bindValue(":idaccounts", idAccount);
 
                         if(query.exec())
-                            QMessageBox::information(this,"Sauvegarde","La demande a été ajouté. Elle prendra effet lors de la prochaine connexion de ce compte.");
+                            QMessageBox::information(this,"Save","The request has been added. It will take effect the next time you connect this account.");
                         else
-                            QMessageBox::critical(this,"Sauvegarde","Oops, une erreur s'est produite. Veuillez réessayez ultérieurement.");
+                            QMessageBox::critical(this,"Save","Oops, an error has occurred. Please try again later.");
                     }
                 }
             }
@@ -401,21 +402,21 @@ void CharacterCreatorForm::on_pushButtonSave_clicked()
                         query.bindValue(":idaccounts", idAccount);
 
                         if(query.exec())
-                            QMessageBox::information(this,"Supression","La demande a été supprimé.");
+                            QMessageBox::information(this,"Deletion","The request has been deleted.");
                         else
-                            QMessageBox::critical(this,"Supression","Une erreur s'est produite... Veuillez réessayer ultérieurement.");
+                            QMessageBox::critical(this,"Deletion","Oops, an error has occurred. Please try again later.");
                     }
 
                     else
-                        QMessageBox::critical(this,"Erreur","Impossible de supprimer la demande. Aucune demande n'a été faite sur ce compte.");
+                        QMessageBox::critical(this,"Error","Unable to delete the request. No request has been made on this account.");
                 }
 
                 else
-                    QMessageBox::critical(this,"Sauvegarde","Oops, une erreur s'est produite. Veuillez réessayez ultérieurement.");
+                    QMessageBox::critical(this,"Save","Oops, an error has occurred. Please try again later.");
             }
         }
     }
 
     else
-        QMessageBox::critical(this,"Erreur","Veuillez sélectionné un compte dans la liste");
+        QMessageBox::critical(this,"Error","Please select an account from the list");
 }

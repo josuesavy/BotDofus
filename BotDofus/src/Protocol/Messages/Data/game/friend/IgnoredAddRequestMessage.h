@@ -1,8 +1,10 @@
 #ifndef IGNOREDADDREQUESTMESSAGE_H
 #define IGNOREDADDREQUESTMESSAGE_H
 
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
-#include "src/Protocol/Messages/AbstractMessage.h"
+#include "src/protocol/types/data/common/AbstractPlayerSearchInformation.h"
+#include "src/engines/io/network/utils/FuncTree.h"
+#include "src/protocol/types/ClassManager.h"
+#include "src/protocol/messages/AbstractMessage.h"
 
 class IgnoredAddRequestMessage : public AbstractMessage
 {
@@ -15,12 +17,14 @@ public:
   void deserializeAsyncAs_IgnoredAddRequestMessage(FuncTree tree);
   IgnoredAddRequestMessage();
 
-  QString name;
+  QSharedPointer<AbstractPlayerSearchInformation> target;
   bool session;
 
 private:
-  void _nameFunc(Reader *input);
+  void _targettreeFunc(Reader *input);
   void _sessionFunc(Reader *input);
+
+  FuncTree _targettree;
 };
 
 #endif // IGNOREDADDREQUESTMESSAGE_H

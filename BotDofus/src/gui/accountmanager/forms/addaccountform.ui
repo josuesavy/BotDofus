@@ -17,7 +17,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="icon">
@@ -25,7 +25,7 @@
         <normaloff>:/icons/hand_16px.ico</normaloff>:/icons/hand_16px.ico</iconset>
       </attribute>
       <attribute name="title">
-       <string>Manuellement</string>
+       <string>Manually</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2">
        <item row="2" column="1">
@@ -44,7 +44,7 @@
        <item row="3" column="1">
         <widget class="QPushButton" name="pushButtonAddAccount">
          <property name="text">
-          <string>Ajouter</string>
+          <string>Add</string>
          </property>
          <property name="icon">
           <iconset resource="../../../../res/resources.qrc">
@@ -81,7 +81,7 @@
        <item row="1" column="0" colspan="3">
         <widget class="QGroupBox" name="groupBoxOptions">
          <property name="title">
-          <string>Options avancées</string>
+          <string>Advanced options</string>
          </property>
          <property name="checkable">
           <bool>true</bool>
@@ -93,7 +93,7 @@
           <item row="0" column="0">
            <widget class="QLabel" name="label_4">
             <property name="text">
-             <string>De :</string>
+             <string>From:</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -116,7 +116,7 @@
           <item row="1" column="0">
            <widget class="QLabel" name="label_5">
             <property name="text">
-             <string>À :</string>
+             <string>To:</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -139,7 +139,7 @@
           <item row="2" column="0" colspan="2">
            <widget class="QLabel" name="label_6">
             <property name="text">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Vous devez ajouter &lt;span style=&quot; font-weight:600;&quot;&gt;%&lt;/span&gt; dans le nom de compte. &lt;br&gt;Par exemple, pour générer &lt;span style=&quot; font-style:italic;&quot;&gt;nom_de_compte&lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;1&lt;/span&gt; à &lt;span style=&quot; font-style:italic;&quot;&gt;nom_de_compte&lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;5&lt;/span&gt;, vous devez écrire&lt;span style=&quot; font-style:italic;&quot;&gt; nom_de_compte&lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;You should add &lt;span style=&quot; font-weight:600;&quot;&gt;%&lt;/span&gt; in the account name. &lt;br/&gt;For example, for generate &lt;span style=&quot; font-style:italic;&quot;&gt;account_name&lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;1&lt;/span&gt; to &lt;span style=&quot; font-style:italic;&quot;&gt;account_name&lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;5&lt;/span&gt;, you should write&lt;span style=&quot; font-style:italic;&quot;&gt; account_name&lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;%&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="wordWrap">
              <bool>false</bool>
@@ -152,7 +152,7 @@
        <item row="0" column="0" colspan="3">
         <widget class="QGroupBox" name="groupBox">
          <property name="title">
-          <string>Identifiants de connexion</string>
+          <string>Login credentials</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_3">
           <item row="0" column="1">
@@ -161,7 +161,7 @@
           <item row="1" column="0">
            <widget class="QLabel" name="label_2">
             <property name="text">
-             <string>Mot de passe :</string>
+             <string>Password:</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -178,7 +178,7 @@
           <item row="0" column="0">
            <widget class="QLabel" name="label">
             <property name="text">
-             <string>Nom de compte :</string>
+             <string>Account:</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -196,7 +196,7 @@
         <normaloff>:/icons/laptop_16px.ico</normaloff>:/icons/laptop_16px.ico</iconset>
       </attribute>
       <attribute name="title">
-       <string>Dynamiquement</string>
+       <string>Dynamically</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_6">
        <item row="5" column="3">
@@ -213,7 +213,7 @@
        <item row="5" column="1">
         <widget class="QLabel" name="label_9">
          <property name="text">
-          <string>Pseudo :</string>
+          <string>Nickname:</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -223,7 +223,7 @@
        <item row="1" column="1" rowspan="2">
         <widget class="QLabel" name="label_8">
          <property name="text">
-          <string>Nom de compte :</string>
+          <string>Account name:</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -243,7 +243,7 @@
        <item row="4" column="1">
         <widget class="QLabel" name="label_7">
          <property name="text">
-          <string>Email :</string>
+          <string>Mail:</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -391,7 +391,7 @@
        <item row="3" column="1">
         <widget class="QLabel" name="label_10">
          <property name="text">
-          <string>Mot de passe :</string>
+          <string>Password:</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -403,7 +403,7 @@
          <item>
           <widget class="QPushButton" name="pushButtonSettings">
            <property name="text">
-            <string>Options</string>
+            <string>Setttings</string>
            </property>
            <property name="icon">
             <iconset resource="../../../../res/resources.qrc">
@@ -414,7 +414,7 @@
          <item>
           <widget class="QPushButton" name="pushButtonValidate">
            <property name="text">
-            <string>Valider</string>
+            <string>Validate</string>
            </property>
            <property name="icon">
             <iconset resource="../../../../res/resources.qrc">
@@ -430,6 +430,31 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>lineEditAccount</tabstop>
+  <tabstop>lineEditPassword</tabstop>
+  <tabstop>groupBoxOptions</tabstop>
+  <tabstop>spinBox</tabstop>
+  <tabstop>spinBox_2</tabstop>
+  <tabstop>pushButtonAddAccount</tabstop>
+  <tabstop>lineEditAccountName</tabstop>
+  <tabstop>lineEditPassword_2</tabstop>
+  <tabstop>lineEditEmail</tabstop>
+  <tabstop>lineEditNickname</tabstop>
+  <tabstop>pushButtonRefreshAccountName</tabstop>
+  <tabstop>pushButtonRefreshPassword</tabstop>
+  <tabstop>pushButtonRefreshEmail</tabstop>
+  <tabstop>pushButtonRefreshNickname</tabstop>
+  <tabstop>pushButtonLockAccountName</tabstop>
+  <tabstop>pushButtonLockPassword</tabstop>
+  <tabstop>pushButtonLockEmail</tabstop>
+  <tabstop>pushButtonLockNickname</tabstop>
+  <tabstop>textEditConsole</tabstop>
+  <tabstop>pushButtonRefreshGlobal</tabstop>
+  <tabstop>pushButtonSettings</tabstop>
+  <tabstop>pushButtonValidate</tabstop>
+ </tabstops>
  <resources>
   <include location="../../../../res/resources.qrc"/>
  </resources>

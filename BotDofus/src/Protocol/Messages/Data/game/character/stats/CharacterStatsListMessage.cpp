@@ -7,7 +7,7 @@ void CharacterStatsListMessage::serialize(Writer *output)
 
 void CharacterStatsListMessage::serializeAs_CharacterStatsListMessage(Writer *output)
 {
-  this->stats.serializeAs_CharacterCharacteristicsInformations(output);
+  this->stats->serializeAs_CharacterCharacteristicsInformations(output);
 }
 
 void CharacterStatsListMessage::deserialize(Reader *input)
@@ -17,8 +17,8 @@ void CharacterStatsListMessage::deserialize(Reader *input)
 
 void CharacterStatsListMessage::deserializeAs_CharacterStatsListMessage(Reader *input)
 {
-  this->stats = CharacterCharacteristicsInformations();
-  this->stats.deserialize(input);
+  this->stats = QSharedPointer<CharacterCharacteristicsInformations>(new CharacterCharacteristicsInformations() );
+  this->stats->deserialize(input);
 }
 
 void CharacterStatsListMessage::deserializeAsync(FuncTree tree)
@@ -33,8 +33,8 @@ void CharacterStatsListMessage::deserializeAsyncAs_CharacterStatsListMessage(Fun
 
 void CharacterStatsListMessage::_statstreeFunc(Reader *input)
 {
-  this->stats = CharacterCharacteristicsInformations();
-  this->stats.deserializeAsync(this->_statstree);
+  this->stats = QSharedPointer<CharacterCharacteristicsInformations>(new CharacterCharacteristicsInformations() );
+  this->stats->deserializeAsync(this->_statstree);
 }
 
 CharacterStatsListMessage::CharacterStatsListMessage()

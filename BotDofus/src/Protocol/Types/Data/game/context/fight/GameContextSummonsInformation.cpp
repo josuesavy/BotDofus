@@ -41,7 +41,7 @@ void GameContextSummonsInformation::deserializeAs_GameContextSummonsInformation(
   this->look = QSharedPointer<EntityLook>(new EntityLook() );
   this->look->deserialize(input);
   uint _id4 = input->readUShort();
-  this->stats = qSharedPointerCast<GameFightMinimalStats>(ClassManagerSingleton::get()->getClass(_id4));
+  this->stats = qSharedPointerCast<GameFightCharacteristics>(ClassManagerSingleton::get()->getClass(_id4));
   this->stats->deserialize(input);
   uint _summonsLen = input->readUShort();
   for(uint _i5 = 0; _i5 < _summonsLen; _i5++)
@@ -92,7 +92,7 @@ void GameContextSummonsInformation::_looktreeFunc(Reader *input)
 void GameContextSummonsInformation::_statstreeFunc(Reader *input)
 {
   uint _id = input->readUShort();
-  this->stats = qSharedPointerCast<GameFightMinimalStats>(ClassManagerSingleton::get()->getClass(_id));
+  this->stats = qSharedPointerCast<GameFightCharacteristics>(ClassManagerSingleton::get()->getClass(_id));
   this->stats->deserializeAsync(this->_statstree);
 }
 

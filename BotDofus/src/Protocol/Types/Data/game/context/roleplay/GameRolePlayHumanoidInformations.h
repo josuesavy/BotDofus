@@ -1,13 +1,13 @@
 #ifndef GAMEROLEPLAYHUMANOIDINFORMATIONS_H
 #define GAMEROLEPLAYHUMANOIDINFORMATIONS_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/context/roleplay/HumanInformations.h"
-#include "src/Protocol/Types/Data/game/context/roleplay/GameRolePlayNamedActorInformations.h"
-#include "src/Protocol/Types/Data/game/context/EntityDispositionInformations.h"
-#include "src/Protocol/Types/Data/game/look/EntityLook.h"
-#include "src/Protocol/Types/ClassManager.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/context/roleplay/HumanInformations.h"
+#include "src/protocol/types/data/game/context/roleplay/GameRolePlayNamedActorInformations.h"
+#include "src/protocol/types/data/game/context/EntityDispositionInformations.h"
+#include "src/protocol/types/data/game/look/EntityLook.h"
+#include "src/protocol/types/ClassManager.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class GameRolePlayHumanoidInformations : public GameRolePlayNamedActorInformations
 {

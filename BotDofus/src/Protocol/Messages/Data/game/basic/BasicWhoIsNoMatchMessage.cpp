@@ -7,7 +7,8 @@ void BasicWhoIsNoMatchMessage::serialize(Writer *output)
 
 void BasicWhoIsNoMatchMessage::serializeAs_BasicWhoIsNoMatchMessage(Writer *output)
 {
-  output->writeUTF(this->search);
+  output->writeShort((short)this->target->getTypes().last());
+  this->target->serialize(output);
 }
 
 void BasicWhoIsNoMatchMessage::deserialize(Reader *input)
@@ -17,7 +18,9 @@ void BasicWhoIsNoMatchMessage::deserialize(Reader *input)
 
 void BasicWhoIsNoMatchMessage::deserializeAs_BasicWhoIsNoMatchMessage(Reader *input)
 {
-  this->_searchFunc(input);
+  uint _id1 = input->readUShort();
+  this->target = qSharedPointerCast<AbstractPlayerSearchInformation>(ClassManagerSingleton::get()->getClass(_id1));
+  this->target->deserialize(input);
 }
 
 void BasicWhoIsNoMatchMessage::deserializeAsync(FuncTree tree)
@@ -27,12 +30,14 @@ void BasicWhoIsNoMatchMessage::deserializeAsync(FuncTree tree)
 
 void BasicWhoIsNoMatchMessage::deserializeAsyncAs_BasicWhoIsNoMatchMessage(FuncTree tree)
 {
-  tree.addChild(std::bind(&BasicWhoIsNoMatchMessage::_searchFunc, this, std::placeholders::_1));
+  this->_targettree = tree.addChild(std::bind(&BasicWhoIsNoMatchMessage::_targettreeFunc, this, std::placeholders::_1));
 }
 
-void BasicWhoIsNoMatchMessage::_searchFunc(Reader *input)
+void BasicWhoIsNoMatchMessage::_targettreeFunc(Reader *input)
 {
-  this->search = input->readUTF();
+  uint _id = input->readUShort();
+  this->target = qSharedPointerCast<AbstractPlayerSearchInformation>(ClassManagerSingleton::get()->getClass(_id));
+  this->target->deserializeAsync(this->_targettree);
 }
 
 BasicWhoIsNoMatchMessage::BasicWhoIsNoMatchMessage()

@@ -1,10 +1,10 @@
 #ifndef PARTYENTITYMEMBERINFORMATION_H
 #define PARTYENTITYMEMBERINFORMATION_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/context/roleplay/party/entity/PartyEntityBaseInformation.h"
-#include "src/Protocol/Types/Data/game/look/EntityLook.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/context/roleplay/party/entity/PartyEntityBaseInformation.h"
+#include "src/protocol/types/data/game/look/EntityLook.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class PartyEntityMemberInformation : public PartyEntityBaseInformation
 {

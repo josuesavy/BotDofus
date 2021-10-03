@@ -10,6 +10,8 @@ enum class BidValidationEnum
     NOT_ENOUGH_KAMAS = 4,
     NOT_ENOUGH_OGRINES = 5,
     SERVER_MAINTENANCE = 6,
+    PLAYER_IN_DEBT = 7,
+    OFFER_IS_YOURS = 8,
     VALIDATION_SUCCESS = 100
 };
 

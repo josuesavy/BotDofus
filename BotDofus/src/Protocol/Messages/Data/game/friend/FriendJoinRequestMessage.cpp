@@ -7,7 +7,8 @@ void FriendJoinRequestMessage::serialize(Writer *output)
 
 void FriendJoinRequestMessage::serializeAs_FriendJoinRequestMessage(Writer *output)
 {
-  output->writeUTF(this->name);
+  output->writeShort((short)this->target->getTypes().last());
+  this->target->serialize(output);
 }
 
 void FriendJoinRequestMessage::deserialize(Reader *input)
@@ -17,7 +18,9 @@ void FriendJoinRequestMessage::deserialize(Reader *input)
 
 void FriendJoinRequestMessage::deserializeAs_FriendJoinRequestMessage(Reader *input)
 {
-  this->_nameFunc(input);
+  uint _id1 = input->readUShort();
+  this->target = qSharedPointerCast<AbstractPlayerSearchInformation>(ClassManagerSingleton::get()->getClass(_id1));
+  this->target->deserialize(input);
 }
 
 void FriendJoinRequestMessage::deserializeAsync(FuncTree tree)
@@ -27,12 +30,14 @@ void FriendJoinRequestMessage::deserializeAsync(FuncTree tree)
 
 void FriendJoinRequestMessage::deserializeAsyncAs_FriendJoinRequestMessage(FuncTree tree)
 {
-  tree.addChild(std::bind(&FriendJoinRequestMessage::_nameFunc, this, std::placeholders::_1));
+  this->_targettree = tree.addChild(std::bind(&FriendJoinRequestMessage::_targettreeFunc, this, std::placeholders::_1));
 }
 
-void FriendJoinRequestMessage::_nameFunc(Reader *input)
+void FriendJoinRequestMessage::_targettreeFunc(Reader *input)
 {
-  this->name = input->readUTF();
+  uint _id = input->readUShort();
+  this->target = qSharedPointerCast<AbstractPlayerSearchInformation>(ClassManagerSingleton::get()->getClass(_id));
+  this->target->deserializeAsync(this->_targettree);
 }
 
 FriendJoinRequestMessage::FriendJoinRequestMessage()

@@ -1,11 +1,11 @@
 #ifndef EXTENDEDBREACHBRANCH_H
 #define EXTENDEDBREACHBRANCH_H
 
-#include "src/Protocol/Types/AbstractClass.h"
-#include "src/Protocol/Types/Data/game/context/roleplay/breach/BreachReward.h"
-#include "src/Protocol/Types/Data/game/context/roleplay/breach/BreachBranch.h"
-#include "src/Protocol/Types/Data/game/context/roleplay/MonsterInGroupLightInformations.h"
-#include "src/Engines/IO/Network/Utils/FuncTree.h"
+#include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/context/roleplay/breach/BreachReward.h"
+#include "src/protocol/types/data/game/context/roleplay/breach/BreachBranch.h"
+#include "src/protocol/types/data/game/context/roleplay/MonsterInGroupLightInformations.h"
+#include "src/engines/io/network/utils/FuncTree.h"
 
 class ExtendedBreachBranch : public BreachBranch
 {

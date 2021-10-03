@@ -3,7 +3,7 @@
 
 #include <QDialog>
 
-#include "src/Engines/Storage/DataHandler.h"
+#include "src/engines/DataHandler.h"
 
 namespace Ui {
 class AddSpellDialog;
