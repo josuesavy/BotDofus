@@ -9,7 +9,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     initTrayMenu();
 
-    ui->treeWidgetAccount->setItemDelegate(new QTreeWidgetItemDelegate);
+    ui->treeWidgetAccount->setItemDelegate(new QTreeWidgetItemDelegate(this));
+    ui->pushButtonQuickAccess->setMenu(ui->menuEdit);
+    ui->pushButtonQuickAccess->setStyleSheet("QPushButton::menu-indicator{width:0px;}");
 
     // Liste de connexions
     connect(ui->pushButtonAccountManager, SIGNAL(clicked()), this, SLOT(on_actionAccountManager_triggered()));
@@ -259,11 +261,11 @@ void MainWindow::on_actionDocumentation_triggered()
 
 void MainWindow::on_actionAccountManager_triggered()
 {
-    AccountManagerDialog accountManagerDialog;
-    connect(&accountManagerDialog, SIGNAL(loadAccount(const QList<ConnectionInfos>&)), this, SLOT(addAccount(const QList<ConnectionInfos>&)));
-    connect(this, SIGNAL(closeAccountManagerDialog()), &accountManagerDialog, SLOT(closeAfterLoaded()));
-    accountManagerDialog.setParent(this, Qt::Dialog);
-    accountManagerDialog.exec();
+    accountManagerDialog = new AccountManagerDialog(this);
+    connect(accountManagerDialog, SIGNAL(loadAccount(const QList<ConnectionInfos>&)), this, SLOT(addAccount(const QList<ConnectionInfos>&)));
+    connect(this, SIGNAL(closeAccountManagerDialog()), accountManagerDialog, SLOT(closeAfterLoaded()));
+    accountManagerDialog->setParent(this, Qt::Dialog);
+    accountManagerDialog->open();
 }
 
 void MainWindow::on_actionMinimize_triggered()
@@ -337,3 +339,84 @@ QList<QTreeWidgetItem *> MainWindow::getTreeWidgetItems()
 
     return items;
 }
+
+
+void MainWindow::on_actionConnectAllLoadedAccounts_triggered()
+{
+    foreach(AccountForm *accountForm, m_accountForms)
+    {
+        if (!accountForm->getSocket()->isActive())
+        {
+            accountForm->getEngine()->getConnectionManager().connect(accountForm->getSocket());
+        }
+    }
+}
+
+
+void MainWindow::on_actionDisconnectAllLoadedAccounts_triggered()
+{
+    foreach(AccountForm *accountForm, m_accountForms)
+    {
+        if (accountForm->getSocket()->isActive())
+        {
+            accountForm->getEngine()->getConnectionManager().disconnect(accountForm->getSocket());
+        }
+    }
+}
+
+
+void MainWindow::on_actionUnloadAllLoadedAccounts_triggered()
+{
+    foreach(AccountForm *accountForm, m_accountForms)
+    {
+        if (accountForm->getSocket()->isActive())
+        {
+            accountForm->getEngine()->getConnectionManager().disconnect(accountForm->getSocket());
+        }
+
+        bool hasChilds = accountForm->getAccountFormChilds().size() > 0;
+        remove(accountForm, hasChilds);
+    }
+}
+
+
+void MainWindow::on_actionLoadScriptAllLoadedAccounts_triggered()
+{
+    if (!m_accountForms.isEmpty())
+    {
+        QString path = QFileDialog::getOpenFileName(nullptr, "Select a file");
+
+        foreach(AccountForm *accountForm, m_accountForms)
+        {
+            if (accountForm->getSocket()->isActive())
+            {
+                accountForm->loadScript(path);
+            }
+        }
+    }
+}
+
+
+void MainWindow::on_actionRunScriptAllLoadedAccounts_triggered()
+{
+    foreach(AccountForm *accountForm, m_accountForms)
+    {
+        if (accountForm->getSocket()->isActive() && !accountForm->getData().scriptData.isActive)
+        {
+            accountForm->on_actionRunScript_triggered();
+        }
+    }
+}
+
+
+void MainWindow::on_actionStopScriptAllLoadedAccounts_triggered()
+{
+    foreach(AccountForm *accountForm, m_accountForms)
+    {
+        if (accountForm->getSocket()->isActive() && accountForm->getData().scriptData.isActive)
+        {
+            accountForm->on_actionRunScript_triggered();
+        }
+    }
+}
+

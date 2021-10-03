@@ -167,6 +167,26 @@ uint CellData::getMoveZone() const
     return m_moveZone;
 }
 
+bool CellData::hasLinkedZoneRP() const
+{
+    return m_walkable && !m_farmCell;
+}
+
+uint CellData::getLinkedZone() const
+{
+    return (m_linkedZone & 240) >> 4;
+}
+
+bool CellData::hasLinkedZoneFight() const
+{
+    return m_walkable && !m_nonWalkableDuringFight && !m_farmCell && !m_havenbagCell;
+}
+
+int CellData::linkedZoneFight() const
+{
+    return m_linkedZone & 15;
+}
+
 void CellData::setAllowWalk(int w)
 {
     m_allowWalk = w;

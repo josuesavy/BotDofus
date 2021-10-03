@@ -20,6 +20,11 @@ public:
     bool isHavenbagCell() const;
     uint getMapChangeData() const;
     uint getMoveZone() const;
+    bool hasLinkedZoneRP() const;
+    uint getLinkedZone() const;
+    bool hasLinkedZoneFight() const;
+    int linkedZoneFight() const;
+
     int getSpeed() const;
     int getFloor() const;
     void setAllowWalk(int w);

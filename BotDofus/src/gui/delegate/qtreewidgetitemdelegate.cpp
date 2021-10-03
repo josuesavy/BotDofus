@@ -53,7 +53,6 @@ void QTreeWidgetItemDelegate::drawStatus(QPainter *painter, uint connectionState
     painter->save();
 
     const QPoint circleCenter(radius+5, 5 + center.y());
-    QColor color;
 
     if(connectionState == (uint)ConnectionState::DISCONNECTED)
         painter->drawImage(circleCenter, QImage(":/icons/bullet_red_16px.ico"));

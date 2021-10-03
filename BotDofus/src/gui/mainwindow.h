@@ -54,8 +54,17 @@ private slots:
     void on_treeWidgetAccount_itemExpanded(QTreeWidgetItem *item);
     void on_treeWidgetAccount_itemSelectionChanged();
 
+    void on_actionConnectAllLoadedAccounts_triggered();
+    void on_actionDisconnectAllLoadedAccounts_triggered();
+    void on_actionUnloadAllLoadedAccounts_triggered();
+    void on_actionLoadScriptAllLoadedAccounts_triggered();
+    void on_actionRunScriptAllLoadedAccounts_triggered();
+    void on_actionStopScriptAllLoadedAccounts_triggered();
+
 private:
     Ui::MainWindow *ui;
+
+    AccountManagerDialog *accountManagerDialog;
 
     QSystemTrayIcon *trayIcon;
 

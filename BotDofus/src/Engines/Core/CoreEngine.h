@@ -55,6 +55,7 @@
 #include "src/engines/core/process/frames/security/SecurityFrame.h"
 #include "src/engines/core/process/frames/server/basic/ServerBasicFrame.h"
 #include "src/engines/core/process/frames/subscription/SubscriptionFrame.h"
+#include "src/engines/core/process/frames/web/WebHaapiFrame.h"
 
 #include "src/engines/core/process/managers/connection/ConnectionManager.h"
 #include "src/engines/core/process/managers/craft/CraftManager.h"

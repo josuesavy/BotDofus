@@ -161,28 +161,52 @@ void AccountForm::setAccountFormChilds(QList<AccountForm *> accountForms)
     m_accountFormChilds = accountForms;
 }
 
+void AccountForm::loadScript(QString path)
+{
+    menuScript->clear(); // Reinitialisation du menu
+
+    ui->pushButtonFile->setText(QFileInfo(path).fileName());
+
+    if(!path.isEmpty())
+    {
+        menuScript->addAction(ui->actionLoadScript);
+        menuScript->addAction(ui->actionRunScript);
+        m_path = path;
+
+        m_engine->info(m_sender) << "Script loaded.";
+    }
+    else
+    {
+        menuScript->addAction(ui->actionLoadScript);
+
+        m_engine->info(m_sender) << "Script unloaded.";
+    }
+
+    ui->pushButtonFile->setMenu(menuScript);
+}
+
 int AccountForm::loadPath(QString path, bool unload)
 {
-//    if (!unload)
-//    {
-//        if (!m_engine->getScriptModule().loadFile(m_sender, path))
-//            return INVALID;
+    //    if (!unload)
+    //    {
+    //        if (!m_engine->getScriptModule().loadFile(m_sender, path))
+    //            return INVALID;
 
-//        uint i = m_engine->getScriptModule().parse(m_sender);
-//        if (i)
-//            return i;
+    //        uint i = m_engine->getScriptModule().parse(m_sender);
+    //        if (i)
+    //            return i;
 
-//        m_engine->getGroupModule().setFollowUpEnabled(m_sender, false);
-//        m_engine->getScriptModule().setActivePath(m_sender, true);
+    //        m_engine->getGroupModule().setFollowUpEnabled(m_sender, false);
+    //        m_engine->getScriptModule().setActivePath(m_sender, true);
 
-//        return 0;
-//    }
+    //        return 0;
+    //    }
 
-//    else
-//    {
-//        m_engine->getScriptModule().unloadFile(m_sender);
-//        return 0;
-//    }
+    //    else
+    //    {
+    //        m_engine->getScriptModule().unloadFile(m_sender);
+    //        return 0;
+    //    }
     return 0;
 }
 
@@ -397,25 +421,7 @@ void AccountForm::on_actionLoadScript_triggered()
 {
     QString path = QFileDialog::getOpenFileName(nullptr, "Select a file");
 
-    menuScript->clear(); // Reinitialisation du menu
-    if(!path.isEmpty())
-    {
-        ui->pushButtonFile->setText(QFileInfo(path).fileName());
-        menuScript->addAction(ui->actionLoadScript);
-        menuScript->addAction(ui->actionRunScript);
-        m_path = path;
-
-        m_engine->info(m_sender) << "Script loaded.";
-    }
-    else
-    {
-        ui->pushButtonFile->setText(QFileInfo(path).fileName());
-        menuScript->addAction(ui->actionLoadScript);
-
-        m_engine->info(m_sender) << "Script unloaded.";
-    }
-
-    ui->pushButtonFile->setMenu(menuScript);
+    loadScript(path);
 }
 
 void AccountForm::on_actionRunScript_triggered()
