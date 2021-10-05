@@ -216,7 +216,7 @@ QString ParamsDecoder::processReplace(QString type, QString id, QStringList para
 
         else if(type == "$challenge")
         {
-            QSharedPointer<ChallengeData> challenge = qSharedPointerCast<ChallengeData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::CHALLENGE, toInt(params[nid])));
+            QSharedPointer<ChallengeData> challenge = qSharedPointerCast<ChallengeData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::CHALLENGES, toInt(params[nid])));
             newString = challenge->getName();
         }
 

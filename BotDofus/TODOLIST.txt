@@ -34,6 +34,7 @@ Inventaire
 
 Map
  [ ] Antibot sur la banque d'Astrub (191104002): des cellules marchable dans la banque vue de l'extérieur
+ [ ] Des fois le bot reste en loop infinie quand on lui demande de changer de map
 
 Combat
  [ ] Revoir l'IA en combat, il semblerait qu'il a déjà la po pour attaquer mais il bouge avant alors qu'il peut le faire après

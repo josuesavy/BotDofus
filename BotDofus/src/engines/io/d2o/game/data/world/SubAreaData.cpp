@@ -85,24 +85,9 @@ QList<uint> SubAreaData::getMonsters() const
   return m_monsters;
 }
 
-QList<double> SubAreaData::getEntranceMapIds() const
-{
-  return m_entranceMapIds;
-}
-
-QList<double> SubAreaData::getExitMapIds() const
-{
-  return m_exitMapIds;
-}
-
 bool SubAreaData::getCapturable() const
 {
   return m_capturable;
-}
-
-QList<uint> SubAreaData::getAchievements() const
-{
-  return m_achievements;
 }
 
 QList<QList<double>> SubAreaData::getQuests() const
@@ -113,16 +98,6 @@ QList<QList<double>> SubAreaData::getQuests() const
 QList<QList<double>> SubAreaData::getNpcs() const
 {
   return m_npcs;
-}
-
-int SubAreaData::getExploreAchievementId() const
-{
-  return m_exploreAchievementId;
-}
-
-bool SubAreaData::getIsDiscovered() const
-{
-  return m_isDiscovered;
 }
 
 QList<int> SubAreaData::getHarvestables() const
@@ -219,26 +194,8 @@ void SubAreaData::loadData(const QList<D2OField*> &fields, I18nFile *I18n)
           m_monsters << readUInt(data);
     }
     
-    else if(field->getName() == "entranceMapIds")
-    {
-      foreach(const QByteArray &data, readVector(field->getValue()))
-          m_entranceMapIds << readDouble(data);
-    }
-    
-    else if(field->getName() == "exitMapIds")
-    {
-      foreach(const QByteArray &data, readVector(field->getValue()))
-          m_exitMapIds << readDouble(data);
-    }
-    
     else if(field->getName() == "capturable")
         m_capturable = readBool(field->getValue());
-    
-    else if(field->getName() == "achievements")
-    {
-      foreach(const QByteArray &data, readVector(field->getValue()))
-          m_achievements << readUInt(data);
-    }
     
     else if(field->getName() == "quests")
     {
@@ -265,12 +222,6 @@ void SubAreaData::loadData(const QList<D2OField*> &fields, I18nFile *I18n)
         m_npcs << secondList;
       }
     }
-    
-    else if(field->getName() == "exploreAchievementId")
-        m_exploreAchievementId = readInt(field->getValue());
-    
-    else if(field->getName() == "isDiscovered")
-        m_isDiscovered = readBool(field->getValue());
     
     else if(field->getName() == "harvestables")
     {
