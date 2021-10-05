@@ -1,0 +1,54 @@
+FrontEnd :
+AccountManager
+ [ ] Faire une bonne GUI pour l'abonnement automatique des comptes
+ [ ] Mettre une msgbox avec option remember pour expliquer comment importer des comptes (cf. https://stackoverflow.com/a/35132465)
+
+Main
+ [ ] L'energie max du bot s'affiche avec une incrémentation d'un +1 (O.o)
+ [ ] Ajouter un timer qui update la life du bot quand il est en régénération
+
+Carte
+ [ ] Ya pas d'animation quand une entité se déplace sur la carte
+ [ ] Donner une taille fixe à la carte lors du resize de la fenêtre du bot
+
+Flood
+ [ ] Ajouter et supprimer une phrase dans la liste
+ [ ] Le bouton pour lancer le flood n'a pas d'event
+
+Options
+ [ ] L'affichage de la planification est un peu moche
+
+Divers
+ [ ] La fenêtre est trop grande pour certaines résolutions graphique. Faire en sorte d'ajuster, permettre un certain resize sur certains widgets pour régler le problème
+ [ ] Quand on arrête le script depuis le module, actualiser les actions dans la liste du management des scripts
+ [ ] Mettre des tooltips un peu partout afin d'informer l'utilisateur
+
+
+BackEnd :
+AccountManager
+ [ ] Faire toute la procédure de connexion/déconnexion, demande d'apikey pour abonner les comptes (cf. knowledge.txt)
+
+Inventaire
+ [OK] Nouveau paquet a gérer SetUpdateMessage
+ [ ] Pour certains items de type différent (hat, ring, etc..) quand on l'equipe, c'est pas actualiser dans l'inventaire à car ya pas de paquet pour
+
+Map
+ [ ] Antibot sur la banque d'Astrub (191104002): des cellules marchable dans la banque vue de l'extérieur
+ [ ] Des fois le bot reste en loop infinie quand on lui demande de changer de map
+
+Combat
+ [ ] Revoir l'IA en combat, il semblerait qu'il a déjà la po pour attaquer mais il bouge avant alors qu'il peut le faire après
+
+Statistiques
+ [ ] Rajouter le flood (Total messages, reussis, echoues)
+ [ ] Rajouter l'inventaire (total ressources, combat, recolte, total objets, combat, recolte)
+
+Divers
+ [ ] Il y a une mesure anti-bot (ou pas) où j'arrive pas a récup toute les mapids des maps...
+ [ ] Certaines cartes ont des voisins inconnue quand on veut se deplacer
+ [ ] Lors de la connexion d'un groupe, vérifier si tous sont sur le même serveur (bof)
+ [ ] Revoir le pathfinding, il semblerait qu'il soit cassé
+ [ ] Vérifier si CheckFileRequestMessage fonctionne bien
+ [OK] Quand on reconnecte le bot, il parle d'une histoire de régénération
+ [ ] Des fois quand le bot se fait déco pour inactivité les logs sur la console sont pas mis à jour obligé de le reco pour avoir les dernière log sur la console
+ [OK] Le bot plante sur certaines map genre quand on demande à D2OManagerSingleton pour une data (localisation: 3,-18:Astrub - Dans le paquet MapComplementaryInformationsDataMessage)

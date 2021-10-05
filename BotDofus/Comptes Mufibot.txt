@@ -1,0 +1,125 @@
+########## Bûcherons ###########
+
+---------- Silvosse ------------
+
+Nom de compte : cocomaniak
+Mot de passe : f11024b4b0
+Etat : Normal
+
+Nom de compte : cocodemfesse
+Mot de passe : f11024b4b0
+Etat : Normal
+
+Nom de compte : Vainred
+Mot de passe : f11024b4b0
+Etat : Normal
+
+Nom de compte : Volmog
+Mot de passe : f11024b4b0
+Etat : Normal
+
+Nom de compte : Faysander
+Mot de passe : f11024b4b0
+Etat : Normal
+
+Nom de compte : ohshiette
+Mot de passe : f11024b4b0
+Etat : Normal
+
+Nom de compte : whatchafaullauw
+Mot de passe : f11024b4b0
+Etat : Normal
+
+Nom de compte : chuifamous
+Mot de passe : f11024b4b0
+Etat : Normal
+
+Nom de compte : daunnedubeure
+Mot de passe : f11024b4b0
+Etat : Normal
+
+Nom de compte : aimedehaire
+Mot de passe : f11024b4b0
+Etat : Normal
+
+Nom de compte : tfekoidebo
+Mot de passe : f11024b4b0
+Etat : Normal
+
+Nom de compte : gvedipin
+Mot de passe : f11024b4b0
+Etat : Normal
+
+Nom de compte : gemmebezedechou
+Mot de passe : f11024b4b0
+Etat : Normal
+
+Nom de compte : moiavoirenvidekoke
+Mot de passe : f11024b4b0
+Etat : Normal
+
+
+
+########## Mineurs #############
+
+---------- Silvosse ------------
+
+Nom de compte : chuidebelize
+Mot de passe : f11024b4b0
+Etat : Normal
+
+Nom de compte : omygauche
+Mot de passe : f11024b4b0
+Etat : Normal
+
+
+
+########## Pêcheurs ############
+
+---------- Silvosse ------------
+
+Nom de compte : motifladge
+Mot de passe : f11024b4b0
+Etat : Banni
+
+Nom de compte : manfird
+Mot de passe : f11024b4b0
+Etat : Banni
+
+Nom de compte : urukrod
+Mot de passe : f11024b4b0
+Etat : Banni
+
+Nom de compte : chteribluekeur
+Mot de passe : f11024b4b0
+Etat : Banni
+
+Nom de compte : ebeware
+Mot de passe : f11024b4b0
+Etat : Normal
+
+Nom de compte : Claiytaunne
+Mot de passe : f11024b4b0
+Etat : Normal
+
+Nom de compte : petelaisplon
+Mot de passe : f11024b4b0
+Etat : Normal
+
+Nom de compte : jvaisdvniringenieur
+Mot de passe : f11024b4b0
+Etat : Normal
+
+
+
+########## Banque ##############
+
+---------- Silvosse ------------
+
+Nom de compte : spurush
+Mot de passe : f11024b4b0
+Etat : Problème IP
+
+Nom de compte : albatard-bank
+Mot de passe : f11024b4b0
+Etat : Normal

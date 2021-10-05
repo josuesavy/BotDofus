@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ConsoleForm</class>
+ <widget class="QWidget" name="ConsoleForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>304</width>
+    <height>200</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0" colspan="4">
+    <widget class="QTextBrowser" name="textBrowserConsole">
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="openExternalLinks">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QComboBox" name="comboBoxCanal">
+     <item>
+      <property name="text">
+       <string>Général</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Equipe</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Guilde</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Alliance</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Groupe</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Privé</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Kolizéum</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Communauté</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Commerce</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Recrutement</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QLineEdit" name="lineEditConsole"/>
+   </item>
+   <item row="1" column="2">
+    <widget class="QPushButton" name="pushButtonSmiley">
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../../../../res/resources.qrc">
+       <normaloff>:/icons/emotion_smile_16px.ico</normaloff>:/icons/emotion_smile_16px.ico</iconset>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="3">
+    <widget class="QPushButton" name="pushButtonSend">
+     <property name="text">
+      <string>Send</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../../../../res/resources.qrc">
+       <normaloff>:/icons/email_go_16px.ico</normaloff>:/icons/email_go_16px.ico</iconset>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../../../../res/resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>
