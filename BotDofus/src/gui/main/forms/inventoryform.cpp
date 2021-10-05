@@ -175,7 +175,7 @@ void InventoryForm::updateInterface()
 
     if (infos.connectionData.connectionState == ConnectionState::TRANSITION)
     {
-
+        resetInventory();
     }
 
     if (infos.connectionData.connectionState == ConnectionState::DISCONNECTED)

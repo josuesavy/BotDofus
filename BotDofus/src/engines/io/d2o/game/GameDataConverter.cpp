@@ -929,8 +929,8 @@ GameDataTypeEnum GameDataConverter::getEnum(const QString &name)
   else if(name == "Heads")
       return GameDataTypeEnum::HEADS;
   
-  else if(name == "Challenge")
-      return GameDataTypeEnum::CHALLENGE;
+  else if(name == "Challenges")
+      return GameDataTypeEnum::CHALLENGES;
   
   else if(name == "Characteristics")
       return GameDataTypeEnum::CHARACTERISTICS;
