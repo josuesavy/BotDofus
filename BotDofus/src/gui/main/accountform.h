@@ -69,8 +69,6 @@ private slots:
 
     void on_actionTeleportSlavesToMaster_triggered();
 
-    void on_pushButtonDisableShield_clicked();
-
 private:
     Ui::AccountForm *ui;
 
