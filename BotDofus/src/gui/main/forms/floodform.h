@@ -38,6 +38,8 @@ private slots:
 
     void on_checkBoxEnableFlood_stateChanged(int arg1);
 
+    void on_pushButtonDeleteFlood_clicked();
+
 private:
     Ui::FloodForm *ui;
 

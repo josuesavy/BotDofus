@@ -723,9 +723,10 @@ struct FloodMessage
     QString message;
     Channel channel;
     QTime timer;
-    int changeTimer = -1;
-    int levelMin = 1;
-    int levelMax = 200;
+    bool someoneComingOnMap = false;
+    bool someoneLeaveMap = false;
+    QTime startTimePlanning;
+    QTime endTimePlanning;
 };
 
 struct ShieldCertificate
@@ -868,16 +869,6 @@ struct ConnectionData
 struct FloodData
 {
     QList<FloodMessage> floodList;
-    QTime timer;
-    int levelMin = 1;
-    int levelMax = 200;
-    int changeTimer = -1;
-    QString floodMessage;
-    int messageIndex = -1;
-    QByteArray fileContent;
-    QStringList messageFile;
-    bool isUsingFile = false;
-    QList<Channel> channelList;
 };
 
 struct ExchangeData

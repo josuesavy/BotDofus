@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>391</width>
-    <height>265</height>
+    <width>400</width>
+    <height>360</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,14 +17,7 @@
    <iconset resource="../../../../../res/resources.qrc">
     <normaloff>:/icons/comment_16px.ico</normaloff>:/icons/comment_16px.ico</iconset>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0" colspan="2">
-    <widget class="QLineEdit" name="lineEditMessage">
-     <property name="placeholderText">
-      <string>Message to flood</string>
-     </property>
-    </widget>
-   </item>
+  <layout class="QGridLayout" name="gridLayout_4">
    <item row="1" column="0">
     <widget class="QRadioButton" name="radioButtonPublic">
      <property name="text">
@@ -32,11 +25,148 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="1">
+   <item row="2" column="0">
+    <widget class="QRadioButton" name="radioButtonPrivate">
+     <property name="text">
+      <string>Private</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="2">
+    <widget class="QCheckBox" name="checkBoxPlanning">
+     <property name="text">
+      <string>Planning</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="2" colspan="2">
+    <widget class="QGroupBox" name="groupBoxPlanning">
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_3">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Start time</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_4">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>End time</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QTimeEdit" name="timeEditStartTimePlanning">
+        <property name="displayFormat">
+         <string>hh</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QTimeEdit" name="timeEditEndTimePlanning">
+        <property name="displayFormat">
+         <string>hh</string>
+        </property>
+        <property name="time">
+         <time>
+          <hour>0</hour>
+          <minute>0</minute>
+          <second>0</second>
+         </time>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="4">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="pushButtonAdd">
+       <property name="text">
+        <string>Add</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../../../../../res/resources.qrc">
+         <normaloff>:/icons/plus_16px.ico</normaloff>:/icons/plus_16px.ico</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButtonCancel">
+       <property name="text">
+        <string>Cancel</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../../../../../res/resources.qrc">
+         <normaloff>:/icons/cancel_16px.ico</normaloff>:/icons/cancel_16px.ico</iconset>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="0" column="0" colspan="4">
+    <widget class="QLineEdit" name="lineEditMessage">
+     <property name="placeholderText">
+      <string>Message to flood</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="2" colspan="2">
+    <widget class="QGroupBox" name="groupBoxPrivate">
+     <property name="title">
+      <string/>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="checkBoxSomeoneComingMap">
+        <property name="text">
+         <string>When someone enters the map</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QCheckBox" name="checkBoxSomeoneLeavesMap">
+        <property name="text">
+         <string>When someone leaves the map</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="2" colspan="2">
     <widget class="QGroupBox" name="groupBoxPublic">
      <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Recipient of messages</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Interval between messages</string>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="1">
-       <widget class="QComboBox" name="comboBoxCanal">
+       <widget class="QComboBox" name="comboBoxChannel">
         <item>
          <property name="text">
           <string>General</string>
@@ -69,22 +199,8 @@
         </item>
        </widget>
       </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>Recipient of messages</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>Interval between messages</string>
-        </property>
-       </widget>
-      </item>
       <item row="1" column="1">
-       <widget class="QTimeEdit" name="timeEdit">
+       <widget class="QTimeEdit" name="timeEditPublic">
         <property name="currentSection">
          <enum>QDateTimeEdit::SecondSection</enum>
         </property>
@@ -103,76 +219,22 @@
      </layout>
     </widget>
    </item>
-   <item row="2" column="0">
-    <widget class="QRadioButton" name="radioButtonPrivate">
-     <property name="text">
-      <string>Private</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="1">
-    <widget class="QGroupBox" name="groupBoxPrivate">
-     <property name="title">
-      <string/>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_3">
-      <item row="0" column="0">
-       <widget class="QCheckBox" name="checkBoxSomeonEntersMap">
-        <property name="text">
-         <string>When someone enters the map</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QCheckBox" name="checkBoxSomeoneLeavesMap">
-        <property name="text">
-         <string>When someone leaves the map</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="3" column="0" colspan="2">
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QPushButton" name="pushButtonAdd">
-       <property name="text">
-        <string>Add</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../../../../../res/resources.qrc">
-         <normaloff>:/icons/plus_16px.ico</normaloff>:/icons/plus_16px.ico</iconset>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButtonCancel">
-       <property name="text">
-        <string>Cancel</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../../../../../res/resources.qrc">
-         <normaloff>:/icons/cancel_16px.ico</normaloff>:/icons/cancel_16px.ico</iconset>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
   </layout>
   <zorder>groupBoxPublic</zorder>
   <zorder>lineEditMessage</zorder>
   <zorder>groupBoxPrivate</zorder>
   <zorder>radioButtonPublic</zorder>
   <zorder>radioButtonPrivate</zorder>
+  <zorder>checkBoxPlanning</zorder>
+  <zorder>groupBoxPlanning</zorder>
  </widget>
  <tabstops>
   <tabstop>lineEditMessage</tabstop>
   <tabstop>radioButtonPublic</tabstop>
-  <tabstop>comboBoxCanal</tabstop>
-  <tabstop>timeEdit</tabstop>
+  <tabstop>comboBoxChannel</tabstop>
+  <tabstop>timeEditPublic</tabstop>
   <tabstop>radioButtonPrivate</tabstop>
-  <tabstop>checkBoxSomeonEntersMap</tabstop>
+  <tabstop>checkBoxSomeoneComingMap</tabstop>
   <tabstop>checkBoxSomeoneLeavesMap</tabstop>
   <tabstop>pushButtonAdd</tabstop>
   <tabstop>pushButtonCancel</tabstop>

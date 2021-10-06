@@ -37,9 +37,14 @@ FloodManager::FloodManager(QMap<SocketIO *, BotData> *connectionsData):
 
 }
 
-void FloodManager::reset(SocketIO *sender)
+FloodManager::~FloodManager()
 {
 
+}
+
+void FloodManager::reset(SocketIO *sender)
+{
+    m_botData[sender].floodData.floodList.clear();
 }
 
 void FloodManager::sendChatMessage(SocketIO *sender, const QString &messageContent, const Channel &channel)
@@ -51,15 +56,6 @@ void FloodManager::sendChatMessage(SocketIO *sender, const QString &messageConte
         message.channel = channel;
 
         sender->send(message);
-    }
-}
-
-void FloodManager::setFloodLevels(SocketIO *sender, int min, int max)
-{
-    if (min >= 1 && max <= 200)
-    {
-        m_botData[sender].floodData.levelMin = min;
-        m_botData[sender].floodData.levelMax = max;
     }
 }
 
@@ -87,55 +83,11 @@ void FloodManager::sendChatSmiley(SocketIO *sender, uint smileyId)
     }
 }
 
-void FloodManager::initFlood(SocketIO *sender, const QList<FloodMessage> &floods)
+void FloodManager::startFlood(SocketIO *sender)
 {
-    m_botData[sender].floodData.floodList.clear();
-    foreach (FloodMessage flood, floods)
+    foreach (FloodRequest floodRequest, m_floodRequests)
     {
-        if (!m_botData[sender].floodData.floodList.contains(flood))
-            m_botData[sender].floodData.floodList<<flood;
-
-        FloodRequest temp;
-        temp.sender = sender;
-        temp.channel = flood.channel;
-        temp.message = flood.message;
-        temp.elapsedTime.start();
-
-        switch (flood.channel)
-        {
-        default:
-            qDebug()<<"ERREUR - FloodModule ne connait pas cette channel"<<flood.channel;
-            break;
-
-        case CHANNELSALES:
-            temp.estimatedTime = 120000;
-            break;
-
-        case CHANNELSEEK:
-            temp.estimatedTime = 60000;
-            break;
-
-        case CHANNELGLOBAL:
-            temp.estimatedTime = 35000;
-            break;
-
-        case CHANNELPRIVATE:
-        {
-            if (!m_botData[sender].floodData.floodList.contains(flood))
-                m_botData[sender].floodData.floodList<<flood;
-        }
-            break;
-        }
-
-        m_floodRequests<<temp;
-
-        foreach (FloodMessage floodMessage, m_botData[sender].floodData.floodList)
-        {
-            floodMessage.timer.start();
-        }
-
-        QTimer::singleShot(temp.estimatedTime, this, SLOT(processFloodWaiting()));
-        //QTimer::singleShot(m_botData[sender].floodData.floodList[m_botData[sender].floodData.floodList.indexOf(flood)].changeTimer*60000, this, SLOT(changeFloodMessage()));
+        floodRequest.elapsedTime.start();
     }
 }
 
@@ -172,13 +124,25 @@ void FloodManager::processFloodWaiting()
 
 void FloodManager::endFlood(SocketIO *sender)
 {
-    m_botData[sender].floodData.floodList.clear();
+    m_floodRequests.clear();
 }
 
 void FloodManager::addFloodChannel(SocketIO *sender, const FloodMessage &flood)
 {
-    if (!m_botData[sender].floodData.floodList.contains(flood))
+    bool found = false;
+    foreach (FloodMessage floodMessage, m_botData[sender].floodData.floodList)
+    {
+        if (floodMessage.message == flood.message && flood.channel == floodMessage.channel && floodMessage.timer == flood.timer)
+        {
+            found = true;
+            break;
+        }
+    }
+
+    if (!found)
+    {
         m_botData[sender].floodData.floodList<<flood;
+    }
 
     FloodRequest temp;
     temp.sender = sender;
@@ -189,7 +153,7 @@ void FloodManager::addFloodChannel(SocketIO *sender, const FloodMessage &flood)
     switch (flood.channel)
     {
     default:
-        throw "ERREUR - FloodManager ne connait pas cette channel";
+        throw "ERROR - FloodManager don't know this channel";
         break;
 
     case CHANNELSALES:
@@ -206,8 +170,20 @@ void FloodManager::addFloodChannel(SocketIO *sender, const FloodMessage &flood)
 
     case CHANNELPRIVATE:
     {
-        if (!m_botData[sender].floodData.floodList.contains(flood))
+        bool found = false;
+        foreach (FloodMessage floodMessage, m_botData[sender].floodData.floodList)
+        {
+            if (floodMessage.message == flood.message && flood.channel == floodMessage.channel && floodMessage.timer == flood.timer)
+            {
+                found = true;
+                break;
+            }
+        }
+
+        if (!found)
+        {
             m_botData[sender].floodData.floodList<<flood;
+        }
     }
         break;
     }
@@ -218,7 +194,20 @@ void FloodManager::addFloodChannel(SocketIO *sender, const FloodMessage &flood)
 
 void FloodManager::removeFloodChannel(SocketIO *sender, const FloodMessage &flood)
 {
-    m_botData[sender].floodData.floodList.removeOne(flood);
+    int index = INVALID;
+    foreach (FloodMessage floodMessage, m_botData[sender].floodData.floodList)
+    {
+        index++;
+        if (floodMessage.message == flood.message && flood.channel == floodMessage.channel && floodMessage.timer == flood.timer)
+        {
+            break;
+        }
+    }
+
+    if (index > INVALID)
+    {
+        m_botData[sender].floodData.floodList.removeAt(index);
+    }
 }
 
 QString FloodManager::randomizeFloodMessage()

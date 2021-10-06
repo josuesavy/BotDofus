@@ -46,8 +46,11 @@ bool operator==(const FloodRequest &left, const FloodRequest &right);
 
 class FloodManager : public AbstractManager
 {
+    Q_OBJECT
+
 public:
     FloodManager(QMap<SocketIO*, BotData> *connectionsData);
+    ~FloodManager();
 
     /*!
      * \brief Reset the module
@@ -97,7 +100,7 @@ public:
      * \param sender Bot's particular connection
      * \param channels List of channels in which to flood
      */
-    void initFlood(SocketIO *sender, const QList<FloodMessage> &floods);
+    void startFlood(SocketIO *sender);
 
     /*!
      * \brief Adds a channel in the channel list to flood of the specified bot.

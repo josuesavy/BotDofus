@@ -59,27 +59,28 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
 
             if (rolePlay->contextualId > 0)
             {
-                if (m_botData[sender].floodData.channelList.contains(CHANNELPRIVATE))
+                foreach (FloodMessage floodMessage, m_botData[sender].floodData.floodList)
                 {
-                    if (m_botData[sender].generalData.botState == INACTIVE_STATE &&
-                            (rolePlay->alignmentInfos.characterPower - rolePlay->contextualId) >= m_botData[sender].floodData.levelMin &&
-                            (rolePlay->alignmentInfos.characterPower - rolePlay->contextualId) <= m_botData[sender].floodData.levelMax)
+                    if (floodMessage.channel == CHANNELPRIVATE && floodMessage.someoneComingOnMap)
                     {
-                        QStringList splited = m_botData[sender].floodData.floodMessage.split("##", QString::SkipEmptyParts);
-                        for (int i = 0; i < splited.size(); i++)
+                        if (m_botData[sender].generalData.botState == INACTIVE_STATE)
                         {
-                            if (splited[i] == "NAME")
+                            QStringList splited = floodMessage.message.split("##", QString::SkipEmptyParts);
+                            for (int i = 0; i < splited.size(); i++)
                             {
-                                splited.replace(i, rolePlay->name);
+                                if (splited[i] == "NAME")
+                                {
+                                    splited.replace(i, rolePlay->name);
+                                }
                             }
+
+                            QString randomPart = m_floodManager->randomizeFloodMessage();
+                            m_floodManager->sendChatMessage(sender, splited.join(" ")+randomPart, rolePlay->name);
                         }
 
-                        QString randomPart = m_floodManager->randomizeFloodMessage();
-                        m_floodManager->sendChatMessage(sender, splited.join(" ")+randomPart, rolePlay->name);
+                        else if (m_botData[sender].generalData.botState != INACTIVE_STATE)
+                            qDebug()<<"[GameContextRoleplayFrame] Cannot start the flood because the character is busy";
                     }
-
-                    else if (m_botData[sender].generalData.botState != INACTIVE_STATE)
-                        qDebug()<<"[GameContextRoleplayFrame] Cannot start the flood because the character is busy";
                 }
             }
         }
