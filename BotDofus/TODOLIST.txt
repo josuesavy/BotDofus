@@ -12,8 +12,9 @@ Carte
  [ ] Donner une taille fixe à la carte lors du resize de la fenêtre du bot
 
 Flood
- [ ] Ajouter et supprimer une phrase dans la liste
- [ ] Le bouton pour lancer le flood n'a pas d'event
+ [OK] Ajouter et supprimer une phrase dans la liste
+ [OK] Le bouton pour lancer le flood n'a pas d'event
+ [ ] Quand on ajoute plusieurs flood (ex: general and private) il y a que le private qui s'execute et pas le general
 
 Options
  [ ] L'affichage de la planification est un peu moche
@@ -22,6 +23,7 @@ Divers
  [ ] La fenêtre est trop grande pour certaines résolutions graphique. Faire en sorte d'ajuster, permettre un certain resize sur certains widgets pour régler le problème
  [ ] Quand on arrête le script depuis le module, actualiser les actions dans la liste du management des scripts
  [ ] Mettre des tooltips un peu partout afin d'informer l'utilisateur
+ [ ] Quand on a au moins un bot connecté, et que on resize la fenêtre genre aller au plus petit ça plante avec cette erreur (createDIB: CreateDIBSection failed (1449x875, format: 6))
 
 
 BackEnd :

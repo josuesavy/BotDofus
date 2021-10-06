@@ -13,6 +13,7 @@ FloodForm::FloodForm(ProcessEngine *engine, const ConnectionInfos &infos, Socket
     m_sender = sender;
 
     ui->tableWidgetFlood->horizontalHeader()->setSectionResizeMode(1,QHeaderView::Stretch);
+    ui->checkBoxEnableFlood->setEnabled(false);
 }
 
 FloodForm::~FloodForm()
@@ -47,14 +48,12 @@ void FloodForm::updateInterface()
 
     if (infos.connectionData.connectionState == ConnectionState::TRANSITION)
     {
-        while(ui->tableWidgetFlood->rowCount() > 0)
-            ui->tableWidgetFlood->removeRow(0);
+
     }
 
     if (infos.connectionData.connectionState == ConnectionState::DISCONNECTED)
     {
-        while(ui->tableWidgetFlood->rowCount() > 0)
-            ui->tableWidgetFlood->removeRow(0);
+
     }
 }
 
@@ -75,17 +74,36 @@ void FloodForm::on_pushButtonAddFlood_clicked()
 
         m_engine->getFloodManager().addFloodChannel(m_sender, floodMessage);
 
+        QString intervalString;
+        if (!floodMessage.someoneComingOnMap && !floodMessage.someoneLeaveMap)
+            intervalString = floodMessage.timer.toString();
+        else
+        {
+            if (floodMessage.someoneComingOnMap)
+                intervalString += "Coming";
+
+            if (floodMessage.someoneLeaveMap)
+            {
+                if (floodMessage.someoneComingOnMap)
+                    intervalString += " - Leave";
+                else
+                    intervalString += "Leave";
+            }
+        }
+
         ui->tableWidgetFlood->insertRow(ui->tableWidgetFlood->rowCount());
         ui->tableWidgetFlood->setItem(ui->tableWidgetFlood->rowCount()-1, 0, new QTableWidgetItem(QString::number(floodMessage.channel)));
         ui->tableWidgetFlood->setItem(ui->tableWidgetFlood->rowCount()-1, 1, new QTableWidgetItem(floodMessage.message));
-        ui->tableWidgetFlood->setItem(ui->tableWidgetFlood->rowCount()-1, 2, new QTableWidgetItem(floodMessage.timer.toString()));
+        ui->tableWidgetFlood->setItem(ui->tableWidgetFlood->rowCount()-1, 2, new QTableWidgetItem(intervalString));
         ui->tableWidgetFlood->setItem(ui->tableWidgetFlood->rowCount()-1, 3, new QTableWidgetItem(QString("%1 - %2").arg(floodMessage.startTimePlanning.toString()).arg(floodMessage.endTimePlanning.toString())));
+
+        ui->checkBoxEnableFlood->setEnabled(true);
     }
 }
 
 void FloodForm::on_checkBoxEnableFlood_stateChanged(int arg1)
 {
-    if (arg1 == Qt::Checked)
+    if (arg1 == Qt::Checked && ui->tableWidgetFlood->rowCount() > 0 && !m_engine->getData(m_sender).floodData.floodList.isEmpty())
         m_engine->getFloodManager().startFlood(m_sender);
     else if (arg1 == Qt::Unchecked)
         m_engine->getFloodManager().endFlood(m_sender);
@@ -97,7 +115,17 @@ void FloodForm::on_pushButtonDeleteFlood_clicked()
     {
         foreach (const QModelIndex &indexModel, ui->tableWidgetFlood->selectionModel()->selectedIndexes())
         {
-            m_engine->getFloodManager().removeFloodChannel(m_sender, m_engine->getData(m_sender).floodData.floodList.at(indexModel.row()));
+            if (!m_engine->getData(m_sender).floodData.floodList.isEmpty())
+            {
+                m_engine->getFloodManager().removeFloodChannel(m_sender, m_engine->getData(m_sender).floodData.floodList.at(indexModel.row()));
+                ui->tableWidgetFlood->removeRow(indexModel.row());
+            }
+        }
+
+        if (ui->tableWidgetFlood->rowCount() <= 0)
+        {
+            ui->checkBoxEnableFlood->setChecked(false);
+            ui->checkBoxEnableFlood->setEnabled(false);
         }
     }
     else

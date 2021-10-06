@@ -1,9 +1,10 @@
 #include "GameContextFrame.h"
 
-GameContextFrame::GameContextFrame(QMap<SocketIO *, BotData> *connectionsData, FightManager *fightManager, MapManager *mapManager):
+GameContextFrame::GameContextFrame(QMap<SocketIO *, BotData> *connectionsData, FightManager *fightManager, MapManager *mapManager, FloodManager *floodManager):
     AbstractFrame(connectionsData),
     m_fightManager(fightManager),
-    m_mapManager(mapManager)
+    m_mapManager(mapManager),
+    m_floodManager(floodManager)
 {
 
 }
@@ -65,6 +66,33 @@ bool GameContextFrame::processMessage(const MessageInfos &data, SocketIO *sender
     {
         GameContextRemoveElementMessage message;
         message.deserialize(&reader);
+
+        if (m_botData[sender].mapData.playersOnMap.contains(message.id))
+        {
+            foreach (FloodMessage floodMessage, m_botData[sender].floodData.floodList)
+            {
+                if (floodMessage.channel == CHANNELPRIVATE && floodMessage.someoneLeaveMap)
+                {
+                    if (m_botData[sender].generalData.botState == INACTIVE_STATE)
+                    {
+                        QStringList splited = floodMessage.message.split("##", QString::SkipEmptyParts);
+                        for (int i = 0; i < splited.size(); i++)
+                        {
+                            if (splited[i] == "NAME")
+                            {
+                                splited.replace(i, m_botData[sender].mapData.playersOnMap.value(message.id).name);
+                            }
+                        }
+
+                        QString randomPart = m_floodManager->randomizeFloodMessage();
+                        m_floodManager->sendChatMessage(sender, splited.join(" ")+randomPart, m_botData[sender].mapData.playersOnMap.value(message.id).name);
+                    }
+
+                    else if (m_botData[sender].generalData.botState != INACTIVE_STATE)
+                        qDebug()<<"[GameContextRoleplayFrame] Cannot start the flood because the character is busy";
+                }
+            }
+        }
 
         m_botData[sender].mapData.playersOnMap.remove(message.id);
         m_botData[sender].mapData.npcsOnMap.remove(message.id);

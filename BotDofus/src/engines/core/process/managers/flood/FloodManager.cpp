@@ -93,33 +93,38 @@ void FloodManager::startFlood(SocketIO *sender)
 
 void FloodManager::processFloodWaiting()
 {
-    // Get the flood that has the smallest time value to send
-    int toTest = m_floodRequests[0].estimatedTime - m_floodRequests[0].elapsedTime.elapsed();
-    int selected = 0;
-    for (int i = 0; i < m_floodRequests.size(); i++)
+    if (!m_floodRequests.isEmpty())
     {
-        if ((m_floodRequests[i].estimatedTime - m_floodRequests[i].elapsedTime.elapsed()) < toTest)
+        // Get the flood that has the smallest time value to send
+        int toTest = m_floodRequests.first().estimatedTime - m_floodRequests.first().elapsedTime.elapsed();
+        int selected = 0;
+        for (int i = 0; i < m_floodRequests.size(); i++)
         {
-            selected = i;
-            toTest =  m_floodRequests[i].estimatedTime - m_floodRequests[i].elapsedTime.elapsed();
+            if ((m_floodRequests[i].estimatedTime - m_floodRequests[i].elapsedTime.elapsed()) < toTest)
+            {
+                selected = i;
+                toTest =  m_floodRequests[i].estimatedTime - m_floodRequests[i].elapsedTime.elapsed();
+            }
+        }
+
+        FloodRequest temp = m_floodRequests[selected];
+
+        foreach (FloodMessage flood, m_botData[temp.sender].floodData.floodList)
+        {
+            if (flood.message == temp.message && flood.channel == temp.channel)
+            {
+                QString randomPart = randomizeFloodMessage();
+                sendChatMessage(temp.sender, flood.message+randomPart, temp.channel);
+
+                m_floodRequests.first().elapsedTime.restart();
+                QTimer::singleShot(temp.estimatedTime, this, SLOT(processFloodWaiting()));
+            }
+            else
+                m_floodRequests.removeFirst();
         }
     }
-
-    FloodRequest temp = m_floodRequests[selected];
-
-    foreach (FloodMessage flood, m_botData[temp.sender].floodData.floodList)
-    {
-        if (flood.message == temp.message && flood.channel == temp.channel)
-        {
-            QString randomPart = randomizeFloodMessage();
-            sendChatMessage(temp.sender, flood.message+randomPart, temp.channel);
-
-            m_floodRequests[0].elapsedTime.restart();
-            QTimer::singleShot(temp.estimatedTime, this, SLOT(processFloodWaiting()));
-        }
-        else
-            m_floodRequests.removeFirst();
-    }
+    else
+        qDebug() << "[FloodManager] The flood request list is empty...";
 }
 
 void FloodManager::endFlood(SocketIO *sender)

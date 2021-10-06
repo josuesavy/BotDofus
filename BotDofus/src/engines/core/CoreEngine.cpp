@@ -37,7 +37,7 @@ CoreEngine::CoreEngine()
     m_frames.append(new GameCharacterStatsFrame(&m_botData, static_cast<StatsManager*>(m_managers[ManagerType::STATS])));
     m_frames.append(new GameCharacterStatusFrame(&m_botData));
     m_frames.append(new GameChatFrame(&m_botData, static_cast<FightManager*>(m_managers[ManagerType::FIGHT])));
-    m_frames.append(new GameContextFrame(&m_botData, static_cast<FightManager*>(m_managers[ManagerType::FIGHT]), static_cast<MapManager*>(m_managers[ManagerType::MAP])));
+    m_frames.append(new GameContextFrame(&m_botData, static_cast<FightManager*>(m_managers[ManagerType::FIGHT]), static_cast<MapManager*>(m_managers[ManagerType::MAP]), static_cast<FloodManager*>(m_managers[ManagerType::FLOOD])));
     m_frames.append(new GameContextFightFrame(&m_botData, static_cast<FightManager*>(m_managers[ManagerType::FIGHT])));
     m_frames.append(new GameContextFightCharacterFrame(&m_botData, static_cast<FightManager*>(m_managers[ManagerType::FIGHT]), static_cast<GroupManager*>(m_managers[ManagerType::GROUP])));
     m_frames.append(new GameContextMountFrame(&m_botData));

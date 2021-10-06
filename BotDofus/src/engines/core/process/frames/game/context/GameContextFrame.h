@@ -4,13 +4,14 @@
 #include "src/engines/core/process/frames/AbstractFrame.h"
 #include "src/engines/core/process/managers/fight/FightManager.h"
 #include "src/engines/core/process/managers/map/MapManager.h"
+#include "src/engines/core/process/managers/flood/FloodManager.h"
 
 class GameContextFrame : public AbstractFrame
 {
     Q_OBJECT
 
 public:
-    GameContextFrame(QMap<SocketIO*, BotData> *connectionsData, FightManager *fightManager, MapManager *mapManager);
+    GameContextFrame(QMap<SocketIO*, BotData> *connectionsData, FightManager *fightManager, MapManager *mapManager, FloodManager *floodManager);
 
     /*!
      * \brief Process message of the connection
@@ -23,6 +24,7 @@ public:
 private:
     FightManager *m_fightManager;
     MapManager *m_mapManager;
+    FloodManager *m_floodManager;
 };
 
 #endif // GAMECONTEXTFRAME_H

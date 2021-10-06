@@ -43,7 +43,10 @@ QString AddFloodMessageDialog::getMessage()
 
 int AddFloodMessageDialog::getChannel()
 {
-    return m_channel;
+    if (ui->radioButtonPrivate->isChecked())
+        return 9;
+    else
+        return m_channel;
 }
 
 QTime AddFloodMessageDialog::getInterval()
