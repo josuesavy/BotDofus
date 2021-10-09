@@ -46,7 +46,7 @@ Statistiques
 Divers
  [ ] Il y a une mesure anti-bot (ou pas) où j'arrive pas a récup toute les mapids des maps...
  [ ] Certaines cartes ont des voisins inconnue quand on veut se deplacer
- [ ] Lors de la connexion d'un groupe, vérifier si tous sont sur le même serveur (bof)
+ [OK] Lors de la connexion d'un groupe, vérifier si tous sont sur le même serveur (bof)
  [ ] Revoir le pathfinding, il semblerait qu'il soit cassé
  [ ] Vérifier si CheckFileRequestMessage fonctionne bien
  [OK] Quand on reconnecte le bot, il parle d'une histoire de régénération

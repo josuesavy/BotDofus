@@ -349,7 +349,6 @@ struct CharactersCreationInfos
 struct ConnectionInfos
 {
     QString login;
-    QString server;
     QString password;
     QString character;
     QString alias;
