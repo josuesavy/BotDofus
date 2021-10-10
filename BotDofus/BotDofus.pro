@@ -423,6 +423,10 @@ HEADERS += \
     src/engines/io/d2p/map/elements/GraphicalElement.h \
     src/engines/io/d2p/map/elements/SoundElement.h \
     src/engines/io/d2p/map/elements/enums/ElementTypesEnum.h \
+    src/engines/io/d2p/world/Edge.h \
+    src/engines/io/d2p/world/Transition.h \
+    src/engines/io/d2p/world/Vertex.h \
+    src/engines/io/d2p/world/WorldGraph.h \
     src/engines/io/i18n/I18nFile.h \
     src/engines/io/i18n/I18nFileAccessor.h \
     src/engines/io/network/Reader.h \
@@ -2347,6 +2351,10 @@ SOURCES += \
     src/engines/io/d2p/map/elements/BasicElement.cpp \
     src/engines/io/d2p/map/elements/GraphicalElement.cpp \
     src/engines/io/d2p/map/elements/SoundElement.cpp \
+    src/engines/io/d2p/world/Edge.cpp \
+    src/engines/io/d2p/world/Transition.cpp \
+    src/engines/io/d2p/world/Vertex.cpp \
+    src/engines/io/d2p/world/WorldGraph.cpp \
     src/engines/io/i18n/I18nFile.cpp \
     src/engines/io/i18n/I18nFileAccessor.cpp \
     src/engines/io/network/Reader.cpp \
