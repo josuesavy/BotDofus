@@ -25,28 +25,33 @@ void ElementsAdapter::init(const QString &path)
     t.start();
 
     m_isInit = true;
-    m_path = path;
+    m_path = path + "/maps/elements.ele";
 
-    QFile file(path);
-    QByteArray ba = file.readAll();
-    m_reader = new Reader(ba);
-
-    int header = m_reader->readByte();
-    if (header != 69)
+    QFile file(m_path);
+    if (file.open(QIODevice::ReadOnly))
     {
-        m_reader->setPosition(0);
-        ba = qUncompress(ba);
+        QByteArray ba = file.readAll();
         m_reader = new Reader(ba);
 
-        header = m_reader->readByte();
+        int header = m_reader->readByte();
         if (header != 69)
         {
-            qDebug() << "ERROR - ElementAdapter - Wrong header file.";
-            return;
+            m_reader->setPosition(0);
+            QByteArray baba = qUncompress(ba);
+            m_reader = new Reader(baba);
+
+            header = m_reader->readByte();
+            if (header != 69)
+            {
+                qDebug() << "ERROR - ElementAdapter - Wrong header file.";
+                return;
+            }
         }
+        m_reader->setPosition(0);
+        m_element = new Elements(m_reader);
+
+        file.close();
     }
-    m_reader->setPosition(0);
-    m_element = new Elements(m_reader);
 
     qDebug()<<"[ElementsAdapter] Initialized ! ("<<t.elapsed()<<"ms)";
 }

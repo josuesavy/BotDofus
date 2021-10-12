@@ -13,14 +13,17 @@ public:
     Elements();
     Elements(Reader *reader);
 
+    QSharedPointer<GraphicalElementData> getElementData(int elementId);
+
 private:
     Reader *m_reader;
     uint m_fileVersion;
     uint m_elementsCount;
     QMap<int, long> m_elementsIndex;
     QMap<int, bool> m_jpegMap;
+    QMap<int, QSharedPointer<GraphicalElementData>> m_elementsMap;
 
-    void readElement(uint edId);
+    QSharedPointer<GraphicalElementData> readElement(uint edId);
 };
 
 #endif // ELEMENTS_H

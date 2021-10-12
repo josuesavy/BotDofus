@@ -10,6 +10,7 @@
 #include "src/engines/io/d2o/D2OManager.h"
 #include "src/engines/io/d2p/D2PManager.h"
 #include "src/engines/io/bin/BINManager.h"
+#include "src/engines/io/ele/ElementsAdapter.h"
 #include "src/engines/io/i18n/I18nFileAccessor.h"
 
 namespace Ui {

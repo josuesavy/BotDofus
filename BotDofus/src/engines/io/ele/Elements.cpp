@@ -49,7 +49,15 @@ Elements::Elements(Reader *reader)
     }
 }
 
-void Elements::readElement(uint edId)
+QSharedPointer<GraphicalElementData> Elements::getElementData(int elementId)
+{
+    if (m_elementsMap[elementId])
+        return m_elementsMap[elementId];
+    else
+        return readElement(elementId);
+}
+
+QSharedPointer<GraphicalElementData> Elements::readElement(uint edId)
 {
     m_reader->setPosition(m_elementsIndex[edId]);
 
@@ -59,5 +67,8 @@ void Elements::readElement(uint edId)
     if (!ed)
         return NULL;
 
-    ed.
+    ed->fromRaw(m_reader, m_fileVersion);
+    m_elementsMap[edId] = ed;
+
+    return ed;
 }
