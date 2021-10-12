@@ -1,8 +1,8 @@
 #ifndef EDGE_H
 #define EDGE_H
 
-#include "src/engines/io/d2p/world/Vertex.h"
-#include "src/engines/io/d2p/world/Transition.h"
+#include "src/engines/io/bin/world/Vertex.h"
+#include "src/engines/io/bin/world/Transition.h"
 #include <QSharedPointer>
 
 class Edge

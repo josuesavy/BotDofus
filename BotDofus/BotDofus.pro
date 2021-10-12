@@ -146,6 +146,13 @@ HEADERS += \
     src/engines/core/process/managers/map/MapManager.h \
     src/engines/core/process/managers/security/SecurityManager.h \
     src/engines/core/process/managers/stats/StatsManager.h \
+    src/engines/io/bin/BINManager.h \
+    src/engines/io/bin/manager/BINFile.h \
+    src/engines/io/bin/manager/BINFolder.h \
+    src/engines/io/bin/world/Edge.h \
+    src/engines/io/bin/world/Transition.h \
+    src/engines/io/bin/world/Vertex.h \
+    src/engines/io/bin/world/WorldGraph.h \
     src/engines/io/d2o/D2OManager.h \
     src/engines/io/d2o/game/AbstractGameData.h \
     src/engines/io/d2o/game/GameDataConverter.h \
@@ -423,10 +430,6 @@ HEADERS += \
     src/engines/io/d2p/map/elements/GraphicalElement.h \
     src/engines/io/d2p/map/elements/SoundElement.h \
     src/engines/io/d2p/map/elements/enums/ElementTypesEnum.h \
-    src/engines/io/d2p/world/Edge.h \
-    src/engines/io/d2p/world/Transition.h \
-    src/engines/io/d2p/world/Vertex.h \
-    src/engines/io/d2p/world/WorldGraph.h \
     src/engines/io/ele/Elements.h \
     src/engines/io/ele/ElementsAdapter.h \
     src/engines/io/ele/GraphicalElementData.h \
@@ -2082,6 +2085,13 @@ SOURCES += \
     src/engines/core/process/managers/map/MapManager.cpp \
     src/engines/core/process/managers/security/SecurityManager.cpp \
     src/engines/core/process/managers/stats/StatsManager.cpp \
+    src/engines/io/bin/BINManager.cpp \
+    src/engines/io/bin/manager/BINFile.cpp \
+    src/engines/io/bin/manager/BINFolder.cpp \
+    src/engines/io/bin/world/Edge.cpp \
+    src/engines/io/bin/world/Transition.cpp \
+    src/engines/io/bin/world/Vertex.cpp \
+    src/engines/io/bin/world/WorldGraph.cpp \
     src/engines/io/d2o/D2OManager.cpp \
     src/engines/io/d2o/game/AbstractGameData.cpp \
     src/engines/io/d2o/game/GameDataConverter.cpp \
@@ -2356,10 +2366,6 @@ SOURCES += \
     src/engines/io/d2p/map/elements/BasicElement.cpp \
     src/engines/io/d2p/map/elements/GraphicalElement.cpp \
     src/engines/io/d2p/map/elements/SoundElement.cpp \
-    src/engines/io/d2p/world/Edge.cpp \
-    src/engines/io/d2p/world/Transition.cpp \
-    src/engines/io/d2p/world/Vertex.cpp \
-    src/engines/io/d2p/world/WorldGraph.cpp \
     src/engines/io/ele/Elements.cpp \
     src/engines/io/ele/ElementsAdapter.cpp \
     src/engines/io/ele/GraphicalElementData.cpp \

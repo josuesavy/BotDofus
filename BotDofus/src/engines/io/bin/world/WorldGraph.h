@@ -1,16 +1,16 @@
 #pragma once
 
 #include "src/engines/io/network/Reader.h"
-#include "src/engines/io/d2p/world/Vertex.h"
-#include "src/engines/io/d2p/world/Edge.h"
+#include "src/engines/io/bin/world/Vertex.h"
+#include "src/engines/io/bin/world/Edge.h"
 
 class WorldGraph
 {
 public:
     WorldGraph();
-    WorldGraph(const QString &WPFile);
+    WorldGraph(const QString &WGFile);
 
-    void init(const QString &WPFile);
+    void init(const QString &WGFile);
     QSharedPointer<Vertex> addVertex(double mapId, int zone);
     QSharedPointer<Vertex> getVertex(double mapId, int mapRpZone);
     QSharedPointer<Edge> addEdge(QSharedPointer<Vertex> from, QSharedPointer<Vertex> dest);
@@ -20,7 +20,7 @@ public:
     bool isInit();
 
 private:
-    QString m_wpFile;
+    QString m_wgFile;
     bool m_isInit;
 
     QList<QSharedPointer<Vertex>> m_vertices;

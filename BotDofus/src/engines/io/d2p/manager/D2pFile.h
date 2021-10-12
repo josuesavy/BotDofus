@@ -6,9 +6,6 @@
 
 class D2PFile
 {
-private:
-
-
 public:
     D2PFile(const QString &path);
     ~D2PFile();
@@ -18,7 +15,6 @@ public:
     const QMap<QString, CompressedMap*> &getContentImage() const;
 
 private:
-    void initializeInstanceD2OFields();
     void getFileContent();
 
     QString m_path;

@@ -1,28 +1,25 @@
 #include "WorldGraph.h"
 
 WorldGraph::WorldGraph():
-    m_wpFile(QString()),
+    m_wgFile(QString()),
     m_isInit(false)
 {
 
 }
 
-WorldGraph::WorldGraph(const QString &WPFile)
+WorldGraph::WorldGraph(const QString &WGFile)
 {
-    init(WPFile);
+    init(WGFile);
 }
 
-void WorldGraph::init(const QString &WPFile)
+void WorldGraph::init(const QString &WGFile)
 {
-    QTime t;
-    t.start();
-
-    m_wpFile = WPFile;
+    m_wgFile = WGFile;
     QSharedPointer<Vertex> from;
     QSharedPointer<Vertex> dest;
     QSharedPointer<Edge> edge;
 
-    Reader reader(m_wpFile);
+    Reader reader(m_wgFile);
     int edgeCount = reader.readInt();
     for (int i = 0; i < edgeCount; i++)
     {
@@ -36,8 +33,6 @@ void WorldGraph::init(const QString &WPFile)
             edge->addTransition(reader.readByte(),reader.readByte(),reader.readInt(),reader.readUTFBytes(reader.readInt()),reader.readDouble(),reader.readInt(),reader.readDouble());
         }
     }
-
-    qDebug()<<"[WorldGraphManager] Initialized ! ("<<t.elapsed()<<"ms)";
 }
 
 QSharedPointer<Vertex> WorldGraph::addVertex(double mapId, int zone)
