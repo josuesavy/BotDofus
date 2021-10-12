@@ -33,8 +33,8 @@ enum class DofusVersion
 {
     MAJOR = 2,
     MINOR = 61,
-    CODE = 7,
-    BUILD = 8,
+    CODE = 8,
+    BUILD = 9,
 };
 
 enum class SuperTypeId
@@ -349,7 +349,6 @@ struct CharactersCreationInfos
 struct ConnectionInfos
 {
     QString login;
-    QString server;
     QString password;
     QString character;
     QString alias;

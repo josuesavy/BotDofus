@@ -149,6 +149,23 @@ void MainWindow::addAccount(const QList<ConnectionInfos> &accounts)
             {
                 if (!accounts.isEmpty())
                 {
+                    ConnectionInfos _loc_ = accounts.first();
+                    for (int i = 0; i < accounts.size(); i++)
+                    {
+                        if (accounts.at(i).serverId == _loc_.serverId)
+                        {
+                            _loc_ = accounts.at(i);
+                        }
+                        else
+                        {
+                            int answ = QMessageBox::warning(NULL,"Warning",QString("The <b>%1</b> account is on a different server.\nDo you want to continue loading anyway?").arg(accounts.at(i).alias.isEmpty() ? accounts.at(i).login: accounts.at(i).alias), QMessageBox::Yes | QMessageBox::No);
+                            if(answ == QMessageBox::No)
+                            {
+                                return;
+                            }
+                        }
+                    }
+
                     // Add Master
                     AccountForm *accountFormMaster = new AccountForm(&m_engine, accounts.first());
                     connect(accountFormMaster, SIGNAL(remove(AccountForm*, bool)), this, SLOT(remove(AccountForm*, bool)));

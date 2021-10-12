@@ -257,16 +257,15 @@ void LoaderAccountForm::on_pushButtonLoad_clicked()
         {
             for (int i = 0; i < m_accounts.size(); i++)
             {
-
                 if (m_accounts[i].login == item->text(1))
                 {
                     m_accounts[i].connectionTo = (ConnectionTo)ui->comboBoxConnectionTo->currentIndex();
                     m_accounts[i].autoConnect = ui->checkBoxConnectionAuto->isChecked();
-                    m_accounts[i].masterGroup = "";
+                    m_accounts[i].masterGroup = QString();
 
                     QSqlQuery query;
 
-                    if(ui->comboBoxMaster->currentIndex())
+                    if(ui->comboBoxMaster->currentIndex() > 0)
                     {
                         query.prepare("SELECT login, character FROM accounts WHERE login=(:login)");
                         query.bindValue(":login", ui->comboBoxMaster->currentText());
@@ -277,9 +276,14 @@ void LoaderAccountForm::on_pushButtonLoad_clicked()
                                 QString character = query.value(1).toString();
 
                                 if(!character.isEmpty())
+                                {
                                     m_accounts[i].masterGroup = character;
+                                }
                                 else
+                                {
                                     QMessageBox::critical(this,"Error",QString("No characters registered on the <b>%1</b> account").arg(query.value(0).toString()));
+                                    return;
+                                }
                             }
                         }
                     }
