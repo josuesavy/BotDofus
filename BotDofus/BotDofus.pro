@@ -427,6 +427,11 @@ HEADERS += \
     src/engines/io/d2p/world/Transition.h \
     src/engines/io/d2p/world/Vertex.h \
     src/engines/io/d2p/world/WorldGraph.h \
+    src/engines/io/ele/Elements.h \
+    src/engines/io/ele/ElementsAdapter.h \
+    src/engines/io/ele/GraphicalElementData.h \
+    src/engines/io/ele/GraphicalElementFactory.h \
+    src/engines/io/ele/GraphicalElementTypes.h \
     src/engines/io/i18n/I18nFile.h \
     src/engines/io/i18n/I18nFileAccessor.h \
     src/engines/io/network/Reader.h \
@@ -2355,6 +2360,10 @@ SOURCES += \
     src/engines/io/d2p/world/Transition.cpp \
     src/engines/io/d2p/world/Vertex.cpp \
     src/engines/io/d2p/world/WorldGraph.cpp \
+    src/engines/io/ele/Elements.cpp \
+    src/engines/io/ele/ElementsAdapter.cpp \
+    src/engines/io/ele/GraphicalElementData.cpp \
+    src/engines/io/ele/GraphicalElementFactory.cpp \
     src/engines/io/i18n/I18nFile.cpp \
     src/engines/io/i18n/I18nFileAccessor.cpp \
     src/engines/io/network/Reader.cpp \

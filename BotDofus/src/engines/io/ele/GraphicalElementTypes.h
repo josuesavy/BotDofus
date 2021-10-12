@@ -1,0 +1,14 @@
+#ifndef GRAPHICALELEMENTTYPES_H
+#define GRAPHICALELEMENTTYPES_H
+
+enum class GraphicalElementTypes
+{
+    NORMAL = 0,
+    BOUNDING_BOX,
+    ANIMATED,
+    ENTITY,
+    PARTICLES,
+    BLENDED
+};
+
+#endif // GRAPHICALELEMENTTYPES_H
