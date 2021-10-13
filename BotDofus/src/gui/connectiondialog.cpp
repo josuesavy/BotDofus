@@ -121,8 +121,8 @@ void ConnectionDialog::on_lineEditPathDofus_textChanged(const QString &arg1)
                         qApp->processEvents();
                         D2PManagerSingleton::get()->init(D2P);
                         qApp->processEvents();
-                        ElementsAdapterSingleton::get()->init(D2P);
-                        qApp->processEvents();
+//                        ElementsAdapterSingleton::get()->init(D2P);
+//                        qApp->processEvents();
                         PathfindingMap::initialize();
                         qApp->processEvents();
                     }

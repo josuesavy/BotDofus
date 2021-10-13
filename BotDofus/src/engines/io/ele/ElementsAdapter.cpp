@@ -36,9 +36,10 @@ void ElementsAdapter::init(const QString &path)
         int header = m_reader->readByte();
         if (header != 69)
         {
-            m_reader->setPosition(0);
-            QByteArray baba = qUncompress(ba);
-            m_reader = new Reader(baba);
+            ba = ba.begin();
+            ba = gUncompress(ba);
+
+            m_reader = new Reader(ba);
 
             header = m_reader->readByte();
             if (header != 69)
