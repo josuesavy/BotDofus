@@ -64,14 +64,15 @@ void SettingsForm::hasConnected()
     ui->labelLoader->setStyleSheet("color: rgba(85, 170, 0, 175);");
     ui->labelLoader->setText(QString(tr("The proxy server appears to be in place.")));
     m_sender->setProxy(m_proxy);
+    m_socket.disconnectFromHost();
 
     ui->progressBarCheckProxy->hide();
 }
 
-void SettingsForm::hasDisconnected()
+void SettingsForm::hasDisconnected(QAbstractSocket::SocketError socketError)
 {
-    ui->labelLoader->setStyleSheet("color: rgba(255, 0, 0);");
-    ui->labelLoader->setText(QString(tr("The proxy server does not appear to be in place.")));
+    ui->labelLoader->setStyleSheet("color: rgba(255, 0, 0, 175);");
+    ui->labelLoader->setText(QString(tr("The proxy server does not appear to be in place.\nError: %1")).arg(m_socket.errorString()));
 
     ui->progressBarCheckProxy->hide();
 }
@@ -114,12 +115,11 @@ void SettingsForm::on_pushButtonCheckAndApplyProxy_clicked()
     proxyTemp.setUser(m_proxy.username);
     proxyTemp.setPassword(m_proxy.password);
 
-    QTcpSocket *socket = new QTcpSocket();
-    socket->setProxy(proxyTemp);
-    socket->connectToHost("34.252.21.81", 5555);
+    m_socket.setProxy(proxyTemp);
+    m_socket.connectToHost(processRandomIp(), 5555);
 
-    QObject::connect(socket, SIGNAL(connected()), this, SLOT(hasConnected()));
-    QObject::connect(socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(hasDisconnected()));
+    QObject::connect(&m_socket, SIGNAL(connected()), this, SLOT(hasConnected()));
+    QObject::connect(&m_socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(hasDisconnected(QAbstractSocket::SocketError)));
 }
 
 void SettingsForm::on_groupBox_6_clicked(bool checked)
@@ -127,8 +127,10 @@ void SettingsForm::on_groupBox_6_clicked(bool checked)
     if(!checked)
     {
         ProxyInfos proxy;
-        proxy.adress = "";
+        proxy.adress.clear();
         m_sender->setProxy(proxy);
+
+        m_sender->disconnect();
     }
 
     ui->pushButtonCheckAndApplyProxy->setEnabled(checked);
@@ -160,4 +162,18 @@ void SettingsForm::on_comboBoxStatus_currentIndexChanged(int index)
         m_engine->getStatsManager().setPlayerStatusUpdate(m_sender, PlayerStatusEnum::PLAYER_STATUS_SOLO);
 
     currentIndexSelected = index;
+}
+
+QString SettingsForm::processRandomIp()
+{
+    int random =  (rand() % (3));
+
+    if(random == 0)
+        return MAIN_SERVER_IP_1;
+
+    else if(random == 1)
+        return MAIN_SERVER_IP_2;
+
+    else if(random == 2)
+        return MAIN_SERVER_IP_3;
 }
