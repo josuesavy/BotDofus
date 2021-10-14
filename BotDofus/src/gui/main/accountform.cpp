@@ -81,7 +81,7 @@ AccountForm::AccountForm(ProcessEngine *engine, const ConnectionInfos &infos, QW
         ui->pushButtonClose->hide();
     }
 
-    QObject::connect(&m_updateTimer, SIGNAL(timeout()), this, SLOT(updateInterface(true)));
+    QObject::connect(&m_updateTimer, &QTimer::timeout, [this] () { updateInterface(true); });
 }
 
 AccountForm::~AccountForm()
