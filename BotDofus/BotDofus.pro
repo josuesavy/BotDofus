@@ -2076,6 +2076,7 @@ SOURCES += \
     src/engines/core/process/managers/interaction/InteractionManager.cpp \
     src/engines/core/process/managers/map/MapManager.cpp \
     src/engines/core/process/managers/script/ScriptManager.cpp \
+    src/engines/core/process/managers/script/LuaFunctions.cpp \
     src/engines/core/process/managers/security/SecurityManager.cpp \
     src/engines/core/process/managers/stats/StatsManager.cpp \
     src/engines/io/d2o/D2OManager.cpp \
