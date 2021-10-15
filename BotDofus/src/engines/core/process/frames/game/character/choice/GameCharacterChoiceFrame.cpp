@@ -32,6 +32,7 @@ bool GameCharacterChoiceFrame::processMessage(const MessageInfos &data, SocketIO
             {
                 m_botData[sender].mapData.botId = infos->id;
                 m_botData[sender].playerData.breed = infos->breed;
+                m_botData[sender].playerData.sex = infos->sex;
             }
         }
 
@@ -94,6 +95,7 @@ bool GameCharacterChoiceFrame::processMessage(const MessageInfos &data, SocketIO
         m_botData[sender].connectionData.connectionInfos.character = message.infos->name;
         m_botData[sender].mapData.botId = message.infos->id;
         m_botData[sender].playerData.breed = message.infos->breed;
+        m_botData[sender].playerData.sex = message.infos->sex;
 
         QSqlQuery query;
         query.prepare("UPDATE accounts SET character = :character WHERE login = :login");
@@ -140,6 +142,7 @@ bool GameCharacterChoiceFrame::processMessage(const MessageInfos &data, SocketIO
             {
                 action(sender) << "Sélection du personnage" << message.characters.first()->name + "...";
                 m_botData[sender].playerData.breed = message.characters.first()->breed;
+                m_botData[sender].playerData.sex = message.characters.first()->sex;
 
                 CharacterFirstSelectionMessage answer;
                 answer.doTutorial = false;
@@ -210,6 +213,7 @@ bool GameCharacterChoiceFrame::processMessage(const MessageInfos &data, SocketIO
                 {
                     m_botData[sender].mapData.botId = infos->id;
                     m_botData[sender].playerData.breed = infos->breed;
+                    m_botData[sender].playerData.sex = infos->sex;
                 }
             }
 

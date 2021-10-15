@@ -55,6 +55,7 @@ bool GameInventoryItemsFrame::processMessage(const MessageInfos &data, SocketIO 
                     InventoryObject item;
                     item.GID = message.object->objectGID;
                     item.UID = message.object->objectUID;
+                    item.position = (CharacterInventoryPositionEnum)message.object->position;
                     item.quantity = message.object->quantity;
 
                     m_botData[sender].exchangeData.objects[i] = item;
@@ -257,6 +258,7 @@ bool GameInventoryItemsFrame::processMessage(const MessageInfos &data, SocketIO 
         InventoryObject item;
         item.GID = message.object->objectGID;
         item.UID = message.object->objectUID;
+        item.position = (CharacterInventoryPositionEnum)message.object->position;
         item.quantity = message.object->quantity;
 
         for (int i = 0; i < message.object->effects.size(); i++)

@@ -202,6 +202,7 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
             InventoryObject item;
             item.GID = message.object->objectGID;
             item.UID = message.object->objectUID;
+            item.position = (CharacterInventoryPositionEnum)message.object->position;
             item.quantity = message.object->quantity;
 
             m_botData[sender].exchangeData.objects<<item;

@@ -828,6 +828,7 @@ struct PlayerData
     bool automaticallyAcceptAchievement = false;
     QList<InventoryObject> healInventory;
     int breed = 0;
+    bool sex = false;
     QList<InventoryObject> inventoryContent;
     PlayerLifeStatusEnum lifeStatus = PlayerLifeStatusEnum::STATUS_ALIVE_AND_KICKING;
     QPixmap headPixmap;
@@ -935,9 +936,9 @@ struct ScriptData
     QList<ScriptPathMapData> ghost;
     ScriptFunction lastInstruction;
     QList<ScriptFunction> toExecute;
-    ManagerType activeModule = ManagerType::UNKNOWN;
+    ManagerType activeManager = ManagerType::UNKNOWN;
     int sequence = -10;
-    QTime scriptTimer;
+    QElapsedTimer scriptTimer;
     int scriptMaxTime = INVALID;
 };
 

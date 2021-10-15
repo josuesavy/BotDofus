@@ -22,7 +22,7 @@ TEMPLATE = app
 
 # Declaring Other Libraries
 LIBS += -lz
-#LIBS += -L"include/zlib"
+LIBS += -L$$PWD/include/lua-5.4.2_Win32_dll16_lib/ -llua54 # MotherFucking line don't forget that
 
 
 # For Windows
@@ -144,6 +144,10 @@ HEADERS += \
     src/engines/core/process/managers/group/GroupManager.h \
     src/engines/core/process/managers/interaction/InteractionManager.h \
     src/engines/core/process/managers/map/MapManager.h \
+    src/engines/core/process/managers/script/ScriptManager.h \
+    src/engines/core/process/managers/script/methods/CharacterMethods.h \
+    src/engines/core/process/managers/script/methods/GlobalMethods.h \
+    src/engines/core/process/managers/script/methods/InventoryMethods.h \
     src/engines/core/process/managers/security/SecurityManager.h \
     src/engines/core/process/managers/stats/StatsManager.h \
     src/engines/io/d2o/D2OManager.h \
@@ -2071,6 +2075,7 @@ SOURCES += \
     src/engines/core/process/managers/group/GroupManager.cpp \
     src/engines/core/process/managers/interaction/InteractionManager.cpp \
     src/engines/core/process/managers/map/MapManager.cpp \
+    src/engines/core/process/managers/script/ScriptManager.cpp \
     src/engines/core/process/managers/security/SecurityManager.cpp \
     src/engines/core/process/managers/stats/StatsManager.cpp \
     src/engines/io/d2o/D2OManager.cpp \
