@@ -152,7 +152,7 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
 
                 emit m_statsManager->healed(sender);
 
-                if(m_botData[sender].scriptData.activeModule == ManagerType::STATS)
+                if(m_botData[sender].scriptData.activeManager == ManagerType::STATS)
                     emit scriptActionDone(sender);
             }
 

@@ -129,7 +129,7 @@ void CraftManager::processCrafting(SocketIO *sender)
 void CraftManager::useCraftingBench(SocketIO *sender)
 {
     // TODO: Hugo FIX
-    if(m_botData[sender].scriptData.activeModule == ManagerType::CRAFT && !m_botData[sender].farmData.farming)
+    if(m_botData[sender].scriptData.activeManager == ManagerType::CRAFT && !m_botData[sender].farmData.farming)
     {
         InteractiveElementInfos ie = m_botData[sender].craftData.craftingBench;
         InteractiveSkillInfos is = m_botData[sender].craftData.craftingBenchSkill;

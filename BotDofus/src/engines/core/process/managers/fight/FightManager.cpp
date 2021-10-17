@@ -2081,7 +2081,7 @@ bool FightManager::isSummon(SocketIO *sender, double ennemie)
 
 bool FightManager::processMonsters(SocketIO *sender)
 {
-    if(m_botData[sender].generalData.botState == INACTIVE_STATE && m_botData[sender].scriptData.activeModule == ManagerType::FIGHT)
+    if(m_botData[sender].generalData.botState == INACTIVE_STATE && m_botData[sender].scriptData.activeManager == ManagerType::FIGHT)
     {
         QList<MonsterGroup> groups = getMonstersToFight(sender);
 
@@ -2129,7 +2129,7 @@ void FightManager::processEndFight(SocketIO *sender)
         else
             qDebug()<<"Fin du combat - Défaite";
 
-        if(m_botData[sender].scriptData.isActive && m_botData[sender].scriptData.activeModule == ManagerType::FIGHT)
+        if(m_botData[sender].scriptData.isActive && m_botData[sender].scriptData.activeManager == ManagerType::FIGHT)
         {
             if(m_botData[sender].fightData.hasWon && isMonstersToFight(sender))
             {
@@ -2165,7 +2165,7 @@ void FightManager::moveSuccess(SocketIO *sender)
 
     else if(m_botData[sender].fightData.followingMonsterGroup != INVALID)
     {
-        if(!processMonsters(sender) && m_botData[sender].scriptData.activeModule == ManagerType::FIGHT)
+        if(!processMonsters(sender) && m_botData[sender].scriptData.activeManager == ManagerType::FIGHT)
         {
             emit scriptActionDone(sender);
         }

@@ -36,7 +36,7 @@ bool GameContextFrame::processMessage(const MessageInfos &data, SocketIO *sender
 //                connect(m_botData[sender].mapData.confirmationRequest.timer.data(), SIGNAL(timeout()), m_mapManager, SLOT(processConfirmation()));
 //                m_botData[sender].mapData.confirmationRequest.timer->start();
 
-//                if(m_botData[sender].generalData.botState == BotState::INACTIVE_STATE && m_botData[sender].scriptData.isActive && m_botData[sender].scriptData.activeModule == ManagerType::MAP)
+//                if(m_botData[sender].generalData.botState == BotState::INACTIVE_STATE && m_botData[sender].scriptData.isActive && m_botData[sender].scriptData.activeManager == ManagerType::MAP)
 //                    emit scriptActionDone(sender);
 //            }
 //        }
@@ -117,7 +117,7 @@ bool GameContextFrame::processMessage(const MessageInfos &data, SocketIO *sender
                 connect(m_botData[sender].mapData.confirmationRequest.timer.data(), SIGNAL(timeout()), m_mapManager, SLOT(processConfirmation()));
                 m_botData[sender].mapData.confirmationRequest.timer->start();
 
-                if(m_botData[sender].generalData.botState == BotState::INACTIVE_STATE && m_botData[sender].scriptData.isActive && m_botData[sender].scriptData.activeModule == ManagerType::MAP)
+                if(m_botData[sender].generalData.botState == BotState::INACTIVE_STATE && m_botData[sender].scriptData.isActive && m_botData[sender].scriptData.activeManager == ManagerType::MAP)
                     emit scriptActionDone(sender);
             }
 

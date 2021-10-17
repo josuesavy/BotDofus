@@ -35,7 +35,7 @@ bool GameContextRoleplayDeathFrame::processMessage(const MessageInfos &data, Soc
             m_botData[sender].playerData.hasSentRequestFreeSoul = false;
         }
 
-        if(m_botData[sender].scriptData.activeModule == ManagerType::STATS)
+        if(m_botData[sender].scriptData.activeManager == ManagerType::STATS)
             emit scriptActionDone(sender);
     }
         break;

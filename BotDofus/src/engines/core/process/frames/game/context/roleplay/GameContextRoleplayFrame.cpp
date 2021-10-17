@@ -500,7 +500,7 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
             m_mapManager->changeMap(sender, side, m_botData[sender].mapData.requestedMaps.first().cellId);
         }
 
-        else if(m_botData[sender].generalData.botState == BotState::INACTIVE_STATE && m_botData[sender].scriptData.isActive && m_botData[sender].scriptData.activeModule == ManagerType::MAP)
+        else if(m_botData[sender].generalData.botState == BotState::INACTIVE_STATE && m_botData[sender].scriptData.isActive && m_botData[sender].scriptData.activeManager == ManagerType::MAP)
         {
             //action(sender)<<"Moving DONE";
             emit scriptActionDone(sender);

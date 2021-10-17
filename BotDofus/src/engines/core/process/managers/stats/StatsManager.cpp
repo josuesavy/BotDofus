@@ -400,7 +400,7 @@ void StatsManager::regenOptimizer(SocketIO *sender)
 
         emit healed(sender);
 
-        if(m_botData[sender].scriptData.activeModule == ManagerType::STATS)
+        if(m_botData[sender].scriptData.activeManager == ManagerType::STATS)
             emit scriptActionDone(sender);
 
         return;
@@ -481,7 +481,7 @@ void StatsManager::healFinished()
 
     emit healed(sender);
 
-    if(m_botData[sender].scriptData.activeModule == ManagerType::STATS)
+    if(m_botData[sender].scriptData.activeManager == ManagerType::STATS)
         emit scriptActionDone(sender);
 }
 
@@ -499,7 +499,7 @@ void StatsManager::preventRegenBlocked()
 
             emit healed(q.sender);
 
-            if(m_botData[q.sender].scriptData.activeModule == ManagerType::STATS)
+            if(m_botData[q.sender].scriptData.activeManager == ManagerType::STATS)
                 emit scriptActionDone(q.sender);
 
             i.remove();

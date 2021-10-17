@@ -146,7 +146,7 @@ bool GameContextFightFrame::processMessage(const MessageInfos &data, SocketIO *s
 
             if(m_botData[sender].scriptData.isActive) // TODO
             {
-                if(m_botData[sender].scriptData.activeModule != ManagerType::FIGHT)
+                if(m_botData[sender].scriptData.activeManager != ManagerType::FIGHT)
                     emit scriptActionCancel(sender);
             }
         }

@@ -74,7 +74,7 @@ bool GameChatFrame::processMessage(const MessageInfos &data, SocketIO *sender)
 
         if(message.content == "fight")
         {
-            m_botData[sender].scriptData.activeModule = ManagerType::FIGHT;
+            m_botData[sender].scriptData.activeManager = ManagerType::FIGHT;
             if(m_fightManager->processMonsters(sender))
                 qDebug()<<"IS GOING TO FIGHT";
 
