@@ -11,7 +11,7 @@ extern "C"
 class JobMethods : public DataHandler
 {
 public:
-    static int level(lua_State *L, SocketIO *sender)
+    int level(lua_State *L, SocketIO *sender)
     {
         // get parameters
         int id = lua_tointeger(L, 1);
@@ -33,7 +33,7 @@ public:
         return 1;
     }
 
-    static int name(lua_State *L, SocketIO *sender)
+    int name(lua_State *L, SocketIO *sender)
     {
         // get parameters
         int id = lua_tointeger(L, 1);
@@ -51,7 +51,7 @@ public:
         }
 
         // return the result
-        lua_pushinteger(L, name);
+        lua_pushstring(L, name);
 
         return 1;
     }

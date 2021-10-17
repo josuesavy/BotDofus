@@ -12,7 +12,7 @@ extern "C"
 class NpcMethods : public DataHandler
 {
 public:
-    static int leaveDialog(lua_State *L, SocketIO *sender, InteractionManager *interactionManager)
+    int leaveDialog(lua_State *L, SocketIO *sender, InteractionManager *interactionManager)
     {
         // get parameters
 
@@ -24,7 +24,7 @@ public:
         return 1;
     }
 
-    static int npc(lua_State *L, SocketIO *sender, InteractionManager *interactionManager)
+    int npc(lua_State *L, SocketIO *sender, InteractionManager *interactionManager)
     {
         // get parameters
 
@@ -36,7 +36,7 @@ public:
         return 1;
     }
 
-    static int npcBank(lua_State *L, SocketIO *sender)
+    int npcBank(lua_State *L, SocketIO *sender)
     {
         // get parameters
 
@@ -47,7 +47,7 @@ public:
         return 1;
     }
 
-    static int reply(lua_State *L, SocketIO *sender)
+    int reply(lua_State *L, SocketIO *sender)
     {
         // get parameters
 

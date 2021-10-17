@@ -12,7 +12,7 @@ extern "C"
 class InventoryMethods : public DataHandler
 {
 public:
-    static int deleteItem(lua_State *L, SocketIO *sender, StatsManager *statsManager)
+    int deleteItem(lua_State *L, SocketIO *sender, StatsManager *statsManager)
     {
         // Get parameters
         int gid = lua_tointeger(L, 1);
@@ -45,7 +45,7 @@ public:
         return 1;
     }
 
-    static int equipItem(lua_State *L, SocketIO *sender, StatsManager *statsManager)
+    int equipItem(lua_State *L, SocketIO *sender, StatsManager *statsManager)
     {
         // get parameters
         int gid = lua_tointeger(L, 1);
@@ -89,7 +89,7 @@ public:
         return 1;
     }
 
-    static int itemCount(lua_State *L, SocketIO *sender)
+    int itemCount(lua_State *L, SocketIO *sender)
     {
         // get parameters
         int gid = lua_tointeger(L, 1);
@@ -113,7 +113,7 @@ public:
         return 1;
     }
 
-    static int itemNameId(lua_State *L, SocketIO *sender)
+    int itemNameId(lua_State *L, SocketIO *sender)
     {
         // get parameters
         int gid = lua_tointeger(L, 1);
@@ -137,7 +137,7 @@ public:
         return 1;
     }
 
-    static int itemTypeId(lua_State *L, SocketIO *sender)
+    int itemTypeId(lua_State *L, SocketIO *sender)
     {
         // get parameters
         int gid = lua_tointeger(L, 1);
@@ -161,7 +161,7 @@ public:
         return 1;
     }
 
-    static int itemWeight(lua_State *L, SocketIO *sender)
+    int itemWeight(lua_State *L, SocketIO *sender)
     {
         // get parameters
         int gid = lua_tointeger(L, 1);
@@ -185,7 +185,7 @@ public:
         return 1;
     }
 
-    static int pods(lua_State *L, SocketIO *sender)
+    int pods(lua_State *L, SocketIO *sender)
     {
         // get parameters
 
@@ -198,7 +198,7 @@ public:
         return 1;
     }
 
-    static int podsMax(lua_State *L, SocketIO *sender)
+    int podsMax(lua_State *L, SocketIO *sender)
     {
         // get parameters
 
@@ -211,7 +211,7 @@ public:
         return 1;
     }
 
-    static int podsP(lua_State *L, SocketIO *sender)
+    int podsP(lua_State *L, SocketIO *sender)
     {
         // get parameters
 
@@ -226,7 +226,7 @@ public:
         return 1;
     }
 
-    static int useItem(lua_State *L, SocketIO *sender, StatsManager *statsManager)
+    int useItem(lua_State *L, SocketIO *sender, StatsManager *statsManager)
     {
         // get parameters
         int gid = lua_tointeger(L, 1);
@@ -260,7 +260,7 @@ public:
         return 1;
     }
 
-    static int inventoryContent(lua_State *L, SocketIO *sender)
+    int inventoryContent(lua_State *L, SocketIO *sender)
     {
         // get parameters
 

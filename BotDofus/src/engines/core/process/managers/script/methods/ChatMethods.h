@@ -7,12 +7,12 @@ extern "C"
 }
 
 #include "src/engines/DataHandler.h"
-#include "src/engines/core/process/managers/flood/FloodManager.h"h"
+#include "src/engines/core/process/managers/flood/FloodManager.h"
 
 class ChatMethods : public DataHandler
 {
 public:
-    static int sendPrivateMessage(lua_State *L, SocketIO *sender, FloodManager *floodManager)
+    int sendPrivateMessage(lua_State *L, SocketIO *sender, FloodManager *floodManager)
     {
         // get parameters
         QString message = lua_tostring(L, 1);
@@ -26,7 +26,7 @@ public:
         return 1;
     }
 
-    static int sendGeneralMessage(lua_State *L, SocketIO *sender, FloodManager *floodManager)
+    int sendGeneralMessage(lua_State *L, SocketIO *sender, FloodManager *floodManager)
     {
         // get parameters
         QString message = lua_tostring(L, 1);
@@ -39,7 +39,7 @@ public:
         return 1;
     }
 
-    static int sendGuildMessage(lua_State *L, SocketIO *sender, FloodManager *floodManager)
+    int sendGuildMessage(lua_State *L, SocketIO *sender, FloodManager *floodManager)
     {
         // get parameters
         QString message = lua_tostring(L, 1);
@@ -52,7 +52,7 @@ public:
         return 1;
     }
 
-    static int sendAllianceMessage(lua_State *L, SocketIO *sender, FloodManager *floodManager)
+    int sendAllianceMessage(lua_State *L, SocketIO *sender, FloodManager *floodManager)
     {
         // get parameters
         QString message = lua_tostring(L, 1);
@@ -65,7 +65,7 @@ public:
         return 1;
     }
 
-    static int sendRecruitmentMessage(lua_State *L, SocketIO *sender, FloodManager *floodManager)
+    int sendRecruitmentMessage(lua_State *L, SocketIO *sender, FloodManager *floodManager)
     {
         // get parameters
         QString message = lua_tostring(L, 1);
@@ -78,7 +78,7 @@ public:
         return 1;
     }
 
-    static int sendTradeMessage(lua_State *L, SocketIO *sender, FloodManager *floodManager)
+    int sendTradeMessage(lua_State *L, SocketIO *sender, FloodManager *floodManager)
     {
         // get parameters
         QString message = lua_tostring(L, 1);

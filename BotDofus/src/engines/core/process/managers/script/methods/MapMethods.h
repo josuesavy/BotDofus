@@ -6,6 +6,8 @@ extern "C"
     #include "include/lua-5.4.2_Win32_dll16_lib/include/lua.h"
 }
 
+#include <QRandomGenerator>
+
 #include "src/engines/DataHandler.h"
 #include "src/engines/core/process/managers/map/MapManager.h"
 #include "src/engines/core/process/managers/fight/FightManager.h"
@@ -13,7 +15,7 @@ extern "C"
 class MapMethods : public DataHandler
 {
 public:
-    static int changeMap(lua_State *L, SocketIO *sender, MapManager *mapManager)
+    int changeMap(lua_State *L, SocketIO *sender, MapManager *mapManager)
     {
         // get parameters
         QString direction = lua_tostring(L, 1);
@@ -23,7 +25,7 @@ public:
         QStringList directions = direction.split("|");
         foreach (QString d, directions)
         {
-            s.replace(" ", "");
+            d.replace(" ", "");
 
             QRegularExpression t("[tT][oO][pP]");
             QRegularExpression l("[lL][eE][fF][tT]");
@@ -50,7 +52,7 @@ public:
         MapSide side = sides[QRandomGenerator::global()->generate() % sides.size()];
         m_botData[sender].scriptData.activeManager = ManagerType::MAP;
 
-        if (m_mapManager->changeMap(sender, side))
+        if (mapManager->changeMap(sender, side))
             m_botData[sender].scriptData.scriptMaxTime = 60000;
         else
             action(sender) << "Une erreur est survenue, impossible de passer d'une carte à une autre";
@@ -60,7 +62,7 @@ public:
         return 1;
     }
 
-    static int countPlayers(lua_State *L, SocketIO *sender)
+    int countPlayers(lua_State *L, SocketIO *sender)
     {
         // get parameters
 
@@ -73,7 +75,7 @@ public:
         return 1;
     }
 
-    static int currentArea(lua_State *L, SocketIO *sender)
+    int currentArea(lua_State *L, SocketIO *sender)
     {
         // get parameters
 
@@ -87,7 +89,7 @@ public:
         return 1;
     }
 
-    static int currentSubArea(lua_State *L, SocketIO *sender)
+    int currentSubArea(lua_State *L, SocketIO *sender)
     {
         // get parameters
 
@@ -101,7 +103,7 @@ public:
         return 1;
     }
 
-    static int currentCell(lua_State *L, SocketIO *sender)
+    int currentCell(lua_State *L, SocketIO *sender)
     {
         // get parameters
 
@@ -114,7 +116,7 @@ public:
         return 1;
     }
 
-    static int currentMap(lua_State *L, SocketIO *sender)
+    int currentMap(lua_State *L, SocketIO *sender)
     {
         // get parameters
 
@@ -127,7 +129,7 @@ public:
         return 1;
     }
 
-    static int currentMapId(lua_State *L, SocketIO *sender)
+    int currentMapId(lua_State *L, SocketIO *sender)
     {
         // get parameters
 
@@ -140,7 +142,7 @@ public:
         return 1;
     }
 
-    static int door(lua_State *L, SocketIO *sender)
+    int door(lua_State *L, SocketIO *sender)
     {
         // get parameters
 
@@ -151,7 +153,7 @@ public:
         return 1;
     }
 
-    static int fight(lua_State *L, SocketIO *sender, FightManager *fightManager)
+    int fight(lua_State *L, SocketIO *sender, FightManager *fightManager)
     {
         // get parameters
 
@@ -163,7 +165,7 @@ public:
         return 1;
     }
 
-    static int moveToCell(lua_State *L, SocketIO *sender, MapManager *mapManager)
+    int moveToCell(lua_State *L, SocketIO *sender, MapManager *mapManager)
     {
         // get parameters
         int cellId = lua_tointeger(L, 1);
@@ -176,7 +178,7 @@ public:
         return 1;
     }
 
-    static int onCell(lua_State *L, SocketIO *sender)
+    int onCell(lua_State *L, SocketIO *sender)
     {
         // get parameters
         int cellId = lua_tointeger(L, 1);
@@ -190,7 +192,7 @@ public:
         return 1;
     }
 
-    static int onMap(lua_State *L, SocketIO *sender)
+    int onMap(lua_State *L, SocketIO *sender)
     {
         // get parameters
         QString mapPosition;
@@ -226,7 +228,7 @@ public:
         return 1;
     }
 
-    static int saveZaap(lua_State *L, SocketIO *sender)
+    int saveZaap(lua_State *L, SocketIO *sender)
     {
         // get parameters
 
@@ -237,7 +239,7 @@ public:
         return 1;
     }
 
-    static int useById(lua_State *L, SocketIO *sender)
+    int useById(lua_State *L, SocketIO *sender)
     {
         // get parameters
 
@@ -248,7 +250,7 @@ public:
         return 1;
     }
 
-    static int lockedHouse(lua_State *L, SocketIO *sender)
+    int lockedHouse(lua_State *L, SocketIO *sender)
     {
         // get parameters
 
@@ -259,7 +261,7 @@ public:
         return 1;
     }
 
-    static int lockedStorage(lua_State *L, SocketIO *sender)
+    int lockedStorage(lua_State *L, SocketIO *sender)
     {
         // get parameters
 
