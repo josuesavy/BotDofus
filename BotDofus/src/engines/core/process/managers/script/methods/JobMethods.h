@@ -51,7 +51,7 @@ public:
         }
 
         // return the result
-        lua_pushstring(L, name);
+        lua_pushstring(L, name.toStdString().c_str());
 
         return 1;
     }

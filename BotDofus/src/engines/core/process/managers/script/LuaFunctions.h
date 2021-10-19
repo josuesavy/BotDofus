@@ -21,28 +21,28 @@ class LuaFunctions
 public:
     LuaFunctions(lua_State *L);
 
-    int lua_opencharacterlib(lua_State *L);
-    int lua_openchatlib(lua_State *L);
-    int lua_opencraftlib(lua_State *L);
-    int lua_opengloballib(lua_State *L);
-    int lua_openinventorylib(lua_State *L);
-    int lua_openjoblib(lua_State *L);
-    int lua_openmaplib(lua_State *L);
-    int lua_opennpclib(lua_State *L);
+    static int lua_opencharacterlib(lua_State *L);
+    static int lua_openchatlib(lua_State *L);
+    static int lua_opencraftlib(lua_State *L);
+    static int lua_opengloballib(lua_State *L);
+    static int lua_openinventorylib(lua_State *L);
+    static int lua_openjoblib(lua_State *L);
+    static int lua_openmaplib(lua_State *L);
+    static int lua_opennpclib(lua_State *L);
 
     void registerObject(lua_State *L, const char *name);
     void setMethods(lua_State *L, const char *name, int (*mfunc)(lua_State *, T *));
 
-    static const luaL_Reg lualibs[];
-    static const luaL_Reg characterLibs[];
-    static const luaL_Reg exchangeLibs[];
-    static const luaL_Reg globalLibs[];
-    static const luaL_Reg inventoryLibs[];
-    static const luaL_Reg jobLibs[];
-    static const luaL_Reg mapLibs[];
-    static const luaL_Reg npcLibs[];
-    static const luaL_Reg craftLibs[];
-    static const luaL_Reg chatLibs[];
+    static luaL_Reg lualibs[9];
+    static luaL_Reg characterLibs[13];
+    static luaL_Reg exchangeLibs[];
+    static luaL_Reg globalLibs[4];
+    static luaL_Reg inventoryLibs[12];
+    static luaL_Reg jobLibs[3];
+    static luaL_Reg mapLibs[17];
+    static luaL_Reg npcLibs[5];
+    static luaL_Reg craftLibs[5];
+    static luaL_Reg chatLibs[8];
 };
 
 #endif // LUAFUNCTIONS_H
