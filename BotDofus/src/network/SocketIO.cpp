@@ -177,9 +177,10 @@ void SocketIO::socketDisconnection()
     m_timers.clear();
     reset();
 
+    emit disconnected();
+
     if (m_isServerSwitched)
     {
-        emit disconnected();
         m_isServerSwitched = false;
     }
 }
@@ -191,7 +192,7 @@ void SocketIO::socketConnectionSucess()
 
     qDebug()<<"SOCKET - SERVER CONNECTION - IP:"<<getCurrentHostIp()<<" PORT:"<<QString::number(getCurrentHostPort())<<"SUCCESSFUL";
 
-    if (!m_isServerSwitched)
+    //if (!m_isServerSwitched)
         emit connected();
 }
 
@@ -205,7 +206,7 @@ void SocketIO::socketConnectionFailure()
     if (m_tryUntilConnect && !m_isActive)
         QTimer::singleShot(WAIT_TIME_CONNECTION, this, SLOT(connect()));
 
-    else if (!m_isServerSwitched)
+    //else if (!m_isServerSwitched)
         emit disconnected();
 
     m_isActive = false;
