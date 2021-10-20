@@ -68,6 +68,7 @@
 #include "src/engines/core/process/managers/map/MapManager.h"
 #include "src/engines/core/process/managers/security/SecurityManager.h"
 #include "src/engines/core/process/managers/stats/StatsManager.h"
+#include "src/engines/core/process/managers/shop/ShopManager.h"
 
 #include "src/engines/io/network/Reader.h"
 
@@ -91,6 +92,7 @@ public:
     ConnectionManager &getConnectionManager();
     InteractionManager &getInteractionManager();
     SecurityManager &getSecurityManager();
+    ShopManager &getShopManager();
 
     const BotData &getData(SocketIO *sender);
 

@@ -2,7 +2,7 @@
 
 CoreEngine::CoreEngine()
 {
-    QTime t;
+    QElapsedTimer t;
     t.start();
 
     m_managers[ManagerType::MAP] = new MapManager(&m_botData);
@@ -16,6 +16,7 @@ CoreEngine::CoreEngine()
     m_managers[ManagerType::FARM] = new FarmManager(&m_botData, static_cast<MapManager*>(m_managers[ManagerType::MAP]));
     m_managers[ManagerType::CRAFT] = new CraftManager(&m_botData, static_cast<MapManager*>(m_managers[ManagerType::MAP]));
     m_managers[ManagerType::SECURITY] = new SecurityManager(&m_botData);
+    m_managers[ManagerType::SHOP] = new ShopManager(&m_botData);
 
 
     m_frames.append(new CommonBasicFrame(&m_botData));
@@ -145,6 +146,11 @@ InteractionManager &CoreEngine::getInteractionManager()
 SecurityManager &CoreEngine::getSecurityManager()
 {
     return *static_cast<SecurityManager*>(m_managers[ManagerType::SECURITY]);
+}
+
+ShopManager &CoreEngine::getShopManager()
+{
+    return *static_cast<ShopManager*>(m_managers[ManagerType::SHOP]);
 }
 
 const BotData &CoreEngine::getData(SocketIO *sender)

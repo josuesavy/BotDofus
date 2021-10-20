@@ -1,5 +1,5 @@
-#ifndef SHOPMODULE_H
-#define SHOPMODULE_H
+#ifndef SHOPMANAGER_H
+#define SHOPMANAGER_H
 
 /*!
  * \class The ShopModule class for all sell and buy
@@ -8,7 +8,7 @@
  * \version Alpha
  */
 
-#include "src/engines/core/process/frames/AbstractFrame.h"
+#include "src/engines/core/process/managers/AbstractManager.h"
 
 enum class QuantityEnum
 {
@@ -17,11 +17,11 @@ enum class QuantityEnum
     QUANTITY_100
 };
 
-class ShopModule : public AbstractFrame
+class ShopManager : public AbstractManager
 {
     Q_OBJECT
 public:
-    ShopModule(QMap<SocketIO*, BotData> *connectionsData);
+    ShopManager(QMap<SocketIO*, BotData> *connectionsData);
 
 
     virtual void reset(SocketIO *sender);
@@ -39,7 +39,7 @@ public:
     bool getIsItemExistInMerchand(SocketIO *sender, uint objectGID);
 };
 
-#endif // SHOPMODULE_H
+#endif // SHOPMANAGER_H
 
 
 //Lancer

@@ -1,12 +1,12 @@
-#include "ShopModule.h"
+#include "ShopManager.h"
 
-ShopModule::ShopModule(QMap<SocketIO *, BotData> *connectionsData):
-    AbstractFrame(ModuleType::SHOP, connectionsData)
+ShopManager::ShopManager(QMap<SocketIO *, BotData> *connectionsData):
+    AbstractManager(ManagerType::SHOP, connectionsData)
 {
 
 }
 
-void ShopModule::reset(SocketIO *sender)
+void ShopManager::reset(SocketIO *sender)
 {
     m_botData[sender].shopData.requestTradeObjectsInMerchand.clear();
     m_botData[sender].shopData.requestTradeObjectsInExchangeShop.clear();
@@ -14,7 +14,7 @@ void ShopModule::reset(SocketIO *sender)
     m_botData[sender].shopData.isReadyToMerchand = false;
 }
 
-bool ShopModule::processMessage(const MessageInfos &data, SocketIO *sender)
+bool ShopManager::processMessage(const MessageInfos &data, SocketIO *sender)
 {
     bool messageFound = true;
     Reader reader(data.messageData);
@@ -184,7 +184,7 @@ bool ShopModule::processMessage(const MessageInfos &data, SocketIO *sender)
         if(m_botData[sender].shopData.isReadyToMerchand)
         {
             if(message.success)
-                qDebug() << "ShopModule - Erreur le mode marchand n'a pas fonctionné";
+                qDebug() << "ShopManager - Erreur le mode marchand n'a pas fonctionné";
         }
     }
         break;
@@ -298,7 +298,7 @@ bool ShopModule::processMessage(const MessageInfos &data, SocketIO *sender)
     return messageFound;
 }
 
-bool ShopModule::processMerchand(SocketIO *sender)
+bool ShopManager::processMerchand(SocketIO *sender)
 {
     if(m_botData[sender].generalData.botState != BotState::INACTIVE_STATE || m_botData[sender].shopData.isReadyToMerchand)
         return false;
@@ -310,13 +310,17 @@ bool ShopModule::processMerchand(SocketIO *sender)
     return true;
 }
 
-bool ShopModule::processShop(SocketIO *sender)
+bool ShopManager::processShop(SocketIO *sender)
 {
+    bool toReturn = true;
+
     if(m_botData[sender].generalData.botState != BotState::INACTIVE_STATE || m_botData[sender].generalData.botState != BotState::REGENERATING_STATE)
-        return false;
+        toReturn = false;
+
+    return toReturn;
 }
 
-void ShopModule::buyItem(SocketIO *sender, uint genid)
+void ShopManager::buyItem(SocketIO *sender, uint genid)
 {
     ExchangeBidHouseSearchMessage ebhsmsg;
     ebhsmsg.genId = genid;
@@ -324,7 +328,7 @@ void ShopModule::buyItem(SocketIO *sender, uint genid)
     sender->send(ebhsmsg);
 }
 
-void ShopModule::addItemToSell(SocketIO *sender, uint objectUID, int quantity, double price)
+void ShopManager::addItemToSell(SocketIO *sender, uint objectUID, int quantity, double price)
 {
     ExchangeObjectMovePricedMessage eompmsg;
     eompmsg.objectUID = objectUID;
@@ -333,7 +337,7 @@ void ShopModule::addItemToSell(SocketIO *sender, uint objectUID, int quantity, d
     sender->send(eompmsg);
 }
 
-bool ShopModule::getIsItemExistInMerchand(SocketIO *sender, uint objectGID)
+bool ShopManager::getIsItemExistInMerchand(SocketIO *sender, uint objectGID)
 {
     foreach(RequestTradeObject rto, m_botData[sender].shopData.requestTradeObjectsInMerchand)
     {

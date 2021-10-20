@@ -1018,6 +1018,19 @@ struct StatisticsData
     int countTotalNewQuest = 0;
 };
 
+struct ShopData
+{
+    QList<RequestTradeObject> requestTradeObjectsInExchangeShop;
+    QList<RequestTradeObject> requestTradeObjectsInMerchand;
+    QList<RequestTradeObject> tradeObjectsInMerchand;
+    bool isReadyToMerchand = false;
+    QList<uint> typesItemsCanSell;
+    uint maxItemLevel = INVALID;
+    uint maxItemPerAccount = INVALID;
+    QList<uint> itemInSell;
+    QList<uint> objectsTypeSelected;
+};
+
 struct MerchandData
 {
     QList<QSharedPointer<ObjectItemToSell>> objectsItemToSell;
@@ -1038,6 +1051,7 @@ struct BotData
     ConnectionData connectionData;
     InteractionData interactionData;
     StatisticsData statisticsData;
+    ShopData shopData;
     MerchandData merchandData;
 };
 
