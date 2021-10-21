@@ -1,101 +1,108 @@
 #include "LuaFunctions.h"
 
+static const luaL_Reg characterLibs[13] = {
+    { "breed", &CharacterMethods::breed },
+    { "name", &CharacterMethods::name },
+    { "sex", &CharacterMethods::sex },
+    { "level", &CharacterMethods::level },
+    { "lifePoints", &CharacterMethods::lifePoints },
+    { "maxLifePoints", &CharacterMethods::maxLifePoints },
+    { "lifePointsP", &CharacterMethods::lifePointsP },
+    { "energyPoints", &CharacterMethods::energyPoints },
+    { "maxEnergyPoints", &CharacterMethods::maxEnergyPoints },
+    { "experience", &CharacterMethods::experience },
+    { "freeMode", &CharacterMethods::freeMode },
+    { "kamas", &CharacterMethods::kamas },
+    { NULL, NULL }
+};
+
+static const luaL_Reg exchangeLibs[1] = {
+    { NULL, NULL }
+};
+
+static const luaL_Reg globalLibs[4] = {
+    { "printMessage", &GlobalMethods::printMessage },
+    { "printSuccess", &GlobalMethods::printSuccess },
+    { "printError", &GlobalMethods::printError },
+    { NULL, NULL }
+};
+
+static const luaL_Reg inventoryLibs[12] = {
+    { "deleteItem", &InventoryMethods::deleteItem },
+    { "equipItem", &InventoryMethods::equipItem },
+    { "itemCount", &InventoryMethods::itemCount },
+    { "itemNameId", &InventoryMethods::itemNameId },
+    { "itemTypeId", &InventoryMethods::itemTypeId },
+    { "itemWeight", &InventoryMethods::itemWeight },
+    { "pods", &InventoryMethods::pods },
+    { "podsMax", &InventoryMethods::podsMax },
+    { "podsP", &InventoryMethods::podsP },
+    { "useItem", &InventoryMethods::useItem },
+    { "inventoryContent", &InventoryMethods::inventoryContent },
+    { NULL, NULL }
+};
+
+static const luaL_Reg jobLibs[3] = {
+    { "level", &JobMethods::level },
+    { "name", &JobMethods::name },
+    { NULL, NULL }
+};
+
+static const luaL_Reg mapLibs[17] = {
+    { "changeMap", &MapMethods::changeMap },
+    { "countPlayers", &MapMethods::countPlayers },
+    { "currentArea", &MapMethods::currentArea },
+    { "currentSubArea", &MapMethods::currentSubArea },
+    { "currentCell", &MapMethods::currentCell },
+    { "currentMap", &MapMethods::currentMap },
+    { "currentMapId", &MapMethods::currentMapId },
+    { "door", &MapMethods::door },
+    { "fight", &MapMethods::fight },
+    { "moveToCell", &MapMethods::moveToCell },
+    { "onCell", &MapMethods::onCell },
+    { "onMap", &MapMethods::onMap },
+    { "saveZaap", &MapMethods::saveZaap },
+    { "useById", &MapMethods::useById },
+    { "lockedHouse", &MapMethods::lockedHouse },
+    { "lockedStorage", &MapMethods::lockedStorage },
+    { NULL, NULL }
+};
+
+static const luaL_Reg npcLibs[5] = {
+    { "leaveDialog", &NpcMethods::leaveDialog },
+    { "npc", &NpcMethods::npc },
+    { "npcBank", &NpcMethods::npcBank },
+    { "reply", &NpcMethods::reply },
+    { NULL, NULL }
+};
+
+static const luaL_Reg craftLibs[5] = {
+    { "putItem", &CraftMethods::putItem },
+    { "changeQuantityToCraft", &CraftMethods::changeQuantityToCraft },
+    { "ready", &CraftMethods::ready },
+    { "leaveDialog", &CraftMethods::leaveDialog },
+    { NULL, NULL }
+};
+
+static const luaL_Reg chatLibs[7] = {
+    { "sendPrivateMessage", &ChatMethods::sendPrivateMessage },
+    { "sendGeneralMessage", &ChatMethods::sendGeneralMessage },
+    { "sendGuildMessage", &ChatMethods::sendGuildMessage },
+    { "sendAllianceMessage", &ChatMethods::sendAllianceMessage },
+    { "sendRecruitmentMessage", &ChatMethods::sendRecruitmentMessage },
+    { "sendTradeMessage", &ChatMethods::sendTradeMessage },
+    { NULL, NULL }
+};
+
 LuaFunctions::LuaFunctions(lua_State *L)
 {
-    characterLibs = {
-        { "breed", &CharacterMethods::breed },
-        { "name", &CharacterMethods::name },
-        { "sex", &CharacterMethods::sex },
-        { "level", &CharacterMethods::level },
-        { "lifePoints", &CharacterMethods::lifePoints },
-        { "maxLifePoints", &CharacterMethods::maxLifePoints },
-        { "lifePointsP", &CharacterMethods::lifePointsP },
-        { "energyPoints", &CharacterMethods::energyPoints },
-        { "maxEnergyPoints", &CharacterMethods::maxEnergyPoints },
-        { "experience", &CharacterMethods::experience },
-        { "freeMode", &CharacterMethods::freeMode },
-        { "kamas", &CharacterMethods::kamas },
-        { NULL, NULL }
-    };
+    m_L = L;
 
-    globalLibs = {
-        { "printMessage", &GlobalMethods::printMessage },
-        { "printSuccess", &GlobalMethods::printSuccess },
-        { "printError", &GlobalMethods::printError },
-        { NULL, NULL }
-    };
-
-    inventoryLibs = {
-        { "deleteItem", &InventoryMethods::deleteItem },
-        { "equipItem", &InventoryMethods::equipItem },
-        { "itemCount", &InventoryMethods::itemCount },
-        { "itemNameId", &InventoryMethods::itemNameId },
-        { "itemTypeId", &InventoryMethods::itemTypeId },
-        { "itemWeight", &InventoryMethods::itemWeight },
-        { "pods", &InventoryMethods::pods },
-        { "podsMax", &InventoryMethods::podsMax },
-        { "podsP", &InventoryMethods::podsP },
-        { "useItem", &InventoryMethods::useItem },
-        { "inventoryContent", &InventoryMethods::inventoryContent },
-        { NULL, NULL }
-    };
-
-    jobLibs = {
-        { "level", &JobMethods::level },
-        { "name", &JobMethods::name },
-        { NULL, NULL }
-    };
-
-    mapLibs = {
-        { "changeMap", &MapMethods::changeMap },
-        { "countPlayers", &MapMethods::countPlayers },
-        { "currentArea", &MapMethods::currentArea },
-        { "currentSubArea", &MapMethods::currentSubArea },
-        { "currentCell", &MapMethods::currentCell },
-        { "currentMap", &MapMethods::currentMap },
-        { "currentMapId", &MapMethods::currentMapId },
-        { "door", &MapMethods::door },
-        { "fight", &MapMethods::fight },
-        { "moveToCell", &MapMethods::moveToCell },
-        { "onCell", &MapMethods::onCell },
-        { "onMap", &MapMethods::onMap },
-        { "saveZaap", &MapMethods::saveZaap },
-        { "useById", &MapMethods::useById },
-        { "lockedHouse", &MapMethods::lockedHouse },
-        { "lockedStorage", &MapMethods::lockedStorage },
-        { NULL, NULL }
-    };
-
-    npcLibs = {
-        { "leaveDialog", &NpcMethods::leaveDialog },
-        { "npc", &NpcMethods::npc },
-        { "npcBank", &NpcMethods::npcBank },
-        { "reply", &NpcMethods::reply },
-        { NULL, NULL }
-    };
-
-    craftLibs = {
-        { "putItem", &CraftMethods::putItem },
-        { "changeQuantityToCraft", &CraftMethods::changeQuantityToCraft },
-        { "ready", &CraftMethods::ready },
-        { "leaveDialog", &CraftMethods::leaveDialog },
-        { NULL, NULL }
-    };
-
-    chatLibs = {
-        { "sendPrivateMessage", &ChatMethods::sendPrivateMessage },
-        { "sendGeneralMessage", &ChatMethods::sendGeneralMessage },
-        { "sendGuildMessage", &ChatMethods::sendGuildMessage },
-        { "sendAllianceMessage", &ChatMethods::sendAllianceMessage },
-        { "sendRecruitmentMessage", &ChatMethods::sendRecruitmentMessage },
-        { "sendTradeMessage", &ChatMethods::sendTradeMessage },
-        { NULL, NULL }
-    };
-
-    lualibs = {
+    static const luaL_Reg lualibs[] = {
         { "character", lua_opencharacterlib },
         { "chat", lua_openchatlib },
         { "craft", lua_opencraftlib },
+        { "exchange", lua_openexchangelib },
         { "global", lua_opengloballib },
         { "inventory", lua_openinventorylib },
         { "job", lua_openjoblib },
@@ -107,8 +114,8 @@ LuaFunctions::LuaFunctions(lua_State *L)
     const luaL_Reg *lib = lualibs;
     for(; lib->func != NULL; lib++)
     {
-        luaL_requiref(L, lib->name, lib->func, 1);
-        lua_pop(L, 1);
+        luaL_requiref(m_L, lib->name, lib->func, 1);
+        lua_pop(m_L,1);
     }
 }
 
@@ -117,7 +124,6 @@ int LuaFunctions::lua_opencharacterlib(lua_State *L)
     luaL_newlib(L, characterLibs);
     return 1;
 }
-
 int LuaFunctions::lua_openchatlib(lua_State *L)
 {
     luaL_newlib(L, chatLibs);
@@ -128,6 +134,11 @@ int LuaFunctions::lua_opencraftlib(lua_State *L)
 {
     luaL_newlib(L, craftLibs);
     return 1;
+}
+
+int LuaFunctions::lua_openexchangelib(lua_State *L)
+{
+    luaL_newlib(L, exchangeLibs);
 }
 
 int LuaFunctions::lua_opengloballib(lua_State *L)
@@ -154,40 +165,8 @@ int LuaFunctions::lua_openmaplib(lua_State *L)
     return 1;
 }
 
-int LuaFunctions::lua_opennpclib(lua_State *L)
+int lua_opennpclib(lua_State *L)
 {
     luaL_newlib(L, npcLibs);
     return 1;
-}
-
-void LuaFunctions::registerObject(lua_State *L, const char* name)
-{
-    lua_getglobal(L, name);
-    if (lua_isnoneornil(L, -1))
-        return;
-
-    lua_pop(L, 1);
-
-    luaL_newmetatable(L, name);
-    int metatable  = lua_gettop(L);
-
-    lua_pushvalue(L, metatable);
-    lua_setglobal(L, name);
-
-    lua_pop(L, 1);
-}
-
-void LuaFunctions::setMethods(lua_State *L, const char *name, int(*mfunc)(lua_State*, T*))
-{
-    lua_pushstring(L, name);
-    lua_rawget(L, LUA_REGISTRYINDEX);
-    if (lua_istable(L, -1))
-        return;
-
-    lua_pushstring(L, name);
-    lua_pushlightuserdata(L, (void*)methodTable);
-    lua_pushcclosure(L, CallMethod, 1);
-    lua_rawset(L, -3);
-
-    lua_pop(L, 1);
 }
