@@ -8,6 +8,10 @@
 #include "src/engines/core/process/ProcessEngine.h"
 #include "src/engines/DataHandler.h"
 
+#define MAIN_SERVER_IP_1 "34.252.21.81"
+#define MAIN_SERVER_IP_2 "52.17.231.202"
+#define MAIN_SERVER_IP_3 "63.34.214.78"
+
 namespace Ui {
 class SettingsForm;
 }
@@ -27,7 +31,7 @@ public slots:
     void updateInterface();
 
     void hasConnected();
-    void hasDisconnected();
+    void hasDisconnected(QAbstractSocket::SocketError socketError);
 
 private slots:
     void on_checkBoxAutoReconnect_stateChanged(int arg1);
@@ -45,10 +49,12 @@ private:
     ProcessEngine *m_engine;
     ConnectionInfos m_infos;
 
+    QTcpSocket m_socket;
     ProxyInfos m_proxy;
 
     int currentIndexSelected;
 
+    QString processRandomIp();
     const BotData &getData() const;
 };
 

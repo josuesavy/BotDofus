@@ -20,6 +20,8 @@
 #include "src/engines/DataHandler.h"
 #include "src/engines/utils/Logger/LogOutput.h"
 
+#define UPDATE_INTERVAL 500
+
 namespace Ui {
 class AccountForm;
 }
@@ -58,7 +60,7 @@ signals:
     void remove(AccountForm *accountForm, bool child = false);
 
 public slots:
-    void updateInterface();
+    void updateInterface(bool directCall = false);
 
     void on_actionLoadScript_triggered();
     void on_actionRunScript_triggered();
@@ -91,6 +93,9 @@ private:
     StatisticsForm *statisticsForm;
 
     QList<AccountForm*> m_accountFormChilds;
+
+    QTimer m_updateTimer;
+    QElapsedTimer m_updateChecker;
 };
 
 #endif // ACCOUNTFORM_H

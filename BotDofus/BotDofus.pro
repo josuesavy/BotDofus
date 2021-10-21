@@ -1719,6 +1719,7 @@ HEADERS += \
     src/protocol/types/data/game/character/characteristic/CharacterCharacteristics.h \
     src/protocol/types/data/game/character/characteristic/CharacterCharacteristicsInformations.h \
     src/protocol/types/data/game/character/characteristic/CharacterSpellModification.h \
+    src/protocol/types/data/game/character/characteristic/CharacterUsableCharacteristicDetailed.h \
     src/protocol/types/data/game/character/choice/CharacterBaseInformations.h \
     src/protocol/types/data/game/character/choice/CharacterHardcoreOrEpicInformations.h \
     src/protocol/types/data/game/character/choice/CharacterRemodelingInformation.h \
@@ -3537,6 +3538,7 @@ SOURCES += \
     src/protocol/types/data/game/character/characteristic/CharacterCharacteristics.cpp \
     src/protocol/types/data/game/character/characteristic/CharacterCharacteristicsInformations.cpp \
     src/protocol/types/data/game/character/characteristic/CharacterSpellModification.cpp \
+    src/protocol/types/data/game/character/characteristic/CharacterUsableCharacteristicDetailed.cpp \
     src/protocol/types/data/game/character/choice/CharacterBaseInformations.cpp \
     src/protocol/types/data/game/character/choice/CharacterHardcoreOrEpicInformations.cpp \
     src/protocol/types/data/game/character/choice/CharacterRemodelingInformation.cpp \

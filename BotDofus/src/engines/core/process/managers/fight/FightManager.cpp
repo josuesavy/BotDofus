@@ -806,7 +806,7 @@ SpellInabilityReason FightManager::canCastSpell(SocketIO *sender, int spellID)
 
     if (effects.size() > 0 && effects[0].getEffectId() == 181)
     {
-        QMap<uint,DetailedStats> stats = m_botData[sender].playerData.stats;
+        QMap<uint,UsableStats> stats = m_botData[sender].playerData.stats;
         int total = stats[(uint)StatIds::MAX_SUMMONED_CREATURES_BOOST].base + stats[(uint)StatIds::MAX_SUMMONED_CREATURES_BOOST].objectsAndMountBonus + stats[(uint)StatIds::MAX_SUMMONED_CREATURES_BOOST].alignGiftBonus + stats[(uint)StatIds::MAX_SUMMONED_CREATURES_BOOST].contextModif;//stats.summonableCreaturesBoost.base + stats.summonableCreaturesBoost.objectsAndMountBonus + stats.summonableCreaturesBoost.alignGiftBonus + stats.summonableCreaturesBoost.contextModif;
 
         if (invocationNumber >= total)

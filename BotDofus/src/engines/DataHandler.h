@@ -33,8 +33,8 @@ enum class DofusVersion
 {
     MAJOR = 2,
     MINOR = 61,
-    CODE = 8,
-    BUILD = 9,
+    CODE = 9,
+    BUILD = 12,
 };
 
 enum class SuperTypeId
@@ -184,8 +184,6 @@ enum class StatIds
     DODGE_PM_LOST_PROBABILITY_INITIAL_PERCENT,
     EXTRA_SCALE_PERCENT,
     CHARAC_COUNT,
-    MAX_ACTION_POINTS = 144,
-    MAX_MOVEMENT_POINTS,
 };
 
 enum class CurrentInteraction
@@ -318,6 +316,11 @@ struct DetailedStats : Stats
     int objectsAndMountBonus;
     int alignGiftBonus;
     int contextModif;
+};
+
+struct UsableStats : DetailedStats
+{
+    int used;
 };
 
 
@@ -804,7 +807,7 @@ struct MapData
 
 struct PlayerData
 {
-    QMap<uint,DetailedStats> stats;
+    QMap<uint,UsableStats> stats;
     QList<QSharedPointer<CharacterSpellModification>> spellModifications;
     Pods pods;
     uint kamas = 0;
@@ -850,7 +853,7 @@ struct ConnectionData
     bool hasRequestedReconnection = false;
     QSharedPointer<QTimer> autoReconnectionTimer;
     QString ticket;
-    QTime timeElapsed;
+    QElapsedTimer timeElapsed;
     QByteArray aesKey;
     uint latestSent = 0;
     int sequenceNumber = 0;

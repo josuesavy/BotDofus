@@ -41,6 +41,7 @@
 #include "src/protocol/types/data/game/character/characteristic/CharacterCharacteristicsInformations.h"
 #include "src/protocol/types/data/game/character/characteristic/CharacterCharacteristicValue.h"
 #include "src/protocol/types/data/game/character/characteristic/CharacterSpellModification.h"
+#include "src/protocol/types/data/game/character/characteristic/CharacterUsableCharacteristicDetailed.h"
 #include "src/protocol/types/data/game/character/CharacterMinimalAllianceInformations.h"
 #include "src/protocol/types/data/game/character/CharacterMinimalGuildInformations.h"
 #include "src/protocol/types/data/game/character/CharacterMinimalGuildPublicInformations.h"
