@@ -184,8 +184,6 @@ enum class StatIds
     DODGE_PM_LOST_PROBABILITY_INITIAL_PERCENT,
     EXTRA_SCALE_PERCENT,
     CHARAC_COUNT,
-    MAX_ACTION_POINTS = 144,
-    MAX_MOVEMENT_POINTS,
 };
 
 enum class CurrentInteraction
