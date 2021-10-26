@@ -1,22 +1,13 @@
-#ifndef JOBMETHODS_H
-#define JOBMETHODS_H
+#ifndef JOB_H
+#define JOB_H
 
-extern "C"
-{
-    #include "include/lua-5.4.2_Win32_dll16_lib/include/lua.h"
-}
+#include "src/engines/core/CoreEngine.h"
 
-#include "src/engines/DataHandler.h"
-
-class JobMethods : public DataHandler
+class Job: public CoreEngine
 {
 public:
-    int level(lua_State *L, SocketIO *sender)
+    int level(SocketIO *sender, int id)
     {
-        // get parameters
-        int id = lua_tointeger(L, 1);
-
-        // process
         int level = INVALID;
         foreach(const JobExperience &e, m_botData[sender].craftData.jobs)
         {
@@ -26,19 +17,11 @@ public:
                 break;
             }
         }
-
-        // return the result
-        lua_pushinteger(L, level);
-
-        return 1;
+        return level;
     }
 
-    int name(lua_State *L, SocketIO *sender)
+    QString name(SocketIO *sender, int id)
     {
-        // get parameters
-        int id = lua_tointeger(L, 1);
-
-        // process
         QString name;
         foreach(const JobExperience &e, m_botData[sender].craftData.jobs)
         {
@@ -49,12 +32,8 @@ public:
                 break;
             }
         }
-
-        // return the result
-        lua_pushstring(L, name.toStdString().c_str());
-
-        return 1;
+        return name;
     }
 };
 
-#endif // JOBMETHODS_H
+#endif // JOB_H

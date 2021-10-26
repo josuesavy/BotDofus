@@ -22,6 +22,8 @@ extern "C"
 #pragma comment(lib, "include/lua-5.4.2_Win32_dll16_lib/lua5.1.lib")
 #endif
 
+#include "src/engines/core/process/managers/script/LuaFunctions.h"
+
 #include "src/engines/core/process/managers/map/MapManager.h"
 #include "src/engines/core/process/managers/farm/FarmManager.h"
 #include "src/engines/core/process/managers/fight/FightManager.h"

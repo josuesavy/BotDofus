@@ -1,14 +1,14 @@
 #ifndef LUAFUNCTIONS_H
 #define LUAFUNCTIONS_H
 
-#include "src/engines/core/process/managers/script/methods/CharacterMethods.h"
-#include "src/engines/core/process/managers/script/methods/ChatMethods.h"
-#include "src/engines/core/process/managers/script/methods/CraftMethods.h"
-#include "src/engines/core/process/managers/script/methods/GlobalMethods.h"
-#include "src/engines/core/process/managers/script/methods/InventoryMethods.h"
-#include "src/engines/core/process/managers/script/methods/JobMethods.h"
-#include "src/engines/core/process/managers/script/methods/MapMethods.h"
-#include "src/engines/core/process/managers/script/methods/NpcMethods.h"
+#include "src/engines/core/process/managers/script/methods/character/CharacterMethods.h"
+#include "src/engines/core/process/managers/script/methods/chat/ChatMethods.h"
+#include "src/engines/core/process/managers/script/methods/craft/CraftMethods.h"
+#include "src/engines/core/process/managers/script/methods/global/GlobalMethods.h"
+#include "src/engines/core/process/managers/script/methods/inventory/InventoryMethods.h"
+#include "src/engines/core/process/managers/script/methods/job/JobMethods.h"
+#include "src/engines/core/process/managers/script/methods/map/MapMethods.h"
+#include "src/engines/core/process/managers/script/methods/npc/NpcMethods.h"
 
 extern "C"
 {
@@ -20,20 +20,22 @@ extern "C"
 class LuaFunctions
 {
 public:
+    LuaFunctions();
     LuaFunctions(lua_State *L);
 
-    static int lua_opencharacterlib(lua_State *L);
-    static int lua_openchatlib(lua_State *L);
-    static int lua_opencraftlib(lua_State *L);
-    static int lua_openexchangelib(lua_State *L);
-    static int lua_opengloballib(lua_State *L);
-    static int lua_openinventorylib(lua_State *L);
-    static int lua_openjoblib(lua_State *L);
-    static int lua_openmaplib(lua_State *L);
-    static int lua_opennpclib(lua_State *L);
+    void init();
+    bool isInit();
+
+    void setSender(SocketIO *sender);
+    SocketIO *getSender();
+
+    void setLuaState(lua_State *L);
+    lua_State *getLuaState();
 
 private:
     lua_State *m_L;
+    bool m_Init;
+    SocketIO *m_sender;
 };
 
 #endif // LUAFUNCTIONS_H

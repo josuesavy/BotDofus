@@ -146,14 +146,23 @@ HEADERS += \
     src/engines/core/process/managers/map/MapManager.h \
     src/engines/core/process/managers/script/LuaFunctions.h \
     src/engines/core/process/managers/script/ScriptManager.h \
-    src/engines/core/process/managers/script/methods/CharacterMethods.h \
-    src/engines/core/process/managers/script/methods/ChatMethods.h \
-    src/engines/core/process/managers/script/methods/CraftMethods.h \
-    src/engines/core/process/managers/script/methods/GlobalMethods.h \
-    src/engines/core/process/managers/script/methods/InventoryMethods.h \
-    src/engines/core/process/managers/script/methods/JobMethods.h \
-    src/engines/core/process/managers/script/methods/MapMethods.h \
-    src/engines/core/process/managers/script/methods/NpcMethods.h \
+    src/engines/core/process/managers/script/methods/AbstractLuaMethods.h \
+    src/engines/core/process/managers/script/methods/character/Character.h \
+    src/engines/core/process/managers/script/methods/character/CharacterMethods.h \
+    src/engines/core/process/managers/script/methods/chat/Chat.h \
+    src/engines/core/process/managers/script/methods/chat/ChatMethods.h \
+    src/engines/core/process/managers/script/methods/craft/Craft.h \
+    src/engines/core/process/managers/script/methods/craft/CraftMethods.h \
+    src/engines/core/process/managers/script/methods/global/Global.h \
+    src/engines/core/process/managers/script/methods/global/GlobalMethods.h \
+    src/engines/core/process/managers/script/methods/inventory/Inventory.h \
+    src/engines/core/process/managers/script/methods/inventory/InventoryMethods.h \
+    src/engines/core/process/managers/script/methods/job/Job.h \
+    src/engines/core/process/managers/script/methods/job/JobMethods.h \
+    src/engines/core/process/managers/script/methods/map/MapLua.h \
+    src/engines/core/process/managers/script/methods/map/MapMethods.h \
+    src/engines/core/process/managers/script/methods/npc/Npc.h \
+    src/engines/core/process/managers/script/methods/npc/NpcMethods.h \
     src/engines/core/process/managers/security/SecurityManager.h \
     src/engines/core/process/managers/stats/StatsManager.h \
     src/engines/io/d2o/D2OManager.h \

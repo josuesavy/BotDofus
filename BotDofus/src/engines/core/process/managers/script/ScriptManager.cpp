@@ -545,7 +545,12 @@ int ScriptManager::parse(SocketIO *sender)
 
     // begin read and parse lua file
     lua = luaL_newstate();
+    luaopen_table(lua);
     luaL_openlibs(lua);
+
+    LuaFunctions luaFunctions;
+    luaFunctions.setLuaState(lua);
+    luaFunctions.init();
 
     if(luaL_dostring(lua, m_botData[sender].scriptData.fileContent.toStdString().c_str()) != 0)
     {
