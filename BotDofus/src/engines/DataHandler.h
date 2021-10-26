@@ -34,7 +34,7 @@ enum class DofusVersion
     MAJOR = 2,
     MINOR = 61,
     CODE = 9,
-    BUILD = 12,
+    BUILD = 13,
 };
 
 enum class SuperTypeId
