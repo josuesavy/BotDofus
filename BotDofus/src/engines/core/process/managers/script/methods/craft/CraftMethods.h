@@ -10,6 +10,7 @@ extern "C"
 
 #include "src/engines/core/process/managers/script/methods/craft/Craft.h"
 
+namespace {
 class CraftMethods
 {
     static const char className[];
@@ -89,5 +90,6 @@ const luaL_Reg CraftMethods::methods[] = {
     { "leaveDialog", leaveDialog },
     { NULL, NULL }
 };
+}
 
 #endif // CRAFTMETHODS_H

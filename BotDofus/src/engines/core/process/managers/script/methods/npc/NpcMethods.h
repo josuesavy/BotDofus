@@ -10,6 +10,7 @@ extern "C"
 
 #include "src/engines/core/process/managers/script/methods/npc/Npc.h"
 
+namespace {
 class NpcMethods
 {
     static const char className[];
@@ -79,5 +80,6 @@ const luaL_Reg NpcMethods::methods[] = {
     { "reply", reply },
     { NULL, NULL }
 };
+}
 
 #endif // NPCMETHODS_H

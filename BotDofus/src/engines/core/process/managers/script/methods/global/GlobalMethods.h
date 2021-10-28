@@ -10,6 +10,7 @@ extern "C"
 
 #include "src/engines/core/process/managers/script/methods/global/Global.h"
 
+namespace {
 class GlobalMethods
 {
     static const char className[];
@@ -91,5 +92,6 @@ const luaL_Reg GlobalMethods::methods[] = {
     { "printError", printError },
     { NULL, NULL }
 };
+}
 
 #endif // GLOBALMETHODS_H

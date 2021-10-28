@@ -9,13 +9,13 @@ extern "C"
 }
 
 #include "src/engines/core/process/managers/script/methods/character/Character.h"
-
+namespace {
 class CharacterMethods
 {
     static const char className[];
     static const luaL_Reg methods[12];
 
-    static SocketIO *m_sender;
+    //static SocketIO *m_sender;
 
     static Character *checkcharacter(lua_State *L, int narg)
     {
@@ -36,7 +36,7 @@ class CharacterMethods
     static int name(lua_State *L)
     {
         Character *c = checkcharacter(L, 1);
-        QString name = c->name(m_sender);
+        QString name = c->name(new SocketIO());
         lua_pushstring(L, name.toStdString().c_str());
         return 1;
     }
@@ -124,7 +124,7 @@ class CharacterMethods
 public:
     static void Register(lua_State* L, SocketIO *sender)
     {
-        m_sender = sender;
+        //m_sender = sender;
 
         lua_newtable(L);
         int methodtable = lua_gettop(L);
@@ -154,7 +154,7 @@ public:
 
 const char CharacterMethods::className[] = "character";
 
-const luaL_Reg CharacterMethods::methods[] = {
+const luaL_Reg CharacterMethods::methods[12] = {
     { "breed", breed },
     { "name", name },
     { "sex", sex },
@@ -168,5 +168,6 @@ const luaL_Reg CharacterMethods::methods[] = {
     { "kamas", kamas },
     { NULL, NULL }
 };
+}
 
 #endif // CHARACTERMETHODS_H

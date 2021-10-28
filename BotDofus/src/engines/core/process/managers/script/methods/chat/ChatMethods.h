@@ -10,6 +10,7 @@ extern "C"
 
 #include "src/engines/core/process/managers/script/methods/chat/Chat.h"
 
+namespace {
 class ChatMethods
 {
     static const char className[];
@@ -108,5 +109,6 @@ const luaL_Reg ChatMethods::methods[] = {
     { "sendTradeMessage", sendTradeMessage },
     { NULL, NULL }
 };
+}
 
 #endif // CHATMETHODS_H

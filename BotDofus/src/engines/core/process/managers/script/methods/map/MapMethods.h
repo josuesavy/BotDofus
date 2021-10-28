@@ -11,6 +11,7 @@ extern "C"
 #include "src/engines/core/process/managers/script/methods/map/MapLua.h"
 #include <QRandomGenerator>
 
+namespace {
 class MapMethods
 {
     static const char className[];
@@ -201,5 +202,6 @@ const luaL_Reg MapMethods::methods[] = {
     { "lockedStorage", lockedStorage },
     { NULL, NULL }
 };
+}
 
 #endif // MAPMETHODS_H

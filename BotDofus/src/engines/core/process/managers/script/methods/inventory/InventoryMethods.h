@@ -10,6 +10,7 @@ extern "C"
 
 #include "src/engines/core/process/managers/script/methods/inventory/Inventory.h"
 
+namespace {
 class InventoryMethods
 {
     static const char className[];
@@ -155,5 +156,6 @@ const luaL_Reg InventoryMethods::methods[] = {
     { "podsP", inventoryContent },
     { NULL, NULL }
 };
+}
 
 #endif // INVENTORYMETHODS_H

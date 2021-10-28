@@ -10,6 +10,7 @@ extern "C"
 
 #include "src/engines/core/process/managers/script/methods/job/Job.h"
 
+namespace {
 class JobMethods
 {
     static const char className[];
@@ -74,5 +75,6 @@ const luaL_Reg JobMethods::methods[] = {
     { "name", name },
     { NULL, NULL }
 };
+}
 
 #endif // JOBMETHODS_H
