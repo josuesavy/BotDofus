@@ -2,7 +2,7 @@
 #define SHOPMANAGER_H
 
 /*!
- * \class The ShopModule class for all sell and buy
+ * \class The ShopManager class for all sell and buy
  * \brief ..
  * \author Garten
  * \version Alpha
@@ -23,10 +23,8 @@ class ShopManager : public AbstractManager
 public:
     ShopManager(QMap<SocketIO*, BotData> *connectionsData);
 
-
     virtual void reset(SocketIO *sender);
 
-    virtual bool processMessage(const MessageInfos &data, SocketIO *sender);
 
     bool processMerchand(SocketIO *sender);
 

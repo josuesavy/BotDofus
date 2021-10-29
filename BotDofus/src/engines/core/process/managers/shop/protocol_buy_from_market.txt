@@ -1,0 +1,26 @@
+// Begin buy item to market
+[SND] GameMapMovementRequestMessage
+[RCV] GameMapMovementMessage
+[SND] GameMapMovementConfirmMessage
+[SND] InteractiveUseRequestMessage
+[RCV] InteractiveUsedMessage
+[RCV] ExchangeStartedBidBuyerMessage
+[RCV] ExchangeStartedBidBuyerMessage
+
+// Choose resource to display
+[SND] ExchangeBidHouseTypeMessage
+[RCV] ExchangeTypesExchangerDescriptionForUserMessage
+// See each lots for an item choose
+[SND] ExchangeBidHouseSearchMessage
+[RCV] ExchangeTypesItemsExchangerDescriptionForUserMessage
+
+// Buy item
+[SND] ExchangeBidHouseMessage
+[RCV] KamasUpdateMessage
+[RCV] ObjectAddedMessage
+[RCV] InventoryWeightMessage
+[RCV] ExchangeBidHouseBuyResultMessage
+[SND] ExchangeBidHouseSearchMessage
+[RCV] ExchangeTypesItemsExchangerDescriptionForUserMessage
+[SND] ExchangeBidHouseSearchMessage
+[RCV] ExchangeTypesItemsExchangerDescriptionForUserMessage

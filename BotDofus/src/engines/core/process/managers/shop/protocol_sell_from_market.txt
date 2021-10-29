@@ -1,0 +1,45 @@
+// Begin sell item to market
+[SND] GameMapMovementRequestMessage
+[RCV] GameMapMovementMessage
+[SND] GameMapMovementConfirmMessage
+[SND] InteractiveUseRequestMessage
+[RCV] InteractiveUsedMessage
+[RCV] ExchangeStartedBidBuyerMessage
+[RCV] ExchangeStartedBidBuyerMessage
+
+// Change to "Vente"
+[SND] NpcGenericActionRequestMessage
+[RCV] ExchangeStartedBidSellerMessage
+
+// Put item to market
+[SND] ExchangeBidHouseSearchMessage
+[RCV] ExchangeBidHousePriceMessage
+[RCV] ExchangeTypesItemsExchangerDescriptionForUserMessage
+[RCV] ExchangeBidPriceForSellerMessage
+
+// Make to sell in to market
+[SND] ExchangeObjectMovePricedMessage
+[RCV] ExchangeBidHouseItemAddOKMessage
+[RCV] ExchangeBidHouseInListUpdatedMessage
+[RCV] KamasUpdateMessage
+[RCV] ObjectDeletedMessage
+[RCV] InventoryWeightMessage
+
+//Remove item in market
+[SND] ExchangeBidHouseSearchMessage -> follow=false
+[SND] ExchangeBidHouseSearchMessage -> follow=true
+[SND] ExchangeBidHousePriceMessage
+[SND] ExchangeBidHouseSearchMessage -> follow=false
+[SND] ExchangeBidHouseSearchMessage -> follow=true
+[SND] ExchangeBidHousePriceMessage
+[RCV] ExchangeTypesItemsExchangerDescriptionForUserMessage
+[RCV] ExchangeTypesItemsExchangerDescriptionForUserMessage
+[RCV] ExchangeBidPriceForSellerMessage
+[RCV] ExchangeTypesItemsExchangerDescriptionForUserMessage
+[RCV] ExchangeTypesItemsExchangerDescriptionForUserMessage
+[RCV] ExchangeBidPriceForSellerMessage
+[SND] ExchangeObjectMoveMessage
+[RCV] ExchangeBidHouseInListUpdatedMessage
+[RCV] ExchangeBidHouseItemRemoveOkMessage
+[RCV] ObjectAddedMessage
+[RCV] InventoryWeightMessage
