@@ -24,3 +24,7 @@
 [RCV] ExchangeTypesItemsExchangerDescriptionForUserMessage
 [SND] ExchangeBidHouseSearchMessage
 [RCV] ExchangeTypesItemsExchangerDescriptionForUserMessage
+
+//End
+[SND] LeaveDialogRequestMessage
+[RCV] ExchangeLeaveMessage

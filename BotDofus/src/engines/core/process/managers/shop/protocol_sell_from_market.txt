@@ -43,3 +43,7 @@
 [RCV] ExchangeBidHouseItemRemoveOkMessage
 [RCV] ObjectAddedMessage
 [RCV] InventoryWeightMessage
+
+//End
+[SND] LeaveDialogRequestMessage
+[RCV] ExchangeLeaveMessage

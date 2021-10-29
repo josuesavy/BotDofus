@@ -8,7 +8,7 @@
 [RCV] ObjectDeletedMessage
 [RCV] InventoryWeightMessage
 
-// Edit item to sell (price)
+// Edit item to sell (just the price)
 [SND] ExchangeObjectModifyPricedMessage
 [RCV] ExchangeShopStockMovementUpdatedMessage
 
