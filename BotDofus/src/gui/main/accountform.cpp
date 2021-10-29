@@ -214,7 +214,7 @@ int AccountForm::loadPath(QString path, bool unload)
 
 void AccountForm::autoConnect()
 {
-    ui->pushButtonDisconnection->clicked();
+    emit ui->pushButtonDisconnection->clicked();
 }
 
 void AccountForm::updateInterface(bool directCall)

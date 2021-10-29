@@ -18,7 +18,7 @@
 
 #include "src/engines/core/process/ProcessEngine.h"
 #include "src/engines/DataHandler.h"
-#include "src/engines/utils/Logger/LogOutput.h"
+#include "src/engines/utils/logger/LogOutput.h"
 
 #define UPDATE_INTERVAL 500
 
