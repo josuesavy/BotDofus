@@ -1055,7 +1055,6 @@ struct BotData
     MerchandData merchandData;
 };
 
-bool operator==(const RequestObjectItemToSell &left, const RequestObjectItemToSell &right);
 bool operator==(const InventoryObject &left, const InventoryObject &right);
 bool operator<(const InventoryObject &left, const InventoryObject &right);
 bool operator==(const ConnectionInfos &left, const ConnectionInfos &right);
