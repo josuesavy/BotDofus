@@ -30,7 +30,7 @@ bool ExchangeManager::isActive(SocketIO *sender) const
     return m_botData[sender].exchangeData.isActive;
 }
 
-void ExchangeManager::addRequestedObject(SocketIO *sender, const RequestTradeObject &item)
+void ExchangeManager::addRequestedObject(SocketIO *sender, const RequestObjectItemToSell &item)
 {
     int size = m_botData[sender].exchangeData.requestList.size();
     bool alreadyExist = false;

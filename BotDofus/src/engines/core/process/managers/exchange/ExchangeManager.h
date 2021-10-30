@@ -35,7 +35,7 @@ public:
      * \param sender Bot's particular connection
      * \param item Item to add
      */
-    void addRequestedObject(SocketIO *sender, const RequestTradeObject &item);
+    void addRequestedObject(SocketIO *sender, const RequestObjectItemToSell &item);
 
 
     /*!

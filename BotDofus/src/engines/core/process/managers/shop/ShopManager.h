@@ -26,15 +26,9 @@ public:
     virtual void reset(SocketIO *sender);
 
 
-    bool processMerchand(SocketIO *sender);
-
     bool processShop(SocketIO *sender);
 
     void buyItem(SocketIO *sender, uint genid);
-
-    void addItemToSell(SocketIO *sender, uint item, int quantity, double price);
-
-    bool getIsItemExistInMerchand(SocketIO *sender, uint objectGID);
 };
 
 #endif // SHOPMANAGER_H

@@ -93,6 +93,7 @@ void QTreeWidgetItemDelegate::drawStatus(QPainter *painter, uint connectionState
         case BotState::INACTIVE_STATE:          action = "Inactive"; break;
         case BotState::EXCHANGING_STATE:        action = "Exchange"; break;
         case BotState::REGENERATING_STATE:      action = "Regeneration"; break;
+        case BotState::MERCHAND_STATE:      action = "Marchand"; break;
         }
     }
 

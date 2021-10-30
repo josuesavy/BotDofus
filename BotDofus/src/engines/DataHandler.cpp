@@ -21,16 +21,6 @@ bool operator<(const InventoryObject &left, const InventoryObject &right)
     return false;
 }
 
-bool operator==(const RequestTradeObject &left, const RequestTradeObject &right)
-{
-    if(left.GID == right.GID)
-        if(left.quantity == right.quantity)
-            if(left.price == right.price)
-                return true;
-
-    return false;
-}
-
 bool operator==(const ConnectionInfos &left, const ConnectionInfos &right)
 {
     if(left.serverId == right.serverId)

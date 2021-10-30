@@ -368,12 +368,13 @@ struct ConnectionInfos
     bool isLoaded = false;
 };
 
-struct RequestTradeObject
+struct RequestObjectItemToSell
 {
-    int quantity = INVALID;
+    uint quantity = INVALID;
     uint GID = INVALID;
     uint UID = INVALID;
     uint price = INVALID;
+    bool toRemove = false;
 };
 
 struct RequestedPathInfos
@@ -394,7 +395,8 @@ enum BotState
     INACTIVE_STATE,
     EXCHANGING_STATE,
     CALCULATING_STATE,
-    REGENERATING_STATE
+    REGENERATING_STATE,
+    MERCHAND_STATE
 };
 
 struct GroupData
@@ -682,6 +684,7 @@ enum class ManagerType
     INTERACTION,
     ARENA,
     SHOP,
+    MERCHAND,
     SECURITY
 };
 
@@ -884,7 +887,7 @@ struct FloodData
 
 struct ExchangeData
 {
-    QList<RequestTradeObject> requestList;
+    QList<RequestObjectItemToSell> requestList;
     int sourceId = INVALID;
     bool isLackingKamas = false;
     QList<InventoryObject> objects;
@@ -1018,10 +1021,7 @@ struct StatisticsData
 
 struct ShopData
 {
-    QList<RequestTradeObject> requestTradeObjectsInExchangeShop;
-    QList<RequestTradeObject> requestTradeObjectsInMerchand;
-    QList<RequestTradeObject> tradeObjectsInMerchand;
-    bool isReadyToMerchand = false;
+    QList<RequestObjectItemToSell> requestTradeObjectsInExchangeShop;
     QList<uint> typesItemsCanSell;
     uint maxItemLevel = INVALID;
     uint maxItemPerAccount = INVALID;
@@ -1032,6 +1032,8 @@ struct ShopData
 struct MerchandData
 {
     QList<QSharedPointer<ObjectItemToSell>> objectsItemToSell;
+    QList<RequestObjectItemToSell> requestObjectsItemToSell;
+    bool isReady = false;
 };
 
 struct BotData
@@ -1053,7 +1055,7 @@ struct BotData
     MerchandData merchandData;
 };
 
-bool operator==(const RequestTradeObject &left, const RequestTradeObject &right);
+bool operator==(const RequestObjectItemToSell &left, const RequestObjectItemToSell &right);
 bool operator==(const InventoryObject &left, const InventoryObject &right);
 bool operator<(const InventoryObject &left, const InventoryObject &right);
 bool operator==(const ConnectionInfos &left, const ConnectionInfos &right);
