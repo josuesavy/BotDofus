@@ -143,55 +143,75 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
         ExchangeLeaveMessage message;
         message.deserialize(&reader);
 
-        if (m_botData[sender].generalData.botState == MERCHANT_STATE)
+        if (message.success)
         {
-            if(message.success)
+            switch ((DialogTypeEnum)message.dialogType)
             {
-                m_botData[sender].generalData.botState = BotState::INACTIVE_STATE;
-
-                if(m_botData[sender].merchantData.isReady)
+            case DialogTypeEnum::DIALOG_EXCHANGE:
+            {
+                if (m_botData[sender].generalData.botState == MERCHANT_STATE)
                 {
-                    ExchangeStartAsVendorMessage esavmsg;
-                    sender->send(esavmsg);
+                    m_botData[sender].generalData.botState = BotState::INACTIVE_STATE;
+
+                    if(m_botData[sender].merchantData.isReady)
+                    {
+                        ExchangeStartAsVendorMessage esavmsg;
+                        sender->send(esavmsg);
+                    }
+
+                    m_botData[sender].merchantData.isReady = false;
+                    m_botData[sender].merchantData.requestObjectsItemToSell.clear();
+                    m_botData[sender].merchantData.sellerId = INVALID;
+                    m_botData[sender].merchantData.objectsItemToSellInHumanVendorShop.clear();
                 }
 
-                m_botData[sender].merchantData.isReady = false;
-                m_botData[sender].merchantData.requestObjectsItemToSell.clear();
-                m_botData[sender].merchantData.sellerId = INVALID;
-                m_botData[sender].merchantData.objectsItemToSellInHumanVendorShop.clear();
+                else if (m_botData[sender].generalData.botState == EXCHANGING_STATE)
+                {
+                    m_botData[sender].generalData.botState = BotState::INACTIVE_STATE;
+
+                    m_exchangeManager->updateExchange(sender);
+                    info(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.exchange.success");
+                }
+
+                else if ((m_botData[sender].generalData.botState == BotState::BANKING_STATE) || (m_botData[sender].interactionData.interactionType == CurrentInteraction::BANK))
+                {
+                    m_botData[sender].generalData.botState = BotState::INACTIVE_STATE;
+
+                    m_botData[sender].interactionData.interactionType = CurrentInteraction::NONE;
+                    m_botData[sender].interactionData.interactionId = INVALID;
+                    m_botData[sender].interactionData.finishedAction = true;
+                    m_botData[sender].interactionData.actionID = INVALID;
+                    m_botData[sender].interactionData.npcDialogs.clear();
+                    emit scriptActionDone(sender);
+                }
+
+                else
+                    m_botData[sender].generalData.botState = INACTIVE_STATE;
+
             }
+                break;
 
-            else
-                info(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.exchange.cancel");
-        }
-
-        else if(m_botData[sender].generalData.botState == EXCHANGING_STATE)
-        {
-            m_botData[sender].generalData.botState = INACTIVE_STATE;
-
-            if(message.success)
-            {
-                m_exchangeManager->updateExchange(sender);
-                info(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.exchange.success");
+            case DialogTypeEnum::DIALOG_ALLIANCE_CREATE:
+            case DialogTypeEnum::DIALOG_ALLIANCE_INVITATION:
+            case DialogTypeEnum::DIALOG_ALLIANCE_RENAME:
+            case DialogTypeEnum::DIALOG_BOOK:
+            case DialogTypeEnum::DIALOG_DIALOG:
+            case DialogTypeEnum::DIALOG_DUNGEON_MEETING:
+            case DialogTypeEnum::DIALOG_GUILD_CREATE:
+            case DialogTypeEnum::DIALOG_GUILD_INVITATION:
+            case DialogTypeEnum::DIALOG_GUILD_RENAME:
+            case DialogTypeEnum::DIALOG_HAVENBAG_MEETING:
+            case DialogTypeEnum::DIALOG_LOCKABLE:
+            case DialogTypeEnum::DIALOG_MARRIAGE:
+            case DialogTypeEnum::DIALOG_PURCHASABLE:
+            case DialogTypeEnum::DIALOG_SPELL_FORGET:
+            case DialogTypeEnum::DIALOG_TELEPORTER:
+                break;
             }
-
-            else
-                info(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.exchange.cancel");
-        }
-
-        else if ((m_botData[sender].generalData.botState == BotState::BANKING_STATE) || (m_botData[sender].interactionData.interactionType == CurrentInteraction::BANK))
-        {
-            m_botData[sender].interactionData.interactionType = CurrentInteraction::NONE;
-            m_botData[sender].generalData.botState = BotState::INACTIVE_STATE;
-            m_botData[sender].interactionData.interactionId = INVALID;
-            m_botData[sender].interactionData.finishedAction = true;
-            m_botData[sender].interactionData.actionID = INVALID;
-            m_botData[sender].interactionData.npcDialogs.clear();
-            emit scriptActionDone(sender);
         }
 
         else
-            m_botData[sender].generalData.botState = INACTIVE_STATE;
+            info(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.exchange.cancel");
     }
         break;
 
@@ -209,8 +229,7 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
         ExchangeObjectAddedMessage message;
         message.deserialize(&reader);
 
-        if (m_botData[sender].generalData.botState == BotState::CRAFTING_STATE &&
-                m_botData[sender].craftData.isCrafting)
+        if (m_botData[sender].generalData.botState == BotState::CRAFTING_STATE && m_botData[sender].craftData.isCrafting)
         {
             m_botData[sender].craftData.step++;
             m_craftManager->addCraftComponent(sender, message.object);
@@ -541,8 +560,16 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
         ExchangeStartOkHumanVendorMessage message;
         message.deserialize(&reader);
 
-        m_botData[sender].merchantData.objectsItemToSellInHumanVendorShop = message.objectsInfos;
-        m_botData[sender].merchantData.sellerId = message.sellerId;
+        if (m_botData[sender].mapData.merchantsOnMap.contains(message.sellerId))
+        {
+            m_botData[sender].merchantData.objectsItemToSellInHumanVendorShop = message.objectsInfos;
+            m_botData[sender].merchantData.sellerId = message.sellerId;
+        }
+        else
+        {
+            m_botData[sender].generalData.botState = BotState::INACTIVE_STATE;
+            error(sender) << "Unable to find the seller character in the entityFrame";
+        }
     }
         break;
 
