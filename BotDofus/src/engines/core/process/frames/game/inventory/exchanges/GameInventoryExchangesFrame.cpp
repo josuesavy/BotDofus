@@ -19,6 +19,13 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
         messageFound = false;
         break;
 
+    case MessageEnum::EXCHANGEBUYOKMESSAGE:
+    {
+        ExchangeBuyOkMessage message;
+        message.deserialize(&reader);
+    }
+        break;
+
     case MessageEnum::EXCHANGECRAFTCOUNTMODIFIEDMESSAGE:
     {
         if (m_botData[sender].generalData.botState == BotState::CRAFTING_STATE && m_botData[sender].craftData.isCrafting)
@@ -144,15 +151,14 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
 
                 if(m_botData[sender].merchandData.isReady)
                 {
-                    m_botData[sender].merchandData.isReady = false;
-                    m_botData[sender].merchandData.requestObjectsItemToSell.clear();
-
                     ExchangeStartAsVendorMessage esavmsg;
                     sender->send(esavmsg);
                 }
 
-                else
-                    m_botData[sender].merchandData.requestObjectsItemToSell.clear();
+                m_botData[sender].merchandData.isReady = false;
+                m_botData[sender].merchandData.requestObjectsItemToSell.clear();
+                m_botData[sender].merchandData.sellerId = INVALID;
+                m_botData[sender].merchandData.objectsItemToSellInHumanVendorShop.clear();
             }
 
             else
@@ -370,10 +376,31 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
         ExchangeShopStockMovementUpdatedMessage message;
         message.deserialize(&reader);
 
-        if (m_botData[sender].merchandData.objectsItemToSell.contains(message.objectInfo))
+        if (m_botData[sender].merchandData.sellerId > 0)
         {
-            int index = m_botData[sender].merchandData.objectsItemToSell.indexOf(message.objectInfo);
-            m_botData[sender].merchandData.objectsItemToSell.replace(index, message.objectInfo);
+            QSharedPointer <ObjectItemToSellInHumanVendorShop> objectItemToSellInHumanVendorShop;
+            objectItemToSellInHumanVendorShop->effects = message.objectInfo->effects;
+            objectItemToSellInHumanVendorShop->objectGID = message.objectInfo->objectGID;
+            objectItemToSellInHumanVendorShop->objectPrice = message.objectInfo->objectPrice;
+            objectItemToSellInHumanVendorShop->objectUID = message.objectInfo->objectUID;
+            objectItemToSellInHumanVendorShop->quantity = message.objectInfo->quantity;
+
+            for (int i = 0; i < m_botData[sender].merchandData.objectsItemToSellInHumanVendorShop.size(); i++)
+            {
+                if (m_botData[sender].merchandData.objectsItemToSellInHumanVendorShop[i]->objectGID == message.objectInfo->objectGID && m_botData[sender].merchandData.objectsItemToSellInHumanVendorShop[i]->objectUID == message.objectInfo->objectUID)
+                {
+                    m_botData[sender].merchandData.objectsItemToSellInHumanVendorShop.replace(i, objectItemToSellInHumanVendorShop);
+                }
+            }
+        }
+
+        else
+        {
+            if (m_botData[sender].merchandData.objectsItemToSell.contains(message.objectInfo))
+            {
+                int index = m_botData[sender].merchandData.objectsItemToSell.indexOf(message.objectInfo);
+                m_botData[sender].merchandData.objectsItemToSell.replace(index, message.objectInfo);
+            }
         }
     }
         break;
@@ -506,6 +533,16 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
             message.count = m_botData[sender].craftData.recipeQuantities[m_botData[sender].craftData.toCraft.recipeId];
             sender->send(message);
         }
+    }
+        break;
+
+    case MessageEnum::EXCHANGESTARTOKHUMANVENDORMESSAGE:
+    {
+        ExchangeStartOkHumanVendorMessage message;
+        message.deserialize(&reader);
+
+        m_botData[sender].merchandData.objectsItemToSellInHumanVendorShop = message.objectsInfos;
+        m_botData[sender].merchandData.sellerId = message.sellerId;
     }
         break;
 

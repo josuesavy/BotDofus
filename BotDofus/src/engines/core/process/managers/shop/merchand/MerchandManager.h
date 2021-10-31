@@ -26,15 +26,6 @@ public:
     bool processMerchand(SocketIO *sender);
 
     /**
-     * @brief objectItemToSellAlreadyExist
-     * @param sender Pointer to the bot instance
-     * @param objectItemToSell Object item to add
-     *
-     * Check if the object item to sell given in parameter already exist in merchand inventory
-     */
-    bool objectItemToSellAlreadyExist(SocketIO *sender, ObjectItemToSell objectItemToSell);
-
-    /**
      * @brief addObjectItemToSell
      * @param sender Pointer to the bot instance
      * @param objectItemToSell Object item to add
@@ -61,6 +52,25 @@ public:
      * Remove object item to sell in merchand inventory.
      */
     void removeObjectItemToSell(SocketIO *sender, ObjectItemToSell objectItemToSell);
+
+    /**
+     * @brief openMerchantWithPlayer
+     * @param sender Pointer to the bot instance
+     * @param merchantName The name of merchant player
+     *
+     * Start the exchange with a merchant player in the map
+     */
+    void openMerchantWithPlayer(SocketIO *sender, QString merchantName);
+
+    /**
+     * @brief buyItemFromMerchant
+     * @param sender Pointer to the bot instance
+     * @param objectToBuyId The object's identity
+     * @param quantity The object's quantity
+     *
+     * Buy the item to the merchant previously selected player.
+     */
+    void buyItemFromMerchant(SocketIO *sender, uint objectToBuyId, uint quantity);
 };
 
 #endif // MERCHANDMANAGER_H

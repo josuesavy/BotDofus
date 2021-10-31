@@ -24,7 +24,7 @@ bool MerchandManager::processMerchand(SocketIO *sender)
     return true;
 }
 
-bool MerchandManager::objectItemToSellAlreadyExist(SocketIO *sender, ObjectItemToSell objectItemToSell)
+void MerchandManager::addObjectItemToSell(SocketIO *sender, ObjectItemToSell objectItemToSell)
 {
     bool found = false;
     for (int i = 0; i < m_botData[sender].merchandData.requestObjectsItemToSell.size(); i++)
@@ -35,12 +35,7 @@ bool MerchandManager::objectItemToSellAlreadyExist(SocketIO *sender, ObjectItemT
             break;
         }
     }
-    return found;
-}
 
-void MerchandManager::addObjectItemToSell(SocketIO *sender, ObjectItemToSell objectItemToSell)
-{
-    bool found = objectItemToSellAlreadyExist(sender, objectItemToSell);
     if (!found)
     {
         RequestObjectItemToSell requestTradeObject;
@@ -83,4 +78,48 @@ void MerchandManager::removeObjectItemToSell(SocketIO *sender, ObjectItemToSell 
             break;
         }
     }
+}
+
+void MerchandManager::openMerchantWithPlayer(SocketIO *sender, QString merchantName)
+{
+    if(m_botData[sender].generalData.botState != BotState::INACTIVE_STATE || m_botData[sender].merchandData.isReady)
+        return;
+
+    MerchantInfos merchant;
+    QMapIterator<uint, MerchantInfos> merchants(m_botData[sender].mapData.merchantsOnMap);
+    while (merchants.hasNext())
+    {
+        merchants.next();
+        if (merchants.value().name == merchantName)
+        {
+            merchant.cellId = merchants.value().cellId;
+            merchant.direction = merchants.value().direction;
+            merchant.look = merchants.value().look;
+            merchant.merchantId = merchants.value().merchantId;
+            merchant.name = merchants.value().name;
+            merchant.options = merchants.value().options;
+            merchant.sellType = merchants.value().sellType;
+        }
+    }
+
+    if (merchant.merchantId > INVALID)
+    {
+        m_botData[sender].generalData.botState = BotState::MERCHAND_STATE;
+
+        ExchangeOnHumanVendorRequestMessage eohvrmsg;
+        eohvrmsg.humanVendorCell = merchant.cellId;
+        eohvrmsg.humanVendorId = merchant.merchantId;
+        sender->send(eohvrmsg);
+    }
+}
+
+void MerchandManager::buyItemFromMerchant(SocketIO *sender, uint objectToBuyId, uint quantity)
+{
+    if (m_botData[sender].generalData.botState != BotState::MERCHAND_STATE && m_botData[sender].merchandData.sellerId == INVALID)
+        return;
+
+    ExchangeBuyMessage ebmsg;
+    ebmsg.objectToBuyId = objectToBuyId;
+    ebmsg.quantity = quantity;
+    sender->send(ebmsg);
 }

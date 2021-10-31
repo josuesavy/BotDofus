@@ -1031,6 +1031,8 @@ struct ShopData
 
 struct MerchandData
 {
+    double sellerId = INVALID;
+    QList<QSharedPointer<ObjectItemToSellInHumanVendorShop>> objectsItemToSellInHumanVendorShop;
     QList<QSharedPointer<ObjectItemToSell>> objectsItemToSell;
     QList<RequestObjectItemToSell> requestObjectsItemToSell;
     bool isReady = false;

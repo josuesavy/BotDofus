@@ -21,11 +21,9 @@ bool GameInventoryFrame::processMessage(const MessageInfos &data, SocketIO *send
     {
         KamasUpdateMessage message;
         message.deserialize(&reader);
+
         m_botData[sender].playerData.kamas = message.kamasTotal;
-
         m_botData[sender].statisticsData.countTotalKamas += message.kamasTotal;
-
-        info(sender) << "Vous avez gagné" << message.kamasTotal << "kamas.";
     }
         break;
     }
