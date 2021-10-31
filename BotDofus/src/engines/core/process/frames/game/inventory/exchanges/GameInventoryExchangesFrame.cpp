@@ -143,22 +143,22 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
         ExchangeLeaveMessage message;
         message.deserialize(&reader);
 
-        if (m_botData[sender].generalData.botState == MERCHAND_STATE)
+        if (m_botData[sender].generalData.botState == MERCHANT_STATE)
         {
             if(message.success)
             {
                 m_botData[sender].generalData.botState = BotState::INACTIVE_STATE;
 
-                if(m_botData[sender].merchandData.isReady)
+                if(m_botData[sender].merchantData.isReady)
                 {
                     ExchangeStartAsVendorMessage esavmsg;
                     sender->send(esavmsg);
                 }
 
-                m_botData[sender].merchandData.isReady = false;
-                m_botData[sender].merchandData.requestObjectsItemToSell.clear();
-                m_botData[sender].merchandData.sellerId = INVALID;
-                m_botData[sender].merchandData.objectsItemToSellInHumanVendorShop.clear();
+                m_botData[sender].merchantData.isReady = false;
+                m_botData[sender].merchantData.requestObjectsItemToSell.clear();
+                m_botData[sender].merchantData.sellerId = INVALID;
+                m_botData[sender].merchantData.objectsItemToSellInHumanVendorShop.clear();
             }
 
             else
@@ -311,18 +311,18 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
         message.deserialize(&reader);
 
         // Add object item to sell already added
-        m_botData[sender].merchandData.objectsItemToSell.clear();
+        m_botData[sender].merchantData.objectsItemToSell.clear();
         foreach(QSharedPointer<ObjectItemToSell> objectItemToSell, message.objectsInfos)
         {
-            m_botData[sender].merchandData.objectsItemToSell << objectItemToSell;
+            m_botData[sender].merchantData.objectsItemToSell << objectItemToSell;
         }
 
         // Add object item to sell to add
-        if(!m_botData[sender].merchandData.requestObjectsItemToSell.isEmpty() && !m_botData[sender].merchandData.objectsItemToSell.isEmpty())
+        if(!m_botData[sender].merchantData.requestObjectsItemToSell.isEmpty() && !m_botData[sender].merchantData.objectsItemToSell.isEmpty())
         {
-            foreach(RequestObjectItemToSell requestTradeObject, m_botData[sender].merchandData.requestObjectsItemToSell)
+            foreach(RequestObjectItemToSell requestTradeObject, m_botData[sender].merchantData.requestObjectsItemToSell)
             {
-                foreach(QSharedPointer<ObjectItemToSell> objectItemToSell, m_botData[sender].merchandData.objectsItemToSell)
+                foreach(QSharedPointer<ObjectItemToSell> objectItemToSell, m_botData[sender].merchantData.objectsItemToSell)
                 {
                     if(requestTradeObject.UID == objectItemToSell->objectUID && (requestTradeObject.price != objectItemToSell->objectPrice || requestTradeObject.quantity != objectItemToSell->quantity))
                     {
@@ -353,10 +353,10 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
             }
         }
 
-        if (!m_botData[sender].merchandData.objectsItemToSell.isEmpty())
+        if (!m_botData[sender].merchantData.objectsItemToSell.isEmpty())
         {
-            m_botData[sender].merchandData.isReady = true;
-            if(m_botData[sender].merchandData.isReady)
+            m_botData[sender].merchantData.isReady = true;
+            if(m_botData[sender].merchantData.isReady)
             {
                 ExchangeShowVendorTaxMessage esvtmsg;
                 sender->send(esvtmsg);
@@ -364,7 +364,7 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
         }
         else
         {
-            m_botData[sender].merchandData.isReady = false;
+            m_botData[sender].merchantData.isReady = false;
             LeaveDialogRequestMessage ldrmsg;
             sender->send(ldrmsg);
         }
@@ -376,7 +376,7 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
         ExchangeShopStockMovementUpdatedMessage message;
         message.deserialize(&reader);
 
-        if (m_botData[sender].merchandData.sellerId > 0)
+        if (m_botData[sender].merchantData.sellerId > 0)
         {
             QSharedPointer <ObjectItemToSellInHumanVendorShop> objectItemToSellInHumanVendorShop;
             objectItemToSellInHumanVendorShop->effects = message.objectInfo->effects;
@@ -385,21 +385,21 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
             objectItemToSellInHumanVendorShop->objectUID = message.objectInfo->objectUID;
             objectItemToSellInHumanVendorShop->quantity = message.objectInfo->quantity;
 
-            for (int i = 0; i < m_botData[sender].merchandData.objectsItemToSellInHumanVendorShop.size(); i++)
+            for (int i = 0; i < m_botData[sender].merchantData.objectsItemToSellInHumanVendorShop.size(); i++)
             {
-                if (m_botData[sender].merchandData.objectsItemToSellInHumanVendorShop[i]->objectGID == message.objectInfo->objectGID && m_botData[sender].merchandData.objectsItemToSellInHumanVendorShop[i]->objectUID == message.objectInfo->objectUID)
+                if (m_botData[sender].merchantData.objectsItemToSellInHumanVendorShop[i]->objectGID == message.objectInfo->objectGID && m_botData[sender].merchantData.objectsItemToSellInHumanVendorShop[i]->objectUID == message.objectInfo->objectUID)
                 {
-                    m_botData[sender].merchandData.objectsItemToSellInHumanVendorShop.replace(i, objectItemToSellInHumanVendorShop);
+                    m_botData[sender].merchantData.objectsItemToSellInHumanVendorShop.replace(i, objectItemToSellInHumanVendorShop);
                 }
             }
         }
 
         else
         {
-            if (m_botData[sender].merchandData.objectsItemToSell.contains(message.objectInfo))
+            if (m_botData[sender].merchantData.objectsItemToSell.contains(message.objectInfo))
             {
-                int index = m_botData[sender].merchandData.objectsItemToSell.indexOf(message.objectInfo);
-                m_botData[sender].merchandData.objectsItemToSell.replace(index, message.objectInfo);
+                int index = m_botData[sender].merchantData.objectsItemToSell.indexOf(message.objectInfo);
+                m_botData[sender].merchantData.objectsItemToSell.replace(index, message.objectInfo);
             }
         }
     }
@@ -410,10 +410,10 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
         ExchangeShopStockMovementRemovedMessage message;
         message.deserialize(&reader);
 
-        for(int i = 0; i < m_botData[sender].merchandData.objectsItemToSell.size(); i++)
+        for(int i = 0; i < m_botData[sender].merchantData.objectsItemToSell.size(); i++)
         {
-            if(m_botData[sender].merchandData.objectsItemToSell.at(i)->objectUID == message.objectId)
-                m_botData[sender].merchandData.objectsItemToSell.removeAt(i);
+            if(m_botData[sender].merchantData.objectsItemToSell.at(i)->objectUID == message.objectId)
+                m_botData[sender].merchantData.objectsItemToSell.removeAt(i);
         }
     }
         break;
@@ -425,10 +425,10 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
 
         for(int i = 0; i < message.objectInfoList.size(); i++)
         {
-            if (m_botData[sender].merchandData.objectsItemToSell.contains(message.objectInfoList.at(i)))
+            if (m_botData[sender].merchantData.objectsItemToSell.contains(message.objectInfoList.at(i)))
             {
-                int index = m_botData[sender].merchandData.objectsItemToSell.indexOf(message.objectInfoList.at(i));
-                m_botData[sender].merchandData.objectsItemToSell.replace(index, message.objectInfoList.at(i));
+                int index = m_botData[sender].merchantData.objectsItemToSell.indexOf(message.objectInfoList.at(i));
+                m_botData[sender].merchantData.objectsItemToSell.replace(index, message.objectInfoList.at(i));
             }
         }
     }
@@ -439,12 +439,12 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
         ExchangeShopStockMultiMovementRemovedMessage message;
         message.deserialize(&reader);
 
-        for(int i = 0; i < m_botData[sender].merchandData.objectsItemToSell.size(); i++)
+        for(int i = 0; i < m_botData[sender].merchantData.objectsItemToSell.size(); i++)
         {
             for(int j = 0; j < message.objectIdList.size(); j++)
             {
-                if(message.objectIdList.at(j) == m_botData[sender].merchandData.objectsItemToSell.at(i)->objectUID)
-                    m_botData[sender].merchandData.objectsItemToSell.removeAt(i);
+                if(message.objectIdList.at(j) == m_botData[sender].merchantData.objectsItemToSell.at(i)->objectUID)
+                    m_botData[sender].merchantData.objectsItemToSell.removeAt(i);
             }
         }
     }
@@ -541,8 +541,8 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
         ExchangeStartOkHumanVendorMessage message;
         message.deserialize(&reader);
 
-        m_botData[sender].merchandData.objectsItemToSellInHumanVendorShop = message.objectsInfos;
-        m_botData[sender].merchandData.sellerId = message.sellerId;
+        m_botData[sender].merchantData.objectsItemToSellInHumanVendorShop = message.objectsInfos;
+        m_botData[sender].merchantData.sellerId = message.sellerId;
     }
         break;
 

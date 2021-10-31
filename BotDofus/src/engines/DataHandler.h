@@ -396,7 +396,7 @@ enum BotState
     EXCHANGING_STATE,
     CALCULATING_STATE,
     REGENERATING_STATE,
-    MERCHAND_STATE
+    MERCHANT_STATE
 };
 
 struct GroupData
@@ -684,7 +684,7 @@ enum class ManagerType
     INTERACTION,
     ARENA,
     SHOP,
-    MERCHAND,
+    MERCHANT,
     SECURITY
 };
 
@@ -1029,7 +1029,7 @@ struct ShopData
     QList<uint> objectsTypeSelected;
 };
 
-struct MerchandData
+struct MerchantData
 {
     double sellerId = INVALID;
     QList<QSharedPointer<ObjectItemToSellInHumanVendorShop>> objectsItemToSellInHumanVendorShop;
@@ -1054,7 +1054,7 @@ struct BotData
     InteractionData interactionData;
     StatisticsData statisticsData;
     ShopData shopData;
-    MerchandData merchandData;
+    MerchantData merchantData;
 };
 
 bool operator==(const InventoryObject &left, const InventoryObject &right);

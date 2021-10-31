@@ -17,7 +17,7 @@ CoreEngine::CoreEngine()
     m_managers[ManagerType::CRAFT] = new CraftManager(&m_botData, static_cast<MapManager*>(m_managers[ManagerType::MAP]));
     m_managers[ManagerType::SECURITY] = new SecurityManager(&m_botData);
     m_managers[ManagerType::SHOP] = new ShopManager(&m_botData);
-    m_managers[ManagerType::MERCHAND] = new MerchandManager(&m_botData);
+    m_managers[ManagerType::MERCHANT] = new MerchantManager(&m_botData);
 
 
     m_frames.append(new CommonBasicFrame(&m_botData));
@@ -154,9 +154,9 @@ ShopManager &CoreEngine::getShopManager()
     return *static_cast<ShopManager*>(m_managers[ManagerType::SHOP]);
 }
 
-MerchandManager &CoreEngine::getMerchandManager()
+MerchantManager &CoreEngine::getMerchandManager()
 {
-    return *static_cast<MerchandManager*>(m_managers[ManagerType::MERCHAND]);
+    return *static_cast<MerchantManager*>(m_managers[ManagerType::MERCHANT]);
 }
 
 const BotData &CoreEngine::getData(SocketIO *sender)

@@ -69,7 +69,7 @@
 #include "src/engines/core/process/managers/security/SecurityManager.h"
 #include "src/engines/core/process/managers/stats/StatsManager.h"
 #include "src/engines/core/process/managers/shop/ShopManager.h"
-#include "src/engines/core/process/managers/shop/merchand/MerchandManager.h"
+#include "src/engines/core/process/managers/shop/merchand/MerchantManager.h"
 
 #include "src/engines/io/network/Reader.h"
 
@@ -94,7 +94,7 @@ public:
     InteractionManager &getInteractionManager();
     SecurityManager &getSecurityManager();
     ShopManager &getShopManager();
-    MerchandManager &getMerchandManager();
+    MerchantManager &getMerchandManager();
 
     const BotData &getData(SocketIO *sender);
 

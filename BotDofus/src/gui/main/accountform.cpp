@@ -358,10 +358,10 @@ void AccountForm::updateInterface(bool directCall)
             ui->labelStatus->setText(tr("Regeneration"));
         }
             break;
-        case BotState::MERCHAND_STATE:
+        case BotState::MERCHANT_STATE:
         {
             ui->labelIconStatus->setPixmap(QPixmap(":/icons/bullet_green_16px.ico"));
-            ui->labelStatus->setText(tr("Marchand"));
+            ui->labelStatus->setText(tr("Marchant"));
         }
             break;
         }
