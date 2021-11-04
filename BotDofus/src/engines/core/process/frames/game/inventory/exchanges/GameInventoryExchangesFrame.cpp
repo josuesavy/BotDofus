@@ -81,6 +81,7 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
             typeError += "cantExchangeCharacterRestricted";
             break;
         case ExchangeErrorEnum::REQUEST_CHARACTER_TOOL_TOO_FAR:
+            typeError = "ui.craft.notNearCraftTable";
             break;
         case ExchangeErrorEnum::REQUEST_CHARACTER_NOT_SUSCRIBER:
             typeError += "cantExchangeCharacterNotSuscriber";
@@ -88,6 +89,8 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
         case ExchangeErrorEnum::REQUEST_CHARACTER_JOB_NOT_EQUIPED:
             typeError += "cantExchangeCharacterJobNotEquiped";
             break;
+        default:
+            typeError += "cantExchange";
         }
 
         error(sender) << D2OManagerSingleton::get()->getI18N()->getText(typeError);
@@ -123,6 +126,7 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
             error(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.craft.autoCraftStopedNoRessource");
             break;
         case ExchangeReplayStopReasonEnum::STOPPED_REASON_OK:
+            info(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.craft.autoCraftStopedOk");
             break;
         case ExchangeReplayStopReasonEnum::STOPPED_REASON_USER:
             error(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.craft.autoCraftStoped");
@@ -180,8 +184,7 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
         ExchangeObjectAddedMessage message;
         message.deserialize(&reader);
 
-        if (m_botData[sender].generalData.botState == BotState::CRAFTING_STATE &&
-                m_botData[sender].craftData.isCrafting)
+        if (m_botData[sender].generalData.botState == BotState::CRAFTING_STATE && m_botData[sender].craftData.isCrafting)
         {
             m_botData[sender].craftData.step++;
             m_craftManager->addCraftComponent(sender, message.object);
