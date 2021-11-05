@@ -37,8 +37,7 @@ bool operator==(const ConnectionInfos &left, const ConnectionInfos &right)
         if(left.login == right.login)
             if(left.password == right.password)
                 if(left.character == right.character)
-                    if(left.server == right.server)
-                        return true;
+                    return true;
 
     return false;
 }

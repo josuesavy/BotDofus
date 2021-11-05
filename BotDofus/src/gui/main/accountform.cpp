@@ -80,6 +80,8 @@ AccountForm::AccountForm(ProcessEngine *engine, const ConnectionInfos &infos, QW
         ui->pushButtonFile->hide();
         ui->pushButtonClose->hide();
     }
+
+    QObject::connect(&m_updateTimer, &QTimer::timeout, [this] () { updateInterface(true); });
 }
 
 AccountForm::~AccountForm()
@@ -212,11 +214,22 @@ int AccountForm::loadPath(QString path, bool unload)
 
 void AccountForm::autoConnect()
 {
-    ui->pushButtonDisconnection->clicked();
+    emit ui->pushButtonDisconnection->clicked();
 }
 
-void AccountForm::updateInterface()
+void AccountForm::updateInterface(bool directCall)
 {
+    if(m_updateChecker.elapsed() < UPDATE_INTERVAL && directCall)
+    {
+        if(!m_updateTimer.isActive())
+        {
+            m_updateTimer.setInterval(UPDATE_INTERVAL-m_updateChecker.elapsed());
+            m_updateTimer.start();
+        }
+
+        return;
+    }
+
     consoleForm->updateInterface();
     characterForm->updateInterface();
     inventoryForm->updateInterface();
@@ -406,6 +419,8 @@ void AccountForm::updateInterface()
         ui->labelIconStatus->setPixmap(QPixmap(":/icons/bullet_red_16px.ico"));
         ui->labelStatus->setText(tr("Disconnected"));
     }
+
+    m_updateChecker.restart();
 }
 
 void AccountForm::on_pushButtonDisconnection_clicked()

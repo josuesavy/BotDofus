@@ -90,7 +90,7 @@ bool LogOutput::operator=(const QString &source)
 
 void LogOutput::initCall()
 {
-    m_target->timeStamp = QDateTime::currentDateTime().toTime_t();
+    m_target->timeStamp = QDateTime::currentDateTimeUtc().toTime_t();
 
     if (!m_target->output.isEmpty())
         m_target->output += '\n';

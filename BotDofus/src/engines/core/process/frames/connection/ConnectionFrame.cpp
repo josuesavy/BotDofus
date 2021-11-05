@@ -211,14 +211,6 @@ bool ConnectionFrame::processMessage(const MessageInfos &data, SocketIO *sender)
         SelectedServerDataMessage message;
         message.deserialize(&reader);
 
-        QString arg = "Connecté sur "+message.address+":";
-
-        foreach(int port, message.ports)
-            arg+=QString::number(port)+", ";
-
-        arg.remove(arg.lastIndexOf(", "), 2);
-        info(sender) << arg;
-
         qDebug()<<"Server IP: "<<message.address;
         qDebug()<<"Ticket: "<<message.ticket;
 

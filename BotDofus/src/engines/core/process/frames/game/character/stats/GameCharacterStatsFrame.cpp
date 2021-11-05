@@ -73,36 +73,48 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
         CharacterStatsListMessage message;
         message.deserialize(&reader);
 
-        QMap<uint,DetailedStats> temp;
+        QMap<uint,UsableStats> temp;
 
         foreach (QSharedPointer<CharacterCharacteristic> characterCharacteristic, message.stats->characteristics)
         {
-            DetailedStats detailedStats;
+            UsableStats usableStats;
 
-            if (characterCharacteristic->getTypes().contains(ClassEnum::CHARACTERCHARACTERISTICDETAILED))
+            if (characterCharacteristic->getTypes().contains(ClassEnum::CHARACTERUSABLECHARACTERISTICDETAILED))
+            {
+                QSharedPointer<CharacterUsableCharacteristicDetailed> characterUsableCharacteristicDetailed = qSharedPointerCast<CharacterUsableCharacteristicDetailed>(characterCharacteristic);
+
+                usableStats.base = characterUsableCharacteristicDetailed->base;
+                usableStats.additional = characterUsableCharacteristicDetailed->additional;
+                usableStats.objectsAndMountBonus = characterUsableCharacteristicDetailed->objectsAndMountBonus;
+                usableStats.alignGiftBonus = characterUsableCharacteristicDetailed->alignGiftBonus;
+                usableStats.contextModif = characterUsableCharacteristicDetailed->contextModif;
+                usableStats.used = characterUsableCharacteristicDetailed->used;
+
+                temp[characterCharacteristic->characteristicId] = usableStats;
+            }
+
+            else if (characterCharacteristic->getTypes().contains(ClassEnum::CHARACTERCHARACTERISTICDETAILED))
             {
                 QSharedPointer<CharacterCharacteristicDetailed> characterCharacteristicDetailed = qSharedPointerCast<CharacterCharacteristicDetailed>(characterCharacteristic);
 
-                detailedStats.base = characterCharacteristicDetailed->base;
-                detailedStats.additional = characterCharacteristicDetailed->additional;
-                detailedStats.objectsAndMountBonus = characterCharacteristicDetailed->objectsAndMountBonus;
-                detailedStats.alignGiftBonus = characterCharacteristicDetailed->alignGiftBonus;
-                detailedStats.contextModif = characterCharacteristicDetailed->contextModif;
+                usableStats.base = characterCharacteristicDetailed->base;
+                usableStats.additional = characterCharacteristicDetailed->additional;
+                usableStats.objectsAndMountBonus = characterCharacteristicDetailed->objectsAndMountBonus;
+                usableStats.alignGiftBonus = characterCharacteristicDetailed->alignGiftBonus;
+                usableStats.contextModif = characterCharacteristicDetailed->contextModif;
 
-                temp[characterCharacteristic->characteristicId] = detailedStats;
+                temp[characterCharacteristic->characteristicId] = usableStats;
             }
 
             else if (characterCharacteristic->getTypes().contains(ClassEnum::CHARACTERCHARACTERISTICVALUE))
             {
                 QSharedPointer<CharacterCharacteristicValue> characterCharacteristicValue = qSharedPointerCast<CharacterCharacteristicValue>(characterCharacteristic);
 
-                detailedStats.total = characterCharacteristicValue->total;
+                usableStats.total = characterCharacteristicValue->total;
 
-                temp[characterCharacteristicValue->characteristicId] = detailedStats;
+                temp[characterCharacteristicValue->characteristicId] = usableStats;
             }
         }
-
-
 
         m_botData[sender].playerData.experience = message.stats->experience;
         m_botData[sender].playerData.experienceLevelFloor = message.stats->experienceLevelFloor;

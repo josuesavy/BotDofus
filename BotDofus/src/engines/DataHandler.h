@@ -33,8 +33,8 @@ enum class DofusVersion
 {
     MAJOR = 2,
     MINOR = 61,
-    CODE = 7,
-    BUILD = 8,
+    CODE = 9,
+    BUILD = 15,
 };
 
 enum class SuperTypeId
@@ -184,8 +184,6 @@ enum class StatIds
     DODGE_PM_LOST_PROBABILITY_INITIAL_PERCENT,
     EXTRA_SCALE_PERCENT,
     CHARAC_COUNT,
-    MAX_ACTION_POINTS = 144,
-    MAX_MOVEMENT_POINTS,
 };
 
 enum class CurrentInteraction
@@ -320,6 +318,11 @@ struct DetailedStats : Stats
     int contextModif;
 };
 
+struct UsableStats : DetailedStats
+{
+    int used;
+};
+
 
 enum class ConnectionState
 {
@@ -349,7 +352,6 @@ struct CharactersCreationInfos
 struct ConnectionInfos
 {
     QString login;
-    QString server;
     QString password;
     QString character;
     QString alias;
@@ -806,7 +808,7 @@ struct MapData
 
 struct PlayerData
 {
-    QMap<uint,DetailedStats> stats;
+    QMap<uint,UsableStats> stats;
     QList<QSharedPointer<CharacterSpellModification>> spellModifications;
     Pods pods;
     uint kamas = 0;
@@ -851,7 +853,7 @@ struct ConnectionData
     bool hasRequestedReconnection = false;
     QSharedPointer<QTimer> autoReconnectionTimer;
     QString ticket;
-    QTime timeElapsed;
+    QElapsedTimer timeElapsed;
     QByteArray aesKey;
     uint latestSent = 0;
     int sequenceNumber = 0;
