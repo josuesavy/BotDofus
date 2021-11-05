@@ -285,7 +285,7 @@ QList<uint> FightManager::getEnemies(SocketIO *sender)
 
 void FightManager::processTurn(SocketIO *sender)
 {
-    if(m_botData[sender].fightData.botFightData.firstActionWaiting)
+    if (m_botData[sender].fightData.botFightData.firstActionWaiting)
     {
         m_botData[sender].fightData.botFightData.firstActionWaiting = false;
 
@@ -318,15 +318,15 @@ void FightManager::processTurn(SocketIO *sender)
         }
     }
 
-    if(!m_botData[sender].fightData.botFightData.processingSpells.isEmpty())
+    if (!m_botData[sender].fightData.botFightData.processingSpells.isEmpty())
     {
         RequestedSpell requested = m_botData[sender].fightData.botFightData.processingSpells.first();
 
-        if(m_botData[sender].fightData.botFightData.movementsWaiting)
+        if (m_botData[sender].fightData.botFightData.movementsWaiting)
         {
-            if(m_botData[sender].fightData.botFightData.processingIA == FightIA::FEARFUL || m_botData[sender].fightData.botFightData.processingIA == FightIA::FOLLOWER || m_botData[sender].fightData.botFightData.processingIA == FightIA::AGGRESSIVE)
+            if (m_botData[sender].fightData.botFightData.processingIA != FightIA::FOLLOWER)
             {
-                if(canCastSpell(sender, requested.spellID) == SpellInabilityReason::OK)
+                if (canCastSpell(sender, requested.spellID) == SpellInabilityReason::OK)
                 {
                     QList<uint> cibles;
 
@@ -338,7 +338,7 @@ void FightManager::processTurn(SocketIO *sender)
                         cibles = getClosestCells(m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].cellId, getEnemies(sender));
                     }
 
-                    if(requested.spellCible == SpellCible::ENEMY)
+                    else if(requested.spellCible == SpellCible::ENEMY)
                     {
                         cibles = getClosestCells(m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].cellId, getEnemies(sender));
                     }
@@ -353,17 +353,19 @@ void FightManager::processTurn(SocketIO *sender)
                         cibles<<m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].cellId;
                     }
 
-                    foreach(uint cell, cibles)
+                    if (!cibles.isEmpty())
                     {
-                        SpellInabilityReason reason = canCastSpellOnCell(sender, requested.spellID, cell);
-
-                        if(reason == SpellInabilityReason::MIN_RANGE || reason == SpellInabilityReason::MAX_RANGE)
+                        foreach(uint cell, cibles)
                         {
-                            if(moveToRange(sender, requested.spellID, cell, strictMoving))
+                            SpellInabilityReason reason = canCastSpellOnCell(sender, requested.spellID, cell);
+                            if(reason == SpellInabilityReason::MIN_RANGE || reason == SpellInabilityReason::MAX_RANGE)
                             {
-                                m_botData[sender].fightData.botFightData.movementsWaiting = false;
-                                processTurn(sender);
-                                return;
+                                if(moveToRange(sender, requested.spellID, cell, strictMoving))
+                                {
+                                    m_botData[sender].fightData.botFightData.movementsWaiting = false;
+                                    processTurn(sender);
+                                    return;
+                                }
                             }
                         }
                     }
@@ -387,6 +389,23 @@ void FightManager::processTurn(SocketIO *sender)
                     }
                 }
             }
+
+            else if (m_botData[sender].fightData.botFightData.processingIA == FightIA::FOLLOWER)
+            {
+                QList<uint> allies = getClosestCells(m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].cellId, getAllies(sender));
+
+                if(!allies.isEmpty())
+                {
+                    int cibleID = getMiddleCell(allies);
+
+                    if(moveNear(sender, cibleID, 1))
+                    {
+                        m_botData[sender].fightData.botFightData.movementsWaiting = false;
+                        processTurn(sender);
+                        return;
+                    }
+                }
+            }
         }
 
         else if(m_botData[sender].fightData.botFightData.spellsWaiting)
@@ -394,7 +413,7 @@ void FightManager::processTurn(SocketIO *sender)
             m_botData[sender].fightData.botFightData.spellsWaiting = false;
             m_botData[sender].fightData.botFightData.processingSpells.first().castNb--;
 
-            if((requested.spellCible == SpellCible::ENEMY || requested.spellCible == SpellCible::ALLY || requested.spellCible == SpellCible::SELF))
+            if(requested.spellCible != SpellCible::DIRECTION)
             {
                 QList<uint> cibles;
 
@@ -413,32 +432,24 @@ void FightManager::processTurn(SocketIO *sender)
                     cibles<<m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].cellId;
                 }
 
-                foreach(uint cell, cibles)
+                if (!cibles.isEmpty())
                 {
-                    if(canCastSpell(sender, requested.spellID) == SpellInabilityReason::OK && canCastSpellOnCell(sender, requested.spellID, cell) == SpellInabilityReason::OK)
+                    foreach(uint cell, cibles)
                     {
-                        castSpell(sender, requested.spellID, cell);
-                        return;
+                        if(canCastSpell(sender, requested.spellID) == SpellInabilityReason::OK && canCastSpellOnCell(sender, requested.spellID, cell) == SpellInabilityReason::OK)
+                        {
+                            castSpell(sender, requested.spellID, cell);
+                            return;
+                        }
                     }
                 }
             }
 
-            else if(requested.spellCible == SpellCible::DIRECTION)
+            else if (requested.spellCible == SpellCible::DIRECTION)
             {
-                if(m_botData[sender].fightData.botFightData.processingIA == FightIA::AGGRESSIVE || m_botData[sender].fightData.botFightData.processingIA == FightIA::FEARFUL)
+                if(m_botData[sender].fightData.botFightData.processingIA != FightIA::FOLLOWER)
                 {
                     if(castNear(sender, requested.spellID, getMiddleCell(getEnemies(sender))))
-                    {
-                        return;
-                    }
-                }
-
-                else if(m_botData[sender].fightData.botFightData.processingIA == FightIA::FOLLOWER)
-                {
-                    QList<uint> cells = getAllies(sender);
-                    cells<<m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].cellId;
-
-                    if(castNear(sender, requested.spellID, getMiddleCell(cells)))
                     {
                         return;
                     }
@@ -452,20 +463,13 @@ void FightManager::processTurn(SocketIO *sender)
         if(m_botData[sender].fightData.botFightData.processingSpells.first().castNb == 0)
         {
             m_botData[sender].fightData.botFightData.processingSpells.removeFirst();
-            m_botData[sender].fightData.botFightData.spellsWaiting = true;
-            m_botData[sender].fightData.botFightData.movementsWaiting = true;
-            processTurn(sender);
-            return;
         }
 
-        else if(m_botData[sender].fightData.botFightData.processingSpells.first().castNb != 0)
-        {
-            m_botData[sender].fightData.botFightData.spellsWaiting = true;
-            m_botData[sender].fightData.botFightData.movementsWaiting = true;
+        m_botData[sender].fightData.botFightData.spellsWaiting = true;
+        m_botData[sender].fightData.botFightData.movementsWaiting = true;
 
-            processTurn(sender);
-            return;
-        }
+        processTurn(sender);
+        return;
     }
 
     if(!m_botData[sender].fightData.botFightData.processingSpells.isEmpty())

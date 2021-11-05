@@ -515,7 +515,6 @@ public:
     GroupManager *m_groupManager;
     static QMap<int, Point2D> m_cellsPos;
     static QMap<Point2D, int> m_cellsId;
-    QTime fightTimer;
 };
 
 #endif // FIGHTMANAGER_H
