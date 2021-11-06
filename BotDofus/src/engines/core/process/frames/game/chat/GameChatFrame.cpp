@@ -25,6 +25,8 @@ bool GameChatFrame::processMessage(const MessageInfos &data, SocketIO *sender)
 
         switch((ChatErrorEnum)message.reason)
         {
+        case ChatErrorEnum::CHAT_ERROR_UNKNOWN:
+        case ChatErrorEnum::CHAT_ERROR_MALFORMED_CONTENT:
         case ChatErrorEnum::CHAT_ERROR_INTERIOR_MONOLOGUE:
         case ChatErrorEnum::CHAT_ERROR_INVALID_MAP:
         case ChatErrorEnum::CHAT_ERROR_NO_GUILD:
@@ -50,7 +52,7 @@ bool GameChatFrame::processMessage(const MessageInfos &data, SocketIO *sender)
 
         LogMessage chat;
         chat.channel = (Channel)message.channel;
-        chat.timeStamp = QDateTime::currentDateTime().toTime_t();
+        chat.timeStamp = QDateTime::currentDateTimeUtc().toTime_t();
         chat.output = "à <b>"+message.receiverName+"</b> : "+message.content+"";
 
         m_botData[sender].generalData.logMessages<<chat;
@@ -64,7 +66,7 @@ bool GameChatFrame::processMessage(const MessageInfos &data, SocketIO *sender)
 
         LogMessage chat;
         chat.channel = (Channel)message.channel;
-        chat.timeStamp = QDateTime::currentDateTime().toTime_t();
+        chat.timeStamp = QDateTime::currentDateTimeUtc().toTime_t();
         if(message.channel == Channel::CHANNELPRIVATE)
             chat.output = "de <b>"+message.senderName+"</b> : "+message.content;
         else
