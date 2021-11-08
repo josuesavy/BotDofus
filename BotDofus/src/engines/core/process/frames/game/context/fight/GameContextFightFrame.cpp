@@ -56,7 +56,8 @@ bool GameContextFightFrame::processMessage(const MessageInfos &data, SocketIO *s
         int second = message.duration/1000;
         m_botData[sender].statisticsData.speedFight += second;
 
-        info(sender) << "Combat fini en" << second << "s.";
+        info(sender) << "Combat fini en" << millisecondsToHHMMSS(message.duration) <<
+                        QString("(%1 tours)").arg(m_botData[sender].fightData.roundDouble);
     }
         break;
 
@@ -147,12 +148,21 @@ bool GameContextFightFrame::processMessage(const MessageInfos &data, SocketIO *s
     }
         break;
 
+    case MessageEnum::GAMEFIGHTNEWROUNDMESSAGE:
+    {
+        GameFightNewRoundMessage message;
+        message.deserialize(&reader);
+
+        m_botData[sender].fightData.roundDouble = message.roundNumber;
+    }
+        break;
+
     case MessageEnum::GAMEFIGHTLEAVEMESSAGE:
     {
         GameFightLeaveMessage message;
         message.deserialize(&reader);
 
-        if(message.charId = m_botData[sender].fightData.botFightData.botId)
+        if(message.charId == m_botData[sender].fightData.botFightData.botId)
         {
             action(sender) << "Vous avez été expulsé du combat";
 
@@ -279,6 +289,10 @@ bool GameContextFightFrame::processMessage(const MessageInfos &data, SocketIO *s
     }
         break;
 
+    case MessageEnum::GAMEFIGHTTURNSTARTPLAYINGMESSAGE:
+        //m_fightManager->processTurn(sender);
+        break;
+
     case MessageEnum::GAMEFIGHTSYNCHRONIZEMESSAGE:
     {
         GameFightSynchronizeMessage message;
@@ -313,7 +327,6 @@ bool GameContextFightFrame::processMessage(const MessageInfos &data, SocketIO *s
     case MessageEnum::GAMEFIGHTTURNREADYREQUESTMESSAGE:
     {
         GameFightTurnReadyMessage answer;
-        answer.deserialize(&reader);
         answer.isReady = true;
         sender->send(answer);
     }
@@ -363,6 +376,67 @@ bool GameContextFightFrame::processMessage(const MessageInfos &data, SocketIO *s
                     sender->send(answer);
                 }
             }
+        }
+    }
+        break;
+
+    case MessageEnum::REFRESHCHARACTERSTATSMESSAGE:
+    {
+        RefreshCharacterStatsMessage message;
+        message.deserialize(&reader);
+
+        if (m_botData[sender].fightData.fighters.contains(message.fighterId))
+        {
+            QMap<uint,Stats> temp;
+
+            foreach (QSharedPointer<CharacterCharacteristic> characterCharacteristic, message.stats->characteristics->characteristics)
+            {
+                if (characterCharacteristic->getTypes().contains(ClassEnum::CHARACTERUSABLECHARACTERISTICDETAILED))
+                {
+                    QSharedPointer<CharacterUsableCharacteristicDetailed> characterUsableCharacteristicDetailed = qSharedPointerCast<CharacterUsableCharacteristicDetailed>(characterCharacteristic);
+
+                    UsableStats usableStats;
+                    usableStats.base = characterUsableCharacteristicDetailed->base;
+                    usableStats.additional = characterUsableCharacteristicDetailed->additional;
+                    usableStats.objectsAndMountBonus = characterUsableCharacteristicDetailed->objectsAndMountBonus;
+                    usableStats.alignGiftBonus = characterUsableCharacteristicDetailed->alignGiftBonus;
+                    usableStats.contextModif = characterUsableCharacteristicDetailed->contextModif;
+                    usableStats.used = characterUsableCharacteristicDetailed->used;
+                    usableStats.total = usableStats.base + usableStats.additional + usableStats.objectsAndMountBonus + usableStats.alignGiftBonus + usableStats.contextModif;
+
+                    temp[characterCharacteristic->characteristicId] = usableStats;
+                }
+
+                else if (characterCharacteristic->getTypes().contains(ClassEnum::CHARACTERCHARACTERISTICDETAILED))
+                {
+                    QSharedPointer<CharacterCharacteristicDetailed> characterCharacteristicDetailed = qSharedPointerCast<CharacterCharacteristicDetailed>(characterCharacteristic);
+
+                    DetailedStats detailedStats;
+                    detailedStats.base = characterCharacteristicDetailed->base;
+                    detailedStats.additional = characterCharacteristicDetailed->additional;
+                    detailedStats.objectsAndMountBonus = characterCharacteristicDetailed->objectsAndMountBonus;
+                    detailedStats.alignGiftBonus = characterCharacteristicDetailed->alignGiftBonus;
+                    detailedStats.contextModif = characterCharacteristicDetailed->contextModif;
+                    detailedStats.total = detailedStats.base + detailedStats.additional + detailedStats.objectsAndMountBonus + detailedStats.alignGiftBonus + detailedStats.contextModif;
+
+                    temp[characterCharacteristic->characteristicId] = detailedStats;
+                }
+
+                else if (characterCharacteristic->getTypes().contains(ClassEnum::CHARACTERCHARACTERISTICVALUE))
+                {
+                    QSharedPointer<CharacterCharacteristicValue> characterCharacteristicValue = qSharedPointerCast<CharacterCharacteristicValue>(characterCharacteristic);
+
+                    Stats stats;
+                    stats.total = characterCharacteristicValue->total;
+
+                    temp[characterCharacteristicValue->characteristicId] = stats;
+                }
+            }
+
+            m_botData[sender].fightData.fighters[message.fighterId].stats = temp;
+            m_botData[sender].fightData.fighters[message.fighterId].summoned = message.stats->summoned;
+            m_botData[sender].fightData.fighters[message.fighterId].summoner = message.stats->summoner;
+            m_botData[sender].fightData.fighters[message.fighterId].invisibilityState = message.stats->invisibilityState;
         }
     }
         break;

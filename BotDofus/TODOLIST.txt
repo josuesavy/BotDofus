@@ -4,7 +4,7 @@ AccountManager
  [ ] Mettre une msgbox avec option remember pour expliquer comment importer des comptes (cf. https://stackoverflow.com/a/35132465)
 
 Main
- [ ] L'energie max du bot s'affiche avec une incrémentation d'un +1 (O.o)
+ [OK] L'energie max du bot s'affiche avec une incrémentation d'un +1 (O.o)
  [ ] Ajouter un timer qui update la life du bot quand il est en régénération
 
 Carte
@@ -38,6 +38,7 @@ Map
 
 Combat
  [ ] Revoir l'IA en combat, il semblerait qu'il a déjà la po pour attaquer mais il bouge avant alors qu'il peut le faire après
+ [OK] Revoir toute les attributions des points de caractéristiques en combat car à cause de ça le bot ne fait plus rien et meure...
 
 Statistiques
  [ ] Rajouter le flood (Total messages, reussis, echoues)

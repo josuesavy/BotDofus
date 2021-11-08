@@ -60,6 +60,7 @@ uint toUInt(QString string);
 float toFloat(QString string);
 
 QString dateToString(const double &milliseconds);
+QString millisecondsToHHMMSS(uint milliseconds);
 
 QString getRessourcesPath();
 

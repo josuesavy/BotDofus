@@ -305,8 +305,7 @@ struct InventoryObject
 
 struct Stats
 {
-    int characteristicId = INVALID;
-    int total = INVALID;
+    int total;
 };
 
 struct DetailedStats : Stats
@@ -483,7 +482,7 @@ struct EntityInfos
 struct FightEntityInfos : EntityInfos
 {
     bool isAlive = true;
-    QMap<uint,DetailedStats> stats;
+    QMap<uint,Stats> stats;
     double summoner;
     bool summoned;
     uint invisibilityState;
@@ -775,6 +774,7 @@ struct FightData
     RequestedMonsters requestedMonsters;
     int followingMonsterGroup = INVALID;
     bool hasWon = true;
+    uint roundDouble = 0;
 };
 
 struct JobsData
@@ -807,7 +807,7 @@ struct MapData
 
 struct PlayerData
 {
-    QMap<uint,UsableStats> stats;
+    QMap<uint,Stats> stats;
     QList<QSharedPointer<CharacterSpellModification>> spellModifications;
     Pods pods;
     uint kamas = 0;
