@@ -8,11 +8,11 @@ void HumanOptionEmote::serialize(Writer *output)
 void HumanOptionEmote::serializeAs_HumanOptionEmote(Writer *output)
 {
   HumanOption::serializeAs_HumanOption(output);
-  if(this->emoteId < 0 || this->emoteId > 255)
+  if(this->emoteId < 0 || this->emoteId > 65535)
   {
     qDebug()<<"ERREUR - HumanOptionEmote -"<<"Forbidden value (" << this->emoteId << ") on element emoteId.";
   }
-  output->writeByte(this->emoteId);
+  output->writeShort((short)this->emoteId);
   if(this->emoteStartTime < -9.007199254740992E15 || this->emoteStartTime > 9.007199254740992E15)
   {
     qDebug()<<"ERREUR - HumanOptionEmote -"<<"Forbidden value (" << this->emoteStartTime << ") on element emoteStartTime.";
@@ -46,8 +46,8 @@ void HumanOptionEmote::deserializeAsyncAs_HumanOptionEmote(FuncTree tree)
 
 void HumanOptionEmote::_emoteIdFunc(Reader *input)
 {
-  this->emoteId = input->readUByte();
-  if(this->emoteId < 0 || this->emoteId > 255)
+  this->emoteId = input->readUShort();
+  if(this->emoteId < 0 || this->emoteId > 65535)
   {
     qDebug()<<"ERREUR - HumanOptionEmote -"<<"Forbidden value (" << this->emoteId << ") on element of HumanOptionEmote.emoteId.";
   }

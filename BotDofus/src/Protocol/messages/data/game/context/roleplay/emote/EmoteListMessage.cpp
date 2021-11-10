@@ -10,11 +10,11 @@ void EmoteListMessage::serializeAs_EmoteListMessage(Writer *output)
   output->writeShort((short)this->emoteIds.size());
   for(uint _i1 = 0; _i1 < this->emoteIds.size(); _i1++)
   {
-    if(this->emoteIds[_i1] < 0 || this->emoteIds[_i1] > 255)
+    if(this->emoteIds[_i1] < 0 || this->emoteIds[_i1] > 65535)
     {
       qDebug()<<"ERREUR - EmoteListMessage -"<<"Forbidden value (" << this->emoteIds[_i1] << ") on element 1 (starting at 1) of emoteIds.";
     }
-    output->writeByte(this->emoteIds[_i1]);
+    output->writeShort((short)this->emoteIds[_i1]);
   }
 }
 
@@ -29,8 +29,8 @@ void EmoteListMessage::deserializeAs_EmoteListMessage(Reader *input)
   uint _emoteIdsLen = input->readUShort();
   for(uint _i1 = 0; _i1 < _emoteIdsLen; _i1++)
   {
-    _val1 = input->readUByte();
-    if(_val1 < 0 || _val1 > 255)
+    _val1 = input->readUShort();
+    if(_val1 < 0 || _val1 > 65535)
     {
       qDebug()<<"ERREUR - EmoteListMessage -"<<"Forbidden value (" << _val1 << ") on elements of emoteIds.";
     }
@@ -59,8 +59,8 @@ void EmoteListMessage::_emoteIdstreeFunc(Reader *input)
 
 void EmoteListMessage::_emoteIdsFunc(Reader *input)
 {
-  uint _val = input->readUByte();
-  if(_val < 0 || _val > 255)
+  uint _val = input->readUShort();
+  if(_val < 0 || _val > 65535)
   {
     qDebug()<<"ERREUR - EmoteListMessage -"<<"Forbidden value (" << _val << ") on elements of emoteIds.";
   }

@@ -7,11 +7,11 @@ void EmotePlayAbstractMessage::serialize(Writer *output)
 
 void EmotePlayAbstractMessage::serializeAs_EmotePlayAbstractMessage(Writer *output)
 {
-  if(this->emoteId < 0 || this->emoteId > 255)
+  if(this->emoteId < 0 || this->emoteId > 65535)
   {
     qDebug()<<"ERREUR - EmotePlayAbstractMessage -"<<"Forbidden value (" << this->emoteId << ") on element emoteId.";
   }
-  output->writeByte(this->emoteId);
+  output->writeShort((short)this->emoteId);
   if(this->emoteStartTime < -9.007199254740992E15 || this->emoteStartTime > 9.007199254740992E15)
   {
     qDebug()<<"ERREUR - EmotePlayAbstractMessage -"<<"Forbidden value (" << this->emoteStartTime << ") on element emoteStartTime.";
@@ -43,8 +43,8 @@ void EmotePlayAbstractMessage::deserializeAsyncAs_EmotePlayAbstractMessage(FuncT
 
 void EmotePlayAbstractMessage::_emoteIdFunc(Reader *input)
 {
-  this->emoteId = input->readUByte();
-  if(this->emoteId < 0 || this->emoteId > 255)
+  this->emoteId = input->readUShort();
+  if(this->emoteId < 0 || this->emoteId > 65535)
   {
     qDebug()<<"ERREUR - EmotePlayAbstractMessage -"<<"Forbidden value (" << this->emoteId << ") on element of EmotePlayAbstractMessage.emoteId.";
   }

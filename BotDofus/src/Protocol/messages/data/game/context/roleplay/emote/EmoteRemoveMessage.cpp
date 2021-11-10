@@ -7,11 +7,11 @@ void EmoteRemoveMessage::serialize(Writer *output)
 
 void EmoteRemoveMessage::serializeAs_EmoteRemoveMessage(Writer *output)
 {
-  if(this->emoteId < 0 || this->emoteId > 255)
+  if(this->emoteId < 0 || this->emoteId > 65535)
   {
     qDebug()<<"ERREUR - EmoteRemoveMessage -"<<"Forbidden value (" << this->emoteId << ") on element emoteId.";
   }
-  output->writeByte(this->emoteId);
+  output->writeShort((short)this->emoteId);
 }
 
 void EmoteRemoveMessage::deserialize(Reader *input)
@@ -36,8 +36,8 @@ void EmoteRemoveMessage::deserializeAsyncAs_EmoteRemoveMessage(FuncTree tree)
 
 void EmoteRemoveMessage::_emoteIdFunc(Reader *input)
 {
-  this->emoteId = input->readUByte();
-  if(this->emoteId < 0 || this->emoteId > 255)
+  this->emoteId = input->readUShort();
+  if(this->emoteId < 0 || this->emoteId > 65535)
   {
     qDebug()<<"ERREUR - EmoteRemoveMessage -"<<"Forbidden value (" << this->emoteId << ") on element of EmoteRemoveMessage.emoteId.";
   }
