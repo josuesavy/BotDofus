@@ -383,7 +383,7 @@ void AccountForm::updateInterface(bool directCall)
     if (infos.connectionData.connectionState == ConnectionState::TRANSITION)
     {
         m_engine->getStatsManager().defineSkinHead(m_sender, QPixmap(":/icons/user.png"));
-        m_engine->getStatsManager().defineSkinFull(m_sender, QPixmap(":/icons/character.png"));
+        //m_engine->getStatsManager().defineSkinFull(m_sender, QPixmap(":/icons/character.png"));
     }
 
     if (infos.connectionData.connectionState == ConnectionState::DISCONNECTED)
