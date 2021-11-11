@@ -24,19 +24,12 @@ TEMPLATE = app
 LIBS += -lz
 #LIBS += -L"include/zlib"
 
-
 # For Windows
 win32: INCLUDEPATH += "C:\OpenSSL-Win32\include"
 win32: LIBS+= -L"C:\OpenSSL-Win32\lib" -llibeay32 -lssleay32
-#win32: LIBS += C:\Users\SAVY\Documents\Qt Creator projects\build-BotDofus-Desktop_Qt_5_13_0_MinGW_32_bit-Debug\libeay32
-#win32:INCLUDEPATH += "include\openssl\debug\x86\include"
-#win32:LIBS += -L"include\openssl\debug\x86\lib" -llibeay32 -lssleay32 # x86
-#win32:LIBS+= -L"include/openssl/lib" -llibeay64 -lssleay64 # x64
-
 
 # Display warnings about Qt features deprecated
 DEFINES += QT_DEPRECATED_WARNINGS
-
 
 # A list of resource (.qrc) files to be included in the final project.
 RESOURCES += \

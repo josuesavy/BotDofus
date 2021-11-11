@@ -732,6 +732,7 @@
 #include "src/protocol/messages/data/game/guild/GuildPaddockTeleportRequestMessage.h"
 #include "src/protocol/messages/data/game/guild/GuildSpellUpgradeRequestMessage.h"
 #include "src/protocol/messages/data/game/guild/GuildVersatileInfoListMessage.h"
+#include "src/protocol/messages/data/game/guild/recruitment/RecruitmentInformationMessage.h"
 #include "src/protocol/messages/data/game/guild/tax/AbstractTaxCollectorListMessage.h"
 #include "src/protocol/messages/data/game/guild/tax/GameRolePlayTaxCollectorFightRequestMessage.h"
 #include "src/protocol/messages/data/game/guild/tax/GuildFightJoinRequestMessage.h"

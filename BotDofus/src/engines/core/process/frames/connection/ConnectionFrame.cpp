@@ -27,10 +27,10 @@ bool ConnectionFrame::processMessage(const MessageInfos &data, SocketIO *sender)
         action(sender) << "Envoi des informations d'identification..";
 
         IdentificationMessage imsg;
-        imsg.version.major = (int)DofusVersion::MAJOR;
-        imsg.version.minor = (int)DofusVersion::MINOR;
-        imsg.version.code = (int)DofusVersion::CODE;
-        imsg.version.build = (int)DofusVersion::BUILD;
+        imsg.version.major = m_connectionManager->getDofusVersion().major;
+        imsg.version.minor = m_connectionManager->getDofusVersion().minor;
+        imsg.version.code = m_connectionManager->getDofusVersion().code;
+        imsg.version.build = m_connectionManager->getDofusVersion().build;
         imsg.version.buildType = (int)BuildTypeEnum::RELEASE;
         imsg.autoconnect = false;
         imsg.useCertificate = false;
@@ -72,7 +72,7 @@ bool ConnectionFrame::processMessage(const MessageInfos &data, SocketIO *sender)
 
         m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
 
-        QString oldVersion = QString("%1.%2.%3.%4").arg((int)DofusVersion::MAJOR).arg((int)DofusVersion::MINOR).arg((int)DofusVersion::CODE).arg((int)DofusVersion::BUILD);
+        QString oldVersion = QString("%1.%2.%3.%4").arg(m_connectionManager->getDofusVersion().major).arg(m_connectionManager->getDofusVersion().minor).arg(m_connectionManager->getDofusVersion().code).arg(m_connectionManager->getDofusVersion().build);
         QString newVersion = QString("%1.%2.%3.%4").arg(message.requiredVersion.major).arg(message.requiredVersion.minor).arg(message.requiredVersion.code).arg(message.requiredVersion.build);
 
         error(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.popup.accessDenied.badVersion").arg(oldVersion).arg(newVersion);

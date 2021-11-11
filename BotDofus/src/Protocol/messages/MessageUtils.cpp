@@ -2195,6 +2195,9 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   else if(messageEnum == MessageEnum::GUILDVERSATILEINFOLISTMESSAGE)
       return "GuildVersatileInfoListMessage";
   
+  else if(messageEnum == MessageEnum::RECRUITMENTINFORMATIONMESSAGE)
+      return "RecruitmentInformationMessage";
+  
   else if(messageEnum == MessageEnum::ABSTRACTTAXCOLLECTORLISTMESSAGE)
       return "AbstractTaxCollectorListMessage";
   
