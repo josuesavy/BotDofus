@@ -107,7 +107,7 @@ bool GameBasicFrame::processMessage(const MessageInfos &data, SocketIO *sender)
         QString output = infoData->getText();
         output = ParamsDecoder::applyParams(output, message.parameters);
 
-        if (infoData->getMessageId() == 36 && infoData->getTypeId() == 0 && m_botData[sender].fightData.lockSecret == 1)
+        if (infoData->getMessageId() == 36 && infoData->getTypeId() == 0 && m_botData[sender].fightData.requestLockSecret == 1)
         {
             debug(sender) << "Fermeture du mode spectateur";
 

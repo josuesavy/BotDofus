@@ -364,6 +364,11 @@ void StatsManager::quitDidactiel(SocketIO *sender)
     }
 }
 
+int StatsManager::getShieldPoints(SocketIO *sender)
+{
+    return m_botData[sender].playerData.stats[(uint)StatIds::SHIELD].total;
+}
+
 int StatsManager::getHealthPoints(SocketIO *sender)
 {
     return getMaxHealthPoints(sender) + m_botData[sender].playerData.stats[(uint)StatIds::CUR_LIFE].total + m_botData[sender].playerData.stats[(uint)StatIds::CUR_PERMANENT_DAMAGE].total;

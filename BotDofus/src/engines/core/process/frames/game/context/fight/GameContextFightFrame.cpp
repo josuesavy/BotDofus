@@ -97,49 +97,6 @@ bool GameContextFightFrame::processMessage(const MessageInfos &data, SocketIO *s
         if(m_botData[sender].fightData.fightType == FightTypeEnum::FIGHT_TYPE_AGRESSION)
             warn(sender)<<"Aggression...";
 
-        if(m_botData[sender].generalData.botState == FIGHTING_STATE)
-        {
-            if((m_botData[sender].fightData.lockAskForHelp && !m_botData[sender].fightData.options.isAskingForHelp) ||
-                    (!m_botData[sender].fightData.lockAskForHelp && m_botData[sender].fightData.options.isAskingForHelp))
-            {
-                debug(sender)<< "Help request flagged";
-
-                GameFightOptionToggleMessage answer;
-                answer.option = (uint)FightOptionsEnum::FIGHT_OPTION_ASK_FOR_HELP;
-                sender->send(answer);
-            }
-
-            if((m_botData[sender].fightData.lockSecret == 2 && !m_botData[sender].fightData.options.isSecret) ||
-                    (m_botData[sender].fightData.lockSecret == 0 && m_botData[sender].fightData.options.isSecret))
-            {
-                debug(sender) << "Closing spectator mode";
-
-                GameFightOptionToggleMessage answer;
-                answer.option = (uint)FightOptionsEnum::FIGHT_OPTION_SET_SECRET;
-                sender->send(answer);
-            }
-
-            if((m_botData[sender].fightData.lockClosed == 2 && !m_botData[sender].fightData.options.isClosed) ||
-                    (m_botData[sender].fightData.lockClosed == 0 && m_botData[sender].fightData.options.isClosed))
-            {
-                debug(sender) << "Closing the fight";
-
-                GameFightOptionToggleMessage answer;
-                answer.option = (uint)FightOptionsEnum::FIGHT_OPTION_SET_CLOSED;
-                sender->send(answer);
-            }
-
-            if((m_botData[sender].fightData.lockPartyOnly && !m_botData[sender].fightData.options.isRestrictedToOnly) ||
-                    (!m_botData[sender].fightData.lockAskForHelp && m_botData[sender].fightData.options.isAskingForHelp))
-            {
-                debug(sender) << "Fermeture du combat aux personnages étranger de votre groupe";
-
-                GameFightOptionToggleMessage answer;
-                answer.option = (uint)FightOptionsEnum::FIGHT_OPTION_SET_TO_PARTY_ONLY;
-                sender->send(answer);
-            }
-        }
-
         if(m_botData[sender].scriptData.isActive) // TODO
         {
             if(m_botData[sender].scriptData.activeModule != ManagerType::FIGHT)
@@ -166,6 +123,7 @@ bool GameContextFightFrame::processMessage(const MessageInfos &data, SocketIO *s
         {
             action(sender) << "Vous avez été expulsé du combat";
 
+            m_botData[sender].fightData.fighters.clear();
             m_botData[sender].generalData.botState = INACTIVE_STATE;
         }
 
@@ -179,20 +137,71 @@ bool GameContextFightFrame::processMessage(const MessageInfos &data, SocketIO *s
         GameFightOptionStateUpdateMessage message;
         message.deserialize(&reader);
 
-
         if((TeamEnum)message.teamId == m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].teamId)
         {
-            if((FightOptionsEnum)message.option == FightOptionsEnum::FIGHT_OPTION_ASK_FOR_HELP)
+            switch ((FightOptionsEnum)message.option)
+            {
+            case FightOptionsEnum::FIGHT_OPTION_ASK_FOR_HELP:
+            {
                 m_botData[sender].fightData.options.isAskingForHelp = message.state;
 
-            else if((FightOptionsEnum)message.option == FightOptionsEnum::FIGHT_OPTION_SET_SECRET)
+                if((m_botData[sender].fightData.requestLockAskForHelp && !m_botData[sender].fightData.options.isAskingForHelp) ||
+                        (!m_botData[sender].fightData.requestLockAskForHelp && m_botData[sender].fightData.options.isAskingForHelp))
+                {
+                    debug(sender)<< "Help request flagged";
+
+                    GameFightOptionToggleMessage answer;
+                    answer.option = (uint)FightOptionsEnum::FIGHT_OPTION_ASK_FOR_HELP;
+                    sender->send(answer);
+                }
+            }
+                break;
+            case FightOptionsEnum::FIGHT_OPTION_SET_SECRET:
+            {
                 m_botData[sender].fightData.options.isSecret = message.state;
 
-            else if((FightOptionsEnum)message.option == FightOptionsEnum::FIGHT_OPTION_SET_CLOSED)
+                if((m_botData[sender].fightData.requestLockSecret == 2 && !m_botData[sender].fightData.options.isSecret) ||
+                        (m_botData[sender].fightData.requestLockSecret == 0 && m_botData[sender].fightData.options.isSecret))
+                {
+                    debug(sender) << "Closing spectator mode";
+
+                    GameFightOptionToggleMessage answer;
+                    answer.option = (uint)FightOptionsEnum::FIGHT_OPTION_SET_SECRET;
+                    sender->send(answer);
+                }
+            }
+                break;
+            case FightOptionsEnum::FIGHT_OPTION_SET_CLOSED:
+            {
                 m_botData[sender].fightData.options.isClosed = message.state;
 
-            else if((FightOptionsEnum)message.option == FightOptionsEnum::FIGHT_OPTION_SET_TO_PARTY_ONLY)
+                if((m_botData[sender].fightData.requestLockClosed == 2 && !m_botData[sender].fightData.options.isClosed) ||
+                        (m_botData[sender].fightData.requestLockClosed == 0 && m_botData[sender].fightData.options.isClosed))
+                {
+                    debug(sender) << "Closing the fight";
+
+                    GameFightOptionToggleMessage answer;
+                    answer.option = (uint)FightOptionsEnum::FIGHT_OPTION_SET_CLOSED;
+                    sender->send(answer);
+                }
+            }
+                break;
+            case FightOptionsEnum::FIGHT_OPTION_SET_TO_PARTY_ONLY:
+            {
                 m_botData[sender].fightData.options.isRestrictedToOnly = message.state;
+
+                if((m_botData[sender].fightData.requestLockPartyOnly && !m_botData[sender].fightData.options.isRestrictedToOnly) ||
+                        (!m_botData[sender].fightData.requestLockAskForHelp && m_botData[sender].fightData.options.isAskingForHelp))
+                {
+                    debug(sender) << "Closing combat to foreign characters in your party";
+
+                    GameFightOptionToggleMessage answer;
+                    answer.option = (uint)FightOptionsEnum::FIGHT_OPTION_SET_TO_PARTY_ONLY;
+                    sender->send(answer);
+                }
+            }
+                break;
+            }
         }
     }
         break;
@@ -290,7 +299,7 @@ bool GameContextFightFrame::processMessage(const MessageInfos &data, SocketIO *s
         break;
 
     case MessageEnum::GAMEFIGHTTURNSTARTPLAYINGMESSAGE:
-        //m_fightManager->processTurn(sender);
+        m_fightManager->processTurn(sender);
         break;
 
     case MessageEnum::GAMEFIGHTSYNCHRONIZEMESSAGE:
@@ -363,7 +372,7 @@ bool GameContextFightFrame::processMessage(const MessageInfos &data, SocketIO *s
         {
             if (m_botData[sender].mapData.botId != members->id)
             {
-                if(m_botData[sender].generalData.botState == FIGHTING_STATE && m_botData[sender].fightData.lockClosed == 1 && members->id != INVALID)
+                if(m_botData[sender].generalData.botState == FIGHTING_STATE && m_botData[sender].fightData.requestLockClosed == 1 && members->id != INVALID)
                 {
                     action(sender) << "Un joueur inconnu est entré dans le combat. Expulsion de ce joueur...";
                     GameContextKickMessage gckmsg;

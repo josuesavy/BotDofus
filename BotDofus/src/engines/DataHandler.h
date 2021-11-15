@@ -765,11 +765,13 @@ struct FightData
     QList<uint> startingPositionsOpponent;
     int fightId = INVALID;
     FightTypeEnum fightType;
+    // Fight options
     FightTeamsOptions options;
-    bool lockPartyOnly = false;
-    int lockSecret = 0;
-    int lockClosed = 0;
-    bool lockAskForHelp = false;
+    bool requestLockPartyOnly = false;
+    int requestLockSecret = 0;
+    int requestLockClosed = 0;
+    bool requestLockAskForHelp = false;
+
     int comeAboutDistance = INVALID;
     RequestedMonsters requestedMonsters;
     int followingMonsterGroup = INVALID;
@@ -817,11 +819,12 @@ struct PlayerData
     uint accountId = 0;
     int healPercentage;
     bool isRiding = false;
+    QTimer *basicRegen;
     int minRegenRatio = 50;
     int maxRegenRatio = 90;
     QMap<int, Spell> spells;
     PlayerMountData mountData;
-    bool regenUseObjects = true;
+    bool regenUseObjects = false;
     uint increaseStatId = INVALID;
     QMap<uint, uint> resourceMonitor;
     bool isRequestingFreeSoul = false;

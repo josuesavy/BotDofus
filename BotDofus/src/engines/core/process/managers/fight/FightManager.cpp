@@ -85,22 +85,22 @@ void FightManager::setFightPlacementPosition(SocketIO *sender, FightPlacementPos
 
 void FightManager::setPartyOnly(SocketIO *sender, bool isPartyOnly)
 {
-    m_botData[sender].fightData.lockPartyOnly = isPartyOnly;
+    m_botData[sender].fightData.requestLockPartyOnly = isPartyOnly;
 }
 
 void FightManager::setSecret(SocketIO *sender, int value)
 {
-    m_botData[sender].fightData.lockSecret = value;
+    m_botData[sender].fightData.requestLockSecret = value;
 }
 
 void FightManager::setClosed(SocketIO *sender, int value)
 {
-    m_botData[sender].fightData.lockClosed = value;
+    m_botData[sender].fightData.requestLockClosed = value;
 }
 
 void FightManager::setAskForHelp(SocketIO *sender, bool isAskForHelp)
 {
-    m_botData[sender].fightData.lockAskForHelp = isAskForHelp;
+    m_botData[sender].fightData.requestLockAskForHelp = isAskForHelp;
 }
 
 void FightManager::giveUpFight(SocketIO *sender)
@@ -194,10 +194,6 @@ int FightManager::getStrongestEnemy(SocketIO *sender)
 
     foreach(const FightEntityInfos fighter, m_botData[sender].fightData.fighters)
     {
-        qDebug() << "isAlive:" << fighter.isAlive;
-        qDebug() << "different team:" << bool(m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].teamId != fighter.teamId);
-        qDebug() << "fighterlevel not invalid" << bool(fighter.level != INVALID);
-        qDebug() << "fighterlevel highest level:" << bool(fighter.level > level);
         if(fighter.isAlive && m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].teamId != fighter.teamId && fighter.level != INVALID && fighter.level > level)
         {
             level = fighter.level;

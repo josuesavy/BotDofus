@@ -367,6 +367,11 @@ void AccountForm::updateInterface(bool directCall)
 
 
         // Vie du personnage
+        if (m_engine->getStatsManager().getShieldPoints(m_sender) > 0)
+            ui->progressBarLife->setFormat(QString("%v/%m (%p%) (%1)").arg(m_engine->getStatsManager().getShieldPoints(m_sender)));
+        else
+            ui->progressBarLife->setFormat("%v/%m (%p%)");
+
         ui->progressBarLife->setMaximum(m_engine->getStatsManager().getMaxHealthPoints(m_sender));
         ui->progressBarLife->setValue(m_engine->getStatsManager().getHealthPoints(m_sender));
 
