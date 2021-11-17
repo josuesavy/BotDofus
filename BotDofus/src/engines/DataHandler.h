@@ -1019,6 +1019,7 @@ struct StatisticsData
 struct MerchandData
 {
     QList<QSharedPointer<ObjectItemToSell>> objectsItemToSell;
+    uint shopWeight = 0;
 };
 
 struct BotData
