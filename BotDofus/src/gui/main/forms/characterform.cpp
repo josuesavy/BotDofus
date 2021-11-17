@@ -18,7 +18,7 @@ CharacterForm::CharacterForm(ProcessEngine *engine, const ConnectionInfos &infos
     QObject::connect(managerFaceSkin, SIGNAL(finished(QNetworkReply*)), this, SLOT(loadCharacterFaceUrl(QNetworkReply*)));
     QObject::connect(managerFullSkin, SIGNAL(finished(QNetworkReply*)), this, SLOT(loadCharacterFullUrl(QNetworkReply*)));
 
-    //ui->labelImage->setPixmap(QPixmap(":/icons/character.png"));
+    ui->labelImage->setPixmap(QPixmap(":/icons/character.png"));
     ui->tableWidgetSpells->horizontalHeader()->setSectionResizeMode(1,QHeaderView::Stretch);
     ui->tableWidgetJobs->horizontalHeader()->setSectionResizeMode(1,QHeaderView::Stretch);
 }
@@ -64,8 +64,8 @@ void CharacterForm::updateInterface()
 
             if (!infos.playerData.fullPixmap.isNull())
                 ui->labelImage->setPixmap(infos.playerData.fullPixmap);
-//            else
-//                ui->labelImage->setPixmap(QPixmap(":/icons/character.png"));
+            else
+                ui->labelImage->setPixmap(QPixmap(":/icons/character.png"));
         }
 
 

@@ -59,3 +59,7 @@ Divers
  [OK] Quand on reconnecte le bot, il parle d'une histoire de régénération
  [ ] Des fois quand le bot se fait déco pour inactivité les logs sur la console sont pas mis à jour obligé de le reco pour avoir les dernière log sur la console
  [OK] Le bot plante sur certaines map genre quand on demande à D2OManagerSingleton pour une data (localisation: 3,-18:Astrub - Dans le paquet MapComplementaryInformationsDataMessage)
+
+Infos
+ Au lancement d'un compte, s'il y a trop de softwares en cours sur le pc ça plante et donne une erreur: "Could not load igc library.", ig9icd32!DumpRegistryKeyDefinitions, "C:\Windows\System32\DriverStore\FileRepository\iigd_dch.inf_amd64_3abed7b83f378c61\ig9icd32.dll"
+ C'est un problème côté processeur, carte graphique
