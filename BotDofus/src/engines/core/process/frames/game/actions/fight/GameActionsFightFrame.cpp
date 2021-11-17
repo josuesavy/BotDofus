@@ -24,7 +24,7 @@ bool GameActionsFightFrame::processMessage(const MessageInfos &data, SocketIO *s
         message.deserialize(&reader);
 
         m_botData[sender].fightData.fighters[message.targetId].isAlive = false;
-        m_botData[sender].fightData.fighters[message.targetId].stats[(uint)StatIds::LIFE_POINTS].total = 0;
+        m_botData[sender].fightData.fighters[message.targetId].stats[(uint)StatIds::CUR_LIFE].total = 0;
     }
         break;
 
@@ -65,14 +65,14 @@ bool GameActionsFightFrame::processMessage(const MessageInfos &data, SocketIO *s
         message.deserialize(&reader);
 
         m_botData[sender].fightData.fighters[message.targetId].stats[(uint)StatIds::SHIELD].total -= message.shieldLoss;
-        m_botData[sender].fightData.fighters[message.targetId].stats[(uint)StatIds::LIFE_POINTS].total -= message.loss;
-        m_botData[sender].fightData.fighters[message.targetId].stats[(uint)StatIds::CUR_PERMANENT_DAMAGE].total -= message.permanentDamages;
+        m_botData[sender].fightData.fighters[message.targetId].stats[(uint)StatIds::CUR_LIFE].total -= message.loss;
+        m_botData[sender].fightData.fighters[message.targetId].stats[(uint)StatIds::CUR_PERMANENT_DAMAGE].total += message.permanentDamages;
 
         if(m_botData[sender].fightData.botFightData.botId == message.targetId)
         {
             m_botData[sender].playerData.stats[(uint)StatIds::SHIELD].total -= message.shieldLoss;
-            m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].total -= message.loss;
-            m_botData[sender].playerData.stats[(uint)StatIds::CUR_PERMANENT_DAMAGE].total -= message.permanentDamages;
+            m_botData[sender].playerData.stats[(uint)StatIds::CUR_LIFE].total -= message.loss;
+            m_botData[sender].playerData.stats[(uint)StatIds::CUR_PERMANENT_DAMAGE].total += message.permanentDamages;
         }
     }
         break;
@@ -82,10 +82,10 @@ bool GameActionsFightFrame::processMessage(const MessageInfos &data, SocketIO *s
         GameActionFightLifePointsGainMessage message;
         message.deserialize(&reader);
 
-        m_botData[sender].fightData.fighters[message.targetId].stats[(uint)StatIds::LIFE_POINTS].total += message.delta;
+        m_botData[sender].fightData.fighters[message.targetId].stats[(uint)StatIds::CUR_LIFE].total += message.delta;
 
         if(m_botData[sender].fightData.botFightData.botId == message.targetId)
-            m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].total += message.delta;
+            m_botData[sender].playerData.stats[(uint)StatIds::CUR_LIFE].total += message.delta;
     }
         break;
 
@@ -94,13 +94,13 @@ bool GameActionsFightFrame::processMessage(const MessageInfos &data, SocketIO *s
         GameActionFightLifePointsLostMessage message;
         message.deserialize(&reader);
 
-        m_botData[sender].fightData.fighters[message.targetId].stats[(uint)StatIds::LIFE_POINTS].total -= message.loss;
-        m_botData[sender].fightData.fighters[message.targetId].stats[(uint)StatIds::CUR_PERMANENT_DAMAGE].total -= message.permanentDamages;
+        m_botData[sender].fightData.fighters[message.targetId].stats[(uint)StatIds::CUR_LIFE].total -= message.loss;
+        m_botData[sender].fightData.fighters[message.targetId].stats[(uint)StatIds::CUR_PERMANENT_DAMAGE].total += message.permanentDamages;
 
         if(m_botData[sender].fightData.botFightData.botId == message.targetId)
         {
-            m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].total -= message.loss;
-            m_botData[sender].playerData.stats[(uint)StatIds::CUR_PERMANENT_DAMAGE].total -= message.permanentDamages;
+            m_botData[sender].playerData.stats[(uint)StatIds::CUR_LIFE].total -= message.loss;
+            m_botData[sender].playerData.stats[(uint)StatIds::CUR_PERMANENT_DAMAGE].total += message.permanentDamages;
         }
     }
         break;

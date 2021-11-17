@@ -41,9 +41,9 @@ Combat
  [ ] Revoir l'IA en combat, il semblerait qu'il a déjà la po pour attaquer mais il bouge avant alors qu'il peut le faire après
  [OK] Revoir toute les attributions des points de caractéristiques en combat car à cause de ça le bot ne fait plus rien et meure...
  [OK] Quand le bot lance un premier combat il close déjà le combat alors qu'on lui a pas demandé (auto à cause du mode restreint)
- [ ] Lorsque le perso perd de la vie en combat le maxlife et le lifepoint decendent en même temps
- [ ] Quand le bot est en option agressive (donc doit foncer vers le monstre), il bouge pas (tempo à mettre)
- [ ] Le bot attaque des fois mais c'est rare (tempo à mettre)
+ [OK] Lorsque le perso perd de la vie en combat le maxlife et le lifepoint decendent en même temps
+ [-] Quand le bot est en option agressive (donc doit foncer vers le monstre), il bouge pas (tempo à mettre dépend de la co)
+ [-] Le bot attaque des fois mais c'est rare (tempo à mettre dépend de la co)
  [-] Voir comment on fait pour ajouter le shield quand on en prend en combat
 
 Statistiques

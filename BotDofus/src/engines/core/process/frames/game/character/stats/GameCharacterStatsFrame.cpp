@@ -227,7 +227,7 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
         UpdateLifePointsMessage message;
         message.deserialize(&reader);
 
-        m_botData[sender].playerData.stats[(int)StatIds::LIFE_POINTS].total = message.lifePoints;
+        m_botData[sender].playerData.stats[(int)StatIds::CUR_LIFE].total = message.lifePoints;
         m_botData[sender].playerData.stats[(int)StatIds::MAX_LIFE].total = message.maxLifePoints;
     }
         break;
