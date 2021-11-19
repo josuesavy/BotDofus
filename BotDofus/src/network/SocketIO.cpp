@@ -57,7 +57,7 @@ void SocketIO::send(const QByteArray &data)
 
         m_socket->write(data);
 
-        m_timers<<QTime();
+        m_timers<<QElapsedTimer();
         m_timers.last().start();
 //    }
 

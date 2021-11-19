@@ -94,8 +94,8 @@ private:
 
     QList<AccountForm*> m_accountFormChilds;
 
-    QTimer m_updateTimer;
-    QElapsedTimer m_updateChecker;
+//    QTimer m_updateTimer;
+//    QElapsedTimer m_updateChecker;
 };
 
 #endif // ACCOUNTFORM_H

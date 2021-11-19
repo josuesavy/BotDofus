@@ -84,7 +84,7 @@ private:
     void processRandomIp();
     void processRandomPort();
 
-    QList<QTime> m_timers;
+    QList<QElapsedTimer> m_timers;
     int m_maxLatency;
     QList<int> m_latencyList;
     int m_latencyTotal;

@@ -20,7 +20,7 @@ Options
  [ ] L'affichage de la planification est un peu moche
 
 Divers
- [ ] La fenêtre est trop grande pour certaines résolutions graphique. Faire en sorte d'ajuster, permettre un certain resize sur certains widgets pour régler le problème
+ [OK] La fenêtre est trop grande pour certaines résolutions graphique. Faire en sorte d'ajuster, permettre un certain resize sur certains widgets pour régler le problème
  [ ] Quand on arrête le script depuis le module, actualiser les actions dans la liste du management des scripts
  [ ] Mettre des tooltips un peu partout afin d'informer l'utilisateur
 
@@ -35,7 +35,7 @@ Inventaire
 
 Map
  [ ] Antibot sur la banque d'Astrub (191104002): des cellules marchable dans la banque vue de l'extérieur
- [ ] Des fois le bot reste en loop infinie quand on lui demande de changer de map
+ [ ] Des fois le bot reste en loop infinie quand on lui demande de bouger ou de changer de map (location: Pathfinding.cpp:124-135) 
 
 Combat
  [ ] Revoir l'IA en combat, il semblerait qu'il a déjà la po pour attaquer mais il bouge avant alors qu'il peut le faire après

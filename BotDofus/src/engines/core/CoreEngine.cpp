@@ -2,7 +2,7 @@
 
 CoreEngine::CoreEngine()
 {
-    QTime t;
+    QElapsedTimer t;
     t.start();
 
     m_managers[ManagerType::MAP] = new MapManager(&m_botData);

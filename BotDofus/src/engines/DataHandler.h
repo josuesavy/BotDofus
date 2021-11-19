@@ -377,7 +377,7 @@ struct RequestTradeObject
 
 struct RequestedPathInfos
 {
-   QTime timer;
+   QElapsedTimer timer;
    PathInfos path;
 };
 
@@ -661,7 +661,7 @@ struct BankItem
 struct MovingConfirmationRequest
 {
     QSharedPointer<QTimer> timer;      /*!< Timer to callback function */
-    QTime elapsedTime;  /*!< Elapsed time of timer */
+    QElapsedTimer elapsedTime;  /*!< Elapsed time of timer */
     int estimatedTime;  /*!< Estimated time to wait before sending mouvement confirm message */
 };
 
