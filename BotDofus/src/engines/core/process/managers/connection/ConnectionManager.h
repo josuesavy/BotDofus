@@ -3,7 +3,7 @@
 
 #include <QtSql/QtSql>
 
-#include "src/Engines/Security/RsaManager.h"
+#include "src/engines/security/RsaManager.h"
 #include "src/engines/core/process/managers/AbstractManager.h"
 
 class ConnectionManager : public AbstractManager
