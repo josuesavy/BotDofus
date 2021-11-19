@@ -84,76 +84,26 @@ void CharacterForm::updateInterface()
 
 
         // Display character's characteristics
-        ui->labelAP->setText(QString::number(infos.playerData.stats[(uint)StatIds::ACTION_POINTS].base +
-                                             infos.playerData.stats[(uint)StatIds::ACTION_POINTS].alignGiftBonus +
-                                             infos.playerData.stats[(uint)StatIds::ACTION_POINTS].contextModif +
-                                             infos.playerData.stats[(uint)StatIds::ACTION_POINTS].objectsAndMountBonus +
-                                             infos.playerData.stats[(uint)StatIds::ACTION_POINTS].additional));
-        ui->labelMP->setText(QString::number(infos.playerData.stats[(uint)StatIds::MOVEMENT_POINTS].base +
-                                             infos.playerData.stats[(uint)StatIds::MOVEMENT_POINTS].alignGiftBonus +
-                                             infos.playerData.stats[(uint)StatIds::MOVEMENT_POINTS].contextModif +
-                                             infos.playerData.stats[(uint)StatIds::MOVEMENT_POINTS].objectsAndMountBonus +
-                                             infos.playerData.stats[(uint)StatIds::MOVEMENT_POINTS].additional));
+        ui->labelAP->setText(QString::number(infos.playerData.stats[(uint)StatIds::ACTION_POINTS].total));
+        ui->labelMP->setText(QString::number(infos.playerData.stats[(uint)StatIds::MOVEMENT_POINTS].total));
         if (m_engine->getStatsManager().getMaxHealthPoints(m_sender) != 0)
         {
-            ui->labelInitiative->setText(QString("%1/%2")
-                                         .arg((infos.playerData.stats[(uint)StatIds::INITIATIVE].base +infos.playerData.stats[(uint)StatIds::INITIATIVE].alignGiftBonus +
-                                         infos.playerData.stats[(uint)StatIds::INITIATIVE].contextModif + infos.playerData.stats[(uint)StatIds::INITIATIVE].objectsAndMountBonus +
-                    infos.playerData.stats[(uint)StatIds::INITIATIVE].additional)*m_engine->getStatsManager().getHealthPoints(m_sender) / m_engine->getStatsManager().getMaxHealthPoints(m_sender))
-                    .arg(infos.playerData.stats[(uint)StatIds::INITIATIVE].base + infos.playerData.stats[(uint)StatIds::INITIATIVE].alignGiftBonus +
-                    infos.playerData.stats[(uint)StatIds::INITIATIVE].contextModif + infos.playerData.stats[(uint)StatIds::INITIATIVE].objectsAndMountBonus +
-                    infos.playerData.stats[(uint)StatIds::INITIATIVE].additional));
+            ui->labelInitiative->setText(QString("%1/%2").arg((infos.playerData.stats[(uint)StatIds::INITIATIVE].total)*m_engine->getStatsManager().getHealthPoints(m_sender) / m_engine->getStatsManager().getMaxHealthPoints(m_sender)).arg(infos.playerData.stats[(uint)StatIds::INITIATIVE].total));
         }
-        ui->labelProspecting->setText(QString::number(infos.playerData.stats[(uint)StatIds::MAGIC_FIND].base +
-                                                      infos.playerData.stats[(uint)StatIds::MAGIC_FIND].alignGiftBonus +
-                                                      infos.playerData.stats[(uint)StatIds::MAGIC_FIND].contextModif +
-                                                      infos.playerData.stats[(uint)StatIds::MAGIC_FIND].objectsAndMountBonus +
-                                                      infos.playerData.stats[(uint)StatIds::MAGIC_FIND].additional));
-        ui->labelRange->setText(QString::number(infos.playerData.stats[(uint)StatIds::RANGE].base +
-                                                infos.playerData.stats[(uint)StatIds::RANGE].alignGiftBonus +
-                                                infos.playerData.stats[(uint)StatIds::RANGE].contextModif +
-                                                infos.playerData.stats[(uint)StatIds::RANGE].objectsAndMountBonus +
-                                                infos.playerData.stats[(uint)StatIds::RANGE].additional));
-        ui->labelSummons->setText(QString::number(infos.playerData.stats[(uint)StatIds::MAX_SUMMONED_CREATURES_BOOST].base +
-                                                  infos.playerData.stats[(uint)StatIds::MAX_SUMMONED_CREATURES_BOOST].alignGiftBonus +
-                                                  infos.playerData.stats[(uint)StatIds::MAX_SUMMONED_CREATURES_BOOST].contextModif +
-                                                  infos.playerData.stats[(uint)StatIds::MAX_SUMMONED_CREATURES_BOOST].objectsAndMountBonus +
-                                                  infos.playerData.stats[(uint)StatIds::MAX_SUMMONED_CREATURES_BOOST].additional));
-        ui->labelVitality->setText(QString::number(infos.playerData.stats[(uint)StatIds::VITALITY].base +
-                                                   infos.playerData.stats[(uint)StatIds::VITALITY].alignGiftBonus +
-                                                   infos.playerData.stats[(uint)StatIds::VITALITY].contextModif +
-                                                   infos.playerData.stats[(uint)StatIds::VITALITY].objectsAndMountBonus +
-                                                   infos.playerData.stats[(uint)StatIds::VITALITY].additional));
-        ui->labelWisdom->setText(QString::number(infos.playerData.stats[(uint)StatIds::WISDOM].base +
-                                                 infos.playerData.stats[(uint)StatIds::WISDOM].alignGiftBonus +
-                                                 infos.playerData.stats[(uint)StatIds::WISDOM].contextModif +
-                                                 infos.playerData.stats[(uint)StatIds::WISDOM].objectsAndMountBonus +
-                                                 infos.playerData.stats[(uint)StatIds::WISDOM].additional));
-        ui->labelStrength->setText(QString::number(infos.playerData.stats[(uint)StatIds::STRENGTH].base +
-                                                   infos.playerData.stats[(uint)StatIds::STRENGTH].alignGiftBonus +
-                                                   infos.playerData.stats[(uint)StatIds::STRENGTH].contextModif +
-                                                   infos.playerData.stats[(uint)StatIds::STRENGTH].objectsAndMountBonus +
-                                                   infos.playerData.stats[(uint)StatIds::STRENGTH].additional));
-        ui->labelIntelligence->setText(QString::number(infos.playerData.stats[(uint)StatIds::INTELLIGENCE].base +
-                                                       infos.playerData.stats[(uint)StatIds::INTELLIGENCE].alignGiftBonus +
-                                                       infos.playerData.stats[(uint)StatIds::INTELLIGENCE].contextModif +
-                                                       infos.playerData.stats[(uint)StatIds::INTELLIGENCE].objectsAndMountBonus +
-                                                       infos.playerData.stats[(uint)StatIds::INTELLIGENCE].additional));
-        ui->labelChance->setText(QString::number(infos.playerData.stats[(uint)StatIds::CHANCE].base +
-                                                 infos.playerData.stats[(uint)StatIds::CHANCE].alignGiftBonus +
-                                                 infos.playerData.stats[(uint)StatIds::CHANCE].contextModif +
-                                                 infos.playerData.stats[(uint)StatIds::CHANCE].objectsAndMountBonus +
-                                                 infos.playerData.stats[(uint)StatIds::CHANCE].additional));
-        ui->labelAgility->setText(QString::number(infos.playerData.stats[(uint)StatIds::AGILITY].base +
-                                                  infos.playerData.stats[(uint)StatIds::AGILITY].alignGiftBonus +
-                                                  infos.playerData.stats[(uint)StatIds::AGILITY].contextModif +
-                                                  infos.playerData.stats[(uint)StatIds::AGILITY].objectsAndMountBonus +
-                                                  infos.playerData.stats[(uint)StatIds::AGILITY].additional));
-        ui->labelCapitalPoints->setText(QString("<b>%1</b>").arg(infos.playerData.stats[(uint)StatIds::STATS_POINTS].base));
+        ui->labelProspecting->setText(QString::number(infos.playerData.stats[(uint)StatIds::MAGIC_FIND].total));
+        ui->labelRange->setText(QString::number(infos.playerData.stats[(uint)StatIds::RANGE].total));
+        ui->labelSummons->setText(QString::number(infos.playerData.stats[(uint)StatIds::MAX_SUMMONED_CREATURES_BOOST].total));
+        ui->labelVitality->setText(QString::number(infos.playerData.stats[(uint)StatIds::VITALITY].total));
+        ui->labelWisdom->setText(QString::number(infos.playerData.stats[(uint)StatIds::WISDOM].total));
+        ui->labelStrength->setText(QString::number(infos.playerData.stats[(uint)StatIds::STRENGTH].total));
+        ui->labelIntelligence->setText(QString::number(infos.playerData.stats[(uint)StatIds::INTELLIGENCE].total));
+        ui->labelChance->setText(QString::number(infos.playerData.stats[(uint)StatIds::CHANCE].total));
+        ui->labelAgility->setText(QString::number(infos.playerData.stats[(uint)StatIds::AGILITY].total));
+        ui->labelCapitalPoints->setText(QString("<b>%1</b>").arg(infos.playerData.stats[(uint)StatIds::STATS_POINTS].total));
 
 
         // Automatic booster
-        if(infos.playerData.stats[(uint)StatIds::STATS_POINTS].base != 0)
+        if(infos.playerData.stats[(uint)StatIds::STATS_POINTS].total != 0)
         {
             // Enable buttons stats if there are possibility for improve character's stats
             if(infos.playerData.statsRequiredVitality != 0)
@@ -198,7 +148,7 @@ void CharacterForm::updateInterface()
         }
 
 
-        if(infos.playerData.stats[(uint)StatIds::VITALITY].base == 0 && infos.playerData.stats[(uint)StatIds::WISDOM].base == 0 && infos.playerData.stats[(uint)StatIds::STRENGTH].base == 0 && infos.playerData.stats[(uint)StatIds::INTELLIGENCE].base == 0 && infos.playerData.stats[(uint)StatIds::CHANCE].base == 0 && infos.playerData.stats[(uint)StatIds::AGILITY].base == 0)
+        if(infos.playerData.stats[(uint)StatIds::VITALITY].total == 0 && infos.playerData.stats[(uint)StatIds::WISDOM].total == 0 && infos.playerData.stats[(uint)StatIds::STRENGTH].total == 0 && infos.playerData.stats[(uint)StatIds::INTELLIGENCE].total == 0 && infos.playerData.stats[(uint)StatIds::CHANCE].total == 0 && infos.playerData.stats[(uint)StatIds::AGILITY].total == 0)
             ui->pushButtonResetCharacteristics->setEnabled(false);
         else
             ui->pushButtonResetCharacteristics->setEnabled(true);
@@ -211,32 +161,32 @@ void CharacterForm::updateInterface()
             break;
 
         case 1:
-            if(infos.playerData.stats[(uint)StatIds::STATS_POINTS].base != 0 && infos.playerData.statsRequiredVitality != 0)
+            if(infos.playerData.stats[(uint)StatIds::STATS_POINTS].total != 0 && infos.playerData.statsRequiredVitality != 0)
                 m_engine->getStatsManager().increaseStat(m_sender, PlayerD2OFields::VITALITY);
             break;
 
         case 2:
-            if(infos.playerData.stats[(uint)StatIds::STATS_POINTS].base != 0 && infos.playerData.statsRequiredWisdom != 0)
+            if(infos.playerData.stats[(uint)StatIds::STATS_POINTS].total != 0 && infos.playerData.statsRequiredWisdom != 0)
                 m_engine->getStatsManager().increaseStat(m_sender, PlayerD2OFields::WISDOM);
             break;
 
         case 3:
-            if(infos.playerData.stats[(uint)StatIds::STATS_POINTS].base != 0 && infos.playerData.statsRequiredStrength != 0)
+            if(infos.playerData.stats[(uint)StatIds::STATS_POINTS].total != 0 && infos.playerData.statsRequiredStrength != 0)
                 m_engine->getStatsManager().increaseStat(m_sender, PlayerD2OFields::STRENGTH);
             break;
 
         case 4:
-            if(infos.playerData.stats[(uint)StatIds::STATS_POINTS].base != 0 && infos.playerData.statsRequiredIntelligence != 0)
+            if(infos.playerData.stats[(uint)StatIds::STATS_POINTS].total != 0 && infos.playerData.statsRequiredIntelligence != 0)
                 m_engine->getStatsManager().increaseStat(m_sender, PlayerD2OFields::INTELLIGENCE);
             break;
 
         case 5:
-            if(infos.playerData.stats[(uint)StatIds::STATS_POINTS].base != 0 && infos.playerData.statsRequiredChance != 0)
+            if(infos.playerData.stats[(uint)StatIds::STATS_POINTS].total != 0 && infos.playerData.statsRequiredChance != 0)
                 m_engine->getStatsManager().increaseStat(m_sender, PlayerD2OFields::CHANCE);
             break;
 
         case 6:
-            if(infos.playerData.stats[(uint)StatIds::STATS_POINTS].base != 0 && infos.playerData.statsRequiredAgility != 0)
+            if(infos.playerData.stats[(uint)StatIds::STATS_POINTS].total != 0 && infos.playerData.statsRequiredAgility != 0)
                 m_engine->getStatsManager().increaseStat(m_sender, PlayerD2OFields::AGILITY);
             break;
         }

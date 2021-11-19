@@ -29,12 +29,12 @@ struct Point3D : Point2D
     float z = INVALID;
 };
 
-enum class DofusVersion
+struct DofusVersion
 {
-    MAJOR = 2,
-    MINOR = 61,
-    CODE = 9,
-    BUILD = 15,
+    int major = 0;
+    int minor = 0;
+    int code = 0;
+    int build = 0;
 };
 
 enum class SuperTypeId
@@ -305,8 +305,7 @@ struct InventoryObject
 
 struct Stats
 {
-    int characteristicId = INVALID;
-    int total = INVALID;
+    int total;
 };
 
 struct DetailedStats : Stats
@@ -378,7 +377,7 @@ struct RequestTradeObject
 
 struct RequestedPathInfos
 {
-   QTime timer;
+   QElapsedTimer timer;
    PathInfos path;
 };
 
@@ -483,7 +482,7 @@ struct EntityInfos
 struct FightEntityInfos : EntityInfos
 {
     bool isAlive = true;
-    QMap<uint,DetailedStats> stats;
+    QMap<uint,Stats> stats;
     double summoner;
     bool summoned;
     uint invisibilityState;
@@ -662,7 +661,7 @@ struct BankItem
 struct MovingConfirmationRequest
 {
     QSharedPointer<QTimer> timer;      /*!< Timer to callback function */
-    QTime elapsedTime;  /*!< Elapsed time of timer */
+    QElapsedTimer elapsedTime;  /*!< Elapsed time of timer */
     int estimatedTime;  /*!< Estimated time to wait before sending mouvement confirm message */
 };
 
@@ -766,15 +765,18 @@ struct FightData
     QList<uint> startingPositionsOpponent;
     int fightId = INVALID;
     FightTypeEnum fightType;
+    // Fight options
     FightTeamsOptions options;
-    bool lockPartyOnly = false;
-    int lockSecret = 0;
-    int lockClosed = 0;
-    bool lockAskForHelp = false;
+    bool requestLockPartyOnly = false;
+    int requestLockSecret = 0;
+    int requestLockClosed = 0;
+    bool requestLockAskForHelp = false;
+
     int comeAboutDistance = INVALID;
     RequestedMonsters requestedMonsters;
     int followingMonsterGroup = INVALID;
     bool hasWon = true;
+    uint roundDouble = 0;
 };
 
 struct JobsData
@@ -807,7 +809,7 @@ struct MapData
 
 struct PlayerData
 {
-    QMap<uint,UsableStats> stats;
+    QMap<uint,Stats> stats;
     QList<QSharedPointer<CharacterSpellModification>> spellModifications;
     Pods pods;
     uint kamas = 0;
@@ -817,11 +819,12 @@ struct PlayerData
     uint accountId = 0;
     int healPercentage;
     bool isRiding = false;
+    QTimer *basicRegen;
     int minRegenRatio = 50;
     int maxRegenRatio = 90;
     QMap<int, Spell> spells;
     PlayerMountData mountData;
-    bool regenUseObjects = true;
+    bool regenUseObjects = false;
     uint increaseStatId = INVALID;
     QMap<uint, uint> resourceMonitor;
     bool isRequestingFreeSoul = false;
@@ -1019,6 +1022,7 @@ struct StatisticsData
 struct MerchandData
 {
     QList<QSharedPointer<ObjectItemToSell>> objectsItemToSell;
+    uint shopWeight = 0;
 };
 
 struct BotData

@@ -28,8 +28,7 @@ bool GameContextRoleplayDeathFrame::processMessage(const MessageInfos &data, Soc
         if(m_botData[sender].playerData.lifeStatus == PlayerLifeStatusEnum::STATUS_TOMBSTONE)
             m_statsManager->freeSoul(sender);
 
-        else if(m_botData[sender].playerData.isRequestingFreeSoul &&
-                m_botData[sender].playerData.hasSentRequestFreeSoul)
+        else if(m_botData[sender].playerData.isRequestingFreeSoul && m_botData[sender].playerData.hasSentRequestFreeSoul)
         {
             m_botData[sender].playerData.isRequestingFreeSoul = false;
             m_botData[sender].playerData.hasSentRequestFreeSoul = false;

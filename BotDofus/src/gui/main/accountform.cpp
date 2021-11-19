@@ -81,7 +81,7 @@ AccountForm::AccountForm(ProcessEngine *engine, const ConnectionInfos &infos, QW
         ui->pushButtonClose->hide();
     }
 
-    QObject::connect(&m_updateTimer, &QTimer::timeout, [this] () { updateInterface(true); });
+    //QObject::connect(&m_updateTimer, &QTimer::timeout, [this] () { updateInterface(true); });
 }
 
 AccountForm::~AccountForm()
@@ -219,16 +219,16 @@ void AccountForm::autoConnect()
 
 void AccountForm::updateInterface(bool directCall)
 {
-    if(m_updateChecker.elapsed() < UPDATE_INTERVAL && directCall)
-    {
-        if(!m_updateTimer.isActive())
-        {
-            m_updateTimer.setInterval(UPDATE_INTERVAL-m_updateChecker.elapsed());
-            m_updateTimer.start();
-        }
+//    if(m_updateChecker.elapsed() < UPDATE_INTERVAL && directCall)
+//    {
+//        if(!m_updateTimer.isActive())
+//        {
+//            m_updateTimer.setInterval(UPDATE_INTERVAL-m_updateChecker.elapsed());
+//            m_updateTimer.start();
+//        }
 
-        return;
-    }
+//        return;
+//    }
 
     consoleForm->updateInterface();
     characterForm->updateInterface();
@@ -367,6 +367,11 @@ void AccountForm::updateInterface(bool directCall)
 
 
         // Vie du personnage
+        if (m_engine->getStatsManager().getShieldPoints(m_sender) > 0)
+            ui->progressBarLife->setFormat(QString("%v/%m (%p%) (%1)").arg(m_engine->getStatsManager().getShieldPoints(m_sender)));
+        else
+            ui->progressBarLife->setFormat("%v/%m (%p%)");
+
         ui->progressBarLife->setMaximum(m_engine->getStatsManager().getMaxHealthPoints(m_sender));
         ui->progressBarLife->setValue(m_engine->getStatsManager().getHealthPoints(m_sender));
 
@@ -383,7 +388,7 @@ void AccountForm::updateInterface(bool directCall)
     if (infos.connectionData.connectionState == ConnectionState::TRANSITION)
     {
         m_engine->getStatsManager().defineSkinHead(m_sender, QPixmap(":/icons/user.png"));
-        m_engine->getStatsManager().defineSkinFull(m_sender, QPixmap(":/icons/character.png"));
+        //m_engine->getStatsManager().defineSkinFull(m_sender, QPixmap(":/icons/character.png"));
     }
 
     if (infos.connectionData.connectionState == ConnectionState::DISCONNECTED)
@@ -420,7 +425,7 @@ void AccountForm::updateInterface(bool directCall)
         ui->labelStatus->setText(tr("Disconnected"));
     }
 
-    m_updateChecker.restart();
+    //m_updateChecker.restart();
 }
 
 void AccountForm::on_pushButtonDisconnection_clicked()

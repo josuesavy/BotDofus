@@ -68,7 +68,7 @@ public:
 
     QString getFlashKey();
 
-
+    DofusVersion getDofusVersion();
 
 private slots:
 

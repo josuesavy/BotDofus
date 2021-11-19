@@ -166,7 +166,7 @@ bool GameInventoryItemsFrame::processMessage(const MessageInfos &data, SocketIO 
                 }
             }
 
-            if(m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].base != m_botData[sender].playerData.stats[(uint)StatIds::MAX_LIFE].base && m_botData[sender].playerData.stats[(uint)StatIds::MAX_LIFE].base != 0)
+            if(m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].total != m_botData[sender].playerData.stats[(uint)StatIds::MAX_LIFE].total && m_botData[sender].playerData.stats[(uint)StatIds::MAX_LIFE].total != 0)
                 if(!m_statsManager->healEat(sender))
                     m_statsManager->healSit(sender);
         }
@@ -182,6 +182,7 @@ bool GameInventoryItemsFrame::processMessage(const MessageInfos &data, SocketIO 
         message.deserialize(&reader);
         m_botData[sender].playerData.pods.current = message.inventoryWeight;
         m_botData[sender].playerData.pods.max = message.weightMax;
+        m_botData[sender].merchandData.shopWeight = message.shopWeight;
     }
         break;
 

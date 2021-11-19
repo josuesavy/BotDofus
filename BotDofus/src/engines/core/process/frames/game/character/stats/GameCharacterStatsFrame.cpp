@@ -73,22 +73,22 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
         CharacterStatsListMessage message;
         message.deserialize(&reader);
 
-        QMap<uint,UsableStats> temp;
+        QMap<uint,Stats> temp;
 
         foreach (QSharedPointer<CharacterCharacteristic> characterCharacteristic, message.stats->characteristics)
         {
-            UsableStats usableStats;
-
             if (characterCharacteristic->getTypes().contains(ClassEnum::CHARACTERUSABLECHARACTERISTICDETAILED))
             {
                 QSharedPointer<CharacterUsableCharacteristicDetailed> characterUsableCharacteristicDetailed = qSharedPointerCast<CharacterUsableCharacteristicDetailed>(characterCharacteristic);
 
+                UsableStats usableStats;
                 usableStats.base = characterUsableCharacteristicDetailed->base;
                 usableStats.additional = characterUsableCharacteristicDetailed->additional;
                 usableStats.objectsAndMountBonus = characterUsableCharacteristicDetailed->objectsAndMountBonus;
                 usableStats.alignGiftBonus = characterUsableCharacteristicDetailed->alignGiftBonus;
                 usableStats.contextModif = characterUsableCharacteristicDetailed->contextModif;
                 usableStats.used = characterUsableCharacteristicDetailed->used;
+                usableStats.total = usableStats.base + usableStats.additional + usableStats.objectsAndMountBonus + usableStats.alignGiftBonus + usableStats.contextModif;
 
                 temp[characterCharacteristic->characteristicId] = usableStats;
             }
@@ -97,22 +97,25 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
             {
                 QSharedPointer<CharacterCharacteristicDetailed> characterCharacteristicDetailed = qSharedPointerCast<CharacterCharacteristicDetailed>(characterCharacteristic);
 
-                usableStats.base = characterCharacteristicDetailed->base;
-                usableStats.additional = characterCharacteristicDetailed->additional;
-                usableStats.objectsAndMountBonus = characterCharacteristicDetailed->objectsAndMountBonus;
-                usableStats.alignGiftBonus = characterCharacteristicDetailed->alignGiftBonus;
-                usableStats.contextModif = characterCharacteristicDetailed->contextModif;
+                DetailedStats detailedStats;
+                detailedStats.base = characterCharacteristicDetailed->base;
+                detailedStats.additional = characterCharacteristicDetailed->additional;
+                detailedStats.objectsAndMountBonus = characterCharacteristicDetailed->objectsAndMountBonus;
+                detailedStats.alignGiftBonus = characterCharacteristicDetailed->alignGiftBonus;
+                detailedStats.contextModif = characterCharacteristicDetailed->contextModif;
+                detailedStats.total = detailedStats.base + detailedStats.additional + detailedStats.objectsAndMountBonus + detailedStats.alignGiftBonus + detailedStats.contextModif;
 
-                temp[characterCharacteristic->characteristicId] = usableStats;
+                temp[characterCharacteristic->characteristicId] = detailedStats;
             }
 
             else if (characterCharacteristic->getTypes().contains(ClassEnum::CHARACTERCHARACTERISTICVALUE))
             {
                 QSharedPointer<CharacterCharacteristicValue> characterCharacteristicValue = qSharedPointerCast<CharacterCharacteristicValue>(characterCharacteristic);
 
-                usableStats.total = characterCharacteristicValue->total;
+                Stats stats;
+                stats.total = characterCharacteristicValue->total;
 
-                temp[characterCharacteristicValue->characteristicId] = usableStats;
+                temp[characterCharacteristicValue->characteristicId] = stats;
             }
         }
 
@@ -136,49 +139,12 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
         LifePointsRegenBeginMessage message;
         message.deserialize(&reader);
 
-        QMutableListIterator<LifeRegenQueue> i(m_statsManager->passiveRegen);
-        while (i.hasNext())
-            if (i.next().sender == sender)
-                i.remove();
+        m_botData[sender].playerData.regenRate = message.regenRate;
 
-        LifeRegenQueue queue;
-        queue.sender = sender;
-        queue.timer = new QTimer(this);
-        m_botData[sender].playerData.regenRate = message.regenRate/10;
-
-        QObject::connect(queue.timer, SIGNAL(timeout()), m_statsManager, SLOT(passiveHealing()));
-        queue.timer->setSingleShot(false);
-        queue.timer->setInterval(1000);
-        queue.timer->start();
-        m_statsManager->passiveRegen << queue;
-
-        if (m_botData[sender].generalData.botState == BotState::REGENERATING_STATE)
-        {
-            double p = (double)m_botData[sender].playerData.healPercentage/100.0;
-            int max = m_botData[sender].playerData.stats[(uint)StatIds::MAX_LIFE].base;
-            int life = m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].base;
-
-            if (p*max >= life)
-            {
-                m_botData[sender].generalData.botState = BotState::INACTIVE_STATE;
-
-                emit m_statsManager->healed(sender);
-
-                if(m_botData[sender].scriptData.activeModule == ManagerType::STATS)
-                    emit scriptActionDone(sender);
-            }
-
-            else
-            {
-                LifeRegenQueue q;
-                q.interval = ((p*max - life)/message.regenRate)*100;
-                q.sender = sender;
-                q.time.start();
-
-                m_statsManager->regenQueue << q;
-                QTimer::singleShot(q.interval*1000, m_statsManager, SLOT(healFinished()));
-            }
-        }
+//        QObject::connect(m_botData[sender].playerData.basicRegen, SIGNAL(timeout()), m_statsManager, SLOT(passiveHealing()));
+//        m_botData[sender].playerData.basicRegen->setSingleShot(false);
+//        m_botData[sender].playerData.basicRegen->setInterval(message.regenRate*100);
+//        m_botData[sender].playerData.basicRegen->start();
     }
         break;
 
@@ -187,21 +153,72 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
         LifePointsRegenEndMessage message;
         message.deserialize(&reader);
 
-        QMutableListIterator<LifeRegenQueue> i(m_statsManager->passiveRegen);
-        while (i.hasNext())
+        m_botData[sender].playerData.stats[(uint)StatIds::CUR_LIFE].total = message.lifePoints - message.maxLifePoints - m_botData[sender].playerData.stats[(uint)StatIds::CUR_PERMANENT_DAMAGE].total;
+        m_botData[sender].playerData.stats[(uint)StatIds::MAX_LIFE].total = message.maxLifePoints;
+
+        if(message.lifePointsGained > 0)
+            info(sender) << "Vous avez récupéré" << message.lifePointsGained << "points de vie.";
+    }
+        break;
+
+    case MessageEnum::FIGHTERSTATSLISTMESSAGE:
+    {
+        FighterStatsListMessage message;
+        message.deserialize(&reader);
+
+        QMap<uint,Stats> temp;
+
+        foreach (QSharedPointer<CharacterCharacteristic> characterCharacteristic, message.stats->characteristics)
         {
-            LifeRegenQueue q = i.next();
-            if (q.sender == sender)
+            if (characterCharacteristic->getTypes().contains(ClassEnum::CHARACTERUSABLECHARACTERISTICDETAILED))
             {
-                QObject::disconnect(q.timer, SIGNAL(timeout()), m_statsManager, SLOT(passiveHealing()));
-                q.timer->stop();
-                delete q.timer;
-                i.remove();
+                QSharedPointer<CharacterUsableCharacteristicDetailed> characterUsableCharacteristicDetailed = qSharedPointerCast<CharacterUsableCharacteristicDetailed>(characterCharacteristic);
+
+                UsableStats usableStats;
+                usableStats.base = characterUsableCharacteristicDetailed->base;
+                usableStats.additional = characterUsableCharacteristicDetailed->additional;
+                usableStats.objectsAndMountBonus = characterUsableCharacteristicDetailed->objectsAndMountBonus;
+                usableStats.alignGiftBonus = characterUsableCharacteristicDetailed->alignGiftBonus;
+                usableStats.contextModif = characterUsableCharacteristicDetailed->contextModif;
+                usableStats.used = characterUsableCharacteristicDetailed->used;
+                usableStats.total = usableStats.base + usableStats.additional + usableStats.objectsAndMountBonus + usableStats.alignGiftBonus + usableStats.contextModif;
+
+                temp[characterCharacteristic->characteristicId] = usableStats;
+            }
+
+            else if (characterCharacteristic->getTypes().contains(ClassEnum::CHARACTERCHARACTERISTICDETAILED))
+            {
+                QSharedPointer<CharacterCharacteristicDetailed> characterCharacteristicDetailed = qSharedPointerCast<CharacterCharacteristicDetailed>(characterCharacteristic);
+
+                DetailedStats detailedStats;
+                detailedStats.base = characterCharacteristicDetailed->base;
+                detailedStats.additional = characterCharacteristicDetailed->additional;
+                detailedStats.objectsAndMountBonus = characterCharacteristicDetailed->objectsAndMountBonus;
+                detailedStats.alignGiftBonus = characterCharacteristicDetailed->alignGiftBonus;
+                detailedStats.contextModif = characterCharacteristicDetailed->contextModif;
+                detailedStats.total = detailedStats.base + detailedStats.additional + detailedStats.objectsAndMountBonus + detailedStats.alignGiftBonus + detailedStats.contextModif;
+
+                temp[characterCharacteristic->characteristicId] = detailedStats;
+            }
+
+            else if (characterCharacteristic->getTypes().contains(ClassEnum::CHARACTERCHARACTERISTICVALUE))
+            {
+                QSharedPointer<CharacterCharacteristicValue> characterCharacteristicValue = qSharedPointerCast<CharacterCharacteristicValue>(characterCharacteristic);
+
+                Stats stats;
+                stats.total = characterCharacteristicValue->total;
+
+                temp[characterCharacteristicValue->characteristicId] = stats;
             }
         }
 
-        if(message.lifePointsGained != 0)
-            info(sender) << "Vous avez récupéré" << message.lifePointsGained << "points de vie.";
+        m_botData[sender].playerData.experience = message.stats->experience;
+        m_botData[sender].playerData.experienceLevelFloor = message.stats->experienceLevelFloor;
+        m_botData[sender].playerData.experienceNextLevelFloor = message.stats->experienceNextLevelFloor;
+        m_botData[sender].playerData.spellModifications = message.stats->spellModifications;
+
+        m_botData[sender].playerData.stats = temp;
+        m_botData[sender].playerData.kamas = message.stats->kamas;
     }
         break;
 
@@ -209,8 +226,9 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
     {
         UpdateLifePointsMessage message;
         message.deserialize(&reader);
-        m_botData[sender].playerData.stats[(int)StatIds::LIFE_POINTS].base = message.lifePoints;
-        m_botData[sender].playerData.stats[(int)StatIds::MAX_LIFE].base = message.maxLifePoints;
+
+        m_botData[sender].playerData.stats[(int)StatIds::CUR_LIFE].total = message.lifePoints;
+        m_botData[sender].playerData.stats[(int)StatIds::MAX_LIFE].total = message.maxLifePoints;
     }
         break;
     }

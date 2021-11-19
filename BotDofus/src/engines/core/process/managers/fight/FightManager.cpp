@@ -20,44 +20,44 @@ FightManager::FightManager(QMap<SocketIO *, BotData> *connectionsData, MapManage
     m_groupManager(groupManager)
 {
     int param4 = 0;
-        int param1 = 0;
-        int param2 = 0;
-        int param3 = 0;
-        int param5 = 0;
+    int param1 = 0;
+    int param2 = 0;
+    int param3 = 0;
+    int param5 = 0;
 
-        while(param5 < MAP_HEIGHT)
+    while(param5 < MAP_HEIGHT)
+    {
+        param4 = 0;
+        while(param4 < MAP_WIDTH)
         {
-            param4 = 0;
-            while(param4 < MAP_WIDTH)
-            {
-                Point2D point;
-                point.x = param1 + param4;
-                point.y = param2 + param4;
-                m_cellsPos[param3] = point;
-                param3++;
-                param4++;
-            }
-            param1++;
-            param4 = 0;
-            while(param4 < MAP_WIDTH)
-            {
-                Point2D point;
-                point.x = param1 + param4;
-                point.y = param2 + param4;
-                m_cellsPos[param3] = point;
-                param3++;
-                param4++;
-            }
-            param2--;
-            param5++;
+            Point2D point;
+            point.x = param1 + param4;
+            point.y = param2 + param4;
+            m_cellsPos[param3] = point;
+            param3++;
+            param4++;
         }
+        param1++;
+        param4 = 0;
+        while(param4 < MAP_WIDTH)
+        {
+            Point2D point;
+            point.x = param1 + param4;
+            point.y = param2 + param4;
+            m_cellsPos[param3] = point;
+            param3++;
+            param4++;
+        }
+        param2--;
+        param5++;
+    }
 
-        foreach(const int &id, m_cellsPos.keys())
-            m_cellsId[m_cellsPos[id]] = id;
+    foreach(const int &id, m_cellsPos.keys())
+        m_cellsId[m_cellsPos[id]] = id;
 
-        connect(m_mapManager, SIGNAL(hasFinishedMoving(SocketIO*)), this, SLOT(moveSuccess(SocketIO*)));
-        connect(m_mapManager, SIGNAL(couldNotMove(SocketIO*)), this, SLOT(moveFailure(SocketIO*)));
-        connect(m_mapManager, SIGNAL(mapContentUpdated(SocketIO*)), this, SLOT(processEndFight(SocketIO*)));
+    connect(m_mapManager, SIGNAL(hasFinishedMoving(SocketIO*)), this, SLOT(moveSuccess(SocketIO*)));
+    connect(m_mapManager, SIGNAL(couldNotMove(SocketIO*)), this, SLOT(moveFailure(SocketIO*)));
+    connect(m_mapManager, SIGNAL(mapContentUpdated(SocketIO*)), this, SLOT(processEndFight(SocketIO*)));
 }
 
 void FightManager::reset(SocketIO *sender)
@@ -85,22 +85,22 @@ void FightManager::setFightPlacementPosition(SocketIO *sender, FightPlacementPos
 
 void FightManager::setPartyOnly(SocketIO *sender, bool isPartyOnly)
 {
-    m_botData[sender].fightData.lockPartyOnly = isPartyOnly;
+    m_botData[sender].fightData.requestLockPartyOnly = isPartyOnly;
 }
 
 void FightManager::setSecret(SocketIO *sender, int value)
 {
-    m_botData[sender].fightData.lockSecret = value;
+    m_botData[sender].fightData.requestLockSecret = value;
 }
 
 void FightManager::setClosed(SocketIO *sender, int value)
 {
-    m_botData[sender].fightData.lockClosed = value;
+    m_botData[sender].fightData.requestLockClosed = value;
 }
 
 void FightManager::setAskForHelp(SocketIO *sender, bool isAskForHelp)
 {
-    m_botData[sender].fightData.lockAskForHelp = isAskForHelp;
+    m_botData[sender].fightData.requestLockAskForHelp = isAskForHelp;
 }
 
 void FightManager::giveUpFight(SocketIO *sender)
@@ -128,73 +128,43 @@ void FightManager::updateFightDisposition(SocketIO *sender)
 {
     if(m_botData[sender].fightData.fightPlacementPosition != FightPlacementPosition::NONE)
     {
-        if(m_botData[sender].fightData.fightPlacementPosition == FightPlacementPosition::NEARFUL)
+        QList<uint> enemies = getEnemies(sender);
+
+        if(!enemies.isEmpty())
         {
-            QList<uint> enemies = getEnemies(sender);
+            int cibleID = getMiddleCell(enemies);
+            int cellID = INVALID;
+            QList<uint> possiblePositions = m_botData[sender].fightData.startingPositions;
 
-            if(!enemies.isEmpty())
+            foreach(const FightEntityInfos fighter, m_botData[sender].fightData.fighters)
             {
-                int cibleID = getMiddleCell(enemies);
-                int cellID = INVALID;
-                QList<uint> possiblePositions = m_botData[sender].fightData.startingPositions;
-
-                foreach(const FightEntityInfos fighter, m_botData[sender].fightData.fighters)
+                if(m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].entityId != fighter.entityId &&
+                        fighter.isAlive &&
+                        m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].teamId == fighter.teamId)
                 {
-                    if(m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].entityId != fighter.entityId && fighter.isAlive && m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].teamId == fighter.teamId)
-                    {
-                        possiblePositions.removeOne(fighter.cellId);
-                    }
-                }
-
-                cellID = getClosestCell(cibleID, possiblePositions);
-
-                if(cellID != INVALID && m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].cellId != cellID)
-                {
-                    qDebug()<<"FightManager - Tentative de placement à la cellule"<<cellID;
-                    GameFightPlacementPositionRequestMessage answer;
-                    answer.cellId = cellID;
-                    sender->send(answer);
-                }
-
-                else if(m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].cellId == cellID)
-                {
-                    qDebug()<<"FightManager - Position actuelle déjà optimale";
+                    possiblePositions.removeOne(fighter.cellId);
                 }
             }
-        }
 
-        else if(m_botData[sender].fightData.fightPlacementPosition == FightPlacementPosition::FARTHER)
-        {
-            QList<uint> enemies = getEnemies(sender);
 
-            if(!enemies.isEmpty())
-            {
-                int cibleID = getMiddleCell(enemies);
-                int cellID = INVALID;
-                QList<uint> possiblePositions = m_botData[sender].fightData.startingPositions;
+            if(m_botData[sender].fightData.fightPlacementPosition == FightPlacementPosition::NEARFUL)
+                cellID = getClosestCell(cibleID, possiblePositions);
 
-                foreach(const FightEntityInfos fighter, m_botData[sender].fightData.fighters)
-                {
-                    if(m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].entityId != fighter.entityId && fighter.isAlive && m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].teamId == fighter.teamId)
-                    {
-                        possiblePositions.removeOne(fighter.cellId);
-                    }
-                }
-
+            else if(m_botData[sender].fightData.fightPlacementPosition == FightPlacementPosition::FARTHER)
                 cellID = getFartherCell(cibleID, possiblePositions);
 
-                if(cellID != INVALID && m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].cellId != cellID)
-                {
-                    qDebug()<<"FightManager - Tentative de placement à la cellule"<<cellID;
-                    GameFightPlacementPositionRequestMessage answer;
-                    answer.cellId = cellID;
-                    sender->send(answer);
-                }
 
-                else if(m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].cellId == cellID)
-                {
-                    qDebug()<<"FightManager - Position actuelle déjà optimale";
-                }
+            if(cellID != INVALID && m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].cellId != cellID)
+            {
+                qDebug()<<"FightManager - Tentative de placement à la cellule"<<cellID;
+                GameFightPlacementPositionRequestMessage answer;
+                answer.cellId = cellID;
+                sender->send(answer);
+            }
+
+            else if(m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].cellId == cellID)
+            {
+                qDebug()<<"FightManager - Position actuelle déjà optimale";
             }
 
             else
@@ -224,10 +194,6 @@ int FightManager::getStrongestEnemy(SocketIO *sender)
 
     foreach(const FightEntityInfos fighter, m_botData[sender].fightData.fighters)
     {
-        qDebug() << "isAlive:" << fighter.isAlive;
-        qDebug() << "different team:" << bool(m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].teamId != fighter.teamId);
-        qDebug() << "fighterlevel not invalid" << bool(fighter.level != INVALID);
-        qDebug() << "fighterlevel highest level:" << bool(fighter.level > level);
         if(fighter.isAlive && m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].teamId != fighter.teamId && fighter.level != INVALID && fighter.level > level)
         {
             level = fighter.level;
@@ -362,7 +328,6 @@ void FightManager::processTurn(SocketIO *sender)
                             if(moveToRange(sender, requested.spellID, cell, strictMoving))
                             {
                                 m_botData[sender].fightData.botFightData.movementsWaiting = false;
-                                processTurn(sender);
                                 return;
                             }
                         }
@@ -417,7 +382,7 @@ void FightManager::processTurn(SocketIO *sender)
                 {
                     if(canCastSpell(sender, requested.spellID) == SpellInabilityReason::OK && canCastSpellOnCell(sender, requested.spellID, cell) == SpellInabilityReason::OK)
                     {
-                        castSpell(sender, requested.spellID, cell);
+                        QTimer::singleShot(500, this, [this, sender, requested, cell] () { castSpell(sender, requested.spellID, cell); });//castSpell(sender, requested.spellID, cell);
                         return;
                     }
                 }
@@ -526,6 +491,7 @@ void FightManager::processTurn(SocketIO *sender)
         }
 
         GameFightTurnFinishMessage answer;
+        answer.isAfk = false;
         sender->send(answer);
     }
 }
@@ -806,8 +772,8 @@ SpellInabilityReason FightManager::canCastSpell(SocketIO *sender, int spellID)
 
     if (effects.size() > 0 && effects[0].getEffectId() == 181)
     {
-        QMap<uint,UsableStats> stats = m_botData[sender].playerData.stats;
-        int total = stats[(uint)StatIds::MAX_SUMMONED_CREATURES_BOOST].base + stats[(uint)StatIds::MAX_SUMMONED_CREATURES_BOOST].objectsAndMountBonus + stats[(uint)StatIds::MAX_SUMMONED_CREATURES_BOOST].alignGiftBonus + stats[(uint)StatIds::MAX_SUMMONED_CREATURES_BOOST].contextModif;//stats.summonableCreaturesBoost.base + stats.summonableCreaturesBoost.objectsAndMountBonus + stats.summonableCreaturesBoost.alignGiftBonus + stats.summonableCreaturesBoost.contextModif;
+        QMap<uint,Stats> stats = m_botData[sender].playerData.stats;
+        int total = stats[(uint)StatIds::MAX_SUMMONED_CREATURES_BOOST].total;
 
         if (invocationNumber >= total)
         {
@@ -878,7 +844,7 @@ SpellInabilityReason FightManager::canCastSpellOnCell(SocketIO *sender, int spel
         minRange = 0;
     }
 
-    int maxRange = (spellLevelID != 0) ? (int)(spellLevelData->getRange() + (spellLevelData->getRangeCanBeBoosted() ? m_botData[sender].playerData.stats[(uint)StatIds::RANGE].objectsAndMountBonus : 0)) : spellLevelData->getRange();
+    int maxRange = (spellLevelID != 0) ? (int)(spellLevelData->getRange() + (spellLevelData->getRangeCanBeBoosted() ? (*((DetailedStats*)&m_botData[sender].playerData.stats[(uint)StatIds::RANGE])).objectsAndMountBonus : 0)) : spellLevelData->getRange();
 
     if ((spellLevelID != 0 && spellLevelData->getCastInDiagonal()) || (weaponData != NULL && weaponData->getCastInDiagonal()))
     {
@@ -1331,10 +1297,55 @@ void FightManager::addFighter(SocketIO *sender, const QSharedPointer<GameFightFi
     FightEntityInfos infos;
     infos.isAlive = fighter->spawnInfo->alive;
     infos.entityId = fighter->contextualId;
-    //infos.stats = *fighter->stats;
     infos.cellId = fighter->disposition->cellId;
     infos.direction = fighter->disposition->direction;
     infos.teamId = (TeamEnum)fighter->spawnInfo->teamId;
+
+    QMap<uint,Stats> temp;
+    foreach (QSharedPointer<CharacterCharacteristic> characterCharacteristic, fighter->stats->characteristics->characteristics)
+    {
+        if (characterCharacteristic->getTypes().contains(ClassEnum::CHARACTERUSABLECHARACTERISTICDETAILED))
+        {
+            QSharedPointer<CharacterUsableCharacteristicDetailed> characterUsableCharacteristicDetailed = qSharedPointerCast<CharacterUsableCharacteristicDetailed>(characterCharacteristic);
+
+            UsableStats usableStats;
+            usableStats.base = characterUsableCharacteristicDetailed->base;
+            usableStats.additional = characterUsableCharacteristicDetailed->additional;
+            usableStats.objectsAndMountBonus = characterUsableCharacteristicDetailed->objectsAndMountBonus;
+            usableStats.alignGiftBonus = characterUsableCharacteristicDetailed->alignGiftBonus;
+            usableStats.contextModif = characterUsableCharacteristicDetailed->contextModif;
+            usableStats.used = characterUsableCharacteristicDetailed->used;
+            usableStats.total = usableStats.base + usableStats.additional + usableStats.objectsAndMountBonus + usableStats.alignGiftBonus + usableStats.contextModif;
+
+            temp[characterCharacteristic->characteristicId] = usableStats;
+        }
+
+        else if (characterCharacteristic->getTypes().contains(ClassEnum::CHARACTERCHARACTERISTICDETAILED))
+        {
+            QSharedPointer<CharacterCharacteristicDetailed> characterCharacteristicDetailed = qSharedPointerCast<CharacterCharacteristicDetailed>(characterCharacteristic);
+
+            DetailedStats detailedStats;
+            detailedStats.base = characterCharacteristicDetailed->base;
+            detailedStats.additional = characterCharacteristicDetailed->additional;
+            detailedStats.objectsAndMountBonus = characterCharacteristicDetailed->objectsAndMountBonus;
+            detailedStats.alignGiftBonus = characterCharacteristicDetailed->alignGiftBonus;
+            detailedStats.contextModif = characterCharacteristicDetailed->contextModif;
+            detailedStats.total = detailedStats.base + detailedStats.additional + detailedStats.objectsAndMountBonus + detailedStats.alignGiftBonus + detailedStats.contextModif;
+
+            temp[characterCharacteristic->characteristicId] = detailedStats;
+        }
+
+        else if (characterCharacteristic->getTypes().contains(ClassEnum::CHARACTERCHARACTERISTICVALUE))
+        {
+            QSharedPointer<CharacterCharacteristicValue> characterCharacteristicValue = qSharedPointerCast<CharacterCharacteristicValue>(characterCharacteristic);
+
+            Stats stats;
+            stats.total = characterCharacteristicValue->total;
+
+            temp[characterCharacteristicValue->characteristicId] = stats;
+        }
+    }
+    infos.stats = temp;
 
     if(fighter->getTypes().contains(ClassEnum::GAMEFIGHTFIGHTERNAMEDINFORMATIONS))
     {
@@ -1392,7 +1403,7 @@ bool FightManager::castNear(SocketIO *sender, int spellID, int cibleID)
             minRange = 1;
         }
 
-        int maxRange = (spellLevelID != 0) ? (int)(spellLevelData->getRange() + (spellLevelData->getRangeCanBeBoosted() ? m_botData[sender].playerData.stats[(uint)StatIds::RANGE].objectsAndMountBonus : 0)) : spellLevelData->getRange();
+        int maxRange = (spellLevelID != 0) ? (int)(spellLevelData->getRange() + (spellLevelData->getRangeCanBeBoosted() ? (*((DetailedStats*)&m_botData[sender].playerData.stats[(uint)StatIds::RANGE])).objectsAndMountBonus : 0)) : spellLevelData->getRange();
 
         if ((spellLevelID != 0 && spellLevelData->getCastInDiagonal()) || (weaponData != NULL && weaponData->getCastInDiagonal()))
         {
@@ -1473,7 +1484,7 @@ bool FightManager::castAway(SocketIO *sender, int spellID, int cibleID)
             minRange = 1;
         }
 
-        int maxRange = (spellLevelID != 0) ? (int)(spellLevelData->getRange() + (spellLevelData->getRangeCanBeBoosted() ? m_botData[sender].playerData.stats[(uint)StatIds::RANGE].objectsAndMountBonus : 0)) : spellLevelData->getRange();
+        int maxRange = (spellLevelID != 0) ? (int)(spellLevelData->getRange() + (spellLevelData->getRangeCanBeBoosted() ? (*((DetailedStats*)&m_botData[sender].playerData.stats[(uint)StatIds::RANGE])).objectsAndMountBonus : 0)) : spellLevelData->getRange();
 
         if ((spellLevelID != 0 && spellLevelData->getCastInDiagonal()) || (weaponData != NULL && weaponData->getCastInDiagonal()))
         {
@@ -1704,7 +1715,7 @@ bool FightManager::moveToRange(SocketIO *sender, int spellID, int cellID, bool m
         minRange = 1;
     }
 
-    int maxRange = (spellLevelID != 0) ? (int)(spellLevelData->getRange() + (spellLevelData->getRangeCanBeBoosted() ? m_botData[sender].playerData.stats[(uint)StatIds::RANGE].objectsAndMountBonus : 0)) : spellLevelData->getRange();
+    int maxRange = (spellLevelID != 0) ? (int)(spellLevelData->getRange() + (spellLevelData->getRangeCanBeBoosted() ? (*((DetailedStats*)&m_botData[sender].playerData.stats[(uint)StatIds::RANGE])).objectsAndMountBonus : 0)) : spellLevelData->getRange();
 
     if ((spellLevelID != 0 && spellLevelData->getCastInDiagonal()) || (weaponData != NULL && weaponData->getCastInDiagonal()))
     {
@@ -1782,33 +1793,33 @@ QMap<int, int> FightManager::getSuddenDamage(SocketIO *sender, int spellID, int 
                     {
                         origineDamageMin.append(effect.m_diceNum);
                         origineDamageMax.append(effect.m_diceSide);
-                        puissance = m_botData[sender].playerData.stats[(uint)StatIds::DAMAGES_PERCENT].base + m_botData[sender].playerData.stats[(uint)StatIds::DAMAGES_PERCENT].additional + m_botData[sender].playerData.stats[(uint)StatIds::DAMAGES_PERCENT].contextModif + m_botData[sender].playerData.stats[(uint)StatIds::DAMAGES_PERCENT].alignGiftBonus + m_botData[sender].playerData.stats[(uint)StatIds::DAMAGES_PERCENT].objectsAndMountBonus;
+                        puissance = m_botData[sender].playerData.stats[(uint)StatIds::DAMAGES_PERCENT].total;
 
                         if(D2OManagerSingleton::get()->getI18N()->getText(spellData->m_descriptionId).contains("dommages Feu"))
                         {
-                            characteristic = m_botData[sender].playerData.stats[(uint)StatIds::INTELLIGENCE].base + m_botData[sender].playerData.stats[(uint)StatIds::INTELLIGENCE].additional + m_botData[sender].playerData.stats[(uint)StatIds::INTELLIGENCE].contextModif + m_botData[sender].playerData.stats[(uint)StatIds::INTELLIGENCE].alignGiftBonus + m_botData[sender].playerData.stats[(uint)StatIds::INTELLIGENCE].objectsAndMountBonus;
-                            fixedDamageBonus = m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].base + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].additional + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].contextModif + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].alignGiftBonus + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].objectsAndMountBonus + m_botData[sender].playerData.stats[(uint)StatIds::FIRE_DAMAGE_BONUS].base + m_botData[sender].playerData.stats[(uint)StatIds::FIRE_DAMAGE_BONUS].additional + m_botData[sender].playerData.stats[(uint)StatIds::FIRE_DAMAGE_BONUS].contextModif + m_botData[sender].playerData.stats[(uint)StatIds::FIRE_DAMAGE_BONUS].alignGiftBonus + m_botData[sender].playerData.stats[(uint)StatIds::FIRE_DAMAGE_BONUS].objectsAndMountBonus;
+                            characteristic = m_botData[sender].playerData.stats[(uint)StatIds::INTELLIGENCE].total;
+                            fixedDamageBonus = m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].total;
                             elementSpell = 0;
                         }
 
                         else if(D2OManagerSingleton::get()->getI18N()->getText(spellData->m_descriptionId).contains("dommages Air"))
                         {
-                            characteristic = m_botData[sender].playerData.stats[(uint)StatIds::AGILITY].base + m_botData[sender].playerData.stats[(uint)StatIds::AGILITY].additional + m_botData[sender].playerData.stats[(uint)StatIds::AGILITY].contextModif + m_botData[sender].playerData.stats[(uint)StatIds::AGILITY].alignGiftBonus + m_botData[sender].playerData.stats[(uint)StatIds::AGILITY].objectsAndMountBonus;
-                            fixedDamageBonus = m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].base + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].additional + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].contextModif + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].alignGiftBonus + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].objectsAndMountBonus + m_botData[sender].playerData.stats[(uint)StatIds::AIR_DAMAGE_BONUS].base + m_botData[sender].playerData.stats[(uint)StatIds::AIR_DAMAGE_BONUS].additional + m_botData[sender].playerData.stats[(uint)StatIds::AIR_DAMAGE_BONUS].contextModif + m_botData[sender].playerData.stats[(uint)StatIds::AIR_DAMAGE_BONUS].alignGiftBonus + m_botData[sender].playerData.stats[(uint)StatIds::AIR_DAMAGE_BONUS].objectsAndMountBonus;
+                            characteristic = m_botData[sender].playerData.stats[(uint)StatIds::AGILITY].total;
+                            fixedDamageBonus = m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].total;
                             elementSpell = 1;
                         }
 
                         else if(D2OManagerSingleton::get()->getI18N()->getText(spellData->m_descriptionId).contains("dommages Terre"))
                         {
-                            characteristic = m_botData[sender].playerData.stats[(uint)StatIds::STRENGTH].base + m_botData[sender].playerData.stats[(uint)StatIds::STRENGTH].additional + m_botData[sender].playerData.stats[(uint)StatIds::STRENGTH].contextModif + m_botData[sender].playerData.stats[(uint)StatIds::STRENGTH].alignGiftBonus + m_botData[sender].playerData.stats[(uint)StatIds::STRENGTH].objectsAndMountBonus;
-                            fixedDamageBonus = m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].base + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].additional + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].contextModif + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].alignGiftBonus + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].objectsAndMountBonus + m_botData[sender].playerData.stats[(uint)StatIds::EARTH_DAMAGE_BONUS].base + m_botData[sender].playerData.stats[(uint)StatIds::EARTH_DAMAGE_BONUS].additional + m_botData[sender].playerData.stats[(uint)StatIds::EARTH_DAMAGE_BONUS].contextModif + m_botData[sender].playerData.stats[(uint)StatIds::EARTH_DAMAGE_BONUS].alignGiftBonus + m_botData[sender].playerData.stats[(uint)StatIds::EARTH_DAMAGE_BONUS].objectsAndMountBonus;
+                            characteristic = m_botData[sender].playerData.stats[(uint)StatIds::STRENGTH].total;
+                            fixedDamageBonus = m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].total;
                             elementSpell = 2;
                         }
 
                         else if(D2OManagerSingleton::get()->getI18N()->getText(spellData->m_descriptionId).contains("dommages Eau"))
                         {
-                            characteristic = m_botData[sender].playerData.stats[(uint)StatIds::CHANCE].base + m_botData[sender].playerData.stats[(uint)StatIds::CHANCE].additional + m_botData[sender].playerData.stats[(uint)StatIds::CHANCE].contextModif + m_botData[sender].playerData.stats[(uint)StatIds::CHANCE].alignGiftBonus + m_botData[sender].playerData.stats[(uint)StatIds::CHANCE].objectsAndMountBonus;
-                            fixedDamageBonus = m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].base + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].additional + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].contextModif + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].alignGiftBonus + m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].objectsAndMountBonus + m_botData[sender].playerData.stats[(uint)StatIds::WATER_DAMAGE_BONUS].base + m_botData[sender].playerData.stats[(uint)StatIds::WATER_DAMAGE_BONUS].additional + m_botData[sender].playerData.stats[(uint)StatIds::WATER_DAMAGE_BONUS].contextModif + m_botData[sender].playerData.stats[(uint)StatIds::WATER_DAMAGE_BONUS].alignGiftBonus + m_botData[sender].playerData.stats[(uint)StatIds::WATER_DAMAGE_BONUS].objectsAndMountBonus;
+                            characteristic = m_botData[sender].playerData.stats[(uint)StatIds::CHANCE].total;
+                            fixedDamageBonus = m_botData[sender].playerData.stats[(uint)StatIds::ALL_DAMAGES_BONUS].total;
                             elementSpell = 3;
                         }
 
@@ -2145,7 +2156,7 @@ void FightManager::processEndFight(SocketIO *sender)
                     qDebug()<<"FightManager - Plus de monstres à combattre sur cette carte X:" <<m_botData[sender].mapData.map.getPosition().getX()<<" Y:" <<m_botData[sender].mapData.map.getPosition().getY();
                 }
 
-                 QTimer::singleShot(500, this, [this, sender] () { emit scriptActionDone(sender); });
+                QTimer::singleShot(500, this, [this, sender] () { emit scriptActionDone(sender); });
 
                 //emit scriptActionDone(sender);
             }

@@ -190,6 +190,7 @@ public:
 
     void quitDidactiel(SocketIO *sender);
 
+    int getShieldPoints(SocketIO* sender);
     int getHealthPoints(SocketIO* sender);
     int getMaxHealthPoints(SocketIO* sender);
 

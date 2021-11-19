@@ -184,6 +184,10 @@ void MapForm::updateMap()
 
     if (infos.mapData.map.isInit())
     {
+        entityTypes(QList<int>());
+        interactiveTypes(QList<int>());
+        collisionTypes(QList<int>());
+
         if(infos.generalData.botState == FIGHTING_STATE)
         {
             int selfCellId = infos.fightData.fighters[infos.mapData.botId].cellId;
@@ -255,36 +259,31 @@ void MapForm::updateMap()
             int selfCellId = infos.mapData.playersOnMap[infos.mapData.botId].cellId;
 
             m_playersOnMap.clear();
-            m_npcsOnMap.clear();
-            m_merchantsOnMap.clear();
-            m_monstersOnMap.clear();
-
             foreach(const EntityInfos &entity, infos.mapData.playersOnMap)
                 m_playersOnMap << entity.cellId;
 
+            m_npcsOnMap.clear();
             foreach(const NpcInfos &npc, infos.mapData.npcsOnMap)
                 m_npcsOnMap << npc.cellId;
 
             foreach (const NpcQuestInfos &npc, infos.mapData.npcsQuestOnMap)
                 m_npcsOnMap << npc.cellId;
 
+            m_merchantsOnMap.clear();
             foreach(const MerchantInfos &merchant, infos.mapData.merchantsOnMap)
                 m_merchantsOnMap << merchant.cellId;
 
+            m_monstersOnMap.clear();
             foreach(const MonsterGroup &monster, infos.mapData.monsterGroupsOnMap)
                 m_monstersOnMap<<monster.cellID;
 
             QMap<int, int> interactivesCellId;
             for(int i = 0; i < infos.mapData.interactivesOnMap.size(); i++)
-            {
                 interactivesCellId[infos.mapData.map.getInteractiveElementCellID(infos.mapData.interactivesOnMap[i].elementId)] = i;
-            }
 
             QMap<int, int> doorsCellId;
             for(int i = 0; i < infos.mapData.doorsOnMap.size(); i++)
-            {
                 doorsCellId[infos.mapData.doorsOnMap[i].cellId] = i;
-            }
 
             QList<CellData> mapCells = infos.mapData.map.getCellData();
             QList<int> collisions;
@@ -344,13 +343,8 @@ void MapForm::updateMap()
             interactiveTypes(interactives);
             collisionTypes(collisions);
 
-            interactiveDisplayInfosList.clear();
-            monsterGroupList.clear();
-            entityInfosList.clear();
-            merchantInfosList.clear();
-            npcInfosList.clear();
-            npcQuestInfosList.clear();
 
+            interactiveDisplayInfosList.clear();
             foreach (InteractiveDisplayInfos interactive, infos.interactionData.interactives)
             {
                 InteractiveDisplayInfos in;
@@ -360,18 +354,23 @@ void MapForm::updateMap()
                 interactiveDisplayInfosList<<in;
             }
 
+            monsterGroupList.clear();
             foreach (MonsterGroup monster, infos.mapData.monsterGroupsOnMap.values())
                 monsterGroupList << monster;
 
+            entityInfosList.clear();
             foreach (EntityInfos player, infos.mapData.playersOnMap.values())
                 entityInfosList << player;
 
+            merchantInfosList.clear();
             foreach (MerchantInfos merchant, infos.mapData.merchantsOnMap.values())
                 merchantInfosList << merchant;
 
+            npcInfosList.clear();
             foreach (NpcInfos npc, infos.mapData.npcsOnMap.values())
                 npcInfosList << npc;
 
+            npcQuestInfosList.clear();
             foreach (NpcQuestInfos npc, infos.mapData.npcsQuestOnMap.values())
                 npcQuestInfosList << npc;
         }

@@ -4,12 +4,13 @@ AccountManager
  [ ] Mettre une msgbox avec option remember pour expliquer comment importer des comptes (cf. https://stackoverflow.com/a/35132465)
 
 Main
- [ ] L'energie max du bot s'affiche avec une incrémentation d'un +1 (O.o)
+ [OK] L'energie max du bot s'affiche avec une incrémentation d'un +1 (O.o)
  [ ] Ajouter un timer qui update la life du bot quand il est en régénération
 
 Carte
  [ ] Ya pas d'animation quand une entité se déplace sur la carte
  [ ] Donner une taille fixe à la carte lors du resize de la fenêtre du bot
+ [OK] In fight, the map display the interactive elements (resources, door, etc.) while not
 
 Flood
  [ ] Ajouter et supprimer une phrase dans la liste
@@ -19,7 +20,7 @@ Options
  [ ] L'affichage de la planification est un peu moche
 
 Divers
- [ ] La fenêtre est trop grande pour certaines résolutions graphique. Faire en sorte d'ajuster, permettre un certain resize sur certains widgets pour régler le problème
+ [OK] La fenêtre est trop grande pour certaines résolutions graphique. Faire en sorte d'ajuster, permettre un certain resize sur certains widgets pour régler le problème
  [ ] Quand on arrête le script depuis le module, actualiser les actions dans la liste du management des scripts
  [ ] Mettre des tooltips un peu partout afin d'informer l'utilisateur
 
@@ -34,10 +35,16 @@ Inventaire
 
 Map
  [ ] Antibot sur la banque d'Astrub (191104002): des cellules marchable dans la banque vue de l'extérieur
- [ ] Des fois le bot reste en loop infinie quand on lui demande de changer de map
+ [ ] Des fois le bot reste en loop infinie quand on lui demande de bouger ou de changer de map (location: Pathfinding.cpp:124-135) 
 
 Combat
  [ ] Revoir l'IA en combat, il semblerait qu'il a déjà la po pour attaquer mais il bouge avant alors qu'il peut le faire après
+ [OK] Revoir toute les attributions des points de caractéristiques en combat car à cause de ça le bot ne fait plus rien et meure...
+ [OK] Quand le bot lance un premier combat il close déjà le combat alors qu'on lui a pas demandé (auto à cause du mode restreint)
+ [OK] Lorsque le perso perd de la vie en combat le maxlife et le lifepoint decendent en même temps
+ [-] Quand le bot est en option agressive (donc doit foncer vers le monstre), il bouge pas (tempo à mettre dépend de la co)
+ [-] Le bot attaque des fois mais c'est rare (tempo à mettre dépend de la co)
+ [-] Voir comment on fait pour ajouter le shield quand on en prend en combat
 
 Statistiques
  [ ] Rajouter le flood (Total messages, reussis, echoues)
@@ -52,3 +59,7 @@ Divers
  [OK] Quand on reconnecte le bot, il parle d'une histoire de régénération
  [ ] Des fois quand le bot se fait déco pour inactivité les logs sur la console sont pas mis à jour obligé de le reco pour avoir les dernière log sur la console
  [OK] Le bot plante sur certaines map genre quand on demande à D2OManagerSingleton pour une data (localisation: 3,-18:Astrub - Dans le paquet MapComplementaryInformationsDataMessage)
+
+Infos
+ Au lancement d'un compte, s'il y a trop de softwares en cours sur le pc ça plante et donne une erreur: "Could not load igc library.", ig9icd32!DumpRegistryKeyDefinitions, "C:\Windows\System32\DriverStore\FileRepository\iigd_dch.inf_amd64_3abed7b83f378c61\ig9icd32.dll"
+ C'est un problème côté processeur, carte graphique

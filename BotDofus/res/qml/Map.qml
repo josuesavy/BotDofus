@@ -32,6 +32,8 @@ Canvas {
 
     width: width * ratio
     height: height * ratio
+    anchors.centerIn: parent
+
     renderStrategy: Canvas.Threaded
     antialiasing: true
     onPaint: draw();

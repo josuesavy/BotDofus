@@ -7,11 +7,11 @@ void EmotePlayRequestMessage::serialize(Writer *output)
 
 void EmotePlayRequestMessage::serializeAs_EmotePlayRequestMessage(Writer *output)
 {
-  if(this->emoteId < 0 || this->emoteId > 255)
+  if(this->emoteId < 0 || this->emoteId > 65535)
   {
     qDebug()<<"ERREUR - EmotePlayRequestMessage -"<<"Forbidden value (" << this->emoteId << ") on element emoteId.";
   }
-  output->writeByte(this->emoteId);
+  output->writeShort((short)this->emoteId);
 }
 
 void EmotePlayRequestMessage::deserialize(Reader *input)
@@ -36,8 +36,8 @@ void EmotePlayRequestMessage::deserializeAsyncAs_EmotePlayRequestMessage(FuncTre
 
 void EmotePlayRequestMessage::_emoteIdFunc(Reader *input)
 {
-  this->emoteId = input->readUByte();
-  if(this->emoteId < 0 || this->emoteId > 255)
+  this->emoteId = input->readUShort();
+  if(this->emoteId < 0 || this->emoteId > 65535)
   {
     qDebug()<<"ERREUR - EmotePlayRequestMessage -"<<"Forbidden value (" << this->emoteId << ") on element of EmotePlayRequestMessage.emoteId.";
   }

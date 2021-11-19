@@ -7,6 +7,7 @@
 
 #include <QTime>
 #include <QMap>
+#include <QtMath>
 
 #define INVALID -1
 #define MAP_WIDTH 14
@@ -234,8 +235,6 @@ public:
      * \return Monsters is a summon or not
      */
     bool isSummon(SocketIO *sender, double ennemie);
-
-
 
 public slots:
 
@@ -515,7 +514,6 @@ public:
     GroupManager *m_groupManager;
     static QMap<int, Point2D> m_cellsPos;
     static QMap<Point2D, int> m_cellsId;
-    QTime fightTimer;
 };
 
 #endif // FIGHTMANAGER_H

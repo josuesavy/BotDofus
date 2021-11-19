@@ -153,6 +153,43 @@ QString ConnectionManager::getFlashKey()
     return key;
 }
 
+DofusVersion ConnectionManager::getDofusVersion()
+{
+    QString dofusPath;
+    QSqlQuery query;
+    query.prepare("SELECT dofus_path FROM globalParameters");
+
+    if(query.exec())
+    {
+        while(query.next())
+        {
+            dofusPath = query.value(0).toString();
+        }
+    }
+
+    DofusVersion dofusVersion;
+    if (!dofusPath.isEmpty())
+    {
+        QFile file(dofusPath + "/VERSION");
+        if (file.open(QIODevice::ReadOnly | QIODevice::Text))
+        {
+            while (!file.atEnd())
+            {
+                QString line = file.readLine();
+                if (line.contains('.'))
+                {
+                    dofusVersion.major = line.split(".").at(0).toInt();
+                    dofusVersion.minor = line.split(".").at(1).toInt();
+                    dofusVersion.code = line.split(".").at(2).toInt();
+                    dofusVersion.build = line.split(".").at(3).toInt();
+                }
+            }
+        }
+    }
+
+    return dofusVersion;
+}
+
 void ConnectionManager::hasConnected()
 {
     SocketIO *sender = static_cast<SocketIO*>(QObject::sender());

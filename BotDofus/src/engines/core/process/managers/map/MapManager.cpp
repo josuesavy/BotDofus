@@ -114,7 +114,7 @@ bool MapManager::changeCell(SocketIO *sender, uint cellId)
         foreach(MerchantInfos m, m_botData[sender].mapData.merchantsOnMap)
             cells << m.cellId;
 
-        QTime mesure;
+        QElapsedTimer mesure;
         mesure.start();
         PathInfos path;
         Pathfinding pathfinding;
@@ -148,6 +148,8 @@ bool MapManager::changeCell(SocketIO *sender, uint cellId)
 
         return false;
     }
+
+    return false;
 }
 
 bool MapManager::changeToNearestCell(SocketIO *sender, uint cellId)
@@ -171,7 +173,7 @@ bool MapManager::changeToNearestCell(SocketIO *sender, uint cellId)
         foreach(MerchantInfos m, m_botData[sender].mapData.merchantsOnMap)
             cells << m.cellId;
 
-        QTime mesure;
+        QElapsedTimer mesure;
         mesure.start();
         NearestPathInfos path;
         Pathfinding pathfinding;
@@ -409,7 +411,7 @@ void MapManager::processConfirmation()
 
             if (!m_botData[i.key()].mapData.requestedMaps.isEmpty())
             {
-                i.value().mapData.requestedMaps.first().cellId;
+                //i.value().mapData.requestedMaps.first().cellId;
 
                 ChangeMapMessage answer2;
                 answer2.mapId = i.value().mapData.requestedMaps.first().mapId;

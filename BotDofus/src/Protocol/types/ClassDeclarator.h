@@ -243,6 +243,7 @@
 #include "src/protocol/types/data/game/guild/GuildEmblem.h"
 #include "src/protocol/types/data/game/guild/GuildMember.h"
 #include "src/protocol/types/data/game/guild/HavenBagFurnitureInformation.h"
+#include "src/protocol/types/data/game/guild/recruitment/GuildRecruitmentInformation.h"
 #include "src/protocol/types/data/game/guild/tax/AdditionalTaxCollectorInformations.h"
 #include "src/protocol/types/data/game/guild/tax/TaxCollectorBasicInformations.h"
 #include "src/protocol/types/data/game/guild/tax/TaxCollectorComplementaryInformations.h"
