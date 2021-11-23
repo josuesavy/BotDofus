@@ -57,7 +57,8 @@ bool GameContextFrame::processMessage(const MessageInfos &data, SocketIO *sender
         GameContextRefreshEntityLookMessage message;
         message.deserialize(&reader);
 
-        m_botData[sender].mapData.playersOnMap[message.id].look = message.look;
+        if (m_botData[sender].mapData.playersOnMap.contains(message.id))
+            m_botData[sender].mapData.playersOnMap[message.id].look = message.look;
     }
         break;
 
