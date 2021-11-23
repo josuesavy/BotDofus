@@ -184,7 +184,8 @@ public:
      */
     void setAutomaticallyAcceptAchievement(SocketIO *sender, bool active);
 
-
+    void defineUrlHead(SocketIO *sender, QUrl url);
+    void defineUrlFull(SocketIO *sender, QUrl url);
     void defineSkinHead(SocketIO *sender, QPixmap pixmap);
     void defineSkinFull(SocketIO *sender, QPixmap pixmap);
 

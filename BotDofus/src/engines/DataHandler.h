@@ -836,6 +836,8 @@ struct PlayerData
     int breed = 0;
     QList<InventoryObject> inventoryContent;
     PlayerLifeStatusEnum lifeStatus = PlayerLifeStatusEnum::STATUS_ALIVE_AND_KICKING;
+    QUrl characterFullUrl;
+    QUrl characterFaceUrl;
     QPixmap headPixmap;
     QPixmap fullPixmap;
 

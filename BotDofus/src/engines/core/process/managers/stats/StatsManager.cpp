@@ -345,6 +345,16 @@ void StatsManager::setAutomaticallyAcceptAchievement(SocketIO *sender, bool acti
     m_botData[sender].playerData.automaticallyAcceptAchievement = active;
 }
 
+void StatsManager::defineUrlHead(SocketIO *sender, QUrl url)
+{
+    m_botData[sender].playerData.characterFaceUrl = url;
+}
+
+void StatsManager::defineUrlFull(SocketIO *sender, QUrl url)
+{
+    m_botData[sender].playerData.characterFullUrl = url;
+}
+
 void StatsManager::defineSkinHead(SocketIO *sender, QPixmap pixmap)
 {
     m_botData[sender].playerData.headPixmap = pixmap;

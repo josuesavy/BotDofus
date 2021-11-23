@@ -225,6 +225,8 @@ void ConnectionManager::hasDisconnected()
 
         m_botData[sender].playerData.headPixmap = QPixmap(":/icons/user.png");
         m_botData[sender].playerData.fullPixmap = QPixmap(":/icons/character.png");
+        m_botData[sender].playerData.characterFaceUrl = QUrl();
+        m_botData[sender].playerData.characterFullUrl = QUrl();
         m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
 
         emit botDisconnected(sender);
