@@ -74,7 +74,9 @@ void InventoryForm::updateInterface()
                 ui->tableWidgetEquipment->insertRow(ui->tableWidgetEquipment->rowCount());
                 ui->tableWidgetEquipment->setItem(indexEquipment, 0, new QTableWidgetItem(QIcon(D2PManagerSingleton::get()->getImage(QString::number(c->getIconId()))), c->getName()));
                 ui->tableWidgetEquipment->setItem(indexEquipment, 1, new QTableWidgetItem(QString::number(i.quantity)));
-                ui->tableWidgetEquipment->setItem(indexEquipment, 2, new QTableWidgetItem(QString::number(i.GID)));
+                QTableWidgetItem *tableWidgetItemTemp = new QTableWidgetItem(QString::number(i.GID));
+                tableWidgetItemTemp->setData(Qt::UserRole, i.UID);
+                ui->tableWidgetEquipment->setItem(indexEquipment, 2, tableWidgetItemTemp);
 
                 if(!i.isEquipped)
                     ui->tableWidgetEquipment->setItem(indexEquipment, 3, new QTableWidgetItem(QString("Not equipped")));
@@ -116,7 +118,9 @@ void InventoryForm::updateInterface()
                 ui->tableWidgetUsableItems->insertRow(ui->tableWidgetUsableItems->rowCount());
                 ui->tableWidgetUsableItems->setItem(indexConsumable, 0, new QTableWidgetItem(QIcon(D2PManagerSingleton::get()->getImage(QString::number(c->getIconId()))), c->getName()));
                 ui->tableWidgetUsableItems->setItem(indexConsumable, 1, new QTableWidgetItem(QString::number(i.quantity)));
-                ui->tableWidgetUsableItems->setItem(indexConsumable, 2, new QTableWidgetItem(QString::number(i.GID)));
+                QTableWidgetItem *tableWidgetItemTemp = new QTableWidgetItem(QString::number(i.GID));
+                tableWidgetItemTemp->setData(Qt::UserRole, i.UID);
+                ui->tableWidgetUsableItems->setItem(indexConsumable, 2, tableWidgetItemTemp);
 
                 pushButtonUseUsableItem = new QPushButton("Use");
                 connect(pushButtonUseUsableItem, SIGNAL(clicked()), this, SLOT(useUsable()));
@@ -139,7 +143,9 @@ void InventoryForm::updateInterface()
                 ui->tableWidgetResources->insertRow(ui->tableWidgetResources->rowCount());
                 ui->tableWidgetResources->setItem(indexResource, 0, new QTableWidgetItem(QIcon(D2PManagerSingleton::get()->getImage(QString::number(c->getIconId()))), c->getName()));
                 ui->tableWidgetResources->setItem(indexResource, 1, new QTableWidgetItem(QString::number(i.quantity)));
-                ui->tableWidgetResources->setItem(indexResource, 2, new QTableWidgetItem(QString::number(i.GID)));
+                QTableWidgetItem *tableWidgetItemTemp = new QTableWidgetItem(QString::number(i.GID));
+                tableWidgetItemTemp->setData(Qt::UserRole, i.UID);
+                ui->tableWidgetResources->setItem(indexResource, 2, tableWidgetItemTemp);
 
                 pushButtonThrowResource = new QPushButton("Throw");
                 connect(pushButtonThrowResource, SIGNAL(clicked()), this, SLOT(throwResource()));
@@ -158,7 +164,9 @@ void InventoryForm::updateInterface()
                 ui->tableWidgetQuestItems->insertRow(ui->tableWidgetQuestItems->rowCount());
                 ui->tableWidgetQuestItems->setItem(indexQuest, 0, new QTableWidgetItem(QIcon(D2PManagerSingleton::get()->getImage(QString::number(c->getIconId()))), c->getName()));
                 ui->tableWidgetQuestItems->setItem(indexQuest, 1, new QTableWidgetItem(QString::number(i.quantity)));
-                ui->tableWidgetQuestItems->setItem(indexQuest, 2, new QTableWidgetItem(QString::number(i.GID)));
+                QTableWidgetItem *tableWidgetItemTemp = new QTableWidgetItem(QString::number(i.GID));
+                tableWidgetItemTemp->setData(Qt::UserRole, i.UID);
+                ui->tableWidgetQuestItems->setItem(indexQuest, 2, tableWidgetItemTemp);
 
                 indexQuest++;
             }
@@ -189,17 +197,10 @@ void InventoryForm::resetInventory()
     // Empty all inventories categories
     m_inventoryContent.clear();
 
-    while(ui->tableWidgetResources->rowCount() > 0)
-        ui->tableWidgetResources->removeRow(0);
-
-    while(ui->tableWidgetEquipment->rowCount() > 0)
-        ui->tableWidgetEquipment->removeRow(0);
-
-    while(ui->tableWidgetUsableItems->rowCount() > 0)
-        ui->tableWidgetUsableItems->removeRow(0);
-
-    while(ui->tableWidgetQuestItems->rowCount() > 0)
-        ui->tableWidgetQuestItems->removeRow(0);
+    ui->tableWidgetEquipment->setRowCount(0);
+    ui->tableWidgetUsableItems->setRowCount(0);
+    ui->tableWidgetResources->setRowCount(0);
+    ui->tableWidgetQuestItems->setRowCount(0);
 }
 
 void InventoryForm::equipEquipement()
@@ -210,14 +211,13 @@ void InventoryForm::equipEquipement()
         int row = ui->tableWidgetEquipment->indexAt(pushButttonSender->pos()).row();
 
         int indexGID = ui->tableWidgetEquipment->item(row, 2)->text().toInt();
-        int indexUID = INVALID;
+        int indexUID = ui->tableWidgetEquipment->item(row, 2)->data(Qt::UserRole).toUInt();
         bool isEquipped = false;
 
         for(int i=0; i < getData().playerData.inventoryContent.size(); i++)
         {
-            if(indexGID == getData().playerData.inventoryContent.at(i).GID)
+            if(indexGID == getData().playerData.inventoryContent.at(i).GID && indexUID == getData().playerData.inventoryContent.at(i).UID)
             {
-                indexUID = getData().playerData.inventoryContent.at(i).UID;
                 isEquipped = getData().playerData.inventoryContent.at(i).isEquipped;
                 break;
             }
@@ -243,18 +243,8 @@ void InventoryForm::throwEquipement()
     {
         int row = ui->tableWidgetEquipment->indexAt(pushButttonSender->pos()).row();
 
-        int indexGID = ui->tableWidgetEquipment->item(row, 2)->text().toInt();
+        int indexUID = ui->tableWidgetEquipment->item(row, 2)->data(Qt::UserRole).toUInt();
         int quantity = ui->tableWidgetEquipment->item(row, 1)->text().toInt();
-        int indexUID = INVALID;
-
-        for(int i=0; i < getData().playerData.inventoryContent.size(); i++)
-        {
-            if(indexGID == getData().playerData.inventoryContent.at(i).GID)
-            {
-                indexUID = getData().playerData.inventoryContent.at(i).UID;
-                break;
-            }
-        }
 
         if(quantity > 1)
         {
@@ -280,18 +270,8 @@ void InventoryForm::deleteEquipement()
     {
         int row = ui->tableWidgetEquipment->indexAt(pushButttonSender->pos()).row();
 
-        int indexGID = ui->tableWidgetEquipment->item(row, 2)->text().toInt();
+        int indexUID = ui->tableWidgetEquipment->item(row, 2)->data(Qt::UserRole).toUInt();
         int quantity = ui->tableWidgetEquipment->item(row, 1)->text().toInt();
-        int indexUID = INVALID;
-
-        for(int i=0; i < getData().playerData.inventoryContent.size(); i++)
-        {
-            if(indexGID == getData().playerData.inventoryContent.at(i).GID)
-            {
-                indexUID = getData().playerData.inventoryContent.at(i).UID;
-                break;
-            }
-        }
 
         if(quantity > 1)
         {
@@ -317,17 +297,7 @@ void InventoryForm::useUsable()
     {
         int row = ui->tableWidgetUsableItems->indexAt(pushButttonSender->pos()).row();
 
-        int indexGID = ui->tableWidgetUsableItems->item(row, 2)->text().toInt();
-        int indexUID = INVALID;
-
-        for(int i=0; i < getData().playerData.inventoryContent.size(); i++)
-        {
-            if(indexGID == getData().playerData.inventoryContent.at(i).GID)
-            {
-                indexUID = getData().playerData.inventoryContent.at(i).UID;
-                break;
-            }
-        }
+        int indexUID = ui->tableWidgetEquipment->item(row, 2)->data(Qt::UserRole).toUInt();
 
         qDebug()<<"ACCOUNTFORM - USE ITEM"<<indexUID;
         m_engine->getStatsManager().useItem(m_sender, indexUID);
@@ -341,18 +311,8 @@ void InventoryForm::throwUsable()
     {
         int row = ui->tableWidgetUsableItems->indexAt(pushButttonSender->pos()).row();
 
-        int indexGID = ui->tableWidgetEquipment->item(row, 2)->text().toInt();
+        int indexUID = ui->tableWidgetEquipment->item(row, 2)->data(Qt::UserRole).toUInt();
         int quantity = ui->tableWidgetEquipment->item(row, 1)->text().toInt();
-        int indexUID = INVALID;
-
-        for(int i=0; i < getData().playerData.inventoryContent.size(); i++)
-        {
-            if(indexGID == getData().playerData.inventoryContent.at(i).GID)
-            {
-                indexUID = getData().playerData.inventoryContent.at(i).UID;
-                break;
-            }
-        }
 
         if(quantity > 1)
         {
@@ -378,18 +338,8 @@ void InventoryForm::deleteUsable()
     {
         int row = ui->tableWidgetUsableItems->indexAt(pushButttonSender->pos()).row();
 
-        int indexGID = ui->tableWidgetUsableItems->item(row, 2)->text().toInt();
+        int indexUID = ui->tableWidgetEquipment->item(row, 2)->data(Qt::UserRole).toUInt();
         int quantity = ui->tableWidgetUsableItems->item(row, 1)->text().toInt();
-        int indexUID = INVALID;
-
-        for(int i=0; i < getData().playerData.inventoryContent.size(); i++)
-        {
-            if(indexGID == getData().playerData.inventoryContent.at(i).GID)
-            {
-                indexUID = getData().playerData.inventoryContent.at(i).UID;
-                break;
-            }
-        }
 
         if(quantity > 1)
         {
@@ -415,18 +365,8 @@ void InventoryForm::throwResource()
     {
         int row = ui->tableWidgetResources->indexAt(pushButttonSender->pos()).row();
 
-        int indexGID = ui->tableWidgetResources->item(row, 2)->text().toInt();
+        int indexUID = ui->tableWidgetEquipment->item(row, 2)->data(Qt::UserRole).toUInt();
         int quantity = ui->tableWidgetResources->item(row, 1)->text().toInt();
-        int indexUID = INVALID;
-
-        for(int i=0; i < getData().playerData.inventoryContent.size(); i++)
-        {
-            if(indexGID == getData().playerData.inventoryContent.at(i).GID)
-            {
-                indexUID = getData().playerData.inventoryContent.at(i).UID;
-                break;
-            }
-        }
 
         if(quantity > 1)
         {
@@ -452,18 +392,8 @@ void InventoryForm::deleteResource()
     {
         int row = ui->tableWidgetResources->indexAt(pushButttonSender->pos()).row();
 
-        int indexGID = ui->tableWidgetResources->item(row, 2)->text().toInt();
+        int indexUID = ui->tableWidgetEquipment->item(row, 2)->data(Qt::UserRole).toUInt();
         int quantity = ui->tableWidgetResources->item(row, 1)->text().toInt();
-        int indexUID = INVALID;
-
-        for(int i=0; i < getData().playerData.inventoryContent.size(); i++)
-        {
-            if(indexGID == getData().playerData.inventoryContent.at(i).GID)
-            {
-                indexUID = getData().playerData.inventoryContent.at(i).UID;
-                break;
-            }
-        }
 
         if(quantity > 1)
         {

@@ -259,6 +259,9 @@ bool GameInventoryItemsFrame::processMessage(const MessageInfos &data, SocketIO 
         item.GID = message.object->objectGID;
         item.UID = message.object->objectUID;
         item.quantity = message.object->quantity;
+        item.position = (CharacterInventoryPositionEnum)message.object->position;
+        if (m_statsManager->inventoryPositions.contains(item.position))
+            item.isEquipped = true;
 
         for (int i = 0; i < message.object->effects.size(); i++)
         {
@@ -271,10 +274,15 @@ bool GameInventoryItemsFrame::processMessage(const MessageInfos &data, SocketIO 
             }
         }
 
-        m_botData[sender].playerData.inventoryContent<<item;
+        if (item.isEquipped)
+            m_botData[sender].playerData.inventoryContent.insert(m_botData[sender].playerData.inventoryContent.indexOf(m_botData[sender].playerData.inventoryContent.first()), item);
+        else
+            m_botData[sender].playerData.inventoryContent<<item;
+
         if (m_botData[sender].playerData.resourceMonitor.keys().contains(message.object->objectGID))
             m_botData[sender].playerData.resourceMonitor[message.object->objectGID] += message.object->quantity;
 
+        // AUTO_DELETE
         if (m_botData[sender].farmData.resourcesToDelete.contains(item.GID))
         {
             ObjectDeleteMessage reply;
@@ -387,6 +395,8 @@ bool GameInventoryItemsFrame::processMessage(const MessageInfos &data, SocketIO 
             if (m_botData[sender].playerData.inventoryContent[i].UID == message.objectUID)
             {
                 m_botData[sender].playerData.inventoryContent[i].quantity = message.quantity;
+
+
                 if (m_botData[sender].farmData.resourcesToDelete.contains(m_botData[sender].playerData.inventoryContent[i].GID))
                 {
                     ObjectDeleteMessage reply;
