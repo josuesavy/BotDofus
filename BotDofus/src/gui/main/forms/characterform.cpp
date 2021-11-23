@@ -59,8 +59,11 @@ void CharacterForm::updateInterface()
             QUrl characterFullUrl(EntityLookParser::getUrl(infos.mapData.playersOnMap[infos.mapData.botId].look, EntityRendererType::FULL, EntityRendererOrientation::DIAGONAL_RIGHT));
             QUrl characterFaceUrl(EntityLookParser::getUrl(infos.mapData.playersOnMap[infos.mapData.botId].look, EntityRendererType::FACE, EntityRendererOrientation::DIAGONAL_RIGHT));
 
-            managerFaceSkin->get(QNetworkRequest(characterFaceUrl));
-            managerFullSkin->get(QNetworkRequest(characterFullUrl));
+            if (infos.playerData.characterFullUrl != characterFullUrl || infos.playerData.characterFullUrl.isEmpty())
+                managerFullSkin->get(QNetworkRequest(characterFullUrl));
+            if (infos.playerData.characterFaceUrl != characterFaceUrl || infos.playerData.characterFaceUrl.isEmpty())
+                managerFaceSkin->get(QNetworkRequest(characterFaceUrl));
+
 
             if (!infos.playerData.fullPixmap.isNull())
                 ui->labelImage->setPixmap(infos.playerData.fullPixmap);
@@ -147,6 +150,8 @@ void CharacterForm::updateInterface()
             ui->pushButtonAddAgility->setEnabled(false);
         }
 
+        //Stats *statsNoConst = const_cast<Stats*>(&infos.playerData.stats[(uint)StatIds::VITALITY]);
+        //const DetailedStats &test = static_cast<const DetailedStats&>(const_cast<Stats>(&infos.playerData.stats[(uint)StatIds::VITALITY]));
 
         if(infos.playerData.stats[(uint)StatIds::VITALITY].total == 0 && infos.playerData.stats[(uint)StatIds::WISDOM].total == 0 && infos.playerData.stats[(uint)StatIds::STRENGTH].total == 0 && infos.playerData.stats[(uint)StatIds::INTELLIGENCE].total == 0 && infos.playerData.stats[(uint)StatIds::CHANCE].total == 0 && infos.playerData.stats[(uint)StatIds::AGILITY].total == 0)
             ui->pushButtonResetCharacteristics->setEnabled(false);
@@ -193,19 +198,9 @@ void CharacterForm::updateInterface()
 
 
         // Spell's list
-        uint levelSpell = 0;
-
-        if(infos.mapData.gameContext == GameContextEnum::ROLE_PLAY)
-            levelSpell = infos.mapData.playersOnMap[infos.mapData.botId].level;
-
-        else if(infos.mapData.gameContext == GameContextEnum::FIGHT)
-            levelSpell = infos.fightData.fighters[infos.fightData.botFightData.botId].level;
-
         //bool newSpells = ui->tableWidget->it != infos.playerData.spells.size();
 
-        ui->tableWidgetSpells->clearContents();
         ui->tableWidgetSpells->setRowCount(0);
-        ui->tableWidgetSpells->removeRow(0);
         QSharedPointer<SpellData> spellData;
         foreach(const Spell &spell, infos.playerData.spells)
         {
@@ -218,9 +213,7 @@ void CharacterForm::updateInterface()
 
 
         // Job's list
-        ui->tableWidgetJobs->clearContents();
         ui->tableWidgetJobs->setRowCount(0);
-        ui->tableWidgetJobs->removeRow(0);
         QSharedPointer<JobData> jobData;
         foreach(const JobExperience &e, infos.craftData.jobs)
         {
@@ -239,12 +232,18 @@ void CharacterForm::updateInterface()
 
     if (infos.connectionData.connectionState == ConnectionState::TRANSITION)
     {
-
+        m_engine->getStatsManager().defineSkinHead(m_sender, QPixmap(":/icons/user.png"));
+        m_engine->getStatsManager().defineSkinFull(m_sender, QPixmap(":/icons/character.png"));
+        m_engine->getStatsManager().defineUrlHead(m_sender, QUrl());
+        m_engine->getStatsManager().defineUrlFull(m_sender, QUrl());
     }
 
     if (infos.connectionData.connectionState == ConnectionState::DISCONNECTED)
     {
-
+        m_engine->getStatsManager().defineSkinHead(m_sender, QPixmap(":/icons/user.png"));
+        m_engine->getStatsManager().defineSkinFull(m_sender, QPixmap(":/icons/character.png"));
+        m_engine->getStatsManager().defineUrlHead(m_sender, QUrl());
+        m_engine->getStatsManager().defineUrlFull(m_sender, QUrl());
     }
 }
 
@@ -252,6 +251,7 @@ void CharacterForm::loadCharacterFullUrl(QNetworkReply *reply)
 {
     QPixmap pixmap;
     pixmap.loadFromData(reply->readAll());
+    m_engine->getStatsManager().defineUrlFull(m_sender, reply->url());
     m_engine->getStatsManager().defineSkinFull(m_sender, pixmap);
     reply->deleteLater();
 }
@@ -260,6 +260,7 @@ void CharacterForm::loadCharacterFaceUrl(QNetworkReply *reply)
 {
     QPixmap pixmap;
     pixmap.loadFromData(reply->readAll());
+    m_engine->getStatsManager().defineUrlHead(m_sender, reply->url());
     m_engine->getStatsManager().defineSkinHead(m_sender, pixmap);
     reply->deleteLater();
 }
