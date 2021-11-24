@@ -306,19 +306,11 @@ struct InventoryObject
 struct Stats
 {
     int total;
-};
-
-struct DetailedStats : Stats
-{
     int base;
     int additional;
     int objectsAndMountBonus;
     int alignGiftBonus;
     int contextModif;
-};
-
-struct UsableStats : DetailedStats
-{
     int used;
 };
 

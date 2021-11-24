@@ -8,10 +8,10 @@ Main
  [ ] Ajouter un timer qui update la life du bot quand il est en régénération
 
 Character
- [ ] Make sure the reset characteristic button is enable when the bot has added characteristic and not the bonus of items or other (property: base)
+ [OK] Make sure the reset characteristic button is enable when the bot has added characteristic and not the bonus of items or other (property: base)
 
 Inventory
- [ ] When we try equip item, in the list something change but not the good way, check this! For reproduce the problem, we need an item with quantity > 1 and try to change his position
+ [OK] When we try equip item, in the list something change but not the good way, check this! For reproduce the problem, we need an item with quantity > 1 and try to change his position
 
 Carte
  [ ] Ya pas d'animation quand une entité se déplace sur la carte
@@ -51,9 +51,7 @@ Combat
  [OK] Revoir toute les attributions des points de caractéristiques en combat car à cause de ça le bot ne fait plus rien et meure...
  [OK] Quand le bot lance un premier combat il close déjà le combat alors qu'on lui a pas demandé (auto à cause du mode restreint)
  [OK] Lorsque le perso perd de la vie en combat le maxlife et le lifepoint decendent en même temps
- [-] Quand le bot est en option agressive (donc doit foncer vers le monstre), il bouge pas (tempo à mettre dépend de la co)
- [-] Le bot attaque des fois mais c'est rare (tempo à mettre dépend de la co)
- [-] Voir comment on fait pour ajouter le shield quand on en prend en combat
+ [ ] Make some timers for the bot can throw spell (fuck antibot) 
 
 Statistiques
  [ ] Rajouter le flood (Total messages, reussis, echoues)

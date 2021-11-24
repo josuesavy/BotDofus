@@ -404,7 +404,7 @@ bool GameContextFightFrame::processMessage(const MessageInfos &data, SocketIO *s
                 {
                     QSharedPointer<CharacterUsableCharacteristicDetailed> characterUsableCharacteristicDetailed = qSharedPointerCast<CharacterUsableCharacteristicDetailed>(characterCharacteristic);
 
-                    UsableStats usableStats;
+                    Stats usableStats;
                     usableStats.base = characterUsableCharacteristicDetailed->base;
                     usableStats.additional = characterUsableCharacteristicDetailed->additional;
                     usableStats.objectsAndMountBonus = characterUsableCharacteristicDetailed->objectsAndMountBonus;
@@ -420,7 +420,7 @@ bool GameContextFightFrame::processMessage(const MessageInfos &data, SocketIO *s
                 {
                     QSharedPointer<CharacterCharacteristicDetailed> characterCharacteristicDetailed = qSharedPointerCast<CharacterCharacteristicDetailed>(characterCharacteristic);
 
-                    DetailedStats detailedStats;
+                    Stats detailedStats;
                     detailedStats.base = characterCharacteristicDetailed->base;
                     detailedStats.additional = characterCharacteristicDetailed->additional;
                     detailedStats.objectsAndMountBonus = characterCharacteristicDetailed->objectsAndMountBonus;
