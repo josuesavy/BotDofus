@@ -150,10 +150,7 @@ void CharacterForm::updateInterface()
             ui->pushButtonAddAgility->setEnabled(false);
         }
 
-        //Stats *statsNoConst = const_cast<Stats*>(&infos.playerData.stats[(uint)StatIds::VITALITY]);
-        //const DetailedStats &test = static_cast<const DetailedStats&>(const_cast<Stats>(&infos.playerData.stats[(uint)StatIds::VITALITY]));
-
-        if(infos.playerData.stats[(uint)StatIds::VITALITY].total == 0 && infos.playerData.stats[(uint)StatIds::WISDOM].total == 0 && infos.playerData.stats[(uint)StatIds::STRENGTH].total == 0 && infos.playerData.stats[(uint)StatIds::INTELLIGENCE].total == 0 && infos.playerData.stats[(uint)StatIds::CHANCE].total == 0 && infos.playerData.stats[(uint)StatIds::AGILITY].total == 0)
+        if(infos.playerData.stats[(uint)StatIds::VITALITY].base == 0 && infos.playerData.stats[(uint)StatIds::WISDOM].base == 0 && infos.playerData.stats[(uint)StatIds::STRENGTH].base == 0 && infos.playerData.stats[(uint)StatIds::INTELLIGENCE].base == 0 && infos.playerData.stats[(uint)StatIds::CHANCE].base == 0 && infos.playerData.stats[(uint)StatIds::AGILITY].base == 0)
             ui->pushButtonResetCharacteristics->setEnabled(false);
         else
             ui->pushButtonResetCharacteristics->setEnabled(true);

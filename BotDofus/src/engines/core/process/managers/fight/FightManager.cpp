@@ -844,7 +844,7 @@ SpellInabilityReason FightManager::canCastSpellOnCell(SocketIO *sender, int spel
         minRange = 0;
     }
 
-    int maxRange = (spellLevelID != 0) ? (int)(spellLevelData->getRange() + (spellLevelData->getRangeCanBeBoosted() ? (*((DetailedStats*)&m_botData[sender].playerData.stats[(uint)StatIds::RANGE])).objectsAndMountBonus : 0)) : spellLevelData->getRange();
+    int maxRange = (spellLevelID != 0) ? (int)(spellLevelData->getRange() + (spellLevelData->getRangeCanBeBoosted() ? m_botData[sender].playerData.stats[(uint)StatIds::RANGE].objectsAndMountBonus : 0)) : spellLevelData->getRange();
 
     if ((spellLevelID != 0 && spellLevelData->getCastInDiagonal()) || (weaponData != NULL && weaponData->getCastInDiagonal()))
     {
@@ -1308,7 +1308,7 @@ void FightManager::addFighter(SocketIO *sender, const QSharedPointer<GameFightFi
         {
             QSharedPointer<CharacterUsableCharacteristicDetailed> characterUsableCharacteristicDetailed = qSharedPointerCast<CharacterUsableCharacteristicDetailed>(characterCharacteristic);
 
-            UsableStats usableStats;
+            Stats usableStats;
             usableStats.base = characterUsableCharacteristicDetailed->base;
             usableStats.additional = characterUsableCharacteristicDetailed->additional;
             usableStats.objectsAndMountBonus = characterUsableCharacteristicDetailed->objectsAndMountBonus;
@@ -1324,7 +1324,7 @@ void FightManager::addFighter(SocketIO *sender, const QSharedPointer<GameFightFi
         {
             QSharedPointer<CharacterCharacteristicDetailed> characterCharacteristicDetailed = qSharedPointerCast<CharacterCharacteristicDetailed>(characterCharacteristic);
 
-            DetailedStats detailedStats;
+            Stats detailedStats;
             detailedStats.base = characterCharacteristicDetailed->base;
             detailedStats.additional = characterCharacteristicDetailed->additional;
             detailedStats.objectsAndMountBonus = characterCharacteristicDetailed->objectsAndMountBonus;
@@ -1403,7 +1403,7 @@ bool FightManager::castNear(SocketIO *sender, int spellID, int cibleID)
             minRange = 1;
         }
 
-        int maxRange = (spellLevelID != 0) ? (int)(spellLevelData->getRange() + (spellLevelData->getRangeCanBeBoosted() ? (*((DetailedStats*)&m_botData[sender].playerData.stats[(uint)StatIds::RANGE])).objectsAndMountBonus : 0)) : spellLevelData->getRange();
+        int maxRange = (spellLevelID != 0) ? (int)(spellLevelData->getRange() + (spellLevelData->getRangeCanBeBoosted() ? m_botData[sender].playerData.stats[(uint)StatIds::RANGE].objectsAndMountBonus : 0)) : spellLevelData->getRange();
 
         if ((spellLevelID != 0 && spellLevelData->getCastInDiagonal()) || (weaponData != NULL && weaponData->getCastInDiagonal()))
         {
@@ -1484,7 +1484,7 @@ bool FightManager::castAway(SocketIO *sender, int spellID, int cibleID)
             minRange = 1;
         }
 
-        int maxRange = (spellLevelID != 0) ? (int)(spellLevelData->getRange() + (spellLevelData->getRangeCanBeBoosted() ? (*((DetailedStats*)&m_botData[sender].playerData.stats[(uint)StatIds::RANGE])).objectsAndMountBonus : 0)) : spellLevelData->getRange();
+        int maxRange = (spellLevelID != 0) ? (int)(spellLevelData->getRange() + (spellLevelData->getRangeCanBeBoosted() ? m_botData[sender].playerData.stats[(uint)StatIds::RANGE].objectsAndMountBonus : 0)) : spellLevelData->getRange();
 
         if ((spellLevelID != 0 && spellLevelData->getCastInDiagonal()) || (weaponData != NULL && weaponData->getCastInDiagonal()))
         {
@@ -1715,7 +1715,7 @@ bool FightManager::moveToRange(SocketIO *sender, int spellID, int cellID, bool m
         minRange = 1;
     }
 
-    int maxRange = (spellLevelID != 0) ? (int)(spellLevelData->getRange() + (spellLevelData->getRangeCanBeBoosted() ? (*((DetailedStats*)&m_botData[sender].playerData.stats[(uint)StatIds::RANGE])).objectsAndMountBonus : 0)) : spellLevelData->getRange();
+    int maxRange = (spellLevelID != 0) ? (int)(spellLevelData->getRange() + (spellLevelData->getRangeCanBeBoosted() ? m_botData[sender].playerData.stats[(uint)StatIds::RANGE].objectsAndMountBonus : 0)) : spellLevelData->getRange();
 
     if ((spellLevelID != 0 && spellLevelData->getCastInDiagonal()) || (weaponData != NULL && weaponData->getCastInDiagonal()))
     {
