@@ -38,8 +38,9 @@ public:
 
     Q_INVOKABLE void changeCell(uint cell);
     Q_INVOKABLE void changeToNearestCell(uint cell);
-    Q_INVOKABLE void useInteractive(uint cell);
-    Q_INVOKABLE void showInfos(uint cell);
+    Q_INVOKABLE void useInteractive(int cell);
+    Q_INVOKABLE void useDoorInteractive(int cell);
+    Q_INVOKABLE void showInfos(int cell);
 
     enum MapViewerCellEnum
     {

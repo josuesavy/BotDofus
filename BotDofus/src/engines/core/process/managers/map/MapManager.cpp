@@ -13,7 +13,7 @@ MapManager::MapManager(QMap<SocketIO *, BotData> *connectionsData):
         {
             if (skill->getCraftableItemIds().isEmpty() && skill->getModifiableItemTypeIds().isEmpty())
             {
-                if (skill->getCursor() == 0 || skill->getCursor() == 8)
+                if (skill->getCursor() == 0 || skill->getCursor() == 8 || skill->getCursor() == 11)
                 {
                     m_doorSkillIds << index;
                 }

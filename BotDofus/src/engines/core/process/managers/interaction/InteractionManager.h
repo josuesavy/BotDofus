@@ -63,7 +63,16 @@ public:
      * \param action
      * \return bool
      */
-    bool processUse(SocketIO *sender, int id);
+    bool processUse(SocketIO *sender, uint id);
+
+    /*!
+     * \brief processUse
+     * \param sender Bot's particular connection
+     * \param id The identify of the door to use
+     * \param action
+     * \return bool
+     */
+    bool processUseDoor(SocketIO *sender, uint id);
 
     /*!
      * \brief Clears the bank settings of the specified bot.
@@ -155,7 +164,7 @@ public:
      * \param id Pet global ID (GID)
      * \param food Food global ID (GID)
      */
-    void setPetFood(SocketIO *sender, uint id, int food);
+    void setPetFood(SocketIO *sender, int id, int food);
 
     /*!
      * \brief Sets the interval of time that the bot should wait before feeding all the pets with the corresponding GIDs.
@@ -163,10 +172,10 @@ public:
      * \param id Pet global ID
      * \param timer timer to feed pet
      */
-    void setFeedTimer(SocketIO *sender, uint id, int timer);
+    void setFeedTimer(SocketIO *sender, int id, int timer);
 
 
-    QString nameFromUid(SocketIO *sender, int uid);
+    QString nameFromUid(SocketIO *sender, uint uid);
 
     bool concernedByBankDeposit(SocketIO *sender, int id);
 
@@ -185,7 +194,7 @@ private slots:
     void noMovement(SocketIO *sender);
 
 private:
-    int getFoodUID(SocketIO *sender, int uid, int food);
+    int getFoodUID(SocketIO *sender, int uid, uint food);
 
     MapManager *m_mapManager;
     QMap<PetFeedInfos, SocketIO*> m_feed;

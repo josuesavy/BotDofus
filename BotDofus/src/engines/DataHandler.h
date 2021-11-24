@@ -192,6 +192,7 @@ enum class CurrentInteraction
     BANK,
     NONE,
     ITEM,
+    DOOR,
     ZAAP,
     ZAAPI,
 };

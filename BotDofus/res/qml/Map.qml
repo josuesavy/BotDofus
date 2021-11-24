@@ -305,10 +305,13 @@ Canvas {
                 mapForm.cellClicked = false;
                 mapForm.cellChangeColor=i;
 
-                if (mapForm.interactiveTypes[i] === MapForm.USABLE)
+                if (mapForm.interactiveTypes[i] === MapForm.DOOR)
+                    mapForm.useDoorInteractive(i);
+
+                else if (mapForm.interactiveTypes[i] === MapForm.USABLE)
                     mapForm.useInteractive(i);
 
-                else if(mapForm.collisionTypes[i] === MapForm.COLLISION_WITH_SIGHT || mapForm.collisionTypes[i] === MapForm.COLLISION_NO_SIGHT || mapForm.interactiveTypes[i] === MapForm.INTERACTIVE)
+                else if(mapForm.collisionTypes[i] === MapForm.COLLISION_WITH_SIGHT || mapForm.collisionTypes[i] === MapForm.COLLISION_NO_SIGHT)
                     mapForm.changeToNearestCell(i);
 
                 else

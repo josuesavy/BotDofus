@@ -113,7 +113,7 @@ bool GameInteractiveFrame::processMessage(const MessageInfos &data, SocketIO *se
 
         error(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.popup.impossible_action");
 
-        if (m_botData[sender].generalData.botState == BotState::CRAFTING_STATE && m_botData[sender].craftData.isCrafting)
+        if (m_botData[sender].generalData.botState == BotState::CRAFTING_STATE || m_botData[sender].craftData.isCrafting)
         {
             m_botData[sender].generalData.botState = BotState::INACTIVE_STATE;
             m_botData[sender].craftData.recipeQuantities.clear();
@@ -124,7 +124,7 @@ bool GameInteractiveFrame::processMessage(const MessageInfos &data, SocketIO *se
             emit scriptActionDone(sender);
         }
 
-        if (m_botData[sender].farmData.farming)
+        if (m_botData[sender].generalData.botState == BotState::FARMING_STATE || m_botData[sender].farmData.farming)
         {
             m_botData[sender].statisticsData.countTotalGatherLost += 1;
             m_botData[sender].generalData.botState = BotState::INACTIVE_STATE;

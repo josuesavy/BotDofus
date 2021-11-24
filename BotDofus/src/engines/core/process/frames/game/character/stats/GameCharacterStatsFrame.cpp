@@ -54,6 +54,13 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
         CharacterLevelUpInformationMessage message;
         message.deserialize(&reader);
 
+        if (m_botData[sender].mapData.playersOnMap.contains(message.id))
+        {
+            EntityInfos targetPlayer = m_botData[sender].mapData.playersOnMap[message.id];
+            targetPlayer.level = message.newLevel;
+            m_botData[sender].mapData.playersOnMap[message.id] = targetPlayer;
+        }
+
         info(sender) << message.name << "vient de passer niveau" << message.newLevel;
     }
         break;

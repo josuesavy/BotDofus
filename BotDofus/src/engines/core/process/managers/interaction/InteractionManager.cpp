@@ -44,6 +44,8 @@ bool InteractionManager::processZaap(SocketIO *sender, int mapId)
     connect(m_mapManager, SIGNAL(hasFinishedMoving(SocketIO*)), this, SLOT(moved(SocketIO*)));
     connect(m_mapManager, SIGNAL(couldNotMove(SocketIO*)), this, SLOT(noMovement(SocketIO*)));
     m_mapManager->changeCell(sender, m_botData[sender].mapData.map.getInteractiveElementCellID(element.elementId));
+
+    return true;
 }
 
 bool InteractionManager::processZaapi(SocketIO *sender, int mapId)
@@ -70,6 +72,8 @@ bool InteractionManager::processZaapi(SocketIO *sender, int mapId)
     connect(m_mapManager, SIGNAL(hasFinishedMoving(SocketIO*)), this, SLOT(moved(SocketIO*)));
     connect(m_mapManager, SIGNAL(couldNotMove(SocketIO*)), this, SLOT(noMovement(SocketIO*)));
     m_mapManager->changeCell(sender, m_botData[sender].mapData.map.getInteractiveElementCellID(element.elementId));
+
+    return true;
 }
 
 bool InteractionManager::processNpcInteraction(SocketIO *sender, int cellId)
@@ -138,7 +142,7 @@ bool InteractionManager::processNpcInteraction(SocketIO *sender, int cellId)
     return false;
 }
 
-bool InteractionManager::processUse(SocketIO *sender, int id)
+bool InteractionManager::processUse(SocketIO *sender, uint id)
 {
     if ((m_botData[sender].interactionData.interactionType != CurrentInteraction::NONE) || m_botData[sender].generalData.botState != BotState::INACTIVE_STATE || m_botData[sender].interactionData.interactionId != INVALID || !m_botData[sender].interactionData.npcDialogs.isEmpty())
         return false;
@@ -166,6 +170,49 @@ bool InteractionManager::processUse(SocketIO *sender, int id)
     connect(m_mapManager, SIGNAL(hasFinishedMoving(SocketIO*)), this, SLOT(moved(SocketIO*)));
     connect(m_mapManager, SIGNAL(couldNotMove(SocketIO*)), this, SLOT(noMovement(SocketIO*)));
     m_mapManager->changeToNearestCell(sender, m_botData[sender].mapData.map.getInteractiveElementCellID(elem.elementId));
+
+    return true;
+}
+
+bool InteractionManager::processUseDoor(SocketIO *sender, uint id)
+{
+    if ((m_botData[sender].interactionData.interactionType != CurrentInteraction::NONE) || m_botData[sender].generalData.botState != BotState::INACTIVE_STATE || m_botData[sender].interactionData.interactionId != INVALID || !m_botData[sender].interactionData.npcDialogs.isEmpty())
+        return false;
+
+    int skill = INVALID;
+    InteractiveElementDoorInfos elem;
+    foreach (InteractiveElementDoorInfos e, m_botData[sender].mapData.doorsOnMap)
+    {
+        if (e.interactiveElementInfos.elementId == id)
+        {
+            elem = e;
+            break;
+        }
+    }
+
+    bool isSun = false;
+    foreach (CellData cellData, m_botData[sender].mapData.map.getCellData())
+    {
+        if (elem.cellId == cellData.getId() && cellData.isWalkable())
+            isSun = true;
+    }
+
+    if (elem.interactiveElementInfos.enabledSkills.size())
+        skill = elem.interactiveElementInfos.enabledSkills.first().ID;
+
+    if (skill == INVALID)
+        return false;
+
+    m_botData[sender].interactionData.actionID = skill;
+    m_botData[sender].interactionData.interactionId = elem.interactiveElementInfos.elementId;
+    m_botData[sender].interactionData.interactionType = CurrentInteraction::DOOR;
+    connect(m_mapManager, SIGNAL(hasFinishedMoving(SocketIO*)), this, SLOT(moved(SocketIO*)));
+    connect(m_mapManager, SIGNAL(couldNotMove(SocketIO*)), this, SLOT(noMovement(SocketIO*)));
+
+    if (isSun)
+        m_mapManager->changeCell(sender, elem.cellId);
+    else
+        m_mapManager->changeToNearestCell(sender, m_botData[sender].mapData.map.getInteractiveElementCellID(elem.interactiveElementInfos.elementId));
 
     return true;
 }
@@ -322,6 +369,36 @@ void InteractionManager::moved(SocketIO *sender)
 
         sender->send(message);
     }
+
+    else if (m_botData[sender].interactionData.interactionType == CurrentInteraction::DOOR)
+    {
+        int skill = INVALID;
+        foreach (InteractiveElementDoorInfos e, m_botData[sender].mapData.doorsOnMap)
+            foreach (InteractiveSkillInfos s, e.interactiveElementInfos.enabledSkills)
+                if (s.ID == m_botData[sender].interactionData.actionID)
+                    skill = s.UID;
+
+        if (skill == INVALID)
+        {
+            error(sender) << "[InteractionManager] - The bot could not interact with the door (id:" << m_botData[sender].interactionData.interactionId << ").";
+            m_botData[sender].interactionData.interactionType = CurrentInteraction::NONE;
+            m_botData[sender].interactionData.interactionId = INVALID;
+            m_botData[sender].interactionData.npcDialogs.clear();
+            m_botData[sender].interactionData.actionID = INVALID;
+            m_botData[sender].interactionData.npcDialogs.clear();
+            emit scriptActionDone(sender);
+        }
+
+        InteractiveUseRequestMessage message;
+        message.skillInstanceUid = skill;
+        message.elemId = m_botData[sender].interactionData.interactionId;
+
+        finishedAction << sender;
+        QTimer::singleShot(15000, this, SLOT(finishAction()));
+        m_botData[sender].interactionData.finishedAction = false;
+
+        sender->send(message);
+    }
 }
 
 void InteractionManager::noMovement(SocketIO *sender)
@@ -454,14 +531,14 @@ void InteractionManager::toggleFeed(SocketIO *sender, bool toggle)
     }
 }
 
-void InteractionManager::setPetFood(SocketIO *sender, uint id, int food)
+void InteractionManager::setPetFood(SocketIO *sender, int id, int food)
 {
     for (int i = 0; i < m_botData[sender].interactionData.petData.petInfos.size(); i++)
         if (m_botData[sender].interactionData.petData.petInfos[i].GID == id)
             m_botData[sender].interactionData.petData.petInfos[i].foodId = food;
 }
 
-void InteractionManager::setFeedTimer(SocketIO *sender, uint id, int timer)
+void InteractionManager::setFeedTimer(SocketIO *sender, int id, int timer)
 {
     for (int i = 0; i < m_botData[sender].interactionData.petData.petInfos.size(); i++)
         if (m_botData[sender].interactionData.petData.petInfos[i].GID == id)
@@ -494,7 +571,7 @@ void InteractionManager::feed()
     }
 }
 
-QString InteractionManager::nameFromUid(SocketIO *sender, int uid)
+QString InteractionManager::nameFromUid(SocketIO *sender, uint uid)
 {
     foreach (InventoryObject o, m_botData[sender].playerData.inventoryContent)
         if (o.UID == uid)
@@ -510,11 +587,15 @@ bool InteractionManager::concernedByBankTake(SocketIO *sender, int id)
         itemsId << b.itemId;
 
     if (m_botData[sender].interactionData.bankData.takeCondition == BankInclusion::NONE_EXCEPT)
+    {
         if (itemsId.contains(id))
             return true;
+    }
     else if (m_botData[sender].interactionData.bankData.takeCondition == BankInclusion::ALL_EXCEPT)
+    {
         if (!itemsId.contains(id))
             return true;
+    }
 
     return false;
 }
@@ -535,18 +616,18 @@ bool InteractionManager::concernedByBankDeposit(SocketIO *sender, int id)
     return false;
 }
 
-int InteractionManager::getFoodUID(SocketIO *sender, int uid, int food)
+int InteractionManager::getFoodUID(SocketIO *sender, int uid, uint food)
 {
     int foodUid = INVALID;
     foreach (InventoryObject o, m_botData[sender].playerData.inventoryContent)
-        if (o.GID = food)
+        if (o.GID == food)
             foodUid = o.GID;
 
     if (foodUid == INVALID)
     {
         for (int i = 0; i < m_botData[sender].interactionData.petData.petInfos.size(); i++)
         {
-            if (m_botData[sender].interactionData.petData.petInfos[i].UID = uid)
+            if (m_botData[sender].interactionData.petData.petInfos[i].UID == uid)
             {
                 m_botData[sender].interactionData.petData.petInfos[i].foodId = INVALID;
                 m_botData[sender].interactionData.petData.petInfos[i].toRemove = true;

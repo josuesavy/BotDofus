@@ -51,7 +51,7 @@ void MapForm::changeToNearestCell(uint cell)
     m_engine->getMapManager().changeToNearestCell(m_sender, cell);
 }
 
-void MapForm::useInteractive(uint cell)
+void MapForm::useInteractive(int cell)
 {
     foreach (InteractiveDisplayInfos interactive, interactiveDisplayInfosList)
     {
@@ -63,7 +63,19 @@ void MapForm::useInteractive(uint cell)
     }
 }
 
-void MapForm::showInfos(uint cell)
+void MapForm::useDoorInteractive(int cell)
+{
+    foreach (InteractiveDisplayInfos interactive, interactiveDisplayInfosList)
+    {
+        if(interactive.cellId == cell)
+        {
+            m_engine->getInteractionManager().processUseDoor(m_sender, interactive.id);
+            break;
+        }
+    }
+}
+
+void MapForm::showInfos(int cell)
 {
     QString txt;
 
