@@ -19,7 +19,7 @@ D2PManager::~D2PManager()
 
 void D2PManager::init(const QString &D2PFolder)
 {
-    QTime t;
+    QElapsedTimer t;
     t.start();
 
     m_isInit = true;
@@ -103,7 +103,7 @@ const QString D2PManager::getDofusPath()
 CompressedMap* D2PManager::getCompressedMap(uint mapId)
 {
     if(!m_isInit)
-        qDebug()<<"ERROR - D2PManager is not initialized!";
+        qDebug()<<"[ERROR] (D2PManager) getCompressedMap: is not initialized!";
 
     for (QList<D2PFile*>::const_iterator D2PFile = m_folder->getFolderContent().begin(); D2PFile != m_folder->getFolderContent().end(); ++D2PFile)
     {
@@ -113,7 +113,7 @@ CompressedMap* D2PManager::getCompressedMap(uint mapId)
         }
     }
 
-    qDebug()<<"ERROR - D2PManager The map id"<<mapId<<"doesn't exist!";
+    qDebug()<<"[ERROR] (D2PManager) getCompressedMap: The map id"<<mapId<<"doesn't exist!";
 
     return NULL;
 }

@@ -70,7 +70,7 @@ Canvas {
     function draw() {
         initCells();
 
-        if(mapForm.collisionTypes.length !== 0) {
+        if (mapForm.collisionTypes.length !== 0) {
             var ctx = canvas.getContext("2d");
             ctx.reset();
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -84,8 +84,8 @@ Canvas {
 
             for(var cellId in cellPos) {
                 // Affichage de la grille
-                if(mapForm.cellChangeColor == cellId) {
-                    if(mapForm.cellClicked)
+                if (mapForm.cellChangeColor === cellId) {
+                    if (mapForm.cellClicked)
                         drawTile(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, 0xBBBBBB, 0xBBBBBB);
                     else
                         drawTile(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, 0xFFFFFF, 0xBBBBBB);
@@ -94,45 +94,45 @@ Canvas {
                     drawTile(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, 0xFFFFFF, 0xBBBBBB);
 
                 // Obstacle
-                if(mapForm.collisionTypes[cellId] === MapForm.COLLISION_WITH_SIGHT)
+                if (mapForm.collisionTypes[cellId] === MapForm.COLLISION_WITH_SIGHT)
                     drawTile(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, 0xBBBBBB);
 
                 // Ligne de vue
-                if(mapForm.collisionTypes[cellId] === MapForm.COLLISION_NO_SIGHT)
+                if (mapForm.collisionTypes[cellId] === MapForm.COLLISION_NO_SIGHT)
                     drawTile(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, 0x777777);
 
                 // Interactive
-                if(mapForm.interactiveTypes[cellId] !== MapForm.NOTHING) {
-                    if(mapForm.interactiveTypes[cellId] === MapForm.INTERACTIVE)
+                if (mapForm.interactiveTypes[cellId] !== MapForm.NOTHING) {
+                    if (mapForm.interactiveTypes[cellId] === MapForm.INTERACTIVE)
                         drawSquare(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, 0x94a8c6);
 
                     else if (mapForm.interactiveTypes[cellId] === MapForm.DOOR)
                         drawSquare(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, 0x80eeee);
 
-                    else if(mapForm.interactiveTypes[cellId] === MapForm.USABLE)
+                    else if (mapForm.interactiveTypes[cellId] === MapForm.USABLE)
                         drawSquare(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, 0xe8bc75);
                 }
 
                 // Entitée
-                if(mapForm.entityTypes[cellId] !== MapForm.NOTHING) {
-                    if(mapForm.entityTypes[cellId] === MapForm.PLAYER)
+                if (mapForm.entityTypes[cellId] !== MapForm.NOTHING) {
+                    if (mapForm.entityTypes[cellId] === MapForm.PLAYER)
                         drawCircle(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, 0x8076d0);
 
-                    else if(mapForm.entityTypes[cellId] === MapForm.BOT)
+                    else if (mapForm.entityTypes[cellId] === MapForm.BOT)
                         drawCircle(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, 0x8076d0, 0x8076d0, MapForm.BOT);
 
-                    else if(mapForm.entityTypes[cellId] === MapForm.NPC)
+                    else if (mapForm.entityTypes[cellId] === MapForm.NPC)
                         drawCircle(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, 0x8a8a8a);
 
-                    else if(mapForm.entityTypes[cellId] === MapForm.MONSTER)
+                    else if (mapForm.entityTypes[cellId] === MapForm.MONSTER)
                         drawCircle(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, 0xee6276);
 
-                    else if(mapForm.entityTypes[cellId] === MapForm.MERCHANT)
+                    else if (mapForm.entityTypes[cellId] === MapForm.MERCHANT)
                         drawCircle(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, 0xd09e9e);
                 }
 
                 // Text
-                if(mapForm.displayCellIds)
+                if (mapForm.displayCellIds)
                     drawText(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, cellId);
             }
         }
@@ -141,10 +141,10 @@ Canvas {
     function drawTile(target, x, y, color, borderColor) {
         target.save();
 
-        if(color !== undefined)
+        if (color !== undefined)
             target.fillStyle= "#" + color.toString(16);
 
-        if(borderColor !== undefined)
+        if (borderColor !== undefined)
         {
             target.strokeStyle = "#" + borderColor.toString(16);
             target.lineWidth = .5;
@@ -157,10 +157,10 @@ Canvas {
         target.lineTo(x + 0,			y + tileHeight / 2);
         target.lineTo(x + tileWidth / 2,	y + 0);
 
-        if(color !== undefined)
+        if (color !== undefined)
             target.fill();
 
-        if(borderColor !== undefined)
+        if (borderColor !== undefined)
             target.stroke();
 
         target.restore();
@@ -169,25 +169,25 @@ Canvas {
     function drawCircle(target, x, y, color, shadow, who) {
         target.save();
 
-        if(shadow !== undefined)
+        if (shadow !== undefined)
         {
             target.shadowBlur=3;
             target.shadowColor="#" + shadow.toString(16);
         }
 
-        if(color !== undefined)
+        if (color !== undefined)
             target.fillStyle= "#" + color.toString(16);
 
         target.beginPath();
 
-        if(who == MapForm.BOT)
+        if (who === MapForm.BOT)
             target.arc(x + tileWidth / 2,	y + tileHeight / 2, tileHeight / 3, 0, Math.PI * 2, false);
         else
             target.arc(x + tileWidth / 2,	y + tileHeight / 2, tileHeight / 3.8, 0, Math.PI * 2, false);
 
         target.closePath();
 
-        if(color !== undefined)
+        if (color !== undefined)
             target.fill();
 
         target.restore();
@@ -196,14 +196,14 @@ Canvas {
     function drawSquare(target, x, y, color) {
         target.save();
 
-        if(color !== undefined)
+        if (color !== undefined)
             target.fillStyle= "#" + color.toString(16);
 
         target.beginPath();
-        target.fillRect (x + tileHeight * .7, y + tileHeight * .25, tileHeight * .5, tileHeight * .5);
+        target.fillRect(x + tileHeight * .7, y + tileHeight * .25, tileHeight * .6, tileHeight * .6);
         target.closePath();
 
-        if(color !== undefined)
+        if (color !== undefined)
             target.fill();
 
         target.restore();
@@ -280,7 +280,7 @@ Canvas {
             var cellPosX = cellPos[i].pixelX + tileWidth / 2 ;
             var cellPosY = cellPos[i].pixelY + tileHeight / 2;
 
-            if(Math.sqrt(Math.pow(x - 0 - cellPosX,2) + Math.pow(y - 12 - cellPosY,2)) < tileHeight / 2) {
+            if (Math.sqrt(Math.pow(x - 0 - cellPosX,2) + Math.pow(y - 12 - cellPosY,2)) < tileHeight / 2) {
                 mapForm.cellClicked = true;
                 mapForm.cellChangeColor=i;
                 return
@@ -301,7 +301,7 @@ Canvas {
             cellPosX = cellPos[i].pixelX + tileWidth / 2 ;
             cellPosY = cellPos[i].pixelY + tileHeight / 2;
 
-            if(Math.sqrt(Math.pow(x - 0 - cellPosX,2) + Math.pow(y - 12 - cellPosY,2)) < tileHeight / 2) {
+            if (Math.sqrt(Math.pow(x - 0 - cellPosX,2) + Math.pow(y - 12 - cellPosY,2)) < tileHeight / 2) {
                 mapForm.cellClicked = false;
                 mapForm.cellChangeColor=i;
 
@@ -311,7 +311,7 @@ Canvas {
                 else if (mapForm.interactiveTypes[i] === MapForm.USABLE)
                     mapForm.useInteractive(i);
 
-                else if(mapForm.collisionTypes[i] === MapForm.COLLISION_WITH_SIGHT || mapForm.collisionTypes[i] === MapForm.COLLISION_NO_SIGHT)
+                else if (mapForm.collisionTypes[i] === MapForm.COLLISION_WITH_SIGHT || mapForm.collisionTypes[i] === MapForm.COLLISION_NO_SIGHT)
                     mapForm.changeToNearestCell(i);
 
                 else
@@ -335,7 +335,7 @@ Canvas {
             cellPosX = cellPos[i].pixelX + tileWidth / 2 ;
             cellPosY = cellPos[i].pixelY + tileHeight / 2;
 
-            if(Math.sqrt(Math.pow(x - 0 - cellPosX,2) + Math.pow(y - 12 - cellPosY,2)) < tileHeight / 2) {
+            if (Math.sqrt(Math.pow(x - 0 - cellPosX,2) + Math.pow(y - 12 - cellPosY,2)) < tileHeight / 2) {
                 mapForm.showInfos(i);
                 return;
             }

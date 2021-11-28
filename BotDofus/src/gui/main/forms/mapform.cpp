@@ -398,8 +398,8 @@ void MapForm::resizeEvent(QResizeEvent *event)
 {
     // size: 698x495
 
-//    float aspectRatio = ui->widget_3->width() / ui->widget_3->height();
-//    ui->widget_3->resize(ui->widget_3->height()*aspectRatio, ui->widget_3->height());
+//    float aspectRatio = 451 / 316;
+//    ui->quickWidget->resize(ui->quickWidget->width()*aspectRatio, ui->quickWidget->height()*aspectRatio);
 }
 
 void MapForm::on_checkBoxDisplayCellIds_stateChanged(int arg1)

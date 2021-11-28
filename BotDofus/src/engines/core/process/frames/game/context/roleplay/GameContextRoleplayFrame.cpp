@@ -162,7 +162,7 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
             m_botData[sender].generalData.botState = INACTIVE_STATE;
 
 
-        // Browser StatedElements
+        // Get statedElements
         m_botData[sender].mapData.statedElementsOnMap.clear();
         foreach (StatedElement statedElement, message.statedElements)
         {
@@ -253,7 +253,6 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
         m_botData[sender].mapData.npcsQuestOnMap.clear();
         m_botData[sender].mapData.merchantsOnMap.clear();
         m_botData[sender].mapData.monsterGroupsOnMap.clear();
-
         foreach(QSharedPointer<GameRolePlayActorInformations> base, message.actors)
         {
             // Get players
@@ -391,7 +390,19 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
                 qDebug() << "[GameContextRoleplayFrame] Don't found actor type.";
         }
 
+        // Get houses in map
+        m_botData[sender].mapData.housesOnMap.clear();
+        foreach (QSharedPointer<HouseInformations> house, message.houses)
+        {
+            HouseInfos houseInfos;
+            houseInfos.houseId = house->houseId;
+            houseInfos.modelId = house->modelId;
 
+            m_botData[sender].mapData.housesOnMap[house->houseId] = houseInfos;
+            qDebug()<<"[HouseInformations] - ID:"<<houseInfos.houseId<<" MODELID:"<<houseInfos.modelId;
+        }
+
+        // Fill infos about all elements in map
         m_botData[sender].interactionData.interactives.clear();
         foreach (InteractiveElementInfos e, m_botData[sender].mapData.interactivesOnMap)
         {
@@ -411,13 +422,24 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
 
             if (interactiveElementDoorInfos.interactiveElementInfos.elementTypeId > 0)
             {
-                interactiveDisplayInfos.name = qSharedPointerCast<InteractiveData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::INTERACTIVES, interactiveElementDoorInfos.interactiveElementInfos.elementTypeId))->getName();
+                if (interactiveElementDoorInfos.interactiveElementInfos.enabledSkills.size() > 0)
+                {
+                    interactiveDisplayInfos.name = qSharedPointerCast<InteractiveData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::SKILLS, interactiveElementDoorInfos.interactiveElementInfos.elementTypeId))->getName();
+                }
+                else if (interactiveElementDoorInfos.interactiveElementInfos.disabledSkills.size() > 0)
+                {
+                    interactiveDisplayInfos.name = qSharedPointerCast<InteractiveData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::SKILLS, interactiveElementDoorInfos.interactiveElementInfos.disabledSkills.first().ID))->getName();
+                }
             }
             else
             {
                 if (interactiveElementDoorInfos.interactiveElementInfos.enabledSkills.size() > 0)
                 {
                     interactiveDisplayInfos.name = qSharedPointerCast<InteractiveData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::SKILLS, interactiveElementDoorInfos.interactiveElementInfos.enabledSkills.first().ID))->getName();
+                }
+                else if (interactiveElementDoorInfos.interactiveElementInfos.disabledSkills.size() > 0)
+                {
+                    interactiveDisplayInfos.name = qSharedPointerCast<InteractiveData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::SKILLS, interactiveElementDoorInfos.interactiveElementInfos.disabledSkills.first().ID))->getName();
                 }
             }
 

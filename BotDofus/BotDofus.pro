@@ -96,6 +96,7 @@ HEADERS += \
     src/engines/core/process/frames/game/context/roleplay/death/GameContextRoleplayDeathFrame.h \
     src/engines/core/process/frames/game/context/roleplay/emote/GameContextRoleplayEmoteFrame.h \
     src/engines/core/process/frames/game/context/roleplay/fight/GameContextRoleplayFightFrame.h \
+    src/engines/core/process/frames/game/context/roleplay/house/GameContextRoplayHouseFrame.h \
     src/engines/core/process/frames/game/context/roleplay/job/GameContextRoleplayJobFrame.h \
     src/engines/core/process/frames/game/context/roleplay/npc/GameContextRoleplayNpcFrame.h \
     src/engines/core/process/frames/game/context/roleplay/objects/GameContextRoleplayObjectsFrame.h \
@@ -2042,6 +2043,7 @@ SOURCES += \
     src/engines/core/process/frames/game/context/roleplay/death/GameContextRoleplayDeathFrame.cpp \
     src/engines/core/process/frames/game/context/roleplay/emote/GameContextRoleplayEmoteFrame.cpp \
     src/engines/core/process/frames/game/context/roleplay/fight/GameContextRoleplayFightFrame.cpp \
+    src/engines/core/process/frames/game/context/roleplay/house/GameContextRoplayHouseFrame.cpp \
     src/engines/core/process/frames/game/context/roleplay/job/GameContextRoleplayJobFrame.cpp \
     src/engines/core/process/frames/game/context/roleplay/npc/GameContextRoleplayNpcFrame.cpp \
     src/engines/core/process/frames/game/context/roleplay/objects/GameContextRoleplayObjectsFrame.cpp \

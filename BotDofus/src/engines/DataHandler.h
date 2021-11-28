@@ -409,9 +409,7 @@ struct HouseInfos
     uint houseId = 0;
     QList<uint> doorsOnMap;
     uint modelId = 0;
-    QString ownerName;
-    bool isOnSale = false;
-    bool isSaleLocked = false;
+    QSharedPointer<HouseInstanceInformations> properties;
 };
 
 struct NpcInfos
@@ -786,6 +784,7 @@ struct MapData
     GameContextEnum gameContext = GameContextEnum::ROLE_PLAY;
     Map map;
     double botId = INVALID;
+    QMap<uint, HouseInfos> housesOnMap;
     QMap<uint, MerchantInfos> merchantsOnMap;
     QMap<uint, NpcInfos> npcsOnMap;
     QMap<uint, NpcQuestInfos> npcsQuestOnMap;

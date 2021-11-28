@@ -186,13 +186,21 @@ NearestPathInfos Pathfinding::findNearestPath(uint startCell, uint interactiveEl
     }
 
     NearestPathInfos toReturn;
-    int m_x = m_cellPos[interactiveElementCell].getX();
-    int m_y = m_cellPos[interactiveElementCell].getY();
+    int m_x = 0;
+    if (m_cellPos.contains(interactiveElementCell))
+        m_x = m_cellPos[interactiveElementCell].getX();
+    int m_y = 0;
+    if (m_cellPos.contains(interactiveElementCell))
+        m_y = m_cellPos[interactiveElementCell].getY();
     QMap<double, int> cellsMap;
     foreach (CellData cell, D2PManagerSingleton::get()->getMap(mapId).getCellData())
     {
-        int x = m_cellPos[cell.getId()].getX();
-        int y = m_cellPos[cell.getId()].getY();
+        int x = 0;
+        if (m_cellPos.contains(cell.getId()))
+            x = m_cellPos[cell.getId()].getX();
+        int y = 0;
+        if (m_cellPos.contains(cell.getId()))
+            y = m_cellPos[cell.getId()].getY();
 
         if (cell.isWalkable() && (cell.getId() != interactiveElementCell))
             cellsMap[sqrt(pow((m_x - x), 2) + pow((m_y - y), 2))] = cell.getId();
@@ -339,8 +347,13 @@ void Pathfinding::findNeighboringCell(Node c_node, bool diag = true, QList<uint>
 
     foreach (Node cell, cellsToAdd)
     {
-        int _floor = m_cellHeight[cell.getCellId()];
-        int currentFloor = m_cellHeight[c_node.getCellId()];
+        int _floor = 0;
+        if (m_cellHeight.contains(cell.getCellId()))
+            _floor = m_cellHeight[cell.getCellId()];
+
+        int currentFloor = 0;
+        if (m_cellHeight.contains(cell.getCellId()))
+            currentFloor = m_cellHeight[c_node.getCellId()];
 
         if (!((_floor - 30 == currentFloor) || (_floor + 30 == currentFloor) || (_floor == currentFloor)))
             removeNeightboring(cellsToAdd, cell);
@@ -358,24 +371,27 @@ void Pathfinding::addCell(Node cell, Node c_node)
 {
     int _cell = cell.getCellId();
 
-    if(m_cellPos[_cell].getClosed() == true)
+    if (m_cellPos.contains(_cell))
     {
-        m_cellPos[_cell].setParent(c_node.getCellId());
-        m_finishSearch = true;
-        return;
-    }
-
-    if (m_cellPos[_cell].getWalkable() == true)
-    {
-        m_cellPos[_cell].setOrientation(cell.getOrientation());
-
-        if (m_cellPos[_cell].getInOpenList() == false && m_cellPos[_cell].getInClosedList() == false)
+        if(m_cellPos[_cell].getClosed() == true)
         {
             m_cellPos[_cell].setParent(c_node.getCellId());
-            m_cellPos[_cell].setInOpenList(true);
-            m_cellPos[_cell].setG(c_node.getG() + 10);
-            m_cellPos[_cell].setF(m_cellPos[_cell].getG() + m_cellPos[_cell].getH());
-            m_openList.append(m_cellPos[_cell]);
+            m_finishSearch = true;
+            return;
+        }
+
+        if (m_cellPos[_cell].getWalkable() == true)
+        {
+            m_cellPos[_cell].setOrientation(cell.getOrientation());
+
+            if (m_cellPos[_cell].getInOpenList() == false && m_cellPos[_cell].getInClosedList() == false)
+            {
+                m_cellPos[_cell].setParent(c_node.getCellId());
+                m_cellPos[_cell].setInOpenList(true);
+                m_cellPos[_cell].setG(c_node.getG() + 10);
+                m_cellPos[_cell].setF(m_cellPos[_cell].getG() + m_cellPos[_cell].getH());
+                m_openList.append(m_cellPos[_cell]);
+            }
         }
     }
 }

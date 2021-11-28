@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include <QMutex>
-#include <QTime>
+#include <QElapsedTimer>
 
 #include <QPixmap>
 

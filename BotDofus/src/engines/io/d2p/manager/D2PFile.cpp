@@ -37,7 +37,7 @@ void D2PFile::getFileContent()
     uchar param2 = reader.readByte();
 
     if ((param1 != 2) || (param2 != 1))
-        qDebug()<<"ERROR - D2PFile - Unable to read file"<<m_path;
+        qDebug()<<"[ERROR] (D2PFile) getFileContent: Unable to read file"<<m_path;
 
     reader.setPosition(reader.getSize()-16);
     uint position = reader.readUInt();

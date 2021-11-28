@@ -139,6 +139,9 @@ bool GameContextFrame::processMessage(const MessageInfos &data, SocketIO *sender
 
     case MessageEnum::GAMEMAPNOMOVEMENTMESSAGE:
     {
+        GameMapNoMovementMessage message;
+        message.deserialize(&reader);
+
         if(m_botData[sender].generalData.botState == FIGHTING_STATE)
             m_fightManager->processTurn(sender);
 
