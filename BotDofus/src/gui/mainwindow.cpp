@@ -242,7 +242,10 @@ void MainWindow::updateBotInferface(SocketIO *sender)
             items[i]->setData(0, 3, m_engine.getData(sender).generalData.botState);
             items[i]->setData(0, 4, m_engine.getData(sender).playerData.headPixmap);
 
-            m_accountForms.at(i)->updateInterface();
+            //m_accountForms.at(i)->updateInterface();
+
+            ui->treeWidgetAccount->selectedItems().at(0)->data(0, Qt::UserRole).value<AccountForm*>()->updateInterface();
+
             break;
         }
     }
@@ -295,34 +298,48 @@ void MainWindow::on_actionMinimize_triggered()
 
 void MainWindow::on_treeWidgetAccount_itemClicked(QTreeWidgetItem *item, int column)
 {
-    ui->stackedWidget->setCurrentWidget(item->data(column, Qt::UserRole).value<AccountForm*>());
+    AccountForm *accountForm = item->data(column, Qt::UserRole).value<AccountForm*>();
+    ui->stackedWidget->setCurrentWidget(accountForm);
+    accountForm->updateInterface();
 }
 
 void MainWindow::on_treeWidgetAccount_itemActivated(QTreeWidgetItem *item, int column)
 {
-    ui->stackedWidget->setCurrentWidget(item->data(column, Qt::UserRole).value<AccountForm*>());
+    AccountForm *accountForm = item->data(column, Qt::UserRole).value<AccountForm*>();
+    ui->stackedWidget->setCurrentWidget(accountForm);
+    accountForm->updateInterface();
 }
 
 void MainWindow::on_treeWidgetAccount_itemEntered(QTreeWidgetItem *item, int column)
 {
-    ui->stackedWidget->setCurrentWidget(item->data(column, Qt::UserRole).value<AccountForm*>());
+    AccountForm *accountForm = item->data(column, Qt::UserRole).value<AccountForm*>();
+    ui->stackedWidget->setCurrentWidget(accountForm);
+    accountForm->updateInterface();
 }
 
 void MainWindow::on_treeWidgetAccount_itemPressed(QTreeWidgetItem *item, int column)
 {
-    ui->stackedWidget->setCurrentWidget(item->data(column, Qt::UserRole).value<AccountForm*>());
+    AccountForm *accountForm = item->data(column, Qt::UserRole).value<AccountForm*>();
+    ui->stackedWidget->setCurrentWidget(accountForm);
+    accountForm->updateInterface();
 }
 
 void MainWindow::on_treeWidgetAccount_itemCollapsed(QTreeWidgetItem *item)
 {
     ui->treeWidgetAccount->setCurrentItem(item);
-    ui->stackedWidget->setCurrentWidget(item->data(0, Qt::UserRole).value<AccountForm*>());
+
+    AccountForm *accountForm = item->data(0, Qt::UserRole).value<AccountForm*>();
+    ui->stackedWidget->setCurrentWidget(accountForm);
+    accountForm->updateInterface();
 }
 
 void MainWindow::on_treeWidgetAccount_itemExpanded(QTreeWidgetItem *item)
 {
     ui->treeWidgetAccount->setCurrentItem(item);
-    ui->stackedWidget->setCurrentWidget(item->data(0, Qt::UserRole).value<AccountForm*>());
+
+    AccountForm *accountForm = item->data(0, Qt::UserRole).value<AccountForm*>();
+    ui->stackedWidget->setCurrentWidget(accountForm);
+    accountForm->updateInterface();
 }
 
 void MainWindow::on_treeWidgetAccount_itemSelectionChanged()
@@ -331,7 +348,10 @@ void MainWindow::on_treeWidgetAccount_itemSelectionChanged()
     {
         QTreeWidgetItem *item = ui->treeWidgetAccount->selectedItems().first();
         ui->treeWidgetAccount->setCurrentItem(item);
-        ui->stackedWidget->setCurrentWidget(item->data(0, Qt::UserRole).value<AccountForm*>());
+
+        AccountForm *accountForm = item->data(0, Qt::UserRole).value<AccountForm*>();
+        ui->stackedWidget->setCurrentWidget(accountForm);
+        accountForm->updateInterface();
     }
 }
 

@@ -6,6 +6,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QStackedWidget>
+#include <QNetworkReply>
 
 #include "src/gui/main/forms/consoleform.h"
 #include "src/gui/main/forms/characterform.h"
@@ -60,7 +61,8 @@ signals:
     void remove(AccountForm *accountForm, bool child = false);
 
 public slots:
-    void updateInterface(bool directCall = false);
+    void updateInterface(/*bool directCall = false*/);
+    void loadCharacterFaceUrl(QNetworkReply *reply);
 
     void on_actionLoadScript_triggered();
     void on_actionRunScript_triggered();
@@ -70,6 +72,8 @@ private slots:
     void on_pushButtonClose_clicked();
 
     void on_actionTeleportSlavesToMaster_triggered();
+
+    void on_tabWidget_tabBarClicked(int index);
 
 private:
     Ui::AccountForm *ui;
@@ -82,6 +86,8 @@ private:
 
     QMenu *menuScript;
     QMenu *menuGroupSettings;
+
+    QNetworkAccessManager *managerFaceSkin;
 
     ConsoleForm *consoleForm;
     CharacterForm *characterForm;

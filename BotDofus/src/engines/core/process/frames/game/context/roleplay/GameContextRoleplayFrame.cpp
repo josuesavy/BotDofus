@@ -422,24 +422,15 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
 
             if (interactiveElementDoorInfos.interactiveElementInfos.elementTypeId > 0)
             {
-                if (interactiveElementDoorInfos.interactiveElementInfos.enabledSkills.size() > 0)
-                {
-                    interactiveDisplayInfos.name = qSharedPointerCast<InteractiveData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::SKILLS, interactiveElementDoorInfos.interactiveElementInfos.elementTypeId))->getName();
-                }
-                else if (interactiveElementDoorInfos.interactiveElementInfos.disabledSkills.size() > 0)
-                {
-                    interactiveDisplayInfos.name = qSharedPointerCast<InteractiveData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::SKILLS, interactiveElementDoorInfos.interactiveElementInfos.disabledSkills.first().ID))->getName();
-                }
+                interactiveDisplayInfos.name = qSharedPointerCast<InteractiveData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::INTERACTIVES, interactiveElementDoorInfos.interactiveElementInfos.elementTypeId))->getName();
             }
             else
             {
                 if (interactiveElementDoorInfos.interactiveElementInfos.enabledSkills.size() > 0)
                 {
-                    interactiveDisplayInfos.name = qSharedPointerCast<InteractiveData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::SKILLS, interactiveElementDoorInfos.interactiveElementInfos.enabledSkills.first().ID))->getName();
-                }
-                else if (interactiveElementDoorInfos.interactiveElementInfos.disabledSkills.size() > 0)
-                {
-                    interactiveDisplayInfos.name = qSharedPointerCast<InteractiveData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::SKILLS, interactiveElementDoorInfos.interactiveElementInfos.disabledSkills.first().ID))->getName();
+                    qDebug() << interactiveElementDoorInfos.interactiveElementInfos.enabledSkills.size();
+                    qDebug() << "EnabledSkillsID:" << interactiveElementDoorInfos.interactiveElementInfos.enabledSkills.first().ID;
+                    interactiveDisplayInfos.name = qSharedPointerCast<InteractiveData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::INTERACTIVES, interactiveElementDoorInfos.interactiveElementInfos.enabledSkills.first().ID))->getName();
                 }
             }
 

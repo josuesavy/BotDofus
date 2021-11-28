@@ -12,10 +12,8 @@ CharacterForm::CharacterForm(ProcessEngine *engine, const ConnectionInfos &infos
     m_infos = infos;
     m_sender = sender;
 
-    managerFaceSkin = new QNetworkAccessManager(this);
     managerFullSkin = new QNetworkAccessManager(this);
 
-    QObject::connect(managerFaceSkin, SIGNAL(finished(QNetworkReply*)), this, SLOT(loadCharacterFaceUrl(QNetworkReply*)));
     QObject::connect(managerFullSkin, SIGNAL(finished(QNetworkReply*)), this, SLOT(loadCharacterFullUrl(QNetworkReply*)));
 
     ui->labelImage->setPixmap(QPixmap(":/icons/character.png"));
@@ -57,13 +55,9 @@ void CharacterForm::updateInterface()
         if(infos.mapData.playersOnMap[infos.mapData.botId].name == infos.connectionData.connectionInfos.character)
         {
             QUrl characterFullUrl(EntityLookParser::getUrl(infos.mapData.playersOnMap[infos.mapData.botId].look, EntityRendererType::FULL, EntityRendererOrientation::DIAGONAL_RIGHT));
-            QUrl characterFaceUrl(EntityLookParser::getUrl(infos.mapData.playersOnMap[infos.mapData.botId].look, EntityRendererType::FACE, EntityRendererOrientation::DIAGONAL_RIGHT));
 
             if (infos.playerData.characterFullUrl != characterFullUrl || infos.playerData.characterFullUrl.isEmpty())
                 managerFullSkin->get(QNetworkRequest(characterFullUrl));
-            if (infos.playerData.characterFaceUrl != characterFaceUrl || infos.playerData.characterFaceUrl.isEmpty())
-                managerFaceSkin->get(QNetworkRequest(characterFaceUrl));
-
 
             if (!infos.playerData.fullPixmap.isNull())
                 ui->labelImage->setPixmap(infos.playerData.fullPixmap);
@@ -250,15 +244,6 @@ void CharacterForm::loadCharacterFullUrl(QNetworkReply *reply)
     pixmap.loadFromData(reply->readAll());
     m_engine->getStatsManager().defineUrlFull(m_sender, reply->url());
     m_engine->getStatsManager().defineSkinFull(m_sender, pixmap);
-    reply->deleteLater();
-}
-
-void CharacterForm::loadCharacterFaceUrl(QNetworkReply *reply)
-{
-    QPixmap pixmap;
-    pixmap.loadFromData(reply->readAll());
-    m_engine->getStatsManager().defineUrlHead(m_sender, reply->url());
-    m_engine->getStatsManager().defineSkinHead(m_sender, pixmap);
     reply->deleteLater();
 }
 

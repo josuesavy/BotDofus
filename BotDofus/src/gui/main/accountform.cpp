@@ -12,6 +12,9 @@ AccountForm::AccountForm(ProcessEngine *engine, const ConnectionInfos &infos, QW
     m_infos = infos;
     m_sender = m_engine->getConnectionManager().addConnection(m_infos);
 
+    managerFaceSkin = new QNetworkAccessManager(this);
+    QObject::connect(managerFaceSkin, SIGNAL(finished(QNetworkReply*)), this, SLOT(loadCharacterFaceUrl(QNetworkReply*)));
+
     consoleForm = new ConsoleForm(m_engine, m_infos, m_sender, this);
     characterForm = new CharacterForm(m_engine, m_infos, m_sender, this);
     inventoryForm = new InventoryForm(m_engine, m_infos, m_sender, this);
@@ -217,7 +220,7 @@ void AccountForm::autoConnect()
     emit ui->pushButtonDisconnection->clicked();
 }
 
-void AccountForm::updateInterface(bool directCall)
+void AccountForm::updateInterface(/*bool directCall*/)
 {
 //    if(m_updateChecker.elapsed() < UPDATE_INTERVAL && directCall)
 //    {
@@ -230,14 +233,41 @@ void AccountForm::updateInterface(bool directCall)
 //        return;
 //    }
 
-    consoleForm->updateInterface();
-    characterForm->updateInterface();
-    inventoryForm->updateInterface();
-    mapForm->updateInterface();
-    floodForm->updateInterface();
-    fightForm->updateInterface();
-    statisticsForm->updateInterface();
-    settingsForm->updateInterface();
+    switch (ui->tabWidget->currentIndex())
+    {
+    case 0: // Console
+        consoleForm->updateInterface();
+        break;
+
+    case 1: //Charactere
+        characterForm->updateInterface();
+        break;
+
+    case 2: // Inventory
+        inventoryForm->updateInterface();
+        break;
+
+    case 3: // Map
+        mapForm->updateInterface();
+        break;
+
+    case 4: // Flood
+        floodForm->updateInterface();
+        break;
+
+    case 5: // Fight
+        fightForm->updateInterface();
+        break;
+
+    case 6: // Statistics
+        statisticsForm->updateInterface();
+        break;
+
+    case 7: // Settings
+        settingsForm->updateInterface();
+        break;
+    }
+
 
     const BotData &infos = getData();
 
@@ -264,6 +294,14 @@ void AccountForm::updateInterface(bool directCall)
         ui->labelIconExperience->setEnabled(true);
         ui->progressBarExperience->setEnabled(true);
         ui->labelIconKamas->setEnabled(true);
+
+        if(infos.mapData.playersOnMap[infos.mapData.botId].name == infos.connectionData.connectionInfos.character)
+        {
+            QUrl characterFaceUrl(EntityLookParser::getUrl(infos.mapData.playersOnMap[infos.mapData.botId].look, EntityRendererType::FACE, EntityRendererOrientation::DIAGONAL_RIGHT));
+
+            if (infos.playerData.characterFaceUrl != characterFaceUrl || infos.playerData.characterFaceUrl.isEmpty())
+                managerFaceSkin->get(QNetworkRequest(characterFaceUrl));
+        }
 
 
         if (infos.mapData.playersOnMap.contains(infos.mapData.botId) || infos.fightData.fighters.contains(infos.fightData.botFightData.botId))
@@ -427,6 +465,15 @@ void AccountForm::updateInterface(bool directCall)
     //m_updateChecker.restart();
 }
 
+void AccountForm::loadCharacterFaceUrl(QNetworkReply *reply)
+{
+    QPixmap pixmap;
+    pixmap.loadFromData(reply->readAll());
+    m_engine->getStatsManager().defineUrlHead(m_sender, reply->url());
+    m_engine->getStatsManager().defineSkinHead(m_sender, pixmap);
+    reply->deleteLater();
+}
+
 void AccountForm::on_pushButtonDisconnection_clicked()
 {
     if(!m_sender->isActive())
@@ -523,3 +570,42 @@ void AccountForm::on_actionTeleportSlavesToMaster_triggered()
             m_engine->getGroupManager().teleportSlavesToMaster(slave, m_engine->getData(slave).connectionData.connectionInfos.masterGroup);
     }
 }
+
+void AccountForm::on_tabWidget_tabBarClicked(int index)
+{
+    switch (index)
+    {
+    case 0: // Console
+        consoleForm->updateInterface();
+        break;
+
+    case 1: //Charactere
+        characterForm->updateInterface();
+        break;
+
+    case 2: // Inventory
+        inventoryForm->updateInterface();
+        break;
+
+    case 3: // Map
+        mapForm->updateInterface();
+        break;
+
+    case 4: // Flood
+        floodForm->updateInterface();
+        break;
+
+    case 5: // Fight
+        fightForm->updateInterface();
+        break;
+
+    case 6: // Statistics
+        statisticsForm->updateInterface();
+        break;
+
+    case 7: // Settings
+        settingsForm->updateInterface();
+        break;
+    }
+}
+

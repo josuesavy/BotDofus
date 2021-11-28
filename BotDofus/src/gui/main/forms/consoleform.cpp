@@ -83,7 +83,7 @@ void ConsoleForm::updateInterface()
 
     if (infos.connectionData.connectionState == ConnectionState::DISCONNECTED)
     {
-        ui->comboBoxCanal->setEnabled(false);
+        //ui->comboBoxCanal->setEnabled(false);
         ui->lineEditConsole->setEnabled(false);
         ui->pushButtonSmiley->setEnabled(false);
         ui->pushButtonSend->setEnabled(false);

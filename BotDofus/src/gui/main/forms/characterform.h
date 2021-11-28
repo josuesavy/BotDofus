@@ -27,7 +27,6 @@ public:
 public slots:
     void updateInterface();
     void loadCharacterFullUrl(QNetworkReply *reply);
-    void loadCharacterFaceUrl(QNetworkReply *reply);
 
 private slots:
     void on_pushButtonAddVitality_clicked();
@@ -49,7 +48,6 @@ private:
     const BotData &getData() const;
 
     QNetworkAccessManager *managerFullSkin;
-    QNetworkAccessManager *managerFaceSkin;
 };
 
 #endif // CHARACTERFORM_H
