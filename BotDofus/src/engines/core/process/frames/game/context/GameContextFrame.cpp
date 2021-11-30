@@ -104,7 +104,11 @@ bool GameContextFrame::processMessage(const MessageInfos &data, SocketIO *sender
 
         if(m_botData[sender].generalData.botState == FIGHTING_STATE)
         {
-            m_botData[sender].fightData.fighters[message.actorId].cellId = message.keyMovements.last();
+            if (m_botData[sender].fightData.fighters.contains(message.actorId))
+            {
+                m_botData[sender].fightData.fighters[message.actorId].cellId = message.keyMovements.last();
+                m_botData[sender].fightData.fighters[message.actorId].keyMovements = message.keyMovements;
+            }
         }
 
         if (m_botData[sender].mapData.gameContext == GameContextEnum::ROLE_PLAY)

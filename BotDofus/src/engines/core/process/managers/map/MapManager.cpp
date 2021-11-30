@@ -283,11 +283,30 @@ bool MapManager::changeMap(SocketIO *sender, MapSide mapSide, int cellId)
                     adjacentMap = D2PManagerSingleton::get()->getMap(m_botData[sender].mapData.map.getRightMapId());
                 }
 
-                // Fix: bug when you want to change map but it was not possible because there is map not exist
                 if(!adjacentMap.isInit())
                 {
-                    qDebug()<<"[ERROR] (MapManager) changeMap: Cannot change the"<< m_botData[sender].connectionData.connectionInfos.character<<"bot from map because there is no map";
-                    return false;
+                    QSharedPointer<MapScrollActionData> mapScrollActionData = qSharedPointerCast<MapScrollActionData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::MAPSCROLLACTIONS, m_botData[sender].mapData.map.getMapId()));
+                    if (mapScrollActionData)
+                    {
+                        if(mapSide == MapSide::TOP && mapScrollActionData->getTopExists())
+                            adjacentMap = D2PManagerSingleton::get()->getMap(mapScrollActionData->getTopMapId());
+
+                        else if(mapSide == MapSide::BOTTOM && mapScrollActionData->getBottomExists())
+                            adjacentMap = D2PManagerSingleton::get()->getMap(mapScrollActionData->getBottomMapId());
+
+                        else if(mapSide == MapSide::LEFT && mapScrollActionData->getLeftExists())
+                            adjacentMap = D2PManagerSingleton::get()->getMap(mapScrollActionData->getLeftMapId());
+
+                        else if(mapSide == MapSide::RIGHT && mapScrollActionData->getRightExists())
+                            adjacentMap = D2PManagerSingleton::get()->getMap(mapScrollActionData->getRightMapId());
+
+
+                        if (!adjacentMap.isInit())
+                        {
+                            qDebug()<<"[ERROR] (MapManager) changeMap: Cannot change the"<< m_botData[sender].connectionData.connectionInfos.character<<"bot from map because there is no map";
+                            return false;
+                        }
+                    }
                 }
 
                 // Remove cells that are not walkable and the one where the bot is currently there in the currently map
@@ -301,7 +320,7 @@ bool MapManager::changeMap(SocketIO *sender, MapSide mapSide, int cellId)
                     }
                 }
 
-
+                QList<uint> backUpEdgeCells = edgeCells;
                 int originalSize =  edgeCells.size();
                 int deleteCount = 0;
 
@@ -314,6 +333,12 @@ bool MapManager::changeMap(SocketIO *sender, MapSide mapSide, int cellId)
                         deleteCount++;
                     }
                 }
+
+                // If on the adjacent map there are nothing cell walkable adjacent
+                // to the cells walkable on the current map but the adjacent map really exist
+                // we backup the cell walkable on the current map allow to change map
+                if (edgeCells.isEmpty())
+                    edgeCells = backUpEdgeCells;
             }
 
             else
