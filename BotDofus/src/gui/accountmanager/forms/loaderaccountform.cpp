@@ -151,7 +151,7 @@ void LoaderAccountForm::on_pushButtonImportAccounts_clicked()
     if (file.open(QIODevice::ReadOnly) && file.size())
     {
         QString data = file.readAll();
-        QStringList lines = data.split('\n');
+        QStringList lines = data.split("\r\n");
 
         QString request = "INSERT INTO accounts (alias, login, password) SELECT t.alias, t.login, t.password FROM ";
         QString value = "(";
