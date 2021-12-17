@@ -99,16 +99,6 @@ public:
     bool changeMap(SocketIO *sender, uint mapId);
 
     /*!
-     * \brief processDirection
-     * \param character Played Id of the character on the map
-     * \param element Element Id towards which the player should turn
-     * \return Directions Orientation of the element according to the character's point of view
-     *
-     * Returns the orientation of the element according to the character's point of view.
-     */
-    Directions processDirection(int character, int element);
-
-    /*!
      * \brief changeDirection
      * \param sender Pointer to the bot instance
      * \param dir Orientation which the bot has to turn to

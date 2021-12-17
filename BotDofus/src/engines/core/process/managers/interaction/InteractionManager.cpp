@@ -190,15 +190,24 @@ bool InteractionManager::processUseDoor(SocketIO *sender, uint id)
         }
     }
 
-    bool isSun = false;
-    foreach (CellData cellData, m_botData[sender].mapData.map.getCellData())
+    if (elem.interactiveElementInfos.enabledSkills.size() > 0)
     {
-        if (elem.cellId == cellData.getId() && cellData.isWalkable())
-            isSun = true;
+        if (elem.interactiveElementInfos.enabledSkills.size() > 1)
+        {
+            foreach (InteractiveSkillInfos interactiveSkillInfos, elem.interactiveElementInfos.enabledSkills)
+            {
+                if ((DataEnum)interactiveSkillInfos.ID != DataEnum::SKILL_POINT_OUT_EXIT ||
+                        (DataEnum)interactiveSkillInfos.ID != DataEnum::SKILL_SIGN_FREE_TEXT ||
+                        (DataEnum)interactiveSkillInfos.ID != DataEnum::SKILL_SIGN_HINT ||
+                        (DataEnum)interactiveSkillInfos.ID != DataEnum::SKILL_SIGN_SUBAREA)
+                {
+                    skill = interactiveSkillInfos.ID;
+                }
+            }
+        }
+        else
+            skill = elem.interactiveElementInfos.enabledSkills.first().ID;
     }
-
-    if (elem.interactiveElementInfos.enabledSkills.size())
-        skill = elem.interactiveElementInfos.enabledSkills.first().ID;
 
     if (skill == INVALID)
         return false;
@@ -209,8 +218,8 @@ bool InteractionManager::processUseDoor(SocketIO *sender, uint id)
     connect(m_mapManager, SIGNAL(hasFinishedMoving(SocketIO*)), this, SLOT(moved(SocketIO*)));
     connect(m_mapManager, SIGNAL(couldNotMove(SocketIO*)), this, SLOT(noMovement(SocketIO*)));
 
-    if (isSun)
-        m_mapManager->changeCell(sender, elem.cellId);
+    if ((DataEnum)elem.interactiveElementInfos.enabledSkills.first().ID == DataEnum::SKILL_POINT_OUT_EXIT)
+        m_mapManager->changeCell(sender, m_botData[sender].mapData.map.getInteractiveElementCellID(elem.interactiveElementInfos.elementId));
     else
         m_mapManager->changeToNearestCell(sender, m_botData[sender].mapData.map.getInteractiveElementCellID(elem.interactiveElementInfos.elementId));
 
@@ -374,9 +383,16 @@ void InteractionManager::moved(SocketIO *sender)
     {
         int skill = INVALID;
         foreach (InteractiveElementDoorInfos e, m_botData[sender].mapData.doorsOnMap)
+        {
             foreach (InteractiveSkillInfos s, e.interactiveElementInfos.enabledSkills)
-                if (s.ID == m_botData[sender].interactionData.actionID)
+            {
+                if (s.ID == m_botData[sender].interactionData.actionID &&
+                        e.interactiveElementInfos.elementId == m_botData[sender].interactionData.interactionId)
+                {
                     skill = s.UID;
+                }
+            }
+        }
 
         if (skill == INVALID)
         {

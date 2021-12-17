@@ -428,9 +428,41 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
             {
                 if (interactiveElementDoorInfos.interactiveElementInfos.enabledSkills.size() > 0)
                 {
-                    qDebug() << interactiveElementDoorInfos.interactiveElementInfos.enabledSkills.size();
-                    qDebug() << "EnabledSkillsID:" << interactiveElementDoorInfos.interactiveElementInfos.enabledSkills.first().ID;
-                    interactiveDisplayInfos.name = qSharedPointerCast<InteractiveData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::INTERACTIVES, interactiveElementDoorInfos.interactiveElementInfos.enabledSkills.first().ID))->getName();
+                    bool isDirectionalPanel = false;
+                    foreach (InteractiveSkillInfos interactiveSkillInfos, interactiveElementDoorInfos.interactiveElementInfos.enabledSkills)
+                    {
+                        if (interactiveSkillInfos.ID == 360 || interactiveSkillInfos.ID == 361 || interactiveSkillInfos.ID == 362)
+                        {
+                            isDirectionalPanel = true;
+                            break;
+                        }
+                    }
+
+                    if (isDirectionalPanel)
+                    {
+                        QSharedPointer<SignData> signData = qSharedPointerCast<SignData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::SIGNS, interactiveElementDoorInfos.interactiveElementInfos.elementId));
+                        int hintOrSubAreaId = D2OManagerSingleton::get()->getI18N()->getText(signData->getParams().split(',').at(0)).toInt();
+
+                        switch (interactiveElementDoorInfos.interactiveElementInfos.elementId)
+                        {
+                        case 360:
+                            interactiveDisplayInfos.name = D2OManagerSingleton::get()->getI18N()->getText(signData->getTextKey());
+                            break;
+
+                        case 361:
+                            interactiveDisplayInfos.name = qSharedPointerCast<HintData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::HINTS, hintOrSubAreaId))->getName();
+                            break;
+
+                        case 362:
+                            interactiveDisplayInfos.name = qSharedPointerCast<SubAreaData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::SUBAREAS, hintOrSubAreaId))->getName();
+                            break;
+                        }
+                    }
+
+                    if (interactiveDisplayInfos.name.isEmpty())
+                    {
+                        interactiveDisplayInfos.name = qSharedPointerCast<InteractiveData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::INTERACTIVES, interactiveElementDoorInfos.interactiveElementInfos.enabledSkills.first().ID))->getName();
+                    }
                 }
             }
 

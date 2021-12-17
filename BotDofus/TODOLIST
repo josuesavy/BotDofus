@@ -45,7 +45,7 @@ Inventaire
 Map
  [OK] Antibot sur la banque d'Astrub (191104002): des cellules marchable dans la banque vue de l'extérieur
  [OK] Des fois le bot reste en loop infinie quand on lui demande de bouger ou de changer de map (location: Pathfinding.cpp:124-135) 
- [ ] Make a stable difference between all interactive (somes interactive are on cell walkable but it's not a sun (ex. astrub door bank), markets)
+ [OK] Make a stable difference between all interactive (somes interactive are on cell walkable but it's not a sun (ex. astrub door bank), markets)
 
 Combat
  [ ] Revoir l'IA en combat, il semblerait qu'il a déjà la po pour attaquer mais il bouge avant alors qu'il peut le faire après

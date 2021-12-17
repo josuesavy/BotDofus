@@ -487,10 +487,13 @@ void MapManager::processConfirmation()
             {
                 //i.value().mapData.requestedMaps.first().cellId;
 
-                ChangeMapMessage answer2;
-                answer2.mapId = i.value().mapData.requestedMaps.first().mapId;
-                answer2.autopilot = false;
-                i.key()->send(answer2);
+                if (m_botData[i.key()].mapData.playersOnMap[m_botData[i.key()].mapData.botId].cellId == m_botData[i.key()].mapData.requestedPath.path.path.last())
+                {
+                    ChangeMapMessage answer2;
+                    answer2.mapId = i.value().mapData.requestedMaps.first().mapId;
+                    answer2.autopilot = false;
+                    i.key()->send(answer2);
+                }
 
                 m_botData[i.key()].generalData.botState = MAP_TRANSITION_STATE;
                 m_botData[i.key()].mapData.requestedMaps.removeFirst();
@@ -586,22 +589,6 @@ void MapManager::processMapPath(QList<ChangeMapRequest> requestedMaps, SocketIO 
 
     else
         qDebug()<<"[ERROR] (MapManager) processMapPath: this connection is unknown.";
-}
-
-Directions MapManager::processDirection(int character, int element)
-{
-    QPoint characterPos(Pathfinding::getCoordinates(character).first, Pathfinding::getCoordinates(character).second);
-    QPoint elementPos(Pathfinding::getCoordinates(element).first, Pathfinding::getCoordinates(element).second);
-
-    int a = elementPos.x() - characterPos.x();
-    int b = characterPos.y() - elementPos.y();
-    int c = acos(a / sqrt(pow(a, 2) + pow(b, 2))) * 180 / M_PI * (elementPos.y() > characterPos.y() ? -1 : 1);
-    c = round(c / 45) + 1;
-
-    if (c < 0)
-        c += 8;
-
-    return (Directions)c;
 }
 
 void MapManager::changeDirection(SocketIO *sender, Directions dir)

@@ -52,6 +52,14 @@ enum class SuperTypeId
     PETS_OR_MOUNT = 12,
 };
 
+enum class DataEnum
+{
+    SKILL_POINT_OUT_EXIT = 339,
+    SKILL_SIGN_FREE_TEXT = 360,
+    SKILL_SIGN_HINT = 361,
+    SKILL_SIGN_SUBAREA = 362,
+};
+
 enum class StatIds
 {
     UNKNOWN = -1,
