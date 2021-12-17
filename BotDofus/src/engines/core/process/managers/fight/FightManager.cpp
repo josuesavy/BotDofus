@@ -1543,7 +1543,12 @@ bool FightManager::moveNear(SocketIO *sender, int cibleID, int distanceWanted, b
         fighters.removeOne(m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].cellId);
         fighters.removeOne(cibleID);
 
-        PathInfos pathInfos = Pathfinding().findPath(m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].cellId, cibleID, m_botData[sender].mapData.map.getMapId(), false, false, fighters);
+        PathInfos pathInfos;
+        Pathfinder pathfinder;
+        pathfinder.setMap(m_botData[sender].mapData.map, fighters, false);
+        QList<QSharedPointer<NodeWithOrientation>> paths = pathfinder.getPath(m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].cellId, cibleID);
+        pathInfos.path = PathingUtils::getCompressedPath(paths);
+        pathInfos.time = PathingUtils::processTime(paths, false);
 
         qDebug()<<m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].cellId<<cibleID<<pathInfos.path;
 
@@ -1641,8 +1646,13 @@ bool FightManager::moveAway(SocketIO *sender, int cibleID, int distanceWanted, b
             fightersAlias.removeOne(cellID);
             //fightersAlias.removeOne(possibleCells[i]);
 
-            Pathfinding pathfinder;
-            PathInfos test = pathfinder.findPath(cellID, possibleCells[i], m_botData[sender].mapData.map.getMapId(), false, false, fightersAlias);
+            PathInfos test;
+
+            Pathfinder pathfinder;
+            pathfinder.setMap(m_botData[sender].mapData.map, fightersAlias, false);
+            QList<QSharedPointer<NodeWithOrientation>> paths = pathfinder.getPath(cellID, possibleCells[i]);
+            test.path = PathingUtils::getCompressedPath(paths);
+            test.time = PathingUtils::processTime(paths, false);
 
             if(test.path.size() > 0 && test.path.size()-1 <= movementPoints && (path.isEmpty() || ((path.size() > test.path.size() && getDistance(test.path.last(), cibleID) == distance) || getDistance(test.path.last(), cibleID) > distance)))
             {

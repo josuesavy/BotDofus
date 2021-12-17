@@ -1,72 +1,62 @@
 #ifndef NODE_H
 #define NODE_H
 
-#include <cmath>
-#include <iostream>
-#include "src/Public.h"
+#include <QPoint>
+#include <QVector>
+#include <QSharedPointer>
 
 class Node
 {
 public:
-    Node();
-    Node(int cellId, int _x, int _y);
-    Node(const Node &right);
-    bool operator==(const Node &right);
+    Node(bool changeMap, bool walkable, bool los, int column, int line, int id, QPoint location);
+    ~Node();
 
-    void setStarted(bool b_start);
-    bool getStarted()const;
+    bool getPair();
+    bool getChangeMap();
+    bool getWalkable();
+    bool getLos();
+    bool getInOpenList();
+    bool getInClosedList();
+    bool getStart();
+    bool getEnd();
+    QVector<unsigned char> getPosition();
+    QPoint getLocation();
+    int getId();
+    QSharedPointer<Node> getParent() const;
+    int getF();
+    int getG();
+    int getH();
+    int getOrientation();
 
-    void setClosed(bool b_close);
-    bool getClosed()const;
-
-    void setWalkable(bool b_walkable);
-    bool getWalkable()const;
-
-    void calculH(Node endNode);
-
-    int getH()const;
-    int getX() const;
-    int getY() const;
-
-    void setIsClosed(bool b_ferme);
-
-    int getCellId() const;
-
-    void setInOpenList(bool b_inOpenList);
-    bool getInOpenList()const;
-
-    void setInClosedList(bool b_inClosedList);
-    bool getInClosedList()const;
-
-    void setParent(int p_id);
-    int getParent()const;
-
-    void setG(int value);
-    int getG()const;
-
-    void setF(int value);
-    int getF()const;
-
-    void setOrientation(int value);
-    int getOrientation() const;
-
-    void setFloor(int floor);
-    int getFloor() const;
+    void setInOpenList(bool inOpenList);
+    void setInClosedList(bool inClosedList);
+    void setStart(bool start);
+    void setEnd(bool end);
+    void setParent(QSharedPointer<Node> parent);
+    void setF(int f);
+    void setG(int g);
+    void setH(int h);
+    void setH(QSharedPointer<Node>  endNode);
 
 private:
-    int m_orientation;
-    int m_x;
-    int m_y;
-    int m_h, m_f, m_g;
-    int m_cellid;
-    int m_parent;
-    int m_floor;
-    bool m_started;
-    bool m_closed;
-    bool m_isClosed;
+    void getBorder(int column, int line);
+
+    bool m_pair;
+    bool m_changeMap;
     bool m_walkable;
-    bool n_inClosedList;
-    bool n_inOpenList;
+    bool m_los;
+    bool m_inOpenList;
+    bool m_inClosedList;
+    bool m_start;
+    bool m_end;
+    QVector<unsigned char> m_position;
+    QPoint m_location;
+    int m_id;
+    QSharedPointer<Node>  m_parent;
+    int m_f;
+    int m_g;
+    int m_h;
+    int m_orientation;
 };
 
 #endif // NODE_H

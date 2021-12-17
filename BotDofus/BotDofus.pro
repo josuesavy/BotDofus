@@ -443,7 +443,9 @@ HEADERS += \
     src/engines/io/network/utils/FuncTree.h \
     src/engines/io/utils/Singleton.h \
     src/engines/pathfinding/map/Node.h \
-    src/engines/pathfinding/map/Pathfinding.h \
+    src/engines/pathfinding/map/NodeWithOrientation.h \
+    src/engines/pathfinding/map/Pathfinder.h \
+    src/engines/pathfinding/map/PathingUtils.h \
     src/engines/pathfinding/world/MapNode.h \
     src/engines/pathfinding/world/PathfindingMap.h \
     src/engines/security/AesManager.h \
@@ -2385,7 +2387,9 @@ SOURCES += \
     src/engines/io/network/utils/BooleanByteWrapper.cpp \
     src/engines/io/network/utils/FuncTree.cpp \
     src/engines/pathfinding/map/Node.cpp \
-    src/engines/pathfinding/map/Pathfinding.cpp \
+    src/engines/pathfinding/map/NodeWithOrientation.cpp \
+    src/engines/pathfinding/map/Pathfinder.cpp \
+    src/engines/pathfinding/map/PathingUtils.cpp \
     src/engines/pathfinding/world/MapNode.cpp \
     src/engines/pathfinding/world/PathfindingMap.cpp \
     src/engines/security/AesManager.cpp \

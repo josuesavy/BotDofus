@@ -15,7 +15,7 @@
 #include "src/protocol/types/ClassDeclarator.h"
 #include "src/protocol/messages/AbstractMessage.h"
 #include "src/protocol/messages/MessageDeclarator.h"
-#include "src/engines/pathfinding/map/Pathfinding.h"
+#include "src/engines/pathfinding/map/Pathfinder.h"
 #include "src/engines/pathfinding/world/PathfindingMap.h"
 
 struct Point2D

@@ -7,9 +7,9 @@ PathfindingMap::PathfindingMap():
     m_startMapId(0),
     m_endMapId(0),
     m_cellId(INVALID),
-    m_cell(INVALID),
     m_sender(NULL),
     m_running(false),
+    m_cell(INVALID),
     m_finishSearch(false)
 {
     initialize();
@@ -25,7 +25,7 @@ void PathfindingMap::initialize()
 {
     if(m_mapTranslateTable.isEmpty())
     {
-        QTime t;
+        QElapsedTimer t;
         t.start();
 
         QList<int> sub = D2OManagerSingleton::get()->getIndexes(GameDataTypeEnum::SUBAREAS);
@@ -80,7 +80,7 @@ int PathfindingMap::coordsToMapId(int x, int y, int superAreaID)
 QList<ChangeMapRequest> PathfindingMap::findPath(uint startMapId, uint endMapId, int cell)
 {
     m_running = true;
-    QTime timer;
+    QElapsedTimer timer;
     timer.start();
 
     QList<ChangeMapRequest> toBeReturned;
@@ -161,7 +161,7 @@ void PathfindingMap::requestPath(uint startMapId, uint endMapId, int cellId, Soc
     m_startMapId = startMapId;
     m_endMapId = endMapId;
     m_cellId = cellId;
-    //m_sender = sender;
+    m_sender = sender;
 
     start();
 }
@@ -252,7 +252,11 @@ void PathfindingMap::findNeighboringMaps(MapNode c_MapNode, uint startMapId, uin
     int cellId = checkMap(c_MapNode.getMapId(), sides[0], MapSide::TOP);
     if (cellId != INVALID && isTop)
     {
-        infos = Pathfinding::findPath(m_cell, cellId, c_MapNode.getMapId(), true);
+        Pathfinder pathfinder;
+        pathfinder.setMap(D2PManagerSingleton::get()->getMap(c_MapNode.getMapId()), QList<uint>(), true);
+        QList<QSharedPointer<NodeWithOrientation>> paths = pathfinder.getPath(m_cell, cellId);
+        infos.path = PathingUtils::getCompressedPath(paths);
+        infos.time = PathingUtils::processTime(paths, false);
 
         if (!infos.path.isEmpty())
             addMap(sides[0], cellId, c_MapNode, endMapId);
@@ -261,7 +265,11 @@ void PathfindingMap::findNeighboringMaps(MapNode c_MapNode, uint startMapId, uin
     cellId = checkMap(c_MapNode.getMapId(), sides[1], MapSide::BOTTOM);
     if (cellId != INVALID && isBottom)
     {
-        infos = Pathfinding::findPath(m_cell, cellId, c_MapNode.getMapId(), true);
+        Pathfinder pathfinder;
+        pathfinder.setMap(D2PManagerSingleton::get()->getMap(c_MapNode.getMapId()), QList<uint>(), true);
+        QList<QSharedPointer<NodeWithOrientation>> paths = pathfinder.getPath(m_cell, cellId);
+        infos.path = PathingUtils::getCompressedPath(paths);
+        infos.time = PathingUtils::processTime(paths, false);
 
         if (!infos.path.isEmpty())
             addMap(sides[1], cellId, c_MapNode, endMapId);
@@ -270,7 +278,11 @@ void PathfindingMap::findNeighboringMaps(MapNode c_MapNode, uint startMapId, uin
     cellId = checkMap(c_MapNode.getMapId(), sides[2], MapSide::RIGHT);
     if (cellId != INVALID && isRight)
     {
-        infos = Pathfinding::findPath(m_cell, cellId, c_MapNode.getMapId(), true);
+        Pathfinder pathfinder;
+        pathfinder.setMap(D2PManagerSingleton::get()->getMap(c_MapNode.getMapId()), QList<uint>(), true);
+        QList<QSharedPointer<NodeWithOrientation>> paths = pathfinder.getPath(m_cell, cellId);
+        infos.path = PathingUtils::getCompressedPath(paths);
+        infos.time = PathingUtils::processTime(paths, false);
 
         if (!infos.path.isEmpty())
             addMap(sides[2], cellId, c_MapNode, endMapId);
@@ -279,7 +291,11 @@ void PathfindingMap::findNeighboringMaps(MapNode c_MapNode, uint startMapId, uin
     cellId = checkMap(c_MapNode.getMapId(), sides[3], MapSide::LEFT);
     if (cellId != INVALID && isLeft)
     {
-        infos = Pathfinding::findPath(m_cell, cellId, c_MapNode.getMapId(), true);
+        Pathfinder pathfinder;
+        pathfinder.setMap(D2PManagerSingleton::get()->getMap(c_MapNode.getMapId()), QList<uint>(), true);
+        QList<QSharedPointer<NodeWithOrientation>> paths = pathfinder.getPath(m_cell, cellId);
+        infos.path = PathingUtils::getCompressedPath(paths);
+        infos.time = PathingUtils::processTime(paths, false);
 
         if (!infos.path.isEmpty())
             addMap(sides[3], cellId, c_MapNode, endMapId);
@@ -359,6 +375,8 @@ int PathfindingMap::getCellIdFromPoint(int x, int y)
         if (node.getX() == x && node.getY() == y)
             return node.getMapId();
     }
+
+    return 0;
 }
 
 int PathfindingMap::processAdjacentCell(uint cellId)
@@ -463,7 +481,14 @@ int PathfindingMap::checkMap(uint map, uint sideMapId, MapSide mapSide)
     {
         int randomIndex = (rand() % (edgeCells.size()));
 
-        if (!Pathfinding::findPath(m_cell, edgeCells[randomIndex], map).path.isEmpty())
+        PathInfos infos;
+        Pathfinder pathfinder;
+        pathfinder.setMap(D2PManagerSingleton::get()->getMap(map), QList<uint>(), true);
+        QList<QSharedPointer<NodeWithOrientation>> paths = pathfinder.getPath(m_cell, edgeCells[randomIndex]);
+        infos.path = PathingUtils::getCompressedPath(paths);
+        infos.time = PathingUtils::processTime(paths, false);
+
+        if (!infos.path.isEmpty())
             return edgeCells[randomIndex];
 
         edgeCells.removeAt(randomIndex);

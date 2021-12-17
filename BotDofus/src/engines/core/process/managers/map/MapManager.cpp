@@ -131,8 +131,12 @@ bool MapManager::changeCell(SocketIO *sender, uint cellId)
             QElapsedTimer mesure;
             mesure.start();
             PathInfos path;
-            Pathfinding pathfinding;
-            path = pathfinding.findPath(m_botData[sender].mapData.playersOnMap[m_botData[sender].mapData.botId].cellId, cellId, m_botData[sender].mapData.map.getMapId(), false, true, cells);
+
+            Pathfinder pathfinder;
+            pathfinder.setMap(m_botData[sender].mapData.map, cells, true);
+            QList<QSharedPointer<NodeWithOrientation>> paths = pathfinder.getPath(m_botData[sender].mapData.playersOnMap[m_botData[sender].mapData.botId].cellId, cellId);
+            path.path = PathingUtils::getCompressedPath(paths);
+            path.time = PathingUtils::processTime(paths, false);
             qDebug()<<"[INFO] (MapManager) changeCell: Time for find the path (ms):"<<mesure.elapsed()<<"("<<cellId<<")";
 
             if(path.path.size() != 0)
@@ -196,8 +200,12 @@ bool MapManager::changeToNearestCell(SocketIO *sender, uint cellId)
             QElapsedTimer mesure;
             mesure.start();
             NearestPathInfos path;
-            Pathfinding pathfinding;
-            path = pathfinding.findNearestPath(m_botData[sender].mapData.playersOnMap[m_botData[sender].mapData.botId].cellId, cellId, m_botData[sender].mapData.map.getMapId(), false, true, cells);
+            Pathfinder pathfinder;
+            pathfinder.setMap(m_botData[sender].mapData.map, cells, true);
+            QList<QSharedPointer<NodeWithOrientation>> paths = pathfinder.getPath(m_botData[sender].mapData.playersOnMap[m_botData[sender].mapData.botId].cellId, cellId);
+            path.path = PathingUtils::getCompressedPath(paths);
+            path.time = PathingUtils::processTime(paths, false);
+
             qDebug()<<"[INFO] (MapManager) changeToNearestCell: Time for find the path (ms):"<<mesure.elapsed()<<"(near"<<cellId<<")";
 
             if(path.path.size() != 0)

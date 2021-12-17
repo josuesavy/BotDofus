@@ -2,7 +2,7 @@
 #define PathfindingMap_H
 
 #include "src/Public.h"
-#include "src/engines/pathfinding/map/Pathfinding.h"
+#include "src/engines/pathfinding/map/Pathfinder.h"
 #include "MapNode.h"
 #include "src/engines/io/d2p/D2PManager.h"
 #include "src/engines/io/d2o/D2OManager.h"
@@ -19,7 +19,7 @@ struct ChangeMapRequest
     int cellId = -1;
 };
 
-class PathfindingMap : public QThread, public Pathfinding
+class PathfindingMap : public QThread, public Pathfinder
 {
 
     Q_OBJECT

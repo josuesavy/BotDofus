@@ -1,172 +1,174 @@
 #include "Node.h"
-#include <cmath>
-#include <math.h>
 
-Node::Node()
+Node::Node(bool changeMap, bool walkable, bool los, int column, int line, int id, QPoint location)
 {
-    m_started = false;
-    m_closed = false;
-    m_isClosed = false;
+    m_changeMap = changeMap;
+    m_walkable = walkable;
+    m_los = los;
+    m_id = id;
+    m_pair = line % 2 == 0;
+    m_location = location;
+    m_inOpenList = false;
+    m_inClosedList = false;
+    m_start = false;
+    m_end = false;
+    m_f = 0;
+    m_g = 0;
+    m_h = 0;
+    m_orientation = 0;
+    m_parent = nullptr;
+
+    getBorder(column, line);
 }
 
-Node::Node(int cellId, int _x, int _y)
+Node::~Node()
 {
-    m_x = _x;
-    m_y = _y;
-    m_cellid = cellId;
+
 }
 
-Node::Node(const Node &right)
+bool Node::getPair()
 {
-    m_x = right.m_x;
-    m_y = right.m_y;
-    m_h = right.m_h;
-    m_f = right.m_f;
-    m_g = right.m_g;
-    m_cellid = right.m_cellid;
-    m_parent = right.m_parent;
-    m_started = right.m_started;
-    m_closed = right.m_closed;
-    m_isClosed = right.m_isClosed;
-    m_walkable = right.m_walkable;
-    n_inClosedList = right.n_inClosedList;
-    n_inOpenList = right.n_inOpenList;
-    m_orientation = right.m_orientation;
-    m_floor = right.m_floor;
+    return m_pair;
 }
 
-bool Node::operator==(const Node &right)
+bool Node::getChangeMap()
 {
-    if (m_cellid == right.m_cellid)
-        return true;
-
-    return false;
+    return m_changeMap;
 }
 
-void Node::setStarted(bool b_start)
-{
-    m_started = b_start;
-}
-
-void Node::setClosed(bool b_close)
-{
-    m_closed = b_close;
-}
-
-void Node::setWalkable(bool b_walkable)
-{
-    m_walkable = b_walkable;
-}
-
-void Node::calculH(Node endNode)
-{
-    m_h = 10 * (fabs(endNode.getX() - m_x)  + fabs(endNode.getY() - m_y));
-}
-
-int Node::getX() const
-{
-    return m_x;
-}
-
-int Node::getY() const
-{
-    return m_y;
-}
-
-void Node::setIsClosed(bool b_ferme)
-{
-    m_isClosed = b_ferme;
-}
-
-int Node::getCellId()const
-{
-    return m_cellid;
-}
-void Node::setInOpenList(bool b_inOpenList)
-{
-    n_inOpenList = b_inOpenList;
-}
-
-bool Node::getInOpenList()const
-{
-    return n_inOpenList;
-}
-void Node::setInClosedList(bool b_inClosedList)
-{
-    n_inClosedList = b_inClosedList;
-}
-
-bool Node::getInClosedList()const
-{
-    return n_inClosedList;
-}
-
-bool Node::getStarted() const
-{
-    return m_started;
-}
-
-bool Node::getClosed() const
-{
-    return m_closed;
-}
-
-void Node::setParent(int p_id)
-{
-    m_parent = p_id;
-}
-
-int Node::getParent()const
-{
-    return m_parent;
-}
-
-bool Node::getWalkable()const
+bool Node::getWalkable()
 {
     return m_walkable;
 }
 
-void Node::setG(int value)
+bool Node::getLos()
 {
-    m_g = value;
+    return m_los;
 }
 
-int Node::getG() const
+bool Node::getInOpenList()
 {
-    return m_g;
+    return m_inOpenList;
 }
 
-void Node::setF(int value)
+bool Node::getInClosedList()
 {
-    m_f = value;
+    return m_inClosedList;
 }
 
-int Node::getF()const
+bool Node::getStart()
+{
+    return m_start;
+}
+
+bool Node::getEnd()
+{
+    return m_end;
+}
+
+QVector<unsigned char> Node::getPosition()
+{
+    return m_position;
+}
+
+QPoint Node::getLocation()
+{
+    return m_location;
+}
+
+int Node::getId()
+{
+    return m_id;
+}
+
+QSharedPointer<Node> Node::getParent() const
+{
+    return m_parent;
+}
+
+int Node::getF()
 {
     return m_f;
 }
 
-int Node::getH()const
+int Node::getG()
+{
+    return m_g;
+}
+
+int Node::getH()
 {
     return m_h;
 }
 
-int Node::getOrientation() const
+int Node::getOrientation()
 {
     return m_orientation;
 }
 
-void Node::setOrientation(int value)
+void Node::setInOpenList(bool inOpenList)
 {
-    m_orientation = value;
+    m_inOpenList = inOpenList;
 }
 
-int Node::getFloor() const
+void Node::setInClosedList(bool inClosedList)
 {
-    return m_floor;
+    m_inClosedList = inClosedList;
 }
 
-void Node::setFloor(int floor)
+void Node::setStart(bool start)
 {
-    m_floor = floor;
+    m_start = start;
+}
+
+void Node::setEnd(bool end)
+{
+    m_end = end;
+}
+
+void Node::setParent(QSharedPointer<Node> parent)
+{
+    m_parent = parent;
+}
+
+void Node::setG(int g)
+{
+    m_g = g;
+}
+
+void Node::setH(int h)
+{
+    m_h = h;
+}
+
+void Node::setH(QSharedPointer<Node> endNode)
+{
+    m_h = (uint)(10 * (qAbs(endNode->getLocation().x() - m_location.x()) + qAbs(endNode->getLocation().x() - m_location.y())));
+}
+
+void Node::setF(int f)
+{
+    m_f = f;
+}
+
+void Node::getBorder(int column, int line)
+{
+    m_position = QVector<unsigned char>(8);
+
+    if (line == 0)
+        m_position[0] = 1;
+    if (line == 1)
+        m_position[1] = 1;
+    if (line == 39)
+        m_position[2] = 1;
+    if (line == 38)
+        m_position[3] = 1;
+    if (column == 0 && m_pair)
+        m_position[4] = 1;
+    if (column == 0 && !m_pair)
+        m_position[5] = 1;
+    if (column == 13 && !m_pair)
+        m_position[6] = 1;
+    if (column == 13 && m_pair)
+        m_position[7] = 1;
 }

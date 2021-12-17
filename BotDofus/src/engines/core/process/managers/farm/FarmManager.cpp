@@ -87,8 +87,11 @@ void FarmManager::farmAction(SocketIO *sender)
 
     // Search a path
     NearestPathInfos nearestPathInfos;
-    Pathfinding path;
-    nearestPathInfos = path.findNearestPath(m_botData[sender].mapData.playersOnMap[m_botData[sender].mapData.botId].cellId, m_botData[sender].farmData.currentElement.position, m_botData[sender].mapData.map.getMapId(), false, true, cells);
+    Pathfinder pathfinder;
+    pathfinder.setMap(m_botData[sender].mapData.map, cells, true);
+    QList<QSharedPointer<NodeWithOrientation>> paths = pathfinder.getPath(m_botData[sender].mapData.playersOnMap[m_botData[sender].mapData.botId].cellId, m_botData[sender].farmData.currentElement.position);
+    nearestPathInfos.path = PathingUtils::getCompressedPath(paths);
+    nearestPathInfos.time = PathingUtils::processTime(paths, false);
 
     // Go to farm
     if (nearestPathInfos.path.last() == m_botData[sender].mapData.playersOnMap[m_botData[sender].mapData.botId].cellId)

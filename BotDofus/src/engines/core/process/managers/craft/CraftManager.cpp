@@ -93,11 +93,14 @@ void CraftManager::processCrafting(SocketIO *sender)
                         foreach(MerchantInfos m, m_botData[sender].mapData.merchantsOnMap)
                             cells << m.cellId;
 
-                        QTime mesure;
+                        QElapsedTimer mesure;
                         mesure.start();
                         NearestPathInfos nearestPath;
-                        Pathfinding pathfinding;
-                        nearestPath = pathfinding.findNearestPath(m_botData[sender].mapData.playersOnMap[m_botData[sender].mapData.botId].cellId, m_botData[sender].mapData.map.getInteractiveElementCellID(ie.elementId), m_botData[sender].mapData.map.getMapId(), false, true, cells);
+                        Pathfinder pathfinder;
+                        pathfinder.setMap(m_botData[sender].mapData.map, cells, true);
+                        QList<QSharedPointer<NodeWithOrientation>> paths = pathfinder.getPath(m_botData[sender].mapData.playersOnMap[m_botData[sender].mapData.botId].cellId, m_botData[sender].mapData.map.getInteractiveElementCellID(ie.elementId));
+                        nearestPath.path = PathingUtils::getCompressedPath(paths);
+                        nearestPath.time = PathingUtils::processTime(paths, false);
                         qDebug()<<"Temps pour trouver le chemin (ms):"<<mesure.elapsed()<<"(near "<<m_botData[sender].mapData.map.getInteractiveElementCellID(ie.elementId)<<")";
 
                         m_botData[sender].craftData.toCraft = r;

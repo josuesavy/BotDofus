@@ -46,6 +46,7 @@ Map
  [OK] Antibot sur la banque d'Astrub (191104002): des cellules marchable dans la banque vue de l'extérieur
  [OK] Des fois le bot reste en loop infinie quand on lui demande de bouger ou de changer de map (location: Pathfinding.cpp:124-135) 
  [OK] Make a stable difference between all interactive (somes interactive are on cell walkable but it's not a sun (ex. astrub door bank), markets)
+ [OK] On the map of Cherubim, for use his door to enter in his house check the pathfinding
 
 Combat
  [ ] Revoir l'IA en combat, il semblerait qu'il a déjà la po pour attaquer mais il bouge avant alors qu'il peut le faire après
@@ -63,7 +64,7 @@ Divers
  [OK] Il y a une mesure anti-bot (ou pas) où j'arrive pas a récup toute les mapids des maps...
  [OK] Certaines cartes ont des voisins inconnue quand on veut se deplacer
  [OK] Lors de la connexion d'un groupe, vérifier si tous sont sur le même serveur (bof)
- [OK] Revoir le pathfinding, il semblerait qu'il soit cassé
+ [OOK] Revoir le pathfinding, il semblerait qu'il soit cassé
  [ ] Vérifier si CheckFileRequestMessage fonctionne bien
  [OK] Quand on reconnecte le bot, il parle d'une histoire de régénération
  [ ] Des fois quand le bot se fait déco pour inactivité les logs sur la console sont pas mis à jour obligé de le reco pour avoir les dernière log sur la console
