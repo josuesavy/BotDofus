@@ -223,643 +223,643 @@ QSharedPointer<AbstractClass> ClassManager::getClass(int classId)
       return QSharedPointer<AbstractClass>();
     }
     
-    case 3373:
+    case 9551:
       return QSharedPointer<AbstractClass>(new CharacterMinimalPlusLookInformations());
     
-    case 1613:
+    case 8097:
       return QSharedPointer<AbstractClass>(new CharacterBaseInformations());
     
-    case 5064:
+    case 8492:
       return QSharedPointer<AbstractClass>(new PartyMemberInformations());
     
-    case 5607:
+    case 2694:
       return QSharedPointer<AbstractClass>(new PartyMemberArenaInformations());
     
-    case 2626:
+    case 436:
       return QSharedPointer<AbstractClass>(new PartyInvitationMemberInformations());
     
-    case 6244:
+    case 7850:
       return QSharedPointer<AbstractClass>(new CharacterHardcoreOrEpicInformations());
     
-    case 4565:
+    case 4548:
       return QSharedPointer<AbstractClass>(new CharacterMinimalGuildInformations());
     
-    case 5168:
+    case 4354:
       return QSharedPointer<AbstractClass>(new CharacterMinimalAllianceInformations());
     
-    case 1505:
+    case 7522:
       return QSharedPointer<AbstractClass>(new CharacterMinimalPlusLookAndGradeInformations());
     
-    case 7046:
+    case 7424:
       return QSharedPointer<AbstractClass>(new EntityDispositionInformations());
     
-    case 6389:
+    case 8490:
       return QSharedPointer<AbstractClass>(new IdentifiedEntityDispositionInformations());
     
-    case 2016:
+    case 7794:
       return QSharedPointer<AbstractClass>(new FightEntityDispositionInformations());
     
-    case 3145:
+    case 6359:
       return QSharedPointer<AbstractClass>(new AbstractSocialGroupInfos());
     
-    case 7036:
+    case 4374:
       return QSharedPointer<AbstractClass>(new BasicGuildInformations());
     
-    case 4559:
+    case 1201:
       return QSharedPointer<AbstractClass>(new GuildInformations());
     
-    case 3077:
+    case 7387:
       return QSharedPointer<AbstractClass>(new GuildFactSheetInformations());
     
-    case 574:
+    case 8132:
       return QSharedPointer<AbstractClass>(new GuildInsiderFactSheetInformations());
     
-    case 9877:
+    case 8343:
       return QSharedPointer<AbstractClass>(new GuildInAllianceInformations());
     
-    case 7856:
+    case 1714:
       return QSharedPointer<AbstractClass>(new AlliancedGuildFactSheetInformations());
     
-    case 9702:
+    case 183:
       return QSharedPointer<AbstractClass>(new BasicAllianceInformations());
     
-    case 5140:
+    case 949:
       return QSharedPointer<AbstractClass>(new BasicNamedAllianceInformations());
     
-    case 1304:
+    case 5338:
       return QSharedPointer<AbstractClass>(new AllianceInformations());
     
-    case 4994:
+    case 9654:
       return QSharedPointer<AbstractClass>(new AllianceFactSheetInformations());
     
-    case 2194:
+    case 4170:
       return QSharedPointer<AbstractClass>(new GuildVersatileInformations());
     
-    case 9677:
+    case 9740:
       return QSharedPointer<AbstractClass>(new GuildInAllianceVersatileInformations());
     
-    case 7224:
+    case 6884:
       return QSharedPointer<AbstractClass>(new PrismSubareaEmptyInfo());
     
-    case 4405:
+    case 2406:
       return QSharedPointer<AbstractClass>(new PrismGeolocalizedInformation());
     
-    case 137:
+    case 6060:
       return QSharedPointer<AbstractClass>(new PrismInformation());
     
-    case 2680:
+    case 1469:
       return QSharedPointer<AbstractClass>(new AlliancePrismInformation());
     
-    case 4664:
+    case 8201:
       return QSharedPointer<AbstractClass>(new AllianceInsiderPrismInformation());
     
-    case 5165:
+    case 4565:
       return QSharedPointer<AbstractClass>(new CharacterCharacteristic());
     
-    case 1770:
+    case 9089:
       return QSharedPointer<AbstractClass>(new CharacterCharacteristicDetailed());
     
-    case 7097:
+    case 9575:
       return QSharedPointer<AbstractClass>(new CharacterUsableCharacteristicDetailed());
     
-    case 3495:
+    case 1995:
       return QSharedPointer<AbstractClass>(new CharacterCharacteristicValue());
     
-    case 5675:
+    case 5640:
       return QSharedPointer<AbstractClass>(new FightTeamMemberInformations());
     
-    case 7922:
+    case 6593:
       return QSharedPointer<AbstractClass>(new FightTeamMemberCharacterInformations());
     
-    case 8987:
+    case 2689:
       return QSharedPointer<AbstractClass>(new FightTeamMemberWithAllianceCharacterInformations());
     
-    case 1261:
+    case 9850:
       return QSharedPointer<AbstractClass>(new FightTeamMemberTaxCollectorInformations());
     
-    case 5522:
+    case 6386:
       return QSharedPointer<AbstractClass>(new FightTeamMemberMonsterInformations());
     
-    case 9261:
+    case 5487:
       return QSharedPointer<AbstractClass>(new FightTeamMemberEntityInformation());
     
-    case 1097:
+    case 4654:
       return QSharedPointer<AbstractClass>(new FightTeamInformations());
     
-    case 599:
+    case 2398:
       return QSharedPointer<AbstractClass>(new FightAllianceTeamInformations());
     
-    case 6695:
+    case 7425:
       return QSharedPointer<AbstractClass>(new GameFightCharacteristics());
     
-    case 4571:
+    case 6627:
       return QSharedPointer<AbstractClass>(new FightResultListEntry());
     
-    case 4349:
+    case 4819:
       return QSharedPointer<AbstractClass>(new FightResultFighterListEntry());
     
-    case 5896:
+    case 1517:
       return QSharedPointer<AbstractClass>(new FightResultTaxCollectorListEntry());
     
-    case 5956:
+    case 9771:
       return QSharedPointer<AbstractClass>(new FightResultPlayerListEntry());
     
-    case 4384:
+    case 815:
       return QSharedPointer<AbstractClass>(new FightResultMutantListEntry());
     
-    case 6176:
+    case 6654:
       return QSharedPointer<AbstractClass>(new FightResultAdditionalData());
     
-    case 9855:
+    case 9919:
       return QSharedPointer<AbstractClass>(new FightResultPvpData());
     
-    case 7062:
+    case 9530:
       return QSharedPointer<AbstractClass>(new FightResultExperienceData());
     
-    case 155:
+    case 1657:
       return QSharedPointer<AbstractClass>(new AbstractFightDispellableEffect());
     
-    case 8972:
+    case 7366:
       return QSharedPointer<AbstractClass>(new FightTemporaryBoostEffect());
     
-    case 4660:
+    case 8281:
       return QSharedPointer<AbstractClass>(new FightTemporaryBoostStateEffect());
     
-    case 1305:
+    case 540:
       return QSharedPointer<AbstractClass>(new FightTemporarySpellBoostEffect());
     
-    case 648:
+    case 15:
       return QSharedPointer<AbstractClass>(new FightTemporaryBoostWeaponDamagesEffect());
     
-    case 9523:
+    case 4141:
       return QSharedPointer<AbstractClass>(new FightTemporarySpellImmunityEffect());
     
-    case 5030:
+    case 1349:
       return QSharedPointer<AbstractClass>(new FightTriggeredEffect());
     
-    case 500:
+    case 5685:
       return QSharedPointer<AbstractClass>(new ObjectEffect());
     
-    case 5470:
+    case 2163:
       return QSharedPointer<AbstractClass>(new ObjectEffectInteger());
     
-    case 9305:
+    case 8829:
       return QSharedPointer<AbstractClass>(new ObjectEffectCreature());
     
-    case 917:
+    case 7384:
       return QSharedPointer<AbstractClass>(new ObjectEffectLadder());
     
-    case 5647:
+    case 5720:
       return QSharedPointer<AbstractClass>(new ObjectEffectMinMax());
     
-    case 6296:
+    case 5502:
       return QSharedPointer<AbstractClass>(new ObjectEffectDuration());
     
-    case 8099:
+    case 576:
       return QSharedPointer<AbstractClass>(new ObjectEffectString());
     
-    case 6506:
+    case 1048:
       return QSharedPointer<AbstractClass>(new ObjectEffectDice());
     
-    case 6967:
+    case 5415:
       return QSharedPointer<AbstractClass>(new ObjectEffectDate());
     
-    case 8349:
+    case 4916:
       return QSharedPointer<AbstractClass>(new ObjectEffectMount());
     
-    case 5159:
+    case 826:
       return QSharedPointer<AbstractClass>(new UpdateMountCharacteristic());
     
-    case 730:
+    case 1756:
       return QSharedPointer<AbstractClass>(new UpdateMountBooleanCharacteristic());
     
-    case 3964:
+    case 305:
       return QSharedPointer<AbstractClass>(new UpdateMountIntegerCharacteristic());
     
-    case 2610:
+    case 5511:
       return QSharedPointer<AbstractClass>(new Shortcut());
     
-    case 3094:
+    case 8583:
       return QSharedPointer<AbstractClass>(new ShortcutObject());
     
-    case 1602:
+    case 5044:
       return QSharedPointer<AbstractClass>(new ShortcutObjectPreset());
     
-    case 8253:
+    case 83:
       return QSharedPointer<AbstractClass>(new ShortcutObjectIdolsPreset());
     
-    case 1096:
+    case 6510:
       return QSharedPointer<AbstractClass>(new ShortcutObjectItem());
     
-    case 333:
+    case 445:
       return QSharedPointer<AbstractClass>(new ShortcutSpell());
     
-    case 1608:
+    case 4590:
       return QSharedPointer<AbstractClass>(new ShortcutSmiley());
     
-    case 6790:
+    case 3292:
       return QSharedPointer<AbstractClass>(new ShortcutEmote());
     
-    case 9662:
+    case 3590:
       return QSharedPointer<AbstractClass>(new ShortcutEntitiesPreset());
     
-    case 1230:
+    case 960:
       return QSharedPointer<AbstractClass>(new Idol());
     
-    case 695:
+    case 563:
       return QSharedPointer<AbstractClass>(new PartyIdol());
     
-    case 9933:
+    case 1836:
       return QSharedPointer<AbstractClass>(new AchievementAchieved());
     
-    case 376:
+    case 4851:
       return QSharedPointer<AbstractClass>(new AchievementAchievedRewardable());
     
-    case 2838:
+    case 1909:
       return QSharedPointer<AbstractClass>(new IgnoredInformations());
     
-    case 8739:
+    case 7223:
       return QSharedPointer<AbstractClass>(new IgnoredOnlineInformations());
     
-    case 4065:
+    case 8035:
       return QSharedPointer<AbstractClass>(new FriendInformations());
     
-    case 3205:
+    case 3896:
       return QSharedPointer<AbstractClass>(new FriendOnlineInformations());
     
-    case 9258:
+    case 6223:
       return QSharedPointer<AbstractClass>(new AcquaintanceInformation());
     
-    case 5347:
+    case 4750:
       return QSharedPointer<AbstractClass>(new AcquaintanceOnlineInformation());
     
-    case 3147:
+    case 9956:
       return QSharedPointer<AbstractClass>(new FriendSpouseInformations());
     
-    case 8407:
+    case 1910:
       return QSharedPointer<AbstractClass>(new FriendSpouseOnlineInformations());
     
-    case 1269:
+    case 6784:
       return QSharedPointer<AbstractClass>(new InteractiveElementSkill());
     
-    case 103:
+    case 3340:
       return QSharedPointer<AbstractClass>(new InteractiveElementNamedSkill());
     
-    case 8893:
+    case 4768:
       return QSharedPointer<AbstractClass>(new InteractiveElement());
     
-    case 1005:
+    case 2510:
       return QSharedPointer<AbstractClass>(new InteractiveElementWithAgeBonus());
     
-    case 899:
+    case 8087:
       return QSharedPointer<AbstractClass>(new PartyEntityBaseInformation());
     
-    case 9833:
+    case 2136:
       return QSharedPointer<AbstractClass>(new PartyEntityMemberInformation());
     
-    case 7695:
+    case 2262:
       return QSharedPointer<AbstractClass>(new SkillActionDescription());
     
-    case 262:
+    case 9286:
       return QSharedPointer<AbstractClass>(new SkillActionDescriptionTimed());
     
-    case 2216:
+    case 5191:
       return QSharedPointer<AbstractClass>(new SkillActionDescriptionCollect());
     
-    case 5059:
+    case 6151:
       return QSharedPointer<AbstractClass>(new SkillActionDescriptionCraft());
     
-    case 1876:
+    case 3346:
       return QSharedPointer<AbstractClass>(new HouseInformations());
     
-    case 7239:
+    case 3170:
       return QSharedPointer<AbstractClass>(new AccountHouseInformations());
     
-    case 6358:
+    case 2517:
       return QSharedPointer<AbstractClass>(new HouseInformationsInside());
     
-    case 3543:
+    case 3219:
       return QSharedPointer<AbstractClass>(new HouseInformationsForGuild());
     
-    case 8292:
+    case 8890:
       return QSharedPointer<AbstractClass>(new HouseOnMapInformations());
     
-    case 1452:
+    case 3243:
       return QSharedPointer<AbstractClass>(new HouseInstanceInformations());
     
-    case 2405:
+    case 856:
       return QSharedPointer<AbstractClass>(new HouseGuildedInformations());
     
-    case 2740:
+    case 3536:
       return QSharedPointer<AbstractClass>(new PaddockBuyableInformations());
     
-    case 5534:
+    case 6908:
       return QSharedPointer<AbstractClass>(new PaddockGuildedInformations());
     
-    case 2804:
+    case 1244:
       return QSharedPointer<AbstractClass>(new GameContextActorPositionInformations());
     
-    case 2498:
+    case 801:
       return QSharedPointer<AbstractClass>(new GameContextActorInformations());
     
-    case 2832:
+    case 5068:
       return QSharedPointer<AbstractClass>(new GameFightFighterInformations());
     
-    case 5909:
+    case 858:
       return QSharedPointer<AbstractClass>(new GameFightAIInformations());
     
-    case 3192:
+    case 1922:
       return QSharedPointer<AbstractClass>(new GameFightMonsterInformations());
     
-    case 5174:
+    case 108:
       return QSharedPointer<AbstractClass>(new GameFightMonsterWithAlignmentInformations());
     
-    case 5464:
+    case 5235:
       return QSharedPointer<AbstractClass>(new GameFightTaxCollectorInformations());
     
-    case 2731:
+    case 7293:
       return QSharedPointer<AbstractClass>(new GameFightFighterNamedInformations());
     
-    case 6266:
+    case 2405:
       return QSharedPointer<AbstractClass>(new GameFightCharacterInformations());
     
-    case 6382:
+    case 2861:
       return QSharedPointer<AbstractClass>(new GameFightMutantInformations());
     
-    case 6706:
+    case 5544:
       return QSharedPointer<AbstractClass>(new GameFightEntityInformation());
     
-    case 7309:
+    case 102:
       return QSharedPointer<AbstractClass>(new GameRolePlayActorInformations());
     
-    case 5990:
+    case 6660:
       return QSharedPointer<AbstractClass>(new GameRolePlayNamedActorInformations());
     
-    case 8538:
+    case 345:
       return QSharedPointer<AbstractClass>(new GameRolePlayHumanoidInformations());
     
-    case 3492:
+    case 4120:
       return QSharedPointer<AbstractClass>(new GameRolePlayMutantInformations());
     
-    case 8300:
+    case 9532:
       return QSharedPointer<AbstractClass>(new GameRolePlayCharacterInformations());
     
-    case 1458:
+    case 9304:
       return QSharedPointer<AbstractClass>(new GameRolePlayMountInformations());
     
-    case 3076:
+    case 3425:
       return QSharedPointer<AbstractClass>(new GameRolePlayMerchantInformations());
     
-    case 3953:
+    case 7419:
       return QSharedPointer<AbstractClass>(new GameRolePlayNpcInformations());
     
-    case 4532:
+    case 3824:
       return QSharedPointer<AbstractClass>(new GameRolePlayNpcWithQuestInformations());
     
-    case 7750:
+    case 3148:
       return QSharedPointer<AbstractClass>(new GameRolePlayGroupMonsterInformations());
     
-    case 9835:
+    case 5382:
       return QSharedPointer<AbstractClass>(new GameRolePlayGroupMonsterWaveInformations());
     
-    case 8644:
+    case 8741:
       return QSharedPointer<AbstractClass>(new GameRolePlayTreasureHintInformations());
     
-    case 6468:
+    case 5071:
       return QSharedPointer<AbstractClass>(new GameRolePlayTaxCollectorInformations());
     
-    case 4378:
+    case 6265:
       return QSharedPointer<AbstractClass>(new GameRolePlayPrismInformations());
     
-    case 5041:
+    case 8125:
       return QSharedPointer<AbstractClass>(new GameRolePlayPortalInformations());
     
-    case 8448:
+    case 7547:
       return QSharedPointer<AbstractClass>(new HumanInformations());
     
-    case 9672:
+    case 693:
       return QSharedPointer<AbstractClass>(new HumanOption());
     
-    case 4011:
+    case 1192:
       return QSharedPointer<AbstractClass>(new HumanOptionObjectUse());
     
-    case 9773:
+    case 3939:
       return QSharedPointer<AbstractClass>(new HumanOptionAlliance());
     
-    case 2557:
+    case 1437:
       return QSharedPointer<AbstractClass>(new HumanOptionGuild());
     
-    case 2273:
+    case 5510:
       return QSharedPointer<AbstractClass>(new HumanOptionOrnament());
     
-    case 2796:
+    case 3456:
       return QSharedPointer<AbstractClass>(new HumanOptionEmote());
     
-    case 971:
+    case 1813:
       return QSharedPointer<AbstractClass>(new HumanOptionTitle());
     
-    case 874:
+    case 2427:
       return QSharedPointer<AbstractClass>(new HumanOptionSkillUse());
     
-    case 290:
+    case 77:
       return QSharedPointer<AbstractClass>(new HumanOptionFollowers());
     
-    case 4758:
+    case 4022:
       return QSharedPointer<AbstractClass>(new TaxCollectorStaticInformations());
     
-    case 2254:
+    case 6505:
       return QSharedPointer<AbstractClass>(new TaxCollectorStaticExtendedInformations());
     
-    case 8904:
+    case 3820:
       return QSharedPointer<AbstractClass>(new TaxCollectorInformations());
     
-    case 6833:
+    case 9875:
       return QSharedPointer<AbstractClass>(new TaxCollectorComplementaryInformations());
     
-    case 1870:
+    case 2529:
       return QSharedPointer<AbstractClass>(new TaxCollectorGuildInformations());
     
-    case 8179:
+    case 8142:
       return QSharedPointer<AbstractClass>(new TaxCollectorLootInformations());
     
-    case 2225:
+    case 3199:
       return QSharedPointer<AbstractClass>(new TaxCollectorWaitingForHelpInformations());
     
-    case 1413:
+    case 9226:
       return QSharedPointer<AbstractClass>(new GroupMonsterStaticInformations());
     
-    case 3909:
+    case 1240:
       return QSharedPointer<AbstractClass>(new GroupMonsterStaticInformationsWithAlternatives());
     
-    case 2606:
+    case 1975:
       return QSharedPointer<AbstractClass>(new QuestActiveInformations());
     
-    case 974:
+    case 2409:
       return QSharedPointer<AbstractClass>(new QuestActiveDetailedInformations());
     
-    case 5367:
+    case 4677:
       return QSharedPointer<AbstractClass>(new QuestObjectiveInformations());
     
-    case 4474:
+    case 5115:
       return QSharedPointer<AbstractClass>(new QuestObjectiveInformationsWithCompletion());
     
-    case 7503:
+    case 5149:
       return QSharedPointer<AbstractClass>(new SpawnInformation());
     
-    case 8807:
+    case 736:
       return QSharedPointer<AbstractClass>(new BaseSpawnMonsterInformation());
     
-    case 7791:
+    case 6368:
       return QSharedPointer<AbstractClass>(new SpawnScaledMonsterInformation());
     
-    case 5937:
+    case 3120:
       return QSharedPointer<AbstractClass>(new SpawnMonsterInformation());
     
-    case 5066:
+    case 457:
       return QSharedPointer<AbstractClass>(new SpawnCharacterInformation());
     
-    case 1496:
+    case 8892:
       return QSharedPointer<AbstractClass>(new SpawnCompanionInformation());
     
-    case 3522:
+    case 2015:
       return QSharedPointer<AbstractClass>(new GameContextBasicSpawnInformation());
     
-    case 3008:
+    case 253:
       return QSharedPointer<AbstractClass>(new GameContextSummonsInformation());
     
-    case 5626:
+    case 6482:
       return QSharedPointer<AbstractClass>(new GameFightFighterLightInformations());
     
-    case 6952:
+    case 4254:
       return QSharedPointer<AbstractClass>(new GameFightFighterMonsterLightInformations());
     
-    case 3245:
+    case 2754:
       return QSharedPointer<AbstractClass>(new GameFightFighterNamedLightInformations());
     
-    case 9273:
+    case 6139:
       return QSharedPointer<AbstractClass>(new GameFightFighterTaxCollectorLightInformations());
     
-    case 3938:
+    case 4268:
       return QSharedPointer<AbstractClass>(new GameFightFighterEntityLightInformation());
     
-    case 6896:
+    case 3568:
       return QSharedPointer<AbstractClass>(new MapCoordinates());
     
-    case 6793:
+    case 1741:
       return QSharedPointer<AbstractClass>(new MapCoordinatesAndId());
     
-    case 9375:
+    case 3550:
       return QSharedPointer<AbstractClass>(new MapCoordinatesExtended());
     
-    case 8408:
+    case 6024:
       return QSharedPointer<AbstractClass>(new Preset());
     
-    case 5260:
+    case 4853:
       return QSharedPointer<AbstractClass>(new PresetsContainerPreset());
     
-    case 4718:
+    case 876:
       return QSharedPointer<AbstractClass>(new IconNamedPreset());
     
-    case 7708:
+    case 1337:
       return QSharedPointer<AbstractClass>(new SpellsPreset());
     
-    case 8119:
+    case 8231:
       return QSharedPointer<AbstractClass>(new ForgettableSpellsPreset());
     
-    case 6206:
+    case 6559:
       return QSharedPointer<AbstractClass>(new StatsPreset());
     
-    case 8726:
+    case 6343:
       return QSharedPointer<AbstractClass>(new IdolsPreset());
     
-    case 7704:
+    case 1197:
       return QSharedPointer<AbstractClass>(new EntitiesPreset());
     
-    case 581:
+    case 9471:
       return QSharedPointer<AbstractClass>(new FullStatsPreset());
     
-    case 2177:
+    case 5400:
       return QSharedPointer<AbstractClass>(new ItemsPreset());
     
-    case 6943:
+    case 7141:
       return QSharedPointer<AbstractClass>(new TreasureHuntStep());
     
-    case 5680:
+    case 2093:
       return QSharedPointer<AbstractClass>(new TreasureHuntStepFollowDirectionToPOI());
     
-    case 6950:
+    case 199:
       return QSharedPointer<AbstractClass>(new TreasureHuntStepDig());
     
-    case 3658:
+    case 4747:
       return QSharedPointer<AbstractClass>(new TreasureHuntStepFight());
     
-    case 9506:
+    case 4752:
       return QSharedPointer<AbstractClass>(new TreasureHuntStepFollowDirectionToHint());
     
-    case 5189:
+    case 5753:
       return QSharedPointer<AbstractClass>(new TreasureHuntStepFollowDirection());
     
-    case 6691:
+    case 1294:
       return QSharedPointer<AbstractClass>(new AbstractPlayerSearchInformation());
     
-    case 2997:
+    case 3556:
       return QSharedPointer<AbstractClass>(new PlayerSearchTagInformation());
     
-    case 2839:
+    case 6431:
       return QSharedPointer<AbstractClass>(new PlayerSearchCharacterNameInformation());
     
-    case 1472:
+    case 2145:
       return QSharedPointer<AbstractClass>(new PortalInformation());
     
-    case 364:
+    case 5320:
       return QSharedPointer<AbstractClass>(new BreachBranch());
     
-    case 6873:
+    case 9376:
       return QSharedPointer<AbstractClass>(new ExtendedBreachBranch());
     
-    case 5987:
+    case 169:
       return QSharedPointer<AbstractClass>(new ExtendedLockedBreachBranch());
     
-    case 7115:
+    case 3077:
       return QSharedPointer<AbstractClass>(new PlayerStatus());
     
-    case 7511:
+    case 1176:
       return QSharedPointer<AbstractClass>(new PlayerStatusExtended());
     
-    case 7381:
+    case 7504:
       return QSharedPointer<AbstractClass>(new ServerSessionConstant());
     
-    case 4813:
+    case 8535:
       return QSharedPointer<AbstractClass>(new ServerSessionConstantString());
     
-    case 2691:
+    case 6620:
       return QSharedPointer<AbstractClass>(new ServerSessionConstantInteger());
     
-    case 7366:
+    case 4492:
       return QSharedPointer<AbstractClass>(new ServerSessionConstantLong());
     
-    case 9952:
+    case 9162:
       return QSharedPointer<AbstractClass>(new StatisticData());
     
-    case 7584:
+    case 4720:
       return QSharedPointer<AbstractClass>(new StatisticDataInt());
     
-    case 2326:
+    case 8397:
       return QSharedPointer<AbstractClass>(new StatisticDataBoolean());
     
-    case 3251:
+    case 5872:
       return QSharedPointer<AbstractClass>(new StatisticDataShort());
     
-    case 9916:
+    case 6983:
       return QSharedPointer<AbstractClass>(new StatisticDataString());
     
-    case 1596:
+    case 6844:
       return QSharedPointer<AbstractClass>(new StatisticDataByte());
     
-    case 1134:
+    case 9735:
       return QSharedPointer<AbstractClass>(new DebtInformation());
     
-    case 3699:
+    case 2979:
       return QSharedPointer<AbstractClass>(new KamaDebtInformation());
     
   }

@@ -4,6 +4,7 @@
 #include "src/protocol/types/AbstractClass.h"
 #include "src/protocol/types/data/game/social/GuildFactSheetInformations.h"
 #include "src/protocol/types/data/game/guild/GuildEmblem.h"
+#include "src/protocol/types/data/game/guild/recruitment/GuildRecruitmentInformation.h"
 #include "src/engines/io/network/utils/FuncTree.h"
 
 class GuildInsiderFactSheetInformations : public GuildFactSheetInformations
@@ -21,13 +22,11 @@ public:
   QString leaderName;
   uint nbConnectedMembers;
   uint nbTaxCollectors;
-  uint lastActivity;
 
 private:
   void _leaderNameFunc(Reader *input);
   void _nbConnectedMembersFunc(Reader *input);
   void _nbTaxCollectorsFunc(Reader *input);
-  void _lastActivityFunc(Reader *input);
 };
 
 #endif // GUILDINSIDERFACTSHEETINFORMATIONS_H

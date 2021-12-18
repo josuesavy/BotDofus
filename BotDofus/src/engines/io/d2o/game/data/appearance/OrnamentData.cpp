@@ -25,11 +25,6 @@ int OrnamentData::getIconId() const
   return m_iconId;
 }
 
-int OrnamentData::getRarity() const
-{
-  return m_rarity;
-}
-
 int OrnamentData::getOrder() const
 {
   return m_order;
@@ -60,9 +55,6 @@ void OrnamentData::loadData(const QList<D2OField*> &fields, I18nFile *I18n)
     
     else if(field->getName() == "iconId")
         m_iconId = readInt(field->getValue());
-    
-    else if(field->getName() == "rarity")
-        m_rarity = readInt(field->getValue());
     
     else if(field->getName() == "order")
         m_order = readInt(field->getValue());

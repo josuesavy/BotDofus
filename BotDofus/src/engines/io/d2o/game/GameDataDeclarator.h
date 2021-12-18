@@ -2,7 +2,6 @@
 #define GAMEDATADECLARATOR_H
 
 #include "src/engines/io/d2o/game/data/abuse/AbuseReasonsData.h"
-#include "src/engines/io/d2o/game/data/alignments/AlignmentEffectData.h"
 #include "src/engines/io/d2o/game/data/alignments/AlignmentGiftData.h"
 #include "src/engines/io/d2o/game/data/alignments/AlignmentOrderData.h"
 #include "src/engines/io/d2o/game/data/alignments/AlignmentRankData.h"
@@ -61,6 +60,8 @@
 #include "src/engines/io/d2o/game/data/guild/EmblemBackgroundData.h"
 #include "src/engines/io/d2o/game/data/guild/EmblemSymbolData.h"
 #include "src/engines/io/d2o/game/data/guild/EmblemSymbolCategoryData.h"
+#include "src/engines/io/d2o/game/data/guild/GuildTagData.h"
+#include "src/engines/io/d2o/game/data/guild/GuildTagsTypeData.h"
 #include "src/engines/io/d2o/game/data/guild/RankNameData.h"
 #include "src/engines/io/d2o/game/data/houses/HavenbagFurnitureData.h"
 #include "src/engines/io/d2o/game/data/houses/HavenbagThemeData.h"
@@ -259,7 +260,6 @@
 enum class GameDataEnum
 {
     ABUSEREASONSDATA,
-    ALIGNMENTEFFECTDATA,
     ALIGNMENTGIFTDATA,
     ALIGNMENTORDERDATA,
     ALIGNMENTRANKDATA,
@@ -318,6 +318,8 @@ enum class GameDataEnum
     EMBLEMBACKGROUNDDATA,
     EMBLEMSYMBOLDATA,
     EMBLEMSYMBOLCATEGORYDATA,
+    GUILDTAGDATA,
+    GUILDTAGSTYPEDATA,
     RANKNAMEDATA,
     HAVENBAGFURNITUREDATA,
     HAVENBAGTHEMEDATA,

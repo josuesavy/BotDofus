@@ -240,6 +240,8 @@
 #include "src/protocol/types/data/game/friend/FriendSpouseOnlineInformations.h"
 #include "src/protocol/types/data/game/friend/IgnoredInformations.h"
 #include "src/protocol/types/data/game/friend/IgnoredOnlineInformations.h"
+#include "src/protocol/types/data/game/guild/application/ApplicationPlayerInformation.h"
+#include "src/protocol/types/data/game/guild/application/GuildApplicationInformation.h"
 #include "src/protocol/types/data/game/guild/GuildEmblem.h"
 #include "src/protocol/types/data/game/guild/GuildMember.h"
 #include "src/protocol/types/data/game/guild/HavenBagFurnitureInformation.h"

@@ -11,7 +11,6 @@ public:
   uint getNameId() const;
   uint getDescriptionId() const;
   int getMinimumAlignment() const;
-  int getObjectsStolen() const;
   QList<int> getGifts() const;
   QString getName() const;
   QString getDescription() const;
@@ -22,7 +21,6 @@ public:
   uint m_nameId;
   uint m_descriptionId;
   int m_minimumAlignment;
-  int m_objectsStolen;
   QList<int> m_gifts;
 };
 
