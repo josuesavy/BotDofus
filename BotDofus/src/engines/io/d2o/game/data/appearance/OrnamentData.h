@@ -11,7 +11,6 @@ public:
   bool getVisible() const;
   int getAssetId() const;
   int getIconId() const;
-  int getRarity() const;
   int getOrder() const;
   QString getName() const;
   virtual void loadData(const QList<D2OField*> &fields, I18nFile *I18n);
@@ -21,7 +20,6 @@ public:
   bool m_visible;
   int m_assetId;
   int m_iconId;
-  int m_rarity;
   int m_order;
 };
 

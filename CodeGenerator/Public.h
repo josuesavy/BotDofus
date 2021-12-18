@@ -12,7 +12,7 @@
 
 #define INVALID -1
 
-#define MAJ_VERSION "2.61.10.16"
+#define MAJ_VERSION "2.62.2.6"
 
 #define PUBLIC_PATH "src/Public.h"
 #define READER_PATH "src/engines/io/network/Reader.h"

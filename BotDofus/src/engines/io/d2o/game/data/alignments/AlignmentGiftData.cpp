@@ -10,16 +10,6 @@ uint AlignmentGiftData::getNameId() const
   return m_nameId;
 }
 
-int AlignmentGiftData::getEffectId() const
-{
-  return m_effectId;
-}
-
-uint AlignmentGiftData::getGfxId() const
-{
-  return m_gfxId;
-}
-
 QString AlignmentGiftData::getName() const
 {
   return m_I18n->getText(m_nameId);
@@ -36,12 +26,6 @@ void AlignmentGiftData::loadData(const QList<D2OField*> &fields, I18nFile *I18n)
     
     else if(field->getName() == "nameId")
         m_nameId = readUInt(field->getValue());
-    
-    else if(field->getName() == "effectId")
-        m_effectId = readInt(field->getValue());
-    
-    else if(field->getName() == "gfxId")
-        m_gfxId = readUInt(field->getValue());
     
   }
 }

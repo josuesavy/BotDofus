@@ -25,11 +25,6 @@ int AlignmentRankData::getMinimumAlignment() const
   return m_minimumAlignment;
 }
 
-int AlignmentRankData::getObjectsStolen() const
-{
-  return m_objectsStolen;
-}
-
 QList<int> AlignmentRankData::getGifts() const
 {
   return m_gifts;
@@ -65,9 +60,6 @@ void AlignmentRankData::loadData(const QList<D2OField*> &fields, I18nFile *I18n)
     
     else if(field->getName() == "minimumAlignment")
         m_minimumAlignment = readInt(field->getValue());
-    
-    else if(field->getName() == "objectsStolen")
-        m_objectsStolen = readInt(field->getValue());
     
     else if(field->getName() == "gifts")
     {

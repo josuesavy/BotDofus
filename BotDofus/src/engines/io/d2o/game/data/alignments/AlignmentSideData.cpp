@@ -10,11 +10,6 @@ uint AlignmentSideData::getNameId() const
   return m_nameId;
 }
 
-bool AlignmentSideData::getCanConquest() const
-{
-  return m_canConquest;
-}
-
 QString AlignmentSideData::getName() const
 {
   return m_I18n->getText(m_nameId);
@@ -31,9 +26,6 @@ void AlignmentSideData::loadData(const QList<D2OField*> &fields, I18nFile *I18n)
     
     else if(field->getName() == "nameId")
         m_nameId = readUInt(field->getValue());
-    
-    else if(field->getName() == "canConquest")
-        m_canConquest = readBool(field->getValue());
     
   }
 }

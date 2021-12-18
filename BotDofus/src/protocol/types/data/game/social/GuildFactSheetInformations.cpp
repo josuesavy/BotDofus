@@ -18,6 +18,17 @@ void GuildFactSheetInformations::serializeAs_GuildFactSheetInformations(Writer *
     qDebug()<<"ERREUR - GuildFactSheetInformations -"<<"Forbidden value (" << this->nbMembers << ") on element nbMembers.";
   }
   output->writeVarShort((int)this->nbMembers);
+  if(this->lastActivityDay < 0)
+  {
+    qDebug()<<"ERREUR - GuildFactSheetInformations -"<<"Forbidden value (" << this->lastActivityDay << ") on element lastActivityDay.";
+  }
+  output->writeShort((short)this->lastActivityDay);
+  this->recruitment.serializeAs_GuildRecruitmentInformation(output);
+  if(this->nbPendingApply < 0)
+  {
+    qDebug()<<"ERREUR - GuildFactSheetInformations -"<<"Forbidden value (" << this->nbPendingApply << ") on element nbPendingApply.";
+  }
+  output->writeInt((int)this->nbPendingApply);
 }
 
 void GuildFactSheetInformations::deserialize(Reader *input)
@@ -30,6 +41,10 @@ void GuildFactSheetInformations::deserializeAs_GuildFactSheetInformations(Reader
   GuildInformations::deserialize(input);
   this->_leaderIdFunc(input);
   this->_nbMembersFunc(input);
+  this->_lastActivityDayFunc(input);
+  this->recruitment = GuildRecruitmentInformation();
+  this->recruitment.deserialize(input);
+  this->_nbPendingApplyFunc(input);
 }
 
 void GuildFactSheetInformations::deserializeAsync(FuncTree tree)
@@ -42,6 +57,9 @@ void GuildFactSheetInformations::deserializeAsyncAs_GuildFactSheetInformations(F
   GuildInformations::deserializeAsync(tree);
   tree.addChild(std::bind(&GuildFactSheetInformations::_leaderIdFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&GuildFactSheetInformations::_nbMembersFunc, this, std::placeholders::_1));
+  tree.addChild(std::bind(&GuildFactSheetInformations::_lastActivityDayFunc, this, std::placeholders::_1));
+  this->_recruitmenttree = tree.addChild(std::bind(&GuildFactSheetInformations::_recruitmenttreeFunc, this, std::placeholders::_1));
+  tree.addChild(std::bind(&GuildFactSheetInformations::_nbPendingApplyFunc, this, std::placeholders::_1));
 }
 
 void GuildFactSheetInformations::_leaderIdFunc(Reader *input)
@@ -62,6 +80,30 @@ void GuildFactSheetInformations::_nbMembersFunc(Reader *input)
   }
 }
 
+void GuildFactSheetInformations::_lastActivityDayFunc(Reader *input)
+{
+  this->lastActivityDay = input->readShort();
+  if(this->lastActivityDay < 0)
+  {
+    qDebug()<<"ERREUR - GuildFactSheetInformations -"<<"Forbidden value (" << this->lastActivityDay << ") on element of GuildFactSheetInformations.lastActivityDay.";
+  }
+}
+
+void GuildFactSheetInformations::_recruitmenttreeFunc(Reader *input)
+{
+  this->recruitment = GuildRecruitmentInformation();
+  this->recruitment.deserializeAsync(this->_recruitmenttree);
+}
+
+void GuildFactSheetInformations::_nbPendingApplyFunc(Reader *input)
+{
+  this->nbPendingApply = input->readInt();
+  if(this->nbPendingApply < 0)
+  {
+    qDebug()<<"ERREUR - GuildFactSheetInformations -"<<"Forbidden value (" << this->nbPendingApply << ") on element of GuildFactSheetInformations.nbPendingApply.";
+  }
+}
+
 GuildFactSheetInformations::GuildFactSheetInformations()
 {
   m_types<<ClassEnum::GUILDFACTSHEETINFORMATIONS;
@@ -71,6 +113,10 @@ bool GuildFactSheetInformations::operator==(const GuildFactSheetInformations &co
 {
   if(leaderId == compared.leaderId)
   if(nbMembers == compared.nbMembers)
+  if(lastActivityDay == compared.lastActivityDay)
+  if(recruitment == compared.recruitment)
+  if(nbPendingApply == compared.nbPendingApply)
+  if(_recruitmenttree == compared._recruitmenttree)
   return true;
   
   return false;

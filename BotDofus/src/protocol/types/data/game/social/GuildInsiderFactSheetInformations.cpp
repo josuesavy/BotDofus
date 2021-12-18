@@ -19,11 +19,6 @@ void GuildInsiderFactSheetInformations::serializeAs_GuildInsiderFactSheetInforma
     qDebug()<<"ERREUR - GuildInsiderFactSheetInformations -"<<"Forbidden value (" << this->nbTaxCollectors << ") on element nbTaxCollectors.";
   }
   output->writeByte(this->nbTaxCollectors);
-  if(this->lastActivity < 0)
-  {
-    qDebug()<<"ERREUR - GuildInsiderFactSheetInformations -"<<"Forbidden value (" << this->lastActivity << ") on element lastActivity.";
-  }
-  output->writeInt((int)this->lastActivity);
 }
 
 void GuildInsiderFactSheetInformations::deserialize(Reader *input)
@@ -37,7 +32,6 @@ void GuildInsiderFactSheetInformations::deserializeAs_GuildInsiderFactSheetInfor
   this->_leaderNameFunc(input);
   this->_nbConnectedMembersFunc(input);
   this->_nbTaxCollectorsFunc(input);
-  this->_lastActivityFunc(input);
 }
 
 void GuildInsiderFactSheetInformations::deserializeAsync(FuncTree tree)
@@ -51,7 +45,6 @@ void GuildInsiderFactSheetInformations::deserializeAsyncAs_GuildInsiderFactSheet
   tree.addChild(std::bind(&GuildInsiderFactSheetInformations::_leaderNameFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&GuildInsiderFactSheetInformations::_nbConnectedMembersFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&GuildInsiderFactSheetInformations::_nbTaxCollectorsFunc, this, std::placeholders::_1));
-  tree.addChild(std::bind(&GuildInsiderFactSheetInformations::_lastActivityFunc, this, std::placeholders::_1));
 }
 
 void GuildInsiderFactSheetInformations::_leaderNameFunc(Reader *input)
@@ -77,15 +70,6 @@ void GuildInsiderFactSheetInformations::_nbTaxCollectorsFunc(Reader *input)
   }
 }
 
-void GuildInsiderFactSheetInformations::_lastActivityFunc(Reader *input)
-{
-  this->lastActivity = input->readInt();
-  if(this->lastActivity < 0)
-  {
-    qDebug()<<"ERREUR - GuildInsiderFactSheetInformations -"<<"Forbidden value (" << this->lastActivity << ") on element of GuildInsiderFactSheetInformations.lastActivity.";
-  }
-}
-
 GuildInsiderFactSheetInformations::GuildInsiderFactSheetInformations()
 {
   m_types<<ClassEnum::GUILDINSIDERFACTSHEETINFORMATIONS;
@@ -96,7 +80,6 @@ bool GuildInsiderFactSheetInformations::operator==(const GuildInsiderFactSheetIn
   if(leaderName == compared.leaderName)
   if(nbConnectedMembers == compared.nbConnectedMembers)
   if(nbTaxCollectors == compared.nbTaxCollectors)
-  if(lastActivity == compared.lastActivity)
   return true;
   
   return false;

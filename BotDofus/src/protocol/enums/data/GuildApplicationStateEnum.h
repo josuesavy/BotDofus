@@ -1,0 +1,11 @@
+#ifndef GUILDAPPLICATIONSTATEENUM_H
+#define GUILDAPPLICATIONSTATEENUM_H
+
+enum class GuildApplicationStateEnum
+{
+    ADDED = 0,
+    DELETED = 1,
+    UPDATED = 2
+};
+
+#endif // GUILDAPPLICATIONSTATEENUM_H

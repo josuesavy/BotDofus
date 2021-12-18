@@ -2051,6 +2051,51 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   else if(messageEnum == MessageEnum::GUESTMODEMESSAGE)
       return "GuestModeMessage";
   
+  else if(messageEnum == MessageEnum::GUILDAPPLICATIONANSWERMESSAGE)
+      return "GuildApplicationAnswerMessage";
+  
+  else if(messageEnum == MessageEnum::GUILDAPPLICATIONDELETEDMESSAGE)
+      return "GuildApplicationDeletedMessage";
+  
+  else if(messageEnum == MessageEnum::GUILDAPPLICATIONISANSWEREDMESSAGE)
+      return "GuildApplicationIsAnsweredMessage";
+  
+  else if(messageEnum == MessageEnum::GUILDAPPLICATIONLISTENMESSAGE)
+      return "GuildApplicationListenMessage";
+  
+  else if(messageEnum == MessageEnum::GUILDAPPLICATIONRECEIVEDMESSAGE)
+      return "GuildApplicationReceivedMessage";
+  
+  else if(messageEnum == MessageEnum::GUILDDELETEAPPLICATIONREQUESTMESSAGE)
+      return "GuildDeleteApplicationRequestMessage";
+  
+  else if(messageEnum == MessageEnum::GUILDGETPLAYERAPPLICATIONMESSAGE)
+      return "GuildGetPlayerApplicationMessage";
+  
+  else if(messageEnum == MessageEnum::GUILDLISTAPPLICATIONANSWERMESSAGE)
+      return "GuildListApplicationAnswerMessage";
+  
+  else if(messageEnum == MessageEnum::GUILDLISTAPPLICATIONMODIFIEDMESSAGE)
+      return "GuildListApplicationModifiedMessage";
+  
+  else if(messageEnum == MessageEnum::GUILDLISTAPPLICATIONREQUESTMESSAGE)
+      return "GuildListApplicationRequestMessage";
+  
+  else if(messageEnum == MessageEnum::GUILDPLAYERAPPLICATIONABSTRACTMESSAGE)
+      return "GuildPlayerApplicationAbstractMessage";
+  
+  else if(messageEnum == MessageEnum::GUILDPLAYERAPPLICATIONINFORMATIONMESSAGE)
+      return "GuildPlayerApplicationInformationMessage";
+  
+  else if(messageEnum == MessageEnum::GUILDPLAYERNOAPPLICATIONINFORMATIONMESSAGE)
+      return "GuildPlayerNoApplicationInformationMessage";
+  
+  else if(messageEnum == MessageEnum::GUILDSUBMITAPPLICATIONMESSAGE)
+      return "GuildSubmitApplicationMessage";
+  
+  else if(messageEnum == MessageEnum::GUILDUPDATEAPPLICATIONMESSAGE)
+      return "GuildUpdateApplicationMessage";
+  
   else if(messageEnum == MessageEnum::CHALLENGEFIGHTJOINREFUSEDMESSAGE)
       return "ChallengeFightJoinRefusedMessage";
   
@@ -2135,6 +2180,9 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   else if(messageEnum == MessageEnum::GUILDINVITEDMESSAGE)
       return "GuildInvitedMessage";
   
+  else if(messageEnum == MessageEnum::GUILDJOINAUTOMATICALLYREQUESTMESSAGE)
+      return "GuildJoinAutomaticallyRequestMessage";
+  
   else if(messageEnum == MessageEnum::GUILDJOINEDMESSAGE)
       return "GuildJoinedMessage";
   
@@ -2192,11 +2240,23 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   else if(messageEnum == MessageEnum::GUILDSPELLUPGRADEREQUESTMESSAGE)
       return "GuildSpellUpgradeRequestMessage";
   
+  else if(messageEnum == MessageEnum::GUILDSUMMARYMESSAGE)
+      return "GuildSummaryMessage";
+  
+  else if(messageEnum == MessageEnum::GUILDSUMMARYREQUESTMESSAGE)
+      return "GuildSummaryRequestMessage";
+  
   else if(messageEnum == MessageEnum::GUILDVERSATILEINFOLISTMESSAGE)
       return "GuildVersatileInfoListMessage";
   
+  else if(messageEnum == MessageEnum::GUILDRECRUITMENTINVALIDATEMESSAGE)
+      return "GuildRecruitmentInvalidateMessage";
+  
   else if(messageEnum == MessageEnum::RECRUITMENTINFORMATIONMESSAGE)
       return "RecruitmentInformationMessage";
+  
+  else if(messageEnum == MessageEnum::UPDATERECRUITMENTINFORMATIONMESSAGE)
+      return "UpdateRecruitmentInformationMessage";
   
   else if(messageEnum == MessageEnum::ABSTRACTTAXCOLLECTORLISTMESSAGE)
       return "AbstractTaxCollectorListMessage";
@@ -2911,6 +2971,12 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   
   else if(messageEnum == MessageEnum::AREAFIGHTMODIFICATORUPDATEMESSAGE)
       return "AreaFightModificatorUpdateMessage";
+  
+  else if(messageEnum == MessageEnum::PAGINATIONANSWERABSTRACTMESSAGE)
+      return "PaginationAnswerAbstractMessage";
+  
+  else if(messageEnum == MessageEnum::PAGINATIONREQUESTABSTRACTMESSAGE)
+      return "PaginationRequestAbstractMessage";
   
   else if(messageEnum == MessageEnum::ICONNAMEDPRESETSAVEREQUESTMESSAGE)
       return "IconNamedPresetSaveRequestMessage";

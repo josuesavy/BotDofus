@@ -5,9 +5,6 @@ QSharedPointer<AbstractGameData> GameDataConverter::getClass(const QString &name
   if(name == "AbuseReasons")
       return QSharedPointer<AbstractGameData>(new AbuseReasonsData());
   
-  else if(name == "AlignmentEffect")
-      return QSharedPointer<AbstractGameData>(new AlignmentEffectData());
-  
   else if(name == "AlignmentGift")
       return QSharedPointer<AbstractGameData>(new AlignmentGiftData());
   
@@ -181,6 +178,12 @@ QSharedPointer<AbstractGameData> GameDataConverter::getClass(const QString &name
   
   else if(name == "EmblemSymbolCategory")
       return QSharedPointer<AbstractGameData>(new EmblemSymbolCategoryData());
+  
+  else if(name == "GuildTag")
+      return QSharedPointer<AbstractGameData>(new GuildTagData());
+  
+  else if(name == "GuildTagsType")
+      return QSharedPointer<AbstractGameData>(new GuildTagsTypeData());
   
   else if(name == "RankName")
       return QSharedPointer<AbstractGameData>(new RankNameData());
@@ -839,9 +842,6 @@ GameDataTypeEnum GameDataConverter::getEnum(const QString &name)
   if(name == "AbuseReasons")
       return GameDataTypeEnum::ABUSEREASONS;
   
-  else if(name == "AlignmentEffect")
-      return GameDataTypeEnum::ALIGNMENTEFFECT;
-  
   else if(name == "AlignmentGift")
       return GameDataTypeEnum::ALIGNMENTGIFT;
   
@@ -985,6 +985,12 @@ GameDataTypeEnum GameDataConverter::getEnum(const QString &name)
   
   else if(name == "EmblemSymbolCategories")
       return GameDataTypeEnum::EMBLEMSYMBOLCATEGORIES;
+  
+  else if(name == "GuildTags")
+      return GameDataTypeEnum::GUILDTAGS;
+  
+  else if(name == "GuildTagsTypes")
+      return GameDataTypeEnum::GUILDTAGSTYPES;
   
   else if(name == "RankNames")
       return GameDataTypeEnum::RANKNAMES;

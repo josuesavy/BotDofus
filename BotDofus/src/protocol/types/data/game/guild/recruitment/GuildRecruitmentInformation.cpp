@@ -11,6 +11,7 @@ void GuildRecruitmentInformation::serializeAs_GuildRecruitmentInformation(Writer
   _box0 = BooleanByteWrapper::setFlag(_box0, 0, this->minLevelFacultative);
   _box0 = BooleanByteWrapper::setFlag(_box0, 1, this->minSuccessFacultative);
   _box0 = BooleanByteWrapper::setFlag(_box0, 2, this->invalidatedByModeration);
+  _box0 = BooleanByteWrapper::setFlag(_box0, 3, this->recruitmentAutoLocked);
   output->writeByte(_box0);
   if(this->guildId < 0)
   {
@@ -122,6 +123,7 @@ void GuildRecruitmentInformation::deserializeByteBoxes(Reader *input)
   this->minLevelFacultative = BooleanByteWrapper::getFlag(_box0, 0);
   this->minSuccessFacultative = BooleanByteWrapper::getFlag(_box0, 1);
   this->invalidatedByModeration = BooleanByteWrapper::getFlag(_box0, 2);
+  this->recruitmentAutoLocked = BooleanByteWrapper::getFlag(_box0, 3);
 }
 
 void GuildRecruitmentInformation::_guildIdFunc(Reader *input)
@@ -242,6 +244,7 @@ bool GuildRecruitmentInformation::operator==(const GuildRecruitmentInformation &
   if(invalidatedByModeration == compared.invalidatedByModeration)
   if(lastEditPlayerName == compared.lastEditPlayerName)
   if(lastEditDate == compared.lastEditDate)
+  if(recruitmentAutoLocked == compared.recruitmentAutoLocked)
   if(_selectedLanguagestree == compared._selectedLanguagestree)
   if(_selectedCriteriontree == compared._selectedCriteriontree)
   return true;

@@ -30,6 +30,7 @@ public:
   bool invalidatedByModeration;
   QString lastEditPlayerName;
   double lastEditDate;
+  bool recruitmentAutoLocked;
 
 private:
   void deserializeByteBoxes(Reader *input);

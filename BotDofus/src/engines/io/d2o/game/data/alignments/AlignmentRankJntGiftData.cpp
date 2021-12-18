@@ -10,11 +10,6 @@ QList<int> AlignmentRankJntGiftData::getGifts() const
   return m_gifts;
 }
 
-QList<int> AlignmentRankJntGiftData::getParameters() const
-{
-  return m_parameters;
-}
-
 QList<int> AlignmentRankJntGiftData::getLevels() const
 {
   return m_levels;
@@ -33,12 +28,6 @@ void AlignmentRankJntGiftData::loadData(const QList<D2OField*> &fields, I18nFile
     {
       foreach(const QByteArray &data, readVector(field->getValue()))
           m_gifts << readInt(data);
-    }
-    
-    else if(field->getName() == "parameters")
-    {
-      foreach(const QByteArray &data, readVector(field->getValue()))
-          m_parameters << readInt(data);
     }
     
     else if(field->getName() == "levels")
