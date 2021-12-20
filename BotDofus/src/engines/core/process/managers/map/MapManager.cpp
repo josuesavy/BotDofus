@@ -487,7 +487,6 @@ void MapManager::processConfirmation()
                 i.key()->send(answer);
             }
 
-            m_botData[i.key()].mapData.playersOnMap[m_botData[i.key()].mapData.botId].keyMovements.clear();
             m_botData[i.key()].generalData.botState = INACTIVE_STATE;
             emit hasFinishedMoving(i.key());
 
@@ -495,7 +494,7 @@ void MapManager::processConfirmation()
             {
                 //i.value().mapData.requestedMaps.first().cellId;
 
-                if (m_botData[i.key()].mapData.playersOnMap[m_botData[i.key()].mapData.botId].cellId == m_botData[i.key()].mapData.requestedPath.path.path.last())
+                if (m_botData[i.key()].mapData.playersOnMap[m_botData[i.key()].mapData.botId].cellId == m_botData[i.key()].mapData.playersOnMap[m_botData[i.key()].mapData.botId].keyMovements.last())
                 {
                     ChangeMapMessage answer2;
                     answer2.mapId = i.value().mapData.requestedMaps.first().mapId;
@@ -507,6 +506,7 @@ void MapManager::processConfirmation()
                 m_botData[i.key()].mapData.requestedMaps.removeFirst();
             }
 
+            m_botData[i.key()].mapData.playersOnMap[m_botData[i.key()].mapData.botId].keyMovements.clear();
             m_botData[i.key()].mapData.confirmationRequest.timer.clear();
             break;
         }

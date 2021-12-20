@@ -126,7 +126,6 @@ HEADERS += \
     src/engines/core/process/frames/secure/SecureFrame.h \
     src/engines/core/process/frames/security/SecurityFrame.h \
     src/engines/core/process/frames/server/basic/ServerBasicFrame.h \
-    src/engines/core/process/frames/shop/ShopModule.h \
     src/engines/core/process/frames/subscription/SubscriptionFrame.h \
     src/engines/core/process/frames/web/WebHaapiFrame.h \
     src/engines/core/process/managers/AbstractManager.h \
@@ -459,6 +458,29 @@ HEADERS += \
     src/engines/utils/entitylook/EntityLookParser.h \
     src/engines/utils/entitylook/TiphonEntityLook.h \
     src/engines/utils/logger/LogOutput.h \
+    src/gui/accountmanager/accountmanagerdialog.h \
+    src/gui/accountmanager/forms/addaccountform.h \
+    src/gui/accountmanager/forms/charactercreatorform.h \
+    src/gui/accountmanager/forms/configurationform.h \
+    src/gui/accountmanager/forms/loaderaccountform.h \
+    src/gui/accountmanager/forms/subscriptionform.h \
+    src/gui/connectiondialog.h \
+    src/gui/delegate/qtreewidgetitemdelegate.h \
+    src/gui/main/accountform.h \
+    src/gui/main/forms/characterform.h \
+    src/gui/main/forms/consoleform.h \
+    src/gui/main/forms/dialogs/addfloodmessagedialog.h \
+    src/gui/main/forms/dialogs/addspelldialog.h \
+    src/gui/main/forms/dialogs/smileysdialog.h \
+    src/gui/main/forms/dialogs/treewidgetdialog.h \
+    src/gui/main/forms/fightform.h \
+    src/gui/main/forms/floodform.h \
+    src/gui/main/forms/inventoryform.h \
+    src/gui/main/forms/mapform.h \
+    src/gui/main/forms/settingsform.h \
+    src/gui/main/forms/statisticsform.h \
+    src/gui/mainwindow.h \
+    src/gui/theme.h \
     src/network/Buffer.h \
     src/network/Sniffer.h \
     src/network/SocketIO.h \
@@ -2084,7 +2106,6 @@ SOURCES += \
     src/engines/core/process/frames/secure/SecureFrame.cpp \
     src/engines/core/process/frames/security/SecurityFrame.cpp \
     src/engines/core/process/frames/server/basic/ServerBasicFrame.cpp \
-    src/engines/core/process/frames/shop/ShopModule.cpp \
     src/engines/core/process/frames/subscription/SubscriptionFrame.cpp \
     src/engines/core/process/frames/web/WebHaapiFrame.cpp \
     src/engines/core/process/managers/AbstractManager.cpp \
@@ -2411,6 +2432,29 @@ SOURCES += \
     src/engines/utils/entitylook/EntityLookParser.cpp \
     src/engines/utils/entitylook/TiphonEntityLook.cpp \
     src/engines/utils/logger/LogOutput.cpp \
+    src/gui/accountmanager/accountmanagerdialog.cpp \
+    src/gui/accountmanager/forms/addaccountform.cpp \
+    src/gui/accountmanager/forms/charactercreatorform.cpp \
+    src/gui/accountmanager/forms/configurationform.cpp \
+    src/gui/accountmanager/forms/loaderaccountform.cpp \
+    src/gui/accountmanager/forms/subscriptionform.cpp \
+    src/gui/connectiondialog.cpp \
+    src/gui/delegate/qtreewidgetitemdelegate.cpp \
+    src/gui/main/accountform.cpp \
+    src/gui/main/forms/characterform.cpp \
+    src/gui/main/forms/consoleform.cpp \
+    src/gui/main/forms/dialogs/addfloodmessagedialog.cpp \
+    src/gui/main/forms/dialogs/addspelldialog.cpp \
+    src/gui/main/forms/dialogs/smileysdialog.cpp \
+    src/gui/main/forms/dialogs/treewidgetdialog.cpp \
+    src/gui/main/forms/fightform.cpp \
+    src/gui/main/forms/floodform.cpp \
+    src/gui/main/forms/inventoryform.cpp \
+    src/gui/main/forms/mapform.cpp \
+    src/gui/main/forms/settingsform.cpp \
+    src/gui/main/forms/statisticsform.cpp \
+    src/gui/mainwindow.cpp \
+    src/gui/theme.cpp \
     src/main.cpp \
     src/network/Buffer.cpp \
     src/network/Sniffer.cpp \
