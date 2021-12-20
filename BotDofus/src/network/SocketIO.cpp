@@ -285,6 +285,18 @@ void SocketIO::processRandomIp()
 
     else if(random == 2)
         m_randMainServerIp = MAIN_SERVER_IP_3;
+
+    else if(random == 3)
+        m_randMainServerIp = MAIN_SERVER_IP_4;
+
+    else if(random == 4)
+        m_randMainServerIp = MAIN_SERVER_IP_5;
+
+    else if(random == 5)
+        m_randMainServerIp = MAIN_SERVER_IP_6;
+
+    else if(random == 6)
+        m_randMainServerIp = MAIN_SERVER_IP_7;
 }
 
 void SocketIO::processRandomPort()
