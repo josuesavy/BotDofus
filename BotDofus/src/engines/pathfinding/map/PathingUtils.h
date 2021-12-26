@@ -19,6 +19,7 @@ public:
     static QPoint cellIdToCoord(int cellId);
     static QList<uint> getCompressedPath(QList<QSharedPointer<NodeWithOrientation>> path);
     static int distanceToPoint(QPoint point1, QPoint point2);
+    static int distanceToCell(int param1, int param2);
     static int processTime(QList<QSharedPointer<NodeWithOrientation>> path, bool mount);
 
     static QList<QPoint> m_cellsPositions;
