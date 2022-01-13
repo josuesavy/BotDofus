@@ -12,6 +12,7 @@ MapForm::MapForm(ProcessEngine *engine, const ConnectionInfos &infos, SocketIO *
     m_infos = infos;
     m_sender = sender;
 
+    ui->labelMapID->installEventFilter(this);
     displayCellIds(false);
     cellClicked(false);
 
@@ -39,6 +40,16 @@ ConnectionInfos MapForm::getConnectionInfos() const
 const BotData &MapForm::getData() const
 {
     return m_engine->getData(m_sender);
+}
+
+bool MapForm::eventFilter(QObject *object, QEvent *event)
+{
+    if( event->type() == QEvent::ContextMenu && object == ui->labelMapID)
+    {
+        QGuiApplication::clipboard()->setText(ui->labelMapID->text().split(':').last().replace(" ", ""));
+    }
+
+    return QWidget::eventFilter(object, event);
 }
 
 void MapForm::changeCell(uint cell)
@@ -177,6 +188,8 @@ void MapForm::updateInterface()
 
         if(m_mapId != infos.mapData.map.getMapId() || m_playersOnMap.size() != infos.mapData.playersOnMap.size() || m_merchantsOnMap.size() != infos.mapData.merchantsOnMap.size() || m_monstersOnMap.size() != infos.mapData.monsterGroupsOnMap.size() ||  m_playersOnMap != playersOnMap || m_monstersOnMap != monstersOnMap)
             updateMap();
+
+        ui->labelMapID->setText(QString("MapID : %1").arg(infos.mapData.map.getMapId()));
     }
 
     if (infos.connectionData.connectionState == ConnectionState::TRANSITION)
@@ -386,11 +399,6 @@ void MapForm::updateMap()
             foreach (NpcQuestInfos npc, infos.mapData.npcsQuestOnMap.values())
                 npcQuestInfosList << npc;
         }
-
-        // Display Map's ID
-        ui->labelMapID->setText(QString("MapID : %1").arg(infos.mapData.map.getMapId()));
-
-        //m_interactiveModel->update(inl);
     }
 }
 

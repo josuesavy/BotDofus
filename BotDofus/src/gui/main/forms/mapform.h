@@ -6,6 +6,9 @@
 
 #include <QToolTip>
 #include <QCursor>
+#include <QEvent>
+#include <QClipboard>
+#include <QString>
 
 #include "src/engines/core/process/ProcessEngine.h"
 #include "src/engines/DataHandler.h"
@@ -103,6 +106,8 @@ private:
     QList<MerchantInfos> merchantInfosList;
     QList<NpcInfos> npcInfosList;
     QList<NpcQuestInfos> npcQuestInfosList;
+
+    bool eventFilter(QObject* object, QEvent* event);
 };
 
 #endif // MAPFORM_H
