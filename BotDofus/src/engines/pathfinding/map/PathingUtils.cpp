@@ -110,30 +110,6 @@ int PathingUtils::distanceToPoint(QPoint point1, QPoint point2)
     return qSqrt((point1.x() - point2.x()) * (point1.x() - point2.x()) + (point1.y() - point2.y()) * (point1.y() - point2.y()));
 }
 
-int PathingUtils::distanceToCell(int param1, int param2)
-{
-    int _loc3_ = qFloor(param1 / 14);
-    int _loc4_ = qFloor((_loc3_ + 1) / 2);
-    auto _loc5_ = param1 - _loc3_ * 14;
-    auto _loc6_ = _loc4_ + _loc5_;
-    int _loc7_ = qFloor(param1 / 14);
-    int _loc8_ = qFloor((_loc7_ + 1) / 2);
-    auto _loc9_ = _loc7_ - _loc8_;
-    auto _loc10_ = param1 - _loc7_ * 14;
-    auto _loc11_ = _loc10_ - _loc9_;
-    int _loc12_ = qFloor(param2 / 14);
-    int _loc13_ = qFloor((_loc12_ + 1) / 2);
-    auto _loc14_ = param2 - _loc12_ * 14;
-    auto _loc15_ = _loc13_ + _loc14_;
-    int _loc16_ = qFloor(param2 / 14);
-    int _loc17_ = qFloor((_loc16_ + 1) / 2);
-    auto _loc18_ = _loc16_ - _loc17_;
-    auto _loc19_ = param2 - _loc16_ * 14;
-    auto _loc20_ = _loc19_ - _loc18_;
-
-    return qFloor((qAbs(_loc15_ - _loc6_)) + (qAbs(_loc20_ - _loc11_)));
-}
-
 int PathingUtils::processTime(QList<QSharedPointer<NodeWithOrientation>> path, bool mount)
 {
     int timer = 0;
