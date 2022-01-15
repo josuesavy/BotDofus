@@ -32,6 +32,9 @@ Divers
 
 
 BackEnd :
+ConnectionDialog
+ [ ] Faire en sorte qu'on puisse voir l'avancer du chargement de chaque partie d'initialization du logiciel
+
 AccountManager
  [ ] Faire toute la procédure de connexion/déconnexion, demande d'apikey pour abonner les comptes (cf. knowledge.txt)
 
