@@ -15,9 +15,9 @@
 //#include "src/core/ServerInteractions/BotStatsModule.h"
 
 #define WAIT_TIME_CONNECTION 10000
-#define MAIN_SERVER_IP_1 "34.252.21.81"
-#define MAIN_SERVER_IP_2 "52.17.231.202"
-#define MAIN_SERVER_IP_3 "63.34.214.78"
+//#define MAIN_SERVER_IP_1 "34.252.21.81"
+//#define MAIN_SERVER_IP_2 "52.17.231.202"
+//#define MAIN_SERVER_IP_3 "63.34.214.78"
 #define MAIN_SERVER_IP_4 "172.65.206.193"
 #define MAIN_SERVER_IP_5 "34.249.202.222"
 #define MAIN_SERVER_IP_6 "54.76.16.121"

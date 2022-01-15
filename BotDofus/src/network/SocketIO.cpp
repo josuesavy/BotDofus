@@ -275,27 +275,18 @@ const QList<int> &SocketIO::getLatencyList() const
 
 void SocketIO::processRandomIp()
 {
-    int random =  (rand() % (3));
+    int random =  (rand() % (4));
 
     if(random == 0)
-        m_randMainServerIp = MAIN_SERVER_IP_1;
-
-    else if(random == 1)
-        m_randMainServerIp = MAIN_SERVER_IP_2;
-
-    else if(random == 2)
-        m_randMainServerIp = MAIN_SERVER_IP_3;
-
-    else if(random == 3)
         m_randMainServerIp = MAIN_SERVER_IP_4;
 
-    else if(random == 4)
+    else if(random == 1)
         m_randMainServerIp = MAIN_SERVER_IP_5;
 
-    else if(random == 5)
+    else if(random == 2)
         m_randMainServerIp = MAIN_SERVER_IP_6;
 
-    else if(random == 6)
+    else if(random == 3)
         m_randMainServerIp = MAIN_SERVER_IP_7;
 }
 

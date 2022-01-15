@@ -2110,14 +2110,7 @@ bool FightManager::processMonsters(SocketIO *sender)
 
                 else if(m_mapManager->changeToNearestCell(sender, groups[i].cellID))
                 {
-                    QString des;
-                    foreach(Monster m, groups[i].monsters)
-                    {
-                        QSharedPointer<MonsterData> monsterData = qSharedPointerCast<MonsterData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::MONSTERS, m.id));
-                        des += " "+monsterData->getName();
-                    }
-
-                    action(sender)<<"Deplacement vers un groupe de monstre"+des;
+                    action(sender)<<"Lancement d'un combat ("<<groups[i].monsters.size()<< "monstres).";
                     m_botData[sender].fightData.followingMonsterGroup = groups[i].contextualID;
                     return true;
                 }
