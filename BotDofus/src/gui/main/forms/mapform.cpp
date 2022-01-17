@@ -20,6 +20,8 @@ MapForm::MapForm(ProcessEngine *engine, const ConnectionInfos &infos, SocketIO *
 
     ui->quickWidget->rootContext()->setContextProperty("mapForm", this);
     ui->quickWidget->setSource(QUrl(QStringLiteral("qrc:/qml/Map.qml")));
+
+    initCells();
 }
 
 MapForm::~MapForm()
@@ -50,6 +52,39 @@ bool MapForm::eventFilter(QObject *object, QEvent *event)
     }
 
     return QWidget::eventFilter(object, event);
+}
+
+void MapForm::initCells()
+{
+    tileWidth = ui->quickWidget->width()/14*13.5/14;
+    tileHeight = ui->quickWidget->height()/20*19/20;
+
+    int startX = 0;
+    int startY = 0;
+    int cell = 0;
+    for (int a = 0; a < 20; a++)
+    {
+        for (int b = 0; b < 14; b++)
+        {
+            QPointF p = cellCoords(cell);
+            cellPos[cell] = QPointF((p.x() * tileWidth + (fmod(p.y(), 2) == 1 ? tileWidth / 2 : 0))+tileWidth/2+10, (p.y() * tileHeight / 2)+tileHeight/2+9 );
+            cell++;
+        }
+        startX++;
+
+        for (int b = 0; b < 14; b++)
+        {
+            QPointF p = cellCoords(cell);
+            cellPos[cell] = QPointF((p.x() * tileWidth + (fmod(p.y(), 2) == 1 ? tileWidth / 2 : 0))+tileWidth/2+10, (p.y() * tileHeight / 2)+tileHeight/2+9 );
+            cell++;
+        }
+        startY--;
+    }
+}
+
+QPointF MapForm::cellCoords(int cellId)
+{
+    return QPointF(cellId % 14, qFloor(cellId / 14));
 }
 
 void MapForm::changeCell(uint cell)
@@ -186,7 +221,10 @@ void MapForm::updateInterface()
         foreach(const MonsterGroup &monster, infos.mapData.monsterGroupsOnMap.values())
             monstersOnMap<<monster.cellID;
 
-        if(m_mapId != infos.mapData.map.getMapId() || m_playersOnMap.size() != infos.mapData.playersOnMap.size() || m_merchantsOnMap.size() != infos.mapData.merchantsOnMap.size() || m_monstersOnMap.size() != infos.mapData.monsterGroupsOnMap.size() ||  m_playersOnMap != playersOnMap || m_monstersOnMap != monstersOnMap)
+        if(m_mapId != infos.mapData.map.getMapId())
+            updateFullMap();
+
+        if(m_playersOnMap.size() != infos.mapData.playersOnMap.size() || m_merchantsOnMap.size() != infos.mapData.merchantsOnMap.size() || m_monstersOnMap.size() != infos.mapData.monsterGroupsOnMap.size() ||  m_playersOnMap != playersOnMap || m_monstersOnMap != monstersOnMap)
             updateMap();
 
         ui->labelMapID->setText(QString("MapID : %1").arg(infos.mapData.map.getMapId()));
@@ -203,7 +241,7 @@ void MapForm::updateInterface()
     }
 }
 
-void MapForm::updateMap()
+void MapForm::updateFullMap()
 {
     const BotData &infos = getData();
 
@@ -213,6 +251,102 @@ void MapForm::updateMap()
         interactiveTypes(QList<int>());
         collisionTypes(QList<int>());
 
+        m_mapId = infos.mapData.map.getMapId();
+
+        if(infos.generalData.botState == FIGHTING_STATE)
+        {
+            int selfCellId = infos.fightData.fighters[infos.mapData.botId].cellId;
+
+            m_defenderOnMap.clear();
+            m_challengerOnMap.clear();
+
+            QMapIterator<double, FightEntityInfos> fighter(infos.fightData.fighters);
+            while (fighter.hasNext())
+            {
+                fighter.next();
+                if(infos.fightData.fightType == FightTypeEnum::FIGHT_TYPE_AGRESSION)
+                {
+                    if(fighter.value().teamId == TeamEnum::TEAM_DEFENDER && fighter.value().isAlive)
+                        m_challengerOnMap << fighter.value().cellId;
+
+                    if(fighter.value().teamId == TeamEnum::TEAM_CHALLENGER && fighter.value().isAlive)
+                        m_defenderOnMap << fighter.value().cellId;
+                }
+
+                else
+                {
+                    if(fighter.value().teamId == TeamEnum::TEAM_DEFENDER && fighter.value().isAlive)
+                        m_defenderOnMap << fighter.value().cellId;
+
+                    if(fighter.value().teamId == TeamEnum::TEAM_CHALLENGER && fighter.value().isAlive)
+                        m_challengerOnMap << fighter.value().cellId;
+                }
+            }
+
+            QList<CellData> mapCells = infos.mapData.map.getCellData();
+            QList<int> collisions;
+            QList<int> entities;
+
+            for(int i = 0; i < 560; i++)
+            {
+                if(mapCells[i].isWalkable())
+                    collisions << ((uint)MapViewerCellEnum::NOTHING);
+
+                else if(mapCells[i].isLos())
+                    collisions << ((uint)MapViewerCellEnum::COLLISION_WITH_SIGHT);
+
+                else
+                    collisions << ((uint)MapViewerCellEnum::COLLISION_NO_SIGHT);
+
+
+                if(m_defenderOnMap.contains(i))
+                    entities << ((uint)MapViewerCellEnum::MONSTER);
+
+                else if(m_challengerOnMap.contains(i))
+                {
+                    if(i == selfCellId)
+                        entities << ((uint)MapViewerCellEnum::BOT);
+
+                    else
+                        entities << ((uint)MapViewerCellEnum::PLAYER);
+                }
+
+                else
+                    entities << MapViewerCellEnum::NOTHING;
+            }
+
+            collisionTypes(collisions);
+        }
+
+        else
+        {
+            QList<CellData> mapCells = infos.mapData.map.getCellData();
+            QList<int> collisions;
+
+            for(int i = 0; i < 560; i++)
+            {
+                // Map
+                if(mapCells[i].isWalkable())
+                    collisions<<((uint)MapViewerCellEnum::NOTHING);
+
+                else if(mapCells[i].isLos())
+                    collisions<<((uint)MapViewerCellEnum::COLLISION_WITH_SIGHT);
+
+                else
+                    collisions<<((uint)MapViewerCellEnum::COLLISION_NO_SIGHT);
+            }
+
+            collisionTypes(collisions);
+        }
+    }
+}
+
+void MapForm::updateMap()
+{
+    const BotData &infos = getData();
+
+    if (infos.mapData.map.isInit())
+    {
         if(infos.generalData.botState == FIGHTING_STATE)
         {
             int selfCellId = infos.fightData.fighters[infos.mapData.botId].cellId;
@@ -285,22 +419,118 @@ void MapForm::updateMap()
 
             m_playersOnMap.clear();
             foreach(const EntityInfos &entity, infos.mapData.playersOnMap)
-                m_playersOnMap << entity.cellId;
+            {
+                if (entityInfosList.size() > 0)
+                {
+                    foreach (const EntityInfos &entity2, entityInfosList)
+                    {
+
+                    }
+                }
+                else
+                {
+                    QVariant returnedValue;
+                    QVariant actorId = entity.entityId;
+                    QVariantList paths;
+                    QVariant duration = 7000;
+                    QVariant type = (uint)MapViewerCellEnum::PLAYER;
+                    if (entity.keyMovements.size() > 0)
+                    {
+                        for (int i = 0; i < entity.keyMovements.size(); i++)
+                        {
+                            paths << cellPos[entity.keyMovements.at(i)];
+                        }
+                    }
+                    else
+                        paths << cellPos[entity.cellId];
+
+                    QMetaObject::invokeMethod(ui->quickWidget->rootObject(), "addEntity",
+                                              Q_RETURN_ARG(QVariant, returnedValue),
+                                              Q_ARG(QVariant, actorId),
+                                              Q_ARG(QVariant, QVariant::fromValue(paths)),
+                                              Q_ARG(QVariant, duration),
+                                              Q_ARG(QVariant, type));
+                }
+            }
 
             m_npcsOnMap.clear();
             foreach(const NpcInfos &npc, infos.mapData.npcsOnMap)
-                m_npcsOnMap << npc.cellId;
+            {
+                QVariant returnedValue;
+                QVariant actorId = npc.contextualId;
+                QVariantList paths;
+                paths << cellPos[npc.cellId];
+                QVariant duration = 7000;
+                QVariant type = (uint)MapViewerCellEnum::NPC;
+
+                QMetaObject::invokeMethod(ui->quickWidget->rootObject(), "addEntity",
+                                          Q_RETURN_ARG(QVariant, returnedValue),
+                                          Q_ARG(QVariant, actorId),
+                                          Q_ARG(QVariant, QVariant::fromValue(paths)),
+                                          Q_ARG(QVariant, duration),
+                                          Q_ARG(QVariant, type));
+            }
 
             foreach (const NpcQuestInfos &npc, infos.mapData.npcsQuestOnMap)
-                m_npcsOnMap << npc.cellId;
+            {
+                QVariant returnedValue;
+                QVariant actorId = npc.contextualId;
+                QVariantList paths;
+                paths << cellPos[npc.cellId];
+                QVariant duration = 7000;
+                QVariant type = (uint)MapViewerCellEnum::NPC;
+
+                QMetaObject::invokeMethod(ui->quickWidget->rootObject(), "addEntity",
+                                          Q_RETURN_ARG(QVariant, returnedValue),
+                                          Q_ARG(QVariant, actorId),
+                                          Q_ARG(QVariant, QVariant::fromValue(paths)),
+                                          Q_ARG(QVariant, duration),
+                                          Q_ARG(QVariant, type));
+            }
 
             m_merchantsOnMap.clear();
             foreach(const MerchantInfos &merchant, infos.mapData.merchantsOnMap)
-                m_merchantsOnMap << merchant.cellId;
+            {
+                QVariant returnedValue;
+                QVariant actorId = merchant.merchantId;
+                QVariantList paths;
+                paths << cellPos[merchant.cellId];
+                QVariant duration = 7000;
+                QVariant type = (uint)MapViewerCellEnum::MERCHANT;
+
+                QMetaObject::invokeMethod(ui->quickWidget->rootObject(), "addEntity",
+                                          Q_RETURN_ARG(QVariant, returnedValue),
+                                          Q_ARG(QVariant, actorId),
+                                          Q_ARG(QVariant, QVariant::fromValue(paths)),
+                                          Q_ARG(QVariant, duration),
+                                          Q_ARG(QVariant, type));
+            }
 
             m_monstersOnMap.clear();
             foreach(const MonsterGroup &monster, infos.mapData.monsterGroupsOnMap)
-                m_monstersOnMap<<monster.cellID;
+            {
+                QVariant returnedValue;
+                QVariant actorId = monster.contextualID;
+                QVariantList paths;
+                QVariant duration = 7000;
+                QVariant type = (uint)MapViewerCellEnum::MONSTER;
+                if (monster.keyMovements.size() > 0)
+                {
+                    for (int i = 0; i < monster.keyMovements.size(); i++)
+                    {
+                        paths << cellPos[monster.keyMovements.at(i)];
+                    }
+                }
+                else
+                    paths << cellPos[monster.cellID];
+
+                QMetaObject::invokeMethod(ui->quickWidget->rootObject(), "addEntity",
+                                          Q_RETURN_ARG(QVariant, returnedValue),
+                                          Q_ARG(QVariant, actorId),
+                                          Q_ARG(QVariant, QVariant::fromValue(paths)),
+                                          Q_ARG(QVariant, duration),
+                                          Q_ARG(QVariant, type));
+            }
 
             QMap<int, int> interactivesCellId;
             for(int i = 0; i < infos.mapData.interactivesOnMap.size(); i++)
@@ -311,43 +541,11 @@ void MapForm::updateMap()
                 doorsCellId[infos.mapData.doorsOnMap[i].cellId] = i;
 
             QList<CellData> mapCells = infos.mapData.map.getCellData();
-            QList<int> collisions;
             QList<int> interactives;
-            QList<int> entities;
 
             for(int i = 0; i < 560; i++)
             {
-                if(mapCells[i].isWalkable())
-                    collisions<<((uint)MapViewerCellEnum::NOTHING);
-
-                else if(mapCells[i].isLos())
-                    collisions<<((uint)MapViewerCellEnum::COLLISION_WITH_SIGHT);
-
-                else
-                    collisions<<((uint)MapViewerCellEnum::COLLISION_NO_SIGHT);
-
-                if(m_monstersOnMap.contains(i))
-                    entities<<((uint)MapViewerCellEnum::MONSTER);
-
-                else if(m_playersOnMap.contains(i))
-                {
-                    if(i == selfCellId)
-                        entities<<((uint)MapViewerCellEnum::BOT);
-
-                    else
-                        entities<<((uint)MapViewerCellEnum::PLAYER);
-                }
-
-                else if(m_npcsOnMap.contains(i))
-                    entities<<((uint)MapViewerCellEnum::NPC);
-
-                else if(m_merchantsOnMap.contains(i))
-                    entities<<((uint)MapViewerCellEnum::MERCHANT);
-
-                else
-                    entities<<MapViewerCellEnum::NOTHING;
-
-
+                // Interactives
                 if(interactivesCellId.keys().contains(i))
                 {
                     if(FarmManager::canFarmResource(infos.mapData.interactivesOnMap[interactivesCellId[i]]))
@@ -364,9 +562,7 @@ void MapForm::updateMap()
                     interactives<<MapViewerCellEnum::NOTHING;
             }
 
-            entityTypes(entities);
-            interactiveTypes(interactives);
-            collisionTypes(collisions);
+            //interactiveTypes(interactives);
 
 
             interactiveDisplayInfosList.clear();

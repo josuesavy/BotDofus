@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QQmlContext>
+#include <QQuickItem>
 
 #include <QToolTip>
 #include <QCursor>
@@ -13,6 +14,7 @@
 #include "src/engines/core/process/ProcessEngine.h"
 #include "src/engines/DataHandler.h"
 #include "src/engines/utils/PropertyHelper.h"
+#include "src/engines/pathfinding/map/PathingUtils.h"
 
 namespace Ui {
 class MapForm;
@@ -66,6 +68,7 @@ public:
 
 public slots:
     void updateInterface();
+    void updateFullMap();
     void updateMap();
 
 protected:
@@ -108,6 +111,10 @@ private:
     QList<NpcQuestInfos> npcQuestInfosList;
 
     bool eventFilter(QObject* object, QEvent* event);
+    void initCells();
+    QPointF cellCoords(int cellId);
+    double tileWidth, tileHeight;
+    QMap<int,QPointF> cellPos;
 };
 
 #endif // MAPFORM_H

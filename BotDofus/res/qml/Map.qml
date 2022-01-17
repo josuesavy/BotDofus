@@ -12,6 +12,8 @@ Canvas {
     property int tileWidth: 0
     property int tileHeight: 0
     property variant cellPos: []
+    property variant listEntitiesAlreadyExist: []
+    property variant listInteractiveAlreadyExist: []
 
     signal mouseMove(int x, int y);
     signal mouseDown(int x, int y, int buttons);
@@ -20,11 +22,7 @@ Canvas {
 
     Connections {
         target: mapForm
-        function onEntityTypesChanged() { canvas.requestPaint() }
         function onCollisionTypesChanged() { canvas.requestPaint() }
-        function onInteractiveTypesChanged() { canvas.requestPaint() }
-        function onCellClickedChanged() { canvas.requestPaint() }
-        function onDisplayCellIdsChanged() { canvas.requestPaint() }
     }
 
     clip:true
@@ -100,40 +98,6 @@ Canvas {
                 // Ligne de vue
                 if (mapForm.collisionTypes[cellId] === MapForm.COLLISION_NO_SIGHT)
                     drawTile(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, 0x777777);
-
-                // Interactive
-                if (mapForm.interactiveTypes[cellId] !== MapForm.NOTHING) {
-                    if (mapForm.interactiveTypes[cellId] === MapForm.INTERACTIVE)
-                        drawSquare(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, 0x94a8c6);
-
-                    else if (mapForm.interactiveTypes[cellId] === MapForm.DOOR)
-                        drawSquare(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, 0x80eeee);
-
-                    else if (mapForm.interactiveTypes[cellId] === MapForm.USABLE)
-                        drawSquare(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, 0xe8bc75);
-                }
-
-                // Entitée
-                if (mapForm.entityTypes[cellId] !== MapForm.NOTHING) {
-                    if (mapForm.entityTypes[cellId] === MapForm.PLAYER)
-                        drawCircle(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, 0x8076d0);
-
-                    else if (mapForm.entityTypes[cellId] === MapForm.BOT)
-                        drawCircle(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, 0x8076d0, 0x8076d0, MapForm.BOT);
-
-                    else if (mapForm.entityTypes[cellId] === MapForm.NPC)
-                        drawCircle(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, 0x8a8a8a);
-
-                    else if (mapForm.entityTypes[cellId] === MapForm.MONSTER)
-                        drawCircle(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, 0xee6276);
-
-                    else if (mapForm.entityTypes[cellId] === MapForm.MERCHANT)
-                        drawCircle(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, 0xd09e9e);
-                }
-
-                // Text
-                if (mapForm.displayCellIds)
-                    drawText(ctx, cellPos[cellId].pixelX, cellPos[cellId].pixelY, cellId);
             }
         }
     }
@@ -166,59 +130,106 @@ Canvas {
         target.restore();
     }
 
-    function drawCircle(target, x, y, color, shadow, who) {
-        target.save();
-
-        if (shadow !== undefined)
-        {
-            target.shadowBlur=3;
-            target.shadowColor="#" + shadow.toString(16);
+    function addEntity(actorId, cellId, paths, duration, type) {
+        // Define color for entity
+        var color;
+        if (type === MapForm.PLAYER || type === MapForm.BOT) {
+            color = '#8076d0';
+        } else if (type === MapForm.MONSTER) {
+            color = '#ee6276';
+        } else if (type === MapForm.NPC) {
+            color = '#8a8a8a';
+        } else if (type === MapForm.MERCHANT) {
+            color = '#d09e9e';
         }
 
-        if (color !== undefined)
-            target.fillStyle= "#" + color.toString(16);
+        // Define animation for entity
+        var animation = '';
+        if (paths && paths.length > 1) {
+            animation += 'PathAnimation{running:true;duration:'+duration+';loops:1;target:entity;orientation:PathAnimation.TopFirst;anchorPoint:Qt.point(entity.width/2,entity.height/2);path:Path{id:path0;startX:'+paths[0].x+';startY:'+paths[0].y+';';
+            for (var i in paths) {
+                animation += 'PathLine{id:path'+i+1+';x:'+paths[i].x+';y:'+paths[i].y+';}';
+            }
+            animation += '}}';
+        }
 
-        target.beginPath();
+        var found = false;
+        for(var index in listEntitiesAlreadyExist) {
+            if (listEntitiesAlreadyExist[index].id === actorId) {
+                var equal = false;
+                if (listEntitiesAlreadyExist[index].path.length === paths.length)
+                {
+                    for (var i = 0; i < paths.length; ++i) {
+                        if (listEntitiesAlreadyExist[index].path[i] !== paths[i]) {
+                            equal = false;
+                            break;
+                        }
+                    }
+                    equal = true;
+                }
 
-        if (who === MapForm.BOT)
-            target.arc(x + tileWidth / 2,	y + tileHeight / 2, tileHeight / 3, 0, Math.PI * 2, false);
-        else
-            target.arc(x + tileWidth / 2,	y + tileHeight / 2, tileHeight / 3.8, 0, Math.PI * 2, false);
+                if (!equal) {
+                    listEntitiesAlreadyExist[index].qmlObject.destroy();
+                    listEntitiesAlreadyExist[index] = { id: actorId, cellId: cellId, qmlObject: Qt.createQmlObject('import QtQuick 2.0;Item{Rectangle{id:entity;color:"'+color+'";x:'+paths[0].x+';y:'+paths[0].y+';width:15;height:15;radius:10;}'+animation+'}',
+                                                                                                   canvas,
+                                                                                                   "dynamicSnippet1") };
+                }
+                found = true;
+            }
+        }
 
-        target.closePath();
-
-        if (color !== undefined)
-            target.fill();
-
-        target.restore();
+        if (!found) {
+            listEntitiesAlreadyExist[listEntitiesAlreadyExist.length] = { id: actorId, cellId: cellId, qmlObject: Qt.createQmlObject('import QtQuick 2.0;Item{Rectangle{id:entity;color:"'+color+'";x:'+paths[0].x+';y:'+paths[0].y+';width:15;height:15;radius:10;}'+animation+'}',
+                                                                                                                     canvas,
+                                                                                                                     "dynamicSnippet1") };
+        }
     }
 
-    function drawSquare(target, x, y, color) {
-        target.save();
-
-        if (color !== undefined)
-            target.fillStyle= "#" + color.toString(16);
-
-        target.beginPath();
-        target.fillRect(x + tileHeight * .7, y + tileHeight * .25, tileHeight * .6, tileHeight * .6);
-        target.closePath();
-
-        if (color !== undefined)
-            target.fill();
-
-        target.restore();
+    function removeEntity(cellId) {
+        for(var i in listEntitiesAlreadyExist) {
+            if (listEntitiesAlreadyExist[i].cellId === cellId) {
+                listEntitiesAlreadyExist[i].qmlObject.destroy();
+                listEntitiesAlreadyExist.splice(i, 1);
+            }
+        }
     }
 
-    function drawText(target, x, y, cell) {
-        target.save();
+    function addInteractive(interactiveId, position, type) {
+        // Define color for entity
+        var color;
+        if (type === MapForm.INTERACTIVE) {
+            color = '#94a8c6';
+        } else if (type === MapForm.DOOR) {
+            color = '#80eeee';
+        } else if (type === MapForm.USABLE) {
+            color = '#e8bc75';
+        }
 
-        target.beginPath();
-        target.textAlign = "center";
-        target.fillStyle = "black";
-        target.fillText('%1'.arg(cell), x+tileWidth/2-.5, y+tileHeight/2+4);
-        target.closePath();
+        var found = false;
+        for(var i in listInteractiveAlreadyExist) {
+            if (listInteractiveAlreadyExist[i].id === interactiveId) {
+                listInteractiveAlreadyExist[i].qmlObject.destroy();
+                listInteractiveAlreadyExist[i] = { id: interactiveId, qmlObject: Qt.createQmlObject('import QtQuick 2.0;Item{Rectangle{id:interactive;color:"'+color+'";x:'+position.x+';y:'+position.y+';width:15;height:15;}}',
+                                                                                                    canvas,
+                                                                                                    "dynamicSnippet1") };
+                found = true;
+            }
+        }
 
-        target.restore();
+        if (!found) {
+            listInteractiveAlreadyExist[listInteractiveAlreadyExist.length] = { id: interactiveId, qmlObject: Qt.createQmlObject('import QtQuick 2.0;Item{Rectangle{id:interactive;color:"'+color+'";x:'+position.x+';y:'+position.y+';width:15;height:15;}}',
+                                                                                                                                 canvas,
+                                                                                                                                 "dynamicSnippet1") };
+        }
+    }
+
+    function removeInteractive(interactiveId) {
+        for(var i in listInteractiveAlreadyExist) {
+            if (listInteractiveAlreadyExist[i].id === interactiveId) {
+                listInteractiveAlreadyExist[i].qmlObject.destroy();
+                listInteractiveAlreadyExist.splice(i, 1);
+            }
+        }
     }
 
     function addEventListener(event, handler, ignored) {
