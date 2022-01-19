@@ -70,6 +70,8 @@ bool GameApproachFrame::processMessage(const MessageInfos &data, SocketIO *sende
         answer.lang = "fr";
         answer.ticket = m_botData[sender].connectionData.ticket;
         sender->send(answer);
+
+        m_connectionManager->updateServerInactivityDelay(sender, false);
     }
         break;
 
@@ -79,15 +81,15 @@ bool GameApproachFrame::processMessage(const MessageInfos &data, SocketIO *sende
         message.deserialize(&reader);
 
         bool systemFastPing = false;
-        foreach (int feature, message.features)
-        {
-            QSharedPointer<OptionalFeatureData> optionalFeatureData = qSharedPointerCast<OptionalFeatureData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::OPTIONALFEATURES, feature));
-            if (optionalFeatureData && optionalFeatureData->m_keyword == "system.fastPing")
-            {
-                systemFastPing = true;
-                break;
-            }
-        }
+//        foreach (int feature, message.features)
+//        {
+//            QSharedPointer<OptionalFeatureData> optionalFeatureData = qSharedPointerCast<OptionalFeatureData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::OPTIONALFEATURES, feature));
+//            if (optionalFeatureData && optionalFeatureData->m_keyword == "system.fastPing")
+//            {
+//                systemFastPing = true;
+//                break;
+//            }
+//        }
 
         m_connectionManager->updateServerInactivityDelay(sender, systemFastPing);
     }

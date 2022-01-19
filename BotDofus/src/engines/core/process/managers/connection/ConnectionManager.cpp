@@ -204,6 +204,17 @@ void ConnectionManager::updateServerInactivityDelay(SocketIO *sender, bool syste
         serverInactivityDelay = SERVER_INACTIVITY_SPEED_PING_DELAY;
     }
 
+    if (m_botData[sender].connectionData.serverActivityTimer)
+    {
+        if (m_botData[sender].connectionData.serverActivityTimer->isActive())
+        {
+            m_botData[sender].connectionData.serverActivityTimer->stop();
+        }
+
+        m_botData[sender].connectionData.serverActivityTimer->disconnect();
+        m_botData[sender].connectionData.serverActivityTimer.clear();
+    }
+
     m_botData[sender].connectionData.serverActivityTimer = QSharedPointer<QTimer>(new QTimer);
     m_botData[sender].connectionData.serverActivityTimer->setSingleShot(true);
     m_botData[sender].connectionData.serverActivityTimer->setInterval(serverInactivityDelay);
