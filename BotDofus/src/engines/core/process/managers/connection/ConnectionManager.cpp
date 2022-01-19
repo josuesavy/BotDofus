@@ -11,6 +11,13 @@ void ConnectionManager::reset(SocketIO *sender)
     m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
     m_botData[sender].connectionData.greetingMessageIsInitialized = 0;
     m_botData[sender].connectionData.sequenceNumber = 0;
+
+    if (m_botData[sender].connectionData.serverActivityTimer)
+    {
+        m_botData[sender].connectionData.serverActivityTimer->stop();
+        m_botData[sender].connectionData.serverActivityTimer->disconnect();
+        m_botData[sender].connectionData.serverActivityTimer.clear();
+    }
 }
 
 SocketIO *ConnectionManager::addConnection(const ConnectionInfos &connectionInfos)
@@ -105,6 +112,14 @@ void ConnectionManager::disconnect(SocketIO *sender)
     {
         m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
         m_botData[sender].connectionData.hasRequestedDisconnection = true;
+
+        if (m_botData[sender].connectionData.serverActivityTimer)
+        {
+            m_botData[sender].connectionData.serverActivityTimer->stop();
+            m_botData[sender].connectionData.serverActivityTimer->disconnect();
+            m_botData[sender].connectionData.serverActivityTimer.clear();
+        }
+
         sender->disconnect();
     }
 

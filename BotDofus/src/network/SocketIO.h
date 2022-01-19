@@ -17,13 +17,7 @@
 #define WAIT_TIME_CONNECTION 10000
 #define SERVER_INACTIVITY_DELAY 10 * 60 * 1000
 #define SERVER_INACTIVITY_SPEED_PING_DELAY 5 * 1000
-//#define MAIN_SERVER_IP_1 "34.252.21.81"
-//#define MAIN_SERVER_IP_2 "52.17.231.202"
-//#define MAIN_SERVER_IP_3 "63.34.214.78"
-#define MAIN_SERVER_IP_4 "172.65.206.193"
-#define MAIN_SERVER_IP_5 "34.249.202.222"
-#define MAIN_SERVER_IP_6 "54.76.16.121"
-#define MAIN_SERVER_IP_7 "54.77.254.99"
+#define MAIN_SERVER_IP "dofus2-co-production.ankama-games.com"
 #define MAIN_SERVER_PORT_1 5555
 #define MAIN_SERVER_PORT_2 443
 #define LATENCY_BUFFER_SIZE 250
@@ -87,7 +81,6 @@ signals:
 
 private:
 
-    void processRandomIp();
     void processRandomPort();
 
     QList<QElapsedTimer> m_timers;

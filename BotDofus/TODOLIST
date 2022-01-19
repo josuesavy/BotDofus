@@ -33,6 +33,9 @@ Divers
 
 
 BackEnd :
+Network
+ [OK] probleme de lecture du paquet, des fois l'id est pas bien détecté
+
 ConnectionDialog
  [ ] Faire en sorte qu'on puisse voir l'avancer du chargement de chaque partie d'initialization du logiciel
 

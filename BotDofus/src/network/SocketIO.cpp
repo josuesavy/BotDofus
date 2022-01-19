@@ -38,7 +38,7 @@ void SocketIO::connect(bool tryUntilConnect)
 //    {
         if(!m_isServerSwitched)
         {
-            processRandomIp();
+            m_randMainServerIp = MAIN_SERVER_IP;
             processRandomPort();
         }
 
@@ -271,23 +271,6 @@ int SocketIO::getMaxLatency() const
 const QList<int> &SocketIO::getLatencyList() const
 {
     return m_latencyList;
-}
-
-void SocketIO::processRandomIp()
-{
-    int random =  (rand() % (4));
-
-    if(random == 0)
-        m_randMainServerIp = MAIN_SERVER_IP_4;
-
-    else if(random == 1)
-        m_randMainServerIp = MAIN_SERVER_IP_5;
-
-    else if(random == 2)
-        m_randMainServerIp = MAIN_SERVER_IP_6;
-
-    else if(random == 3)
-        m_randMainServerIp = MAIN_SERVER_IP_7;
 }
 
 void SocketIO::processRandomPort()

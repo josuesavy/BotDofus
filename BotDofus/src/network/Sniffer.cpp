@@ -2,7 +2,7 @@
 
 Sniffer::Sniffer():
     m_client(NULL),
-    m_hostAddress(MAIN_SERVER_IP_4),
+    m_hostAddress(MAIN_SERVER_IP),
     m_expectedClientDisconnection(false),
     m_expectedServerDisconnection(false)
 {
@@ -16,7 +16,7 @@ Sniffer::Sniffer():
 
 void Sniffer::reset()
 {
-    m_hostAddress = MAIN_SERVER_IP_4;
+    m_hostAddress = MAIN_SERVER_IP;
 
     if(m_client != NULL)
     {
