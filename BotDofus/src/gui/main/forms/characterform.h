@@ -38,6 +38,8 @@ private slots:
 
     void on_pushButtonResetCharacteristics_clicked();
 
+    void on_checkBoxShowAllJobs_stateChanged(int arg1);
+
 private:
     Ui::CharacterForm *ui;
 
@@ -45,6 +47,7 @@ private:
     ProcessEngine *m_engine;
     ConnectionInfos m_infos;
 
+    void displayJobs(bool all);
     const BotData &getData() const;
 
     QNetworkAccessManager *managerFullSkin;

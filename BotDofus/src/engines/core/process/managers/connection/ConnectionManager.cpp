@@ -90,6 +90,8 @@ void ConnectionManager::connect(SocketIO *sender)
 {
     if(m_botData.contains(sender) &&  m_botData[sender].connectionData.connectionState == ConnectionState::DISCONNECTED)
     {
+        action(sender) << "Connexion en cours...";
+
         m_botData[sender].connectionData.connectionState = ConnectionState::TRANSITION;
         m_botData[sender].connectionData.hasRequestedDisconnection = false;
 
@@ -110,7 +112,7 @@ void ConnectionManager::disconnect(SocketIO *sender)
 {
     if (m_botData.contains(sender) && m_botData[sender].connectionData.connectionState != ConnectionState::DISCONNECTED)
     {
-        m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
+        m_botData[sender].connectionData.connectionState = ConnectionState::TRANSITION;
         m_botData[sender].connectionData.hasRequestedDisconnection = true;
 
         if (m_botData[sender].connectionData.serverActivityTimer)
@@ -272,8 +274,8 @@ void ConnectionManager::hasDisconnected()
 
         m_botData[sender].playerData.headPixmap = QPixmap(":/icons/user.png");
         m_botData[sender].playerData.fullPixmap = QPixmap(":/icons/character.png");
-        m_botData[sender].playerData.characterFaceUrl = QUrl();
-        m_botData[sender].playerData.characterFullUrl = QUrl();
+        m_botData[sender].playerData.characterFaceUrl.clear();
+        m_botData[sender].playerData.characterFullUrl.clear();
         m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
 
         emit botDisconnected(sender);

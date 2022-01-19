@@ -17,7 +17,7 @@ CharacterForm::CharacterForm(ProcessEngine *engine, const ConnectionInfos &infos
     QObject::connect(managerFullSkin, SIGNAL(finished(QNetworkReply*)), this, SLOT(loadCharacterFullUrl(QNetworkReply*)));
 
     ui->labelImage->setPixmap(QPixmap(":/icons/character.png"));
-    ui->tableWidgetSpells->horizontalHeader()->setSectionResizeMode(1,QHeaderView::Stretch);
+    ui->tableWidgetSpells->horizontalHeader()->setSectionResizeMode(2,QHeaderView::Stretch);
     ui->tableWidgetJobs->horizontalHeader()->setSectionResizeMode(1,QHeaderView::Stretch);
 }
 
@@ -199,26 +199,13 @@ void CharacterForm::updateInterface()
             ui->tableWidgetSpells->insertRow(ui->tableWidgetSpells->rowCount());
             ui->tableWidgetSpells->setItem(ui->tableWidgetSpells->rowCount()-1, 0, new QTableWidgetItem(QString::number(spellData->getId())));
             ui->tableWidgetSpells->setItem(ui->tableWidgetSpells->rowCount()-1, 1, new QTableWidgetItem(spellData->getName()));
-            ui->tableWidgetSpells->setItem(ui->tableWidgetSpells->rowCount()-1, 2, new QTableWidgetItem(QString::number(spell.spellLevel)));
+            ui->tableWidgetSpells->setItem(ui->tableWidgetSpells->rowCount()-1, 2, new QTableWidgetItem(spellData->getDescription()));
+            ui->tableWidgetSpells->setItem(ui->tableWidgetSpells->rowCount()-1, 3, new QTableWidgetItem(QString::number(spell.spellLevel)));
         }
 
 
         // Job's list
-        ui->tableWidgetJobs->setRowCount(0);
-        QSharedPointer<JobData> jobData;
-        foreach(const JobExperience &e, infos.craftData.jobs)
-        {
-            if(e.jobLevel != 1 && (qRound(100*((double)(e.jobXP-e.jobXpLevelFloor)/(double)(e.jobXpNextLevelFloor-e.jobXpLevelFloor)))) != 0)
-            {
-                jobData = qSharedPointerCast<JobData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::JOBS, e.jobId));
-                ui->tableWidgetJobs->insertRow(ui->tableWidgetJobs->rowCount());
-                ui->tableWidgetJobs->setItem(ui->tableWidgetJobs->rowCount()-1, 0, new QTableWidgetItem(QString::number(jobData->getId())));
-                ui->tableWidgetJobs->setItem(ui->tableWidgetJobs->rowCount()-1, 1, new QTableWidgetItem(jobData->getName()));
-                ui->tableWidgetJobs->setItem(ui->tableWidgetJobs->rowCount()-1, 2, new QTableWidgetItem(QString::number(e.jobLevel)));
-                ui->tableWidgetJobs->setItem(ui->tableWidgetJobs->rowCount()-1, 3, new QTableWidgetItem(QString("%1% (%2/%3)").arg(qRound(100*((double)(e.jobXP-e.jobXpLevelFloor)/(double)(e.jobXpNextLevelFloor-e.jobXpLevelFloor)))).arg(e.jobXP).arg(e.jobXpNextLevelFloor)));
-
-            }
-        }
+        displayJobs(ui->checkBoxShowAllJobs->isChecked());
     }
 
     if (infos.connectionData.connectionState == ConnectionState::TRANSITION)
@@ -283,3 +270,56 @@ void CharacterForm::on_pushButtonResetCharacteristics_clicked()
     if(answ == QMessageBox::Yes)
         m_engine->getStatsManager().resetStat(m_sender);
 }
+
+void CharacterForm::displayJobs(bool all)
+{
+    ui->tableWidgetJobs->setRowCount(0);
+    QSharedPointer<JobData> jobData;
+    foreach(const JobExperience &e, getData().craftData.jobs)
+    {
+        if (!all)
+        {
+            if(e.jobLevel > 1)
+            {
+                jobData = qSharedPointerCast<JobData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::JOBS, e.jobId));
+                ui->tableWidgetJobs->insertRow(ui->tableWidgetJobs->rowCount());
+                ui->tableWidgetJobs->setItem(ui->tableWidgetJobs->rowCount()-1, 0, new QTableWidgetItem(QString::number(jobData->getId())));
+                ui->tableWidgetJobs->setItem(ui->tableWidgetJobs->rowCount()-1, 1, new QTableWidgetItem(jobData->getName()));
+                ui->tableWidgetJobs->setItem(ui->tableWidgetJobs->rowCount()-1, 2, new QTableWidgetItem(QString::number(e.jobLevel)));
+                ui->tableWidgetJobs->setItem(ui->tableWidgetJobs->rowCount()-1, 3, new QTableWidgetItem(QString("%1% (%2/%3)").arg(qRound(100*((double)(e.jobXP-e.jobXpLevelFloor)/(double)(e.jobXpNextLevelFloor-e.jobXpLevelFloor)))).arg(e.jobXP).arg(e.jobXpNextLevelFloor)));
+            }
+            else
+            {
+                if ((e.jobXP-e.jobXpLevelFloor) > 0 || (qRound(100*((double)(e.jobXP-e.jobXpLevelFloor)/(double)(e.jobXpNextLevelFloor-e.jobXpLevelFloor)))) > 0)
+                {
+                    jobData = qSharedPointerCast<JobData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::JOBS, e.jobId));
+                    ui->tableWidgetJobs->insertRow(ui->tableWidgetJobs->rowCount());
+                    ui->tableWidgetJobs->setItem(ui->tableWidgetJobs->rowCount()-1, 0, new QTableWidgetItem(QString::number(jobData->getId())));
+                    ui->tableWidgetJobs->setItem(ui->tableWidgetJobs->rowCount()-1, 1, new QTableWidgetItem(jobData->getName()));
+                    ui->tableWidgetJobs->setItem(ui->tableWidgetJobs->rowCount()-1, 2, new QTableWidgetItem(QString::number(e.jobLevel)));
+                    ui->tableWidgetJobs->setItem(ui->tableWidgetJobs->rowCount()-1, 3, new QTableWidgetItem(QString("%1% (%2/%3)").arg(qRound(100*((double)(e.jobXP-e.jobXpLevelFloor)/(double)(e.jobXpNextLevelFloor-e.jobXpLevelFloor)))).arg(e.jobXP).arg(e.jobXpNextLevelFloor)));
+                }
+            }
+        }
+        else
+        {
+            jobData = qSharedPointerCast<JobData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::JOBS, e.jobId));
+            ui->tableWidgetJobs->insertRow(ui->tableWidgetJobs->rowCount());
+            ui->tableWidgetJobs->setItem(ui->tableWidgetJobs->rowCount()-1, 0, new QTableWidgetItem(QString::number(jobData->getId())));
+            ui->tableWidgetJobs->setItem(ui->tableWidgetJobs->rowCount()-1, 1, new QTableWidgetItem(jobData->getName()));
+            ui->tableWidgetJobs->setItem(ui->tableWidgetJobs->rowCount()-1, 2, new QTableWidgetItem(QString::number(e.jobLevel)));
+            ui->tableWidgetJobs->setItem(ui->tableWidgetJobs->rowCount()-1, 3, new QTableWidgetItem(QString("%1% (%2/%3)").arg(qRound(100*((double)(e.jobXP-e.jobXpLevelFloor)/(double)(e.jobXpNextLevelFloor-e.jobXpLevelFloor)))).arg(e.jobXP).arg(e.jobXpNextLevelFloor)));
+        }
+    }
+}
+
+
+void CharacterForm::on_checkBoxShowAllJobs_stateChanged(int arg1)
+{
+    if(arg1 == Qt::Unchecked) // Unchecked
+        displayJobs(false);
+
+    else if(arg1 == Qt::Checked) // Checked
+        displayJobs(true);
+}
+

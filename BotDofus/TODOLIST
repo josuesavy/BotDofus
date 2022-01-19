@@ -9,6 +9,7 @@ Main
 
 Character
  [OK] Make sure the reset characteristic button is enable when the bot has added characteristic and not the bonus of items or other (property: base)
+ [OK] The current job of the character is not display in the list jobs
 
 Inventory
  [OK] When we try equip item, in the list something change but not the good way, check this! For reproduce the problem, we need an item with quantity > 1 and try to change his position

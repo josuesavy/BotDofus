@@ -108,6 +108,11 @@ void SettingsForm::on_pushButtonCheckAndApplyProxy_clicked()
 {
     // Website proxy SOCKS5 : http://spys.one/en/socks-proxy-list/
 
+    if (m_socket.state() == QAbstractSocket::ConnectingState || m_socket.state() == QAbstractSocket::ConnectedState)
+    {
+        m_socket.disconnect();
+    }
+
     ui->labelLoader->clear();
     ui->progressBarCheckProxy->show();
 
@@ -125,7 +130,7 @@ void SettingsForm::on_pushButtonCheckAndApplyProxy_clicked()
     proxyTemp.setPassword(m_proxy.password);
 
     m_socket.setProxy(proxyTemp);
-    m_socket.connectToHost(processRandomIp(), 5555);
+    m_socket.connectToHost(MAIN_SERVER_IP, 5555);
 
     QObject::connect(&m_socket, SIGNAL(connected()), this, SLOT(hasConnected()));
     QObject::connect(&m_socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(hasDisconnected(QAbstractSocket::SocketError)));
@@ -171,19 +176,5 @@ void SettingsForm::on_comboBoxStatus_currentIndexChanged(int index)
         m_engine->getStatsManager().setPlayerStatusUpdate(m_sender, PlayerStatusEnum::PLAYER_STATUS_SOLO);
 
     currentIndexSelected = index;
-}
-
-QString SettingsForm::processRandomIp()
-{
-    int random =  (rand() % (3));
-
-    if(random == 0)
-        return MAIN_SERVER_IP_1;
-
-    else if(random == 1)
-        return MAIN_SERVER_IP_2;
-
-    else if(random == 2)
-        return MAIN_SERVER_IP_3;
 }
 
