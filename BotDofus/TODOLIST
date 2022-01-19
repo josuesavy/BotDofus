@@ -24,6 +24,7 @@ Flood
 
 Options
  [ ] L'affichage de la planification est un peu moche
+ [OK] Mettre une option permettant d'empêcher les déconnections pour inactivité
 
 Divers
  [OK] La fenêtre est trop grande pour certaines résolutions graphique. Faire en sorte d'ajuster, permettre un certain resize sur certains widgets pour régler le problème

@@ -28,7 +28,7 @@ CoreEngine::CoreEngine()
     m_frames.append(new GameActionsSequenceFrame(&m_botData, static_cast<FightManager*>(m_managers[ManagerType::FIGHT])));
     m_frames.append(new GameAllianceFrame(&m_botData));
     m_frames.append(new GameAlmanachFrame(&m_botData));
-    m_frames.append(new GameApproachFrame(&m_botData));
+    m_frames.append(new GameApproachFrame(&m_botData, static_cast<ConnectionManager*>(m_managers[ManagerType::CONNECTION])));
     m_frames.append(new GameAtlasCompassFrame(&m_botData, static_cast<MapManager*>(m_managers[ManagerType::MAP])));
     m_frames.append(new GameBasicFrame(&m_botData, static_cast<ConnectionManager*>(m_managers[ManagerType::CONNECTION])));
     m_frames.append(new GameCharacterChoiceFrame(&m_botData, static_cast<ConnectionManager*>(m_managers[ManagerType::CONNECTION]), static_cast<GroupManager*>(m_managers[ManagerType::GROUP])));

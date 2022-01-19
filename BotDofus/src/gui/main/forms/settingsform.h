@@ -35,6 +35,7 @@ public slots:
 
 private slots:
     void on_checkBoxAutoReconnect_stateChanged(int arg1);
+    void on_checkBoPreventInactivityDisconnects_stateChanged(int arg1);
     void on_checkBoxAutoAcceptAchievement_stateChanged(int arg1);
     void on_pushButtonCheckAndApplyProxy_clicked();
 

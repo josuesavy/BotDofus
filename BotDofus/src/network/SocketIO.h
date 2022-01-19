@@ -15,6 +15,8 @@
 //#include "src/core/ServerInteractions/BotStatsModule.h"
 
 #define WAIT_TIME_CONNECTION 10000
+#define SERVER_INACTIVITY_DELAY 10 * 60 * 1000
+#define SERVER_INACTIVITY_SPEED_PING_DELAY 5 * 1000
 //#define MAIN_SERVER_IP_1 "34.252.21.81"
 //#define MAIN_SERVER_IP_2 "52.17.231.202"
 //#define MAIN_SERVER_IP_3 "63.34.214.78"

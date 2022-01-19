@@ -86,6 +86,15 @@ void SettingsForm::on_checkBoxAutoReconnect_stateChanged(int arg1)
         m_engine->getConnectionManager().setReconnectionAuto(m_sender, true);
 }
 
+void SettingsForm::on_checkBoPreventInactivityDisconnects_stateChanged(int arg1)
+{
+    if(arg1 == Qt::Unchecked) // Unchecked
+        m_engine->getConnectionManager().setPreventInactivityDisconnects(m_sender, false);
+
+    else if(arg1 == Qt::Checked) // Checked
+        m_engine->getConnectionManager().setPreventInactivityDisconnects(m_sender, true);
+}
+
 void SettingsForm::on_checkBoxAutoAcceptAchievement_stateChanged(int arg1)
 {
     if(arg1 == Qt::Unchecked) // Unchecked
@@ -177,3 +186,4 @@ QString SettingsForm::processRandomIp()
     else if(random == 2)
         return MAIN_SERVER_IP_3;
 }
+

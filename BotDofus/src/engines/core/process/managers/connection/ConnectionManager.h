@@ -48,6 +48,8 @@ public:
      */
     void setReconnectionAuto(SocketIO *sender, bool active);
 
+    void setPreventInactivityDisconnects(SocketIO *sender, bool active);
+
 
     /*!
      * \brief Start connection
@@ -70,6 +72,8 @@ public:
 
     DofusVersion getDofusVersion();
 
+    void updateServerInactivityDelay(SocketIO *sender, bool systemFastPing);
+
 private slots:
 
     /*!
@@ -89,6 +93,7 @@ private slots:
      */
     void processReconnection();
 
+    void serverActivityTimerUp(SocketIO *sender);
 
 
 signals:

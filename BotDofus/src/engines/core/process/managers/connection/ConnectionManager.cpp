@@ -74,6 +74,11 @@ void ConnectionManager::setReconnectionAuto(SocketIO *sender, bool active)
     m_botData[sender].connectionData.reconnectionAuto = active;
 }
 
+void ConnectionManager::setPreventInactivityDisconnects(SocketIO *sender, bool active)
+{
+    m_botData[sender].connectionData.preventInactivityDisconnects = active;
+}
+
 void ConnectionManager::connect(SocketIO *sender)
 {
     if(m_botData.contains(sender) &&  m_botData[sender].connectionData.connectionState == ConnectionState::DISCONNECTED)
@@ -190,6 +195,22 @@ DofusVersion ConnectionManager::getDofusVersion()
     return dofusVersion;
 }
 
+void ConnectionManager::updateServerInactivityDelay(SocketIO *sender, bool systemFastPing)
+{
+    int serverInactivityDelay = SERVER_INACTIVITY_DELAY;
+
+    if (systemFastPing)
+    {
+        serverInactivityDelay = SERVER_INACTIVITY_SPEED_PING_DELAY;
+    }
+
+    m_botData[sender].connectionData.serverActivityTimer = QSharedPointer<QTimer>(new QTimer);
+    m_botData[sender].connectionData.serverActivityTimer->setSingleShot(true);
+    m_botData[sender].connectionData.serverActivityTimer->setInterval(serverInactivityDelay);
+    m_botData[sender].connectionData.serverActivityTimer->start();
+    QObject::connect(m_botData[sender].connectionData.serverActivityTimer.data(), &QTimer::timeout, this, [this, sender] () { serverActivityTimerUp(sender); });
+}
+
 void ConnectionManager::hasConnected()
 {
     SocketIO *sender = static_cast<SocketIO*>(QObject::sender());
@@ -248,5 +269,21 @@ void ConnectionManager::processReconnection()
             connect(i.key());
             break;
         }
+    }
+}
+
+void ConnectionManager::serverActivityTimerUp(SocketIO *sender)
+{
+    if (m_botData.contains(sender))
+    {
+        if (m_botData[sender].connectionData.connectionState == ConnectionState::CONNECTED &&
+                m_botData[sender].connectionData.preventInactivityDisconnects)
+        {
+            BasicPingMessage answer;
+            answer.quiet = true;
+            sender->send(answer);
+        }
+
+        m_botData[sender].connectionData.serverActivityTimer->start();
     }
 }

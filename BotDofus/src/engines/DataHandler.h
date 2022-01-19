@@ -862,6 +862,8 @@ struct ConnectionData
     bool shieldActive = false;
     QString haapiSessionKey;
     QString haapiApiKey;
+    bool preventInactivityDisconnects = false;
+    QSharedPointer<QTimer> serverActivityTimer;
 };
 
 struct FloodData
