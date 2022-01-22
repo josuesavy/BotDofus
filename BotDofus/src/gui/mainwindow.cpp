@@ -7,8 +7,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    initTrayMenu();
-
     ui->treeWidgetAccount->setItemDelegate(new QTreeWidgetItemDelegate(this));
     ui->pushButtonQuickAccess->setMenu(ui->menuEdit);
     ui->pushButtonQuickAccess->setStyleSheet("QPushButton::menu-indicator{width:0px;}");
@@ -27,30 +25,7 @@ MainWindow::~MainWindow()
     foreach(QTreeWidgetItem *item, getTreeWidgetItems())
         delete item;
 
-    delete trayIcon;
     delete ui;
-}
-
-void MainWindow::initTrayMenu()
-{
-    trayIcon = new QSystemTrayIcon(this);
-    trayIcon->setIcon(this->style()->standardIcon(QStyle::SP_ComputerIcon));
-    trayIcon->setToolTip("SweatedBox");
-
-    QMenu * menu = new QMenu(this);
-    QAction * viewWindow = new QAction("Maximize", this);
-    QAction * quitAction = new QAction("Quit", this);
-
-    connect(viewWindow, SIGNAL(triggered()), this, SLOT(show()));
-    connect(quitAction, SIGNAL(triggered()), this, SLOT(close()));
-
-    menu->addAction(viewWindow);
-    menu->addAction(quitAction);
-
-    trayIcon->setContextMenu(menu);
-    trayIcon->show();
-
-    connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(iconActivated(QSystemTrayIcon::ActivationReason)));
 }
 
 void MainWindow::remove(AccountForm *accountForm, bool child)
@@ -251,23 +226,6 @@ void MainWindow::updateBotInferface(SocketIO *sender)
     }
 }
 
-void MainWindow::iconActivated(QSystemTrayIcon::ActivationReason reason)
-{
-    switch (reason)
-    {
-    case QSystemTrayIcon::DoubleClick:
-    {
-        if(!this->isVisible())
-            show();
-        else
-            hide();
-    }
-        break;
-    default:
-        break;
-    }
-}
-
 void MainWindow::on_actionQuit_triggered()
 {
     close();
@@ -286,14 +244,6 @@ void MainWindow::on_actionAccountManager_triggered()
     connect(this, SIGNAL(closeAccountManagerDialog()), accountManagerDialog, SLOT(closeAfterLoaded()));
     accountManagerDialog->setParent(this, Qt::Dialog);
     accountManagerDialog->open();
-}
-
-void MainWindow::on_actionMinimize_triggered()
-{
-    hide();
-
-    QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::MessageIcon(QSystemTrayIcon::Information);
-    trayIcon->showMessage("SweatedBox", ("SweatedBox is reduced. To display it again click on the icon."), icon, 2000);
 }
 
 void MainWindow::on_treeWidgetAccount_itemClicked(QTreeWidgetItem *item, int column)

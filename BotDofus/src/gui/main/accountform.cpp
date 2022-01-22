@@ -35,8 +35,6 @@ AccountForm::AccountForm(ProcessEngine *engine, const ConnectionInfos &infos, QW
     ui->tabWidget->addTab(settingsForm,QIcon(":/icons/cog_16px.ico"),"Settings");
     ui->tabWidget->setCurrentIndex(0);
 
-    updateInterface();
-
     if(m_infos.masterGroup.isEmpty())
     {
         menuScript = new QMenu;
@@ -83,6 +81,10 @@ AccountForm::AccountForm(ProcessEngine *engine, const ConnectionInfos &infos, QW
         ui->pushButtonFile->hide();
         ui->pushButtonClose->hide();
     }
+
+    ui->pushButtonAskShieldCode->hide();
+
+    updateInterface();
 
     //QObject::connect(&m_updateTimer, &QTimer::timeout, [this] () { updateInterface(true); });
 }
@@ -222,16 +224,16 @@ void AccountForm::autoConnect()
 
 void AccountForm::updateInterface(/*bool directCall*/)
 {
-//    if(m_updateChecker.elapsed() < UPDATE_INTERVAL && directCall)
-//    {
-//        if(!m_updateTimer.isActive())
-//        {
-//            m_updateTimer.setInterval(UPDATE_INTERVAL-m_updateChecker.elapsed());
-//            m_updateTimer.start();
-//        }
+    //    if(m_updateChecker.elapsed() < UPDATE_INTERVAL && directCall)
+    //    {
+    //        if(!m_updateTimer.isActive())
+    //        {
+    //            m_updateTimer.setInterval(UPDATE_INTERVAL-m_updateChecker.elapsed());
+    //            m_updateTimer.start();
+    //        }
 
-//        return;
-//    }
+    //        return;
+    //    }
 
     switch (ui->tabWidget->currentIndex())
     {
@@ -312,7 +314,7 @@ void AccountForm::updateInterface(/*bool directCall*/)
             ui->labelInfosPosition->setText(QString("<b>[%1,%2]</b> %3 (%4)").arg(infos.mapData.map.getPosition().getX()).arg(infos.mapData.map.getPosition().getY()).arg(area).arg(subAreas->getName()));
 
             if (infos.connectionData.connectionInfos.character != infos.connectionData.connectionInfos.masterGroup && infos.groupData.master == "" && !infos.connectionData.connectionInfos.masterGroup.isEmpty())
-                    m_engine->getGroupManager().setMaster(m_sender, infos.connectionData.connectionInfos.masterGroup);
+                m_engine->getGroupManager().setMaster(m_sender, infos.connectionData.connectionInfos.masterGroup);
 
             // Experience du personnage
             if(infos.mapData.gameContext == GameContextEnum::ROLE_PLAY)
@@ -334,6 +336,13 @@ void AccountForm::updateInterface(/*bool directCall*/)
 
         else
             ui->labelSubscriptionDofus->setText(D2OManagerSingleton::get()->getI18N()->getText("ui.common.non_subscriber"));
+
+        // Ankama shield
+        if (!infos.connectionData.trustedAccount && !infos.connectionData.certifiedAccount)
+            ui->pushButtonAskShieldCode->show();
+
+        else
+            ui->pushButtonAskShieldCode->hide();
 
         // Status du personnage
         switch (getData().generalData.botState)
@@ -436,6 +445,7 @@ void AccountForm::updateInterface(/*bool directCall*/)
         for(int i = 1; i <= ui->tabWidget->count()-2; i++)
             ui->tabWidget->setTabEnabled(i, false);
 
+        ui->pushButtonAskShieldCode->hide();
         ui->labelSubscriptionDofus->clear();
         ui->labelInfosPosition->clear();
 
@@ -607,5 +617,16 @@ void AccountForm::on_tabWidget_tabBarClicked(int index)
         settingsForm->updateInterface();
         break;
     }
+}
+
+
+void AccountForm::on_pushButtonAskShieldCode_clicked()
+{
+    bool ok;
+    QString text = QInputDialog::getText(this, tr("Disable restricted mode"),
+                                         tr("Your account is in restricted mode!\nType the code and validate to deactivate restricted mode."), QLineEdit::Normal,
+                                         NULL, &ok);
+    if (ok && !text.isEmpty())
+        qDebug() << "The restricted mode will disabled.";
 }
 

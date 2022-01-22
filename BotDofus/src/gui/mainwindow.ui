@@ -307,7 +307,6 @@
     <property name="title">
      <string>View</string>
     </property>
-    <addaction name="actionMinimize"/>
    </widget>
    <widget class="QMenu" name="menuTools">
     <property name="title">
@@ -381,15 +380,6 @@
    </property>
    <property name="text">
     <string>Documentation</string>
-   </property>
-  </action>
-  <action name="actionMinimize">
-   <property name="icon">
-    <iconset resource="../../res/resources.qrc">
-     <normaloff>:/icons/application_put_16px.ico</normaloff>:/icons/application_put_16px.ico</iconset>
-   </property>
-   <property name="text">
-    <string>Minimize</string>
    </property>
   </action>
   <action name="actionConnectAllLoadedAccounts">

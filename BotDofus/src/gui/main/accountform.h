@@ -75,6 +75,8 @@ private slots:
 
     void on_tabWidget_tabBarClicked(int index);
 
+    void on_pushButtonAskShieldCode_clicked();
+
 private:
     Ui::AccountForm *ui;
 

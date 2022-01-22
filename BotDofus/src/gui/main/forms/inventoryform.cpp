@@ -17,6 +17,7 @@ InventoryForm::InventoryForm(ProcessEngine *engine, const ConnectionInfos &infos
     ui->tableWidgetEquipment->horizontalHeader()->setSectionResizeMode(0,QHeaderView::Stretch);
     ui->tableWidgetUsableItems->horizontalHeader()->setSectionResizeMode(0,QHeaderView::Stretch);
     ui->tableWidgetQuestItems->horizontalHeader()->setSectionResizeMode(0,QHeaderView::Stretch);
+    ui->tableWidgetOtherItems->horizontalHeader()->setSectionResizeMode(0,QHeaderView::Stretch);
 }
 
 InventoryForm::~InventoryForm()
@@ -49,6 +50,7 @@ void InventoryForm::updateInterface()
         QModelIndex currentUsableIndex = ui->tableWidgetUsableItems->currentIndex();
         QModelIndex currentResourceIndex = ui->tableWidgetResources->currentIndex();
         QModelIndex currentQuestIndex = ui->tableWidgetQuestItems->currentIndex();
+        QModelIndex currentOtherIndex = ui->tableWidgetOtherItems->currentIndex();
 
         uint level = 0;
         if(infos.mapData.gameContext == GameContextEnum::ROLE_PLAY)
@@ -62,7 +64,7 @@ void InventoryForm::updateInterface()
         // Filling inventories
         m_inventoryContent = infos.playerData.inventoryContent;
 
-        int indexEquipment = 0, indexConsumable = 0, indexResource = 0, indexQuest = 0, j = 0;
+        int indexEquipment = 0, indexConsumable = 0, indexResource = 0, indexQuest = 0, indexOther = 0, j = 0;
         foreach(InventoryObject i, m_inventoryContent)
         {
             QSharedPointer<ItemData> c = D2OManagerSingleton::get()->getItem(i.GID);
@@ -171,6 +173,19 @@ void InventoryForm::updateInterface()
                 indexQuest++;
             }
 
+            // Alimentation de la liste des autres objets
+            if(itemTypeData->getCategoryId() == (uint)InventoryCategorie::OTHER_CATEGORY)
+            {
+                ui->tableWidgetOtherItems->insertRow(ui->tableWidgetOtherItems->rowCount());
+                ui->tableWidgetOtherItems->setItem(indexOther, 0, new QTableWidgetItem(QIcon(D2PManagerSingleton::get()->getImage(QString::number(c->getIconId()))), c->getName()));
+                ui->tableWidgetOtherItems->setItem(indexOther, 1, new QTableWidgetItem(QString::number(i.quantity)));
+                QTableWidgetItem *tableWidgetItemTemp = new QTableWidgetItem(QString::number(i.GID));
+                tableWidgetItemTemp->setData(Qt::UserRole, i.UID);
+                ui->tableWidgetOtherItems->setItem(indexOther, 2, tableWidgetItemTemp);
+
+                indexOther++;
+            }
+
             j++;
         }
 
@@ -178,7 +193,7 @@ void InventoryForm::updateInterface()
         ui->tableWidgetUsableItems->setCurrentIndex(currentUsableIndex);
         ui->tableWidgetResources->setCurrentIndex(currentResourceIndex);
         ui->tableWidgetQuestItems->setCurrentIndex(currentQuestIndex);
-
+        ui->tableWidgetOtherItems->setCurrentIndex(currentOtherIndex);
     }
 
     if (infos.connectionData.connectionState == ConnectionState::TRANSITION)
@@ -201,6 +216,7 @@ void InventoryForm::resetInventory()
     ui->tableWidgetUsableItems->setRowCount(0);
     ui->tableWidgetResources->setRowCount(0);
     ui->tableWidgetQuestItems->setRowCount(0);
+    ui->tableWidgetOtherItems->setRowCount(0);
 }
 
 void InventoryForm::equipEquipement()

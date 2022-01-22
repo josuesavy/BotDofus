@@ -13,6 +13,7 @@ Character
 
 Inventory
  [OK] When we try equip item, in the list something change but not the good way, check this! For reproduce the problem, we need an item with quantity > 1 and try to change his position
+ [OK] Display malus and bonus in the inventory
 
 Carte
  [ ] Ya pas d'animation quand une entité se déplace sur la carte
@@ -34,6 +35,9 @@ Divers
 
 
 BackEnd :
+AccountForm
+ [ ] Faire la procédure de demande et d'envoi du code pour desactivé l'AnkShield
+
 Network
  [OK] probleme de lecture du paquet, des fois l'id est pas bien détecté
 

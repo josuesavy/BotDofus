@@ -25,8 +25,6 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void initTrayMenu();
-
 public slots:
     void remove(AccountForm *accountForm, bool child=false);
 
@@ -39,12 +37,10 @@ signals:
 private slots:
     void addAccount(const QList<ConnectionInfos> &accounts);
     void updateBotInferface(SocketIO *sender);
-    void iconActivated(QSystemTrayIcon::ActivationReason reason);
 
     void on_actionQuit_triggered();
     void on_actionDocumentation_triggered();
     void on_actionAccountManager_triggered();
-    void on_actionMinimize_triggered();
 
     void on_treeWidgetAccount_itemClicked(QTreeWidgetItem *item, int column);
     void on_treeWidgetAccount_itemActivated(QTreeWidgetItem *item, int column);
@@ -65,8 +61,6 @@ private:
     Ui::MainWindow *ui;
 
     AccountManagerDialog *accountManagerDialog;
-
-    QSystemTrayIcon *trayIcon;
 
     ProcessEngine m_engine;
 
