@@ -210,18 +210,57 @@ void CharacterForm::updateInterface()
 
     if (infos.connectionData.connectionState == ConnectionState::TRANSITION)
     {
+        ui->labelName->clear();
+        ui->labelDescription->clear();
+        ui->labelAP->clear();
+        ui->labelMP->clear();
+        ui->labelInitiative->clear();
+        ui->labelProspecting->clear();
+        ui->labelRange->clear();
+        ui->labelSummons->clear();
+        ui->labelVitality->clear();
+        ui->labelWisdom->clear();
+        ui->labelStrength->clear();
+        ui->labelIntelligence->clear();
+        ui->labelChance->clear();
+        ui->labelAgility->clear();
+        ui->labelCapitalPoints->clear();
+
         m_engine->getStatsManager().defineSkinHead(m_sender, QPixmap(":/icons/user.png"));
         m_engine->getStatsManager().defineSkinFull(m_sender, QPixmap(":/icons/character.png"));
         m_engine->getStatsManager().defineUrlHead(m_sender, QUrl());
         m_engine->getStatsManager().defineUrlFull(m_sender, QUrl());
+
+        ui->tableWidgetSpells->setRowCount(0);
+        ui->tableWidgetJobs->setRowCount(0);
     }
 
     if (infos.connectionData.connectionState == ConnectionState::DISCONNECTED)
     {
+        ui->labelName->clear();
+        ui->labelDescription->clear();
+        ui->labelAP->clear();
+        ui->labelMP->clear();
+        ui->labelInitiative->clear();
+        ui->labelProspecting->clear();
+        ui->labelRange->clear();
+        ui->labelSummons->clear();
+        ui->labelVitality->clear();
+        ui->labelWisdom->clear();
+        ui->labelStrength->clear();
+        ui->labelIntelligence->clear();
+        ui->labelChance->clear();
+        ui->labelAgility->clear();
+        ui->labelCapitalPoints->clear();
+
+        ui->labelImage->clear();
         m_engine->getStatsManager().defineSkinHead(m_sender, QPixmap(":/icons/user.png"));
         m_engine->getStatsManager().defineSkinFull(m_sender, QPixmap(":/icons/character.png"));
         m_engine->getStatsManager().defineUrlHead(m_sender, QUrl());
         m_engine->getStatsManager().defineUrlFull(m_sender, QUrl());
+
+        ui->tableWidgetSpells->setRowCount(0);
+        ui->tableWidgetJobs->setRowCount(0);
     }
 }
 
@@ -266,7 +305,7 @@ void CharacterForm::on_pushButtonAddAgility_clicked()
 
 void CharacterForm::on_pushButtonResetCharacteristics_clicked()
 {
-    int answ = QMessageBox::warning(this, "Warning", "Are you sur you want to reset your characteristics?", QMessageBox::Yes | QMessageBox::No);
+    int answ = QMessageBox::warning(this, "Warning", "Are you sure you want to reset your characteristics?", QMessageBox::Yes | QMessageBox::No);
     if(answ == QMessageBox::Yes)
         m_engine->getStatsManager().resetStat(m_sender);
 }

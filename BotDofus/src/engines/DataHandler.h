@@ -514,34 +514,6 @@ struct InteractiveElementAction
     InteractiveElementInfos ie;
 };
 
-struct ArenaRanksInfos
-{
-    int rank = 0;
-    int maxRank = 0;
-    int todayFightCount = 0;
-    int todayVictoryCount = 0;
-    int leagueId = INVALID;
-    QString leagueName;
-    bool inLastLeague = false;
-    int leagueProgression = INVALID;
-    int ladderPosition = INVALID;
-    int totalLeaguePoint = INVALID;
-    int numFightNeededForLadder = 0;
-    QString leagueIconId = "icon_kolizeum01.png";
-};
-
-struct ArenaLeague
-{
-    int id;
-    uint nameId;
-    uint ornamentId;
-    QString icon;
-    QString illus;
-    bool isLastLeague;
-    QString name;
-    QString iconWithExtension;
-};
-
 struct FightTeamsOptions
 {
     bool isSecret = false;
@@ -599,6 +571,15 @@ enum class FightPlacementPosition
     NONE,
     NEARFUL,
     FARTHER
+};
+
+enum class SpeedFight
+{
+    SLOW,
+    NORMAL,
+    FAST,
+    ULTRA_FAST,
+    SUICIDAL
 };
 
 enum class MonsterInclusion
@@ -670,7 +651,6 @@ enum class ManagerType
     CRAFT,
     SCRIPT,
     INTERACTION,
-    ARENA,
     SHOP,
     SECURITY
 };
@@ -750,6 +730,7 @@ struct FightData
     bool isBotTurn = false;
     FightIA fightIA = FightIA::FOLLOWER;
     FightPlacementPosition fightPlacementPosition = FightPlacementPosition::NONE;
+    SpeedFight speedFight = SpeedFight::NORMAL;
     QList<RequestedSpell> requestedSpells;
     QMap<double, FightEntityInfos> fighters;
     QList<uint> startingPositions;
@@ -812,8 +793,8 @@ struct PlayerData
     int healPercentage;
     bool isRiding = false;
     QTimer *basicRegen;
-    int minRegenRatio = 50;
-    int maxRegenRatio = 90;
+    int minRegenRatio = 36;
+    int maxRegenRatio = 100;
     QMap<int, Spell> spells;
     PlayerMountData mountData;
     bool regenUseObjects = false;

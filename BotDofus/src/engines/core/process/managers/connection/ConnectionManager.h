@@ -48,6 +48,12 @@ public:
      */
     void setReconnectionAuto(SocketIO *sender, bool active);
 
+
+    /*!
+     * \brief Enable the prevent inactivity disconnects
+     * \param sender Bot's particula connection
+     * \param active Activation
+     */
     void setPreventInactivityDisconnects(SocketIO *sender, bool active);
 
 
@@ -61,10 +67,9 @@ public:
     /*!
      * \brief Stop the connection
      * \param sender Bot's particular connection
-     *
-     * Disconnect the bot in game
      */
     void disconnect(SocketIO *sender);
+
 
     QList<int> cipherRSA(SocketIO *sender, QList<int> keys, QString salt);
 
@@ -72,6 +77,12 @@ public:
 
     DofusVersion getDofusVersion();
 
+
+    /*!
+     * \brief Set timer for send events about inactivity
+     * \param sender Bot's particular connection
+     * \param systemFastPing System fast ping or not
+     */
     void updateServerInactivityDelay(SocketIO *sender, bool systemFastPing);
 
 private slots:
@@ -93,6 +104,11 @@ private slots:
      */
     void processReconnection();
 
+
+    /*!
+     * \brief Event send ping to the server when the timer has time out
+     * \param sender Bot's particular connection
+     */
     void serverActivityTimerUp(SocketIO *sender);
 
 

@@ -1,9 +1,20 @@
 #include "StatsManager.h"
 
+bool operator==(const LifeRegenQueue &left, const LifeRegenQueue &right)
+{
+    if(left.time == right.time)
+        if(left.interval == right.interval)
+            if(left.timer == right.timer)
+                if(left.sender == right.sender)
+                    return true;
+
+    return false;
+}
+
 StatsManager::StatsManager(QMap<SocketIO *, BotData> *connectionsData):
     AbstractManager(ManagerType::STATS, connectionsData)
 {
-    inventoryPositions << CharacterInventoryPositionEnum::ACCESSORY_POSITION_HAT << CharacterInventoryPositionEnum::ACCESSORY_POSITION_BELT <<
+    m_inventoryPositions << CharacterInventoryPositionEnum::ACCESSORY_POSITION_HAT << CharacterInventoryPositionEnum::ACCESSORY_POSITION_BELT <<
                             CharacterInventoryPositionEnum::ACCESSORY_POSITION_AMULET << CharacterInventoryPositionEnum::ACCESSORY_POSITION_BOOTS <<
                             CharacterInventoryPositionEnum::ACCESSORY_POSITION_PETS << CharacterInventoryPositionEnum::ACCESSORY_POSITION_SHIELD <<
                             CharacterInventoryPositionEnum::INVENTORY_POSITION_ENTITY << CharacterInventoryPositionEnum::INVENTORY_POSITION_DOFUS_1 <<
@@ -171,6 +182,61 @@ void StatsManager::updateRequiredStats(SocketIO *sender)
     }
 }
 
+const QMap<uint, QString> &StatsManager::getPets()
+{
+    return m_pets;
+}
+
+void StatsManager::setPets(const QMap<uint, QString> &pets)
+{
+    m_pets = pets;
+}
+
+const QList<LifeRegenQueue> &StatsManager::getRegenQueue()
+{
+    return m_regenQueue;
+}
+
+void StatsManager::setRegenQueue(const QList<LifeRegenQueue> &regenQueue)
+{
+    m_regenQueue = regenQueue;
+}
+
+void StatsManager::setRegenQueue(LifeRegenQueue item)
+{
+    m_regenQueue << item;
+}
+
+QList<LifeRegenQueue> &StatsManager::getPassiveRegen()
+{
+    return m_passiveRegen;
+}
+
+void StatsManager::setPassiveRegen(const QList<LifeRegenQueue> &passiveRegen)
+{
+    m_passiveRegen = passiveRegen;
+}
+
+void StatsManager::setPassiveRegen(LifeRegenQueue item)
+{
+    m_passiveRegen << item;
+}
+
+const QList<LifeRegenQueue> &StatsManager::getPreventRegenBlocked()
+{
+    return m_preventRegenBlocked;
+}
+
+void StatsManager::setPreventRegenBlocked(const QList<LifeRegenQueue> &preventRegenBlocked)
+{
+    m_preventRegenBlocked = preventRegenBlocked;
+}
+
+const QList<CharacterInventoryPositionEnum> &StatsManager::getInventoryPositions()
+{
+    return m_inventoryPositions;
+}
+
 void StatsManager::throwItem(SocketIO *sender, uint uid, uint quantity)
 {
     ObjectDropMessage message;
@@ -287,7 +353,7 @@ bool StatsManager::healEat(SocketIO* sender)
 
 bool StatsManager::needsHeal(SocketIO *sender)
 {
-    float ratio = (((float)m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].total-0)/((float)m_botData[sender].playerData.stats[(uint)StatIds::MAX_LIFE].total-0))*100;
+    float ratio = getHealthPoints(sender)/getMaxHealthPoints(sender);
 
     if(ratio <= m_botData[sender].playerData.minRegenRatio)
         return true;
@@ -374,11 +440,6 @@ void StatsManager::quitDidactiel(SocketIO *sender)
     }
 }
 
-int StatsManager::getShieldPoints(SocketIO *sender)
-{
-    return m_botData[sender].playerData.stats[(uint)StatIds::SHIELD].total;
-}
-
 int StatsManager::getHealthPoints(SocketIO *sender)
 {
     return getMaxHealthPoints(sender) + m_botData[sender].playerData.stats[(uint)StatIds::CUR_LIFE].total + m_botData[sender].playerData.stats[(uint)StatIds::CUR_PERMANENT_DAMAGE].total;
@@ -396,8 +457,8 @@ void StatsManager::setRegenUseObjectsEnabled(SocketIO *sender, bool enabled)
 
 void StatsManager::regenOptimizer(SocketIO *sender)
 {
-    int life = m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].total;
-    int maxLife = m_botData[sender].playerData.stats[(uint)StatIds::MAX_LIFE].total;
+    int life = getHealthPoints(sender);
+    int maxLife = getMaxHealthPoints(sender);
     double p = (double)m_botData[sender].playerData.healPercentage/100.0;
 
     int wanted = p*maxLife;
@@ -477,12 +538,12 @@ void StatsManager::healFinished()
     int index;
     int min = 1000000;
     SocketIO* sender = NULL;
-    for (int i = 0; i < regenQueue.size(); i++)
+    for (int i = 0; i < m_regenQueue.size(); i++)
     {
-        if ((regenQueue[i].time.elapsed() - regenQueue[i].interval) < min)
+        if ((m_regenQueue[i].time.elapsed() - m_regenQueue[i].interval) < min)
         {
-            min = regenQueue[i].time.elapsed() - regenQueue[i].interval;
-            sender = regenQueue[i].sender;
+            min = m_regenQueue[i].time.elapsed() - m_regenQueue[i].interval;
+            sender = m_regenQueue[i].sender;
             index = i;
         }
     }
@@ -492,7 +553,7 @@ void StatsManager::healFinished()
 
     m_botData[sender].generalData.botState = BotState::INACTIVE_STATE;
     m_botData[sender].playerData.healInventory.clear();
-    regenQueue.removeAt(index);
+    m_regenQueue.removeAt(index);
 
     emit healed(sender);
 
@@ -527,24 +588,28 @@ void StatsManager::passiveHealing()
     int index;
     SocketIO *sender;
     QTimer *timer = static_cast<QTimer*>(QObject::sender());
-    for (int i = 0; i < passiveRegen.size(); i++)
+    for (int i = 0; i < m_passiveRegen.size(); i++)
     {
-        if (passiveRegen[i].timer == timer)
+        if (m_passiveRegen[i].timer == timer)
         {
             index = i;
-            sender = passiveRegen[i].sender;
+            sender = m_passiveRegen[i].sender;
         }
     }
 
-    if (passiveRegen.isEmpty() || (m_botData[sender].connectionData.connectionState == ConnectionState::DISCONNECTED))
+    if (m_passiveRegen.isEmpty() || (m_botData[sender].connectionData.connectionState == ConnectionState::DISCONNECTED))
     {
         QObject::disconnect(timer, SIGNAL(timeout()), this, SLOT(passiveHealing()));
-        delete passiveRegen[index].timer;
-        passiveRegen.removeAt(index);
+
+        if (!m_passiveRegen.isEmpty() && m_passiveRegen.contains(m_passiveRegen[index]))
+        {
+            delete m_passiveRegen[index].timer;
+            m_passiveRegen.removeAt(index);
+        }
     }
 
-    int life = m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].total + m_botData[sender].playerData.regenRate;
-    m_botData[sender].playerData.stats[(uint)StatIds::LIFE_POINTS].total = (life >= getMaxHealthPoints(sender)) ? getMaxHealthPoints(sender) : life;
+    int life = getHealthPoints(sender) + m_botData[sender].playerData.regenRate;
+    m_botData[sender].playerData.stats[(uint)StatIds::CUR_LIFE].total = (life >= getMaxHealthPoints(sender)) ? getMaxHealthPoints(sender) : life;
 }
 
 bool StatsManager::canEquipItem(uint gid)

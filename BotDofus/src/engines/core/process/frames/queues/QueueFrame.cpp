@@ -22,7 +22,7 @@ bool QueueFrame::processMessage(const MessageInfos &data, SocketIO *sender)
         LoginQueueStatusMessage message;
         message.deserialize(&reader);
 
-        if (message.position != 0)
+        if (message.position > 0)
         {
             action(sender)<< D2OManagerSingleton::get()->getI18N()->getText("ui.queue.number").arg(message.position).arg(message.total);
         }
@@ -34,7 +34,7 @@ bool QueueFrame::processMessage(const MessageInfos &data, SocketIO *sender)
         QueueStatusMessage message;
         message.deserialize(&reader);
 
-        if (message.position != 0)
+        if (message.position > 0)
         {
             action(sender)<< D2OManagerSingleton::get()->getI18N()->getText("ui.queue.number").arg(message.position).arg(message.total);
         }

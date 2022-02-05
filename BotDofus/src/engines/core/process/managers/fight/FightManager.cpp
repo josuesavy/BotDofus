@@ -83,6 +83,11 @@ void FightManager::setFightPlacementPosition(SocketIO *sender, FightPlacementPos
     m_botData[sender].fightData.fightPlacementPosition = fightPlacementPosition;
 }
 
+void FightManager::setSpeedFight(SocketIO *sender, SpeedFight speedFight)
+{
+    m_botData[sender].fightData.speedFight = speedFight;
+}
+
 void FightManager::setPartyOnly(SocketIO *sender, bool isPartyOnly)
 {
     m_botData[sender].fightData.requestLockPartyOnly = isPartyOnly;

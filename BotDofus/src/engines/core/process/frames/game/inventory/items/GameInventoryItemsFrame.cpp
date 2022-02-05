@@ -142,7 +142,7 @@ bool GameInventoryItemsFrame::processMessage(const MessageInfos &data, SocketIO 
                 item.UID = message.objects[i]->objectUID;
                 item.quantity = message.objects[i]->quantity;
                 item.position = (CharacterInventoryPositionEnum)message.objects[i]->position;
-                if (m_statsManager->inventoryPositions.contains(item.position))
+                if (m_statsManager->getInventoryPositions().contains(item.position))
                     item.isEquipped = true;
 
                 for (int j = 0; j < message.objects[i]->effects.size(); j++)
@@ -156,12 +156,12 @@ bool GameInventoryItemsFrame::processMessage(const MessageInfos &data, SocketIO 
                 PetFeedInfos pet;
                 pet.GID = message.objects[i]->objectGID;
 
-                if (m_statsManager->pets.keys().contains(message.objects[i]->objectGID) && !m_botData[sender].interactionData.petData.petInfos.contains(pet))
+                if (m_statsManager->getPets().keys().contains(message.objects[i]->objectGID) && !m_botData[sender].interactionData.petData.petInfos.contains(pet))
                 {
                     PetFeedInfos p;
                     p.GID = message.objects[i]->objectGID;
                     p.UID = message.objects[i]->objectUID;
-                    p.name = m_statsManager->pets[message.objects[i]->objectGID];
+                    p.name = m_statsManager->getPets()[message.objects[i]->objectGID];
                     m_botData[sender].interactionData.petData.petInfos << p;
                 }
             }
@@ -260,7 +260,7 @@ bool GameInventoryItemsFrame::processMessage(const MessageInfos &data, SocketIO 
         item.UID = message.object->objectUID;
         item.quantity = message.object->quantity;
         item.position = (CharacterInventoryPositionEnum)message.object->position;
-        if (m_statsManager->inventoryPositions.contains(item.position))
+        if (m_statsManager->getInventoryPositions().contains(item.position))
             item.isEquipped = true;
 
         for (int i = 0; i < message.object->effects.size(); i++)
@@ -373,12 +373,12 @@ bool GameInventoryItemsFrame::processMessage(const MessageInfos &data, SocketIO 
             {
                 m_botData[sender].playerData.inventoryContent[i].position = (CharacterInventoryPositionEnum)message.position;
 
-                if (m_statsManager->inventoryPositions.contains((CharacterInventoryPositionEnum)message.position))
+                if (m_statsManager->getInventoryPositions().contains((CharacterInventoryPositionEnum)message.position))
                     m_botData[sender].playerData.inventoryContent[i].isEquipped = true;
                 else
                     m_botData[sender].playerData.inventoryContent[i].isEquipped = false;
 
-                qDebug() << "[GameInventoryItemsFrame] Equip test:" << m_botData[sender].playerData.inventoryContent[i].isEquipped << message.position << m_statsManager->inventoryPositions.contains((CharacterInventoryPositionEnum)message.position);
+                qDebug() << "[GameInventoryItemsFrame] Equip test:" << m_botData[sender].playerData.inventoryContent[i].isEquipped << message.position << m_statsManager->getInventoryPositions().contains((CharacterInventoryPositionEnum)message.position);
             }
         }
     }

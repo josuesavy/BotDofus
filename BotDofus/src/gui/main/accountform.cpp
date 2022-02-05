@@ -86,7 +86,7 @@ AccountForm::AccountForm(ProcessEngine *engine, const ConnectionInfos &infos, QW
 
     updateInterface();
 
-    //QObject::connect(&m_updateTimer, &QTimer::timeout, [this] () { updateInterface(true); });
+    QObject::connect(&m_updateTimer, &QTimer::timeout, [this] () { updateInterface(true); });
 }
 
 AccountForm::~AccountForm()
@@ -222,18 +222,18 @@ void AccountForm::autoConnect()
     emit ui->pushButtonDisconnection->clicked();
 }
 
-void AccountForm::updateInterface(/*bool directCall*/)
+void AccountForm::updateInterface(bool directCall)
 {
-    //    if(m_updateChecker.elapsed() < UPDATE_INTERVAL && directCall)
-    //    {
-    //        if(!m_updateTimer.isActive())
-    //        {
-    //            m_updateTimer.setInterval(UPDATE_INTERVAL-m_updateChecker.elapsed());
-    //            m_updateTimer.start();
-    //        }
+    if(m_updateChecker.elapsed() < UPDATE_INTERVAL && directCall)
+    {
+        if(!m_updateTimer.isActive())
+        {
+            m_updateTimer.setInterval(UPDATE_INTERVAL-m_updateChecker.elapsed());
+            m_updateTimer.start();
+        }
 
-    //        return;
-    //    }
+        return;
+    }
 
     switch (ui->tabWidget->currentIndex())
     {
@@ -414,8 +414,8 @@ void AccountForm::updateInterface(/*bool directCall*/)
 
 
         // Vie du personnage
-        if (m_engine->getStatsManager().getShieldPoints(m_sender) > 0)
-            ui->progressBarLife->setFormat(QString("%v/%m (%p%) (%1)").arg(m_engine->getStatsManager().getShieldPoints(m_sender)));
+        if (infos.playerData.stats[(uint)StatIds::SHIELD].total > 0)
+            ui->progressBarLife->setFormat(QString("%v/%m (%p%) (%1)").arg(infos.playerData.stats[(uint)StatIds::SHIELD].total));
         else
             ui->progressBarLife->setFormat("%v/%m (%p%)");
 
@@ -472,7 +472,7 @@ void AccountForm::updateInterface(/*bool directCall*/)
         ui->labelStatus->setText(tr("Disconnected"));
     }
 
-    //m_updateChecker.restart();
+    m_updateChecker.restart();
 }
 
 void AccountForm::loadCharacterFaceUrl(QNetworkReply *reply)

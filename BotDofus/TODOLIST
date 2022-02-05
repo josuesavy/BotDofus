@@ -36,7 +36,7 @@ Divers
 
 BackEnd :
 AccountForm
- [ ] Faire la procédure de demande et d'envoi du code pour desactivé l'AnkShield
+ [ ] Faire la procédure de demande et d'envoi du code pour desactivé l'AnkShield (libcurl)
 
 Network
  [OK] probleme de lecture du paquet, des fois l'id est pas bien détecté
@@ -45,7 +45,7 @@ ConnectionDialog
  [ ] Faire en sorte qu'on puisse voir l'avancer du chargement de chaque partie d'initialization du logiciel
 
 AccountManager
- [ ] Faire toute la procédure de connexion/déconnexion, demande d'apikey pour abonner les comptes (cf. knowledge.txt)
+ [ ] Faire toute la procédure de connexion/déconnexion, demande d'apikey pour abonner les comptes (cf. knowledge.txt) (libcurl)
 
 Character
  [ ] When you request the entitylook attribute the proxy if there is one, full anonymat please
@@ -79,7 +79,7 @@ Divers
  [OK] Quand on reconnecte le bot, il parle d'une histoire de régénération
  [ ] Des fois quand le bot se fait déco pour inactivité les logs sur la console sont pas mis à jour obligé de le reco pour avoir les dernière log sur la console
  [OK] Le bot plante sur certaines map genre quand on demande à D2OManagerSingleton pour une data (localisation: 3,-18:Astrub - Dans le paquet MapComplementaryInformationsDataMessage)
- [ ] Verifier sois même les fichiers du jeu à partir du cytrus.json: https://launcher.cdn.ankama.com/cytrus.json et télécharger à partir de: https://launcher.cdn.ankama.com/dofus/releases/main/windows/5.0_2.61.10.17.json ({game}/releases/{build}/{platform}/{version}.json)
+ [ ] Verifier sois même les fichiers du jeu à partir du cytrus.json: https://launcher.cdn.ankama.com/cytrus.json et télécharger à partir de: https://launcher.cdn.ankama.com/dofus/releases/main/windows/5.0_2.61.10.17.json ({game}/releases/{build}/{platform}/{version}.json) (libcurl)
 
 Infos
  Au lancement d'un compte, s'il y a trop de softwares en cours sur le pc ça plante et donne une erreur: "Could not load igc library.", ig9icd32!DumpRegistryKeyDefinitions, "C:\Windows\System32\DriverStore\FileRepository\iigd_dch.inf_amd64_3abed7b83f378c61\ig9icd32.dll"

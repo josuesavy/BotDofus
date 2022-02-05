@@ -61,7 +61,7 @@ signals:
     void remove(AccountForm *accountForm, bool child = false);
 
 public slots:
-    void updateInterface(/*bool directCall = false*/);
+    void updateInterface(bool directCall = false);
     void loadCharacterFaceUrl(QNetworkReply *reply);
 
     void on_actionLoadScript_triggered();
@@ -102,8 +102,8 @@ private:
 
     QList<AccountForm*> m_accountFormChilds;
 
-//    QTimer m_updateTimer;
-//    QElapsedTimer m_updateChecker;
+    QTimer m_updateTimer;
+    QElapsedTimer m_updateChecker;
 };
 
 #endif // ACCOUNTFORM_H

@@ -86,7 +86,6 @@ public:
     FloodManager &getFloodManager();
     GroupManager &getGroupManager();
     StatsManager &getStatsManager();
-    //ScriptManager &getScriptModule();
     ExchangeManager &getExchangeManager();
     ConnectionManager &getConnectionManager();
     InteractionManager &getInteractionManager();

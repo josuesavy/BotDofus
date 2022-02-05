@@ -193,11 +193,6 @@ void FightForm::on_pushButtonDeleteSpell_clicked()
     rs.removeAt(indexRow);
     m_engine->getFightManager().setRequestedSpells(m_sender, rs);
 
-    for(int i = 0; i < ui->tableWidgetSpells->columnCount(); i++)
-    {
-        delete ui->tableWidgetSpells->item(indexRow, i);
-    }
-
     ui->tableWidgetSpells->removeRow(indexRow);
 }
 
@@ -246,6 +241,28 @@ void FightForm::on_comboBoxSpectator_currentIndexChanged(int index)
     }
 }
 
+void FightForm::on_comboBoxSpeedFight_currentIndexChanged(int index)
+{
+    switch (index)
+    {
+    case 0: // Slow
+        m_engine->getFightManager().setSpeedFight(m_sender, SpeedFight::SLOW);
+        break;
+    case 1: // Normal
+        m_engine->getFightManager().setSpeedFight(m_sender, SpeedFight::NORMAL);
+        break;
+    case 2: // Fast
+        m_engine->getFightManager().setSpeedFight(m_sender, SpeedFight::FAST);
+        break;
+    case 3: // Ultra fast
+        m_engine->getFightManager().setSpeedFight(m_sender, SpeedFight::ULTRA_FAST);
+        break;
+    case 4: // Suicidal
+        m_engine->getFightManager().setSpeedFight(m_sender, SpeedFight::SUICIDAL);
+        break;
+    }
+}
+
 void FightForm::on_comboBoxBehavior_currentIndexChanged(int index)
 {
     switch (index)
@@ -271,3 +288,4 @@ void FightForm::on_spinBoxRegenerationMax_valueChanged(int arg1)
 {
     m_engine->getStatsManager().setRegenerationRatio(m_sender, ui->spinBoxRegenerationMin->value(), arg1);
 }
+

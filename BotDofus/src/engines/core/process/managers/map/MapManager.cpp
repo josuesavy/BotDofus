@@ -608,6 +608,16 @@ void MapManager::rejoinCharacter(SocketIO *sender, QString character)
         qDebug()<<"[ERROR] (MapManager) rejoinCharacter: this connection is unknown.";
 }
 
+void MapManager::useHavenBags(SocketIO *sender)
+{
+    if (m_botData.contains(sender))
+    {
+        EnterHavenBagRequestMessage ehbrmsg;
+        ehbrmsg.havenBagOwner = m_botData[sender].mapData.botId;
+        sender->send(ehbrmsg);
+    }
+}
+
 QList<int> MapManager::getDoorSkillIds()
 {
     return m_doorSkillIds;

@@ -76,6 +76,11 @@ ConnectionDialog::~ConnectionDialog()
     delete ui;
 }
 
+void ConnectionDialog::showEvent(QShowEvent *event)
+{
+    QDialog::showEvent(event);
+}
+
 void ConnectionDialog::on_pushButtonBrowser_clicked()
 {
     QString path = QFileDialog::getExistingDirectory(this);

@@ -25,6 +25,8 @@ public:
     explicit ConnectionDialog(QWidget *parent = nullptr);
     ~ConnectionDialog();
 
+    void showEvent(QShowEvent *event);
+
 private slots:
     void on_lineEditPathDofus_textChanged(const QString &arg1);
     void on_pushButtonBrowser_clicked();

@@ -119,6 +119,8 @@ public:
 
     void rejoinCharacter(SocketIO *sender, QString character);
 
+    void useHavenBags(SocketIO *sender);
+
     QList<int> getDoorSkillIds();
 
 public slots:

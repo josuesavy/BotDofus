@@ -92,6 +92,7 @@ void ConnectionManager::connect(SocketIO *sender)
     {
         action(sender) << "Connexion en cours...";
 
+
         m_botData[sender].connectionData.connectionState = ConnectionState::TRANSITION;
         m_botData[sender].connectionData.hasRequestedDisconnection = false;
 

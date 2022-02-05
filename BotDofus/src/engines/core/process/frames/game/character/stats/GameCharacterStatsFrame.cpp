@@ -146,12 +146,49 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
         LifePointsRegenBeginMessage message;
         message.deserialize(&reader);
 
-        m_botData[sender].playerData.regenRate = message.regenRate;
+        QMutableListIterator<LifeRegenQueue> i(m_statsManager->getPassiveRegen());
+        while (i.hasNext())
+            if (i.next().sender == sender)
+                i.remove();
 
-//        QObject::connect(m_botData[sender].playerData.basicRegen, SIGNAL(timeout()), m_statsManager, SLOT(passiveHealing()));
-//        m_botData[sender].playerData.basicRegen->setSingleShot(false);
-//        m_botData[sender].playerData.basicRegen->setInterval(message.regenRate*100);
-//        m_botData[sender].playerData.basicRegen->start();
+        LifeRegenQueue queue;
+        queue.sender = sender;
+        queue.timer = new QTimer(this);
+        m_botData[sender].playerData.regenRate = message.regenRate/10;
+
+        QObject::connect(queue.timer, SIGNAL(timeout()), m_statsManager, SLOT(passiveHealing()));
+        queue.timer->setSingleShot(false);
+        queue.timer->setInterval(1000);
+        queue.timer->start();
+        m_statsManager->setPassiveRegen(queue);
+
+        if (m_botData[sender].generalData.botState == BotState::REGENERATING_STATE)
+        {
+            double p = (double)m_botData[sender].playerData.healPercentage/100.0;
+            int max = m_statsManager->getMaxHealthPoints(sender);
+            int life = m_statsManager->getHealthPoints(sender);
+
+            if (p*max >= life)
+            {
+                m_botData[sender].generalData.botState = BotState::INACTIVE_STATE;
+
+                emit m_statsManager->healed(sender);
+
+                if(m_botData[sender].scriptData.activeModule == m_statsManager->getType())
+                    emit m_statsManager->scriptActionDone(sender);
+            }
+
+            else
+            {
+                LifeRegenQueue q;
+                q.interval = ((p*max - life)/message.regenRate)*100;
+                q.sender = sender;
+                q.time.start();
+
+                m_statsManager->setRegenQueue(q);
+                QTimer::singleShot(q.interval*1000, m_statsManager, SLOT(healFinished()));
+            }
+        }
     }
         break;
 
@@ -159,6 +196,19 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
     {
         LifePointsRegenEndMessage message;
         message.deserialize(&reader);
+
+        QMutableListIterator<LifeRegenQueue> i(m_statsManager->getPassiveRegen());
+        while (i.hasNext())
+        {
+            LifeRegenQueue q = i.next();
+            if (q.sender == sender)
+            {
+                QObject::disconnect(q.timer, SIGNAL(timeout()), m_statsManager, SLOT(passiveHealing()));
+                q.timer->stop();
+                delete q.timer;
+                i.remove();
+            }
+        }
 
         m_botData[sender].playerData.stats[(uint)StatIds::CUR_LIFE].total = message.lifePoints - message.maxLifePoints - m_botData[sender].playerData.stats[(uint)StatIds::CUR_PERMANENT_DAMAGE].total;
         m_botData[sender].playerData.stats[(uint)StatIds::MAX_LIFE].total = message.maxLifePoints;

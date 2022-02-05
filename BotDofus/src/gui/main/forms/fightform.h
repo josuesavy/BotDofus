@@ -29,23 +29,19 @@ public slots:
 
 private slots:
     void on_pushButtonMoveTopSpell_clicked();
-
     void on_pushButtonMoveDownSpell_clicked();
 
     void on_pushButtonAddSpell_clicked();
-
     void on_pushButtonDeleteSpell_clicked();
 
     void on_comboBoxPositionFight_currentIndexChanged(int index);
-
     void on_comboBoxCloseFight_currentIndexChanged(int index);
-
     void on_comboBoxSpectator_currentIndexChanged(int index);
 
+    void on_comboBoxSpeedFight_currentIndexChanged(int index);
     void on_comboBoxBehavior_currentIndexChanged(int index);
 
     void on_spinBoxRegenerationMin_valueChanged(int arg1);
-
     void on_spinBoxRegenerationMax_valueChanged(int arg1);
 
 private:

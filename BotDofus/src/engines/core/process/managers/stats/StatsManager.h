@@ -5,11 +5,13 @@
 
 struct LifeRegenQueue
 {
-    QTime time;
+    QElapsedTimer time;
     int interval;
     QTimer *timer;
     SocketIO* sender;
 };
+
+bool operator==(const LifeRegenQueue &left, const LifeRegenQueue &right);
 
 class StatsManager : public AbstractManager
 {
@@ -184,14 +186,48 @@ public:
      */
     void setAutomaticallyAcceptAchievement(SocketIO *sender, bool active);
 
+
+    /*!
+     * \brief Regen optimizer
+     * \param sender Bot's particular connection
+     */
+    void regenOptimizer(SocketIO *sender);
+
+
+    /*!
+     * \brief Update the required stats
+     * \param sender Bot's particular connection
+     */
+    void updateRequiredStats(SocketIO *sender);
+
+
+    /*!
+     * \brief Send a message to give up didactiel
+     * \param sender Bot's particular connection
+     */
+    void quitDidactiel(SocketIO *sender);
+
+    const QMap<uint, QString> &getPets();
+    void setPets(const QMap<uint, QString> &pets);
+
+    const QList<LifeRegenQueue> &getRegenQueue();
+    void setRegenQueue(const QList<LifeRegenQueue> &regenQueue);
+    void setRegenQueue(LifeRegenQueue item);
+
+    QList<LifeRegenQueue> &getPassiveRegen();
+    void setPassiveRegen(const QList<LifeRegenQueue> &passiveRegen);
+    void setPassiveRegen(LifeRegenQueue item);
+
+    const QList<LifeRegenQueue> &getPreventRegenBlocked();
+    void setPreventRegenBlocked(const QList<LifeRegenQueue> &preventRegenBlocked);
+
+    const QList<CharacterInventoryPositionEnum> &getInventoryPositions();
+
     void defineUrlHead(SocketIO *sender, QUrl url);
     void defineUrlFull(SocketIO *sender, QUrl url);
     void defineSkinHead(SocketIO *sender, QPixmap pixmap);
     void defineSkinFull(SocketIO *sender, QPixmap pixmap);
 
-    void quitDidactiel(SocketIO *sender);
-
-    int getShieldPoints(SocketIO* sender);
     int getHealthPoints(SocketIO* sender);
     int getMaxHealthPoints(SocketIO* sender);
 
@@ -226,24 +262,12 @@ signals:
 
 
 
-public:
-    QMap<uint, QString> pets;
-    QList<LifeRegenQueue> regenQueue;
-    QList<LifeRegenQueue> passiveRegen;
+private:
+    QMap<uint, QString> m_pets;
+    QList<LifeRegenQueue> m_regenQueue;
+    QList<LifeRegenQueue> m_passiveRegen;
     QList<LifeRegenQueue> m_preventRegenBlocked;
-    QList<CharacterInventoryPositionEnum> inventoryPositions;
-
-    /*!
-     * \brief Regen optimizer
-     * \param sender Bot's particular connection
-     */
-    void regenOptimizer(SocketIO *sender);
-
-    /*!
-     * \brief Update the required stats
-     * \param sender Bot's particular connection
-     */
-    void updateRequiredStats(SocketIO *sender);
+    QList<CharacterInventoryPositionEnum> m_inventoryPositions;
 };
 
 #endif // STATSMANAGER_H

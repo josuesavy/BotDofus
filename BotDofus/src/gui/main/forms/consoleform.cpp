@@ -83,7 +83,7 @@ void ConsoleForm::updateInterface()
 
     if (infos.connectionData.connectionState == ConnectionState::DISCONNECTED)
     {
-        //ui->comboBoxCanal->setEnabled(false);
+        ui->comboBoxCanal->setEnabled(false);
         ui->lineEditConsole->setEnabled(false);
         ui->pushButtonSmiley->setEnabled(false);
         ui->pushButtonSend->setEnabled(false);
@@ -287,7 +287,7 @@ void ConsoleForm::on_pushButtonSend_clicked()
 
 void ConsoleForm::on_comboBoxCanal_currentIndexChanged(int index)
 {
-    if(index == 5)
+    if((Channel)index == Channel::CHANNELPRIVATE)
         ui->lineEditConsole->setPlaceholderText("Player_Name [message]");
     else
         ui->lineEditConsole->setPlaceholderText("");

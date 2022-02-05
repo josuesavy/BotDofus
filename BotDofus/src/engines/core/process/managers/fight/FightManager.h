@@ -99,6 +99,14 @@ public:
 
 
     /*!
+     * \brief Set the character's speed actions throughout fight
+     * \param sender Bot's particular connection
+     * \param speedFight The character's speed fight
+     */
+    void setSpeedFight(SocketIO *sender, SpeedFight speedFight);
+
+
+    /*!
      * \brief Enable the restricted member team
      * \param sender Bot's particular connection
      * \param isPartyOnly Only member team enter or not

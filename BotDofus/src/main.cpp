@@ -1,16 +1,11 @@
 #include "gui/mainwindow.h"
 #include "gui/connectiondialog.h"
 #include "gui/theme.h"
-#include "src/network/Sniffer.h"
-#include "Helper.h"
 
 #include <QApplication>
-#include <QDebug>
 
 int main(int argc, char *argv[])
 {
-    SetUnhandledExceptionFilter(ExceptionFilter);
-
     QApplication a(argc, argv);
 
     // Chargement du thème
@@ -21,8 +16,6 @@ int main(int argc, char *argv[])
 
     ConnectionDialog cd;
     cd.show();
-
-//    Sniffer *sniffer = new Sniffer();
 
     return a.exec();
 }

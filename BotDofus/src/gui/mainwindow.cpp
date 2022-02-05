@@ -89,6 +89,7 @@ void MainWindow::addAccount(const QList<ConnectionInfos> &accounts)
         progressDlg.setCancelButton(nullptr);
         progressDlg.setAutoClose(true);
         progressDlg.setMaximum(accounts.size());
+        progressDlg.setAttribute(Qt::WA_DeleteOnClose, true);
         progressDlg.show();
 
         QList<AccountForm*> accountFormsToAutoConnect;
@@ -97,13 +98,13 @@ void MainWindow::addAccount(const QList<ConnectionInfos> &accounts)
         {
             if(accounts.first().masterGroup.isEmpty())
             {
-                // Remplissement de la liste de comptes avec leur Widget
                 for(int i = 0; i < accounts.size(); i++)
                 {
                     progressDlg.setLabelText(QString("Loading the <b>%1</b> account...").arg(accounts.at(i).alias.isEmpty() ? accounts.at(i).login: accounts.at(i).alias));
                     progressDlg.setValue(i+1);
                     qApp->processEvents();
 
+                    // Add Account
                     AccountForm *accountForm = new AccountForm(&m_engine, accounts.at(i));
                     connect(accountForm, SIGNAL(remove(AccountForm*, bool)), this, SLOT(remove(AccountForm*, bool)));
                     ui->stackedWidget->addWidget(accountForm);
@@ -133,11 +134,9 @@ void MainWindow::addAccount(const QList<ConnectionInfos> &accounts)
                         }
                         else
                         {
-                            int answ = QMessageBox::warning(NULL,"Warning",QString("The <b>%1</b> account is on a different server.\nDo you want to continue loading anyway?").arg(accounts.at(i).alias.isEmpty() ? accounts.at(i).login: accounts.at(i).alias), QMessageBox::Yes | QMessageBox::No);
-                            if(answ == QMessageBox::No)
-                            {
-                                return;
-                            }
+                            QMessageBox::critical(this,"Error",QString("The <b>%1</b> account is on a different server.").arg(accounts.at(i).alias.isEmpty() ? accounts.at(i).login: accounts.at(i).alias));
+                            progressDlg.close();
+                            return;
                         }
                     }
 
@@ -193,7 +192,7 @@ void MainWindow::addAccount(const QList<ConnectionInfos> &accounts)
             ui->stackedWidget->setCurrentWidget(ui->treeWidgetAccount->topLevelItem(ui->treeWidgetAccount->topLevelItemCount()-1)->data(0, Qt::UserRole).value<AccountForm*>());
         }
 
-        // Auto connect accounts
+        // Auto connect accounts if requested
         foreach(AccountForm *accountForm, accountFormsToAutoConnect)
         {
             if(accountForm->getConnectionInfos().autoConnect)
@@ -218,7 +217,6 @@ void MainWindow::updateBotInferface(SocketIO *sender)
             items[i]->setData(0, 4, m_engine.getData(sender).playerData.headPixmap);
 
             //m_accountForms.at(i)->updateInterface();
-
             ui->treeWidgetAccount->selectedItems().at(0)->data(0, Qt::UserRole).value<AccountForm*>()->updateInterface();
 
             break;
