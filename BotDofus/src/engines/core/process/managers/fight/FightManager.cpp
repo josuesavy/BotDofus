@@ -161,7 +161,7 @@ void FightManager::updateFightDisposition(SocketIO *sender)
 
             if(cellID != INVALID && m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].cellId != cellID)
             {
-                qDebug()<<"FightManager - Tentative de placement à la cellule"<<cellID;
+                qDebug()<<"[INFO] (FightManager) updateFightDisposition: Tentative de placement à la cellule"<<cellID;
                 GameFightPlacementPositionRequestMessage answer;
                 answer.cellId = cellID;
                 sender->send(answer);
@@ -169,11 +169,11 @@ void FightManager::updateFightDisposition(SocketIO *sender)
 
             else if(m_botData[sender].fightData.fighters[m_botData[sender].fightData.botFightData.botId].cellId == cellID)
             {
-                qDebug()<<"FightManager - Position actuelle déjà optimale";
+                qDebug()<<"[WARNING] (FightManager) updateFightDisposition: Position actuelle déjà optimale";
             }
 
             else
-                qDebug()<<"FightManager - Le classement des ennemis a échoué";
+                qDebug()<<"[ERROR] (FightManager) updateFightDisposition: Le classement des ennemis a échoué";
         }
     }
 }
@@ -2133,16 +2133,16 @@ void FightManager::processEndFight(SocketIO *sender)
         m_botData[sender].generalData.botState = INACTIVE_STATE;
 
         if(m_botData[sender].fightData.hasWon)
-            qDebug()<<"Fin du combat - Victoire";
+            qDebug()<<"[INFO] (FightManager) processEndFight: Fin du combat - Victoire";
 
         else
-            qDebug()<<"Fin du combat - Défaite";
+            qDebug()<<"[INFO] (FightManager) processEndFight: Fin du combat - Défaite";
 
         if(m_botData[sender].scriptData.isActive && m_botData[sender].scriptData.activeModule == ManagerType::FIGHT)
         {
             if(m_botData[sender].fightData.hasWon && isMonstersToFight(sender))
             {
-                qDebug()<<"FightManager - Il reste des monstres à combattre sur cette carte X:" <<m_botData[sender].mapData.map.getPosition().getX()<<" Y:" <<m_botData[sender].mapData.map.getPosition().getY();
+                qDebug()<<"[INFO] (FightManager) processEndFight: Il reste des monstres à combattre sur cette carte X:" <<m_botData[sender].mapData.map.getPosition().getX()<<" Y:" <<m_botData[sender].mapData.map.getPosition().getY();
 
                 emit scriptActionRepeat(sender);
             }
@@ -2151,7 +2151,7 @@ void FightManager::processEndFight(SocketIO *sender)
             {
                 if(!m_botData[sender].fightData.hasWon)
                 {
-                    qDebug()<<"FightManager - Plus de monstres à combattre sur cette carte X:" <<m_botData[sender].mapData.map.getPosition().getX()<<" Y:" <<m_botData[sender].mapData.map.getPosition().getY();
+                    qDebug()<<"[INFO] (FightManager) processEndFight: Plus de monstres à combattre sur cette carte X:" <<m_botData[sender].mapData.map.getPosition().getX()<<" Y:" <<m_botData[sender].mapData.map.getPosition().getY();
                 }
 
                 QTimer::singleShot(500, this, [this, sender] () { emit scriptActionDone(sender); });

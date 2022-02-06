@@ -535,7 +535,7 @@ void StatsManager::regenOptimizer(SocketIO *sender)
 
 void StatsManager::healFinished()
 {
-    int index;
+    int index = 0;
     int min = 1000000;
     SocketIO* sender = NULL;
     for (int i = 0; i < m_regenQueue.size(); i++)
@@ -585,7 +585,7 @@ void StatsManager::preventRegenBlocked()
 
 void StatsManager::passiveHealing()
 {
-    int index;
+    int index = 0;
     SocketIO *sender;
     QTimer *timer = static_cast<QTimer*>(QObject::sender());
     for (int i = 0; i < m_passiveRegen.size(); i++)
@@ -601,11 +601,8 @@ void StatsManager::passiveHealing()
     {
         QObject::disconnect(timer, SIGNAL(timeout()), this, SLOT(passiveHealing()));
 
-        if (!m_passiveRegen.isEmpty() && m_passiveRegen.contains(m_passiveRegen[index]))
-        {
-            delete m_passiveRegen[index].timer;
-            m_passiveRegen.removeAt(index);
-        }
+        delete m_passiveRegen[index].timer;
+        m_passiveRegen.removeAt(index);
     }
 
     int life = getHealthPoints(sender) + m_botData[sender].playerData.regenRate;

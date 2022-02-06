@@ -27,7 +27,7 @@ void D2PManager::init(const QString &D2PFolder)
     m_folder_2 = new class D2PFolder(D2PFolder+"/gfx/items");
     m_pathFolder = D2PFolder;
 
-    qDebug()<<"[D2PManager] Initialized ! ("<<t.elapsed()<<"ms)";
+    qDebug()<<"[INFO] (D2PManager) Initialized ! ("<<t.elapsed()<<"ms)";
 }
 
 bool D2PManager::isInit() const
@@ -62,7 +62,7 @@ Map D2PManager::getMap(uint mapId)
     m_mutex.lock();
 
     if(!m_isInit)
-        qDebug()<<"ERROR - D2PManager is not initialized!";
+        qDebug()<<"[ERROR] (D2PManager) getMap: is not initialized!";
 
     Map map = getCompressedMap(mapId);
 
@@ -74,7 +74,7 @@ Map D2PManager::getMap(uint mapId)
 QMap<uint, Map> D2PManager::parseAllMap()
 {
     if(!m_isInit)
-        qDebug()<<"ERROR - D2PManager is not initialized!";
+        qDebug()<<"[ERROR] (D2PManager) parseAllMap: is not initialized!";
 
     QMap<uint, Map> allMap;
 

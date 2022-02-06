@@ -62,7 +62,7 @@ void PathfindingMap::initialize()
             }
         }
 
-        qDebug()<<"[PathfindingMap] Initialized ! ("<<t.elapsed()<<"ms)";
+        qDebug()<<"[INFO] (PathfindingMap) Initialized ! ("<<t.elapsed()<<"ms)";
     }
 }
 
@@ -147,7 +147,7 @@ QList<ChangeMapRequest> PathfindingMap::findPath(uint startMapId, uint endMapId,
         toBeReturned.append(tmp);
     }
 
-    qDebug()<<"PathfindingMap - Temps de calcul:"<<timer.elapsed();
+    qDebug()<<"[INFO] (PathfindingMap) findPath: Temps de calcul:"<<timer.elapsed();
     return toBeReturned;
 }
 
@@ -221,7 +221,7 @@ void PathfindingMap::findNeighboringMaps(MapNode c_MapNode, uint startMapId, uin
             switch (i)
             {
             default:
-                qDebug()<<"ERROR - Pathfinging map";
+                qDebug()<<"[ERROR] (PathfindingMap) findNeighboringMaps: Pathfinging map";
                 break;
 
             case 0:

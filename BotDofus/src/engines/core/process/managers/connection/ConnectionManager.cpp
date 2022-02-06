@@ -92,7 +92,6 @@ void ConnectionManager::connect(SocketIO *sender)
     {
         action(sender) << "Connexion en cours...";
 
-
         m_botData[sender].connectionData.connectionState = ConnectionState::TRANSITION;
         m_botData[sender].connectionData.hasRequestedDisconnection = false;
 
@@ -106,7 +105,7 @@ void ConnectionManager::connect(SocketIO *sender)
     }
 
     else if(!m_botData.contains(sender))
-        qDebug()<<"ERROR - ConnectionManager does not know this connection";
+        qDebug()<<"[ERROR] (ConnectionManager) connect: does not know this connection";
 }
 
 void ConnectionManager::disconnect(SocketIO *sender)
@@ -127,7 +126,7 @@ void ConnectionManager::disconnect(SocketIO *sender)
     }
 
     else
-        qDebug()<<"ERROR - ConnectionManager does not know this connection";
+        qDebug()<<"[ERROR] (ConnectionManager) disconnect: does not know this connection";
 }
 
 QList<int> ConnectionManager::cipherRSA(SocketIO *sender, QList<int> keys, QString salt)

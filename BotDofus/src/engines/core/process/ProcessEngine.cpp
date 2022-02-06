@@ -79,7 +79,7 @@ bool ProcessEngine::processMessage(const MessageInfos &data, SocketIO *sender)
 
     if (!messageFound)
     {
-        qDebug()<<"[ProcessEngine] No message support:"<<MessageUtils::getName(data.messageType)<< "(ID:" <<(int)data.messageType<< ")\n";
+        qDebug()<<"[ERROR] (ProcessEngine) processMessage: No message support:"<<MessageUtils::getName(data.messageType)<< "(ID:" <<(int)data.messageType<< ")\n";
     }
 
     return messageFound;
