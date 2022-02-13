@@ -1979,17 +1979,6 @@ HEADERS += \
     src/engines/io/d2p/map/elements/GraphicalElement.h \
     src/engines/io/d2p/map/elements/SoundElement.h \
     src/engines/io/d2p/map/elements/enums/ElementTypesEnum.h \
-    src/engines/io/ele/Elements.h \
-    src/engines/io/ele/ElementsAdapter.h \
-    src/engines/io/ele/GraphicalElementData.h \
-    src/engines/io/ele/GraphicalElementFactory.h \
-    src/engines/io/ele/GraphicalElementTypes.h \
-    src/engines/io/ele/subtypes/AnimatedGraphicalElementData.h \
-    src/engines/io/ele/subtypes/BlendedGraphicalElementData.h \
-    src/engines/io/ele/subtypes/BoundingBoxGraphicalElementData.h \
-    src/engines/io/ele/subtypes/EntityGraphicalElementData.h \
-    src/engines/io/ele/subtypes/NormalGraphicalElementData.h \
-    src/engines/io/ele/subtypes/ParticlesGraphicalElementData.h \
     src/engines/io/i18n/I18nFile.h \
     src/engines/io/i18n/I18nFileAccessor.h \
     src/engines/io/network/Reader.h \
@@ -3843,16 +3832,6 @@ SOURCES += \
     src/engines/io/d2p/map/elements/BasicElement.cpp \
     src/engines/io/d2p/map/elements/GraphicalElement.cpp \
     src/engines/io/d2p/map/elements/SoundElement.cpp \
-    src/engines/io/ele/Elements.cpp \
-    src/engines/io/ele/ElementsAdapter.cpp \
-    src/engines/io/ele/GraphicalElementData.cpp \
-    src/engines/io/ele/GraphicalElementFactory.cpp \
-    src/engines/io/ele/subtypes/AnimatedGraphicalElementData.cpp \
-    src/engines/io/ele/subtypes/BlendedGraphicalElementData.cpp \
-    src/engines/io/ele/subtypes/BoundingBoxGraphicalElementData.cpp \
-    src/engines/io/ele/subtypes/EntityGraphicalElementData.cpp \
-    src/engines/io/ele/subtypes/NormalGraphicalElementData.cpp \
-    src/engines/io/ele/subtypes/ParticlesGraphicalElementData.cpp \
     src/engines/io/i18n/I18nFile.cpp \
     src/engines/io/i18n/I18nFileAccessor.cpp \
     src/engines/io/network/Reader.cpp \
