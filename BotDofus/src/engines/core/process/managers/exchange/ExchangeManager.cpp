@@ -113,6 +113,7 @@ void ExchangeManager::updateExchange(SocketIO *sender)
                 m_botData[sender].exchangeData.isLackingKamas = true;
                 error(sender)<<"Vous n'avez plus assez d'argent pour les échanges";
                 setState(sender, false);
+                emit requestUpdate(sender);
             }
 
             kamas = m_botData[sender].playerData.kamas;

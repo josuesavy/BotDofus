@@ -23,6 +23,10 @@ public:
     explicit AccountManagerDialog(QWidget *parent = nullptr);
     ~AccountManagerDialog();
 
+    LoaderAccountForm *getLoaderAccountForm();
+    AddAccountForm *getAddAccountForm();
+    CharacterCreatorForm *getCharacterCreatorForm();
+
 public slots:
     void closeAfterLoaded();
 

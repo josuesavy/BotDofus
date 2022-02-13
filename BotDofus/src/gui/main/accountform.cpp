@@ -189,6 +189,8 @@ void AccountForm::loadScript(QString path)
         m_engine->info(m_sender) << "Script unloaded.";
     }
 
+    emit m_engine->getConnectionManager().requestUpdate(m_sender); // TODO: When there will have ScriptManager, edit "ConnectionManager" to "ScriptManager"
+
     ui->pushButtonFile->setMenu(menuScript);
 }
 
@@ -300,9 +302,11 @@ void AccountForm::updateInterface(bool directCall)
         if(infos.mapData.playersOnMap[infos.mapData.botId].name == infos.connectionData.connectionInfos.character)
         {
             QUrl characterFaceUrl(EntityLookParser::getUrl(infos.mapData.playersOnMap[infos.mapData.botId].look, EntityRendererType::FACE, EntityRendererOrientation::DIAGONAL_RIGHT));
-
             if (infos.playerData.characterFaceUrl != characterFaceUrl || infos.playerData.characterFaceUrl.isEmpty())
+            {
+                managerFaceSkin->setProxy(m_sender->proxy());
                 managerFaceSkin->get(QNetworkRequest(characterFaceUrl));
+            }
         }
 
 
@@ -529,6 +533,8 @@ void AccountForm::on_actionRunScript_triggered()
         ui->actionRunScript->setIcon(QIcon(":/icons/script_go_16px.ico"));
         ui->actionRunScript->setText(tr("Start the script"));
     }
+
+     emit m_engine->getConnectionManager().requestUpdate(m_sender); // TODO: When there will have ScriptManager, edit "ConnectionManager" to "ScriptManager"
 }
 
 void AccountForm::on_pushButtonClose_clicked()

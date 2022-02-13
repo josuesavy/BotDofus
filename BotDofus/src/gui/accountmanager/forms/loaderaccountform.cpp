@@ -274,7 +274,6 @@ void LoaderAccountForm::on_pushButtonLoad_clicked()
                             if (query.next())
                             {
                                 QString character = query.value(1).toString();
-
                                 if(!character.isEmpty())
                                 {
                                     m_accounts[i].masterGroup = character;

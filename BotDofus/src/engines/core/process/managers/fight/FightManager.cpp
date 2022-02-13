@@ -113,6 +113,7 @@ void FightManager::giveUpFight(SocketIO *sender)
     if(m_botData[sender].generalData.botState == BotState::FIGHTING_STATE)
     {
         action(sender) << "Abandon du combat";
+        emit requestUpdate(sender);
 
         GameContextQuitMessage message;
         sender->send(message);
@@ -2117,6 +2118,7 @@ bool FightManager::processMonsters(SocketIO *sender)
                 {
                     action(sender)<<"Lancement d'un combat ("<<groups[i].monsters.size()<< "monstres).";
                     m_botData[sender].fightData.followingMonsterGroup = groups[i].contextualID;
+                    emit requestUpdate(sender);
                     return true;
                 }
             }

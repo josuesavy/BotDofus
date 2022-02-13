@@ -24,6 +24,8 @@ bool GameCharacterStatusFrame::processMessage(const MessageInfos &data, SocketIO
 
         if(psumsg.accountId == m_botData[sender].playerData.accountId)
         {
+            m_botData[sender].playerData.playerStatus = (PlayerStatusEnum)psumsg.status->statusId;
+
             QString status;
 
             switch((PlayerStatusEnum)psumsg.status->statusId)
@@ -33,6 +35,7 @@ bool GameCharacterStatusFrame::processMessage(const MessageInfos &data, SocketIO
                 break;
 
             case PlayerStatusEnum::PLAYER_STATUS_AFK:
+            case PlayerStatusEnum::PLAYER_STATUS_IDLE:
                 status = D2OManagerSingleton::get()->getI18N()->getText("ui.chat.status.away");
                 break;
 

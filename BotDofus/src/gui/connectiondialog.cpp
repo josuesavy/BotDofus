@@ -121,15 +121,14 @@ void ConnectionDialog::on_lineEditPathDofus_textChanged(const QString &arg1)
                     query.bindValue(":dofus_path", arg1);
                     if(query.exec())
                     {
+                        ui->labelStatus->setText(tr("Initializing game datas..."));
+                        ui->progressBar->setValue(20);
+
                         // ServerHandlerSingleton::get()->init();
                         D2OManagerSingleton::get()->init(D2O, I18N);
-                        qApp->processEvents();
                         D2PManagerSingleton::get()->init(D2P);
-                        qApp->processEvents();
-//                        ElementsAdapterSingleton::get()->init(D2P);
-//                        qApp->processEvents();
+                        // ElementsAdapterSingleton::get()->init(D2P);
                         PathfindingMap::initialize();
-                        qApp->processEvents();
                     }
 
                     // Pour l'emplacement valide
@@ -138,9 +137,8 @@ void ConnectionDialog::on_lineEditPathDofus_textChanged(const QString &arg1)
                     ui->lineEditPathDofus->setEnabled(false);
                     ui->pushButtonConnect->setEnabled(true);
                     ui->pushButtonConnect->setFocus(Qt::FocusReason::MouseFocusReason);
-                    ui->labelStatus->setText(tr("Waiting for connection..."));
+                    ui->labelStatus->setText(tr("Waiting for credentials..."));
                     ui->progressBar->setValue(40);
-                    qApp->processEvents();
                 }
 
                 else
@@ -150,9 +148,8 @@ void ConnectionDialog::on_lineEditPathDofus_textChanged(const QString &arg1)
                     ui->labelCheck->setText(QString(tr("Invalid dofus location.")));
                     ui->lineEditPathDofus->setEnabled(true);
                     ui->pushButtonConnect->setEnabled(false);
-                    ui->labelStatus->setText(tr("Initializing game data..."));
+                    ui->labelStatus->setText(tr("Waiting for dofus location..."));
                     ui->progressBar->setValue(10);
-                    qApp->processEvents();
                 }
             }
 
@@ -163,9 +160,8 @@ void ConnectionDialog::on_lineEditPathDofus_textChanged(const QString &arg1)
                 ui->labelCheck->setText(QString(tr("Invalid dofus location.")));
                 ui->lineEditPathDofus->setEnabled(true);
                 ui->pushButtonConnect->setEnabled(false);
-                ui->labelStatus->setText(tr("Initializing game data..."));
+                ui->labelStatus->setText(tr("Waiting for dofus location..."));
                 ui->progressBar->setValue(10);
-                qApp->processEvents();
             }
         }
 
@@ -176,9 +172,8 @@ void ConnectionDialog::on_lineEditPathDofus_textChanged(const QString &arg1)
             ui->labelCheck->setText(QString(tr("Invalid dofus location.")));
             ui->lineEditPathDofus->setEnabled(true);
             ui->pushButtonConnect->setEnabled(false);
-            ui->labelStatus->setText(tr("Initializing game data..."));
+            ui->labelStatus->setText(tr("Waiting for dofus location..."));
             ui->progressBar->setValue(10);
-            qApp->processEvents();
         }
     }
 }
@@ -187,17 +182,14 @@ void ConnectionDialog::on_pushButtonConnect_clicked()
 {
     ui->labelStatus->setText(tr("Connection to server in progress..."));
     ui->progressBar->setValue(60);
-    qApp->processEvents();
     // TODO : Etablir la connexion au serveur..
 
     ui->labelStatus->setText(tr("Connection to account in progress..."));
     ui->progressBar->setValue(80);
-    qApp->processEvents();
     // TODO : Etablir la connexion au compte SweatedBox..
 
     ui->labelStatus->setText(tr("Launch SweatedBox..."));
     ui->progressBar->setValue(100);
-    qApp->processEvents();
 
     MainWindow *mainwindow = new MainWindow();
     mainwindow->show();

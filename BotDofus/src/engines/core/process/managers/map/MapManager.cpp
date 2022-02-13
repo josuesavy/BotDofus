@@ -375,6 +375,7 @@ bool MapManager::changeMap(SocketIO *sender, MapSide mapSide, int cellId)
 
         stopMoving(sender);
         error(sender)<<"An error has occurred, reset the displacement module";
+        emit requestUpdate(sender);
 
         return false;
     }
@@ -541,6 +542,7 @@ void MapManager::processMapPath(QList<ChangeMapRequest> requestedMaps, SocketIO 
 
                     stopMoving(sender);
                     error(sender)<<"An error has occurred, reset the displacement module";
+                    emit requestUpdate(sender);
                 }
             }
 
@@ -555,6 +557,7 @@ void MapManager::processMapPath(QList<ChangeMapRequest> requestedMaps, SocketIO 
         {
             qDebug()<<"[ERROR] (MapManager) processMapPath: no path found for the requested arrival map.";
             error(sender)<<"The bot cannot get to the requested position";
+            emit requestUpdate(sender);
             emit couldNotMove(sender);
         }
     }

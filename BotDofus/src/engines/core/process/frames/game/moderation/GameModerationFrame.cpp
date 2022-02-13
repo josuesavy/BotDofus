@@ -26,6 +26,7 @@ bool GameModerationFrame::processMessage(const MessageInfos &data, SocketIO *sen
         warn(sender) << message.author << ":" << message.content;
         warn(sender) << "Détails :" << message.lockDuration;
 
+        // TODO: make a timer for request close the popup, it will better human
         PopupWarningCloseRequestMessage answer;
         sender->send(answer);
 

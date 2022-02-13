@@ -55,9 +55,11 @@ void CharacterForm::updateInterface()
         if(infos.mapData.playersOnMap[infos.mapData.botId].name == infos.connectionData.connectionInfos.character)
         {
             QUrl characterFullUrl(EntityLookParser::getUrl(infos.mapData.playersOnMap[infos.mapData.botId].look, EntityRendererType::FULL, EntityRendererOrientation::DIAGONAL_RIGHT));
-
             if (infos.playerData.characterFullUrl != characterFullUrl || infos.playerData.characterFullUrl.isEmpty())
+            {
+                managerFullSkin->setProxy(m_sender->proxy());
                 managerFullSkin->get(QNetworkRequest(characterFullUrl));
+            }
 
             if (!infos.playerData.fullPixmap.isNull())
                 ui->labelImage->setPixmap(infos.playerData.fullPixmap);

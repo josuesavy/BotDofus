@@ -86,6 +86,9 @@ void StatsManager::increaseStat(SocketIO *sender, PlayerD2OFields stat)
     }
 
     m_botData[sender].playerData.increaseStatId = (uint)stat;
+
+    emit requestUpdate(sender);
+
     sender->send(message);
 }
 
@@ -247,6 +250,7 @@ void StatsManager::throwItem(SocketIO *sender, uint uid, uint quantity)
             message.objectUID = item.UID;
             message.quantity = std::min(quantity, (uint)item.quantity);
             action(sender) << "Vous venez de jeter <b>" << D2OManagerSingleton::get()->getItem(item.GID)->getName() << "</b> (x" << message.quantity << ")";
+            emit requestUpdate(sender);
             sender->send(message);
             break;
         }
@@ -323,6 +327,7 @@ bool StatsManager::healSit(SocketIO* sender)
     sender->send(message);
 
     m_botData[sender].generalData.botState = BotState::REGENERATING_STATE;
+    emit requestUpdate(sender);
     return true;
 }
 
@@ -340,6 +345,7 @@ bool StatsManager::healEat(SocketIO* sender)
     {
         warn(sender) << "Vous n'avez plus d'objets consommables pour vous régénérer";
         healSit(sender);
+        emit requestUpdate(sender);
         return false;
     }
 
@@ -488,6 +494,7 @@ void StatsManager::regenOptimizer(SocketIO *sender)
         m_botData[sender].generalData.botState = BotState::INACTIVE_STATE;
         m_botData[sender].playerData.healInventory.clear();
         healSit(sender);
+        emit requestUpdate(sender);
         return;
     }
 
@@ -573,6 +580,7 @@ void StatsManager::preventRegenBlocked()
             m_botData[q.sender].generalData.botState = BotState::INACTIVE_STATE;
             m_botData[q.sender].playerData.healInventory.clear();
 
+            emit requestUpdate(q.sender);
             emit healed(q.sender);
 
             if(m_botData[q.sender].scriptData.activeModule == ManagerType::STATS)

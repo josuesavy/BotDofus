@@ -74,6 +74,8 @@ void ConnectionManager::reconnect(SocketIO *sender)
 
     else if(m_botData[sender].connectionData.connectionState == ConnectionState::DISCONNECTED)
         connect(sender);
+
+    emit requestUpdate(sender);
 }
 
 void ConnectionManager::setReconnectionAuto(SocketIO *sender, bool active)
@@ -100,6 +102,8 @@ void ConnectionManager::connect(SocketIO *sender)
         query.bindValue(":lastconnection", QDateTime::currentDateTime().toTime_t());
         query.bindValue(":login", m_botData[sender].connectionData.connectionInfos.login);
         query.exec();
+
+        emit requestUpdate(sender);
 
         sender->connect(false);
     }
@@ -242,11 +246,16 @@ void ConnectionManager::updateServerInactivityDelay(SocketIO *sender, bool syste
 void ConnectionManager::hasConnected()
 {
     SocketIO *sender = static_cast<SocketIO*>(QObject::sender());
+
     m_botData[sender].connectionData.timeElapsed.start();
     m_botData[sender].generalData.botState = INACTIVE_STATE;
     m_botData[sender].connectionData.hasRequestedReconnection = false;
     m_botData[sender].connectionData.connectionState = ConnectionState::TRANSITION;
+    m_botData[sender].playerData.playerStatus = PlayerStatusEnum::PLAYER_STATUS_AVAILABLE;
+
     info(sender) << "Connecté sur " << sender->getCurrentHostIp()+":"+QString::number(sender->getCurrentHostPort());
+
+    emit requestUpdate(sender);
 }
 
 void ConnectionManager::hasDisconnected()
@@ -271,13 +280,13 @@ void ConnectionManager::hasDisconnected()
             action(sender)<<"Tentative de reconnexion dans"<<QString::number(WAIT_TIME_CONNECTION/1000)+"s...";
         }
 
-
         m_botData[sender].playerData.headPixmap = QPixmap(":/icons/user.png");
         m_botData[sender].playerData.fullPixmap = QPixmap(":/icons/character.png");
         m_botData[sender].playerData.characterFaceUrl.clear();
         m_botData[sender].playerData.characterFullUrl.clear();
         m_botData[sender].connectionData.connectionState = ConnectionState::DISCONNECTED;
 
+        emit requestUpdate(sender);
         emit botDisconnected(sender);
     }
 }

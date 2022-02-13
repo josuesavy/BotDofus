@@ -405,9 +405,15 @@ void MapForm::resizeEvent(QResizeEvent *event)
 void MapForm::on_checkBoxDisplayCellIds_stateChanged(int arg1)
 {
     if(arg1 == Qt::Checked)
+    {
         displayCellIds(true);
+        emit m_engine->getMapManager().requestUpdate(m_sender);
+    }
     else
+    {
         displayCellIds(false);
+        emit m_engine->getMapManager().requestUpdate(m_sender);
+    }
 }
 
 void MapForm::on_pushButtonTop_clicked()

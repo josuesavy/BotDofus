@@ -231,6 +231,11 @@ void SocketIO::setProxy(const ProxyInfos &proxyInfos)
     }
 }
 
+QNetworkProxy SocketIO::proxy() const
+{
+    return m_socket->proxy();
+}
+
 QString SocketIO::getCurrentHostIp() const
 {
     if(m_isServerSwitched)

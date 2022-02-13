@@ -98,6 +98,7 @@ bool InteractionManager::processNpcInteraction(SocketIO *sender, int cellId)
         m_botData[sender].interactionData.interactionType = CurrentInteraction::NONE;
         m_botData[sender].interactionData.interactionId = INVALID;
         m_botData[sender].interactionData.npcDialogs.clear();
+        emit requestUpdate(sender);
         return false;
     }
 
@@ -139,6 +140,7 @@ bool InteractionManager::processNpcInteraction(SocketIO *sender, int cellId)
     m_botData[sender].interactionData.interactionType = CurrentInteraction::NONE;
     m_botData[sender].interactionData.interactionId = INVALID;
     m_botData[sender].interactionData.npcDialogs.clear();
+    emit requestUpdate(sender);
     return false;
 }
 
@@ -222,6 +224,7 @@ bool InteractionManager::processNpcDialog(SocketIO *sender, QString dialog)
     if (m_botData[sender].interactionData.interactionType == CurrentInteraction::NONE || m_botData[sender].generalData.botState != BotState::INACTIVE_STATE || m_botData[sender].interactionData.interactionId == INVALID || m_botData[sender].interactionData.npcDialogs.isEmpty())
     {
         error(sender) << "InteractionManager - Le bot n'a pas pu dialoguer avec le PNJ (id:" + QString::number(m_botData[sender].interactionData.interactionId) + ")";
+        emit requestUpdate(sender);
         return false;
     }
 
@@ -255,6 +258,7 @@ bool InteractionManager::processNpcDialog(SocketIO *sender, QString dialog)
         m_botData[sender].interactionData.interactionType = CurrentInteraction::NONE;
         m_botData[sender].interactionData.interactionId = INVALID;
         m_botData[sender].interactionData.npcDialogs.clear();
+        emit requestUpdate(sender);
         return false;
     }
 
@@ -301,6 +305,7 @@ void InteractionManager::moved(SocketIO *sender)
         m_botData[sender].interactionData.finishedAction = true;
         m_botData[sender].interactionData.actionID = INVALID;
         m_botData[sender].interactionData.npcDialogs.clear();
+        emit requestUpdate(sender);
         emit scriptActionDone(sender);
     }
 
@@ -325,6 +330,7 @@ void InteractionManager::moved(SocketIO *sender)
             m_botData[sender].interactionData.interactionType = CurrentInteraction::NONE;
             m_botData[sender].interactionData.interactionId = INVALID;
             m_botData[sender].interactionData.npcDialogs.clear();
+            emit requestUpdate(sender);
             emit scriptActionDone(sender);
             return;
         }
@@ -356,6 +362,7 @@ void InteractionManager::moved(SocketIO *sender)
             m_botData[sender].interactionData.npcDialogs.clear();
             m_botData[sender].interactionData.actionID = INVALID;
             m_botData[sender].interactionData.npcDialogs.clear();
+            emit requestUpdate(sender);
             emit scriptActionDone(sender);
         }
 
@@ -386,6 +393,7 @@ void InteractionManager::moved(SocketIO *sender)
             m_botData[sender].interactionData.npcDialogs.clear();
             m_botData[sender].interactionData.actionID = INVALID;
             m_botData[sender].interactionData.npcDialogs.clear();
+            emit requestUpdate(sender);
             emit scriptActionDone(sender);
         }
 
@@ -609,9 +617,9 @@ bool InteractionManager::concernedByBankDeposit(SocketIO *sender, int id)
     if (m_botData[sender].interactionData.bankData.depositCondition == BankInclusion::NONE_EXCEPT)
         if (itemsId.contains(id))
             return true;
-    else if (m_botData[sender].interactionData.bankData.depositCondition == BankInclusion::ALL_EXCEPT)
-        if (!itemsId.contains(id))
-            return true;
+        else if (m_botData[sender].interactionData.bankData.depositCondition == BankInclusion::ALL_EXCEPT)
+            if (!itemsId.contains(id))
+                return true;
 
     return false;
 }

@@ -34,6 +34,21 @@ AccountManagerDialog::~AccountManagerDialog()
     delete ui;
 }
 
+LoaderAccountForm *AccountManagerDialog::getLoaderAccountForm()
+{
+    return loaderAccountForm;
+}
+
+AddAccountForm *AccountManagerDialog::getAddAccountForm()
+{
+    return addAccountForm;
+}
+
+CharacterCreatorForm *AccountManagerDialog::getCharacterCreatorForm()
+{
+    return characterCreatorForm;
+}
+
 void AccountManagerDialog::closeAfterLoaded()
 {
     if(ui->checkBoxCloseAfterLoaded->isChecked())

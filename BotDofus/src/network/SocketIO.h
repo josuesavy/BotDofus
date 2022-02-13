@@ -53,6 +53,7 @@ public:
     bool switchServer(QString hostAdress);
 
     void setProxy(const ProxyInfos &proxyInfos);
+    QNetworkProxy proxy() const;
 
     QString getCurrentHostIp() const;
     unsigned short getCurrentHostPort() const;

@@ -48,7 +48,7 @@ AccountManager
  [ ] Faire toute la procédure de connexion/déconnexion, demande d'apikey pour abonner les comptes (cf. knowledge.txt) (libcurl)
 
 Character
- [ ] When you request the entitylook attribute the proxy if there is one, full anonymat please
+ [OK] When you request the entitylook attribute the proxy if there is one, full anonymat please
 
 Inventaire
  [OK] Nouveau paquet a gérer SetUpdateMessage (useless, for the bot)

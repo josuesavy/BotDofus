@@ -46,16 +46,45 @@ void SettingsForm::updateInterface()
     if (infos.connectionData.connectionState == ConnectionState::CONNECTED)
     {
         ui->groupBox->setEnabled(true);
+
+        switch ((PlayerStatusEnum)infos.playerData.playerStatus)
+        {
+        case PlayerStatusEnum::PLAYER_STATUS_AVAILABLE:
+            ui->comboBoxStatus->setCurrentIndex(0);
+            break;
+
+        case PlayerStatusEnum::PLAYER_STATUS_IDLE:
+            ui->comboBoxStatus->setCurrentIndex(1);
+            break;
+
+        case PlayerStatusEnum::PLAYER_STATUS_AFK:
+            ui->comboBoxStatus->setCurrentIndex(2);
+            break;
+
+        case PlayerStatusEnum::PLAYER_STATUS_PRIVATE:
+            ui->comboBoxStatus->setCurrentIndex(3);
+            break;
+
+        case PlayerStatusEnum::PLAYER_STATUS_SOLO:
+            ui->comboBoxStatus->setCurrentIndex(4);
+            break;
+
+        default:
+            ui->comboBoxStatus->setCurrentIndex(INVALID);
+            break;
+        }
     }
 
     if (infos.connectionData.connectionState == ConnectionState::TRANSITION)
     {
         ui->groupBox->setEnabled(false);
+        ui->comboBoxStatus->setCurrentIndex(INVALID);
     }
 
     if (infos.connectionData.connectionState == ConnectionState::DISCONNECTED)
     {
         ui->groupBox->setEnabled(false);
+        ui->comboBoxStatus->setCurrentIndex(INVALID);
     }
 }
 
@@ -108,9 +137,9 @@ void SettingsForm::on_pushButtonCheckAndApplyProxy_clicked()
 {
     // Website proxy SOCKS5 : http://spys.one/en/socks-proxy-list/
 
-    if (m_socket.state() == QAbstractSocket::ConnectingState || m_socket.state() == QAbstractSocket::ConnectedState)
+    if (m_socket.state() == QAbstractSocket::HostLookupState || m_socket.state() == QAbstractSocket::ConnectingState || m_socket.state() == QAbstractSocket::ConnectedState)
     {
-        m_socket.disconnect();
+        m_socket.abort();
     }
 
     ui->labelLoader->clear();
@@ -156,7 +185,7 @@ void SettingsForm::on_comboBoxStatus_currentIndexChanged(int index)
     if(index == 0)
         m_engine->getStatsManager().setPlayerStatusUpdate(m_sender, PlayerStatusEnum::PLAYER_STATUS_AVAILABLE);
     else if(index == 1)
-        m_engine->getStatsManager().setPlayerStatusUpdate(m_sender, PlayerStatusEnum::PLAYER_STATUS_AFK);
+        m_engine->getStatsManager().setPlayerStatusUpdate(m_sender, PlayerStatusEnum::PLAYER_STATUS_IDLE);
     else if(index == 2)
     {
         bool ok;
@@ -164,7 +193,7 @@ void SettingsForm::on_comboBoxStatus_currentIndexChanged(int index)
         if (ok && !text.isEmpty())
             m_engine->getStatsManager().setPlayerStatusUpdate(m_sender, PlayerStatusEnum::PLAYER_STATUS_AFK, text);
         else if(ok && text.isEmpty())
-            m_engine->getStatsManager().setPlayerStatusUpdate(m_sender, PlayerStatusEnum::PLAYER_STATUS_AFK);
+            m_engine->getStatsManager().setPlayerStatusUpdate(m_sender, PlayerStatusEnum::PLAYER_STATUS_IDLE);
         else
             ui->comboBoxStatus->setCurrentIndex(currentIndexSelected);
     }
