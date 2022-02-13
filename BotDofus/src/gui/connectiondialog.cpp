@@ -127,7 +127,6 @@ void ConnectionDialog::on_lineEditPathDofus_textChanged(const QString &arg1)
                         // ServerHandlerSingleton::get()->init();
                         D2OManagerSingleton::get()->init(D2O, I18N);
                         D2PManagerSingleton::get()->init(D2P);
-                        // ElementsAdapterSingleton::get()->init(D2P);
                         PathfindingMap::initialize();
                     }
 
