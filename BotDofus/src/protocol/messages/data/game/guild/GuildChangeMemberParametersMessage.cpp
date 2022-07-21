@@ -12,21 +12,16 @@ void GuildChangeMemberParametersMessage::serializeAs_GuildChangeMemberParameters
     qDebug()<<"ERREUR - GuildChangeMemberParametersMessage -"<<"Forbidden value (" << this->memberId << ") on element memberId.";
   }
   output->writeVarLong((double)this->memberId);
-  if(this->rank < 0)
+  if(this->rankId < 0)
   {
-    qDebug()<<"ERREUR - GuildChangeMemberParametersMessage -"<<"Forbidden value (" << this->rank << ") on element rank.";
+    qDebug()<<"ERREUR - GuildChangeMemberParametersMessage -"<<"Forbidden value (" << this->rankId << ") on element rankId.";
   }
-  output->writeVarShort((int)this->rank);
+  output->writeVarInt((int)this->rankId);
   if(this->experienceGivenPercent < 0 || this->experienceGivenPercent > 100)
   {
     qDebug()<<"ERREUR - GuildChangeMemberParametersMessage -"<<"Forbidden value (" << this->experienceGivenPercent << ") on element experienceGivenPercent.";
   }
   output->writeByte(this->experienceGivenPercent);
-  if(this->rights < 0)
-  {
-    qDebug()<<"ERREUR - GuildChangeMemberParametersMessage -"<<"Forbidden value (" << this->rights << ") on element rights.";
-  }
-  output->writeVarInt((int)this->rights);
 }
 
 void GuildChangeMemberParametersMessage::deserialize(Reader *input)
@@ -37,9 +32,8 @@ void GuildChangeMemberParametersMessage::deserialize(Reader *input)
 void GuildChangeMemberParametersMessage::deserializeAs_GuildChangeMemberParametersMessage(Reader *input)
 {
   this->_memberIdFunc(input);
-  this->_rankFunc(input);
+  this->_rankIdFunc(input);
   this->_experienceGivenPercentFunc(input);
-  this->_rightsFunc(input);
 }
 
 void GuildChangeMemberParametersMessage::deserializeAsync(FuncTree tree)
@@ -50,9 +44,8 @@ void GuildChangeMemberParametersMessage::deserializeAsync(FuncTree tree)
 void GuildChangeMemberParametersMessage::deserializeAsyncAs_GuildChangeMemberParametersMessage(FuncTree tree)
 {
   tree.addChild(std::bind(&GuildChangeMemberParametersMessage::_memberIdFunc, this, std::placeholders::_1));
-  tree.addChild(std::bind(&GuildChangeMemberParametersMessage::_rankFunc, this, std::placeholders::_1));
+  tree.addChild(std::bind(&GuildChangeMemberParametersMessage::_rankIdFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&GuildChangeMemberParametersMessage::_experienceGivenPercentFunc, this, std::placeholders::_1));
-  tree.addChild(std::bind(&GuildChangeMemberParametersMessage::_rightsFunc, this, std::placeholders::_1));
 }
 
 void GuildChangeMemberParametersMessage::_memberIdFunc(Reader *input)
@@ -64,12 +57,12 @@ void GuildChangeMemberParametersMessage::_memberIdFunc(Reader *input)
   }
 }
 
-void GuildChangeMemberParametersMessage::_rankFunc(Reader *input)
+void GuildChangeMemberParametersMessage::_rankIdFunc(Reader *input)
 {
-  this->rank = input->readVarUhShort();
-  if(this->rank < 0)
+  this->rankId = input->readVarUhInt();
+  if(this->rankId < 0)
   {
-    qDebug()<<"ERREUR - GuildChangeMemberParametersMessage -"<<"Forbidden value (" << this->rank << ") on element of GuildChangeMemberParametersMessage.rank.";
+    qDebug()<<"ERREUR - GuildChangeMemberParametersMessage -"<<"Forbidden value (" << this->rankId << ") on element of GuildChangeMemberParametersMessage.rankId.";
   }
 }
 
@@ -79,15 +72,6 @@ void GuildChangeMemberParametersMessage::_experienceGivenPercentFunc(Reader *inp
   if(this->experienceGivenPercent < 0 || this->experienceGivenPercent > 100)
   {
     qDebug()<<"ERREUR - GuildChangeMemberParametersMessage -"<<"Forbidden value (" << this->experienceGivenPercent << ") on element of GuildChangeMemberParametersMessage.experienceGivenPercent.";
-  }
-}
-
-void GuildChangeMemberParametersMessage::_rightsFunc(Reader *input)
-{
-  this->rights = input->readVarUhInt();
-  if(this->rights < 0)
-  {
-    qDebug()<<"ERREUR - GuildChangeMemberParametersMessage -"<<"Forbidden value (" << this->rights << ") on element of GuildChangeMemberParametersMessage.rights.";
   }
 }
 

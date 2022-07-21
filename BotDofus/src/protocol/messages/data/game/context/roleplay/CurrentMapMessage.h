@@ -16,11 +16,9 @@ public:
   CurrentMapMessage();
 
   double mapId;
-  QString mapKey;
 
 private:
   void _mapIdFunc(Reader *input);
-  void _mapKeyFunc(Reader *input);
 };
 
 #endif // CURRENTMAPMESSAGE_H

@@ -29,6 +29,7 @@ public:
   double subscriptionEndDate;
   bool wasAlreadyConnected;
   uint havenbagAvailableRoom;
+  bool isAccountForced;
 
 private:
   void deserializeByteBoxes(Reader *input);

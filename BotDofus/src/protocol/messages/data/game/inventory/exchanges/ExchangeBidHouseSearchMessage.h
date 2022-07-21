@@ -15,11 +15,11 @@ public:
   void deserializeAsyncAs_ExchangeBidHouseSearchMessage(FuncTree tree);
   ExchangeBidHouseSearchMessage();
 
-  uint genId;
+  uint objectGID;
   bool follow;
 
 private:
-  void _genIdFunc(Reader *input);
+  void _objectGIDFunc(Reader *input);
   void _followFunc(Reader *input);
 };
 

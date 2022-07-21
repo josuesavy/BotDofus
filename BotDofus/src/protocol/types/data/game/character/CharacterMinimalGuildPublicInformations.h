@@ -2,6 +2,7 @@
 #define CHARACTERMINIMALGUILDPUBLICINFORMATIONS_H
 
 #include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/guild/GuildRankPublicInformation.h"
 #include "src/protocol/types/data/game/character/CharacterMinimalInformations.h"
 #include "src/engines/io/network/utils/FuncTree.h"
 
@@ -17,10 +18,12 @@ public:
   CharacterMinimalGuildPublicInformations();
   bool operator==(const CharacterMinimalGuildPublicInformations &compared);
 
-  uint rank;
+  GuildRankPublicInformation rank;
 
 private:
-  void _rankFunc(Reader *input);
+  void _ranktreeFunc(Reader *input);
+
+  FuncTree _ranktree;
 };
 
 #endif // CHARACTERMINIMALGUILDPUBLICINFORMATIONS_H

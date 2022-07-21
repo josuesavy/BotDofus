@@ -12,7 +12,7 @@ void ItemForPreset::serializeAs_ItemForPreset(Writer *output)
   {
     qDebug()<<"ERREUR - ItemForPreset -"<<"Forbidden value (" << this->objGid << ") on element objGid.";
   }
-  output->writeVarShort((int)this->objGid);
+  output->writeVarInt((int)this->objGid);
   if(this->objUid < 0)
   {
     qDebug()<<"ERREUR - ItemForPreset -"<<"Forbidden value (" << this->objUid << ") on element objUid.";
@@ -55,7 +55,7 @@ void ItemForPreset::_positionFunc(Reader *input)
 
 void ItemForPreset::_objGidFunc(Reader *input)
 {
-  this->objGid = input->readVarUhShort();
+  this->objGid = input->readVarUhInt();
   if(this->objGid < 0)
   {
     qDebug()<<"ERREUR - ItemForPreset -"<<"Forbidden value (" << this->objGid << ") on element of ItemForPreset.objGid.";

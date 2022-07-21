@@ -3,6 +3,7 @@
 
 #include "src/protocol/types/AbstractClass.h"
 #include "src/protocol/types/data/game/character/status/PlayerStatus.h"
+#include "src/protocol/types/data/game/character/guild/note/PlayerNote.h"
 #include "src/protocol/types/data/game/character/CharacterMinimalInformations.h"
 #include "src/engines/io/network/utils/BooleanByteWrapper.h"
 #include "src/protocol/types/ClassManager.h"
@@ -22,10 +23,10 @@ public:
 
   int breed;
   bool sex;
-  uint rank;
+  uint rankId;
+  double enrollmentDate;
   double givenExperience;
   uint experienceGivenPercent;
-  uint rights;
   uint connected;
   int alignmentSide;
   uint hoursSinceLastConnection;
@@ -34,14 +35,15 @@ public:
   int achievementPoints;
   QSharedPointer<PlayerStatus> status;
   bool havenBagShared;
+  PlayerNote note;
 
 private:
   void deserializeByteBoxes(Reader *input);
   void _breedFunc(Reader *input);
-  void _rankFunc(Reader *input);
+  void _rankIdFunc(Reader *input);
+  void _enrollmentDateFunc(Reader *input);
   void _givenExperienceFunc(Reader *input);
   void _experienceGivenPercentFunc(Reader *input);
-  void _rightsFunc(Reader *input);
   void _connectedFunc(Reader *input);
   void _alignmentSideFunc(Reader *input);
   void _hoursSinceLastConnectionFunc(Reader *input);
@@ -49,8 +51,10 @@ private:
   void _accountIdFunc(Reader *input);
   void _achievementPointsFunc(Reader *input);
   void _statustreeFunc(Reader *input);
+  void _notetreeFunc(Reader *input);
 
   FuncTree _statustree;
+  FuncTree _notetree;
 };
 
 #endif // GUILDMEMBER_H

@@ -12,7 +12,7 @@ void GameRolePlayDelayedObjectUseMessage::serializeAs_GameRolePlayDelayedObjectU
   {
     qDebug()<<"ERREUR - GameRolePlayDelayedObjectUseMessage -"<<"Forbidden value (" << this->objectGID << ") on element objectGID.";
   }
-  output->writeVarShort((int)this->objectGID);
+  output->writeVarInt((int)this->objectGID);
 }
 
 void GameRolePlayDelayedObjectUseMessage::deserialize(Reader *input)
@@ -39,7 +39,7 @@ void GameRolePlayDelayedObjectUseMessage::deserializeAsyncAs_GameRolePlayDelayed
 
 void GameRolePlayDelayedObjectUseMessage::_objectGIDFunc(Reader *input)
 {
-  this->objectGID = input->readVarUhShort();
+  this->objectGID = input->readVarUhInt();
   if(this->objectGID < 0)
   {
     qDebug()<<"ERREUR - GameRolePlayDelayedObjectUseMessage -"<<"Forbidden value (" << this->objectGID << ") on element of GameRolePlayDelayedObjectUseMessage.objectGID.";

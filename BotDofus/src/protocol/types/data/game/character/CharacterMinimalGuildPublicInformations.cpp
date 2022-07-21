@@ -8,11 +8,7 @@ void CharacterMinimalGuildPublicInformations::serialize(Writer *output)
 void CharacterMinimalGuildPublicInformations::serializeAs_CharacterMinimalGuildPublicInformations(Writer *output)
 {
   CharacterMinimalInformations::serializeAs_CharacterMinimalInformations(output);
-  if(this->rank < 0)
-  {
-    qDebug()<<"ERREUR - CharacterMinimalGuildPublicInformations -"<<"Forbidden value (" << this->rank << ") on element rank.";
-  }
-  output->writeVarInt((int)this->rank);
+  this->rank.serializeAs_GuildRankPublicInformation(output);
 }
 
 void CharacterMinimalGuildPublicInformations::deserialize(Reader *input)
@@ -23,7 +19,8 @@ void CharacterMinimalGuildPublicInformations::deserialize(Reader *input)
 void CharacterMinimalGuildPublicInformations::deserializeAs_CharacterMinimalGuildPublicInformations(Reader *input)
 {
   CharacterMinimalInformations::deserialize(input);
-  this->_rankFunc(input);
+  this->rank = GuildRankPublicInformation();
+  this->rank.deserialize(input);
 }
 
 void CharacterMinimalGuildPublicInformations::deserializeAsync(FuncTree tree)
@@ -34,16 +31,13 @@ void CharacterMinimalGuildPublicInformations::deserializeAsync(FuncTree tree)
 void CharacterMinimalGuildPublicInformations::deserializeAsyncAs_CharacterMinimalGuildPublicInformations(FuncTree tree)
 {
   CharacterMinimalInformations::deserializeAsync(tree);
-  tree.addChild(std::bind(&CharacterMinimalGuildPublicInformations::_rankFunc, this, std::placeholders::_1));
+  this->_ranktree = tree.addChild(std::bind(&CharacterMinimalGuildPublicInformations::_ranktreeFunc, this, std::placeholders::_1));
 }
 
-void CharacterMinimalGuildPublicInformations::_rankFunc(Reader *input)
+void CharacterMinimalGuildPublicInformations::_ranktreeFunc(Reader *input)
 {
-  this->rank = input->readVarUhInt();
-  if(this->rank < 0)
-  {
-    qDebug()<<"ERREUR - CharacterMinimalGuildPublicInformations -"<<"Forbidden value (" << this->rank << ") on element of CharacterMinimalGuildPublicInformations.rank.";
-  }
+  this->rank = GuildRankPublicInformation();
+  this->rank.deserializeAsync(this->_ranktree);
 }
 
 CharacterMinimalGuildPublicInformations::CharacterMinimalGuildPublicInformations()
@@ -54,6 +48,7 @@ CharacterMinimalGuildPublicInformations::CharacterMinimalGuildPublicInformations
 bool CharacterMinimalGuildPublicInformations::operator==(const CharacterMinimalGuildPublicInformations &compared)
 {
   if(rank == compared.rank)
+  if(_ranktree == compared._ranktree)
   return true;
   
   return false;

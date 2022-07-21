@@ -16,7 +16,7 @@ void ObjectItemInRolePlay::serializeAs_ObjectItemInRolePlay(Writer *output)
   {
     qDebug()<<"ERREUR - ObjectItemInRolePlay -"<<"Forbidden value (" << this->objectGID << ") on element objectGID.";
   }
-  output->writeVarShort((int)this->objectGID);
+  output->writeVarInt((int)this->objectGID);
 }
 
 void ObjectItemInRolePlay::deserialize(Reader *input)
@@ -52,7 +52,7 @@ void ObjectItemInRolePlay::_cellIdFunc(Reader *input)
 
 void ObjectItemInRolePlay::_objectGIDFunc(Reader *input)
 {
-  this->objectGID = input->readVarUhShort();
+  this->objectGID = input->readVarUhInt();
   if(this->objectGID < 0)
   {
     qDebug()<<"ERREUR - ObjectItemInRolePlay -"<<"Forbidden value (" << this->objectGID << ") on element of ObjectItemInRolePlay.objectGID.";

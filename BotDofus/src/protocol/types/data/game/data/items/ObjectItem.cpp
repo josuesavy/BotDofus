@@ -13,7 +13,7 @@ void ObjectItem::serializeAs_ObjectItem(Writer *output)
   {
     qDebug()<<"ERREUR - ObjectItem -"<<"Forbidden value (" << this->objectGID << ") on element objectGID.";
   }
-  output->writeVarShort((int)this->objectGID);
+  output->writeVarInt((int)this->objectGID);
   output->writeShort((short)this->effects.size());
   for(uint _i3 = 0; _i3 < this->effects.size(); _i3++)
   {
@@ -82,7 +82,7 @@ void ObjectItem::_positionFunc(Reader *input)
 
 void ObjectItem::_objectGIDFunc(Reader *input)
 {
-  this->objectGID = input->readVarUhShort();
+  this->objectGID = input->readVarUhInt();
   if(this->objectGID < 0)
   {
     qDebug()<<"ERREUR - ObjectItem -"<<"Forbidden value (" << this->objectGID << ") on element of ObjectItem.objectGID.";

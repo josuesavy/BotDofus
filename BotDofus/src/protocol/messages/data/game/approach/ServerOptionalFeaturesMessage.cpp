@@ -14,7 +14,7 @@ void ServerOptionalFeaturesMessage::serializeAs_ServerOptionalFeaturesMessage(Wr
     {
       qDebug()<<"ERREUR - ServerOptionalFeaturesMessage -"<<"Forbidden value (" << this->features[_i1] << ") on element 1 (starting at 1) of features.";
     }
-    output->writeByte(this->features[_i1]);
+    output->writeInt((int)this->features[_i1]);
   }
 }
 
@@ -29,7 +29,7 @@ void ServerOptionalFeaturesMessage::deserializeAs_ServerOptionalFeaturesMessage(
   uint _featuresLen = input->readUShort();
   for(uint _i1 = 0; _i1 < _featuresLen; _i1++)
   {
-    _val1 = input->readByte();
+    _val1 = input->readInt();
     if(_val1 < 0)
     {
       qDebug()<<"ERREUR - ServerOptionalFeaturesMessage -"<<"Forbidden value (" << _val1 << ") on elements of features.";
@@ -59,7 +59,7 @@ void ServerOptionalFeaturesMessage::_featurestreeFunc(Reader *input)
 
 void ServerOptionalFeaturesMessage::_featuresFunc(Reader *input)
 {
-  uint _val = input->readByte();
+  uint _val = input->readInt();
   if(_val < 0)
   {
     qDebug()<<"ERREUR - ServerOptionalFeaturesMessage -"<<"Forbidden value (" << _val << ") on elements of features.";

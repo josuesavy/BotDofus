@@ -1,0 +1,11 @@
+#ifndef PADDOCKCOMMERCIALEVENTTYPEENUM_H
+#define PADDOCKCOMMERCIALEVENTTYPEENUM_H
+
+enum class PaddockCommercialEventTypeEnum
+{
+    BUY = 0,
+    PUT_ON_SELL = 1,
+    SOLD = 2
+};
+
+#endif // PADDOCKCOMMERCIALEVENTTYPEENUM_H

@@ -18,7 +18,7 @@ public:
   ApplicationPlayerInformation();
   bool operator==(const ApplicationPlayerInformation &compared);
 
-  uint playerId;
+  double playerId;
   QString playerName;
   int breed;
   bool sex;

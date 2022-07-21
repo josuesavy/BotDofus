@@ -55,6 +55,11 @@ bool MonsterDropData::getHasCriteria() const
   return m_hasCriteria;
 }
 
+bool MonsterDropData::getHiddenIfInvalidCriteria() const
+{
+  return m_hiddenIfInvalidCriteria;
+}
+
 QList<MonsterDropCoefficientData> MonsterDropData::getSpecificDropCoefficient() const
 {
   return m_specificDropCoefficient;
@@ -98,6 +103,9 @@ void MonsterDropData::loadData(const QList<D2OField*> &fields, I18nFile *I18n)
     
     else if(field->getName() == "hasCriteria")
         m_hasCriteria = readBool(field->getValue());
+    
+    else if(field->getName() == "hiddenIfInvalidCriteria")
+        m_hiddenIfInvalidCriteria = readBool(field->getValue());
     
     else if(field->getName() == "specificDropCoefficient")
     {

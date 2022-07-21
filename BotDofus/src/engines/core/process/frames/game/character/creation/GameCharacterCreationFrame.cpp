@@ -29,9 +29,6 @@ bool GameCharacterCreationFrame::processMessage(const MessageInfos &data, Socket
             case CharacterCreationResultEnum::ERR_INVALID_NAME:
                 error(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.popup.charcrea.invalidName");
                 break;
-            case CharacterCreationResultEnum::ERR_NAME_ALREADY_EXISTS:
-                error(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.popup.charcrea.nameAlreadyExist");
-                break;
             case CharacterCreationResultEnum::ERR_NOT_ALLOWED:
                 error(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.popup.charcrea.notSubscriber");
                 break;
@@ -41,7 +38,7 @@ bool GameCharacterCreationFrame::processMessage(const MessageInfos &data, Socket
             case CharacterCreationResultEnum::ERR_NO_REASON:
                 error(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.popup.charcrea.noReason");
                 break;
-            case CharacterCreationResultEnum::ERR_RESTRICED_ZONE:
+            case CharacterCreationResultEnum::ERR_RESTRICTED_ZONE:
                 error(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.charSel.deletionErrorUnsecureMode");
                 break;
             case CharacterCreationResultEnum::ERR_INCONSISTENT_COMMUNITY:

@@ -14,7 +14,7 @@ void AccessoryPreviewRequestMessage::serializeAs_AccessoryPreviewRequestMessage(
     {
       qDebug()<<"ERREUR - AccessoryPreviewRequestMessage -"<<"Forbidden value (" << this->genericId[_i1] << ") on element 1 (starting at 1) of genericId.";
     }
-    output->writeVarShort((int)this->genericId[_i1]);
+    output->writeVarInt((int)this->genericId[_i1]);
   }
 }
 
@@ -29,7 +29,7 @@ void AccessoryPreviewRequestMessage::deserializeAs_AccessoryPreviewRequestMessag
   uint _genericIdLen = input->readUShort();
   for(uint _i1 = 0; _i1 < _genericIdLen; _i1++)
   {
-    _val1 = input->readVarUhShort();
+    _val1 = input->readVarUhInt();
     if(_val1 < 0)
     {
       qDebug()<<"ERREUR - AccessoryPreviewRequestMessage -"<<"Forbidden value (" << _val1 << ") on elements of genericId.";
@@ -59,7 +59,7 @@ void AccessoryPreviewRequestMessage::_genericIdtreeFunc(Reader *input)
 
 void AccessoryPreviewRequestMessage::_genericIdFunc(Reader *input)
 {
-  uint _val = input->readVarUhShort();
+  uint _val = input->readVarUhInt();
   if(_val < 0)
   {
     qDebug()<<"ERREUR - AccessoryPreviewRequestMessage -"<<"Forbidden value (" << _val << ") on elements of genericId.";

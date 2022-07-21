@@ -2,6 +2,7 @@
 #define FIGHTLOOT_H
 
 #include "src/protocol/types/AbstractClass.h"
+#include "src/protocol/types/data/game/context/fight/FightLootObject.h"
 #include "src/engines/io/network/utils/FuncTree.h"
 
 class FightLoot : public AbstractClass
@@ -16,7 +17,7 @@ public:
   FightLoot();
   bool operator==(const FightLoot &compared);
 
-  QList<uint> objects;
+  QList<FightLootObject> objects;
   double kamas;
 
 private:

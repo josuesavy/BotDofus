@@ -398,11 +398,14 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   else if(messageEnum == MessageEnum::ALLIANCEPARTIALLISTMESSAGE)
       return "AlliancePartialListMessage";
   
-  else if(messageEnum == MessageEnum::ALLIANCEVERSATILEINFOLISTMESSAGE)
-      return "AllianceVersatileInfoListMessage";
-  
   else if(messageEnum == MessageEnum::KOHUPDATEMESSAGE)
       return "KohUpdateMessage";
+  
+  else if(messageEnum == MessageEnum::ALLIANCESUMMARYMESSAGE)
+      return "AllianceSummaryMessage";
+  
+  else if(messageEnum == MessageEnum::ALLIANCESUMMARYREQUESTMESSAGE)
+      return "AllianceSummaryRequestMessage";
   
   else if(messageEnum == MessageEnum::ALMANACHCALENDARDATEMESSAGE)
       return "AlmanachCalendarDateMessage";
@@ -520,6 +523,18 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   
   else if(messageEnum == MessageEnum::CHARACTERALIGNMENTWAREFFORTPROGRESSIONREQUESTMESSAGE)
       return "CharacterAlignmentWarEffortProgressionRequestMessage";
+  
+  else if(messageEnum == MessageEnum::ALTERATIONADDEDMESSAGE)
+      return "AlterationAddedMessage";
+  
+  else if(messageEnum == MessageEnum::ALTERATIONREMOVEDMESSAGE)
+      return "AlterationRemovedMessage";
+  
+  else if(messageEnum == MessageEnum::ALTERATIONSMESSAGE)
+      return "AlterationsMessage";
+  
+  else if(messageEnum == MessageEnum::ALTERATIONSUPDATEDMESSAGE)
+      return "AlterationsUpdatedMessage";
   
   else if(messageEnum == MessageEnum::BASICCHARACTERSLISTMESSAGE)
       return "BasicCharactersListMessage";
@@ -968,9 +983,6 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   else if(messageEnum == MessageEnum::GAMEMAPNOMOVEMENTMESSAGE)
       return "GameMapNoMovementMessage";
   
-  else if(messageEnum == MessageEnum::GAMEMAPSPEEDMOVEMENTMESSAGE)
-      return "GameMapSpeedMovementMessage";
-  
   else if(messageEnum == MessageEnum::GAMEREFRESHMONSTERBOOSTSMESSAGE)
       return "GameRefreshMonsterBoostsMessage";
   
@@ -1078,6 +1090,9 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   
   else if(messageEnum == MessageEnum::ALIGNMENTWAREFFORTPROGRESSIONREQUESTMESSAGE)
       return "AlignmentWarEffortProgressionRequestMessage";
+  
+  else if(messageEnum == MessageEnum::ANOMALYOPENEDMESSAGE)
+      return "AnomalyOpenedMessage";
   
   else if(messageEnum == MessageEnum::ANOMALYSTATEMESSAGE)
       return "AnomalyStateMessage";
@@ -1526,9 +1541,6 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   else if(messageEnum == MessageEnum::MAPOBSTACLEUPDATEMESSAGE)
       return "MapObstacleUpdateMessage";
   
-  else if(messageEnum == MessageEnum::MAPREWARDRATEMESSAGE)
-      return "MapRewardRateMessage";
-  
   else if(messageEnum == MessageEnum::MAPRUNNINGFIGHTDETAILSEXTENDEDMESSAGE)
       return "MapRunningFightDetailsExtendedMessage";
   
@@ -1859,6 +1871,9 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   else if(messageEnum == MessageEnum::STOPTOLISTENRUNNINGFIGHTREQUESTMESSAGE)
       return "StopToListenRunningFightRequestMessage";
   
+  else if(messageEnum == MessageEnum::SUBAREAREWARDRATEMESSAGE)
+      return "SubareaRewardRateMessage";
+  
   else if(messageEnum == MessageEnum::TELEPORTONSAMEMAPMESSAGE)
       return "TeleportOnSameMapMessage";
   
@@ -2096,8 +2111,23 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   else if(messageEnum == MessageEnum::GUILDUPDATEAPPLICATIONMESSAGE)
       return "GuildUpdateApplicationMessage";
   
+  else if(messageEnum == MessageEnum::GUILDUPDATENOTEMESSAGE)
+      return "GuildUpdateNoteMessage";
+  
   else if(messageEnum == MessageEnum::CHALLENGEFIGHTJOINREFUSEDMESSAGE)
       return "ChallengeFightJoinRefusedMessage";
+  
+  else if(messageEnum == MessageEnum::ADDLISTENERONSYNCHRONIZEDSTORAGEMESSAGE)
+      return "AddListenerOnSynchronizedStorageMessage";
+  
+  else if(messageEnum == MessageEnum::LISTENERSOFSYNCHRONIZEDSTORAGEMESSAGE)
+      return "ListenersOfSynchronizedStorageMessage";
+  
+  else if(messageEnum == MessageEnum::REMOVELISTENERONSYNCHRONIZEDSTORAGEMESSAGE)
+      return "RemoveListenerOnSynchronizedStorageMessage";
+  
+  else if(messageEnum == MessageEnum::CREATEGUILDRANKREQUESTMESSAGE)
+      return "CreateGuildRankRequestMessage";
   
   else if(messageEnum == MessageEnum::GUILDBULLETINMESSAGE)
       return "GuildBulletinMessage";
@@ -2113,6 +2143,15 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   
   else if(messageEnum == MessageEnum::GUILDCHARACSUPGRADEREQUESTMESSAGE)
       return "GuildCharacsUpgradeRequestMessage";
+  
+  else if(messageEnum == MessageEnum::GUILDCHESTTABCONTRIBUTIONMESSAGE)
+      return "GuildChestTabContributionMessage";
+  
+  else if(messageEnum == MessageEnum::GUILDCHESTTABCONTRIBUTIONSMESSAGE)
+      return "GuildChestTabContributionsMessage";
+  
+  else if(messageEnum == MessageEnum::GUILDCHESTTABLASTCONTRIBUTIONMESSAGE)
+      return "GuildChestTabLastContributionMessage";
   
   else if(messageEnum == MessageEnum::GUILDCREATIONRESULTMESSAGE)
       return "GuildCreationResultMessage";
@@ -2131,6 +2170,9 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   
   else if(messageEnum == MessageEnum::GUILDFACTSREQUESTMESSAGE)
       return "GuildFactsRequestMessage";
+  
+  else if(messageEnum == MessageEnum::GUILDGETCHESTTABCONTRIBUTIONSREQUESTMESSAGE)
+      return "GuildGetChestTabContributionsRequestMessage";
   
   else if(messageEnum == MessageEnum::GUILDGETINFORMATIONSMESSAGE)
       return "GuildGetInformationsMessage";
@@ -2237,6 +2279,15 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   else if(messageEnum == MessageEnum::GUILDPADDOCKTELEPORTREQUESTMESSAGE)
       return "GuildPaddockTeleportRequestMessage";
   
+  else if(messageEnum == MessageEnum::GUILDRANKSMESSAGE)
+      return "GuildRanksMessage";
+  
+  else if(messageEnum == MessageEnum::GUILDRANKSREQUESTMESSAGE)
+      return "GuildRanksRequestMessage";
+  
+  else if(messageEnum == MessageEnum::GUILDSELECTCHESTTABREQUESTMESSAGE)
+      return "GuildSelectChestTabRequestMessage";
+  
   else if(messageEnum == MessageEnum::GUILDSPELLUPGRADEREQUESTMESSAGE)
       return "GuildSpellUpgradeRequestMessage";
   
@@ -2246,8 +2297,17 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   else if(messageEnum == MessageEnum::GUILDSUMMARYREQUESTMESSAGE)
       return "GuildSummaryRequestMessage";
   
+  else if(messageEnum == MessageEnum::GUILDUPDATECHESTTABREQUESTMESSAGE)
+      return "GuildUpdateChestTabRequestMessage";
+  
   else if(messageEnum == MessageEnum::GUILDVERSATILEINFOLISTMESSAGE)
       return "GuildVersatileInfoListMessage";
+  
+  else if(messageEnum == MessageEnum::GUILDLOGBOOKINFORMATIONMESSAGE)
+      return "GuildLogbookInformationMessage";
+  
+  else if(messageEnum == MessageEnum::GUILDLOGBOOKINFORMATIONREQUESTMESSAGE)
+      return "GuildLogbookInformationRequestMessage";
   
   else if(messageEnum == MessageEnum::GUILDRECRUITMENTINVALIDATEMESSAGE)
       return "GuildRecruitmentInvalidateMessage";
@@ -2257,6 +2317,21 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   
   else if(messageEnum == MessageEnum::UPDATERECRUITMENTINFORMATIONMESSAGE)
       return "UpdateRecruitmentInformationMessage";
+  
+  else if(messageEnum == MessageEnum::REMOVEGUILDRANKREQUESTMESSAGE)
+      return "RemoveGuildRankRequestMessage";
+  
+  else if(messageEnum == MessageEnum::STARTGUILDCHESTCONTRIBUTIONMESSAGE)
+      return "StartGuildChestContributionMessage";
+  
+  else if(messageEnum == MessageEnum::STARTLISTENGUILDCHESTSTRUCTUREMESSAGE)
+      return "StartListenGuildChestStructureMessage";
+  
+  else if(messageEnum == MessageEnum::STOPGUILDCHESTCONTRIBUTIONMESSAGE)
+      return "StopGuildChestContributionMessage";
+  
+  else if(messageEnum == MessageEnum::STOPLISTENGUILDCHESTSTRUCTUREMESSAGE)
+      return "StopListenGuildChestStructureMessage";
   
   else if(messageEnum == MessageEnum::ABSTRACTTAXCOLLECTORLISTMESSAGE)
       return "AbstractTaxCollectorListMessage";
@@ -2314,6 +2389,15 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   
   else if(messageEnum == MessageEnum::TOPTAXCOLLECTORLISTMESSAGE)
       return "TopTaxCollectorListMessage";
+  
+  else if(messageEnum == MessageEnum::UPDATEALLGUILDRANKREQUESTMESSAGE)
+      return "UpdateAllGuildRankRequestMessage";
+  
+  else if(messageEnum == MessageEnum::UPDATEGUILDRANKREQUESTMESSAGE)
+      return "UpdateGuildRankRequestMessage";
+  
+  else if(messageEnum == MessageEnum::UPDATEGUILDRIGHTSMESSAGE)
+      return "UpdateGuildRightsMessage";
   
   else if(messageEnum == MessageEnum::HOUSETELEPORTREQUESTMESSAGE)
       return "HouseTeleportRequestMessage";
@@ -2375,6 +2459,15 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   else if(messageEnum == MessageEnum::INTERACTIVEUSEREQUESTMESSAGE)
       return "InteractiveUseRequestMessage";
   
+  else if(messageEnum == MessageEnum::GROUPTELEPORTPLAYERANSWERMESSAGE)
+      return "GroupTeleportPlayerAnswerMessage";
+  
+  else if(messageEnum == MessageEnum::GROUPTELEPORTPLAYERCLOSEMESSAGE)
+      return "GroupTeleportPlayerCloseMessage";
+  
+  else if(messageEnum == MessageEnum::GROUPTELEPORTPLAYEROFFERMESSAGE)
+      return "GroupTeleportPlayerOfferMessage";
+  
   else if(messageEnum == MessageEnum::TELEPORTBUDDIESANSWERMESSAGE)
       return "TeleportBuddiesAnswerMessage";
   
@@ -2383,6 +2476,15 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   
   else if(messageEnum == MessageEnum::TELEPORTBUDDIESREQUESTEDMESSAGE)
       return "TeleportBuddiesRequestedMessage";
+  
+  else if(messageEnum == MessageEnum::TELEPORTPLAYERANSWERMESSAGE)
+      return "TeleportPlayerAnswerMessage";
+  
+  else if(messageEnum == MessageEnum::TELEPORTPLAYERCLOSEMESSAGE)
+      return "TeleportPlayerCloseMessage";
+  
+  else if(messageEnum == MessageEnum::TELEPORTPLAYEROFFERMESSAGE)
+      return "TeleportPlayerOfferMessage";
   
   else if(messageEnum == MessageEnum::TELEPORTTOBUDDYANSWERMESSAGE)
       return "TeleportToBuddyAnswerMessage";
@@ -2579,6 +2681,9 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   else if(messageEnum == MessageEnum::EXCHANGEOBJECTMOVEPRICEDMESSAGE)
       return "ExchangeObjectMovePricedMessage";
   
+  else if(messageEnum == MessageEnum::EXCHANGEOBJECTMOVETOTABMESSAGE)
+      return "ExchangeObjectMoveToTabMessage";
+  
   else if(messageEnum == MessageEnum::EXCHANGEOBJECTSADDEDMESSAGE)
       return "ExchangeObjectsAddedMessage";
   
@@ -2692,6 +2797,9 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   
   else if(messageEnum == MessageEnum::EXCHANGESTARTEDTAXCOLLECTORSHOPMESSAGE)
       return "ExchangeStartedTaxCollectorShopMessage";
+  
+  else if(messageEnum == MessageEnum::EXCHANGESTARTEDWITHMULTITABSTORAGEMESSAGE)
+      return "ExchangeStartedWithMultiTabStorageMessage";
   
   else if(messageEnum == MessageEnum::EXCHANGESTARTEDWITHPODSMESSAGE)
       return "ExchangeStartedWithPodsMessage";
@@ -2920,6 +3028,9 @@ QString MessageUtils::getName(const MessageEnum &messageEnum)
   
   else if(messageEnum == MessageEnum::KAMASUPDATEMESSAGE)
       return "KamasUpdateMessage";
+  
+  else if(messageEnum == MessageEnum::MULTITABSTORAGEMESSAGE)
+      return "MultiTabStorageMessage";
   
   else if(messageEnum == MessageEnum::OBJECTAVERAGEPRICESERRORMESSAGE)
       return "ObjectAveragePricesErrorMessage";

@@ -8,6 +8,7 @@ void CharacterCreationResultMessage::serialize(Writer *output)
 void CharacterCreationResultMessage::serializeAs_CharacterCreationResultMessage(Writer *output)
 {
   output->writeByte(this->result);
+  output->writeByte(this->reason);
 }
 
 void CharacterCreationResultMessage::deserialize(Reader *input)
@@ -18,6 +19,7 @@ void CharacterCreationResultMessage::deserialize(Reader *input)
 void CharacterCreationResultMessage::deserializeAs_CharacterCreationResultMessage(Reader *input)
 {
   this->_resultFunc(input);
+  this->_reasonFunc(input);
 }
 
 void CharacterCreationResultMessage::deserializeAsync(FuncTree tree)
@@ -28,6 +30,7 @@ void CharacterCreationResultMessage::deserializeAsync(FuncTree tree)
 void CharacterCreationResultMessage::deserializeAsyncAs_CharacterCreationResultMessage(FuncTree tree)
 {
   tree.addChild(std::bind(&CharacterCreationResultMessage::_resultFunc, this, std::placeholders::_1));
+  tree.addChild(std::bind(&CharacterCreationResultMessage::_reasonFunc, this, std::placeholders::_1));
 }
 
 void CharacterCreationResultMessage::_resultFunc(Reader *input)
@@ -36,6 +39,15 @@ void CharacterCreationResultMessage::_resultFunc(Reader *input)
   if(this->result < 0)
   {
     qDebug()<<"ERREUR - CharacterCreationResultMessage -"<<"Forbidden value (" << this->result << ") on element of CharacterCreationResultMessage.result.";
+  }
+}
+
+void CharacterCreationResultMessage::_reasonFunc(Reader *input)
+{
+  this->reason = input->readByte();
+  if(this->reason < 0)
+  {
+    qDebug()<<"ERREUR - CharacterCreationResultMessage -"<<"Forbidden value (" << this->reason << ") on element of CharacterCreationResultMessage.reason.";
   }
 }
 

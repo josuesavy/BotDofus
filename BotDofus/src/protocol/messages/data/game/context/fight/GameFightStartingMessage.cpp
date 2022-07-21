@@ -24,6 +24,11 @@ void GameFightStartingMessage::serializeAs_GameFightStartingMessage(Writer *outp
   }
   output->writeDouble(this->defenderId);
   output->writeBool(this->containsBoss);
+  output->writeShort((short)this->monsters.size());
+  for(uint _i6 = 0; _i6 < this->monsters.size(); _i6++)
+  {
+    output->writeInt((int)this->monsters[_i6]);
+  }
 }
 
 void GameFightStartingMessage::deserialize(Reader *input)
@@ -33,11 +38,18 @@ void GameFightStartingMessage::deserialize(Reader *input)
 
 void GameFightStartingMessage::deserializeAs_GameFightStartingMessage(Reader *input)
 {
+  auto _val6 = 0;
   this->_fightTypeFunc(input);
   this->_fightIdFunc(input);
   this->_attackerIdFunc(input);
   this->_defenderIdFunc(input);
   this->_containsBossFunc(input);
+  uint _monstersLen = input->readUShort();
+  for(uint _i6 = 0; _i6 < _monstersLen; _i6++)
+  {
+    _val6 = input->readInt();
+    this->monsters.append(_val6);
+  }
 }
 
 void GameFightStartingMessage::deserializeAsync(FuncTree tree)
@@ -52,6 +64,7 @@ void GameFightStartingMessage::deserializeAsyncAs_GameFightStartingMessage(FuncT
   tree.addChild(std::bind(&GameFightStartingMessage::_attackerIdFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&GameFightStartingMessage::_defenderIdFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&GameFightStartingMessage::_containsBossFunc, this, std::placeholders::_1));
+  this->_monsterstree = tree.addChild(std::bind(&GameFightStartingMessage::_monsterstreeFunc, this, std::placeholders::_1));
 }
 
 void GameFightStartingMessage::_fightTypeFunc(Reader *input)
@@ -93,6 +106,21 @@ void GameFightStartingMessage::_defenderIdFunc(Reader *input)
 void GameFightStartingMessage::_containsBossFunc(Reader *input)
 {
   this->containsBoss = input->readBool();
+}
+
+void GameFightStartingMessage::_monsterstreeFunc(Reader *input)
+{
+  uint length = input->readUShort();
+  for(uint i = 0; i < length; i++)
+  {
+    this->_monsterstree.addChild(std::bind(&GameFightStartingMessage::_monstersFunc, this, std::placeholders::_1));
+  }
+}
+
+void GameFightStartingMessage::_monstersFunc(Reader *input)
+{
+  int _val = input->readInt();
+  this->monsters.append(_val);
 }
 
 GameFightStartingMessage::GameFightStartingMessage()

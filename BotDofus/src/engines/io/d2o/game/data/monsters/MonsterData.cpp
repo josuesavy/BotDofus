@@ -75,6 +75,11 @@ QList<uint> MonsterData::getSpells() const
   return m_spells;
 }
 
+QList<QString> MonsterData::getSpellGrades() const
+{
+  return m_spellGrades;
+}
+
 int MonsterData::getFavoriteSubareaId() const
 {
   return m_favoriteSubareaId;
@@ -254,6 +259,12 @@ void MonsterData::loadData(const QList<D2OField*> &fields, I18nFile *I18n)
     {
       foreach(const QByteArray &data, readVector(field->getValue()))
           m_spells << readUInt(data);
+    }
+    
+    else if(field->getName() == "spellGrades")
+    {
+      foreach(const QByteArray &data, readVector(field->getValue()))
+          m_spellGrades << readUTF(data);
     }
     
     else if(field->getName() == "favoriteSubareaId")

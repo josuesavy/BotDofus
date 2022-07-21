@@ -7,11 +7,11 @@ void ExchangeBidHouseSearchMessage::serialize(Writer *output)
 
 void ExchangeBidHouseSearchMessage::serializeAs_ExchangeBidHouseSearchMessage(Writer *output)
 {
-  if(this->genId < 0)
+  if(this->objectGID < 0)
   {
-    qDebug()<<"ERREUR - ExchangeBidHouseSearchMessage -"<<"Forbidden value (" << this->genId << ") on element genId.";
+    qDebug()<<"ERREUR - ExchangeBidHouseSearchMessage -"<<"Forbidden value (" << this->objectGID << ") on element objectGID.";
   }
-  output->writeVarShort((int)this->genId);
+  output->writeVarInt((int)this->objectGID);
   output->writeBool(this->follow);
 }
 
@@ -22,7 +22,7 @@ void ExchangeBidHouseSearchMessage::deserialize(Reader *input)
 
 void ExchangeBidHouseSearchMessage::deserializeAs_ExchangeBidHouseSearchMessage(Reader *input)
 {
-  this->_genIdFunc(input);
+  this->_objectGIDFunc(input);
   this->_followFunc(input);
 }
 
@@ -33,16 +33,16 @@ void ExchangeBidHouseSearchMessage::deserializeAsync(FuncTree tree)
 
 void ExchangeBidHouseSearchMessage::deserializeAsyncAs_ExchangeBidHouseSearchMessage(FuncTree tree)
 {
-  tree.addChild(std::bind(&ExchangeBidHouseSearchMessage::_genIdFunc, this, std::placeholders::_1));
+  tree.addChild(std::bind(&ExchangeBidHouseSearchMessage::_objectGIDFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&ExchangeBidHouseSearchMessage::_followFunc, this, std::placeholders::_1));
 }
 
-void ExchangeBidHouseSearchMessage::_genIdFunc(Reader *input)
+void ExchangeBidHouseSearchMessage::_objectGIDFunc(Reader *input)
 {
-  this->genId = input->readVarUhShort();
-  if(this->genId < 0)
+  this->objectGID = input->readVarUhInt();
+  if(this->objectGID < 0)
   {
-    qDebug()<<"ERREUR - ExchangeBidHouseSearchMessage -"<<"Forbidden value (" << this->genId << ") on element of ExchangeBidHouseSearchMessage.genId.";
+    qDebug()<<"ERREUR - ExchangeBidHouseSearchMessage -"<<"Forbidden value (" << this->objectGID << ") on element of ExchangeBidHouseSearchMessage.objectGID.";
   }
 }
 

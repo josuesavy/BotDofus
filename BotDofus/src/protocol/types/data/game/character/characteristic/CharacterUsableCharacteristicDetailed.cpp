@@ -12,7 +12,7 @@ void CharacterUsableCharacteristicDetailed::serializeAs_CharacterUsableCharacter
   {
     qDebug()<<"ERREUR - CharacterUsableCharacteristicDetailed -"<<"Forbidden value (" << this->used << ") on element used.";
   }
-  output->writeVarShort((int)this->used);
+  output->writeVarInt((int)this->used);
 }
 
 void CharacterUsableCharacteristicDetailed::deserialize(Reader *input)
@@ -39,7 +39,7 @@ void CharacterUsableCharacteristicDetailed::deserializeAsyncAs_CharacterUsableCh
 
 void CharacterUsableCharacteristicDetailed::_usedFunc(Reader *input)
 {
-  this->used = input->readVarUhShort();
+  this->used = input->readVarUhInt();
   if(this->used < 0)
   {
     qDebug()<<"ERREUR - CharacterUsableCharacteristicDetailed -"<<"Forbidden value (" << this->used << ") on element of CharacterUsableCharacteristicDetailed.used.";

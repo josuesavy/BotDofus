@@ -12,7 +12,6 @@ public:
   bool getOutdoor() const;
   int getCapabilities() const;
   int getNameId() const;
-  bool getShowNameOnFingerpost() const;
   QList<QList<int>> getPlaylists() const;
   int getSubAreaId() const;
   int getWorldMap() const;
@@ -31,7 +30,6 @@ public:
   bool m_outdoor;
   int m_capabilities;
   int m_nameId;
-  bool m_showNameOnFingerpost;
   QList<QList<int>> m_playlists;
   int m_subAreaId;
   int m_worldMap;

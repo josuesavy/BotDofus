@@ -18,7 +18,7 @@ void HumanOptionObjectUse::serializeAs_HumanOptionObjectUse(Writer *output)
   {
     qDebug()<<"ERREUR - HumanOptionObjectUse -"<<"Forbidden value (" << this->objectGID << ") on element objectGID.";
   }
-  output->writeVarShort((int)this->objectGID);
+  output->writeVarInt((int)this->objectGID);
 }
 
 void HumanOptionObjectUse::deserialize(Reader *input)
@@ -67,7 +67,7 @@ void HumanOptionObjectUse::_delayEndTimeFunc(Reader *input)
 
 void HumanOptionObjectUse::_objectGIDFunc(Reader *input)
 {
-  this->objectGID = input->readVarUhShort();
+  this->objectGID = input->readVarUhInt();
   if(this->objectGID < 0)
   {
     qDebug()<<"ERREUR - HumanOptionObjectUse -"<<"Forbidden value (" << this->objectGID << ") on element of HumanOptionObjectUse.objectGID.";

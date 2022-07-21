@@ -12,7 +12,7 @@ void ExchangeCraftResultWithObjectIdMessage::serializeAs_ExchangeCraftResultWith
   {
     qDebug()<<"ERREUR - ExchangeCraftResultWithObjectIdMessage -"<<"Forbidden value (" << this->objectGenericId << ") on element objectGenericId.";
   }
-  output->writeVarShort((int)this->objectGenericId);
+  output->writeVarInt((int)this->objectGenericId);
 }
 
 void ExchangeCraftResultWithObjectIdMessage::deserialize(Reader *input)
@@ -39,7 +39,7 @@ void ExchangeCraftResultWithObjectIdMessage::deserializeAsyncAs_ExchangeCraftRes
 
 void ExchangeCraftResultWithObjectIdMessage::_objectGenericIdFunc(Reader *input)
 {
-  this->objectGenericId = input->readVarUhShort();
+  this->objectGenericId = input->readVarUhInt();
   if(this->objectGenericId < 0)
   {
     qDebug()<<"ERREUR - ExchangeCraftResultWithObjectIdMessage -"<<"Forbidden value (" << this->objectGenericId << ") on element of ExchangeCraftResultWithObjectIdMessage.objectGenericId.";

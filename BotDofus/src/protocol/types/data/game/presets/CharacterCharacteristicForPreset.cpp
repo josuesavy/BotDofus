@@ -8,7 +8,7 @@ void CharacterCharacteristicForPreset::serialize(Writer *output)
 void CharacterCharacteristicForPreset::serializeAs_CharacterCharacteristicForPreset(Writer *output)
 {
   SimpleCharacterCharacteristicForPreset::serializeAs_SimpleCharacterCharacteristicForPreset(output);
-  output->writeVarShort((int)this->stuff);
+  output->writeVarInt((int)this->stuff);
 }
 
 void CharacterCharacteristicForPreset::deserialize(Reader *input)
@@ -35,7 +35,7 @@ void CharacterCharacteristicForPreset::deserializeAsyncAs_CharacterCharacteristi
 
 void CharacterCharacteristicForPreset::_stuffFunc(Reader *input)
 {
-  this->stuff = input->readVarShort();
+  this->stuff = input->readVarInt();
 }
 
 CharacterCharacteristicForPreset::CharacterCharacteristicForPreset()

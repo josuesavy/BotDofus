@@ -19,12 +19,14 @@ public:
   uint targetCellId;
   uint spellId;
   int spellLevel;
+  int direction;
 
 private:
   void _casterIdFunc(Reader *input);
   void _targetCellIdFunc(Reader *input);
   void _spellIdFunc(Reader *input);
   void _spellLevelFunc(Reader *input);
+  void _directionFunc(Reader *input);
 };
 
 #endif // GAMEROLEPLAYSPELLANIMMESSAGE_H

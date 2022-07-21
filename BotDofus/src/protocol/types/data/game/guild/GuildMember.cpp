@@ -13,11 +13,16 @@ void GuildMember::serializeAs_GuildMember(Writer *output)
   _box0 = BooleanByteWrapper::setFlag(_box0, 1, this->havenBagShared);
   output->writeByte(_box0);
   output->writeByte(this->breed);
-  if(this->rank < 0)
+  if(this->rankId < 0)
   {
-    qDebug()<<"ERREUR - GuildMember -"<<"Forbidden value (" << this->rank << ") on element rank.";
+    qDebug()<<"ERREUR - GuildMember -"<<"Forbidden value (" << this->rankId << ") on element rankId.";
   }
-  output->writeVarShort((int)this->rank);
+  output->writeVarInt((int)this->rankId);
+  if(this->enrollmentDate < -9.007199254740992E15 || this->enrollmentDate > 9.007199254740992E15)
+  {
+    qDebug()<<"ERREUR - GuildMember -"<<"Forbidden value (" << this->enrollmentDate << ") on element enrollmentDate.";
+  }
+  output->writeDouble(this->enrollmentDate);
   if(this->givenExperience < 0 || this->givenExperience > 9.007199254740992E15)
   {
     qDebug()<<"ERREUR - GuildMember -"<<"Forbidden value (" << this->givenExperience << ") on element givenExperience.";
@@ -28,11 +33,6 @@ void GuildMember::serializeAs_GuildMember(Writer *output)
     qDebug()<<"ERREUR - GuildMember -"<<"Forbidden value (" << this->experienceGivenPercent << ") on element experienceGivenPercent.";
   }
   output->writeByte(this->experienceGivenPercent);
-  if(this->rights < 0)
-  {
-    qDebug()<<"ERREUR - GuildMember -"<<"Forbidden value (" << this->rights << ") on element rights.";
-  }
-  output->writeVarInt((int)this->rights);
   output->writeByte(this->connected);
   output->writeByte(this->alignmentSide);
   if(this->hoursSinceLastConnection < 0 || this->hoursSinceLastConnection > 65535)
@@ -53,6 +53,7 @@ void GuildMember::serializeAs_GuildMember(Writer *output)
   output->writeInt((int)this->achievementPoints);
   output->writeShort((short)this->status->getTypes().last());
   this->status->serialize(output);
+  this->note.serializeAs_PlayerNote(output);
 }
 
 void GuildMember::deserialize(Reader *input)
@@ -65,10 +66,10 @@ void GuildMember::deserializeAs_GuildMember(Reader *input)
   CharacterMinimalInformations::deserialize(input);
   this->deserializeByteBoxes(input);
   this->_breedFunc(input);
-  this->_rankFunc(input);
+  this->_rankIdFunc(input);
+  this->_enrollmentDateFunc(input);
   this->_givenExperienceFunc(input);
   this->_experienceGivenPercentFunc(input);
-  this->_rightsFunc(input);
   this->_connectedFunc(input);
   this->_alignmentSideFunc(input);
   this->_hoursSinceLastConnectionFunc(input);
@@ -78,6 +79,8 @@ void GuildMember::deserializeAs_GuildMember(Reader *input)
   uint _id13 = input->readUShort();
   this->status = qSharedPointerCast<PlayerStatus>(ClassManagerSingleton::get()->getClass(_id13));
   this->status->deserialize(input);
+  this->note = PlayerNote();
+  this->note.deserialize(input);
 }
 
 void GuildMember::deserializeAsync(FuncTree tree)
@@ -90,10 +93,10 @@ void GuildMember::deserializeAsyncAs_GuildMember(FuncTree tree)
   CharacterMinimalInformations::deserializeAsync(tree);
   tree.addChild(std::bind(&GuildMember::deserializeByteBoxes, this, std::placeholders::_1));
   tree.addChild(std::bind(&GuildMember::_breedFunc, this, std::placeholders::_1));
-  tree.addChild(std::bind(&GuildMember::_rankFunc, this, std::placeholders::_1));
+  tree.addChild(std::bind(&GuildMember::_rankIdFunc, this, std::placeholders::_1));
+  tree.addChild(std::bind(&GuildMember::_enrollmentDateFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&GuildMember::_givenExperienceFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&GuildMember::_experienceGivenPercentFunc, this, std::placeholders::_1));
-  tree.addChild(std::bind(&GuildMember::_rightsFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&GuildMember::_connectedFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&GuildMember::_alignmentSideFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&GuildMember::_hoursSinceLastConnectionFunc, this, std::placeholders::_1));
@@ -101,6 +104,7 @@ void GuildMember::deserializeAsyncAs_GuildMember(FuncTree tree)
   tree.addChild(std::bind(&GuildMember::_accountIdFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&GuildMember::_achievementPointsFunc, this, std::placeholders::_1));
   this->_statustree = tree.addChild(std::bind(&GuildMember::_statustreeFunc, this, std::placeholders::_1));
+  this->_notetree = tree.addChild(std::bind(&GuildMember::_notetreeFunc, this, std::placeholders::_1));
 }
 
 void GuildMember::deserializeByteBoxes(Reader *input)
@@ -115,12 +119,21 @@ void GuildMember::_breedFunc(Reader *input)
   this->breed = input->readByte();
 }
 
-void GuildMember::_rankFunc(Reader *input)
+void GuildMember::_rankIdFunc(Reader *input)
 {
-  this->rank = input->readVarUhShort();
-  if(this->rank < 0)
+  this->rankId = input->readVarUhInt();
+  if(this->rankId < 0)
   {
-    qDebug()<<"ERREUR - GuildMember -"<<"Forbidden value (" << this->rank << ") on element of GuildMember.rank.";
+    qDebug()<<"ERREUR - GuildMember -"<<"Forbidden value (" << this->rankId << ") on element of GuildMember.rankId.";
+  }
+}
+
+void GuildMember::_enrollmentDateFunc(Reader *input)
+{
+  this->enrollmentDate = input->readDouble();
+  if(this->enrollmentDate < -9.007199254740992E15 || this->enrollmentDate > 9.007199254740992E15)
+  {
+    qDebug()<<"ERREUR - GuildMember -"<<"Forbidden value (" << this->enrollmentDate << ") on element of GuildMember.enrollmentDate.";
   }
 }
 
@@ -139,15 +152,6 @@ void GuildMember::_experienceGivenPercentFunc(Reader *input)
   if(this->experienceGivenPercent < 0 || this->experienceGivenPercent > 100)
   {
     qDebug()<<"ERREUR - GuildMember -"<<"Forbidden value (" << this->experienceGivenPercent << ") on element of GuildMember.experienceGivenPercent.";
-  }
-}
-
-void GuildMember::_rightsFunc(Reader *input)
-{
-  this->rights = input->readVarUhInt();
-  if(this->rights < 0)
-  {
-    qDebug()<<"ERREUR - GuildMember -"<<"Forbidden value (" << this->rights << ") on element of GuildMember.rights.";
   }
 }
 
@@ -204,6 +208,12 @@ void GuildMember::_statustreeFunc(Reader *input)
   this->status->deserializeAsync(this->_statustree);
 }
 
+void GuildMember::_notetreeFunc(Reader *input)
+{
+  this->note = PlayerNote();
+  this->note.deserializeAsync(this->_notetree);
+}
+
 GuildMember::GuildMember()
 {
   m_types<<ClassEnum::GUILDMEMBER;
@@ -213,10 +223,10 @@ bool GuildMember::operator==(const GuildMember &compared)
 {
   if(breed == compared.breed)
   if(sex == compared.sex)
-  if(rank == compared.rank)
+  if(rankId == compared.rankId)
+  if(enrollmentDate == compared.enrollmentDate)
   if(givenExperience == compared.givenExperience)
   if(experienceGivenPercent == compared.experienceGivenPercent)
-  if(rights == compared.rights)
   if(connected == compared.connected)
   if(alignmentSide == compared.alignmentSide)
   if(hoursSinceLastConnection == compared.hoursSinceLastConnection)
@@ -225,7 +235,9 @@ bool GuildMember::operator==(const GuildMember &compared)
   if(achievementPoints == compared.achievementPoints)
   if(status == compared.status)
   if(havenBagShared == compared.havenBagShared)
+  if(note == compared.note)
   if(_statustree == compared._statustree)
+  if(_notetree == compared._notetree)
   return true;
   
   return false;

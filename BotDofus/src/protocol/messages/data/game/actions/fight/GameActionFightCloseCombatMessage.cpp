@@ -12,7 +12,7 @@ void GameActionFightCloseCombatMessage::serializeAs_GameActionFightCloseCombatMe
   {
     qDebug()<<"ERREUR - GameActionFightCloseCombatMessage -"<<"Forbidden value (" << this->weaponGenericId << ") on element weaponGenericId.";
   }
-  output->writeVarShort((int)this->weaponGenericId);
+  output->writeVarInt((int)this->weaponGenericId);
 }
 
 void GameActionFightCloseCombatMessage::deserialize(Reader *input)
@@ -39,7 +39,7 @@ void GameActionFightCloseCombatMessage::deserializeAsyncAs_GameActionFightCloseC
 
 void GameActionFightCloseCombatMessage::_weaponGenericIdFunc(Reader *input)
 {
-  this->weaponGenericId = input->readVarUhShort();
+  this->weaponGenericId = input->readVarUhInt();
   if(this->weaponGenericId < 0)
   {
     qDebug()<<"ERREUR - GameActionFightCloseCombatMessage -"<<"Forbidden value (" << this->weaponGenericId << ") on element of GameActionFightCloseCombatMessage.weaponGenericId.";

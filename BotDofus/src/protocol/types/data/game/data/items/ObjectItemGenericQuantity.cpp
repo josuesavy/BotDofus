@@ -12,7 +12,7 @@ void ObjectItemGenericQuantity::serializeAs_ObjectItemGenericQuantity(Writer *ou
   {
     qDebug()<<"ERREUR - ObjectItemGenericQuantity -"<<"Forbidden value (" << this->objectGID << ") on element objectGID.";
   }
-  output->writeVarShort((int)this->objectGID);
+  output->writeVarInt((int)this->objectGID);
   if(this->quantity < 0)
   {
     qDebug()<<"ERREUR - ObjectItemGenericQuantity -"<<"Forbidden value (" << this->quantity << ") on element quantity.";
@@ -46,7 +46,7 @@ void ObjectItemGenericQuantity::deserializeAsyncAs_ObjectItemGenericQuantity(Fun
 
 void ObjectItemGenericQuantity::_objectGIDFunc(Reader *input)
 {
-  this->objectGID = input->readVarUhShort();
+  this->objectGID = input->readVarUhInt();
   if(this->objectGID < 0)
   {
     qDebug()<<"ERREUR - ObjectItemGenericQuantity -"<<"Forbidden value (" << this->objectGID << ") on element of ObjectItemGenericQuantity.objectGID.";

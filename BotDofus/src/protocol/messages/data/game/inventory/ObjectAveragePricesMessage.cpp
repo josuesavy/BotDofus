@@ -14,7 +14,7 @@ void ObjectAveragePricesMessage::serializeAs_ObjectAveragePricesMessage(Writer *
     {
       qDebug()<<"ERREUR - ObjectAveragePricesMessage -"<<"Forbidden value (" << this->ids[_i1] << ") on element 1 (starting at 1) of ids.";
     }
-    output->writeVarShort((int)this->ids[_i1]);
+    output->writeVarInt((int)this->ids[_i1]);
   }
   output->writeShort((short)this->avgPrices.size());
   for(uint _i2 = 0; _i2 < this->avgPrices.size(); _i2++)
@@ -39,7 +39,7 @@ void ObjectAveragePricesMessage::deserializeAs_ObjectAveragePricesMessage(Reader
   uint _idsLen = input->readUShort();
   for(uint _i1 = 0; _i1 < _idsLen; _i1++)
   {
-    _val1 = input->readVarUhShort();
+    _val1 = input->readVarUhInt();
     if(_val1 < 0)
     {
       qDebug()<<"ERREUR - ObjectAveragePricesMessage -"<<"Forbidden value (" << _val1 << ") on elements of ids.";
@@ -80,7 +80,7 @@ void ObjectAveragePricesMessage::_idstreeFunc(Reader *input)
 
 void ObjectAveragePricesMessage::_idsFunc(Reader *input)
 {
-  uint _val = input->readVarUhShort();
+  uint _val = input->readVarUhInt();
   if(_val < 0)
   {
     qDebug()<<"ERREUR - ObjectAveragePricesMessage -"<<"Forbidden value (" << _val << ") on elements of ids.";

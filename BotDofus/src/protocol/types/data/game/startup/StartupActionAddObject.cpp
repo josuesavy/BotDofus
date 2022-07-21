@@ -21,6 +21,7 @@ void StartupActionAddObject::serializeAs_StartupActionAddObject(Writer *output)
   {
     qSharedPointerCast<ObjectItemInformationWithQuantity>(this->items[_i6])->serializeAs_ObjectItemInformationWithQuantity(output);
   }
+  output->writeVarInt((int)this->type);
 }
 
 void StartupActionAddObject::deserialize(Reader *input)
@@ -43,6 +44,7 @@ void StartupActionAddObject::deserializeAs_StartupActionAddObject(Reader *input)
     _item6->deserialize(input);
     this->items.append(_item6);
   }
+  this->_typeFunc(input);
 }
 
 void StartupActionAddObject::deserializeAsync(FuncTree tree)
@@ -58,6 +60,7 @@ void StartupActionAddObject::deserializeAsyncAs_StartupActionAddObject(FuncTree 
   tree.addChild(std::bind(&StartupActionAddObject::_descUrlFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&StartupActionAddObject::_pictureUrlFunc, this, std::placeholders::_1));
   this->_itemstree = tree.addChild(std::bind(&StartupActionAddObject::_itemstreeFunc, this, std::placeholders::_1));
+  tree.addChild(std::bind(&StartupActionAddObject::_typeFunc, this, std::placeholders::_1));
 }
 
 void StartupActionAddObject::_uidFunc(Reader *input)
@@ -105,6 +108,15 @@ void StartupActionAddObject::_itemsFunc(Reader *input)
   this->items.append(_item);
 }
 
+void StartupActionAddObject::_typeFunc(Reader *input)
+{
+  this->type = input->readVarUhInt();
+  if(this->type < 0)
+  {
+    qDebug()<<"ERREUR - StartupActionAddObject -"<<"Forbidden value (" << this->type << ") on element of StartupActionAddObject.type.";
+  }
+}
+
 StartupActionAddObject::StartupActionAddObject()
 {
   m_types<<ClassEnum::STARTUPACTIONADDOBJECT;
@@ -118,6 +130,7 @@ bool StartupActionAddObject::operator==(const StartupActionAddObject &compared)
   if(descUrl == compared.descUrl)
   if(pictureUrl == compared.pictureUrl)
   if(items == compared.items)
+  if(type == compared.type)
   if(_itemstree == compared._itemstree)
   return true;
   

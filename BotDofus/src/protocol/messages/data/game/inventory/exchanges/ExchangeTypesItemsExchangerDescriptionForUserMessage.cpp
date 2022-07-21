@@ -7,15 +7,20 @@ void ExchangeTypesItemsExchangerDescriptionForUserMessage::serialize(Writer *out
 
 void ExchangeTypesItemsExchangerDescriptionForUserMessage::serializeAs_ExchangeTypesItemsExchangerDescriptionForUserMessage(Writer *output)
 {
+  if(this->objectGID < 0)
+  {
+    qDebug()<<"ERREUR - ExchangeTypesItemsExchangerDescriptionForUserMessage -"<<"Forbidden value (" << this->objectGID << ") on element objectGID.";
+  }
+  output->writeVarInt((int)this->objectGID);
   if(this->objectType < 0)
   {
     qDebug()<<"ERREUR - ExchangeTypesItemsExchangerDescriptionForUserMessage -"<<"Forbidden value (" << this->objectType << ") on element objectType.";
   }
   output->writeInt((int)this->objectType);
   output->writeShort((short)this->itemTypeDescriptions.size());
-  for(uint _i2 = 0; _i2 < this->itemTypeDescriptions.size(); _i2++)
+  for(uint _i3 = 0; _i3 < this->itemTypeDescriptions.size(); _i3++)
   {
-    qSharedPointerCast<BidExchangerObjectInfo>(this->itemTypeDescriptions[_i2])->serializeAs_BidExchangerObjectInfo(output);
+    qSharedPointerCast<BidExchangerObjectInfo>(this->itemTypeDescriptions[_i3])->serializeAs_BidExchangerObjectInfo(output);
   }
 }
 
@@ -26,14 +31,15 @@ void ExchangeTypesItemsExchangerDescriptionForUserMessage::deserialize(Reader *i
 
 void ExchangeTypesItemsExchangerDescriptionForUserMessage::deserializeAs_ExchangeTypesItemsExchangerDescriptionForUserMessage(Reader *input)
 {
-  QSharedPointer<BidExchangerObjectInfo> _item2 ;
+  QSharedPointer<BidExchangerObjectInfo> _item3 ;
+  this->_objectGIDFunc(input);
   this->_objectTypeFunc(input);
   uint _itemTypeDescriptionsLen = input->readUShort();
-  for(uint _i2 = 0; _i2 < _itemTypeDescriptionsLen; _i2++)
+  for(uint _i3 = 0; _i3 < _itemTypeDescriptionsLen; _i3++)
   {
-    _item2 = QSharedPointer<BidExchangerObjectInfo>(new BidExchangerObjectInfo() );
-    _item2->deserialize(input);
-    this->itemTypeDescriptions.append(_item2);
+    _item3 = QSharedPointer<BidExchangerObjectInfo>(new BidExchangerObjectInfo() );
+    _item3->deserialize(input);
+    this->itemTypeDescriptions.append(_item3);
   }
 }
 
@@ -44,8 +50,18 @@ void ExchangeTypesItemsExchangerDescriptionForUserMessage::deserializeAsync(Func
 
 void ExchangeTypesItemsExchangerDescriptionForUserMessage::deserializeAsyncAs_ExchangeTypesItemsExchangerDescriptionForUserMessage(FuncTree tree)
 {
+  tree.addChild(std::bind(&ExchangeTypesItemsExchangerDescriptionForUserMessage::_objectGIDFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&ExchangeTypesItemsExchangerDescriptionForUserMessage::_objectTypeFunc, this, std::placeholders::_1));
   this->_itemTypeDescriptionstree = tree.addChild(std::bind(&ExchangeTypesItemsExchangerDescriptionForUserMessage::_itemTypeDescriptionstreeFunc, this, std::placeholders::_1));
+}
+
+void ExchangeTypesItemsExchangerDescriptionForUserMessage::_objectGIDFunc(Reader *input)
+{
+  this->objectGID = input->readVarUhInt();
+  if(this->objectGID < 0)
+  {
+    qDebug()<<"ERREUR - ExchangeTypesItemsExchangerDescriptionForUserMessage -"<<"Forbidden value (" << this->objectGID << ") on element of ExchangeTypesItemsExchangerDescriptionForUserMessage.objectGID.";
+  }
 }
 
 void ExchangeTypesItemsExchangerDescriptionForUserMessage::_objectTypeFunc(Reader *input)

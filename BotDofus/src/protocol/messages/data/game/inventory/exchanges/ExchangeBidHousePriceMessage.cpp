@@ -7,11 +7,11 @@ void ExchangeBidHousePriceMessage::serialize(Writer *output)
 
 void ExchangeBidHousePriceMessage::serializeAs_ExchangeBidHousePriceMessage(Writer *output)
 {
-  if(this->genId < 0)
+  if(this->objectGID < 0)
   {
-    qDebug()<<"ERREUR - ExchangeBidHousePriceMessage -"<<"Forbidden value (" << this->genId << ") on element genId.";
+    qDebug()<<"ERREUR - ExchangeBidHousePriceMessage -"<<"Forbidden value (" << this->objectGID << ") on element objectGID.";
   }
-  output->writeVarShort((int)this->genId);
+  output->writeVarInt((int)this->objectGID);
 }
 
 void ExchangeBidHousePriceMessage::deserialize(Reader *input)
@@ -21,7 +21,7 @@ void ExchangeBidHousePriceMessage::deserialize(Reader *input)
 
 void ExchangeBidHousePriceMessage::deserializeAs_ExchangeBidHousePriceMessage(Reader *input)
 {
-  this->_genIdFunc(input);
+  this->_objectGIDFunc(input);
 }
 
 void ExchangeBidHousePriceMessage::deserializeAsync(FuncTree tree)
@@ -31,15 +31,15 @@ void ExchangeBidHousePriceMessage::deserializeAsync(FuncTree tree)
 
 void ExchangeBidHousePriceMessage::deserializeAsyncAs_ExchangeBidHousePriceMessage(FuncTree tree)
 {
-  tree.addChild(std::bind(&ExchangeBidHousePriceMessage::_genIdFunc, this, std::placeholders::_1));
+  tree.addChild(std::bind(&ExchangeBidHousePriceMessage::_objectGIDFunc, this, std::placeholders::_1));
 }
 
-void ExchangeBidHousePriceMessage::_genIdFunc(Reader *input)
+void ExchangeBidHousePriceMessage::_objectGIDFunc(Reader *input)
 {
-  this->genId = input->readVarUhShort();
-  if(this->genId < 0)
+  this->objectGID = input->readVarUhInt();
+  if(this->objectGID < 0)
   {
-    qDebug()<<"ERREUR - ExchangeBidHousePriceMessage -"<<"Forbidden value (" << this->genId << ") on element of ExchangeBidHousePriceMessage.genId.";
+    qDebug()<<"ERREUR - ExchangeBidHousePriceMessage -"<<"Forbidden value (" << this->objectGID << ") on element of ExchangeBidHousePriceMessage.objectGID.";
   }
 }
 

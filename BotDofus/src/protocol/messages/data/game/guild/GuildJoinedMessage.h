@@ -17,11 +17,11 @@ public:
   GuildJoinedMessage();
 
   QSharedPointer<GuildInformations> guildInfo;
-  uint memberRights;
+  uint rankId;
 
 private:
   void _guildInfotreeFunc(Reader *input);
-  void _memberRightsFunc(Reader *input);
+  void _rankIdFunc(Reader *input);
 
   FuncTree _guildInfotree;
 };

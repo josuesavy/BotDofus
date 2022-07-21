@@ -125,19 +125,9 @@ bool SpellLevelData::getPlayAnimation() const
   return m_playAnimation;
 }
 
-QList<int> SpellLevelData::getStatesRequired() const
+QString SpellLevelData::getStatesCriterion() const
 {
-  return m_statesRequired;
-}
-
-QList<int> SpellLevelData::getStatesAuthorized() const
-{
-  return m_statesAuthorized;
-}
-
-QList<int> SpellLevelData::getStatesForbidden() const
-{
-  return m_statesForbidden;
+  return m_statesCriterion;
 }
 
 QList<EffectInstanceDiceData> SpellLevelData::getEffects() const
@@ -236,23 +226,8 @@ void SpellLevelData::loadData(const QList<D2OField*> &fields, I18nFile *I18n)
     else if(field->getName() == "playAnimation")
         m_playAnimation = readBool(field->getValue());
     
-    else if(field->getName() == "statesRequired")
-    {
-      foreach(const QByteArray &data, readVector(field->getValue()))
-          m_statesRequired << readInt(data);
-    }
-    
-    else if(field->getName() == "statesAuthorized")
-    {
-      foreach(const QByteArray &data, readVector(field->getValue()))
-          m_statesAuthorized << readInt(data);
-    }
-    
-    else if(field->getName() == "statesForbidden")
-    {
-      foreach(const QByteArray &data, readVector(field->getValue()))
-          m_statesForbidden << readInt(data);
-    }
+    else if(field->getName() == "statesCriterion")
+        m_statesCriterion = readUTF(field->getValue());
     
     else if(field->getName() == "effects")
     {

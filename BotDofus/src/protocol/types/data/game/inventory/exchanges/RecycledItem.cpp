@@ -11,7 +11,7 @@ void RecycledItem::serializeAs_RecycledItem(Writer *output)
   {
     qDebug()<<"ERREUR - RecycledItem -"<<"Forbidden value (" << this->id << ") on element id.";
   }
-  output->writeVarShort((int)this->id);
+  output->writeVarInt((int)this->id);
   if(this->qty < 0 || this->qty > 4.294967295E9)
   {
     qDebug()<<"ERREUR - RecycledItem -"<<"Forbidden value (" << this->qty << ") on element qty.";
@@ -43,7 +43,7 @@ void RecycledItem::deserializeAsyncAs_RecycledItem(FuncTree tree)
 
 void RecycledItem::_idFunc(Reader *input)
 {
-  this->id = input->readVarUhShort();
+  this->id = input->readVarUhInt();
   if(this->id < 0)
   {
     qDebug()<<"ERREUR - RecycledItem -"<<"Forbidden value (" << this->id << ") on element of RecycledItem.id.";

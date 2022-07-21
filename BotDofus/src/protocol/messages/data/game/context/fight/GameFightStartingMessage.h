@@ -20,6 +20,7 @@ public:
   double attackerId;
   double defenderId;
   bool containsBoss;
+  QList<int> monsters;
 
 private:
   void _fightTypeFunc(Reader *input);
@@ -27,6 +28,10 @@ private:
   void _attackerIdFunc(Reader *input);
   void _defenderIdFunc(Reader *input);
   void _containsBossFunc(Reader *input);
+  void _monsterstreeFunc(Reader *input);
+  void _monstersFunc(Reader *input);
+
+  FuncTree _monsterstree;
 };
 
 #endif // GAMEFIGHTSTARTINGMESSAGE_H

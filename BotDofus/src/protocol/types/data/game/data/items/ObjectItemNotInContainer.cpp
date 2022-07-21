@@ -12,7 +12,7 @@ void ObjectItemNotInContainer::serializeAs_ObjectItemNotInContainer(Writer *outp
   {
     qDebug()<<"ERREUR - ObjectItemNotInContainer -"<<"Forbidden value (" << this->objectGID << ") on element objectGID.";
   }
-  output->writeVarShort((int)this->objectGID);
+  output->writeVarInt((int)this->objectGID);
   output->writeShort((short)this->effects.size());
   for(uint _i2 = 0; _i2 < this->effects.size(); _i2++)
   {
@@ -70,7 +70,7 @@ void ObjectItemNotInContainer::deserializeAsyncAs_ObjectItemNotInContainer(FuncT
 
 void ObjectItemNotInContainer::_objectGIDFunc(Reader *input)
 {
-  this->objectGID = input->readVarUhShort();
+  this->objectGID = input->readVarUhInt();
   if(this->objectGID < 0)
   {
     qDebug()<<"ERREUR - ObjectItemNotInContainer -"<<"Forbidden value (" << this->objectGID << ") on element of ObjectItemNotInContainer.objectGID.";

@@ -1,0 +1,11 @@
+#ifndef PLAYERFLOWEVENTTYPEENUM_H
+#define PLAYERFLOWEVENTTYPEENUM_H
+
+enum class PlayerFlowEventTypeEnum
+{
+    JOIN = 0,
+    LEAVE = 1,
+    APPLY_REFUSED = 2
+};
+
+#endif // PLAYERFLOWEVENTTYPEENUM_H

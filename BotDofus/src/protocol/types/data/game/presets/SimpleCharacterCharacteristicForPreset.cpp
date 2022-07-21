@@ -8,8 +8,8 @@ void SimpleCharacterCharacteristicForPreset::serialize(Writer *output)
 void SimpleCharacterCharacteristicForPreset::serializeAs_SimpleCharacterCharacteristicForPreset(Writer *output)
 {
   output->writeUTF(this->keyword);
-  output->writeVarShort((int)this->base);
-  output->writeVarShort((int)this->additionnal);
+  output->writeVarInt((int)this->base);
+  output->writeVarInt((int)this->additionnal);
 }
 
 void SimpleCharacterCharacteristicForPreset::deserialize(Reader *input)
@@ -43,12 +43,12 @@ void SimpleCharacterCharacteristicForPreset::_keywordFunc(Reader *input)
 
 void SimpleCharacterCharacteristicForPreset::_baseFunc(Reader *input)
 {
-  this->base = input->readVarShort();
+  this->base = input->readVarInt();
 }
 
 void SimpleCharacterCharacteristicForPreset::_additionnalFunc(Reader *input)
 {
-  this->additionnal = input->readVarShort();
+  this->additionnal = input->readVarInt();
 }
 
 SimpleCharacterCharacteristicForPreset::SimpleCharacterCharacteristicForPreset()

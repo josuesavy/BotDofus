@@ -16,15 +16,13 @@ public:
   GuildChangeMemberParametersMessage();
 
   double memberId;
-  uint rank;
+  uint rankId;
   uint experienceGivenPercent;
-  uint rights;
 
 private:
   void _memberIdFunc(Reader *input);
-  void _rankFunc(Reader *input);
+  void _rankIdFunc(Reader *input);
   void _experienceGivenPercentFunc(Reader *input);
-  void _rightsFunc(Reader *input);
 };
 
 #endif // GUILDCHANGEMEMBERPARAMETERSMESSAGE_H

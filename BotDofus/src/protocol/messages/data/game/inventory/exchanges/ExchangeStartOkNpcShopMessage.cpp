@@ -16,7 +16,7 @@ void ExchangeStartOkNpcShopMessage::serializeAs_ExchangeStartOkNpcShopMessage(Wr
   {
     qDebug()<<"ERREUR - ExchangeStartOkNpcShopMessage -"<<"Forbidden value (" << this->tokenId << ") on element tokenId.";
   }
-  output->writeVarShort((int)this->tokenId);
+  output->writeVarInt((int)this->tokenId);
   output->writeShort((short)this->objectsInfos.size());
   for(uint _i3 = 0; _i3 < this->objectsInfos.size(); _i3++)
   {
@@ -66,7 +66,7 @@ void ExchangeStartOkNpcShopMessage::_npcSellerIdFunc(Reader *input)
 
 void ExchangeStartOkNpcShopMessage::_tokenIdFunc(Reader *input)
 {
-  this->tokenId = input->readVarUhShort();
+  this->tokenId = input->readVarUhInt();
   if(this->tokenId < 0)
   {
     qDebug()<<"ERREUR - ExchangeStartOkNpcShopMessage -"<<"Forbidden value (" << this->tokenId << ") on element of ExchangeStartOkNpcShopMessage.tokenId.";

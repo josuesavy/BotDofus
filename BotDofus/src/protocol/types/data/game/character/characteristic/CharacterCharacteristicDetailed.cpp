@@ -8,11 +8,11 @@ void CharacterCharacteristicDetailed::serialize(Writer *output)
 void CharacterCharacteristicDetailed::serializeAs_CharacterCharacteristicDetailed(Writer *output)
 {
   CharacterCharacteristic::serializeAs_CharacterCharacteristic(output);
-  output->writeVarShort((int)this->base);
-  output->writeVarShort((int)this->additional);
-  output->writeVarShort((int)this->objectsAndMountBonus);
-  output->writeVarShort((int)this->alignGiftBonus);
-  output->writeVarShort((int)this->contextModif);
+  output->writeVarInt((int)this->base);
+  output->writeVarInt((int)this->additional);
+  output->writeVarInt((int)this->objectsAndMountBonus);
+  output->writeVarInt((int)this->alignGiftBonus);
+  output->writeVarInt((int)this->contextModif);
 }
 
 void CharacterCharacteristicDetailed::deserialize(Reader *input)
@@ -47,27 +47,27 @@ void CharacterCharacteristicDetailed::deserializeAsyncAs_CharacterCharacteristic
 
 void CharacterCharacteristicDetailed::_baseFunc(Reader *input)
 {
-  this->base = input->readVarShort();
+  this->base = input->readVarInt();
 }
 
 void CharacterCharacteristicDetailed::_additionalFunc(Reader *input)
 {
-  this->additional = input->readVarShort();
+  this->additional = input->readVarInt();
 }
 
 void CharacterCharacteristicDetailed::_objectsAndMountBonusFunc(Reader *input)
 {
-  this->objectsAndMountBonus = input->readVarShort();
+  this->objectsAndMountBonus = input->readVarInt();
 }
 
 void CharacterCharacteristicDetailed::_alignGiftBonusFunc(Reader *input)
 {
-  this->alignGiftBonus = input->readVarShort();
+  this->alignGiftBonus = input->readVarInt();
 }
 
 void CharacterCharacteristicDetailed::_contextModifFunc(Reader *input)
 {
-  this->contextModif = input->readVarShort();
+  this->contextModif = input->readVarInt();
 }
 
 CharacterCharacteristicDetailed::CharacterCharacteristicDetailed()

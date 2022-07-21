@@ -18,6 +18,7 @@ public:
   int getCount() const;
   QString getCriteria() const;
   bool getHasCriteria() const;
+  bool getHiddenIfInvalidCriteria() const;
   QList<MonsterDropCoefficientData> getSpecificDropCoefficient() const;
   virtual void loadData(const QList<D2OField*> &fields, I18nFile *I18n);
 
@@ -32,6 +33,7 @@ public:
   int m_count;
   QString m_criteria;
   bool m_hasCriteria;
+  bool m_hiddenIfInvalidCriteria;
   QList<MonsterDropCoefficientData> m_specificDropCoefficient;
 };
 

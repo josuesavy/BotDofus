@@ -16,7 +16,7 @@ void ObjectGroundAddedMessage::serializeAs_ObjectGroundAddedMessage(Writer *outp
   {
     qDebug()<<"ERREUR - ObjectGroundAddedMessage -"<<"Forbidden value (" << this->objectGID << ") on element objectGID.";
   }
-  output->writeVarShort((int)this->objectGID);
+  output->writeVarInt((int)this->objectGID);
 }
 
 void ObjectGroundAddedMessage::deserialize(Reader *input)
@@ -52,7 +52,7 @@ void ObjectGroundAddedMessage::_cellIdFunc(Reader *input)
 
 void ObjectGroundAddedMessage::_objectGIDFunc(Reader *input)
 {
-  this->objectGID = input->readVarUhShort();
+  this->objectGID = input->readVarUhInt();
   if(this->objectGID < 0)
   {
     qDebug()<<"ERREUR - ObjectGroundAddedMessage -"<<"Forbidden value (" << this->objectGID << ") on element of ObjectGroundAddedMessage.objectGID.";

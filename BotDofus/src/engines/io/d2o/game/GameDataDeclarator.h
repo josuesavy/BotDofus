@@ -9,6 +9,8 @@
 #include "src/engines/io/d2o/game/data/alignments/AlignmentSideData.h"
 #include "src/engines/io/d2o/game/data/alignments/AlignmentTitleData.h"
 #include "src/engines/io/d2o/game/data/almanax/AlmanaxCalendarData.h"
+#include "src/engines/io/d2o/game/data/alterations/AlterationData.h"
+#include "src/engines/io/d2o/game/data/alterations/AlterationCategoryData.h"
 #include "src/engines/io/d2o/game/data/ambientSounds/PlaylistSoundData.h"
 #include "src/engines/io/d2o/game/data/appearance/AppearanceData.h"
 #include "src/engines/io/d2o/game/data/appearance/CreatureBoneOverrideData.h"
@@ -34,6 +36,8 @@
 #include "src/engines/io/d2o/game/data/challenges/ChallengeData.h"
 #include "src/engines/io/d2o/game/data/characteristics/CharacteristicData.h"
 #include "src/engines/io/d2o/game/data/characteristics/CharacteristicCategoryData.h"
+#include "src/engines/io/d2o/game/data/collection/CollectableData.h"
+#include "src/engines/io/d2o/game/data/collection/CollectionData.h"
 #include "src/engines/io/d2o/game/data/communication/CensoredWordData.h"
 #include "src/engines/io/d2o/game/data/communication/ChatChannelData.h"
 #include "src/engines/io/d2o/game/data/communication/EmoticonData.h"
@@ -60,9 +64,12 @@
 #include "src/engines/io/d2o/game/data/guild/EmblemBackgroundData.h"
 #include "src/engines/io/d2o/game/data/guild/EmblemSymbolData.h"
 #include "src/engines/io/d2o/game/data/guild/EmblemSymbolCategoryData.h"
+#include "src/engines/io/d2o/game/data/guild/GuildRankData.h"
+#include "src/engines/io/d2o/game/data/guild/GuildRankNameSuggestionData.h"
+#include "src/engines/io/d2o/game/data/guild/GuildRightData.h"
+#include "src/engines/io/d2o/game/data/guild/GuildRightGroupData.h"
 #include "src/engines/io/d2o/game/data/guild/GuildTagData.h"
 #include "src/engines/io/d2o/game/data/guild/GuildTagsTypeData.h"
-#include "src/engines/io/d2o/game/data/guild/RankNameData.h"
 #include "src/engines/io/d2o/game/data/houses/HavenbagFurnitureData.h"
 #include "src/engines/io/d2o/game/data/houses/HavenbagThemeData.h"
 #include "src/engines/io/d2o/game/data/houses/HouseData.h"
@@ -81,6 +88,7 @@
 #include "src/engines/io/d2o/game/data/items/criterion/AllianceAvAItemCriterionData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/AllianceItemCriterionData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/AllianceRightsItemCriterionData.h"
+#include "src/engines/io/d2o/game/data/items/criterion/AlterationCriterionData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/AreaItemCriterionData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/ArenaDuelRankCriterionData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/ArenaMaxDuelRankCriterionData.h"
@@ -100,6 +108,7 @@
 #include "src/engines/io/d2o/game/data/items/criterion/GroupItemCriterionData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/GuildItemCriterionData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/GuildLevelItemCriterionData.h"
+#include "src/engines/io/d2o/game/data/items/criterion/GuildMasterItemCriterionData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/GuildRightsItemCriterionData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/ItemCriterionData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/ItemCriterionFactoryData.h"
@@ -118,6 +127,7 @@
 #include "src/engines/io/d2o/game/data/items/criterion/NumberOfItemMadeCriterionData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/NumberOfMountBirthedCriterionData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/ObjectItemCriterionData.h"
+#include "src/engines/io/d2o/game/data/items/criterion/OnlySetCriterionData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/PremiumAccountItemCriterionData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/PrestigeLevelItemCriterionData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/PVPRankItemCriterionData.h"
@@ -134,6 +144,7 @@
 #include "src/engines/io/d2o/game/data/items/criterion/SoulStoneItemCriterionData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/SpecializationItemCriterionData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/SpellItemCriterionData.h"
+#include "src/engines/io/d2o/game/data/items/criterion/StateCriterionData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/StaticCriterionItemCriterionData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/SubareaItemCriterionData.h"
 #include "src/engines/io/d2o/game/data/items/criterion/SubscribeItemCriterionData.h"
@@ -191,6 +202,7 @@
 #include "src/engines/io/d2o/game/data/npcs/TaxCollectorNameData.h"
 #include "src/engines/io/d2o/game/data/optionalFeatures/CustomModeBreedSpellData.h"
 #include "src/engines/io/d2o/game/data/optionalFeatures/ForgettableSpellData.h"
+#include "src/engines/io/d2o/game/data/optionalFeatures/ModsterData.h"
 #include "src/engines/io/d2o/game/data/playlists/PlaylistData.h"
 #include "src/engines/io/d2o/game/data/popup/PopupButtonData.h"
 #include "src/engines/io/d2o/game/data/popup/PopupInformationData.h"
@@ -267,6 +279,8 @@ enum class GameDataEnum
     ALIGNMENTSIDEDATA,
     ALIGNMENTTITLEDATA,
     ALMANAXCALENDARDATA,
+    ALTERATIONDATA,
+    ALTERATIONCATEGORYDATA,
     PLAYLISTSOUNDDATA,
     APPEARANCEDATA,
     CREATUREBONEOVERRIDEDATA,
@@ -292,6 +306,8 @@ enum class GameDataEnum
     CHALLENGEDATA,
     CHARACTERISTICDATA,
     CHARACTERISTICCATEGORYDATA,
+    COLLECTABLEDATA,
+    COLLECTIONDATA,
     CENSOREDWORDDATA,
     CHATCHANNELDATA,
     EMOTICONDATA,
@@ -318,9 +334,12 @@ enum class GameDataEnum
     EMBLEMBACKGROUNDDATA,
     EMBLEMSYMBOLDATA,
     EMBLEMSYMBOLCATEGORYDATA,
+    GUILDRANKDATA,
+    GUILDRANKNAMESUGGESTIONDATA,
+    GUILDRIGHTDATA,
+    GUILDRIGHTGROUPDATA,
     GUILDTAGDATA,
     GUILDTAGSTYPEDATA,
-    RANKNAMEDATA,
     HAVENBAGFURNITUREDATA,
     HAVENBAGTHEMEDATA,
     HOUSEDATA,
@@ -339,6 +358,7 @@ enum class GameDataEnum
     ALLIANCEAVAITEMCRITERIONDATA,
     ALLIANCEITEMCRITERIONDATA,
     ALLIANCERIGHTSITEMCRITERIONDATA,
+    ALTERATIONCRITERIONDATA,
     AREAITEMCRITERIONDATA,
     ARENADUELRANKCRITERIONDATA,
     ARENAMAXDUELRANKCRITERIONDATA,
@@ -358,6 +378,7 @@ enum class GameDataEnum
     GROUPITEMCRITERIONDATA,
     GUILDITEMCRITERIONDATA,
     GUILDLEVELITEMCRITERIONDATA,
+    GUILDMASTERITEMCRITERIONDATA,
     GUILDRIGHTSITEMCRITERIONDATA,
     ITEMCRITERIONDATA,
     ITEMCRITERIONFACTORYDATA,
@@ -376,6 +397,7 @@ enum class GameDataEnum
     NUMBEROFITEMMADECRITERIONDATA,
     NUMBEROFMOUNTBIRTHEDCRITERIONDATA,
     OBJECTITEMCRITERIONDATA,
+    ONLYSETCRITERIONDATA,
     PREMIUMACCOUNTITEMCRITERIONDATA,
     PRESTIGELEVELITEMCRITERIONDATA,
     PVPRANKITEMCRITERIONDATA,
@@ -392,6 +414,7 @@ enum class GameDataEnum
     SOULSTONEITEMCRITERIONDATA,
     SPECIALIZATIONITEMCRITERIONDATA,
     SPELLITEMCRITERIONDATA,
+    STATECRITERIONDATA,
     STATICCRITERIONITEMCRITERIONDATA,
     SUBAREAITEMCRITERIONDATA,
     SUBSCRIBEITEMCRITERIONDATA,
@@ -449,6 +472,7 @@ enum class GameDataEnum
     TAXCOLLECTORNAMEDATA,
     CUSTOMMODEBREEDSPELLDATA,
     FORGETTABLESPELLDATA,
+    MODSTERDATA,
     PLAYLISTDATA,
     POPUPBUTTONDATA,
     POPUPINFORMATIONDATA,

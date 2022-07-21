@@ -30,11 +30,6 @@ int MapPositionData::getNameId() const
   return m_nameId;
 }
 
-bool MapPositionData::getShowNameOnFingerpost() const
-{
-  return m_showNameOnFingerpost;
-}
-
 QList<QList<int>> MapPositionData::getPlaylists() const
 {
   return m_playlists;
@@ -108,9 +103,6 @@ void MapPositionData::loadData(const QList<D2OField*> &fields, I18nFile *I18n)
     
     else if(field->getName() == "nameId")
         m_nameId = readInt(field->getValue());
-    
-    else if(field->getName() == "showNameOnFingerpost")
-        m_showNameOnFingerpost = readBool(field->getValue());
     
     else if(field->getName() == "playlists")
     {

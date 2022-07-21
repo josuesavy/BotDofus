@@ -26,6 +26,12 @@ QSharedPointer<AbstractGameData> GameDataConverter::getClass(const QString &name
   else if(name == "AlmanaxCalendar")
       return QSharedPointer<AbstractGameData>(new AlmanaxCalendarData());
   
+  else if(name == "Alteration")
+      return QSharedPointer<AbstractGameData>(new AlterationData());
+  
+  else if(name == "AlterationCategory")
+      return QSharedPointer<AbstractGameData>(new AlterationCategoryData());
+  
   else if(name == "PlaylistSound")
       return QSharedPointer<AbstractGameData>(new PlaylistSoundData());
   
@@ -100,6 +106,12 @@ QSharedPointer<AbstractGameData> GameDataConverter::getClass(const QString &name
   
   else if(name == "CharacteristicCategory")
       return QSharedPointer<AbstractGameData>(new CharacteristicCategoryData());
+  
+  else if(name == "Collectable")
+      return QSharedPointer<AbstractGameData>(new CollectableData());
+  
+  else if(name == "Collection")
+      return QSharedPointer<AbstractGameData>(new CollectionData());
   
   else if(name == "CensoredWord")
       return QSharedPointer<AbstractGameData>(new CensoredWordData());
@@ -179,14 +191,23 @@ QSharedPointer<AbstractGameData> GameDataConverter::getClass(const QString &name
   else if(name == "EmblemSymbolCategory")
       return QSharedPointer<AbstractGameData>(new EmblemSymbolCategoryData());
   
+  else if(name == "GuildRank")
+      return QSharedPointer<AbstractGameData>(new GuildRankData());
+  
+  else if(name == "GuildRankNameSuggestion")
+      return QSharedPointer<AbstractGameData>(new GuildRankNameSuggestionData());
+  
+  else if(name == "GuildRight")
+      return QSharedPointer<AbstractGameData>(new GuildRightData());
+  
+  else if(name == "GuildRightGroup")
+      return QSharedPointer<AbstractGameData>(new GuildRightGroupData());
+  
   else if(name == "GuildTag")
       return QSharedPointer<AbstractGameData>(new GuildTagData());
   
   else if(name == "GuildTagsType")
       return QSharedPointer<AbstractGameData>(new GuildTagsTypeData());
-  
-  else if(name == "RankName")
-      return QSharedPointer<AbstractGameData>(new RankNameData());
   
   else if(name == "HavenbagFurniture")
       return QSharedPointer<AbstractGameData>(new HavenbagFurnitureData());
@@ -241,6 +262,9 @@ QSharedPointer<AbstractGameData> GameDataConverter::getClass(const QString &name
   
   else if(name == "AllianceRightsItemCriterion")
       return QSharedPointer<AbstractGameData>(new AllianceRightsItemCriterionData());
+  
+  else if(name == "AlterationCriterion")
+      return QSharedPointer<AbstractGameData>(new AlterationCriterionData());
   
   else if(name == "AreaItemCriterion")
       return QSharedPointer<AbstractGameData>(new AreaItemCriterionData());
@@ -299,6 +323,9 @@ QSharedPointer<AbstractGameData> GameDataConverter::getClass(const QString &name
   else if(name == "GuildLevelItemCriterion")
       return QSharedPointer<AbstractGameData>(new GuildLevelItemCriterionData());
   
+  else if(name == "GuildMasterItemCriterion")
+      return QSharedPointer<AbstractGameData>(new GuildMasterItemCriterionData());
+  
   else if(name == "GuildRightsItemCriterion")
       return QSharedPointer<AbstractGameData>(new GuildRightsItemCriterionData());
   
@@ -353,6 +380,9 @@ QSharedPointer<AbstractGameData> GameDataConverter::getClass(const QString &name
   else if(name == "ObjectItemCriterion")
       return QSharedPointer<AbstractGameData>(new ObjectItemCriterionData());
   
+  else if(name == "OnlySetCriterion")
+      return QSharedPointer<AbstractGameData>(new OnlySetCriterionData());
+  
   else if(name == "PremiumAccountItemCriterion")
       return QSharedPointer<AbstractGameData>(new PremiumAccountItemCriterionData());
   
@@ -400,6 +430,9 @@ QSharedPointer<AbstractGameData> GameDataConverter::getClass(const QString &name
   
   else if(name == "SpellItemCriterion")
       return QSharedPointer<AbstractGameData>(new SpellItemCriterionData());
+  
+  else if(name == "StateCriterion")
+      return QSharedPointer<AbstractGameData>(new StateCriterionData());
   
   else if(name == "StaticCriterionItemCriterion")
       return QSharedPointer<AbstractGameData>(new StaticCriterionItemCriterionData());
@@ -571,6 +604,9 @@ QSharedPointer<AbstractGameData> GameDataConverter::getClass(const QString &name
   
   else if(name == "ForgettableSpell")
       return QSharedPointer<AbstractGameData>(new ForgettableSpellData());
+  
+  else if(name == "Modster")
+      return QSharedPointer<AbstractGameData>(new ModsterData());
   
   else if(name == "Playlist")
       return QSharedPointer<AbstractGameData>(new PlaylistData());
@@ -815,6 +851,9 @@ QSharedPointer<AbstractGameData> GameDataConverter::getClass(const QString &name
   else if(name == "GroupFeatureCriterion")
       return QSharedPointer<AbstractGameData>(NULL);
   
+  else if(name == "GuildChestTab")
+      return QSharedPointer<AbstractGameData>(NULL);
+  
   else if(name == "IdolsPresetIcon")
       return QSharedPointer<AbstractGameData>(NULL);
   
@@ -862,6 +901,12 @@ GameDataTypeEnum GameDataConverter::getEnum(const QString &name)
   
   else if(name == "AlmanaxCalendars")
       return GameDataTypeEnum::ALMANAXCALENDARS;
+  
+  else if(name == "Alterations")
+      return GameDataTypeEnum::ALTERATIONS;
+  
+  else if(name == "AlterationCategories")
+      return GameDataTypeEnum::ALTERATIONCATEGORIES;
   
   else if(name == "PlaylistSounds")
       return GameDataTypeEnum::PLAYLISTSOUNDS;
@@ -938,6 +983,12 @@ GameDataTypeEnum GameDataConverter::getEnum(const QString &name)
   else if(name == "CharacteristicCategories")
       return GameDataTypeEnum::CHARACTERISTICCATEGORIES;
   
+  else if(name == "Collectables")
+      return GameDataTypeEnum::COLLECTABLES;
+  
+  else if(name == "Collections")
+      return GameDataTypeEnum::COLLECTIONS;
+  
   else if(name == "CensoredWords")
       return GameDataTypeEnum::CENSOREDWORDS;
   
@@ -986,14 +1037,23 @@ GameDataTypeEnum GameDataConverter::getEnum(const QString &name)
   else if(name == "EmblemSymbolCategories")
       return GameDataTypeEnum::EMBLEMSYMBOLCATEGORIES;
   
+  else if(name == "GuildRanks")
+      return GameDataTypeEnum::GUILDRANKS;
+  
+  else if(name == "GuildRankNameSuggestions")
+      return GameDataTypeEnum::GUILDRANKNAMESUGGESTIONS;
+  
+  else if(name == "GuildRights")
+      return GameDataTypeEnum::GUILDRIGHTS;
+  
+  else if(name == "GuildRightGroups")
+      return GameDataTypeEnum::GUILDRIGHTGROUPS;
+  
   else if(name == "GuildTags")
       return GameDataTypeEnum::GUILDTAGS;
   
   else if(name == "GuildTagsTypes")
       return GameDataTypeEnum::GUILDTAGSTYPES;
-  
-  else if(name == "RankNames")
-      return GameDataTypeEnum::RANKNAMES;
   
   else if(name == "HavenbagFurnitures")
       return GameDataTypeEnum::HAVENBAGFURNITURES;
@@ -1153,6 +1213,9 @@ GameDataTypeEnum GameDataConverter::getEnum(const QString &name)
   
   else if(name == "ForgettableSpells")
       return GameDataTypeEnum::FORGETTABLESPELLS;
+  
+  else if(name == "Modsters")
+      return GameDataTypeEnum::MODSTERS;
   
   else if(name == "Playlists")
       return GameDataTypeEnum::PLAYLISTS;
@@ -1359,6 +1422,9 @@ GameDataTypeEnum GameDataConverter::getEnum(const QString &name)
       return GameDataTypeEnum::UNKNOWN;
   
   else if(name == "")
+      return GameDataTypeEnum::UNKNOWN;
+  
+  else if(name == "GuildChestTabs")
       return GameDataTypeEnum::UNKNOWN;
   
   else if(name == "IdolsPresetIcons")

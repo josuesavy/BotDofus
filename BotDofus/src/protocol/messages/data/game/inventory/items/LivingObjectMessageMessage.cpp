@@ -22,7 +22,7 @@ void LivingObjectMessageMessage::serializeAs_LivingObjectMessageMessage(Writer *
   {
     qDebug()<<"ERREUR - LivingObjectMessageMessage -"<<"Forbidden value (" << this->objectGenericId << ") on element objectGenericId.";
   }
-  output->writeVarShort((int)this->objectGenericId);
+  output->writeVarInt((int)this->objectGenericId);
 }
 
 void LivingObjectMessageMessage::deserialize(Reader *input)
@@ -76,7 +76,7 @@ void LivingObjectMessageMessage::_ownerFunc(Reader *input)
 
 void LivingObjectMessageMessage::_objectGenericIdFunc(Reader *input)
 {
-  this->objectGenericId = input->readVarUhShort();
+  this->objectGenericId = input->readVarUhInt();
   if(this->objectGenericId < 0)
   {
     qDebug()<<"ERREUR - LivingObjectMessageMessage -"<<"Forbidden value (" << this->objectGenericId << ") on element of LivingObjectMessageMessage.objectGenericId.";

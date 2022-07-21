@@ -7,11 +7,11 @@ void ApplicationPlayerInformation::serialize(Writer *output)
 
 void ApplicationPlayerInformation::serializeAs_ApplicationPlayerInformation(Writer *output)
 {
-  if(this->playerId < 0)
+  if(this->playerId < 0 || this->playerId > 9.007199254740992E15)
   {
     qDebug()<<"ERREUR - ApplicationPlayerInformation -"<<"Forbidden value (" << this->playerId << ") on element playerId.";
   }
-  output->writeVarInt((int)this->playerId);
+  output->writeVarLong((double)this->playerId);
   output->writeUTF(this->playerName);
   output->writeByte(this->breed);
   output->writeBool(this->sex);
@@ -69,8 +69,8 @@ void ApplicationPlayerInformation::deserializeAsyncAs_ApplicationPlayerInformati
 
 void ApplicationPlayerInformation::_playerIdFunc(Reader *input)
 {
-  this->playerId = input->readVarUhInt();
-  if(this->playerId < 0)
+  this->playerId = input->readVarUhLong();
+  if(this->playerId < 0 || this->playerId > 9.007199254740992E15)
   {
     qDebug()<<"ERREUR - ApplicationPlayerInformation -"<<"Forbidden value (" << this->playerId << ") on element of ApplicationPlayerInformation.playerId.";
   }

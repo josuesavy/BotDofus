@@ -21,7 +21,7 @@ void DecraftedItemStackInfo::serializeAs_DecraftedItemStackInfo(Writer *output)
     {
       qDebug()<<"ERREUR - DecraftedItemStackInfo -"<<"Forbidden value (" << this->runesId[_i4] << ") on element 4 (starting at 1) of runesId.";
     }
-    output->writeVarShort((int)this->runesId[_i4]);
+    output->writeVarInt((int)this->runesId[_i4]);
   }
   output->writeShort((short)this->runesQty.size());
   for(uint _i5 = 0; _i5 < this->runesQty.size(); _i5++)
@@ -49,7 +49,7 @@ void DecraftedItemStackInfo::deserializeAs_DecraftedItemStackInfo(Reader *input)
   uint _runesIdLen = input->readUShort();
   for(uint _i4 = 0; _i4 < _runesIdLen; _i4++)
   {
-    _val4 = input->readVarUhShort();
+    _val4 = input->readVarUhInt();
     if(_val4 < 0)
     {
       qDebug()<<"ERREUR - DecraftedItemStackInfo -"<<"Forbidden value (" << _val4 << ") on elements of runesId.";
@@ -112,7 +112,7 @@ void DecraftedItemStackInfo::_runesIdtreeFunc(Reader *input)
 
 void DecraftedItemStackInfo::_runesIdFunc(Reader *input)
 {
-  uint _val = input->readVarUhShort();
+  uint _val = input->readVarUhInt();
   if(_val < 0)
   {
     qDebug()<<"ERREUR - DecraftedItemStackInfo -"<<"Forbidden value (" << _val << ") on elements of runesId.";

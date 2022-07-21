@@ -11,6 +11,7 @@ void IdentificationSuccessMessage::serializeAs_IdentificationSuccessMessage(Writ
   _box0 = BooleanByteWrapper::setFlag(_box0, 0, this->hasRights);
   _box0 = BooleanByteWrapper::setFlag(_box0, 1, this->hasConsoleRight);
   _box0 = BooleanByteWrapper::setFlag(_box0, 2, this->wasAlreadyConnected);
+  _box0 = BooleanByteWrapper::setFlag(_box0, 3, this->isAccountForced);
   output->writeByte(_box0);
   output->writeUTF(this->login);
   this->accountTag.serializeAs_AccountTagInformation(output);
@@ -92,6 +93,7 @@ void IdentificationSuccessMessage::deserializeByteBoxes(Reader *input)
   this->hasRights = BooleanByteWrapper::getFlag(_box0, 0);
   this->hasConsoleRight = BooleanByteWrapper::getFlag(_box0, 1);
   this->wasAlreadyConnected = BooleanByteWrapper::getFlag(_box0, 2);
+  this->isAccountForced = BooleanByteWrapper::getFlag(_box0, 3);
 }
 
 void IdentificationSuccessMessage::_loginFunc(Reader *input)

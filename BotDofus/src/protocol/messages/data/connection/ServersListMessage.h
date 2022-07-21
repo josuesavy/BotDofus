@@ -17,13 +17,11 @@ public:
   ServersListMessage();
 
   QList<GameServerInformations> servers;
-  uint alreadyConnectedToServerId;
   bool canCreateNewCharacter;
 
 private:
   void _serverstreeFunc(Reader *input);
   void _serversFunc(Reader *input);
-  void _alreadyConnectedToServerIdFunc(Reader *input);
   void _canCreateNewCharacterFunc(Reader *input);
 
   FuncTree _serverstree;

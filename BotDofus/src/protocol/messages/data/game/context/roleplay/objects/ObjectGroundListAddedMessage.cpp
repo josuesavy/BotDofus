@@ -23,7 +23,7 @@ void ObjectGroundListAddedMessage::serializeAs_ObjectGroundListAddedMessage(Writ
     {
       qDebug()<<"ERREUR - ObjectGroundListAddedMessage -"<<"Forbidden value (" << this->referenceIds[_i2] << ") on element 2 (starting at 1) of referenceIds.";
     }
-    output->writeVarShort((int)this->referenceIds[_i2]);
+    output->writeVarInt((int)this->referenceIds[_i2]);
   }
 }
 
@@ -49,7 +49,7 @@ void ObjectGroundListAddedMessage::deserializeAs_ObjectGroundListAddedMessage(Re
   uint _referenceIdsLen = input->readUShort();
   for(uint _i2 = 0; _i2 < _referenceIdsLen; _i2++)
   {
-    _val2 = input->readVarUhShort();
+    _val2 = input->readVarUhInt();
     if(_val2 < 0)
     {
       qDebug()<<"ERREUR - ObjectGroundListAddedMessage -"<<"Forbidden value (" << _val2 << ") on elements of referenceIds.";
@@ -99,7 +99,7 @@ void ObjectGroundListAddedMessage::_referenceIdstreeFunc(Reader *input)
 
 void ObjectGroundListAddedMessage::_referenceIdsFunc(Reader *input)
 {
-  uint _val = input->readVarUhShort();
+  uint _val = input->readVarUhInt();
   if(_val < 0)
   {
     qDebug()<<"ERREUR - ObjectGroundListAddedMessage -"<<"Forbidden value (" << _val << ") on elements of referenceIds.";

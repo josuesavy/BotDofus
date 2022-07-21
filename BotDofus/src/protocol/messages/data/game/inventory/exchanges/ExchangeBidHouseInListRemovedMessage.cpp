@@ -12,7 +12,7 @@ void ExchangeBidHouseInListRemovedMessage::serializeAs_ExchangeBidHouseInListRem
   {
     qDebug()<<"ERREUR - ExchangeBidHouseInListRemovedMessage -"<<"Forbidden value (" << this->objectGID << ") on element objectGID.";
   }
-  output->writeVarShort((int)this->objectGID);
+  output->writeVarInt((int)this->objectGID);
   if(this->objectType < 0)
   {
     qDebug()<<"ERREUR - ExchangeBidHouseInListRemovedMessage -"<<"Forbidden value (" << this->objectType << ") on element objectType.";
@@ -51,7 +51,7 @@ void ExchangeBidHouseInListRemovedMessage::_itemUIDFunc(Reader *input)
 
 void ExchangeBidHouseInListRemovedMessage::_objectGIDFunc(Reader *input)
 {
-  this->objectGID = input->readVarUhShort();
+  this->objectGID = input->readVarUhInt();
   if(this->objectGID < 0)
   {
     qDebug()<<"ERREUR - ExchangeBidHouseInListRemovedMessage -"<<"Forbidden value (" << this->objectGID << ") on element of ExchangeBidHouseInListRemovedMessage.objectGID.";

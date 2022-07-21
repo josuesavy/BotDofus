@@ -11,7 +11,7 @@ void ExchangeBidHouseGenericItemAddedMessage::serializeAs_ExchangeBidHouseGeneri
   {
     qDebug()<<"ERREUR - ExchangeBidHouseGenericItemAddedMessage -"<<"Forbidden value (" << this->objGenericId << ") on element objGenericId.";
   }
-  output->writeVarShort((int)this->objGenericId);
+  output->writeVarInt((int)this->objGenericId);
 }
 
 void ExchangeBidHouseGenericItemAddedMessage::deserialize(Reader *input)
@@ -36,7 +36,7 @@ void ExchangeBidHouseGenericItemAddedMessage::deserializeAsyncAs_ExchangeBidHous
 
 void ExchangeBidHouseGenericItemAddedMessage::_objGenericIdFunc(Reader *input)
 {
-  this->objGenericId = input->readVarUhShort();
+  this->objGenericId = input->readVarUhInt();
   if(this->objGenericId < 0)
   {
     qDebug()<<"ERREUR - ExchangeBidHouseGenericItemAddedMessage -"<<"Forbidden value (" << this->objGenericId << ") on element of ExchangeBidHouseGenericItemAddedMessage.objGenericId.";

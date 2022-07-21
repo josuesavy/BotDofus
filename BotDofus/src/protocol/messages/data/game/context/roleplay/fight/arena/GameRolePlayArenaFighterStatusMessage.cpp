@@ -12,11 +12,11 @@ void GameRolePlayArenaFighterStatusMessage::serializeAs_GameRolePlayArenaFighter
     qDebug()<<"ERREUR - GameRolePlayArenaFighterStatusMessage -"<<"Forbidden value (" << this->fightId << ") on element fightId.";
   }
   output->writeVarShort((int)this->fightId);
-  if(this->playerId < -9.007199254740992E15 || this->playerId > 9.007199254740992E15)
+  if(this->playerId < 0 || this->playerId > 9.007199254740992E15)
   {
     qDebug()<<"ERREUR - GameRolePlayArenaFighterStatusMessage -"<<"Forbidden value (" << this->playerId << ") on element playerId.";
   }
-  output->writeDouble(this->playerId);
+  output->writeVarLong((double)this->playerId);
   output->writeBool(this->accepted);
 }
 
@@ -55,8 +55,8 @@ void GameRolePlayArenaFighterStatusMessage::_fightIdFunc(Reader *input)
 
 void GameRolePlayArenaFighterStatusMessage::_playerIdFunc(Reader *input)
 {
-  this->playerId = input->readDouble();
-  if(this->playerId < -9.007199254740992E15 || this->playerId > 9.007199254740992E15)
+  this->playerId = input->readVarUhLong();
+  if(this->playerId < 0 || this->playerId > 9.007199254740992E15)
   {
     qDebug()<<"ERREUR - GameRolePlayArenaFighterStatusMessage -"<<"Forbidden value (" << this->playerId << ") on element of GameRolePlayArenaFighterStatusMessage.playerId.";
   }

@@ -7,11 +7,11 @@ void ExchangeBidHouseListMessage::serialize(Writer *output)
 
 void ExchangeBidHouseListMessage::serializeAs_ExchangeBidHouseListMessage(Writer *output)
 {
-  if(this->id < 0)
+  if(this->objectGID < 0)
   {
-    qDebug()<<"ERREUR - ExchangeBidHouseListMessage -"<<"Forbidden value (" << this->id << ") on element id.";
+    qDebug()<<"ERREUR - ExchangeBidHouseListMessage -"<<"Forbidden value (" << this->objectGID << ") on element objectGID.";
   }
-  output->writeVarShort((int)this->id);
+  output->writeVarInt((int)this->objectGID);
   output->writeBool(this->follow);
 }
 
@@ -22,7 +22,7 @@ void ExchangeBidHouseListMessage::deserialize(Reader *input)
 
 void ExchangeBidHouseListMessage::deserializeAs_ExchangeBidHouseListMessage(Reader *input)
 {
-  this->_idFunc(input);
+  this->_objectGIDFunc(input);
   this->_followFunc(input);
 }
 
@@ -33,16 +33,16 @@ void ExchangeBidHouseListMessage::deserializeAsync(FuncTree tree)
 
 void ExchangeBidHouseListMessage::deserializeAsyncAs_ExchangeBidHouseListMessage(FuncTree tree)
 {
-  tree.addChild(std::bind(&ExchangeBidHouseListMessage::_idFunc, this, std::placeholders::_1));
+  tree.addChild(std::bind(&ExchangeBidHouseListMessage::_objectGIDFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&ExchangeBidHouseListMessage::_followFunc, this, std::placeholders::_1));
 }
 
-void ExchangeBidHouseListMessage::_idFunc(Reader *input)
+void ExchangeBidHouseListMessage::_objectGIDFunc(Reader *input)
 {
-  this->id = input->readVarUhShort();
-  if(this->id < 0)
+  this->objectGID = input->readVarUhInt();
+  if(this->objectGID < 0)
   {
-    qDebug()<<"ERREUR - ExchangeBidHouseListMessage -"<<"Forbidden value (" << this->id << ") on element of ExchangeBidHouseListMessage.id.";
+    qDebug()<<"ERREUR - ExchangeBidHouseListMessage -"<<"Forbidden value (" << this->objectGID << ") on element of ExchangeBidHouseListMessage.objectGID.";
   }
 }
 

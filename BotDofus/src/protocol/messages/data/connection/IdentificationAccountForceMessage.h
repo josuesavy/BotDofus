@@ -17,10 +17,10 @@ public:
   void deserializeAsyncAs_IdentificationAccountForceMessage(FuncTree tree);
   IdentificationAccountForceMessage();
 
-  QString forcedAccountLogin;
+  QString forcerAccountLogin;
 
 private:
-  void _forcedAccountLoginFunc(Reader *input);
+  void _forcerAccountLoginFunc(Reader *input);
 };
 
 #endif // IDENTIFICATIONACCOUNTFORCEMESSAGE_H

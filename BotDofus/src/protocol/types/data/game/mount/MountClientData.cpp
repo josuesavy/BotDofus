@@ -141,7 +141,7 @@ void MountClientData::serializeAs_MountClientData(Writer *output)
   {
     qDebug()<<"ERREUR - MountClientData -"<<"Forbidden value (" << this->harnessGID << ") on element harnessGID.";
   }
-  output->writeVarShort((int)this->harnessGID);
+  output->writeVarInt((int)this->harnessGID);
   output->writeShort((short)this->effectList.size());
   for(uint _i34 = 0; _i34 < this->effectList.size(); _i34++)
   {
@@ -509,7 +509,7 @@ void MountClientData::_reproductionCountMaxFunc(Reader *input)
 
 void MountClientData::_harnessGIDFunc(Reader *input)
 {
-  this->harnessGID = input->readVarUhShort();
+  this->harnessGID = input->readVarUhInt();
   if(this->harnessGID < 0)
   {
     qDebug()<<"ERREUR - MountClientData -"<<"Forbidden value (" << this->harnessGID << ") on element of MountClientData.harnessGID.";

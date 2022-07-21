@@ -19,9 +19,15 @@ public:
   bool operator==(const AllianceFactSheetInformations &compared);
 
   uint creationDate;
+  uint nbGuilds;
+  uint nbMembers;
+  uint nbSubarea;
 
 private:
   void _creationDateFunc(Reader *input);
+  void _nbGuildsFunc(Reader *input);
+  void _nbMembersFunc(Reader *input);
+  void _nbSubareaFunc(Reader *input);
 };
 
 #endif // ALLIANCEFACTSHEETINFORMATIONS_H

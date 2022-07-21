@@ -16,10 +16,12 @@ public:
   void deserializeAsyncAs_ExchangeTypesItemsExchangerDescriptionForUserMessage(FuncTree tree);
   ExchangeTypesItemsExchangerDescriptionForUserMessage();
 
+  uint objectGID;
   uint objectType;
   QList<QSharedPointer<BidExchangerObjectInfo>> itemTypeDescriptions;
 
 private:
+  void _objectGIDFunc(Reader *input);
   void _objectTypeFunc(Reader *input);
   void _itemTypeDescriptionstreeFunc(Reader *input);
   void _itemTypeDescriptionsFunc(Reader *input);

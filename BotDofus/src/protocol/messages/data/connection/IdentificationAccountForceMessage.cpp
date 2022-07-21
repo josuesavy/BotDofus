@@ -8,7 +8,7 @@ void IdentificationAccountForceMessage::serialize(Writer *output)
 void IdentificationAccountForceMessage::serializeAs_IdentificationAccountForceMessage(Writer *output)
 {
   IdentificationMessage::serializeAs_IdentificationMessage(output);
-  output->writeUTF(this->forcedAccountLogin);
+  output->writeUTF(this->forcerAccountLogin);
 }
 
 void IdentificationAccountForceMessage::deserialize(Reader *input)
@@ -19,7 +19,7 @@ void IdentificationAccountForceMessage::deserialize(Reader *input)
 void IdentificationAccountForceMessage::deserializeAs_IdentificationAccountForceMessage(Reader *input)
 {
   IdentificationMessage::deserialize(input);
-  this->_forcedAccountLoginFunc(input);
+  this->_forcerAccountLoginFunc(input);
 }
 
 void IdentificationAccountForceMessage::deserializeAsync(FuncTree tree)
@@ -30,12 +30,12 @@ void IdentificationAccountForceMessage::deserializeAsync(FuncTree tree)
 void IdentificationAccountForceMessage::deserializeAsyncAs_IdentificationAccountForceMessage(FuncTree tree)
 {
   IdentificationMessage::deserializeAsync(tree);
-  tree.addChild(std::bind(&IdentificationAccountForceMessage::_forcedAccountLoginFunc, this, std::placeholders::_1));
+  tree.addChild(std::bind(&IdentificationAccountForceMessage::_forcerAccountLoginFunc, this, std::placeholders::_1));
 }
 
-void IdentificationAccountForceMessage::_forcedAccountLoginFunc(Reader *input)
+void IdentificationAccountForceMessage::_forcerAccountLoginFunc(Reader *input)
 {
-  this->forcedAccountLogin = input->readUTF();
+  this->forcerAccountLogin = input->readUTF();
 }
 
 IdentificationAccountForceMessage::IdentificationAccountForceMessage()

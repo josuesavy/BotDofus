@@ -19,7 +19,7 @@ void SetUpdateMessage::serializeAs_SetUpdateMessage(Writer *output)
     {
       qDebug()<<"ERREUR - SetUpdateMessage -"<<"Forbidden value (" << this->setObjects[_i2] << ") on element 2 (starting at 1) of setObjects.";
     }
-    output->writeVarShort((int)this->setObjects[_i2]);
+    output->writeVarInt((int)this->setObjects[_i2]);
   }
   output->writeShort((short)this->setEffects.size());
   for(uint _i3 = 0; _i3 < this->setEffects.size(); _i3++)
@@ -43,7 +43,7 @@ void SetUpdateMessage::deserializeAs_SetUpdateMessage(Reader *input)
   uint _setObjectsLen = input->readUShort();
   for(uint _i2 = 0; _i2 < _setObjectsLen; _i2++)
   {
-    _val2 = input->readVarUhShort();
+    _val2 = input->readVarUhInt();
     if(_val2 < 0)
     {
       qDebug()<<"ERREUR - SetUpdateMessage -"<<"Forbidden value (" << _val2 << ") on elements of setObjects.";
@@ -92,7 +92,7 @@ void SetUpdateMessage::_setObjectstreeFunc(Reader *input)
 
 void SetUpdateMessage::_setObjectsFunc(Reader *input)
 {
-  uint _val = input->readVarUhShort();
+  uint _val = input->readVarUhInt();
   if(_val < 0)
   {
     qDebug()<<"ERREUR - SetUpdateMessage -"<<"Forbidden value (" << _val << ") on elements of setObjects.";

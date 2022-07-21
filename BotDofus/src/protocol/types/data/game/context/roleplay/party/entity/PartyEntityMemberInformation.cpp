@@ -12,7 +12,7 @@ void PartyEntityMemberInformation::serializeAs_PartyEntityMemberInformation(Writ
   {
     qDebug()<<"ERREUR - PartyEntityMemberInformation -"<<"Forbidden value (" << this->initiative << ") on element initiative.";
   }
-  output->writeVarShort((int)this->initiative);
+  output->writeVarInt((int)this->initiative);
   if(this->lifePoints < 0)
   {
     qDebug()<<"ERREUR - PartyEntityMemberInformation -"<<"Forbidden value (" << this->lifePoints << ") on element lifePoints.";
@@ -27,7 +27,7 @@ void PartyEntityMemberInformation::serializeAs_PartyEntityMemberInformation(Writ
   {
     qDebug()<<"ERREUR - PartyEntityMemberInformation -"<<"Forbidden value (" << this->prospecting << ") on element prospecting.";
   }
-  output->writeVarShort((int)this->prospecting);
+  output->writeVarInt((int)this->prospecting);
   if(this->regenRate < 0 || this->regenRate > 255)
   {
     qDebug()<<"ERREUR - PartyEntityMemberInformation -"<<"Forbidden value (" << this->regenRate << ") on element regenRate.";
@@ -67,7 +67,7 @@ void PartyEntityMemberInformation::deserializeAsyncAs_PartyEntityMemberInformati
 
 void PartyEntityMemberInformation::_initiativeFunc(Reader *input)
 {
-  this->initiative = input->readVarUhShort();
+  this->initiative = input->readVarUhInt();
   if(this->initiative < 0)
   {
     qDebug()<<"ERREUR - PartyEntityMemberInformation -"<<"Forbidden value (" << this->initiative << ") on element of PartyEntityMemberInformation.initiative.";
@@ -94,7 +94,7 @@ void PartyEntityMemberInformation::_maxLifePointsFunc(Reader *input)
 
 void PartyEntityMemberInformation::_prospectingFunc(Reader *input)
 {
-  this->prospecting = input->readVarUhShort();
+  this->prospecting = input->readVarUhInt();
   if(this->prospecting < 0)
   {
     qDebug()<<"ERREUR - PartyEntityMemberInformation -"<<"Forbidden value (" << this->prospecting << ") on element of PartyEntityMemberInformation.prospecting.";

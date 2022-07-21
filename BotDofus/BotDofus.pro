@@ -62,6 +62,427 @@ FORMS += \
 # A list of filenames of header (.h) files used when building the project.
 HEADERS += \
     src/Helper.h \
+    src/Public.h \
+    src/engines/DataHandler.h \
+    src/engines/core/CoreEngine.h \
+    src/engines/core/process/ProcessEngine.h \
+    src/engines/core/process/frames/AbstractFrame.h \
+    src/engines/core/process/frames/common/basic/CommonBasicFrame.h \
+    src/engines/core/process/frames/connection/ConnectionFrame.h \
+    src/engines/core/process/frames/connection/register/ConnectionRegisterFrame.h \
+    src/engines/core/process/frames/connection/search/ConnectionSearchFrame.h \
+    src/engines/core/process/frames/game/achievement/AchievementFrame.h \
+    src/engines/core/process/frames/game/actions/GameActionsFrame.h \
+    src/engines/core/process/frames/game/actions/fight/GameActionsFightFrame.h \
+    src/engines/core/process/frames/game/actions/sequence/GameActionsSequenceFrame.h \
+    src/engines/core/process/frames/game/alliance/GameAllianceFrame.h \
+    src/engines/core/process/frames/game/almanach/GameAlmanachFrame.h \
+    src/engines/core/process/frames/game/approach/GameApproachFrame.h \
+    src/engines/core/process/frames/game/atlas/compass/GameAtlasCompassFrame.h \
+    src/engines/core/process/frames/game/basic/GameBasicFrame.h \
+    src/engines/core/process/frames/game/character/choice/GameCharacterChoiceFrame.h \
+    src/engines/core/process/frames/game/character/creation/GameCharacterCreationFrame.h \
+    src/engines/core/process/frames/game/character/deletion/GameCharacterDeletionFrame.h \
+    src/engines/core/process/frames/game/character/stats/GameCharacterStatsFrame.h \
+    src/engines/core/process/frames/game/character/status/GameCharacterStatusFrame.h \
+    src/engines/core/process/frames/game/chat/GameChatFrame.h \
+    src/engines/core/process/frames/game/chat/channel/GameChatChannelFrame.h \
+    src/engines/core/process/frames/game/context/GameContextFrame.h \
+    src/engines/core/process/frames/game/context/fight/GameContextFightFrame.h \
+    src/engines/core/process/frames/game/context/fight/character/GameContextFightCharacterFrame.h \
+    src/engines/core/process/frames/game/context/mount/GameContextMountFrame.h \
+    src/engines/core/process/frames/game/context/notification/GameContextNotificationFrame.h \
+    src/engines/core/process/frames/game/context/roleplay/GameContextRoleplayFrame.h \
+    src/engines/core/process/frames/game/context/roleplay/death/GameContextRoleplayDeathFrame.h \
+    src/engines/core/process/frames/game/context/roleplay/emote/GameContextRoleplayEmoteFrame.h \
+    src/engines/core/process/frames/game/context/roleplay/fight/GameContextRoleplayFightFrame.h \
+    src/engines/core/process/frames/game/context/roleplay/house/GameContextRoplayHouseFrame.h \
+    src/engines/core/process/frames/game/context/roleplay/job/GameContextRoleplayJobFrame.h \
+    src/engines/core/process/frames/game/context/roleplay/npc/GameContextRoleplayNpcFrame.h \
+    src/engines/core/process/frames/game/context/roleplay/objects/GameContextRoleplayObjectsFrame.h \
+    src/engines/core/process/frames/game/context/roleplay/party/GameContextRoleplayPartyFrame.h \
+    src/engines/core/process/frames/game/context/roleplay/quest/GameContextRoleplayQuestFrame.h \
+    src/engines/core/process/frames/game/context/roleplay/stats/GameContextRoleplayStatsFrame.h \
+    src/engines/core/process/frames/game/context/roleplay/treasureHunt/GameContextRoleplayTreasureHuntFrame.h \
+    src/engines/core/process/frames/game/dialog/GameDialogFrame.h \
+    src/engines/core/process/frames/game/friend/GameFriendFrame.h \
+    src/engines/core/process/frames/game/guild/GameGuildFrame.h \
+    src/engines/core/process/frames/game/initialization/GameInitializationFrame.h \
+    src/engines/core/process/frames/game/interactive/GameInteractiveFrame.h \
+    src/engines/core/process/frames/game/interactive/zaap/GameInteractiveZaapFrame.h \
+    src/engines/core/process/frames/game/inventory/GameInventoryFrame.h \
+    src/engines/core/process/frames/game/inventory/exchanges/GameInventoryExchangesFrame.h \
+    src/engines/core/process/frames/game/inventory/items/GameInventoryItemsFrame.h \
+    src/engines/core/process/frames/game/inventory/spells/GameInventorySpellsFrame.h \
+    src/engines/core/process/frames/game/inventory/storage/GameInventoryStorageFrame.h \
+    src/engines/core/process/frames/game/look/GameLookFrame.h \
+    src/engines/core/process/frames/game/moderation/GameModerationFrame.h \
+    src/engines/core/process/frames/game/preset/GamePresetFrame.h \
+    src/engines/core/process/frames/game/prism/GamePrismFrame.h \
+    src/engines/core/process/frames/game/subscriber/GameSubscriberFrame.h \
+    src/engines/core/process/frames/game/tinsel/GameTinselFrame.h \
+    src/engines/core/process/frames/handshake/HandshakeFrame.h \
+    src/engines/core/process/frames/queues/QueueFrame.h \
+    src/engines/core/process/frames/secure/SecureFrame.h \
+    src/engines/core/process/frames/security/SecurityFrame.h \
+    src/engines/core/process/frames/server/basic/ServerBasicFrame.h \
+    src/engines/core/process/frames/subscription/SubscriptionFrame.h \
+    src/engines/core/process/frames/web/WebHaapiFrame.h \
+    src/engines/core/process/managers/AbstractManager.h \
+    src/engines/core/process/managers/connection/ConnectionManager.h \
+    src/engines/core/process/managers/craft/CraftManager.h \
+    src/engines/core/process/managers/exchange/ExchangeManager.h \
+    src/engines/core/process/managers/farm/FarmManager.h \
+    src/engines/core/process/managers/fight/FightManager.h \
+    src/engines/core/process/managers/flood/FloodManager.h \
+    src/engines/core/process/managers/group/GroupManager.h \
+    src/engines/core/process/managers/interaction/InteractionManager.h \
+    src/engines/core/process/managers/map/MapManager.h \
+    src/engines/core/process/managers/security/SecurityManager.h \
+    src/engines/core/process/managers/stats/StatsManager.h \
+    src/engines/io/bin/BINManager.h \
+    src/engines/io/bin/manager/BINFile.h \
+    src/engines/io/bin/manager/BINFolder.h \
+    src/engines/io/bin/world/Edge.h \
+    src/engines/io/bin/world/Transition.h \
+    src/engines/io/bin/world/Vertex.h \
+    src/engines/io/bin/world/WorldGraph.h \
+    src/engines/io/d2o/D2OManager.h \
+    src/engines/io/d2o/game/AbstractGameData.h \
+    src/engines/io/d2o/game/GameDataConverter.h \
+    src/engines/io/d2o/game/GameDataDeclarator.h \
+    src/engines/io/d2o/game/GameDataTypeDeclarator.h \
+    src/engines/io/d2o/game/data/abuse/AbuseReasonsData.h \
+    src/engines/io/d2o/game/data/alignments/AlignmentGiftData.h \
+    src/engines/io/d2o/game/data/alignments/AlignmentOrderData.h \
+    src/engines/io/d2o/game/data/alignments/AlignmentRankData.h \
+    src/engines/io/d2o/game/data/alignments/AlignmentRankJntGiftData.h \
+    src/engines/io/d2o/game/data/alignments/AlignmentSideData.h \
+    src/engines/io/d2o/game/data/alignments/AlignmentTitleData.h \
+    src/engines/io/d2o/game/data/almanax/AlmanaxCalendarData.h \
+    src/engines/io/d2o/game/data/alterations/AlterationCategoryData.h \
+    src/engines/io/d2o/game/data/alterations/AlterationData.h \
+    src/engines/io/d2o/game/data/ambientSounds/PlaylistSoundData.h \
+    src/engines/io/d2o/game/data/appearance/AppearanceData.h \
+    src/engines/io/d2o/game/data/appearance/CreatureBoneOverrideData.h \
+    src/engines/io/d2o/game/data/appearance/CreatureBoneTypeData.h \
+    src/engines/io/d2o/game/data/appearance/OrnamentData.h \
+    src/engines/io/d2o/game/data/appearance/SkinMappingData.h \
+    src/engines/io/d2o/game/data/appearance/SkinPositionData.h \
+    src/engines/io/d2o/game/data/appearance/TitleCategoryData.h \
+    src/engines/io/d2o/game/data/appearance/TitleData.h \
+    src/engines/io/d2o/game/data/arena/ArenaLeagueData.h \
+    src/engines/io/d2o/game/data/arena/ArenaLeagueRewardData.h \
+    src/engines/io/d2o/game/data/arena/ArenaLeagueSeasonData.h \
+    src/engines/io/d2o/game/data/bonus/BonusData.h \
+    src/engines/io/d2o/game/data/bonus/criterion/BonusCriterionData.h \
+    src/engines/io/d2o/game/data/breach/BreachDungeonModificatorData.h \
+    src/engines/io/d2o/game/data/breach/BreachInfinityLevelData.h \
+    src/engines/io/d2o/game/data/breach/BreachWorldMapCoordinateData.h \
+    src/engines/io/d2o/game/data/breach/BreachWorldMapSectorData.h \
+    src/engines/io/d2o/game/data/breeds/BreedData.h \
+    src/engines/io/d2o/game/data/breeds/BreedRoleByBreedData.h \
+    src/engines/io/d2o/game/data/breeds/BreedRoleData.h \
+    src/engines/io/d2o/game/data/breeds/HeadData.h \
+    src/engines/io/d2o/game/data/challenges/ChallengeData.h \
+    src/engines/io/d2o/game/data/characteristics/CharacteristicCategoryData.h \
+    src/engines/io/d2o/game/data/characteristics/CharacteristicData.h \
+    src/engines/io/d2o/game/data/collection/CollectableData.h \
+    src/engines/io/d2o/game/data/collection/CollectionData.h \
+    src/engines/io/d2o/game/data/communication/CensoredWordData.h \
+    src/engines/io/d2o/game/data/communication/ChatChannelData.h \
+    src/engines/io/d2o/game/data/communication/EmoticonData.h \
+    src/engines/io/d2o/game/data/communication/InfoMessageData.h \
+    src/engines/io/d2o/game/data/communication/NamingRuleData.h \
+    src/engines/io/d2o/game/data/communication/SmileyCategoryData.h \
+    src/engines/io/d2o/game/data/communication/SmileyData.h \
+    src/engines/io/d2o/game/data/communication/SmileyPackData.h \
+    src/engines/io/d2o/game/data/documents/DocumentData.h \
+    src/engines/io/d2o/game/data/effects/EffectData.h \
+    src/engines/io/d2o/game/data/effects/EffectInstanceData.h \
+    src/engines/io/d2o/game/data/effects/EvolutiveEffectData.h \
+    src/engines/io/d2o/game/data/effects/instances/EffectInstanceCreatureData.h \
+    src/engines/io/d2o/game/data/effects/instances/EffectInstanceDateData.h \
+    src/engines/io/d2o/game/data/effects/instances/EffectInstanceDiceData.h \
+    src/engines/io/d2o/game/data/effects/instances/EffectInstanceDurationData.h \
+    src/engines/io/d2o/game/data/effects/instances/EffectInstanceIntegerData.h \
+    src/engines/io/d2o/game/data/effects/instances/EffectInstanceLadderData.h \
+    src/engines/io/d2o/game/data/effects/instances/EffectInstanceMinMaxData.h \
+    src/engines/io/d2o/game/data/effects/instances/EffectInstanceMountData.h \
+    src/engines/io/d2o/game/data/effects/instances/EffectInstanceStringData.h \
+    src/engines/io/d2o/game/data/externalnotifications/ExternalNotificationData.h \
+    src/engines/io/d2o/game/data/feature/OptionalFeatureData.h \
+    src/engines/io/d2o/game/data/guild/EmblemBackgroundData.h \
+    src/engines/io/d2o/game/data/guild/EmblemSymbolCategoryData.h \
+    src/engines/io/d2o/game/data/guild/EmblemSymbolData.h \
+    src/engines/io/d2o/game/data/guild/GuildRankData.h \
+    src/engines/io/d2o/game/data/guild/GuildRankNameSuggestionData.h \
+    src/engines/io/d2o/game/data/guild/GuildRightData.h \
+    src/engines/io/d2o/game/data/guild/GuildRightGroupData.h \
+    src/engines/io/d2o/game/data/guild/GuildTagData.h \
+    src/engines/io/d2o/game/data/guild/GuildTagsTypeData.h \
+    src/engines/io/d2o/game/data/houses/HavenbagFurnitureData.h \
+    src/engines/io/d2o/game/data/houses/HavenbagThemeData.h \
+    src/engines/io/d2o/game/data/houses/HouseData.h \
+    src/engines/io/d2o/game/data/idols/IdolData.h \
+    src/engines/io/d2o/game/data/interactives/InteractiveData.h \
+    src/engines/io/d2o/game/data/interactives/SignData.h \
+    src/engines/io/d2o/game/data/interactives/SkillNameData.h \
+    src/engines/io/d2o/game/data/interactives/StealthBonesData.h \
+    src/engines/io/d2o/game/data/items/EvolutiveItemTypeData.h \
+    src/engines/io/d2o/game/data/items/IncarnationData.h \
+    src/engines/io/d2o/game/data/items/IncarnationLevelData.h \
+    src/engines/io/d2o/game/data/items/ItemData.h \
+    src/engines/io/d2o/game/data/items/ItemSetData.h \
+    src/engines/io/d2o/game/data/items/ItemTypeData.h \
+    src/engines/io/d2o/game/data/items/LegendaryPowerCategoryData.h \
+    src/engines/io/d2o/game/data/items/PresetIconData.h \
+    src/engines/io/d2o/game/data/items/RandomDropGroupData.h \
+    src/engines/io/d2o/game/data/items/RandomDropItemData.h \
+    src/engines/io/d2o/game/data/items/VeteranRewardData.h \
+    src/engines/io/d2o/game/data/items/WeaponData.h \
+    src/engines/io/d2o/game/data/items/criterion/AccountRightsItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/AchievementAccountItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/AchievementItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/AchievementObjectiveValidatedData.h \
+    src/engines/io/d2o/game/data/items/criterion/AchievementPointsItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/AlignmentItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/AlignmentLevelItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/AllianceAvAItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/AllianceItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/AllianceRightsItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/AlterationCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/AreaItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/ArenaDuelRankCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/ArenaMaxDuelRankCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/ArenaMaxSoloRankCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/ArenaMaxTeamRankCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/ArenaSoloRankCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/ArenaTeamRankCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/BonesItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/BonusSetItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/BreedItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/CommunityItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/CriterionUtilsData.h \
+    src/engines/io/d2o/game/data/items/criterion/DayItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/EmoteItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/FriendlistItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/GiftItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/GroupItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/GuildItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/GuildLevelItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/GuildMasterItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/GuildRightsItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/ItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/ItemCriterionFactoryData.h \
+    src/engines/io/d2o/game/data/items/criterion/ItemCriterionOperatorData.h \
+    src/engines/io/d2o/game/data/items/criterion/JobItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/KamaItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/LevelItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/MapCharactersItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/MapItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/MariedItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/MonsterGroupChallengeCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/MonthItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/MountFamilyItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/NameItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/NewHavenbagItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/NumberOfItemMadeCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/NumberOfMountBirthedCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/ObjectItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/OnlySetCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/PVPRankItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/PremiumAccountItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/PrestigeLevelItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/QuestItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/QuestObjectiveItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/RideItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/RuneByBreakingItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/ServerItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/ServerSeasonTemporisCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/ServerTypeItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/SexItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/SkillItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/SmileyPackItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/SoulStoneItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/SpecializationItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/SpellItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/StateCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/StaticCriterionItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/SubareaItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/SubscribeItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/SubscriptionDurationItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/UnusableItemCriterionData.h \
+    src/engines/io/d2o/game/data/items/criterion/WeightItemCriterionData.h \
+    src/engines/io/d2o/game/data/jobs/JobData.h \
+    src/engines/io/d2o/game/data/jobs/RecipeData.h \
+    src/engines/io/d2o/game/data/jobs/SkillData.h \
+    src/engines/io/d2o/game/data/livingObjects/LivingObjectSkinJntMoodData.h \
+    src/engines/io/d2o/game/data/livingObjects/SpeakingItemTextData.h \
+    src/engines/io/d2o/game/data/livingObjects/SpeakingItemsTriggerData.h \
+    src/engines/io/d2o/game/data/misc/BreachBossData.h \
+    src/engines/io/d2o/game/data/misc/BreachPrizeData.h \
+    src/engines/io/d2o/game/data/misc/CensoredContentData.h \
+    src/engines/io/d2o/game/data/misc/CharacterXPMappingData.h \
+    src/engines/io/d2o/game/data/misc/LuaFormulaData.h \
+    src/engines/io/d2o/game/data/misc/MonthData.h \
+    src/engines/io/d2o/game/data/misc/PackData.h \
+    src/engines/io/d2o/game/data/misc/SubhintData.h \
+    src/engines/io/d2o/game/data/misc/TipsData.h \
+    src/engines/io/d2o/game/data/monsters/CompanionCharacteristicData.h \
+    src/engines/io/d2o/game/data/monsters/CompanionData.h \
+    src/engines/io/d2o/game/data/monsters/CompanionSpellData.h \
+    src/engines/io/d2o/game/data/monsters/MonsterBonusCharacteristicsData.h \
+    src/engines/io/d2o/game/data/monsters/MonsterData.h \
+    src/engines/io/d2o/game/data/monsters/MonsterDropCoefficientData.h \
+    src/engines/io/d2o/game/data/monsters/MonsterDropData.h \
+    src/engines/io/d2o/game/data/monsters/MonsterGradeData.h \
+    src/engines/io/d2o/game/data/monsters/MonsterMiniBossData.h \
+    src/engines/io/d2o/game/data/monsters/MonsterRaceData.h \
+    src/engines/io/d2o/game/data/monsters/MonsterSuperRaceData.h \
+    src/engines/io/d2o/game/data/mounts/MountBehaviorData.h \
+    src/engines/io/d2o/game/data/mounts/MountBoneData.h \
+    src/engines/io/d2o/game/data/mounts/MountData.h \
+    src/engines/io/d2o/game/data/mounts/MountFamilyData.h \
+    src/engines/io/d2o/game/data/mounts/RideFoodData.h \
+    src/engines/io/d2o/game/data/notifications/NotificationData.h \
+    src/engines/io/d2o/game/data/npcs/NpcActionData.h \
+    src/engines/io/d2o/game/data/npcs/NpcData.h \
+    src/engines/io/d2o/game/data/npcs/NpcMessageData.h \
+    src/engines/io/d2o/game/data/npcs/TaxCollectorFirstnameData.h \
+    src/engines/io/d2o/game/data/npcs/TaxCollectorNameData.h \
+    src/engines/io/d2o/game/data/optionalFeatures/CustomModeBreedSpellData.h \
+    src/engines/io/d2o/game/data/optionalFeatures/ForgettableSpellData.h \
+    src/engines/io/d2o/game/data/optionalFeatures/ModsterData.h \
+    src/engines/io/d2o/game/data/playlists/PlaylistData.h \
+    src/engines/io/d2o/game/data/popup/PopupButtonData.h \
+    src/engines/io/d2o/game/data/popup/PopupInformationData.h \
+    src/engines/io/d2o/game/data/progression/ActivitySuggestionData.h \
+    src/engines/io/d2o/game/data/progression/ActivitySuggestionsCategoryData.h \
+    src/engines/io/d2o/game/data/progression/FeatureDescriptionData.h \
+    src/engines/io/d2o/game/data/quest/AchievementCategoryData.h \
+    src/engines/io/d2o/game/data/quest/AchievementData.h \
+    src/engines/io/d2o/game/data/quest/AchievementObjectiveData.h \
+    src/engines/io/d2o/game/data/quest/AchievementRewardData.h \
+    src/engines/io/d2o/game/data/quest/QuestCategoryData.h \
+    src/engines/io/d2o/game/data/quest/QuestData.h \
+    src/engines/io/d2o/game/data/quest/QuestObjectiveData.h \
+    src/engines/io/d2o/game/data/quest/QuestObjectiveTypeData.h \
+    src/engines/io/d2o/game/data/quest/QuestStepData.h \
+    src/engines/io/d2o/game/data/quest/QuestStepRewardsData.h \
+    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveBringItemToNpcData.h \
+    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveBringSoulToNpcData.h \
+    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveCraftItemData.h \
+    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveDiscoverMapData.h \
+    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveDiscoverSubAreaData.h \
+    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveDuelSpecificPlayerData.h \
+    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveFightMonsterData.h \
+    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveFightMonstersOnMapData.h \
+    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveFreeFormData.h \
+    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveGoToNpcData.h \
+    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveMultiFightMonsterData.h \
+    src/engines/io/d2o/game/data/quest/treasureHunt/LegendaryTreasureHuntData.h \
+    src/engines/io/d2o/game/data/quest/treasureHunt/PointOfInterestCategoryData.h \
+    src/engines/io/d2o/game/data/quest/treasureHunt/PointOfInterestData.h \
+    src/engines/io/d2o/game/data/servers/ServerCommunityData.h \
+    src/engines/io/d2o/game/data/servers/ServerData.h \
+    src/engines/io/d2o/game/data/servers/ServerGameTypeData.h \
+    src/engines/io/d2o/game/data/servers/ServerLangData.h \
+    src/engines/io/d2o/game/data/servers/ServerPopulationData.h \
+    src/engines/io/d2o/game/data/servers/ServerTemporisSeasonData.h \
+    src/engines/io/d2o/game/data/sounds/SoundAnimationData.h \
+    src/engines/io/d2o/game/data/sounds/SoundBonesData.h \
+    src/engines/io/d2o/game/data/sounds/SoundUiData.h \
+    src/engines/io/d2o/game/data/sounds/SoundUiElementData.h \
+    src/engines/io/d2o/game/data/sounds/SoundUiHookData.h \
+    src/engines/io/d2o/game/data/spells/FinishMoveData.h \
+    src/engines/io/d2o/game/data/spells/SpellBombData.h \
+    src/engines/io/d2o/game/data/spells/SpellConversionData.h \
+    src/engines/io/d2o/game/data/spells/SpellData.h \
+    src/engines/io/d2o/game/data/spells/SpellLevelData.h \
+    src/engines/io/d2o/game/data/spells/SpellPairData.h \
+    src/engines/io/d2o/game/data/spells/SpellStateData.h \
+    src/engines/io/d2o/game/data/spells/SpellTypeData.h \
+    src/engines/io/d2o/game/data/spells/SpellVariantData.h \
+    src/engines/io/d2o/game/data/temporis/AchievementProgressData.h \
+    src/engines/io/d2o/game/data/temporis/AchievementProgressStepData.h \
+    src/engines/io/d2o/game/data/world/AreaData.h \
+    src/engines/io/d2o/game/data/world/DungeonData.h \
+    src/engines/io/d2o/game/data/world/HintCategoryData.h \
+    src/engines/io/d2o/game/data/world/HintData.h \
+    src/engines/io/d2o/game/data/world/MapCoordinatesData.h \
+    src/engines/io/d2o/game/data/world/MapPositionData.h \
+    src/engines/io/d2o/game/data/world/MapReferenceData.h \
+    src/engines/io/d2o/game/data/world/MapScrollActionData.h \
+    src/engines/io/d2o/game/data/world/PhoenixData.h \
+    src/engines/io/d2o/game/data/world/SubAreaData.h \
+    src/engines/io/d2o/game/data/world/SuperAreaData.h \
+    src/engines/io/d2o/game/data/world/WaypointData.h \
+    src/engines/io/d2o/game/data/world/WorldMapData.h \
+    src/engines/io/d2o/manager/D2OClassDefinition.h \
+    src/engines/io/d2o/manager/D2OField.h \
+    src/engines/io/d2o/manager/D2OFile.h \
+    src/engines/io/d2o/manager/D2OFileAccessor.h \
+    src/engines/io/d2p/D2PManager.h \
+    src/engines/io/d2p/manager/CompressedMap.h \
+    src/engines/io/d2p/manager/D2pFile.h \
+    src/engines/io/d2p/manager/D2pFolder.h \
+    src/engines/io/d2p/map/CellData.h \
+    src/engines/io/d2p/map/Fixture.h \
+    src/engines/io/d2p/map/Layer.h \
+    src/engines/io/d2p/map/Map.h \
+    src/engines/io/d2p/map/MapCell.h \
+    src/engines/io/d2p/map/WorldPoint.h \
+    src/engines/io/d2p/map/elements/BasicElement.h \
+    src/engines/io/d2p/map/elements/GraphicalElement.h \
+    src/engines/io/d2p/map/elements/SoundElement.h \
+    src/engines/io/d2p/map/elements/enums/ElementTypesEnum.h \
+    src/engines/io/i18n/I18nFile.h \
+    src/engines/io/i18n/I18nFileAccessor.h \
+    src/engines/io/network/Reader.h \
+    src/engines/io/network/Writer.h \
+    src/engines/io/network/utils/BooleanByteWrapper.h \
+    src/engines/io/network/utils/FuncTree.h \
+    src/engines/io/utils/Singleton.h \
+    src/engines/pathfinding/map/Node.h \
+    src/engines/pathfinding/map/Pathfinding.h \
+    src/engines/pathfinding/world/MapNode.h \
+    src/engines/pathfinding/world/PathfindingMap.h \
+    src/engines/security/AesManager.h \
+    src/engines/security/RsaManager.h \
+    src/engines/utils/ParamsDecoder.h \
+    src/engines/utils/PropertyHelper.h \
+    src/engines/utils/entitylook/DefaultableColor.h \
+    src/engines/utils/entitylook/EntityLookAdapter.h \
+    src/engines/utils/entitylook/EntityLookParser.h \
+    src/engines/utils/entitylook/TiphonEntityLook.h \
+    src/engines/utils/logger/LogOutput.h \
+    src/gui/accountmanager/accountmanagerdialog.h \
+    src/gui/accountmanager/forms/addaccountform.h \
+    src/gui/accountmanager/forms/charactercreatorform.h \
+    src/gui/accountmanager/forms/configurationform.h \
+    src/gui/accountmanager/forms/loaderaccountform.h \
+    src/gui/accountmanager/forms/subscriptionform.h \
+    src/gui/connectiondialog.h \
+    src/gui/delegate/qtreewidgetitemdelegate.h \
+    src/gui/main/accountform.h \
+    src/gui/main/forms/characterform.h \
+    src/gui/main/forms/consoleform.h \
+    src/gui/main/forms/dialogs/addfloodmessagedialog.h \
+    src/gui/main/forms/dialogs/addspelldialog.h \
+    src/gui/main/forms/dialogs/smileysdialog.h \
+    src/gui/main/forms/dialogs/treewidgetdialog.h \
+    src/gui/main/forms/fightform.h \
+    src/gui/main/forms/floodform.h \
+    src/gui/main/forms/inventoryform.h \
+    src/gui/main/forms/mapform.h \
+    src/gui/main/forms/settingsform.h \
+    src/gui/main/forms/statisticsform.h \
+    src/gui/mainwindow.h \
+    src/gui/theme.h \
+    src/network/Buffer.h \
+    src/network/Sniffer.h \
+    src/network/SocketIO.h \
     src/protocol/enums/EnumDeclarator.h \
     src/protocol/enums/data/AccessoryPreviewErrorEnum.h \
     src/protocol/enums/data/AggressableStatusEnum.h \
@@ -69,6 +490,8 @@ HEADERS += \
     src/protocol/enums/data/AlignmentWarEffortDonationResultEnum.h \
     src/protocol/enums/data/AlliancePrismModuleTypeEnum.h \
     src/protocol/enums/data/AllianceRightsBitEnum.h \
+    src/protocol/enums/data/AllianceSummarySortEnum.h \
+    src/protocol/enums/data/AlterationExpirationTypeEnum.h \
     src/protocol/enums/data/BidActionEnum.h \
     src/protocol/enums/data/BidCancellationEnum.h \
     src/protocol/enums/data/BidValidationEnum.h \
@@ -85,6 +508,7 @@ HEADERS += \
     src/protocol/enums/data/ChatActivableChannelsEnum.h \
     src/protocol/enums/data/ChatChannelsMultiEnum.h \
     src/protocol/enums/data/ChatErrorEnum.h \
+    src/protocol/enums/data/ChestEventTypeEnum.h \
     src/protocol/enums/data/ClientUITypeEnum.h \
     src/protocol/enums/data/CompassTypeEnum.h \
     src/protocol/enums/data/ConsoleMessageTypeEnum.h \
@@ -111,8 +535,9 @@ HEADERS += \
     src/protocol/enums/data/GameServerTypeEnum.h \
     src/protocol/enums/data/GuildApplicationStateEnum.h \
     src/protocol/enums/data/GuildInformationsTypeEnum.h \
+    src/protocol/enums/data/GuildRankActivityTypeEnum.h \
     src/protocol/enums/data/GuildRecruitmentTypeEnum.h \
-    src/protocol/enums/data/GuildRightsBitEnum.h \
+    src/protocol/enums/data/GuildRightsEnum.h \
     src/protocol/enums/data/GuildSummarySortEnum.h \
     src/protocol/enums/data/HaapiAuthTypeEnum.h \
     src/protocol/enums/data/HaapiSessionTypeEnum.h \
@@ -125,12 +550,15 @@ HEADERS += \
     src/protocol/enums/data/MapObstacleStateEnum.h \
     src/protocol/enums/data/MountCharacteristicEnum.h \
     src/protocol/enums/data/MountEquipedErrorEnum.h \
+    src/protocol/enums/data/NameComplianceResultEnum.h \
     src/protocol/enums/data/NicknameErrorEnum.h \
     src/protocol/enums/data/ObjectErrorEnum.h \
+    src/protocol/enums/data/PaddockCommercialEventTypeEnum.h \
     src/protocol/enums/data/PartyJoinErrorEnum.h \
     src/protocol/enums/data/PartyNameErrorEnum.h \
     src/protocol/enums/data/PartyTypeEnum.h \
     src/protocol/enums/data/PlayableBreedEnum.h \
+    src/protocol/enums/data/PlayerFlowEventTypeEnum.h \
     src/protocol/enums/data/PlayerLifeStatusEnum.h \
     src/protocol/enums/data/PlayerStateEnum.h \
     src/protocol/enums/data/PlayerStatusEnum.h \
@@ -151,6 +579,7 @@ HEADERS += \
     src/protocol/enums/data/SocialGroupCreationResultEnum.h \
     src/protocol/enums/data/SocialGroupInvitationStateEnum.h \
     src/protocol/enums/data/SocialNoticeErrorEnum.h \
+    src/protocol/enums/data/StartupActionObjectTypeEnum.h \
     src/protocol/enums/data/StatsUpgradeResultEnum.h \
     src/protocol/enums/data/SubEntityBindingPointCategoryEnum.h \
     src/protocol/enums/data/SubscriptionRequiredEnum.h \
@@ -304,8 +733,9 @@ HEADERS += \
     src/protocol/messages/data/game/alliance/AllianceMotdSetErrorMessage.h \
     src/protocol/messages/data/game/alliance/AllianceMotdSetRequestMessage.h \
     src/protocol/messages/data/game/alliance/AlliancePartialListMessage.h \
-    src/protocol/messages/data/game/alliance/AllianceVersatileInfoListMessage.h \
     src/protocol/messages/data/game/alliance/KohUpdateMessage.h \
+    src/protocol/messages/data/game/alliance/summary/AllianceSummaryMessage.h \
+    src/protocol/messages/data/game/alliance/summary/AllianceSummaryRequestMessage.h \
     src/protocol/messages/data/game/almanach/AlmanachCalendarDateMessage.h \
     src/protocol/messages/data/game/approach/AccountCapabilitiesMessage.h \
     src/protocol/messages/data/game/approach/AccountLoggingKickedMessage.h \
@@ -345,6 +775,10 @@ HEADERS += \
     src/protocol/messages/data/game/character/alignment/war/effort/AlignmentWarEffortDonationResultMessage.h \
     src/protocol/messages/data/game/character/alignment/war/effort/CharacterAlignmentWarEffortProgressionMessage.h \
     src/protocol/messages/data/game/character/alignment/war/effort/CharacterAlignmentWarEffortProgressionRequestMessage.h \
+    src/protocol/messages/data/game/character/alteration/AlterationAddedMessage.h \
+    src/protocol/messages/data/game/character/alteration/AlterationRemovedMessage.h \
+    src/protocol/messages/data/game/character/alteration/AlterationsMessage.h \
+    src/protocol/messages/data/game/character/alteration/AlterationsUpdatedMessage.h \
     src/protocol/messages/data/game/character/choice/BasicCharactersListMessage.h \
     src/protocol/messages/data/game/character/choice/CharacterFirstSelectionMessage.h \
     src/protocol/messages/data/game/character/choice/CharacterReplayWithRemodelRequestMessage.h \
@@ -439,7 +873,6 @@ HEADERS += \
     src/protocol/messages/data/game/context/GameMapMovementMessage.h \
     src/protocol/messages/data/game/context/GameMapMovementRequestMessage.h \
     src/protocol/messages/data/game/context/GameMapNoMovementMessage.h \
-    src/protocol/messages/data/game/context/GameMapSpeedMovementMessage.h \
     src/protocol/messages/data/game/context/GameRefreshMonsterBoostsMessage.h \
     src/protocol/messages/data/game/context/ShowCellMessage.h \
     src/protocol/messages/data/game/context/ShowCellRequestMessage.h \
@@ -550,16 +983,17 @@ HEADERS += \
     src/protocol/messages/data/game/context/roleplay/MapFightStartPositionsUpdateMessage.h \
     src/protocol/messages/data/game/context/roleplay/MapInformationsRequestMessage.h \
     src/protocol/messages/data/game/context/roleplay/MapObstacleUpdateMessage.h \
-    src/protocol/messages/data/game/context/roleplay/MapRewardRateMessage.h \
     src/protocol/messages/data/game/context/roleplay/MapRunningFightDetailsExtendedMessage.h \
     src/protocol/messages/data/game/context/roleplay/MapRunningFightDetailsMessage.h \
     src/protocol/messages/data/game/context/roleplay/MapRunningFightDetailsRequestMessage.h \
     src/protocol/messages/data/game/context/roleplay/MapRunningFightListMessage.h \
     src/protocol/messages/data/game/context/roleplay/MapRunningFightListRequestMessage.h \
     src/protocol/messages/data/game/context/roleplay/StopToListenRunningFightRequestMessage.h \
+    src/protocol/messages/data/game/context/roleplay/SubareaRewardRateMessage.h \
     src/protocol/messages/data/game/context/roleplay/TeleportOnSameMapMessage.h \
     src/protocol/messages/data/game/context/roleplay/alignment/war/effort/AlignmentWarEffortProgressionMessage.h \
     src/protocol/messages/data/game/context/roleplay/alignment/war/effort/AlignmentWarEffortProgressionRequestMessage.h \
+    src/protocol/messages/data/game/context/roleplay/anomaly/AnomalyOpenedMessage.h \
     src/protocol/messages/data/game/context/roleplay/anomaly/AnomalyStateMessage.h \
     src/protocol/messages/data/game/context/roleplay/anomaly/MapComplementaryInformationsAnomalyMessage.h \
     src/protocol/messages/data/game/context/roleplay/breach/BreachBonusMessage.h \
@@ -856,17 +1290,22 @@ HEADERS += \
     src/protocol/messages/data/game/guest/GuestLimitationMessage.h \
     src/protocol/messages/data/game/guest/GuestModeMessage.h \
     src/protocol/messages/data/game/guild/ChallengeFightJoinRefusedMessage.h \
+    src/protocol/messages/data/game/guild/CreateGuildRankRequestMessage.h \
     src/protocol/messages/data/game/guild/GuildBulletinMessage.h \
     src/protocol/messages/data/game/guild/GuildBulletinSetErrorMessage.h \
     src/protocol/messages/data/game/guild/GuildBulletinSetRequestMessage.h \
     src/protocol/messages/data/game/guild/GuildChangeMemberParametersMessage.h \
     src/protocol/messages/data/game/guild/GuildCharacsUpgradeRequestMessage.h \
+    src/protocol/messages/data/game/guild/GuildChestTabContributionMessage.h \
+    src/protocol/messages/data/game/guild/GuildChestTabContributionsMessage.h \
+    src/protocol/messages/data/game/guild/GuildChestTabLastContributionMessage.h \
     src/protocol/messages/data/game/guild/GuildCreationResultMessage.h \
     src/protocol/messages/data/game/guild/GuildCreationStartedMessage.h \
     src/protocol/messages/data/game/guild/GuildCreationValidMessage.h \
     src/protocol/messages/data/game/guild/GuildFactsErrorMessage.h \
     src/protocol/messages/data/game/guild/GuildFactsMessage.h \
     src/protocol/messages/data/game/guild/GuildFactsRequestMessage.h \
+    src/protocol/messages/data/game/guild/GuildGetChestTabContributionsRequestMessage.h \
     src/protocol/messages/data/game/guild/GuildGetInformationsMessage.h \
     src/protocol/messages/data/game/guild/GuildHouseRemoveMessage.h \
     src/protocol/messages/data/game/guild/GuildHouseUpdateInformationMessage.h \
@@ -902,10 +1341,22 @@ HEADERS += \
     src/protocol/messages/data/game/guild/GuildPaddockBoughtMessage.h \
     src/protocol/messages/data/game/guild/GuildPaddockRemovedMessage.h \
     src/protocol/messages/data/game/guild/GuildPaddockTeleportRequestMessage.h \
+    src/protocol/messages/data/game/guild/GuildRanksMessage.h \
+    src/protocol/messages/data/game/guild/GuildRanksRequestMessage.h \
+    src/protocol/messages/data/game/guild/GuildSelectChestTabRequestMessage.h \
     src/protocol/messages/data/game/guild/GuildSpellUpgradeRequestMessage.h \
     src/protocol/messages/data/game/guild/GuildSummaryMessage.h \
     src/protocol/messages/data/game/guild/GuildSummaryRequestMessage.h \
+    src/protocol/messages/data/game/guild/GuildUpdateChestTabRequestMessage.h \
     src/protocol/messages/data/game/guild/GuildVersatileInfoListMessage.h \
+    src/protocol/messages/data/game/guild/RemoveGuildRankRequestMessage.h \
+    src/protocol/messages/data/game/guild/StartGuildChestContributionMessage.h \
+    src/protocol/messages/data/game/guild/StartListenGuildChestStructureMessage.h \
+    src/protocol/messages/data/game/guild/StopGuildChestContributionMessage.h \
+    src/protocol/messages/data/game/guild/StopListenGuildChestStructureMessage.h \
+    src/protocol/messages/data/game/guild/UpdateAllGuildRankRequestMessage.h \
+    src/protocol/messages/data/game/guild/UpdateGuildRankRequestMessage.h \
+    src/protocol/messages/data/game/guild/UpdateGuildRightsMessage.h \
     src/protocol/messages/data/game/guild/application/GuildApplicationAnswerMessage.h \
     src/protocol/messages/data/game/guild/application/GuildApplicationDeletedMessage.h \
     src/protocol/messages/data/game/guild/application/GuildApplicationIsAnsweredMessage.h \
@@ -921,6 +1372,12 @@ HEADERS += \
     src/protocol/messages/data/game/guild/application/GuildPlayerNoApplicationInformationMessage.h \
     src/protocol/messages/data/game/guild/application/GuildSubmitApplicationMessage.h \
     src/protocol/messages/data/game/guild/application/GuildUpdateApplicationMessage.h \
+    src/protocol/messages/data/game/guild/application/GuildUpdateNoteMessage.h \
+    src/protocol/messages/data/game/guild/chest/AddListenerOnSynchronizedStorageMessage.h \
+    src/protocol/messages/data/game/guild/chest/ListenersOfSynchronizedStorageMessage.h \
+    src/protocol/messages/data/game/guild/chest/RemoveListenerOnSynchronizedStorageMessage.h \
+    src/protocol/messages/data/game/guild/logbook/GuildLogbookInformationMessage.h \
+    src/protocol/messages/data/game/guild/logbook/GuildLogbookInformationRequestMessage.h \
     src/protocol/messages/data/game/guild/recruitment/GuildRecruitmentInvalidateMessage.h \
     src/protocol/messages/data/game/guild/recruitment/RecruitmentInformationMessage.h \
     src/protocol/messages/data/game/guild/recruitment/UpdateRecruitmentInformationMessage.h \
@@ -965,9 +1422,15 @@ HEADERS += \
     src/protocol/messages/data/game/interactive/InteractiveUsedMessage.h \
     src/protocol/messages/data/game/interactive/StatedElementUpdatedMessage.h \
     src/protocol/messages/data/game/interactive/StatedMapUpdateMessage.h \
+    src/protocol/messages/data/game/interactive/meeting/GroupTeleportPlayerAnswerMessage.h \
+    src/protocol/messages/data/game/interactive/meeting/GroupTeleportPlayerCloseMessage.h \
+    src/protocol/messages/data/game/interactive/meeting/GroupTeleportPlayerOfferMessage.h \
     src/protocol/messages/data/game/interactive/meeting/TeleportBuddiesAnswerMessage.h \
     src/protocol/messages/data/game/interactive/meeting/TeleportBuddiesMessage.h \
     src/protocol/messages/data/game/interactive/meeting/TeleportBuddiesRequestedMessage.h \
+    src/protocol/messages/data/game/interactive/meeting/TeleportPlayerAnswerMessage.h \
+    src/protocol/messages/data/game/interactive/meeting/TeleportPlayerCloseMessage.h \
+    src/protocol/messages/data/game/interactive/meeting/TeleportPlayerOfferMessage.h \
     src/protocol/messages/data/game/interactive/meeting/TeleportToBuddyAnswerMessage.h \
     src/protocol/messages/data/game/interactive/meeting/TeleportToBuddyCloseMessage.h \
     src/protocol/messages/data/game/interactive/meeting/TeleportToBuddyOfferMessage.h \
@@ -979,6 +1442,7 @@ HEADERS += \
     src/protocol/messages/data/game/interactive/zaap/ZaapRespawnSaveRequestMessage.h \
     src/protocol/messages/data/game/interactive/zaap/ZaapRespawnUpdatedMessage.h \
     src/protocol/messages/data/game/inventory/KamasUpdateMessage.h \
+    src/protocol/messages/data/game/inventory/MultiTabStorageMessage.h \
     src/protocol/messages/data/game/inventory/ObjectAveragePricesErrorMessage.h \
     src/protocol/messages/data/game/inventory/ObjectAveragePricesGetMessage.h \
     src/protocol/messages/data/game/inventory/ObjectAveragePricesMessage.h \
@@ -1035,6 +1499,7 @@ HEADERS += \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeObjectMoveKamaMessage.h \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeObjectMoveMessage.h \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeObjectMovePricedMessage.h \
+    src/protocol/messages/data/game/inventory/exchanges/ExchangeObjectMoveToTabMessage.h \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeObjectTransfertAllFromInvMessage.h \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeObjectTransfertAllToInvMessage.h \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeObjectTransfertExistingFromInvMessage.h \
@@ -1086,6 +1551,7 @@ HEADERS += \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeStartedMessage.h \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeStartedMountStockMessage.h \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeStartedTaxCollectorShopMessage.h \
+    src/protocol/messages/data/game/inventory/exchanges/ExchangeStartedWithMultiTabStorageMessage.h \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeStartedWithPodsMessage.h \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeStartedWithStorageMessage.h \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeStoppedMessage.h \
@@ -1249,7 +1715,7 @@ HEADERS += \
     src/protocol/messages/data/game/tinsel/TitlesAndOrnamentsListRequestMessage.h \
     src/protocol/messages/data/game/ui/ClientUIOpenedByObjectMessage.h \
     src/protocol/messages/data/game/ui/ClientUIOpenedMessage.h \
-    src/protocol/messages/data/handshake/protocolRequired.h \
+    src/protocol/messages/data/handshake/ProtocolRequired.h \
     src/protocol/messages/data/queues/LoginQueueStatusMessage.h \
     src/protocol/messages/data/queues/QueueStatusMessage.h \
     src/protocol/messages/data/secure/TrustStatusMessage.h \
@@ -1322,6 +1788,7 @@ HEADERS += \
     src/protocol/types/data/game/character/CharacterMinimalPlusLookInformations.h \
     src/protocol/types/data/game/character/alignment/ActorAlignmentInformations.h \
     src/protocol/types/data/game/character/alignment/ActorExtendedAlignmentInformations.h \
+    src/protocol/types/data/game/character/alteration/AlterationInfo.h \
     src/protocol/types/data/game/character/characteristic/CharacterCharacteristic.h \
     src/protocol/types/data/game/character/characteristic/CharacterCharacteristicDetailed.h \
     src/protocol/types/data/game/character/characteristic/CharacterCharacteristicValue.h \
@@ -1336,6 +1803,7 @@ HEADERS += \
     src/protocol/types/data/game/character/choice/RemodelingInformation.h \
     src/protocol/types/data/game/character/debt/DebtInformation.h \
     src/protocol/types/data/game/character/debt/KamaDebtInformation.h \
+    src/protocol/types/data/game/character/guild/note/PlayerNote.h \
     src/protocol/types/data/game/character/restriction/ActorRestrictionsInformations.h \
     src/protocol/types/data/game/character/status/PlayerStatus.h \
     src/protocol/types/data/game/character/status/PlayerStatusExtended.h \
@@ -1358,6 +1826,7 @@ HEADERS += \
     src/protocol/types/data/game/context/fight/FightCommonInformations.h \
     src/protocol/types/data/game/context/fight/FightExternalInformations.h \
     src/protocol/types/data/game/context/fight/FightLoot.h \
+    src/protocol/types/data/game/context/fight/FightLootObject.h \
     src/protocol/types/data/game/context/fight/FightOptionsInformations.h \
     src/protocol/types/data/game/context/fight/FightResultAdditionalData.h \
     src/protocol/types/data/game/context/fight/FightResultExperienceData.h \
@@ -1435,6 +1904,7 @@ HEADERS += \
     src/protocol/types/data/game/context/roleplay/HumanOptionObjectUse.h \
     src/protocol/types/data/game/context/roleplay/HumanOptionOrnament.h \
     src/protocol/types/data/game/context/roleplay/HumanOptionSkillUse.h \
+    src/protocol/types/data/game/context/roleplay/HumanOptionSpeedMultiplier.h \
     src/protocol/types/data/game/context/roleplay/HumanOptionTitle.h \
     src/protocol/types/data/game/context/roleplay/MonsterBoosts.h \
     src/protocol/types/data/game/context/roleplay/MonsterInGroupInformations.h \
@@ -1521,11 +1991,23 @@ HEADERS += \
     src/protocol/types/data/game/friend/FriendSpouseOnlineInformations.h \
     src/protocol/types/data/game/friend/IgnoredInformations.h \
     src/protocol/types/data/game/friend/IgnoredOnlineInformations.h \
+    src/protocol/types/data/game/guild/Contribution.h \
     src/protocol/types/data/game/guild/GuildEmblem.h \
     src/protocol/types/data/game/guild/GuildMember.h \
+    src/protocol/types/data/game/guild/GuildRankInformation.h \
+    src/protocol/types/data/game/guild/GuildRankMinimalInformation.h \
+    src/protocol/types/data/game/guild/GuildRankPublicInformation.h \
     src/protocol/types/data/game/guild/HavenBagFurnitureInformation.h \
     src/protocol/types/data/game/guild/application/ApplicationPlayerInformation.h \
     src/protocol/types/data/game/guild/application/GuildApplicationInformation.h \
+    src/protocol/types/data/game/guild/logbook/GuildLogbookEntryBasicInformation.h \
+    src/protocol/types/data/game/guild/logbook/chest/GuildLogbookChestActivity.h \
+    src/protocol/types/data/game/guild/logbook/global/GuildLevelUpActivity.h \
+    src/protocol/types/data/game/guild/logbook/global/GuildPaddockActivity.h \
+    src/protocol/types/data/game/guild/logbook/global/GuildPlayerFlowActivity.h \
+    src/protocol/types/data/game/guild/logbook/global/GuildPlayerRankUpdateActivity.h \
+    src/protocol/types/data/game/guild/logbook/global/GuildRankActivity.h \
+    src/protocol/types/data/game/guild/logbook/global/GuildUnlockNewTabActivity.h \
     src/protocol/types/data/game/guild/recruitment/GuildRecruitmentInformation.h \
     src/protocol/types/data/game/guild/tax/AdditionalTaxCollectorInformations.h \
     src/protocol/types/data/game/guild/tax/TaxCollectorBasicInformations.h \
@@ -1558,6 +2040,8 @@ HEADERS += \
     src/protocol/types/data/game/interactive/skill/SkillActionDescriptionCraft.h \
     src/protocol/types/data/game/interactive/skill/SkillActionDescriptionTimed.h \
     src/protocol/types/data/game/interactive/zaap/TeleportDestination.h \
+    src/protocol/types/data/game/inventory/StorageTabInformation.h \
+    src/protocol/types/data/game/inventory/UpdatedStorageTabInformation.h \
     src/protocol/types/data/game/inventory/exchanges/RecycledItem.h \
     src/protocol/types/data/game/look/EntityLook.h \
     src/protocol/types/data/game/look/IndexedEntityLook.h \
@@ -1606,7 +2090,6 @@ HEADERS += \
     src/protocol/types/data/game/shortcut/ShortcutSpell.h \
     src/protocol/types/data/game/social/AbstractSocialGroupInfos.h \
     src/protocol/types/data/game/social/AllianceFactSheetInformations.h \
-    src/protocol/types/data/game/social/AllianceVersatileInformations.h \
     src/protocol/types/data/game/social/AlliancedGuildFactSheetInformations.h \
     src/protocol/types/data/game/social/GuildFactSheetInformations.h \
     src/protocol/types/data/game/social/GuildInAllianceVersatileInformations.h \
@@ -1615,419 +2098,427 @@ HEADERS += \
     src/protocol/types/data/game/startup/StartupActionAddObject.h \
     src/protocol/types/data/secure/TrustCertificate.h \
     src/protocol/types/data/version/Version.h \
-    src/protocol/types/data/web/haapi/BufferInformation.h \
-    src/Public.h \
-    src/engines/DataHandler.h \
-    src/engines/core/CoreEngine.h \
-    src/engines/core/process/ProcessEngine.h \
-    src/engines/core/process/frames/AbstractFrame.h \
-    src/engines/core/process/frames/common/basic/CommonBasicFrame.h \
-    src/engines/core/process/frames/connection/ConnectionFrame.h \
-    src/engines/core/process/frames/connection/register/ConnectionRegisterFrame.h \
-    src/engines/core/process/frames/connection/search/ConnectionSearchFrame.h \
-    src/engines/core/process/frames/game/achievement/AchievementFrame.h \
-    src/engines/core/process/frames/game/actions/GameActionsFrame.h \
-    src/engines/core/process/frames/game/actions/fight/GameActionsFightFrame.h \
-    src/engines/core/process/frames/game/actions/sequence/GameActionsSequenceFrame.h \
-    src/engines/core/process/frames/game/alliance/GameAllianceFrame.h \
-    src/engines/core/process/frames/game/almanach/GameAlmanachFrame.h \
-    src/engines/core/process/frames/game/approach/GameApproachFrame.h \
-    src/engines/core/process/frames/game/atlas/compass/GameAtlasCompassFrame.h \
-    src/engines/core/process/frames/game/basic/GameBasicFrame.h \
-    src/engines/core/process/frames/game/character/choice/GameCharacterChoiceFrame.h \
-    src/engines/core/process/frames/game/character/creation/GameCharacterCreationFrame.h \
-    src/engines/core/process/frames/game/character/deletion/GameCharacterDeletionFrame.h \
-    src/engines/core/process/frames/game/character/stats/GameCharacterStatsFrame.h \
-    src/engines/core/process/frames/game/character/status/GameCharacterStatusFrame.h \
-    src/engines/core/process/frames/game/chat/GameChatFrame.h \
-    src/engines/core/process/frames/game/chat/channel/GameChatChannelFrame.h \
-    src/engines/core/process/frames/game/context/GameContextFrame.h \
-    src/engines/core/process/frames/game/context/fight/GameContextFightFrame.h \
-    src/engines/core/process/frames/game/context/fight/character/GameContextFightCharacterFrame.h \
-    src/engines/core/process/frames/game/context/mount/GameContextMountFrame.h \
-    src/engines/core/process/frames/game/context/notification/GameContextNotificationFrame.h \
-    src/engines/core/process/frames/game/context/roleplay/GameContextRoleplayFrame.h \
-    src/engines/core/process/frames/game/context/roleplay/death/GameContextRoleplayDeathFrame.h \
-    src/engines/core/process/frames/game/context/roleplay/emote/GameContextRoleplayEmoteFrame.h \
-    src/engines/core/process/frames/game/context/roleplay/fight/GameContextRoleplayFightFrame.h \
-    src/engines/core/process/frames/game/context/roleplay/house/GameContextRoplayHouseFrame.h \
-    src/engines/core/process/frames/game/context/roleplay/job/GameContextRoleplayJobFrame.h \
-    src/engines/core/process/frames/game/context/roleplay/npc/GameContextRoleplayNpcFrame.h \
-    src/engines/core/process/frames/game/context/roleplay/objects/GameContextRoleplayObjectsFrame.h \
-    src/engines/core/process/frames/game/context/roleplay/party/GameContextRoleplayPartyFrame.h \
-    src/engines/core/process/frames/game/context/roleplay/quest/GameContextRoleplayQuestFrame.h \
-    src/engines/core/process/frames/game/context/roleplay/stats/GameContextRoleplayStatsFrame.h \
-    src/engines/core/process/frames/game/context/roleplay/treasureHunt/GameContextRoleplayTreasureHuntFrame.h \
-    src/engines/core/process/frames/game/dialog/GameDialogFrame.h \
-    src/engines/core/process/frames/game/friend/GameFriendFrame.h \
-    src/engines/core/process/frames/game/guild/GameGuildFrame.h \
-    src/engines/core/process/frames/game/initialization/GameInitializationFrame.h \
-    src/engines/core/process/frames/game/interactive/GameInteractiveFrame.h \
-    src/engines/core/process/frames/game/interactive/zaap/GameInteractiveZaapFrame.h \
-    src/engines/core/process/frames/game/inventory/GameInventoryFrame.h \
-    src/engines/core/process/frames/game/inventory/exchanges/GameInventoryExchangesFrame.h \
-    src/engines/core/process/frames/game/inventory/items/GameInventoryItemsFrame.h \
-    src/engines/core/process/frames/game/inventory/spells/GameInventorySpellsFrame.h \
-    src/engines/core/process/frames/game/inventory/storage/GameInventoryStorageFrame.h \
-    src/engines/core/process/frames/game/look/GameLookFrame.h \
-    src/engines/core/process/frames/game/moderation/GameModerationFrame.h \
-    src/engines/core/process/frames/game/preset/GamePresetFrame.h \
-    src/engines/core/process/frames/game/prism/GamePrismFrame.h \
-    src/engines/core/process/frames/game/subscriber/GameSubscriberFrame.h \
-    src/engines/core/process/frames/game/tinsel/GameTinselFrame.h \
-    src/engines/core/process/frames/handshake/HandshakeFrame.h \
-    src/engines/core/process/frames/queues/QueueFrame.h \
-    src/engines/core/process/frames/secure/SecureFrame.h \
-    src/engines/core/process/frames/security/SecurityFrame.h \
-    src/engines/core/process/frames/server/basic/ServerBasicFrame.h \
-    src/engines/core/process/frames/subscription/SubscriptionFrame.h \
-    src/engines/core/process/frames/web/WebHaapiFrame.h \
-    src/engines/core/process/managers/AbstractManager.h \
-    src/engines/core/process/managers/connection/ConnectionManager.h \
-    src/engines/core/process/managers/craft/CraftManager.h \
-    src/engines/core/process/managers/exchange/ExchangeManager.h \
-    src/engines/core/process/managers/farm/FarmManager.h \
-    src/engines/core/process/managers/fight/FightManager.h \
-    src/engines/core/process/managers/flood/FloodManager.h \
-    src/engines/core/process/managers/group/GroupManager.h \
-    src/engines/core/process/managers/interaction/InteractionManager.h \
-    src/engines/core/process/managers/map/MapManager.h \
-    src/engines/core/process/managers/security/SecurityManager.h \
-    src/engines/core/process/managers/stats/StatsManager.h \
-    src/engines/io/bin/BINManager.h \
-    src/engines/io/bin/manager/BINFile.h \
-    src/engines/io/bin/manager/BINFolder.h \
-    src/engines/io/bin/world/Edge.h \
-    src/engines/io/bin/world/Transition.h \
-    src/engines/io/bin/world/Vertex.h \
-    src/engines/io/bin/world/WorldGraph.h \
-    src/engines/io/d2o/D2OManager.h \
-    src/engines/io/d2o/game/AbstractGameData.h \
-    src/engines/io/d2o/game/GameDataConverter.h \
-    src/engines/io/d2o/game/GameDataDeclarator.h \
-    src/engines/io/d2o/game/GameDataTypeDeclarator.h \
-    src/engines/io/d2o/game/data/abuse/AbuseReasonsData.h \
-    src/engines/io/d2o/game/data/alignments/AlignmentGiftData.h \
-    src/engines/io/d2o/game/data/alignments/AlignmentOrderData.h \
-    src/engines/io/d2o/game/data/alignments/AlignmentRankData.h \
-    src/engines/io/d2o/game/data/alignments/AlignmentRankJntGiftData.h \
-    src/engines/io/d2o/game/data/alignments/AlignmentSideData.h \
-    src/engines/io/d2o/game/data/alignments/AlignmentTitleData.h \
-    src/engines/io/d2o/game/data/almanax/AlmanaxCalendarData.h \
-    src/engines/io/d2o/game/data/ambientSounds/PlaylistSoundData.h \
-    src/engines/io/d2o/game/data/appearance/AppearanceData.h \
-    src/engines/io/d2o/game/data/appearance/CreatureBoneOverrideData.h \
-    src/engines/io/d2o/game/data/appearance/CreatureBoneTypeData.h \
-    src/engines/io/d2o/game/data/appearance/OrnamentData.h \
-    src/engines/io/d2o/game/data/appearance/SkinMappingData.h \
-    src/engines/io/d2o/game/data/appearance/SkinPositionData.h \
-    src/engines/io/d2o/game/data/appearance/TitleCategoryData.h \
-    src/engines/io/d2o/game/data/appearance/TitleData.h \
-    src/engines/io/d2o/game/data/arena/ArenaLeagueData.h \
-    src/engines/io/d2o/game/data/arena/ArenaLeagueRewardData.h \
-    src/engines/io/d2o/game/data/arena/ArenaLeagueSeasonData.h \
-    src/engines/io/d2o/game/data/bonus/BonusData.h \
-    src/engines/io/d2o/game/data/bonus/criterion/BonusCriterionData.h \
-    src/engines/io/d2o/game/data/breach/BreachDungeonModificatorData.h \
-    src/engines/io/d2o/game/data/breach/BreachInfinityLevelData.h \
-    src/engines/io/d2o/game/data/breach/BreachWorldMapCoordinateData.h \
-    src/engines/io/d2o/game/data/breach/BreachWorldMapSectorData.h \
-    src/engines/io/d2o/game/data/breeds/BreedData.h \
-    src/engines/io/d2o/game/data/breeds/BreedRoleByBreedData.h \
-    src/engines/io/d2o/game/data/breeds/BreedRoleData.h \
-    src/engines/io/d2o/game/data/breeds/HeadData.h \
-    src/engines/io/d2o/game/data/challenges/ChallengeData.h \
-    src/engines/io/d2o/game/data/characteristics/CharacteristicCategoryData.h \
-    src/engines/io/d2o/game/data/characteristics/CharacteristicData.h \
-    src/engines/io/d2o/game/data/communication/CensoredWordData.h \
-    src/engines/io/d2o/game/data/communication/ChatChannelData.h \
-    src/engines/io/d2o/game/data/communication/EmoticonData.h \
-    src/engines/io/d2o/game/data/communication/InfoMessageData.h \
-    src/engines/io/d2o/game/data/communication/NamingRuleData.h \
-    src/engines/io/d2o/game/data/communication/SmileyCategoryData.h \
-    src/engines/io/d2o/game/data/communication/SmileyData.h \
-    src/engines/io/d2o/game/data/communication/SmileyPackData.h \
-    src/engines/io/d2o/game/data/documents/DocumentData.h \
-    src/engines/io/d2o/game/data/effects/EffectData.h \
-    src/engines/io/d2o/game/data/effects/EffectInstanceData.h \
-    src/engines/io/d2o/game/data/effects/EvolutiveEffectData.h \
-    src/engines/io/d2o/game/data/effects/instances/EffectInstanceCreatureData.h \
-    src/engines/io/d2o/game/data/effects/instances/EffectInstanceDateData.h \
-    src/engines/io/d2o/game/data/effects/instances/EffectInstanceDiceData.h \
-    src/engines/io/d2o/game/data/effects/instances/EffectInstanceDurationData.h \
-    src/engines/io/d2o/game/data/effects/instances/EffectInstanceIntegerData.h \
-    src/engines/io/d2o/game/data/effects/instances/EffectInstanceLadderData.h \
-    src/engines/io/d2o/game/data/effects/instances/EffectInstanceMinMaxData.h \
-    src/engines/io/d2o/game/data/effects/instances/EffectInstanceMountData.h \
-    src/engines/io/d2o/game/data/effects/instances/EffectInstanceStringData.h \
-    src/engines/io/d2o/game/data/externalnotifications/ExternalNotificationData.h \
-    src/engines/io/d2o/game/data/feature/OptionalFeatureData.h \
-    src/engines/io/d2o/game/data/guild/EmblemBackgroundData.h \
-    src/engines/io/d2o/game/data/guild/EmblemSymbolCategoryData.h \
-    src/engines/io/d2o/game/data/guild/EmblemSymbolData.h \
-    src/engines/io/d2o/game/data/guild/GuildTagData.h \
-    src/engines/io/d2o/game/data/guild/GuildTagsTypeData.h \
-    src/engines/io/d2o/game/data/guild/RankNameData.h \
-    src/engines/io/d2o/game/data/houses/HavenbagFurnitureData.h \
-    src/engines/io/d2o/game/data/houses/HavenbagThemeData.h \
-    src/engines/io/d2o/game/data/houses/HouseData.h \
-    src/engines/io/d2o/game/data/idols/IdolData.h \
-    src/engines/io/d2o/game/data/interactives/InteractiveData.h \
-    src/engines/io/d2o/game/data/interactives/SignData.h \
-    src/engines/io/d2o/game/data/interactives/SkillNameData.h \
-    src/engines/io/d2o/game/data/interactives/StealthBonesData.h \
-    src/engines/io/d2o/game/data/items/EvolutiveItemTypeData.h \
-    src/engines/io/d2o/game/data/items/IncarnationData.h \
-    src/engines/io/d2o/game/data/items/IncarnationLevelData.h \
-    src/engines/io/d2o/game/data/items/ItemData.h \
-    src/engines/io/d2o/game/data/items/ItemSetData.h \
-    src/engines/io/d2o/game/data/items/ItemTypeData.h \
-    src/engines/io/d2o/game/data/items/LegendaryPowerCategoryData.h \
-    src/engines/io/d2o/game/data/items/PresetIconData.h \
-    src/engines/io/d2o/game/data/items/RandomDropGroupData.h \
-    src/engines/io/d2o/game/data/items/RandomDropItemData.h \
-    src/engines/io/d2o/game/data/items/VeteranRewardData.h \
-    src/engines/io/d2o/game/data/items/WeaponData.h \
-    src/engines/io/d2o/game/data/items/criterion/AccountRightsItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/AchievementAccountItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/AchievementItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/AchievementObjectiveValidatedData.h \
-    src/engines/io/d2o/game/data/items/criterion/AchievementPointsItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/AlignmentItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/AlignmentLevelItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/AllianceAvAItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/AllianceItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/AllianceRightsItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/AreaItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/ArenaDuelRankCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/ArenaMaxDuelRankCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/ArenaMaxSoloRankCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/ArenaMaxTeamRankCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/ArenaSoloRankCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/ArenaTeamRankCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/BonesItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/BonusSetItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/BreedItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/CommunityItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/CriterionUtilsData.h \
-    src/engines/io/d2o/game/data/items/criterion/DayItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/EmoteItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/FriendlistItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/GiftItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/GroupItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/GuildItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/GuildLevelItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/GuildRightsItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/ItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/ItemCriterionFactoryData.h \
-    src/engines/io/d2o/game/data/items/criterion/ItemCriterionOperatorData.h \
-    src/engines/io/d2o/game/data/items/criterion/JobItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/KamaItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/LevelItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/MapCharactersItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/MapItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/MariedItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/MonsterGroupChallengeCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/MonthItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/MountFamilyItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/NameItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/NewHavenbagItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/NumberOfItemMadeCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/NumberOfMountBirthedCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/ObjectItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/PVPRankItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/PremiumAccountItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/PrestigeLevelItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/QuestItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/QuestObjectiveItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/RideItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/RuneByBreakingItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/ServerItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/ServerSeasonTemporisCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/ServerTypeItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/SexItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/SkillItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/SmileyPackItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/SoulStoneItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/SpecializationItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/SpellItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/StaticCriterionItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/SubareaItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/SubscribeItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/SubscriptionDurationItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/UnusableItemCriterionData.h \
-    src/engines/io/d2o/game/data/items/criterion/WeightItemCriterionData.h \
-    src/engines/io/d2o/game/data/jobs/JobData.h \
-    src/engines/io/d2o/game/data/jobs/RecipeData.h \
-    src/engines/io/d2o/game/data/jobs/SkillData.h \
-    src/engines/io/d2o/game/data/livingObjects/LivingObjectSkinJntMoodData.h \
-    src/engines/io/d2o/game/data/livingObjects/SpeakingItemTextData.h \
-    src/engines/io/d2o/game/data/livingObjects/SpeakingItemsTriggerData.h \
-    src/engines/io/d2o/game/data/misc/BreachBossData.h \
-    src/engines/io/d2o/game/data/misc/BreachPrizeData.h \
-    src/engines/io/d2o/game/data/misc/CensoredContentData.h \
-    src/engines/io/d2o/game/data/misc/CharacterXPMappingData.h \
-    src/engines/io/d2o/game/data/misc/LuaFormulaData.h \
-    src/engines/io/d2o/game/data/misc/MonthData.h \
-    src/engines/io/d2o/game/data/misc/PackData.h \
-    src/engines/io/d2o/game/data/misc/SubhintData.h \
-    src/engines/io/d2o/game/data/misc/TipsData.h \
-    src/engines/io/d2o/game/data/monsters/CompanionCharacteristicData.h \
-    src/engines/io/d2o/game/data/monsters/CompanionData.h \
-    src/engines/io/d2o/game/data/monsters/CompanionSpellData.h \
-    src/engines/io/d2o/game/data/monsters/MonsterBonusCharacteristicsData.h \
-    src/engines/io/d2o/game/data/monsters/MonsterData.h \
-    src/engines/io/d2o/game/data/monsters/MonsterDropCoefficientData.h \
-    src/engines/io/d2o/game/data/monsters/MonsterDropData.h \
-    src/engines/io/d2o/game/data/monsters/MonsterGradeData.h \
-    src/engines/io/d2o/game/data/monsters/MonsterMiniBossData.h \
-    src/engines/io/d2o/game/data/monsters/MonsterRaceData.h \
-    src/engines/io/d2o/game/data/monsters/MonsterSuperRaceData.h \
-    src/engines/io/d2o/game/data/mounts/MountBehaviorData.h \
-    src/engines/io/d2o/game/data/mounts/MountBoneData.h \
-    src/engines/io/d2o/game/data/mounts/MountData.h \
-    src/engines/io/d2o/game/data/mounts/MountFamilyData.h \
-    src/engines/io/d2o/game/data/mounts/RideFoodData.h \
-    src/engines/io/d2o/game/data/notifications/NotificationData.h \
-    src/engines/io/d2o/game/data/npcs/NpcActionData.h \
-    src/engines/io/d2o/game/data/npcs/NpcData.h \
-    src/engines/io/d2o/game/data/npcs/NpcMessageData.h \
-    src/engines/io/d2o/game/data/npcs/TaxCollectorFirstnameData.h \
-    src/engines/io/d2o/game/data/npcs/TaxCollectorNameData.h \
-    src/engines/io/d2o/game/data/optionalFeatures/CustomModeBreedSpellData.h \
-    src/engines/io/d2o/game/data/optionalFeatures/ForgettableSpellData.h \
-    src/engines/io/d2o/game/data/playlists/PlaylistData.h \
-    src/engines/io/d2o/game/data/popup/PopupButtonData.h \
-    src/engines/io/d2o/game/data/popup/PopupInformationData.h \
-    src/engines/io/d2o/game/data/progression/ActivitySuggestionData.h \
-    src/engines/io/d2o/game/data/progression/ActivitySuggestionsCategoryData.h \
-    src/engines/io/d2o/game/data/progression/FeatureDescriptionData.h \
-    src/engines/io/d2o/game/data/quest/AchievementCategoryData.h \
-    src/engines/io/d2o/game/data/quest/AchievementData.h \
-    src/engines/io/d2o/game/data/quest/AchievementObjectiveData.h \
-    src/engines/io/d2o/game/data/quest/AchievementRewardData.h \
-    src/engines/io/d2o/game/data/quest/QuestCategoryData.h \
-    src/engines/io/d2o/game/data/quest/QuestData.h \
-    src/engines/io/d2o/game/data/quest/QuestObjectiveData.h \
-    src/engines/io/d2o/game/data/quest/QuestObjectiveTypeData.h \
-    src/engines/io/d2o/game/data/quest/QuestStepData.h \
-    src/engines/io/d2o/game/data/quest/QuestStepRewardsData.h \
-    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveBringItemToNpcData.h \
-    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveBringSoulToNpcData.h \
-    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveCraftItemData.h \
-    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveDiscoverMapData.h \
-    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveDiscoverSubAreaData.h \
-    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveDuelSpecificPlayerData.h \
-    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveFightMonsterData.h \
-    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveFightMonstersOnMapData.h \
-    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveFreeFormData.h \
-    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveGoToNpcData.h \
-    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveMultiFightMonsterData.h \
-    src/engines/io/d2o/game/data/quest/treasureHunt/LegendaryTreasureHuntData.h \
-    src/engines/io/d2o/game/data/quest/treasureHunt/PointOfInterestCategoryData.h \
-    src/engines/io/d2o/game/data/quest/treasureHunt/PointOfInterestData.h \
-    src/engines/io/d2o/game/data/servers/ServerCommunityData.h \
-    src/engines/io/d2o/game/data/servers/ServerData.h \
-    src/engines/io/d2o/game/data/servers/ServerGameTypeData.h \
-    src/engines/io/d2o/game/data/servers/ServerLangData.h \
-    src/engines/io/d2o/game/data/servers/ServerPopulationData.h \
-    src/engines/io/d2o/game/data/servers/ServerTemporisSeasonData.h \
-    src/engines/io/d2o/game/data/sounds/SoundAnimationData.h \
-    src/engines/io/d2o/game/data/sounds/SoundBonesData.h \
-    src/engines/io/d2o/game/data/sounds/SoundUiData.h \
-    src/engines/io/d2o/game/data/sounds/SoundUiElementData.h \
-    src/engines/io/d2o/game/data/sounds/SoundUiHookData.h \
-    src/engines/io/d2o/game/data/spells/FinishMoveData.h \
-    src/engines/io/d2o/game/data/spells/SpellBombData.h \
-    src/engines/io/d2o/game/data/spells/SpellConversionData.h \
-    src/engines/io/d2o/game/data/spells/SpellData.h \
-    src/engines/io/d2o/game/data/spells/SpellLevelData.h \
-    src/engines/io/d2o/game/data/spells/SpellPairData.h \
-    src/engines/io/d2o/game/data/spells/SpellStateData.h \
-    src/engines/io/d2o/game/data/spells/SpellTypeData.h \
-    src/engines/io/d2o/game/data/spells/SpellVariantData.h \
-    src/engines/io/d2o/game/data/temporis/AchievementProgressData.h \
-    src/engines/io/d2o/game/data/temporis/AchievementProgressStepData.h \
-    src/engines/io/d2o/game/data/world/AreaData.h \
-    src/engines/io/d2o/game/data/world/DungeonData.h \
-    src/engines/io/d2o/game/data/world/HintCategoryData.h \
-    src/engines/io/d2o/game/data/world/HintData.h \
-    src/engines/io/d2o/game/data/world/MapCoordinatesData.h \
-    src/engines/io/d2o/game/data/world/MapPositionData.h \
-    src/engines/io/d2o/game/data/world/MapReferenceData.h \
-    src/engines/io/d2o/game/data/world/MapScrollActionData.h \
-    src/engines/io/d2o/game/data/world/PhoenixData.h \
-    src/engines/io/d2o/game/data/world/SubAreaData.h \
-    src/engines/io/d2o/game/data/world/SuperAreaData.h \
-    src/engines/io/d2o/game/data/world/WaypointData.h \
-    src/engines/io/d2o/game/data/world/WorldMapData.h \
-    src/engines/io/d2o/manager/D2OClassDefinition.h \
-    src/engines/io/d2o/manager/D2OField.h \
-    src/engines/io/d2o/manager/D2OFile.h \
-    src/engines/io/d2o/manager/D2OFileAccessor.h \
-    src/engines/io/d2p/D2PManager.h \
-    src/engines/io/d2p/manager/CompressedMap.h \
-    src/engines/io/d2p/manager/D2pFile.h \
-    src/engines/io/d2p/manager/D2pFolder.h \
-    src/engines/io/d2p/map/CellData.h \
-    src/engines/io/d2p/map/Fixture.h \
-    src/engines/io/d2p/map/Layer.h \
-    src/engines/io/d2p/map/Map.h \
-    src/engines/io/d2p/map/MapCell.h \
-    src/engines/io/d2p/map/WorldPoint.h \
-    src/engines/io/d2p/map/elements/BasicElement.h \
-    src/engines/io/d2p/map/elements/GraphicalElement.h \
-    src/engines/io/d2p/map/elements/SoundElement.h \
-    src/engines/io/d2p/map/elements/enums/ElementTypesEnum.h \
-    src/engines/io/i18n/I18nFile.h \
-    src/engines/io/i18n/I18nFileAccessor.h \
-    src/engines/io/network/Reader.h \
-    src/engines/io/network/Writer.h \
-    src/engines/io/network/utils/BooleanByteWrapper.h \
-    src/engines/io/network/utils/FuncTree.h \
-    src/engines/io/utils/Singleton.h \
-    src/engines/pathfinding/map/Node.h \
-    src/engines/pathfinding/map/Pathfinding.h \
-    src/engines/pathfinding/world/MapNode.h \
-    src/engines/pathfinding/world/PathfindingMap.h \
-    src/engines/security/AesManager.h \
-    src/engines/security/RsaManager.h \
-    src/engines/utils/ParamsDecoder.h \
-    src/engines/utils/PropertyHelper.h \
-    src/engines/utils/entitylook/DefaultableColor.h \
-    src/engines/utils/entitylook/EntityLookAdapter.h \
-    src/engines/utils/entitylook/EntityLookParser.h \
-    src/engines/utils/entitylook/TiphonEntityLook.h \
-    src/engines/utils/logger/LogOutput.h \
-    src/gui/accountmanager/accountmanagerdialog.h \
-    src/gui/accountmanager/forms/addaccountform.h \
-    src/gui/accountmanager/forms/charactercreatorform.h \
-    src/gui/accountmanager/forms/configurationform.h \
-    src/gui/accountmanager/forms/loaderaccountform.h \
-    src/gui/accountmanager/forms/subscriptionform.h \
-    src/gui/connectiondialog.h \
-    src/gui/delegate/qtreewidgetitemdelegate.h \
-    src/gui/main/accountform.h \
-    src/gui/main/forms/characterform.h \
-    src/gui/main/forms/consoleform.h \
-    src/gui/main/forms/dialogs/addfloodmessagedialog.h \
-    src/gui/main/forms/dialogs/addspelldialog.h \
-    src/gui/main/forms/dialogs/smileysdialog.h \
-    src/gui/main/forms/dialogs/treewidgetdialog.h \
-    src/gui/main/forms/fightform.h \
-    src/gui/main/forms/floodform.h \
-    src/gui/main/forms/inventoryform.h \
-    src/gui/main/forms/mapform.h \
-    src/gui/main/forms/settingsform.h \
-    src/gui/main/forms/statisticsform.h \
-    src/gui/mainwindow.h \
-    src/gui/theme.h \
-    src/network/Buffer.h \
-    src/network/Sniffer.h \
-    src/network/SocketIO.h
+    src/protocol/types/data/web/haapi/BufferInformation.h
     
 # A list of source code files to be used when building the project.
 SOURCES += \
+    src/Public.cpp \
+    src/engines/DataHandler.cpp \
+    src/engines/core/CoreEngine.cpp \
+    src/engines/core/process/ProcessEngine.cpp \
+    src/engines/core/process/frames/AbstractFrame.cpp \
+    src/engines/core/process/frames/common/basic/CommonBasicFrame.cpp \
+    src/engines/core/process/frames/connection/ConnectionFrame.cpp \
+    src/engines/core/process/frames/connection/register/ConnectionRegisterFrame.cpp \
+    src/engines/core/process/frames/connection/search/ConnectionSearchFrame.cpp \
+    src/engines/core/process/frames/game/achievement/AchievementFrame.cpp \
+    src/engines/core/process/frames/game/actions/GameActionsFrame.cpp \
+    src/engines/core/process/frames/game/actions/fight/GameActionsFightFrame.cpp \
+    src/engines/core/process/frames/game/actions/sequence/GameActionsSequenceFrame.cpp \
+    src/engines/core/process/frames/game/alliance/GameAllianceFrame.cpp \
+    src/engines/core/process/frames/game/almanach/GameAlmanachFrame.cpp \
+    src/engines/core/process/frames/game/approach/GameApproachFrame.cpp \
+    src/engines/core/process/frames/game/atlas/compass/GameAtlasCompassFrame.cpp \
+    src/engines/core/process/frames/game/basic/GameBasicFrame.cpp \
+    src/engines/core/process/frames/game/character/choice/GameCharacterChoiceFrame.cpp \
+    src/engines/core/process/frames/game/character/creation/GameCharacterCreationFrame.cpp \
+    src/engines/core/process/frames/game/character/deletion/GameCharacterDeletionFrame.cpp \
+    src/engines/core/process/frames/game/character/stats/GameCharacterStatsFrame.cpp \
+    src/engines/core/process/frames/game/character/status/GameCharacterStatusFrame.cpp \
+    src/engines/core/process/frames/game/chat/GameChatFrame.cpp \
+    src/engines/core/process/frames/game/chat/channel/GameChatChannelFrame.cpp \
+    src/engines/core/process/frames/game/context/GameContextFrame.cpp \
+    src/engines/core/process/frames/game/context/fight/GameContextFightFrame.cpp \
+    src/engines/core/process/frames/game/context/fight/character/GameContextFightCharacterFrame.cpp \
+    src/engines/core/process/frames/game/context/mount/GameContextMountFrame.cpp \
+    src/engines/core/process/frames/game/context/notification/GameContextNotificationFrame.cpp \
+    src/engines/core/process/frames/game/context/roleplay/GameContextRoleplayFrame.cpp \
+    src/engines/core/process/frames/game/context/roleplay/death/GameContextRoleplayDeathFrame.cpp \
+    src/engines/core/process/frames/game/context/roleplay/emote/GameContextRoleplayEmoteFrame.cpp \
+    src/engines/core/process/frames/game/context/roleplay/fight/GameContextRoleplayFightFrame.cpp \
+    src/engines/core/process/frames/game/context/roleplay/house/GameContextRoplayHouseFrame.cpp \
+    src/engines/core/process/frames/game/context/roleplay/job/GameContextRoleplayJobFrame.cpp \
+    src/engines/core/process/frames/game/context/roleplay/npc/GameContextRoleplayNpcFrame.cpp \
+    src/engines/core/process/frames/game/context/roleplay/objects/GameContextRoleplayObjectsFrame.cpp \
+    src/engines/core/process/frames/game/context/roleplay/party/GameContextRoleplayPartyFrame.cpp \
+    src/engines/core/process/frames/game/context/roleplay/quest/GameContextRoleplayQuestFrame.cpp \
+    src/engines/core/process/frames/game/context/roleplay/stats/GameContextRoleplayStatsFrame.cpp \
+    src/engines/core/process/frames/game/context/roleplay/treasureHunt/GameContextRoleplayTreasureHuntFrame.cpp \
+    src/engines/core/process/frames/game/dialog/GameDialogFrame.cpp \
+    src/engines/core/process/frames/game/friend/GameFriendFrame.cpp \
+    src/engines/core/process/frames/game/guild/GameGuildFrame.cpp \
+    src/engines/core/process/frames/game/initialization/GameInitializationFrame.cpp \
+    src/engines/core/process/frames/game/interactive/GameInteractiveFrame.cpp \
+    src/engines/core/process/frames/game/interactive/zaap/GameInteractiveZaapFrame.cpp \
+    src/engines/core/process/frames/game/inventory/GameInventoryFrame.cpp \
+    src/engines/core/process/frames/game/inventory/exchanges/GameInventoryExchangesFrame.cpp \
+    src/engines/core/process/frames/game/inventory/items/GameInventoryItemsFrame.cpp \
+    src/engines/core/process/frames/game/inventory/spells/GameInventorySpellsFrame.cpp \
+    src/engines/core/process/frames/game/inventory/storage/GameInventoryStorageFrame.cpp \
+    src/engines/core/process/frames/game/look/GameLookFrame.cpp \
+    src/engines/core/process/frames/game/moderation/GameModerationFrame.cpp \
+    src/engines/core/process/frames/game/preset/GamePresetFrame.cpp \
+    src/engines/core/process/frames/game/prism/GamePrismFrame.cpp \
+    src/engines/core/process/frames/game/subscriber/GameSubscriberFrame.cpp \
+    src/engines/core/process/frames/game/tinsel/GameTinselFrame.cpp \
+    src/engines/core/process/frames/handshake/HandshakeFrame.cpp \
+    src/engines/core/process/frames/queues/QueueFrame.cpp \
+    src/engines/core/process/frames/secure/SecureFrame.cpp \
+    src/engines/core/process/frames/security/SecurityFrame.cpp \
+    src/engines/core/process/frames/server/basic/ServerBasicFrame.cpp \
+    src/engines/core/process/frames/subscription/SubscriptionFrame.cpp \
+    src/engines/core/process/frames/web/WebHaapiFrame.cpp \
+    src/engines/core/process/managers/AbstractManager.cpp \
+    src/engines/core/process/managers/connection/ConnectionManager.cpp \
+    src/engines/core/process/managers/craft/CraftManager.cpp \
+    src/engines/core/process/managers/exchange/ExchangeManager.cpp \
+    src/engines/core/process/managers/farm/FarmManager.cpp \
+    src/engines/core/process/managers/fight/FightManager.cpp \
+    src/engines/core/process/managers/flood/FloodManager.cpp \
+    src/engines/core/process/managers/group/GroupManager.cpp \
+    src/engines/core/process/managers/interaction/InteractionManager.cpp \
+    src/engines/core/process/managers/map/MapManager.cpp \
+    src/engines/core/process/managers/security/SecurityManager.cpp \
+    src/engines/core/process/managers/stats/StatsManager.cpp \
+    src/engines/io/bin/BINManager.cpp \
+    src/engines/io/bin/manager/BINFile.cpp \
+    src/engines/io/bin/manager/BINFolder.cpp \
+    src/engines/io/bin/world/Edge.cpp \
+    src/engines/io/bin/world/Transition.cpp \
+    src/engines/io/bin/world/Vertex.cpp \
+    src/engines/io/bin/world/WorldGraph.cpp \
+    src/engines/io/d2o/D2OManager.cpp \
+    src/engines/io/d2o/game/AbstractGameData.cpp \
+    src/engines/io/d2o/game/GameDataConverter.cpp \
+    src/engines/io/d2o/game/data/abuse/AbuseReasonsData.cpp \
+    src/engines/io/d2o/game/data/alignments/AlignmentGiftData.cpp \
+    src/engines/io/d2o/game/data/alignments/AlignmentOrderData.cpp \
+    src/engines/io/d2o/game/data/alignments/AlignmentRankData.cpp \
+    src/engines/io/d2o/game/data/alignments/AlignmentRankJntGiftData.cpp \
+    src/engines/io/d2o/game/data/alignments/AlignmentSideData.cpp \
+    src/engines/io/d2o/game/data/alignments/AlignmentTitleData.cpp \
+    src/engines/io/d2o/game/data/almanax/AlmanaxCalendarData.cpp \
+    src/engines/io/d2o/game/data/alterations/AlterationCategoryData.cpp \
+    src/engines/io/d2o/game/data/alterations/AlterationData.cpp \
+    src/engines/io/d2o/game/data/ambientSounds/PlaylistSoundData.cpp \
+    src/engines/io/d2o/game/data/appearance/AppearanceData.cpp \
+    src/engines/io/d2o/game/data/appearance/CreatureBoneOverrideData.cpp \
+    src/engines/io/d2o/game/data/appearance/CreatureBoneTypeData.cpp \
+    src/engines/io/d2o/game/data/appearance/OrnamentData.cpp \
+    src/engines/io/d2o/game/data/appearance/SkinMappingData.cpp \
+    src/engines/io/d2o/game/data/appearance/SkinPositionData.cpp \
+    src/engines/io/d2o/game/data/appearance/TitleCategoryData.cpp \
+    src/engines/io/d2o/game/data/appearance/TitleData.cpp \
+    src/engines/io/d2o/game/data/arena/ArenaLeagueData.cpp \
+    src/engines/io/d2o/game/data/arena/ArenaLeagueRewardData.cpp \
+    src/engines/io/d2o/game/data/arena/ArenaLeagueSeasonData.cpp \
+    src/engines/io/d2o/game/data/bonus/BonusData.cpp \
+    src/engines/io/d2o/game/data/bonus/criterion/BonusCriterionData.cpp \
+    src/engines/io/d2o/game/data/breach/BreachDungeonModificatorData.cpp \
+    src/engines/io/d2o/game/data/breach/BreachInfinityLevelData.cpp \
+    src/engines/io/d2o/game/data/breach/BreachWorldMapCoordinateData.cpp \
+    src/engines/io/d2o/game/data/breach/BreachWorldMapSectorData.cpp \
+    src/engines/io/d2o/game/data/breeds/BreedData.cpp \
+    src/engines/io/d2o/game/data/breeds/BreedRoleByBreedData.cpp \
+    src/engines/io/d2o/game/data/breeds/BreedRoleData.cpp \
+    src/engines/io/d2o/game/data/breeds/HeadData.cpp \
+    src/engines/io/d2o/game/data/challenges/ChallengeData.cpp \
+    src/engines/io/d2o/game/data/characteristics/CharacteristicCategoryData.cpp \
+    src/engines/io/d2o/game/data/characteristics/CharacteristicData.cpp \
+    src/engines/io/d2o/game/data/collection/CollectableData.cpp \
+    src/engines/io/d2o/game/data/collection/CollectionData.cpp \
+    src/engines/io/d2o/game/data/communication/CensoredWordData.cpp \
+    src/engines/io/d2o/game/data/communication/ChatChannelData.cpp \
+    src/engines/io/d2o/game/data/communication/EmoticonData.cpp \
+    src/engines/io/d2o/game/data/communication/InfoMessageData.cpp \
+    src/engines/io/d2o/game/data/communication/NamingRuleData.cpp \
+    src/engines/io/d2o/game/data/communication/SmileyCategoryData.cpp \
+    src/engines/io/d2o/game/data/communication/SmileyData.cpp \
+    src/engines/io/d2o/game/data/communication/SmileyPackData.cpp \
+    src/engines/io/d2o/game/data/documents/DocumentData.cpp \
+    src/engines/io/d2o/game/data/effects/EffectData.cpp \
+    src/engines/io/d2o/game/data/effects/EffectInstanceData.cpp \
+    src/engines/io/d2o/game/data/effects/EvolutiveEffectData.cpp \
+    src/engines/io/d2o/game/data/effects/instances/EffectInstanceCreatureData.cpp \
+    src/engines/io/d2o/game/data/effects/instances/EffectInstanceDateData.cpp \
+    src/engines/io/d2o/game/data/effects/instances/EffectInstanceDiceData.cpp \
+    src/engines/io/d2o/game/data/effects/instances/EffectInstanceDurationData.cpp \
+    src/engines/io/d2o/game/data/effects/instances/EffectInstanceIntegerData.cpp \
+    src/engines/io/d2o/game/data/effects/instances/EffectInstanceLadderData.cpp \
+    src/engines/io/d2o/game/data/effects/instances/EffectInstanceMinMaxData.cpp \
+    src/engines/io/d2o/game/data/effects/instances/EffectInstanceMountData.cpp \
+    src/engines/io/d2o/game/data/effects/instances/EffectInstanceStringData.cpp \
+    src/engines/io/d2o/game/data/externalnotifications/ExternalNotificationData.cpp \
+    src/engines/io/d2o/game/data/feature/OptionalFeatureData.cpp \
+    src/engines/io/d2o/game/data/guild/EmblemBackgroundData.cpp \
+    src/engines/io/d2o/game/data/guild/EmblemSymbolCategoryData.cpp \
+    src/engines/io/d2o/game/data/guild/EmblemSymbolData.cpp \
+    src/engines/io/d2o/game/data/guild/GuildRankData.cpp \
+    src/engines/io/d2o/game/data/guild/GuildRankNameSuggestionData.cpp \
+    src/engines/io/d2o/game/data/guild/GuildRightData.cpp \
+    src/engines/io/d2o/game/data/guild/GuildRightGroupData.cpp \
+    src/engines/io/d2o/game/data/guild/GuildTagData.cpp \
+    src/engines/io/d2o/game/data/guild/GuildTagsTypeData.cpp \
+    src/engines/io/d2o/game/data/houses/HavenbagFurnitureData.cpp \
+    src/engines/io/d2o/game/data/houses/HavenbagThemeData.cpp \
+    src/engines/io/d2o/game/data/houses/HouseData.cpp \
+    src/engines/io/d2o/game/data/idols/IdolData.cpp \
+    src/engines/io/d2o/game/data/interactives/InteractiveData.cpp \
+    src/engines/io/d2o/game/data/interactives/SignData.cpp \
+    src/engines/io/d2o/game/data/interactives/SkillNameData.cpp \
+    src/engines/io/d2o/game/data/interactives/StealthBonesData.cpp \
+    src/engines/io/d2o/game/data/items/EvolutiveItemTypeData.cpp \
+    src/engines/io/d2o/game/data/items/IncarnationData.cpp \
+    src/engines/io/d2o/game/data/items/IncarnationLevelData.cpp \
+    src/engines/io/d2o/game/data/items/ItemData.cpp \
+    src/engines/io/d2o/game/data/items/ItemSetData.cpp \
+    src/engines/io/d2o/game/data/items/ItemTypeData.cpp \
+    src/engines/io/d2o/game/data/items/LegendaryPowerCategoryData.cpp \
+    src/engines/io/d2o/game/data/items/PresetIconData.cpp \
+    src/engines/io/d2o/game/data/items/RandomDropGroupData.cpp \
+    src/engines/io/d2o/game/data/items/RandomDropItemData.cpp \
+    src/engines/io/d2o/game/data/items/VeteranRewardData.cpp \
+    src/engines/io/d2o/game/data/items/WeaponData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/AccountRightsItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/AchievementAccountItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/AchievementItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/AchievementObjectiveValidatedData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/AchievementPointsItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/AlignmentItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/AlignmentLevelItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/AllianceAvAItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/AllianceItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/AllianceRightsItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/AlterationCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/AreaItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/ArenaDuelRankCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/ArenaMaxDuelRankCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/ArenaMaxSoloRankCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/ArenaMaxTeamRankCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/ArenaSoloRankCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/ArenaTeamRankCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/BonesItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/BonusSetItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/BreedItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/CommunityItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/CriterionUtilsData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/DayItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/EmoteItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/FriendlistItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/GiftItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/GroupItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/GuildItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/GuildLevelItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/GuildMasterItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/GuildRightsItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/ItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/ItemCriterionFactoryData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/ItemCriterionOperatorData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/JobItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/KamaItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/LevelItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/MapCharactersItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/MapItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/MariedItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/MonsterGroupChallengeCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/MonthItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/MountFamilyItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/NameItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/NewHavenbagItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/NumberOfItemMadeCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/NumberOfMountBirthedCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/ObjectItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/OnlySetCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/PVPRankItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/PremiumAccountItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/PrestigeLevelItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/QuestItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/QuestObjectiveItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/RideItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/RuneByBreakingItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/ServerItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/ServerSeasonTemporisCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/ServerTypeItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/SexItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/SkillItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/SmileyPackItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/SoulStoneItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/SpecializationItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/SpellItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/StateCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/StaticCriterionItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/SubareaItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/SubscribeItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/SubscriptionDurationItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/UnusableItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/items/criterion/WeightItemCriterionData.cpp \
+    src/engines/io/d2o/game/data/jobs/JobData.cpp \
+    src/engines/io/d2o/game/data/jobs/RecipeData.cpp \
+    src/engines/io/d2o/game/data/jobs/SkillData.cpp \
+    src/engines/io/d2o/game/data/livingObjects/LivingObjectSkinJntMoodData.cpp \
+    src/engines/io/d2o/game/data/livingObjects/SpeakingItemTextData.cpp \
+    src/engines/io/d2o/game/data/livingObjects/SpeakingItemsTriggerData.cpp \
+    src/engines/io/d2o/game/data/misc/BreachBossData.cpp \
+    src/engines/io/d2o/game/data/misc/BreachPrizeData.cpp \
+    src/engines/io/d2o/game/data/misc/CensoredContentData.cpp \
+    src/engines/io/d2o/game/data/misc/CharacterXPMappingData.cpp \
+    src/engines/io/d2o/game/data/misc/LuaFormulaData.cpp \
+    src/engines/io/d2o/game/data/misc/MonthData.cpp \
+    src/engines/io/d2o/game/data/misc/PackData.cpp \
+    src/engines/io/d2o/game/data/misc/SubhintData.cpp \
+    src/engines/io/d2o/game/data/misc/TipsData.cpp \
+    src/engines/io/d2o/game/data/monsters/CompanionCharacteristicData.cpp \
+    src/engines/io/d2o/game/data/monsters/CompanionData.cpp \
+    src/engines/io/d2o/game/data/monsters/CompanionSpellData.cpp \
+    src/engines/io/d2o/game/data/monsters/MonsterBonusCharacteristicsData.cpp \
+    src/engines/io/d2o/game/data/monsters/MonsterData.cpp \
+    src/engines/io/d2o/game/data/monsters/MonsterDropCoefficientData.cpp \
+    src/engines/io/d2o/game/data/monsters/MonsterDropData.cpp \
+    src/engines/io/d2o/game/data/monsters/MonsterGradeData.cpp \
+    src/engines/io/d2o/game/data/monsters/MonsterMiniBossData.cpp \
+    src/engines/io/d2o/game/data/monsters/MonsterRaceData.cpp \
+    src/engines/io/d2o/game/data/monsters/MonsterSuperRaceData.cpp \
+    src/engines/io/d2o/game/data/mounts/MountBehaviorData.cpp \
+    src/engines/io/d2o/game/data/mounts/MountBoneData.cpp \
+    src/engines/io/d2o/game/data/mounts/MountData.cpp \
+    src/engines/io/d2o/game/data/mounts/MountFamilyData.cpp \
+    src/engines/io/d2o/game/data/mounts/RideFoodData.cpp \
+    src/engines/io/d2o/game/data/notifications/NotificationData.cpp \
+    src/engines/io/d2o/game/data/npcs/NpcActionData.cpp \
+    src/engines/io/d2o/game/data/npcs/NpcData.cpp \
+    src/engines/io/d2o/game/data/npcs/NpcMessageData.cpp \
+    src/engines/io/d2o/game/data/npcs/TaxCollectorFirstnameData.cpp \
+    src/engines/io/d2o/game/data/npcs/TaxCollectorNameData.cpp \
+    src/engines/io/d2o/game/data/optionalFeatures/CustomModeBreedSpellData.cpp \
+    src/engines/io/d2o/game/data/optionalFeatures/ForgettableSpellData.cpp \
+    src/engines/io/d2o/game/data/optionalFeatures/ModsterData.cpp \
+    src/engines/io/d2o/game/data/playlists/PlaylistData.cpp \
+    src/engines/io/d2o/game/data/popup/PopupButtonData.cpp \
+    src/engines/io/d2o/game/data/popup/PopupInformationData.cpp \
+    src/engines/io/d2o/game/data/progression/ActivitySuggestionData.cpp \
+    src/engines/io/d2o/game/data/progression/ActivitySuggestionsCategoryData.cpp \
+    src/engines/io/d2o/game/data/progression/FeatureDescriptionData.cpp \
+    src/engines/io/d2o/game/data/quest/AchievementCategoryData.cpp \
+    src/engines/io/d2o/game/data/quest/AchievementData.cpp \
+    src/engines/io/d2o/game/data/quest/AchievementObjectiveData.cpp \
+    src/engines/io/d2o/game/data/quest/AchievementRewardData.cpp \
+    src/engines/io/d2o/game/data/quest/QuestCategoryData.cpp \
+    src/engines/io/d2o/game/data/quest/QuestData.cpp \
+    src/engines/io/d2o/game/data/quest/QuestObjectiveData.cpp \
+    src/engines/io/d2o/game/data/quest/QuestObjectiveTypeData.cpp \
+    src/engines/io/d2o/game/data/quest/QuestStepData.cpp \
+    src/engines/io/d2o/game/data/quest/QuestStepRewardsData.cpp \
+    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveBringItemToNpcData.cpp \
+    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveBringSoulToNpcData.cpp \
+    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveCraftItemData.cpp \
+    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveDiscoverMapData.cpp \
+    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveDiscoverSubAreaData.cpp \
+    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveDuelSpecificPlayerData.cpp \
+    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveFightMonsterData.cpp \
+    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveFightMonstersOnMapData.cpp \
+    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveFreeFormData.cpp \
+    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveGoToNpcData.cpp \
+    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveMultiFightMonsterData.cpp \
+    src/engines/io/d2o/game/data/quest/treasureHunt/LegendaryTreasureHuntData.cpp \
+    src/engines/io/d2o/game/data/quest/treasureHunt/PointOfInterestCategoryData.cpp \
+    src/engines/io/d2o/game/data/quest/treasureHunt/PointOfInterestData.cpp \
+    src/engines/io/d2o/game/data/servers/ServerCommunityData.cpp \
+    src/engines/io/d2o/game/data/servers/ServerData.cpp \
+    src/engines/io/d2o/game/data/servers/ServerGameTypeData.cpp \
+    src/engines/io/d2o/game/data/servers/ServerLangData.cpp \
+    src/engines/io/d2o/game/data/servers/ServerPopulationData.cpp \
+    src/engines/io/d2o/game/data/servers/ServerTemporisSeasonData.cpp \
+    src/engines/io/d2o/game/data/sounds/SoundAnimationData.cpp \
+    src/engines/io/d2o/game/data/sounds/SoundBonesData.cpp \
+    src/engines/io/d2o/game/data/sounds/SoundUiData.cpp \
+    src/engines/io/d2o/game/data/sounds/SoundUiElementData.cpp \
+    src/engines/io/d2o/game/data/sounds/SoundUiHookData.cpp \
+    src/engines/io/d2o/game/data/spells/FinishMoveData.cpp \
+    src/engines/io/d2o/game/data/spells/SpellBombData.cpp \
+    src/engines/io/d2o/game/data/spells/SpellConversionData.cpp \
+    src/engines/io/d2o/game/data/spells/SpellData.cpp \
+    src/engines/io/d2o/game/data/spells/SpellLevelData.cpp \
+    src/engines/io/d2o/game/data/spells/SpellPairData.cpp \
+    src/engines/io/d2o/game/data/spells/SpellStateData.cpp \
+    src/engines/io/d2o/game/data/spells/SpellTypeData.cpp \
+    src/engines/io/d2o/game/data/spells/SpellVariantData.cpp \
+    src/engines/io/d2o/game/data/temporis/AchievementProgressData.cpp \
+    src/engines/io/d2o/game/data/temporis/AchievementProgressStepData.cpp \
+    src/engines/io/d2o/game/data/world/AreaData.cpp \
+    src/engines/io/d2o/game/data/world/DungeonData.cpp \
+    src/engines/io/d2o/game/data/world/HintCategoryData.cpp \
+    src/engines/io/d2o/game/data/world/HintData.cpp \
+    src/engines/io/d2o/game/data/world/MapCoordinatesData.cpp \
+    src/engines/io/d2o/game/data/world/MapPositionData.cpp \
+    src/engines/io/d2o/game/data/world/MapReferenceData.cpp \
+    src/engines/io/d2o/game/data/world/MapScrollActionData.cpp \
+    src/engines/io/d2o/game/data/world/PhoenixData.cpp \
+    src/engines/io/d2o/game/data/world/SubAreaData.cpp \
+    src/engines/io/d2o/game/data/world/SuperAreaData.cpp \
+    src/engines/io/d2o/game/data/world/WaypointData.cpp \
+    src/engines/io/d2o/game/data/world/WorldMapData.cpp \
+    src/engines/io/d2o/manager/D2OClassDefinition.cpp \
+    src/engines/io/d2o/manager/D2OField.cpp \
+    src/engines/io/d2o/manager/D2OFile.cpp \
+    src/engines/io/d2o/manager/D2OFileAccessor.cpp \
+    src/engines/io/d2p/D2PManager.cpp \
+    src/engines/io/d2p/manager/CompressedMap.cpp \
+    src/engines/io/d2p/manager/D2PFile.cpp \
+    src/engines/io/d2p/manager/D2PFolder.cpp \
+    src/engines/io/d2p/map/CellData.cpp \
+    src/engines/io/d2p/map/Fixture.cpp \
+    src/engines/io/d2p/map/Layer.cpp \
+    src/engines/io/d2p/map/Map.cpp \
+    src/engines/io/d2p/map/MapCell.cpp \
+    src/engines/io/d2p/map/WorldPoint.cpp \
+    src/engines/io/d2p/map/elements/BasicElement.cpp \
+    src/engines/io/d2p/map/elements/GraphicalElement.cpp \
+    src/engines/io/d2p/map/elements/SoundElement.cpp \
+    src/engines/io/i18n/I18nFile.cpp \
+    src/engines/io/i18n/I18nFileAccessor.cpp \
+    src/engines/io/network/Reader.cpp \
+    src/engines/io/network/Writer.cpp \
+    src/engines/io/network/utils/BooleanByteWrapper.cpp \
+    src/engines/io/network/utils/FuncTree.cpp \
+    src/engines/pathfinding/map/Node.cpp \
+    src/engines/pathfinding/map/Pathfinding.cpp \
+    src/engines/pathfinding/world/MapNode.cpp \
+    src/engines/pathfinding/world/PathfindingMap.cpp \
+    src/engines/security/AesManager.cpp \
+    src/engines/security/RsaManager.cpp \
+    src/engines/utils/ParamsDecoder.cpp \
+    src/engines/utils/entitylook/DefaultableColor.cpp \
+    src/engines/utils/entitylook/EntityLookAdapter.cpp \
+    src/engines/utils/entitylook/EntityLookParser.cpp \
+    src/engines/utils/entitylook/TiphonEntityLook.cpp \
+    src/engines/utils/logger/LogOutput.cpp \
+    src/gui/accountmanager/accountmanagerdialog.cpp \
+    src/gui/accountmanager/forms/addaccountform.cpp \
+    src/gui/accountmanager/forms/charactercreatorform.cpp \
+    src/gui/accountmanager/forms/configurationform.cpp \
+    src/gui/accountmanager/forms/loaderaccountform.cpp \
+    src/gui/accountmanager/forms/subscriptionform.cpp \
+    src/gui/connectiondialog.cpp \
+    src/gui/delegate/qtreewidgetitemdelegate.cpp \
+    src/gui/main/accountform.cpp \
+    src/gui/main/forms/characterform.cpp \
+    src/gui/main/forms/consoleform.cpp \
+    src/gui/main/forms/dialogs/addfloodmessagedialog.cpp \
+    src/gui/main/forms/dialogs/addspelldialog.cpp \
+    src/gui/main/forms/dialogs/smileysdialog.cpp \
+    src/gui/main/forms/dialogs/treewidgetdialog.cpp \
+    src/gui/main/forms/fightform.cpp \
+    src/gui/main/forms/floodform.cpp \
+    src/gui/main/forms/inventoryform.cpp \
+    src/gui/main/forms/mapform.cpp \
+    src/gui/main/forms/settingsform.cpp \
+    src/gui/main/forms/statisticsform.cpp \
+    src/gui/mainwindow.cpp \
+    src/gui/theme.cpp \
+    src/main.cpp \
+    src/network/Buffer.cpp \
+    src/network/Sniffer.cpp \
+    src/network/SocketIO.cpp \
     src/protocol/messages/MessageUtils.cpp \
     src/protocol/messages/data/authorized/AdminCommandMessage.cpp \
     src/protocol/messages/data/authorized/AdminQuietCommandMessage.cpp \
@@ -2163,8 +2654,9 @@ SOURCES += \
     src/protocol/messages/data/game/alliance/AllianceMotdSetErrorMessage.cpp \
     src/protocol/messages/data/game/alliance/AllianceMotdSetRequestMessage.cpp \
     src/protocol/messages/data/game/alliance/AlliancePartialListMessage.cpp \
-    src/protocol/messages/data/game/alliance/AllianceVersatileInfoListMessage.cpp \
     src/protocol/messages/data/game/alliance/KohUpdateMessage.cpp \
+    src/protocol/messages/data/game/alliance/summary/AllianceSummaryMessage.cpp \
+    src/protocol/messages/data/game/alliance/summary/AllianceSummaryRequestMessage.cpp \
     src/protocol/messages/data/game/almanach/AlmanachCalendarDateMessage.cpp \
     src/protocol/messages/data/game/approach/AccountCapabilitiesMessage.cpp \
     src/protocol/messages/data/game/approach/AccountLoggingKickedMessage.cpp \
@@ -2204,6 +2696,10 @@ SOURCES += \
     src/protocol/messages/data/game/character/alignment/war/effort/AlignmentWarEffortDonationResultMessage.cpp \
     src/protocol/messages/data/game/character/alignment/war/effort/CharacterAlignmentWarEffortProgressionMessage.cpp \
     src/protocol/messages/data/game/character/alignment/war/effort/CharacterAlignmentWarEffortProgressionRequestMessage.cpp \
+    src/protocol/messages/data/game/character/alteration/AlterationAddedMessage.cpp \
+    src/protocol/messages/data/game/character/alteration/AlterationRemovedMessage.cpp \
+    src/protocol/messages/data/game/character/alteration/AlterationsMessage.cpp \
+    src/protocol/messages/data/game/character/alteration/AlterationsUpdatedMessage.cpp \
     src/protocol/messages/data/game/character/choice/BasicCharactersListMessage.cpp \
     src/protocol/messages/data/game/character/choice/CharacterFirstSelectionMessage.cpp \
     src/protocol/messages/data/game/character/choice/CharacterReplayWithRemodelRequestMessage.cpp \
@@ -2298,7 +2794,6 @@ SOURCES += \
     src/protocol/messages/data/game/context/GameMapMovementMessage.cpp \
     src/protocol/messages/data/game/context/GameMapMovementRequestMessage.cpp \
     src/protocol/messages/data/game/context/GameMapNoMovementMessage.cpp \
-    src/protocol/messages/data/game/context/GameMapSpeedMovementMessage.cpp \
     src/protocol/messages/data/game/context/GameRefreshMonsterBoostsMessage.cpp \
     src/protocol/messages/data/game/context/ShowCellMessage.cpp \
     src/protocol/messages/data/game/context/ShowCellRequestMessage.cpp \
@@ -2409,16 +2904,17 @@ SOURCES += \
     src/protocol/messages/data/game/context/roleplay/MapFightStartPositionsUpdateMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/MapInformationsRequestMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/MapObstacleUpdateMessage.cpp \
-    src/protocol/messages/data/game/context/roleplay/MapRewardRateMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/MapRunningFightDetailsExtendedMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/MapRunningFightDetailsMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/MapRunningFightDetailsRequestMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/MapRunningFightListMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/MapRunningFightListRequestMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/StopToListenRunningFightRequestMessage.cpp \
+    src/protocol/messages/data/game/context/roleplay/SubareaRewardRateMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/TeleportOnSameMapMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/alignment/war/effort/AlignmentWarEffortProgressionMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/alignment/war/effort/AlignmentWarEffortProgressionRequestMessage.cpp \
+    src/protocol/messages/data/game/context/roleplay/anomaly/AnomalyOpenedMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/anomaly/AnomalyStateMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/anomaly/MapComplementaryInformationsAnomalyMessage.cpp \
     src/protocol/messages/data/game/context/roleplay/breach/BreachBonusMessage.cpp \
@@ -2715,17 +3211,22 @@ SOURCES += \
     src/protocol/messages/data/game/guest/GuestLimitationMessage.cpp \
     src/protocol/messages/data/game/guest/GuestModeMessage.cpp \
     src/protocol/messages/data/game/guild/ChallengeFightJoinRefusedMessage.cpp \
+    src/protocol/messages/data/game/guild/CreateGuildRankRequestMessage.cpp \
     src/protocol/messages/data/game/guild/GuildBulletinMessage.cpp \
     src/protocol/messages/data/game/guild/GuildBulletinSetErrorMessage.cpp \
     src/protocol/messages/data/game/guild/GuildBulletinSetRequestMessage.cpp \
     src/protocol/messages/data/game/guild/GuildChangeMemberParametersMessage.cpp \
     src/protocol/messages/data/game/guild/GuildCharacsUpgradeRequestMessage.cpp \
+    src/protocol/messages/data/game/guild/GuildChestTabContributionMessage.cpp \
+    src/protocol/messages/data/game/guild/GuildChestTabContributionsMessage.cpp \
+    src/protocol/messages/data/game/guild/GuildChestTabLastContributionMessage.cpp \
     src/protocol/messages/data/game/guild/GuildCreationResultMessage.cpp \
     src/protocol/messages/data/game/guild/GuildCreationStartedMessage.cpp \
     src/protocol/messages/data/game/guild/GuildCreationValidMessage.cpp \
     src/protocol/messages/data/game/guild/GuildFactsErrorMessage.cpp \
     src/protocol/messages/data/game/guild/GuildFactsMessage.cpp \
     src/protocol/messages/data/game/guild/GuildFactsRequestMessage.cpp \
+    src/protocol/messages/data/game/guild/GuildGetChestTabContributionsRequestMessage.cpp \
     src/protocol/messages/data/game/guild/GuildGetInformationsMessage.cpp \
     src/protocol/messages/data/game/guild/GuildHouseRemoveMessage.cpp \
     src/protocol/messages/data/game/guild/GuildHouseUpdateInformationMessage.cpp \
@@ -2761,10 +3262,22 @@ SOURCES += \
     src/protocol/messages/data/game/guild/GuildPaddockBoughtMessage.cpp \
     src/protocol/messages/data/game/guild/GuildPaddockRemovedMessage.cpp \
     src/protocol/messages/data/game/guild/GuildPaddockTeleportRequestMessage.cpp \
+    src/protocol/messages/data/game/guild/GuildRanksMessage.cpp \
+    src/protocol/messages/data/game/guild/GuildRanksRequestMessage.cpp \
+    src/protocol/messages/data/game/guild/GuildSelectChestTabRequestMessage.cpp \
     src/protocol/messages/data/game/guild/GuildSpellUpgradeRequestMessage.cpp \
     src/protocol/messages/data/game/guild/GuildSummaryMessage.cpp \
     src/protocol/messages/data/game/guild/GuildSummaryRequestMessage.cpp \
+    src/protocol/messages/data/game/guild/GuildUpdateChestTabRequestMessage.cpp \
     src/protocol/messages/data/game/guild/GuildVersatileInfoListMessage.cpp \
+    src/protocol/messages/data/game/guild/RemoveGuildRankRequestMessage.cpp \
+    src/protocol/messages/data/game/guild/StartGuildChestContributionMessage.cpp \
+    src/protocol/messages/data/game/guild/StartListenGuildChestStructureMessage.cpp \
+    src/protocol/messages/data/game/guild/StopGuildChestContributionMessage.cpp \
+    src/protocol/messages/data/game/guild/StopListenGuildChestStructureMessage.cpp \
+    src/protocol/messages/data/game/guild/UpdateAllGuildRankRequestMessage.cpp \
+    src/protocol/messages/data/game/guild/UpdateGuildRankRequestMessage.cpp \
+    src/protocol/messages/data/game/guild/UpdateGuildRightsMessage.cpp \
     src/protocol/messages/data/game/guild/application/GuildApplicationAnswerMessage.cpp \
     src/protocol/messages/data/game/guild/application/GuildApplicationDeletedMessage.cpp \
     src/protocol/messages/data/game/guild/application/GuildApplicationIsAnsweredMessage.cpp \
@@ -2780,6 +3293,12 @@ SOURCES += \
     src/protocol/messages/data/game/guild/application/GuildPlayerNoApplicationInformationMessage.cpp \
     src/protocol/messages/data/game/guild/application/GuildSubmitApplicationMessage.cpp \
     src/protocol/messages/data/game/guild/application/GuildUpdateApplicationMessage.cpp \
+    src/protocol/messages/data/game/guild/application/GuildUpdateNoteMessage.cpp \
+    src/protocol/messages/data/game/guild/chest/AddListenerOnSynchronizedStorageMessage.cpp \
+    src/protocol/messages/data/game/guild/chest/ListenersOfSynchronizedStorageMessage.cpp \
+    src/protocol/messages/data/game/guild/chest/RemoveListenerOnSynchronizedStorageMessage.cpp \
+    src/protocol/messages/data/game/guild/logbook/GuildLogbookInformationMessage.cpp \
+    src/protocol/messages/data/game/guild/logbook/GuildLogbookInformationRequestMessage.cpp \
     src/protocol/messages/data/game/guild/recruitment/GuildRecruitmentInvalidateMessage.cpp \
     src/protocol/messages/data/game/guild/recruitment/RecruitmentInformationMessage.cpp \
     src/protocol/messages/data/game/guild/recruitment/UpdateRecruitmentInformationMessage.cpp \
@@ -2824,9 +3343,15 @@ SOURCES += \
     src/protocol/messages/data/game/interactive/InteractiveUsedMessage.cpp \
     src/protocol/messages/data/game/interactive/StatedElementUpdatedMessage.cpp \
     src/protocol/messages/data/game/interactive/StatedMapUpdateMessage.cpp \
+    src/protocol/messages/data/game/interactive/meeting/GroupTeleportPlayerAnswerMessage.cpp \
+    src/protocol/messages/data/game/interactive/meeting/GroupTeleportPlayerCloseMessage.cpp \
+    src/protocol/messages/data/game/interactive/meeting/GroupTeleportPlayerOfferMessage.cpp \
     src/protocol/messages/data/game/interactive/meeting/TeleportBuddiesAnswerMessage.cpp \
     src/protocol/messages/data/game/interactive/meeting/TeleportBuddiesMessage.cpp \
     src/protocol/messages/data/game/interactive/meeting/TeleportBuddiesRequestedMessage.cpp \
+    src/protocol/messages/data/game/interactive/meeting/TeleportPlayerAnswerMessage.cpp \
+    src/protocol/messages/data/game/interactive/meeting/TeleportPlayerCloseMessage.cpp \
+    src/protocol/messages/data/game/interactive/meeting/TeleportPlayerOfferMessage.cpp \
     src/protocol/messages/data/game/interactive/meeting/TeleportToBuddyAnswerMessage.cpp \
     src/protocol/messages/data/game/interactive/meeting/TeleportToBuddyCloseMessage.cpp \
     src/protocol/messages/data/game/interactive/meeting/TeleportToBuddyOfferMessage.cpp \
@@ -2838,6 +3363,7 @@ SOURCES += \
     src/protocol/messages/data/game/interactive/zaap/ZaapRespawnSaveRequestMessage.cpp \
     src/protocol/messages/data/game/interactive/zaap/ZaapRespawnUpdatedMessage.cpp \
     src/protocol/messages/data/game/inventory/KamasUpdateMessage.cpp \
+    src/protocol/messages/data/game/inventory/MultiTabStorageMessage.cpp \
     src/protocol/messages/data/game/inventory/ObjectAveragePricesErrorMessage.cpp \
     src/protocol/messages/data/game/inventory/ObjectAveragePricesGetMessage.cpp \
     src/protocol/messages/data/game/inventory/ObjectAveragePricesMessage.cpp \
@@ -2894,6 +3420,7 @@ SOURCES += \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeObjectMoveKamaMessage.cpp \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeObjectMoveMessage.cpp \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeObjectMovePricedMessage.cpp \
+    src/protocol/messages/data/game/inventory/exchanges/ExchangeObjectMoveToTabMessage.cpp \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeObjectTransfertAllFromInvMessage.cpp \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeObjectTransfertAllToInvMessage.cpp \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeObjectTransfertExistingFromInvMessage.cpp \
@@ -2945,6 +3472,7 @@ SOURCES += \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeStartedMessage.cpp \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeStartedMountStockMessage.cpp \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeStartedTaxCollectorShopMessage.cpp \
+    src/protocol/messages/data/game/inventory/exchanges/ExchangeStartedWithMultiTabStorageMessage.cpp \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeStartedWithPodsMessage.cpp \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeStartedWithStorageMessage.cpp \
     src/protocol/messages/data/game/inventory/exchanges/ExchangeStoppedMessage.cpp \
@@ -3108,7 +3636,7 @@ SOURCES += \
     src/protocol/messages/data/game/tinsel/TitlesAndOrnamentsListRequestMessage.cpp \
     src/protocol/messages/data/game/ui/ClientUIOpenedByObjectMessage.cpp \
     src/protocol/messages/data/game/ui/ClientUIOpenedMessage.cpp \
-    src/protocol/messages/data/handshake/protocolRequired.cpp \
+    src/protocol/messages/data/handshake/ProtocolRequired.cpp \
     src/protocol/messages/data/queues/LoginQueueStatusMessage.cpp \
     src/protocol/messages/data/queues/QueueStatusMessage.cpp \
     src/protocol/messages/data/secure/TrustStatusMessage.cpp \
@@ -3178,6 +3706,7 @@ SOURCES += \
     src/protocol/types/data/game/character/CharacterMinimalPlusLookInformations.cpp \
     src/protocol/types/data/game/character/alignment/ActorAlignmentInformations.cpp \
     src/protocol/types/data/game/character/alignment/ActorExtendedAlignmentInformations.cpp \
+    src/protocol/types/data/game/character/alteration/AlterationInfo.cpp \
     src/protocol/types/data/game/character/characteristic/CharacterCharacteristic.cpp \
     src/protocol/types/data/game/character/characteristic/CharacterCharacteristicDetailed.cpp \
     src/protocol/types/data/game/character/characteristic/CharacterCharacteristicValue.cpp \
@@ -3192,6 +3721,7 @@ SOURCES += \
     src/protocol/types/data/game/character/choice/RemodelingInformation.cpp \
     src/protocol/types/data/game/character/debt/DebtInformation.cpp \
     src/protocol/types/data/game/character/debt/KamaDebtInformation.cpp \
+    src/protocol/types/data/game/character/guild/note/PlayerNote.cpp \
     src/protocol/types/data/game/character/restriction/ActorRestrictionsInformations.cpp \
     src/protocol/types/data/game/character/status/PlayerStatus.cpp \
     src/protocol/types/data/game/character/status/PlayerStatusExtended.cpp \
@@ -3214,6 +3744,7 @@ SOURCES += \
     src/protocol/types/data/game/context/fight/FightCommonInformations.cpp \
     src/protocol/types/data/game/context/fight/FightExternalInformations.cpp \
     src/protocol/types/data/game/context/fight/FightLoot.cpp \
+    src/protocol/types/data/game/context/fight/FightLootObject.cpp \
     src/protocol/types/data/game/context/fight/FightOptionsInformations.cpp \
     src/protocol/types/data/game/context/fight/FightResultAdditionalData.cpp \
     src/protocol/types/data/game/context/fight/FightResultExperienceData.cpp \
@@ -3291,6 +3822,7 @@ SOURCES += \
     src/protocol/types/data/game/context/roleplay/HumanOptionObjectUse.cpp \
     src/protocol/types/data/game/context/roleplay/HumanOptionOrnament.cpp \
     src/protocol/types/data/game/context/roleplay/HumanOptionSkillUse.cpp \
+    src/protocol/types/data/game/context/roleplay/HumanOptionSpeedMultiplier.cpp \
     src/protocol/types/data/game/context/roleplay/HumanOptionTitle.cpp \
     src/protocol/types/data/game/context/roleplay/MonsterBoosts.cpp \
     src/protocol/types/data/game/context/roleplay/MonsterInGroupInformations.cpp \
@@ -3377,11 +3909,23 @@ SOURCES += \
     src/protocol/types/data/game/friend/FriendSpouseOnlineInformations.cpp \
     src/protocol/types/data/game/friend/IgnoredInformations.cpp \
     src/protocol/types/data/game/friend/IgnoredOnlineInformations.cpp \
+    src/protocol/types/data/game/guild/Contribution.cpp \
     src/protocol/types/data/game/guild/GuildEmblem.cpp \
     src/protocol/types/data/game/guild/GuildMember.cpp \
+    src/protocol/types/data/game/guild/GuildRankInformation.cpp \
+    src/protocol/types/data/game/guild/GuildRankMinimalInformation.cpp \
+    src/protocol/types/data/game/guild/GuildRankPublicInformation.cpp \
     src/protocol/types/data/game/guild/HavenBagFurnitureInformation.cpp \
     src/protocol/types/data/game/guild/application/ApplicationPlayerInformation.cpp \
     src/protocol/types/data/game/guild/application/GuildApplicationInformation.cpp \
+    src/protocol/types/data/game/guild/logbook/GuildLogbookEntryBasicInformation.cpp \
+    src/protocol/types/data/game/guild/logbook/chest/GuildLogbookChestActivity.cpp \
+    src/protocol/types/data/game/guild/logbook/global/GuildLevelUpActivity.cpp \
+    src/protocol/types/data/game/guild/logbook/global/GuildPaddockActivity.cpp \
+    src/protocol/types/data/game/guild/logbook/global/GuildPlayerFlowActivity.cpp \
+    src/protocol/types/data/game/guild/logbook/global/GuildPlayerRankUpdateActivity.cpp \
+    src/protocol/types/data/game/guild/logbook/global/GuildRankActivity.cpp \
+    src/protocol/types/data/game/guild/logbook/global/GuildUnlockNewTabActivity.cpp \
     src/protocol/types/data/game/guild/recruitment/GuildRecruitmentInformation.cpp \
     src/protocol/types/data/game/guild/tax/AdditionalTaxCollectorInformations.cpp \
     src/protocol/types/data/game/guild/tax/TaxCollectorBasicInformations.cpp \
@@ -3414,6 +3958,8 @@ SOURCES += \
     src/protocol/types/data/game/interactive/skill/SkillActionDescriptionCraft.cpp \
     src/protocol/types/data/game/interactive/skill/SkillActionDescriptionTimed.cpp \
     src/protocol/types/data/game/interactive/zaap/TeleportDestination.cpp \
+    src/protocol/types/data/game/inventory/StorageTabInformation.cpp \
+    src/protocol/types/data/game/inventory/UpdatedStorageTabInformation.cpp \
     src/protocol/types/data/game/inventory/exchanges/RecycledItem.cpp \
     src/protocol/types/data/game/look/EntityLook.cpp \
     src/protocol/types/data/game/look/IndexedEntityLook.cpp \
@@ -3462,7 +4008,6 @@ SOURCES += \
     src/protocol/types/data/game/shortcut/ShortcutSpell.cpp \
     src/protocol/types/data/game/social/AbstractSocialGroupInfos.cpp \
     src/protocol/types/data/game/social/AllianceFactSheetInformations.cpp \
-    src/protocol/types/data/game/social/AllianceVersatileInformations.cpp \
     src/protocol/types/data/game/social/AlliancedGuildFactSheetInformations.cpp \
     src/protocol/types/data/game/social/GuildFactSheetInformations.cpp \
     src/protocol/types/data/game/social/GuildInAllianceVersatileInformations.cpp \
@@ -3471,412 +4016,7 @@ SOURCES += \
     src/protocol/types/data/game/startup/StartupActionAddObject.cpp \
     src/protocol/types/data/secure/TrustCertificate.cpp \
     src/protocol/types/data/version/Version.cpp \
-    src/protocol/types/data/web/haapi/BufferInformation.cpp \
-    src/Public.cpp \
-    src/engines/DataHandler.cpp \
-    src/engines/core/CoreEngine.cpp \
-    src/engines/core/process/ProcessEngine.cpp \
-    src/engines/core/process/frames/AbstractFrame.cpp \
-    src/engines/core/process/frames/common/basic/CommonBasicFrame.cpp \
-    src/engines/core/process/frames/connection/ConnectionFrame.cpp \
-    src/engines/core/process/frames/connection/register/ConnectionRegisterFrame.cpp \
-    src/engines/core/process/frames/connection/search/ConnectionSearchFrame.cpp \
-    src/engines/core/process/frames/game/achievement/AchievementFrame.cpp \
-    src/engines/core/process/frames/game/actions/GameActionsFrame.cpp \
-    src/engines/core/process/frames/game/actions/fight/GameActionsFightFrame.cpp \
-    src/engines/core/process/frames/game/actions/sequence/GameActionsSequenceFrame.cpp \
-    src/engines/core/process/frames/game/alliance/GameAllianceFrame.cpp \
-    src/engines/core/process/frames/game/almanach/GameAlmanachFrame.cpp \
-    src/engines/core/process/frames/game/approach/GameApproachFrame.cpp \
-    src/engines/core/process/frames/game/atlas/compass/GameAtlasCompassFrame.cpp \
-    src/engines/core/process/frames/game/basic/GameBasicFrame.cpp \
-    src/engines/core/process/frames/game/character/choice/GameCharacterChoiceFrame.cpp \
-    src/engines/core/process/frames/game/character/creation/GameCharacterCreationFrame.cpp \
-    src/engines/core/process/frames/game/character/deletion/GameCharacterDeletionFrame.cpp \
-    src/engines/core/process/frames/game/character/stats/GameCharacterStatsFrame.cpp \
-    src/engines/core/process/frames/game/character/status/GameCharacterStatusFrame.cpp \
-    src/engines/core/process/frames/game/chat/GameChatFrame.cpp \
-    src/engines/core/process/frames/game/chat/channel/GameChatChannelFrame.cpp \
-    src/engines/core/process/frames/game/context/GameContextFrame.cpp \
-    src/engines/core/process/frames/game/context/fight/GameContextFightFrame.cpp \
-    src/engines/core/process/frames/game/context/fight/character/GameContextFightCharacterFrame.cpp \
-    src/engines/core/process/frames/game/context/mount/GameContextMountFrame.cpp \
-    src/engines/core/process/frames/game/context/notification/GameContextNotificationFrame.cpp \
-    src/engines/core/process/frames/game/context/roleplay/GameContextRoleplayFrame.cpp \
-    src/engines/core/process/frames/game/context/roleplay/death/GameContextRoleplayDeathFrame.cpp \
-    src/engines/core/process/frames/game/context/roleplay/emote/GameContextRoleplayEmoteFrame.cpp \
-    src/engines/core/process/frames/game/context/roleplay/fight/GameContextRoleplayFightFrame.cpp \
-    src/engines/core/process/frames/game/context/roleplay/house/GameContextRoplayHouseFrame.cpp \
-    src/engines/core/process/frames/game/context/roleplay/job/GameContextRoleplayJobFrame.cpp \
-    src/engines/core/process/frames/game/context/roleplay/npc/GameContextRoleplayNpcFrame.cpp \
-    src/engines/core/process/frames/game/context/roleplay/objects/GameContextRoleplayObjectsFrame.cpp \
-    src/engines/core/process/frames/game/context/roleplay/party/GameContextRoleplayPartyFrame.cpp \
-    src/engines/core/process/frames/game/context/roleplay/quest/GameContextRoleplayQuestFrame.cpp \
-    src/engines/core/process/frames/game/context/roleplay/stats/GameContextRoleplayStatsFrame.cpp \
-    src/engines/core/process/frames/game/context/roleplay/treasureHunt/GameContextRoleplayTreasureHuntFrame.cpp \
-    src/engines/core/process/frames/game/dialog/GameDialogFrame.cpp \
-    src/engines/core/process/frames/game/friend/GameFriendFrame.cpp \
-    src/engines/core/process/frames/game/guild/GameGuildFrame.cpp \
-    src/engines/core/process/frames/game/initialization/GameInitializationFrame.cpp \
-    src/engines/core/process/frames/game/interactive/GameInteractiveFrame.cpp \
-    src/engines/core/process/frames/game/interactive/zaap/GameInteractiveZaapFrame.cpp \
-    src/engines/core/process/frames/game/inventory/GameInventoryFrame.cpp \
-    src/engines/core/process/frames/game/inventory/exchanges/GameInventoryExchangesFrame.cpp \
-    src/engines/core/process/frames/game/inventory/items/GameInventoryItemsFrame.cpp \
-    src/engines/core/process/frames/game/inventory/spells/GameInventorySpellsFrame.cpp \
-    src/engines/core/process/frames/game/inventory/storage/GameInventoryStorageFrame.cpp \
-    src/engines/core/process/frames/game/look/GameLookFrame.cpp \
-    src/engines/core/process/frames/game/moderation/GameModerationFrame.cpp \
-    src/engines/core/process/frames/game/preset/GamePresetFrame.cpp \
-    src/engines/core/process/frames/game/prism/GamePrismFrame.cpp \
-    src/engines/core/process/frames/game/subscriber/GameSubscriberFrame.cpp \
-    src/engines/core/process/frames/game/tinsel/GameTinselFrame.cpp \
-    src/engines/core/process/frames/handshake/HandshakeFrame.cpp \
-    src/engines/core/process/frames/queues/QueueFrame.cpp \
-    src/engines/core/process/frames/secure/SecureFrame.cpp \
-    src/engines/core/process/frames/security/SecurityFrame.cpp \
-    src/engines/core/process/frames/server/basic/ServerBasicFrame.cpp \
-    src/engines/core/process/frames/subscription/SubscriptionFrame.cpp \
-    src/engines/core/process/frames/web/WebHaapiFrame.cpp \
-    src/engines/core/process/managers/AbstractManager.cpp \
-    src/engines/core/process/managers/connection/ConnectionManager.cpp \
-    src/engines/core/process/managers/craft/CraftManager.cpp \
-    src/engines/core/process/managers/exchange/ExchangeManager.cpp \
-    src/engines/core/process/managers/farm/FarmManager.cpp \
-    src/engines/core/process/managers/fight/FightManager.cpp \
-    src/engines/core/process/managers/flood/FloodManager.cpp \
-    src/engines/core/process/managers/group/GroupManager.cpp \
-    src/engines/core/process/managers/interaction/InteractionManager.cpp \
-    src/engines/core/process/managers/map/MapManager.cpp \
-    src/engines/core/process/managers/security/SecurityManager.cpp \
-    src/engines/core/process/managers/stats/StatsManager.cpp \
-    src/engines/io/bin/BINManager.cpp \
-    src/engines/io/bin/manager/BINFile.cpp \
-    src/engines/io/bin/manager/BINFolder.cpp \
-    src/engines/io/bin/world/Edge.cpp \
-    src/engines/io/bin/world/Transition.cpp \
-    src/engines/io/bin/world/Vertex.cpp \
-    src/engines/io/bin/world/WorldGraph.cpp \
-    src/engines/io/d2o/D2OManager.cpp \
-    src/engines/io/d2o/game/AbstractGameData.cpp \
-    src/engines/io/d2o/game/GameDataConverter.cpp \
-    src/engines/io/d2o/game/data/abuse/AbuseReasonsData.cpp \
-    src/engines/io/d2o/game/data/alignments/AlignmentGiftData.cpp \
-    src/engines/io/d2o/game/data/alignments/AlignmentOrderData.cpp \
-    src/engines/io/d2o/game/data/alignments/AlignmentRankData.cpp \
-    src/engines/io/d2o/game/data/alignments/AlignmentRankJntGiftData.cpp \
-    src/engines/io/d2o/game/data/alignments/AlignmentSideData.cpp \
-    src/engines/io/d2o/game/data/alignments/AlignmentTitleData.cpp \
-    src/engines/io/d2o/game/data/almanax/AlmanaxCalendarData.cpp \
-    src/engines/io/d2o/game/data/ambientSounds/PlaylistSoundData.cpp \
-    src/engines/io/d2o/game/data/appearance/AppearanceData.cpp \
-    src/engines/io/d2o/game/data/appearance/CreatureBoneOverrideData.cpp \
-    src/engines/io/d2o/game/data/appearance/CreatureBoneTypeData.cpp \
-    src/engines/io/d2o/game/data/appearance/OrnamentData.cpp \
-    src/engines/io/d2o/game/data/appearance/SkinMappingData.cpp \
-    src/engines/io/d2o/game/data/appearance/SkinPositionData.cpp \
-    src/engines/io/d2o/game/data/appearance/TitleCategoryData.cpp \
-    src/engines/io/d2o/game/data/appearance/TitleData.cpp \
-    src/engines/io/d2o/game/data/arena/ArenaLeagueData.cpp \
-    src/engines/io/d2o/game/data/arena/ArenaLeagueRewardData.cpp \
-    src/engines/io/d2o/game/data/arena/ArenaLeagueSeasonData.cpp \
-    src/engines/io/d2o/game/data/bonus/BonusData.cpp \
-    src/engines/io/d2o/game/data/bonus/criterion/BonusCriterionData.cpp \
-    src/engines/io/d2o/game/data/breach/BreachDungeonModificatorData.cpp \
-    src/engines/io/d2o/game/data/breach/BreachInfinityLevelData.cpp \
-    src/engines/io/d2o/game/data/breach/BreachWorldMapCoordinateData.cpp \
-    src/engines/io/d2o/game/data/breach/BreachWorldMapSectorData.cpp \
-    src/engines/io/d2o/game/data/breeds/BreedData.cpp \
-    src/engines/io/d2o/game/data/breeds/BreedRoleByBreedData.cpp \
-    src/engines/io/d2o/game/data/breeds/BreedRoleData.cpp \
-    src/engines/io/d2o/game/data/breeds/HeadData.cpp \
-    src/engines/io/d2o/game/data/challenges/ChallengeData.cpp \
-    src/engines/io/d2o/game/data/characteristics/CharacteristicCategoryData.cpp \
-    src/engines/io/d2o/game/data/characteristics/CharacteristicData.cpp \
-    src/engines/io/d2o/game/data/communication/CensoredWordData.cpp \
-    src/engines/io/d2o/game/data/communication/ChatChannelData.cpp \
-    src/engines/io/d2o/game/data/communication/EmoticonData.cpp \
-    src/engines/io/d2o/game/data/communication/InfoMessageData.cpp \
-    src/engines/io/d2o/game/data/communication/NamingRuleData.cpp \
-    src/engines/io/d2o/game/data/communication/SmileyCategoryData.cpp \
-    src/engines/io/d2o/game/data/communication/SmileyData.cpp \
-    src/engines/io/d2o/game/data/communication/SmileyPackData.cpp \
-    src/engines/io/d2o/game/data/documents/DocumentData.cpp \
-    src/engines/io/d2o/game/data/effects/EffectData.cpp \
-    src/engines/io/d2o/game/data/effects/EffectInstanceData.cpp \
-    src/engines/io/d2o/game/data/effects/EvolutiveEffectData.cpp \
-    src/engines/io/d2o/game/data/effects/instances/EffectInstanceCreatureData.cpp \
-    src/engines/io/d2o/game/data/effects/instances/EffectInstanceDateData.cpp \
-    src/engines/io/d2o/game/data/effects/instances/EffectInstanceDiceData.cpp \
-    src/engines/io/d2o/game/data/effects/instances/EffectInstanceDurationData.cpp \
-    src/engines/io/d2o/game/data/effects/instances/EffectInstanceIntegerData.cpp \
-    src/engines/io/d2o/game/data/effects/instances/EffectInstanceLadderData.cpp \
-    src/engines/io/d2o/game/data/effects/instances/EffectInstanceMinMaxData.cpp \
-    src/engines/io/d2o/game/data/effects/instances/EffectInstanceMountData.cpp \
-    src/engines/io/d2o/game/data/effects/instances/EffectInstanceStringData.cpp \
-    src/engines/io/d2o/game/data/externalnotifications/ExternalNotificationData.cpp \
-    src/engines/io/d2o/game/data/feature/OptionalFeatureData.cpp \
-    src/engines/io/d2o/game/data/guild/EmblemBackgroundData.cpp \
-    src/engines/io/d2o/game/data/guild/EmblemSymbolCategoryData.cpp \
-    src/engines/io/d2o/game/data/guild/EmblemSymbolData.cpp \
-    src/engines/io/d2o/game/data/guild/GuildTagData.cpp \
-    src/engines/io/d2o/game/data/guild/GuildTagsTypeData.cpp \
-    src/engines/io/d2o/game/data/guild/RankNameData.cpp \
-    src/engines/io/d2o/game/data/houses/HavenbagFurnitureData.cpp \
-    src/engines/io/d2o/game/data/houses/HavenbagThemeData.cpp \
-    src/engines/io/d2o/game/data/houses/HouseData.cpp \
-    src/engines/io/d2o/game/data/idols/IdolData.cpp \
-    src/engines/io/d2o/game/data/interactives/InteractiveData.cpp \
-    src/engines/io/d2o/game/data/interactives/SignData.cpp \
-    src/engines/io/d2o/game/data/interactives/SkillNameData.cpp \
-    src/engines/io/d2o/game/data/interactives/StealthBonesData.cpp \
-    src/engines/io/d2o/game/data/items/EvolutiveItemTypeData.cpp \
-    src/engines/io/d2o/game/data/items/IncarnationData.cpp \
-    src/engines/io/d2o/game/data/items/IncarnationLevelData.cpp \
-    src/engines/io/d2o/game/data/items/ItemData.cpp \
-    src/engines/io/d2o/game/data/items/ItemSetData.cpp \
-    src/engines/io/d2o/game/data/items/ItemTypeData.cpp \
-    src/engines/io/d2o/game/data/items/LegendaryPowerCategoryData.cpp \
-    src/engines/io/d2o/game/data/items/PresetIconData.cpp \
-    src/engines/io/d2o/game/data/items/RandomDropGroupData.cpp \
-    src/engines/io/d2o/game/data/items/RandomDropItemData.cpp \
-    src/engines/io/d2o/game/data/items/VeteranRewardData.cpp \
-    src/engines/io/d2o/game/data/items/WeaponData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/AccountRightsItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/AchievementAccountItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/AchievementItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/AchievementObjectiveValidatedData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/AchievementPointsItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/AlignmentItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/AlignmentLevelItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/AllianceAvAItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/AllianceItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/AllianceRightsItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/AreaItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/ArenaDuelRankCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/ArenaMaxDuelRankCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/ArenaMaxSoloRankCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/ArenaMaxTeamRankCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/ArenaSoloRankCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/ArenaTeamRankCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/BonesItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/BonusSetItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/BreedItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/CommunityItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/CriterionUtilsData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/DayItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/EmoteItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/FriendlistItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/GiftItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/GroupItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/GuildItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/GuildLevelItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/GuildRightsItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/ItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/ItemCriterionFactoryData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/ItemCriterionOperatorData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/JobItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/KamaItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/LevelItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/MapCharactersItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/MapItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/MariedItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/MonsterGroupChallengeCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/MonthItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/MountFamilyItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/NameItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/NewHavenbagItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/NumberOfItemMadeCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/NumberOfMountBirthedCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/ObjectItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/PVPRankItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/PremiumAccountItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/PrestigeLevelItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/QuestItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/QuestObjectiveItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/RideItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/RuneByBreakingItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/ServerItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/ServerSeasonTemporisCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/ServerTypeItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/SexItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/SkillItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/SmileyPackItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/SoulStoneItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/SpecializationItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/SpellItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/StaticCriterionItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/SubareaItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/SubscribeItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/SubscriptionDurationItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/UnusableItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/items/criterion/WeightItemCriterionData.cpp \
-    src/engines/io/d2o/game/data/jobs/JobData.cpp \
-    src/engines/io/d2o/game/data/jobs/RecipeData.cpp \
-    src/engines/io/d2o/game/data/jobs/SkillData.cpp \
-    src/engines/io/d2o/game/data/livingObjects/LivingObjectSkinJntMoodData.cpp \
-    src/engines/io/d2o/game/data/livingObjects/SpeakingItemTextData.cpp \
-    src/engines/io/d2o/game/data/livingObjects/SpeakingItemsTriggerData.cpp \
-    src/engines/io/d2o/game/data/misc/BreachBossData.cpp \
-    src/engines/io/d2o/game/data/misc/BreachPrizeData.cpp \
-    src/engines/io/d2o/game/data/misc/CensoredContentData.cpp \
-    src/engines/io/d2o/game/data/misc/CharacterXPMappingData.cpp \
-    src/engines/io/d2o/game/data/misc/LuaFormulaData.cpp \
-    src/engines/io/d2o/game/data/misc/MonthData.cpp \
-    src/engines/io/d2o/game/data/misc/PackData.cpp \
-    src/engines/io/d2o/game/data/misc/SubhintData.cpp \
-    src/engines/io/d2o/game/data/misc/TipsData.cpp \
-    src/engines/io/d2o/game/data/monsters/CompanionCharacteristicData.cpp \
-    src/engines/io/d2o/game/data/monsters/CompanionData.cpp \
-    src/engines/io/d2o/game/data/monsters/CompanionSpellData.cpp \
-    src/engines/io/d2o/game/data/monsters/MonsterBonusCharacteristicsData.cpp \
-    src/engines/io/d2o/game/data/monsters/MonsterData.cpp \
-    src/engines/io/d2o/game/data/monsters/MonsterDropCoefficientData.cpp \
-    src/engines/io/d2o/game/data/monsters/MonsterDropData.cpp \
-    src/engines/io/d2o/game/data/monsters/MonsterGradeData.cpp \
-    src/engines/io/d2o/game/data/monsters/MonsterMiniBossData.cpp \
-    src/engines/io/d2o/game/data/monsters/MonsterRaceData.cpp \
-    src/engines/io/d2o/game/data/monsters/MonsterSuperRaceData.cpp \
-    src/engines/io/d2o/game/data/mounts/MountBehaviorData.cpp \
-    src/engines/io/d2o/game/data/mounts/MountBoneData.cpp \
-    src/engines/io/d2o/game/data/mounts/MountData.cpp \
-    src/engines/io/d2o/game/data/mounts/MountFamilyData.cpp \
-    src/engines/io/d2o/game/data/mounts/RideFoodData.cpp \
-    src/engines/io/d2o/game/data/notifications/NotificationData.cpp \
-    src/engines/io/d2o/game/data/npcs/NpcActionData.cpp \
-    src/engines/io/d2o/game/data/npcs/NpcData.cpp \
-    src/engines/io/d2o/game/data/npcs/NpcMessageData.cpp \
-    src/engines/io/d2o/game/data/npcs/TaxCollectorFirstnameData.cpp \
-    src/engines/io/d2o/game/data/npcs/TaxCollectorNameData.cpp \
-    src/engines/io/d2o/game/data/optionalFeatures/CustomModeBreedSpellData.cpp \
-    src/engines/io/d2o/game/data/optionalFeatures/ForgettableSpellData.cpp \
-    src/engines/io/d2o/game/data/playlists/PlaylistData.cpp \
-    src/engines/io/d2o/game/data/popup/PopupButtonData.cpp \
-    src/engines/io/d2o/game/data/popup/PopupInformationData.cpp \
-    src/engines/io/d2o/game/data/progression/ActivitySuggestionData.cpp \
-    src/engines/io/d2o/game/data/progression/ActivitySuggestionsCategoryData.cpp \
-    src/engines/io/d2o/game/data/progression/FeatureDescriptionData.cpp \
-    src/engines/io/d2o/game/data/quest/AchievementCategoryData.cpp \
-    src/engines/io/d2o/game/data/quest/AchievementData.cpp \
-    src/engines/io/d2o/game/data/quest/AchievementObjectiveData.cpp \
-    src/engines/io/d2o/game/data/quest/AchievementRewardData.cpp \
-    src/engines/io/d2o/game/data/quest/QuestCategoryData.cpp \
-    src/engines/io/d2o/game/data/quest/QuestData.cpp \
-    src/engines/io/d2o/game/data/quest/QuestObjectiveData.cpp \
-    src/engines/io/d2o/game/data/quest/QuestObjectiveTypeData.cpp \
-    src/engines/io/d2o/game/data/quest/QuestStepData.cpp \
-    src/engines/io/d2o/game/data/quest/QuestStepRewardsData.cpp \
-    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveBringItemToNpcData.cpp \
-    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveBringSoulToNpcData.cpp \
-    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveCraftItemData.cpp \
-    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveDiscoverMapData.cpp \
-    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveDiscoverSubAreaData.cpp \
-    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveDuelSpecificPlayerData.cpp \
-    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveFightMonsterData.cpp \
-    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveFightMonstersOnMapData.cpp \
-    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveFreeFormData.cpp \
-    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveGoToNpcData.cpp \
-    src/engines/io/d2o/game/data/quest/objectives/QuestObjectiveMultiFightMonsterData.cpp \
-    src/engines/io/d2o/game/data/quest/treasureHunt/LegendaryTreasureHuntData.cpp \
-    src/engines/io/d2o/game/data/quest/treasureHunt/PointOfInterestCategoryData.cpp \
-    src/engines/io/d2o/game/data/quest/treasureHunt/PointOfInterestData.cpp \
-    src/engines/io/d2o/game/data/servers/ServerCommunityData.cpp \
-    src/engines/io/d2o/game/data/servers/ServerData.cpp \
-    src/engines/io/d2o/game/data/servers/ServerGameTypeData.cpp \
-    src/engines/io/d2o/game/data/servers/ServerLangData.cpp \
-    src/engines/io/d2o/game/data/servers/ServerPopulationData.cpp \
-    src/engines/io/d2o/game/data/servers/ServerTemporisSeasonData.cpp \
-    src/engines/io/d2o/game/data/sounds/SoundAnimationData.cpp \
-    src/engines/io/d2o/game/data/sounds/SoundBonesData.cpp \
-    src/engines/io/d2o/game/data/sounds/SoundUiData.cpp \
-    src/engines/io/d2o/game/data/sounds/SoundUiElementData.cpp \
-    src/engines/io/d2o/game/data/sounds/SoundUiHookData.cpp \
-    src/engines/io/d2o/game/data/spells/FinishMoveData.cpp \
-    src/engines/io/d2o/game/data/spells/SpellBombData.cpp \
-    src/engines/io/d2o/game/data/spells/SpellConversionData.cpp \
-    src/engines/io/d2o/game/data/spells/SpellData.cpp \
-    src/engines/io/d2o/game/data/spells/SpellLevelData.cpp \
-    src/engines/io/d2o/game/data/spells/SpellPairData.cpp \
-    src/engines/io/d2o/game/data/spells/SpellStateData.cpp \
-    src/engines/io/d2o/game/data/spells/SpellTypeData.cpp \
-    src/engines/io/d2o/game/data/spells/SpellVariantData.cpp \
-    src/engines/io/d2o/game/data/temporis/AchievementProgressData.cpp \
-    src/engines/io/d2o/game/data/temporis/AchievementProgressStepData.cpp \
-    src/engines/io/d2o/game/data/world/AreaData.cpp \
-    src/engines/io/d2o/game/data/world/DungeonData.cpp \
-    src/engines/io/d2o/game/data/world/HintCategoryData.cpp \
-    src/engines/io/d2o/game/data/world/HintData.cpp \
-    src/engines/io/d2o/game/data/world/MapCoordinatesData.cpp \
-    src/engines/io/d2o/game/data/world/MapPositionData.cpp \
-    src/engines/io/d2o/game/data/world/MapReferenceData.cpp \
-    src/engines/io/d2o/game/data/world/MapScrollActionData.cpp \
-    src/engines/io/d2o/game/data/world/PhoenixData.cpp \
-    src/engines/io/d2o/game/data/world/SubAreaData.cpp \
-    src/engines/io/d2o/game/data/world/SuperAreaData.cpp \
-    src/engines/io/d2o/game/data/world/WaypointData.cpp \
-    src/engines/io/d2o/game/data/world/WorldMapData.cpp \
-    src/engines/io/d2o/manager/D2OClassDefinition.cpp \
-    src/engines/io/d2o/manager/D2OField.cpp \
-    src/engines/io/d2o/manager/D2OFile.cpp \
-    src/engines/io/d2o/manager/D2OFileAccessor.cpp \
-    src/engines/io/d2p/D2PManager.cpp \
-    src/engines/io/d2p/manager/CompressedMap.cpp \
-    src/engines/io/d2p/manager/D2PFile.cpp \
-    src/engines/io/d2p/manager/D2PFolder.cpp \
-    src/engines/io/d2p/map/CellData.cpp \
-    src/engines/io/d2p/map/Fixture.cpp \
-    src/engines/io/d2p/map/Layer.cpp \
-    src/engines/io/d2p/map/Map.cpp \
-    src/engines/io/d2p/map/MapCell.cpp \
-    src/engines/io/d2p/map/WorldPoint.cpp \
-    src/engines/io/d2p/map/elements/BasicElement.cpp \
-    src/engines/io/d2p/map/elements/GraphicalElement.cpp \
-    src/engines/io/d2p/map/elements/SoundElement.cpp \
-    src/engines/io/i18n/I18nFile.cpp \
-    src/engines/io/i18n/I18nFileAccessor.cpp \
-    src/engines/io/network/Reader.cpp \
-    src/engines/io/network/Writer.cpp \
-    src/engines/io/network/utils/BooleanByteWrapper.cpp \
-    src/engines/io/network/utils/FuncTree.cpp \
-    src/engines/pathfinding/map/Node.cpp \
-    src/engines/pathfinding/map/Pathfinding.cpp \
-    src/engines/pathfinding/world/MapNode.cpp \
-    src/engines/pathfinding/world/PathfindingMap.cpp \
-    src/engines/security/AesManager.cpp \
-    src/engines/security/RsaManager.cpp \
-    src/engines/utils/ParamsDecoder.cpp \
-    src/engines/utils/entitylook/DefaultableColor.cpp \
-    src/engines/utils/entitylook/EntityLookAdapter.cpp \
-    src/engines/utils/entitylook/EntityLookParser.cpp \
-    src/engines/utils/entitylook/TiphonEntityLook.cpp \
-    src/engines/utils/logger/LogOutput.cpp \
-    src/gui/accountmanager/accountmanagerdialog.cpp \
-    src/gui/accountmanager/forms/addaccountform.cpp \
-    src/gui/accountmanager/forms/charactercreatorform.cpp \
-    src/gui/accountmanager/forms/configurationform.cpp \
-    src/gui/accountmanager/forms/loaderaccountform.cpp \
-    src/gui/accountmanager/forms/subscriptionform.cpp \
-    src/gui/connectiondialog.cpp \
-    src/gui/delegate/qtreewidgetitemdelegate.cpp \
-    src/gui/main/accountform.cpp \
-    src/gui/main/forms/characterform.cpp \
-    src/gui/main/forms/consoleform.cpp \
-    src/gui/main/forms/dialogs/addfloodmessagedialog.cpp \
-    src/gui/main/forms/dialogs/addspelldialog.cpp \
-    src/gui/main/forms/dialogs/smileysdialog.cpp \
-    src/gui/main/forms/dialogs/treewidgetdialog.cpp \
-    src/gui/main/forms/fightform.cpp \
-    src/gui/main/forms/floodform.cpp \
-    src/gui/main/forms/inventoryform.cpp \
-    src/gui/main/forms/mapform.cpp \
-    src/gui/main/forms/settingsform.cpp \
-    src/gui/main/forms/statisticsform.cpp \
-    src/gui/mainwindow.cpp \
-    src/gui/theme.cpp \
-    src/main.cpp \
-    src/network/Buffer.cpp \
-    src/network/Sniffer.cpp \
-    src/network/SocketIO.cpp
+    src/protocol/types/data/web/haapi/BufferInformation.cpp
     
 DISTFILES += \
     res/qml/Map.qml

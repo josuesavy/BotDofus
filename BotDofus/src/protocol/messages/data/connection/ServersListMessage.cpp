@@ -12,11 +12,6 @@ void ServersListMessage::serializeAs_ServersListMessage(Writer *output)
   {
     (this->servers[_i1]).serializeAs_GameServerInformations(output);
   }
-  if(this->alreadyConnectedToServerId < 0)
-  {
-    qDebug()<<"ERREUR - ServersListMessage -"<<"Forbidden value (" << this->alreadyConnectedToServerId << ") on element alreadyConnectedToServerId.";
-  }
-  output->writeVarShort((int)this->alreadyConnectedToServerId);
   output->writeBool(this->canCreateNewCharacter);
 }
 
@@ -35,7 +30,6 @@ void ServersListMessage::deserializeAs_ServersListMessage(Reader *input)
     _item1.deserialize(input);
     this->servers.append(_item1);
   }
-  this->_alreadyConnectedToServerIdFunc(input);
   this->_canCreateNewCharacterFunc(input);
 }
 
@@ -47,7 +41,6 @@ void ServersListMessage::deserializeAsync(FuncTree tree)
 void ServersListMessage::deserializeAsyncAs_ServersListMessage(FuncTree tree)
 {
   this->_serverstree = tree.addChild(std::bind(&ServersListMessage::_serverstreeFunc, this, std::placeholders::_1));
-  tree.addChild(std::bind(&ServersListMessage::_alreadyConnectedToServerIdFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&ServersListMessage::_canCreateNewCharacterFunc, this, std::placeholders::_1));
 }
 
@@ -65,15 +58,6 @@ void ServersListMessage::_serversFunc(Reader *input)
   GameServerInformations _item = GameServerInformations();
   _item.deserialize(input);
   this->servers.append(_item);
-}
-
-void ServersListMessage::_alreadyConnectedToServerIdFunc(Reader *input)
-{
-  this->alreadyConnectedToServerId = input->readVarUhShort();
-  if(this->alreadyConnectedToServerId < 0)
-  {
-    qDebug()<<"ERREUR - ServersListMessage -"<<"Forbidden value (" << this->alreadyConnectedToServerId << ") on element of ServersListMessage.alreadyConnectedToServerId.";
-  }
 }
 
 void ServersListMessage::_canCreateNewCharacterFunc(Reader *input)

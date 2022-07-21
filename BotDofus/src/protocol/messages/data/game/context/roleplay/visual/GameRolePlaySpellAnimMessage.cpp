@@ -27,6 +27,11 @@ void GameRolePlaySpellAnimMessage::serializeAs_GameRolePlaySpellAnimMessage(Writ
     qDebug()<<"ERREUR - GameRolePlaySpellAnimMessage -"<<"Forbidden value (" << this->spellLevel << ") on element spellLevel.";
   }
   output->writeShort((short)this->spellLevel);
+  if(this->direction < -1 || this->direction > 8)
+  {
+    qDebug()<<"ERREUR - GameRolePlaySpellAnimMessage -"<<"Forbidden value (" << this->direction << ") on element direction.";
+  }
+  output->writeShort((short)this->direction);
 }
 
 void GameRolePlaySpellAnimMessage::deserialize(Reader *input)
@@ -40,6 +45,7 @@ void GameRolePlaySpellAnimMessage::deserializeAs_GameRolePlaySpellAnimMessage(Re
   this->_targetCellIdFunc(input);
   this->_spellIdFunc(input);
   this->_spellLevelFunc(input);
+  this->_directionFunc(input);
 }
 
 void GameRolePlaySpellAnimMessage::deserializeAsync(FuncTree tree)
@@ -53,6 +59,7 @@ void GameRolePlaySpellAnimMessage::deserializeAsyncAs_GameRolePlaySpellAnimMessa
   tree.addChild(std::bind(&GameRolePlaySpellAnimMessage::_targetCellIdFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&GameRolePlaySpellAnimMessage::_spellIdFunc, this, std::placeholders::_1));
   tree.addChild(std::bind(&GameRolePlaySpellAnimMessage::_spellLevelFunc, this, std::placeholders::_1));
+  tree.addChild(std::bind(&GameRolePlaySpellAnimMessage::_directionFunc, this, std::placeholders::_1));
 }
 
 void GameRolePlaySpellAnimMessage::_casterIdFunc(Reader *input)
@@ -88,6 +95,15 @@ void GameRolePlaySpellAnimMessage::_spellLevelFunc(Reader *input)
   if(this->spellLevel < 1 || this->spellLevel > 32767)
   {
     qDebug()<<"ERREUR - GameRolePlaySpellAnimMessage -"<<"Forbidden value (" << this->spellLevel << ") on element of GameRolePlaySpellAnimMessage.spellLevel.";
+  }
+}
+
+void GameRolePlaySpellAnimMessage::_directionFunc(Reader *input)
+{
+  this->direction = input->readShort();
+  if(this->direction < -1 || this->direction > 8)
+  {
+    qDebug()<<"ERREUR - GameRolePlaySpellAnimMessage -"<<"Forbidden value (" << this->direction << ") on element of GameRolePlaySpellAnimMessage.direction.";
   }
 }
 

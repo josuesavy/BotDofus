@@ -10,11 +10,7 @@ void FightLoot::serializeAs_FightLoot(Writer *output)
   output->writeShort((short)this->objects.size());
   for(uint _i1 = 0; _i1 < this->objects.size(); _i1++)
   {
-    if(this->objects[_i1] < 0)
-    {
-      qDebug()<<"ERREUR - FightLoot -"<<"Forbidden value (" << this->objects[_i1] << ") on element 1 (starting at 1) of objects.";
-    }
-    output->writeVarInt((int)this->objects[_i1]);
+    (this->objects[_i1]).serializeAs_FightLootObject(output);
   }
   if(this->kamas < 0 || this->kamas > 9.007199254740992E15)
   {
@@ -30,16 +26,13 @@ void FightLoot::deserialize(Reader *input)
 
 void FightLoot::deserializeAs_FightLoot(Reader *input)
 {
-  uint _val1 = 0;
+  FightLootObject _item1 ;
   uint _objectsLen = input->readUShort();
   for(uint _i1 = 0; _i1 < _objectsLen; _i1++)
   {
-    _val1 = input->readVarUhInt();
-    if(_val1 < 0)
-    {
-      qDebug()<<"ERREUR - FightLoot -"<<"Forbidden value (" << _val1 << ") on elements of objects.";
-    }
-    this->objects.append(_val1);
+    _item1 = FightLootObject();
+    _item1.deserialize(input);
+    this->objects.append(_item1);
   }
   this->_kamasFunc(input);
 }
@@ -66,12 +59,9 @@ void FightLoot::_objectstreeFunc(Reader *input)
 
 void FightLoot::_objectsFunc(Reader *input)
 {
-  uint _val = input->readVarUhInt();
-  if(_val < 0)
-  {
-    qDebug()<<"ERREUR - FightLoot -"<<"Forbidden value (" << _val << ") on elements of objects.";
-  }
-  this->objects.append(_val);
+  FightLootObject _item = FightLootObject();
+  _item.deserialize(input);
+  this->objects.append(_item);
 }
 
 void FightLoot::_kamasFunc(Reader *input)

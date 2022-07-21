@@ -16,9 +16,11 @@ public:
   CharacterCreationResultMessage();
 
   uint result;
+  uint reason;
 
 private:
   void _resultFunc(Reader *input);
+  void _reasonFunc(Reader *input);
 };
 
 #endif // CHARACTERCREATIONRESULTMESSAGE_H

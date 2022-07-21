@@ -16,7 +16,7 @@ public:
   GuildApplicationAnswerMessage();
 
   bool accepted;
-  uint playerId;
+  double playerId;
 
 private:
   void _acceptedFunc(Reader *input);

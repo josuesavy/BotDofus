@@ -15,10 +15,10 @@ public:
   void deserializeAsyncAs_ExchangeBidHousePriceMessage(FuncTree tree);
   ExchangeBidHousePriceMessage();
 
-  uint genId;
+  uint objectGID;
 
 private:
-  void _genIdFunc(Reader *input);
+  void _objectGIDFunc(Reader *input);
 };
 
 #endif // EXCHANGEBIDHOUSEPRICEMESSAGE_H

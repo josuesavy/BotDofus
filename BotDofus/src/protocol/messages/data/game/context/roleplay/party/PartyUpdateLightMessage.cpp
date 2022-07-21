@@ -27,7 +27,7 @@ void PartyUpdateLightMessage::serializeAs_PartyUpdateLightMessage(Writer *output
   {
     qDebug()<<"ERREUR - PartyUpdateLightMessage -"<<"Forbidden value (" << this->prospecting << ") on element prospecting.";
   }
-  output->writeVarShort((int)this->prospecting);
+  output->writeVarInt((int)this->prospecting);
   if(this->regenRate < 0 || this->regenRate > 255)
   {
     qDebug()<<"ERREUR - PartyUpdateLightMessage -"<<"Forbidden value (" << this->regenRate << ") on element regenRate.";
@@ -94,7 +94,7 @@ void PartyUpdateLightMessage::_maxLifePointsFunc(Reader *input)
 
 void PartyUpdateLightMessage::_prospectingFunc(Reader *input)
 {
-  this->prospecting = input->readVarUhShort();
+  this->prospecting = input->readVarUhInt();
   if(this->prospecting < 0)
   {
     qDebug()<<"ERREUR - PartyUpdateLightMessage -"<<"Forbidden value (" << this->prospecting << ") on element of PartyUpdateLightMessage.prospecting.";

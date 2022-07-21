@@ -11,7 +11,7 @@ void ObtainedItemMessage::serializeAs_ObtainedItemMessage(Writer *output)
   {
     qDebug()<<"ERREUR - ObtainedItemMessage -"<<"Forbidden value (" << this->genericId << ") on element genericId.";
   }
-  output->writeVarShort((int)this->genericId);
+  output->writeVarInt((int)this->genericId);
   if(this->baseQuantity < 0)
   {
     qDebug()<<"ERREUR - ObtainedItemMessage -"<<"Forbidden value (" << this->baseQuantity << ") on element baseQuantity.";
@@ -43,7 +43,7 @@ void ObtainedItemMessage::deserializeAsyncAs_ObtainedItemMessage(FuncTree tree)
 
 void ObtainedItemMessage::_genericIdFunc(Reader *input)
 {
-  this->genericId = input->readVarUhShort();
+  this->genericId = input->readVarUhInt();
   if(this->genericId < 0)
   {
     qDebug()<<"ERREUR - ObtainedItemMessage -"<<"Forbidden value (" << this->genericId << ") on element of ObtainedItemMessage.genericId.";

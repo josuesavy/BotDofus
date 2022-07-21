@@ -11,7 +11,7 @@ void ExchangeSetCraftRecipeMessage::serializeAs_ExchangeSetCraftRecipeMessage(Wr
   {
     qDebug()<<"ERREUR - ExchangeSetCraftRecipeMessage -"<<"Forbidden value (" << this->objectGID << ") on element objectGID.";
   }
-  output->writeVarShort((int)this->objectGID);
+  output->writeVarInt((int)this->objectGID);
 }
 
 void ExchangeSetCraftRecipeMessage::deserialize(Reader *input)
@@ -36,7 +36,7 @@ void ExchangeSetCraftRecipeMessage::deserializeAsyncAs_ExchangeSetCraftRecipeMes
 
 void ExchangeSetCraftRecipeMessage::_objectGIDFunc(Reader *input)
 {
-  this->objectGID = input->readVarUhShort();
+  this->objectGID = input->readVarUhInt();
   if(this->objectGID < 0)
   {
     qDebug()<<"ERREUR - ExchangeSetCraftRecipeMessage -"<<"Forbidden value (" << this->objectGID << ") on element of ExchangeSetCraftRecipeMessage.objectGID.";

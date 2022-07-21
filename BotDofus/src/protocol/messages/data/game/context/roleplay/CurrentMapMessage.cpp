@@ -12,7 +12,6 @@ void CurrentMapMessage::serializeAs_CurrentMapMessage(Writer *output)
     qDebug()<<"ERREUR - CurrentMapMessage -"<<"Forbidden value (" << this->mapId << ") on element mapId.";
   }
   output->writeDouble(this->mapId);
-  output->writeUTF(this->mapKey);
 }
 
 void CurrentMapMessage::deserialize(Reader *input)
@@ -23,7 +22,6 @@ void CurrentMapMessage::deserialize(Reader *input)
 void CurrentMapMessage::deserializeAs_CurrentMapMessage(Reader *input)
 {
   this->_mapIdFunc(input);
-  this->_mapKeyFunc(input);
 }
 
 void CurrentMapMessage::deserializeAsync(FuncTree tree)
@@ -34,7 +32,6 @@ void CurrentMapMessage::deserializeAsync(FuncTree tree)
 void CurrentMapMessage::deserializeAsyncAs_CurrentMapMessage(FuncTree tree)
 {
   tree.addChild(std::bind(&CurrentMapMessage::_mapIdFunc, this, std::placeholders::_1));
-  tree.addChild(std::bind(&CurrentMapMessage::_mapKeyFunc, this, std::placeholders::_1));
 }
 
 void CurrentMapMessage::_mapIdFunc(Reader *input)
@@ -44,11 +41,6 @@ void CurrentMapMessage::_mapIdFunc(Reader *input)
   {
     qDebug()<<"ERREUR - CurrentMapMessage -"<<"Forbidden value (" << this->mapId << ") on element of CurrentMapMessage.mapId.";
   }
-}
-
-void CurrentMapMessage::_mapKeyFunc(Reader *input)
-{
-  this->mapKey = input->readUTF();
 }
 
 CurrentMapMessage::CurrentMapMessage()

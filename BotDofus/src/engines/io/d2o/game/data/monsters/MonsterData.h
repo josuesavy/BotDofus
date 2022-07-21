@@ -23,6 +23,7 @@ public:
   QList<MonsterDropData> getTemporisDrops() const;
   QList<uint> getSubareas() const;
   QList<uint> getSpells() const;
+  QList<QString> getSpellGrades() const;
   int getFavoriteSubareaId() const;
   bool getIsMiniBoss() const;
   bool getIsQuestMonster() const;
@@ -63,6 +64,7 @@ public:
   QList<MonsterDropData> m_temporisDrops;
   QList<uint> m_subareas;
   QList<uint> m_spells;
+  QList<QString> m_spellGrades;
   int m_favoriteSubareaId;
   bool m_isMiniBoss;
   bool m_isQuestMonster;

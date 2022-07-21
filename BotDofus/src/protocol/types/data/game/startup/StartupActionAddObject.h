@@ -23,6 +23,7 @@ public:
   QString descUrl;
   QString pictureUrl;
   QList<QSharedPointer<ObjectItemInformationWithQuantity>> items;
+  uint type;
 
 private:
   void _uidFunc(Reader *input);
@@ -32,6 +33,7 @@ private:
   void _pictureUrlFunc(Reader *input);
   void _itemstreeFunc(Reader *input);
   void _itemsFunc(Reader *input);
+  void _typeFunc(Reader *input);
 
   FuncTree _itemstree;
 };

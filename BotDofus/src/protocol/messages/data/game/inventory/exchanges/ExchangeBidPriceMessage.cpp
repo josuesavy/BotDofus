@@ -11,7 +11,7 @@ void ExchangeBidPriceMessage::serializeAs_ExchangeBidPriceMessage(Writer *output
   {
     qDebug()<<"ERREUR - ExchangeBidPriceMessage -"<<"Forbidden value (" << this->genericId << ") on element genericId.";
   }
-  output->writeVarShort((int)this->genericId);
+  output->writeVarInt((int)this->genericId);
   if(this->averagePrice < -9.007199254740992E15 || this->averagePrice > 9.007199254740992E15)
   {
     qDebug()<<"ERREUR - ExchangeBidPriceMessage -"<<"Forbidden value (" << this->averagePrice << ") on element averagePrice.";
@@ -43,7 +43,7 @@ void ExchangeBidPriceMessage::deserializeAsyncAs_ExchangeBidPriceMessage(FuncTre
 
 void ExchangeBidPriceMessage::_genericIdFunc(Reader *input)
 {
-  this->genericId = input->readVarUhShort();
+  this->genericId = input->readVarUhInt();
   if(this->genericId < 0)
   {
     qDebug()<<"ERREUR - ExchangeBidPriceMessage -"<<"Forbidden value (" << this->genericId << ") on element of ExchangeBidPriceMessage.genericId.";

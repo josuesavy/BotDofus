@@ -32,9 +32,7 @@ public:
   bool getHideEffects() const;
   bool getHidden() const;
   bool getPlayAnimation() const;
-  QList<int> getStatesRequired() const;
-  QList<int> getStatesAuthorized() const;
-  QList<int> getStatesForbidden() const;
+  QString getStatesCriterion() const;
   QList<EffectInstanceDiceData> getEffects() const;
   QList<EffectInstanceDiceData> getCriticalEffect() const;
   QList<QString> getAdditionalEffectsZones() const;
@@ -65,9 +63,7 @@ public:
   bool m_hideEffects;
   bool m_hidden;
   bool m_playAnimation;
-  QList<int> m_statesRequired;
-  QList<int> m_statesAuthorized;
-  QList<int> m_statesForbidden;
+  QString m_statesCriterion;
   QList<EffectInstanceDiceData> m_effects;
   QList<EffectInstanceDiceData> m_criticalEffect;
   QList<QString> m_additionalEffectsZones;

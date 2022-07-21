@@ -8,11 +8,11 @@ void GuildApplicationAnswerMessage::serialize(Writer *output)
 void GuildApplicationAnswerMessage::serializeAs_GuildApplicationAnswerMessage(Writer *output)
 {
   output->writeBool(this->accepted);
-  if(this->playerId < 0)
+  if(this->playerId < 0 || this->playerId > 9.007199254740992E15)
   {
     qDebug()<<"ERREUR - GuildApplicationAnswerMessage -"<<"Forbidden value (" << this->playerId << ") on element playerId.";
   }
-  output->writeVarInt((int)this->playerId);
+  output->writeVarLong((double)this->playerId);
 }
 
 void GuildApplicationAnswerMessage::deserialize(Reader *input)
@@ -44,8 +44,8 @@ void GuildApplicationAnswerMessage::_acceptedFunc(Reader *input)
 
 void GuildApplicationAnswerMessage::_playerIdFunc(Reader *input)
 {
-  this->playerId = input->readVarUhInt();
-  if(this->playerId < 0)
+  this->playerId = input->readVarUhLong();
+  if(this->playerId < 0 || this->playerId > 9.007199254740992E15)
   {
     qDebug()<<"ERREUR - GuildApplicationAnswerMessage -"<<"Forbidden value (" << this->playerId << ") on element of GuildApplicationAnswerMessage.playerId.";
   }
