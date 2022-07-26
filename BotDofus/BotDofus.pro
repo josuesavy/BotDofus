@@ -20,9 +20,20 @@ TARGET = BotDofus
 VERSION = 0.1
 TEMPLATE = app
 
-# Declaring Other Libraries
-LIBS += -lz
-#LIBS += -L"include/zlib"
+# Declaring other libraries
+win32: {
+    CONFIG(release, debug|release): {
+        LIBS += -L$$PWD/include/zlib
+    }
+}
+macx: {
+    CONFIG(debug, debug|release): {
+        LIBS += -L$$PWD/include/zlib
+    }
+}
+unix: {
+    LIBS += -L$$PWD/include/zlib
+}
 
 # For Windows
 win32: INCLUDEPATH += "C:\OpenSSL-Win32\include"
@@ -61,6 +72,17 @@ FORMS += \
 
 # A list of filenames of header (.h) files used when building the project.
 HEADERS += \
+    include/zlib/crc32.h \
+    include/zlib/deflate.h \
+    include/zlib/gzguts.h \
+    include/zlib/inffast.h \
+    include/zlib/inffixed.h \
+    include/zlib/inflate.h \
+    include/zlib/inftrees.h \
+    include/zlib/trees.h \
+    include/zlib/zconf.h \
+    include/zlib/zlib.h \
+    include/zlib/zutil.h \
     src/Helper.h \
     src/Public.h \
     src/engines/DataHandler.h \
@@ -2102,6 +2124,21 @@ HEADERS += \
     
 # A list of source code files to be used when building the project.
 SOURCES += \
+    include/zlib/adler32.c \
+    include/zlib/compress.c \
+    include/zlib/crc32.c \
+    include/zlib/deflate.c \
+    include/zlib/gzclose.c \
+    include/zlib/gzlib.c \
+    include/zlib/gzread.c \
+    include/zlib/gzwrite.c \
+    include/zlib/infback.c \
+    include/zlib/inffast.c \
+    include/zlib/inflate.c \
+    include/zlib/inftrees.c \
+    include/zlib/trees.c \
+    include/zlib/uncompr.c \
+    include/zlib/zutil.c \
     src/Public.cpp \
     src/engines/DataHandler.cpp \
     src/engines/core/CoreEngine.cpp \

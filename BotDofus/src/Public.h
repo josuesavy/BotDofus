@@ -4,7 +4,7 @@
 // Fichier contenant toute les inclusions
 
 #include <iostream>
-#include <zlib.h>
+#include <zlib/zlib.h>
 
 #include <QSslSocket>
 #include <QMainWindow>
