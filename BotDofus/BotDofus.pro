@@ -1,23 +1,27 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2019-05-02T23:47:27
+# Project created by AnonymHax 2013-11-24T00:49:43
+# Project revised by Garten 2019-05-02T23:47:27
 #
 #-------------------------------------------------
 
-# A list of Qt modules used in the project.
-QT += core                                                  # Using core Qt Libraries
-QT += gui                                                   # Using Graphics User Interface
-QT += network                                               # Using network
-QT += quickwidgets                                          # Using a control for associate qml with widget (mapviewer)
-QT += sql                                                   # Using local database
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets             # Using widgets
+# Specifies the Qt modules that are used by your project.
+QT += core
+QT += gui
+QT += network
+QT += quickwidgets
+QT += sql
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-# General project configuration options.
+# Specifies project configuration and compiler options.
 CONFIG += c++11
 
-# Software's informations
+# SOFTWARE'S INFORMATIONS
+# Specifies the name of the target file.
 TARGET = BotDofus
-VERSION = 0.1
+# Specifies the version number of the application (major.minor.patch.build)
+VERSION = 0.1.0.0
+# Specifies the name of the template to use when generating the project.
 TEMPLATE = app
 
 # Declaring other libraries
@@ -36,17 +40,20 @@ unix: {
     LIBS += -L$$PWD/include/zlib
 }
 
-# For Windows
+# Specifies the #include directories which should be searched when compiling the project.
 INCLUDEPATH += $$PWD/include
 
-# Display warnings about Qt features deprecated
+# Specifies a list of directories for qmake to scan, to resolve dependencies.
+DEPENDPATH += $$PWD/include
+
+# qmake adds the values of this variable as compiler C preprocessor macros (-D option).
 DEFINES += QT_DEPRECATED_WARNINGS
 
-# A list of resource (.qrc) files to be included in the final project.
+# Specifies the name of the resource collection files (qrc) for the target.
 RESOURCES += \
     res/resources.qrc
 
-# A list of UI files to be processed by the user interface compiler (uic).
+# Specifies the UI files (see Qt Designer Manual) to be processed by uic before compiling.
 FORMS += \
     src/gui/accountmanager/accountmanagerdialog.ui \
     src/gui/accountmanager/forms/addaccountform.ui \
@@ -70,7 +77,7 @@ FORMS += \
     src/gui/main/forms/statisticsform.ui \
     src/gui/mainwindow.ui
 
-# A list of filenames of header (.h) files used when building the project.
+# Defines the header files for the project.
 HEADERS += \
     include/zlib/crc32.h \
     include/zlib/deflate.h \
@@ -2122,7 +2129,7 @@ HEADERS += \
     src/protocol/types/data/version/Version.h \
     src/protocol/types/data/web/haapi/BufferInformation.h
     
-# A list of source code files to be used when building the project.
+# Specifies the names of all source files in the project.
 SOURCES += \
     include/zlib/adler32.c \
     include/zlib/compress.c \
@@ -4054,6 +4061,7 @@ SOURCES += \
     src/protocol/types/data/secure/TrustCertificate.cpp \
     src/protocol/types/data/version/Version.cpp \
     src/protocol/types/data/web/haapi/BufferInformation.cpp
-    
+
+# Specifies a list of files to be included in the dist target.
 DISTFILES += \
     res/qml/Map.qml
