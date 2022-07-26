@@ -24,6 +24,7 @@ TEMPLATE = app
 win32: {
     CONFIG(release, debug|release): {
         LIBS += -L$$PWD/include/zlib
+        LIBS+= -L$$PWD/lib/openssl -llibeay32 -lssleay32
     }
 }
 macx: {
@@ -36,8 +37,7 @@ unix: {
 }
 
 # For Windows
-win32: INCLUDEPATH += "C:\OpenSSL-Win32\include"
-win32: LIBS+= -L"C:\OpenSSL-Win32\lib" -llibeay32 -lssleay32
+INCLUDEPATH += $$PWD/include
 
 # Display warnings about Qt features deprecated
 DEFINES += QT_DEPRECATED_WARNINGS
