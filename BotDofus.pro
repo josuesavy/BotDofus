@@ -26,19 +26,11 @@ TEMPLATE = app
 
 # Declaring other libraries
 win32: {
-    CONFIG(release, debug|release): {
-        LIBS += -L$$PWD/include/zlib
-        LIBS+= -L$$PWD/lib/openssl -llibeay32 -lssleay32
-    }
-}
-macx: {
-    CONFIG(debug, debug|release): {
-        LIBS += -L$$PWD/include/zlib
-    }
-}
-unix: {
     LIBS += -L$$PWD/include/zlib
+    LIBS += -L$$PWD/lib/openssl -llibeay32 -lssleay32
 }
+macx:LIBS += -L$$PWD/include/zlib
+unix:LIBS += -L$$PWD/include/zlib
 
 # Specifies the #include directories which should be searched when compiling the project.
 INCLUDEPATH += $$PWD/include
@@ -2127,7 +2119,7 @@ HEADERS += \
     src/protocol/types/data/secure/TrustCertificate.h \
     src/protocol/types/data/version/Version.h \
     src/protocol/types/data/web/haapi/BufferInformation.h
-    
+
 # Specifies the names of all source files in the project.
 SOURCES += \
     include/zlib/adler32.c \
