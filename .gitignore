@@ -6,6 +6,4 @@
 #5. Create the specific file (file to ignore/ignored)
 # The file will be ignored
 
-build-*
-/BotDofus/BotDofus.pro.user
-/CodeGenerator/CodeGenerator.pro.user
+*.pro.user
