@@ -39,7 +39,7 @@
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="../../../../res/resources.qrc">
+      <iconset resource="../../../../assets/resources.qrc">
        <normaloff>:/icons/cross_16px.ico</normaloff>:/icons/cross_16px.ico</iconset>
      </property>
      <property name="flat">
@@ -59,7 +59,7 @@
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="../../../../res/resources.qrc">
+      <iconset resource="../../../../assets/resources.qrc">
        <normaloff>:/icons/plus_16px.ico</normaloff>:/icons/plus_16px.ico</iconset>
      </property>
      <property name="flat">
@@ -120,7 +120,7 @@
   <tabstop>pushButtonDeleteFlood</tabstop>
  </tabstops>
  <resources>
-  <include location="../../../../res/resources.qrc"/>
+  <include location="../../../../assets/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

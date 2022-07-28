@@ -118,7 +118,7 @@
             <string>Mal</string>
            </property>
            <property name="icon">
-            <iconset resource="../../../../res/resources.qrc">
+            <iconset resource="../../../../assets/resources.qrc">
              <normaloff>:/icons/male.ico</normaloff>:/icons/male.ico</iconset>
            </property>
           </item>
@@ -127,7 +127,7 @@
             <string>Female</string>
            </property>
            <property name="icon">
-            <iconset resource="../../../../res/resources.qrc">
+            <iconset resource="../../../../assets/resources.qrc">
              <normaloff>:/icons/female.ico</normaloff>:/icons/female.ico</iconset>
            </property>
           </item>
@@ -310,7 +310,7 @@
       <string>Save</string>
      </property>
      <property name="icon">
-      <iconset resource="../../../../res/resources.qrc">
+      <iconset resource="../../../../assets/resources.qrc">
        <normaloff>:/icons/diskette_16px.ico</normaloff>:/icons/diskette_16px.ico</iconset>
      </property>
     </widget>
@@ -352,7 +352,7 @@
   <tabstop>pushButtonSave</tabstop>
  </tabstops>
  <resources>
-  <include location="../../../../res/resources.qrc"/>
+  <include location="../../../../assets/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -26,7 +26,7 @@
      </property>
      <widget class="QWidget" name="tab_18">
       <attribute name="icon">
-       <iconset resource="../../../../res/resources.qrc">
+       <iconset resource="../../../../assets/resources.qrc">
         <normaloff>:/icons/add_on_16px.ico</normaloff>:/icons/add_on_16px.ico</iconset>
       </attribute>
       <attribute name="title">
@@ -118,7 +118,7 @@
      </widget>
      <widget class="QWidget" name="tab_19">
       <attribute name="icon">
-       <iconset resource="../../../../res/resources.qrc">
+       <iconset resource="../../../../assets/resources.qrc">
         <normaloff>:/icons/server_link_16px.ico</normaloff>:/icons/server_link_16px.ico</iconset>
       </attribute>
       <attribute name="title">
@@ -281,7 +281,7 @@
      </widget>
      <widget class="QWidget" name="tab_20">
       <attribute name="icon">
-       <iconset resource="../../../../res/resources.qrc">
+       <iconset resource="../../../../assets/resources.qrc">
         <normaloff>:/icons/clock_15_16px.ico</normaloff>:/icons/clock_15_16px.ico</iconset>
       </attribute>
       <attribute name="title">
@@ -1200,99 +1200,6 @@ border: 0px;</string>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab">
-      <attribute name="icon">
-       <iconset resource="../../../../res/resources.qrc">
-        <normaloff>:/icons/setting_tools_16px.ico</normaloff>:/icons/setting_tools_16px.ico</iconset>
-      </attribute>
-      <attribute name="title">
-       <string>Developer mode</string>
-      </attribute>
-      <layout class="QGridLayout" name="gridLayout_6">
-       <item row="0" column="0">
-        <layout class="QGridLayout" name="gridLayout_4">
-         <item row="1" column="0">
-          <widget class="QPushButton" name="pushButtonClearMessages">
-           <property name="text">
-            <string>Clear</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0" colspan="3">
-          <widget class="QTableWidget" name="tableWidgetMessages">
-           <column>
-            <property name="text">
-             <string>Hour</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>Origin</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>ID</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>Name</string>
-            </property>
-           </column>
-          </widget>
-         </item>
-         <item row="1" column="2">
-          <widget class="QCheckBox" name="checkBoxEnableSniffer">
-           <property name="text">
-            <string>Enable</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-       <item row="0" column="1">
-        <layout class="QGridLayout" name="gridLayout_5">
-         <item row="0" column="0">
-          <widget class="QTreeWidget" name="treeWidgetContent">
-           <attribute name="headerVisible">
-            <bool>false</bool>
-           </attribute>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QTextBrowser" name="textBrowserConsole">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="readOnly">
-            <bool>true</bool>
-           </property>
-           <property name="openExternalLinks">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
     </widget>
    </item>
   </layout>
@@ -1338,7 +1245,7 @@ border: 0px;</string>
   <tabstop>pushButtonApply</tabstop>
  </tabstops>
  <resources>
-  <include location="../../../../res/resources.qrc"/>
+  <include location="../../../../assets/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

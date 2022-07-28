@@ -946,8 +946,6 @@ struct GeneralData
     uint logMessageCount = 0;
     QList<LogMessage> logMessages;
     BotState botState = INVALID_STATE;
-    bool snifferEnabled = false;
-    QList<MessageInfos> messagesNetwork;
 };
 
 struct StatisticsData

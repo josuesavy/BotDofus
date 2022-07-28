@@ -79,9 +79,6 @@ public:
 
     DofusVersion getDofusVersion();
 
-    void setSnifferEnabled(SocketIO *sender, bool enable);
-    void clearMessagesList(SocketIO *sender);
-
 
     /*!
      * \brief Set timer for send events about inactivity

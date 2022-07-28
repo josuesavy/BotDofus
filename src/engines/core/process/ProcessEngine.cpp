@@ -77,11 +77,6 @@ bool ProcessEngine::processMessage(const MessageInfos &data, SocketIO *sender)
         }
     }
 
-    if (m_botData[sender].generalData.snifferEnabled)
-    {
-        m_botData[sender].generalData.messagesNetwork.append(data);
-    }
-
     if (!messageFound)
     {
         qDebug()<<"[WARNING] (ProcessEngine) processMessage: No message support:"<<MessageUtils::getName(data.messageType)<< "(ID:" <<(int)data.messageType<< ")\n";

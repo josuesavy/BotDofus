@@ -102,7 +102,7 @@
               <string/>
              </property>
              <property name="icon">
-              <iconset resource="../../res/resources.qrc">
+              <iconset resource="../../assets/resources.qrc">
                <normaloff>:/icons/user_16px.ico</normaloff>:/icons/user_16px.ico</iconset>
              </property>
              <property name="iconSize">
@@ -128,7 +128,7 @@
               <string/>
              </property>
              <property name="icon">
-              <iconset resource="../../res/resources.qrc">
+              <iconset resource="../../assets/resources.qrc">
                <normaloff>:/icons/gear_in_16-32px.ico</normaloff>:/icons/gear_in_16-32px.ico</iconset>
              </property>
              <property name="iconSize">
@@ -244,7 +244,7 @@
             <string>Account manager</string>
            </property>
            <property name="icon">
-            <iconset resource="../../res/resources.qrc">
+            <iconset resource="../../assets/resources.qrc">
              <normaloff>:/icons/user_16px.ico</normaloff>:/icons/user_16px.ico</iconset>
            </property>
            <property name="iconSize">
@@ -339,7 +339,7 @@
   </widget>
   <action name="actionAccountManager">
    <property name="icon">
-    <iconset resource="../../res/resources.qrc">
+    <iconset resource="../../assets/resources.qrc">
      <normaloff>:/icons/user_16px.ico</normaloff>:/icons/user_16px.ico</iconset>
    </property>
    <property name="text">
@@ -351,7 +351,7 @@
   </action>
   <action name="actionAbout">
    <property name="icon">
-    <iconset resource="../../res/resources.qrc">
+    <iconset resource="../../assets/resources.qrc">
      <normaloff>:/icons/information_16px.ico</normaloff>:/icons/information_16px.ico</iconset>
    </property>
    <property name="text">
@@ -363,7 +363,7 @@
   </action>
   <action name="actionQuit">
    <property name="icon">
-    <iconset resource="../../res/resources.qrc">
+    <iconset resource="../../assets/resources.qrc">
      <normaloff>:/icons/cancel_16px.ico</normaloff>:/icons/cancel_16px.ico</iconset>
    </property>
    <property name="text">
@@ -375,7 +375,7 @@
   </action>
   <action name="actionDocumentation">
    <property name="icon">
-    <iconset resource="../../res/resources.qrc">
+    <iconset resource="../../assets/resources.qrc">
      <normaloff>:/icons/help_16px.ico</normaloff>:/icons/help_16px.ico</iconset>
    </property>
    <property name="text">
@@ -421,7 +421,7 @@
   <tabstop>treeWidgetAccount</tabstop>
  </tabstops>
  <resources>
-  <include location="../../res/resources.qrc"/>
+  <include location="../../assets/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

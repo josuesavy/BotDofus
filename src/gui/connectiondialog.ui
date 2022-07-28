@@ -68,7 +68,7 @@
       <string>Cancel</string>
      </property>
      <property name="icon">
-      <iconset resource="../../res/resources.qrc">
+      <iconset resource="../../assets/resources.qrc">
        <normaloff>:/icons/cross_16px.ico</normaloff>:/icons/cross_16px.ico</iconset>
      </property>
     </widget>
@@ -102,7 +102,7 @@
       <string>Connection</string>
      </property>
      <property name="icon">
-      <iconset resource="../../res/resources.qrc">
+      <iconset resource="../../assets/resources.qrc">
        <normaloff>:/icons/tick_16px.ico</normaloff>:/icons/tick_16px.ico</iconset>
      </property>
     </widget>
@@ -150,7 +150,7 @@
   <tabstop>pushButtonBrowser</tabstop>
  </tabstops>
  <resources>
-  <include location="../../res/resources.qrc"/>
+  <include location="../../assets/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

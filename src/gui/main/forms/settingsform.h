@@ -42,9 +42,6 @@ private slots:
     void on_groupBox_6_clicked(bool checked);
 
     void on_comboBoxStatus_currentIndexChanged(int index);
-    void on_checkBoxEnableSniffer_stateChanged(int arg1);
-
-    void on_pushButtonClearMessages_clicked();
 
 private:
     Ui::SettingsForm *ui;
@@ -55,8 +52,6 @@ private:
 
     QTcpSocket m_socket;
     ProxyInfos m_proxy;
-
-    QList<QString> m_messages;
 
     int currentIndexSelected;
 

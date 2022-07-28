@@ -14,7 +14,7 @@
    <string>Account manager</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../../res/resources.qrc">
+   <iconset resource="../../../assets/resources.qrc">
     <normaloff>:/icons/user_16px.ico</normaloff>:/icons/user_16px.ico</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout_4">
@@ -46,7 +46,7 @@
   <tabstop>checkBoxCloseAfterLoaded</tabstop>
  </tabstops>
  <resources>
-  <include location="../../../res/resources.qrc"/>
+  <include location="../../../assets/resources.qrc"/>
  </resources>
  <connections>
   <connection>

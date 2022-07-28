@@ -21,7 +21,7 @@
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="icon">
-       <iconset resource="../../../../res/resources.qrc">
+       <iconset resource="../../../../assets/resources.qrc">
         <normaloff>:/icons/hand_16px.ico</normaloff>:/icons/hand_16px.ico</iconset>
       </attribute>
       <attribute name="title">
@@ -47,7 +47,7 @@
           <string>Add</string>
          </property>
          <property name="icon">
-          <iconset resource="../../../../res/resources.qrc">
+          <iconset resource="../../../../assets/resources.qrc">
            <normaloff>:/icons/plus_16px.ico</normaloff>:/icons/plus_16px.ico</iconset>
          </property>
         </widget>
@@ -192,7 +192,7 @@
      </widget>
      <widget class="QWidget" name="tab_2">
       <attribute name="icon">
-       <iconset resource="../../../../res/resources.qrc">
+       <iconset resource="../../../../assets/resources.qrc">
         <normaloff>:/icons/laptop_16px.ico</normaloff>:/icons/laptop_16px.ico</iconset>
       </attribute>
       <attribute name="title">
@@ -205,7 +205,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../../../../res/resources.qrc">
+          <iconset resource="../../../../assets/resources.qrc">
            <normaloff>:/icons/arrow_refresh.ico</normaloff>:/icons/arrow_refresh.ico</iconset>
          </property>
         </widget>
@@ -259,7 +259,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../../../../res/resources.qrc">
+          <iconset resource="../../../../assets/resources.qrc">
            <normaloff>:/icons/arrow_refresh.ico</normaloff>:/icons/arrow_refresh.ico</iconset>
          </property>
         </widget>
@@ -270,7 +270,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../../../../res/resources.qrc">
+          <iconset resource="../../../../assets/resources.qrc">
            <normaloff>:/icons/lock.ico</normaloff>:/icons/lock.ico</iconset>
          </property>
          <property name="checkable">
@@ -300,7 +300,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../../../../res/resources.qrc">
+          <iconset resource="../../../../assets/resources.qrc">
            <normaloff>:/icons/arrow_refresh.ico</normaloff>:/icons/arrow_refresh.ico</iconset>
          </property>
         </widget>
@@ -311,7 +311,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../../../../res/resources.qrc">
+          <iconset resource="../../../../assets/resources.qrc">
            <normaloff>:/icons/arrow_refresh.ico</normaloff>:/icons/arrow_refresh.ico</iconset>
          </property>
         </widget>
@@ -322,7 +322,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../../../../res/resources.qrc">
+          <iconset resource="../../../../assets/resources.qrc">
            <normaloff>:/icons/lock.ico</normaloff>:/icons/lock.ico</iconset>
          </property>
          <property name="checkable">
@@ -336,7 +336,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../../../../res/resources.qrc">
+          <iconset resource="../../../../assets/resources.qrc">
            <normaloff>:/icons/lock.ico</normaloff>:/icons/lock.ico</iconset>
          </property>
          <property name="checkable">
@@ -350,7 +350,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../../../../res/resources.qrc">
+          <iconset resource="../../../../assets/resources.qrc">
            <normaloff>:/icons/lock.ico</normaloff>:/icons/lock.ico</iconset>
          </property>
          <property name="checkable">
@@ -364,7 +364,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../../../../res/resources.qrc">
+          <iconset resource="../../../../assets/resources.qrc">
            <normaloff>:/icons/arrow_refresh.ico</normaloff>:/icons/arrow_refresh.ico</iconset>
          </property>
         </widget>
@@ -406,7 +406,7 @@
             <string>Setttings</string>
            </property>
            <property name="icon">
-            <iconset resource="../../../../res/resources.qrc">
+            <iconset resource="../../../../assets/resources.qrc">
              <normaloff>:/icons/cog_16px.ico</normaloff>:/icons/cog_16px.ico</iconset>
            </property>
           </widget>
@@ -417,7 +417,7 @@
             <string>Validate</string>
            </property>
            <property name="icon">
-            <iconset resource="../../../../res/resources.qrc">
+            <iconset resource="../../../../assets/resources.qrc">
              <normaloff>:/icons/tick_16px.ico</normaloff>:/icons/tick_16px.ico</iconset>
            </property>
           </widget>
@@ -456,7 +456,7 @@
   <tabstop>pushButtonValidate</tabstop>
  </tabstops>
  <resources>
-  <include location="../../../../res/resources.qrc"/>
+  <include location="../../../../assets/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -246,16 +246,6 @@ DofusVersion ConnectionManager::getDofusVersion()
     return dofusVersion;
 }
 
-void ConnectionManager::setSnifferEnabled(SocketIO *sender, bool enable)
-{
-    m_botData[sender].generalData.snifferEnabled = enable;
-}
-
-void ConnectionManager::clearMessagesList(SocketIO *sender)
-{
-    m_botData[sender].generalData.messagesNetwork.clear();
-}
-
 void ConnectionManager::updateServerInactivityDelay(SocketIO *sender, bool systemFastPing)
 {
     int serverInactivityDelay = SERVER_INACTIVITY_DELAY;

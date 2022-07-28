@@ -17,17 +17,6 @@ SettingsForm::SettingsForm(ProcessEngine *engine, const ConnectionInfos &infos, 
     ui->tabWidgetOptions->setCurrentIndex(0);
     ui->pushButtonCheckAndApplyProxy->setEnabled(false);
     ui->progressBarCheckProxy->hide();
-
-    ui->tableWidgetMessages->horizontalHeader()->setSectionResizeMode(0,QHeaderView::Stretch);
-
-    // itemActivated(QTableWidgetItem*);
-    // itemChanged(QTableWidgetItem*)
-    // itemClicked(QTableWidgetItem*)
-    // itemDoubleClicked(QTableWidgetItem*)
-    // itemEntered(QTableWidgetItem*)
-    // itemPressed(QTableWidgetItem*)
-
-    //connect(ui->tableWidgetMessages, SIGNAL(QTableWidget::))
 }
 
 SettingsForm::~SettingsForm()
@@ -83,16 +72,6 @@ void SettingsForm::updateInterface()
         default:
             ui->comboBoxStatus->setCurrentIndex(INVALID);
             break;
-        }
-
-        ui->tableWidgetMessages->setRowCount(0);
-        for (int i = 0; i < infos.generalData.messagesNetwork.size(); i++)
-        {
-            ui->tableWidgetMessages->insertRow(ui->tableWidgetMessages->rowCount());
-            //ui->tableWidgetMessages->setItem(i, 0, new QTableWidgetItem(QIcon(D2PManagerSingleton::get()->getImage(QString::number(c->getIconId()))), c->getName()));
-            //ui->tableWidgetMessages->setItem(i, 1, new QTableWidgetItem(QString::number(i.quantity)));
-            ui->tableWidgetMessages->setItem(i, 2, new QTableWidgetItem(QString::number((int)infos.generalData.messagesNetwork.at(i).messageType)));
-            ui->tableWidgetMessages->setItem(i, 3, new QTableWidgetItem(MessageUtils::getName(infos.generalData.messagesNetwork.at(i).messageType)));
         }
     }
 
@@ -226,30 +205,5 @@ void SettingsForm::on_comboBoxStatus_currentIndexChanged(int index)
         m_engine->getStatsManager().setPlayerStatusUpdate(m_sender, PlayerStatusEnum::PLAYER_STATUS_SOLO);
 
     currentIndexSelected = index;
-}
-
-
-void SettingsForm::on_checkBoxEnableSniffer_stateChanged(int arg1)
-{
-    switch (arg1)
-    {
-    case Qt::Unchecked:
-        m_engine->getConnectionManager().setSnifferEnabled(m_sender, false);
-        break;
-    case Qt::PartiallyChecked:
-        m_engine->getConnectionManager().setSnifferEnabled(m_sender, false);
-        break;
-    case Qt::Checked:
-        m_engine->getConnectionManager().setSnifferEnabled(m_sender, true);
-        break;
-    }
-}
-
-
-void SettingsForm::on_pushButtonClearMessages_clicked()
-{
-    m_engine->getConnectionManager().clearMessagesList(m_sender);
-
-    ui->tableWidgetMessages->setRowCount(0);
 }
 
