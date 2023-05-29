@@ -4,12 +4,10 @@
 #include <QDialog>
 #include <QDir>
 #include <QtSql/QtSql>
+#include <QSemaphore>
 
 #include "mainwindow.h"
-#include "src/engines/io/d2o/D2OManager.h"
-#include "src/engines/io/d2p/D2PManager.h"
-//#include "src/engines/io/bin/BINManager.h"
-#include "src/engines/io/i18n/I18nFileAccessor.h"
+#include "ThreadInitGameData.h"
 
 namespace Ui {
 class ConnectionDialog;
@@ -25,6 +23,10 @@ public:
 
     void showEvent(QShowEvent *event);
 
+public slots:
+    void updateInterface(int value, QString message);
+    void threadFinished();
+
 private slots:
     void on_lineEditPathDofus_textChanged(const QString &arg1);
     void on_pushButtonBrowser_clicked();
@@ -39,6 +41,9 @@ private:
     QString D2O;
     QString D2P;
     QString I18N;
+
+    ThreadInitGameData *threadInitGameData;
+    QSemaphore semaphore;
 
     QList<ConnectionInfos> m_accounts;
 

@@ -7,6 +7,7 @@ ConnectionDialog::ConnectionDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    threadInitGameData = nullptr;
     m_db = QSqlDatabase::addDatabase("QSQLITE");
     m_db.setDatabaseName(USER_DATA_PATH);
 
@@ -81,14 +82,35 @@ void ConnectionDialog::showEvent(QShowEvent *event)
     QDialog::showEvent(event);
 }
 
+void ConnectionDialog::updateInterface(int value, QString message)
+{
+    ui->labelStatus->setText(message);
+    ui->progressBar->setValue(value);
+}
+
+void ConnectionDialog::threadFinished()
+{
+    if (threadInitGameData->isRunning())
+    {
+        threadInitGameData->quit();
+        threadInitGameData->wait();
+    }
+    else
+    {
+        delete threadInitGameData;
+    }
+
+    threadInitGameData = nullptr;
+
+    ui->labelStatus->setText(tr("Waiting for credentials..."));
+    ui->progressBar->setValue(40);
+}
+
 void ConnectionDialog::on_pushButtonBrowser_clicked()
 {
     QString path = QFileDialog::getExistingDirectory(this);
     if (!path.isEmpty())
-    {
-        m_path = path;
         ui->lineEditPathDofus->setText(path);
-    }
 }
 
 void ConnectionDialog::on_lineEditPathDofus_textChanged(const QString &arg1)
@@ -96,17 +118,19 @@ void ConnectionDialog::on_lineEditPathDofus_textChanged(const QString &arg1)
     if(arg1.isEmpty())
     {
         ui->labelCheck->setStyleSheet(QString());
-        ui->labelCheck->setText(QString(tr("Select '<b>Dofus</b>' folder")));
+        ui->labelCheck->setText(QString(tr("Select '<b>dofus</b>' folder")));
     }
     else
     {
-        QDir dir(arg1 + "/data/common");
+        m_path = arg1;
+
+        QDir dir(m_path + "/data/common");
         if (dir.exists())
         {
-            dir.setPath(arg1 + "/content/");
+            dir.setPath(m_path + "/content/");
             if (dir.exists())
             {
-                dir.setPath(arg1 + "/data/i18n");
+                dir.setPath(m_path + "/data/i18n");
                 if (dir.exists())
                 {
                     D2O = m_path + "/data/common";
@@ -118,26 +142,33 @@ void ConnectionDialog::on_lineEditPathDofus_textChanged(const QString &arg1)
                     query.bindValue(":d2o", D2O);
                     query.bindValue(":d2p", D2P);
                     query.bindValue(":i18n", I18N);
-                    query.bindValue(":dofus_path", arg1);
+                    query.bindValue(":dofus_path", m_path);
                     if(query.exec())
                     {
-                        ui->labelStatus->setText(tr("Initializing game datas..."));
+                        // Pour l'emplacement valide
+                        ui->labelCheck->setStyleSheet("color: rgba(85, 170, 0, 175);");
+                        ui->labelCheck->setText(QString(tr("Valid Dofus location.")));
+                        ui->lineEditPathDofus->setEnabled(false);
+                        ui->pushButtonConnect->setEnabled(true);
+                        ui->pushButtonConnect->setFocus(Qt::FocusReason::MouseFocusReason);
+                        ui->labelStatus->setText(tr("Initializing game data... (1/4)"));
                         ui->progressBar->setValue(20);
 
-                        // ServerHandlerSingleton::get()->init();
-                        D2OManagerSingleton::get()->init(D2O, I18N);
-                        D2PManagerSingleton::get()->init(D2P);
-                        PathfindingMap::initialize();
-                    }
+                        if (!threadInitGameData || !threadInitGameData->isRunning())
+                        {
+                            if (threadInitGameData && threadInitGameData->isRunning())
+                            {
+                                threadInitGameData->quit();
+                                threadInitGameData->wait();
+                            }
 
-                    // Pour l'emplacement valide
-                    ui->labelCheck->setStyleSheet("color: rgba(85, 170, 0, 175);");
-                    ui->labelCheck->setText(QString(tr("Valid Dofus location.")));
-                    ui->lineEditPathDofus->setEnabled(false);
-                    ui->pushButtonConnect->setEnabled(true);
-                    ui->pushButtonConnect->setFocus(Qt::FocusReason::MouseFocusReason);
-                    ui->labelStatus->setText(tr("Waiting for credentials..."));
-                    ui->progressBar->setValue(40);
+                            delete threadInitGameData;
+                            threadInitGameData = new ThreadInitGameData(&semaphore, D2O, I18N, D2P);
+                            connect(threadInitGameData, SIGNAL(finished()), this, SLOT(threadFinished()));
+                            connect(threadInitGameData, SIGNAL(updateInterface(int,QString)), this, SLOT(updateInterface(int,QString)));
+                            threadInitGameData->start();
+                        }
+                    }
                 }
 
                 else
@@ -179,6 +210,9 @@ void ConnectionDialog::on_lineEditPathDofus_textChanged(const QString &arg1)
 
 void ConnectionDialog::on_pushButtonConnect_clicked()
 {
+    // Wait for the current step in the game data initialization thread to complete
+    semaphore.acquire();
+
     ui->labelStatus->setText(tr("Connection to server in progress..."));
     ui->progressBar->setValue(60);
     // TODO : Etablir la connexion au serveur..
