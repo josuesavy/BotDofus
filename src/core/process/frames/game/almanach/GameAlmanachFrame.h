@@ -1,7 +1,7 @@
 #ifndef ALMANACHFRAME_H
 #define ALMANACHFRAME_H
 
-#include "src/engines/core/process/frames/AbstractFrame.h"
+#include "src/core/process/frames/AbstractFrame.h"
 
 class GameAlmanachFrame : public AbstractFrame
 {

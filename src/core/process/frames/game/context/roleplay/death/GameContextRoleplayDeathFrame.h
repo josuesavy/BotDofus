@@ -1,8 +1,8 @@
 #ifndef GAMECONTEXTROLEPLAYDEATHFRAME_H
 #define GAMECONTEXTROLEPLAYDEATHFRAME_H
 
-#include "src/engines/core/process/frames/AbstractFrame.h"
-#include "src/engines/core/process/managers/stats/StatsManager.h"
+#include "src/core/process/frames/AbstractFrame.h"
+#include "src/core/process/managers/stats/StatsManager.h"
 
 class GameContextRoleplayDeathFrame : public AbstractFrame
 {

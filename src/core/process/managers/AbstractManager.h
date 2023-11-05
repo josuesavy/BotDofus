@@ -1,7 +1,7 @@
 #ifndef ABSTRACTMANAGER_H
 #define ABSTRACTMANAGER_H
 
-#include "src/engines/DataHandler.h"
+#include "src/core/DataHandler.h"
 
 /*!
  * \brief The AbstractManager class

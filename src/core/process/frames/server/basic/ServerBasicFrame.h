@@ -1,8 +1,8 @@
 #ifndef SERVERBASICFRAME_H
 #define SERVERBASICFRAME_H
 
-#include "src/engines/core/process/frames/AbstractFrame.h"
-#include "src/engines/utils/ParamsDecoder.h"
+#include "src/core/process/frames/AbstractFrame.h"
+#include "src/utils/ParamsDecoder.h"
 
 class ServerBasicFrame : public AbstractFrame
 {

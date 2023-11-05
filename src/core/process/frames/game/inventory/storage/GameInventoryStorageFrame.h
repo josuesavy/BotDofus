@@ -1,8 +1,8 @@
 #ifndef GAMEINVENTORYSTORAGEFRAME_H
 #define GAMEINVENTORYSTORAGEFRAME_H
 
-#include "src/engines/core/process/frames/AbstractFrame.h"
-#include "src/engines/core/process/managers/interaction/InteractionManager.h"
+#include "src/core/process/frames/AbstractFrame.h"
+#include "src/core/process/managers/interaction/InteractionManager.h"
 
 class GameInventoryStorageFrame : public AbstractFrame
 {

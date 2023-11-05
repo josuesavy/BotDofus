@@ -1,7 +1,7 @@
 #ifndef GAMEGUILDFRAME_H
 #define GAMEGUILDFRAME_H
 
-#include "src/engines/core/process/frames/AbstractFrame.h"
+#include "src/core/process/frames/AbstractFrame.h"
 
 class GameGuildFrame : public AbstractFrame
 {

@@ -5,11 +5,11 @@
 
 #include <QPixmap>
 
-#include "manager/D2pFolder.h"
+#include "D2pFolder.h"
 #include "map/Map.h"
-#include "manager/CompressedMap.h"
-#include "manager/D2pFile.h"
-#include "src/engines/io/utils/Singleton.h"
+#include "CompressedMap.h"
+#include "D2pFile.h"
+#include "src/utils/Singleton.h"
 
 
 class D2PManager

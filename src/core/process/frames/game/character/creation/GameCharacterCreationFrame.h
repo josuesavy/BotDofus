@@ -3,7 +3,7 @@
 
 #include <QtSql/QtSql>
 
-#include "src/engines/core/process/frames/AbstractFrame.h"
+#include "src/core/process/frames/AbstractFrame.h"
 
 class GameCharacterCreationFrame : public AbstractFrame
 {

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "src/engines/io/network/Reader.h"
-#include "src/engines/io/bin/world/Vertex.h"
-#include "src/engines/io/bin/world/Edge.h"
+#include "src/utils/io/Reader.h"
+#include "Vertex.h"
+#include "Edge.h"
 
 class WorldGraph
 {

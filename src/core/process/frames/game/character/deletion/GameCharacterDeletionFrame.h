@@ -1,7 +1,7 @@
 #ifndef GAMECHARACTERDELETIONFRAME_H
 #define GAMECHARACTERDELETIONFRAME_H
 
-#include "src/engines/core/process/frames/AbstractFrame.h"
+#include "src/core/process/frames/AbstractFrame.h"
 
 class GameCharacterDeletionFrame : public AbstractFrame
 {

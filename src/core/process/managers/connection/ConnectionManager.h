@@ -5,8 +5,8 @@
 
 #include "curl/curl.h"
 
-#include "src/engines/security/RsaManager.h"
-#include "src/engines/core/process/managers/AbstractManager.h"
+#include "src/security/RsaManager.h"
+#include "src/core/process/managers/AbstractManager.h"
 
 class ConnectionManager : public AbstractManager
 {

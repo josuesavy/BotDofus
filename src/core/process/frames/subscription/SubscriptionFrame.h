@@ -1,7 +1,7 @@
 #ifndef SUBSCRIPTIONFRAME_H
 #define SUBSCRIPTIONFRAME_H
 
-#include "src/engines/core/process/frames/AbstractFrame.h"
+#include "src/core/process/frames/AbstractFrame.h"
 
 class SubscriptionFrame : public AbstractFrame
 {

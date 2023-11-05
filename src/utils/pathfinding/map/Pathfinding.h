@@ -1,11 +1,11 @@
 #ifndef PATHFINDING_H
 #define PATHFINDING_H
 
-#include "src/Public.h"
+#include "src/utils/Public.h"
 #include "Node.h"
 #include <QPoint>
 #include <QMap>
-#include "src/engines/io/d2p/D2PManager.h"
+#include "src/gamedata/d2p/D2PManager.h"
 
 enum SpeedBehavior
 {

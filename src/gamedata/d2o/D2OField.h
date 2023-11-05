@@ -2,7 +2,7 @@
 
 #include <QBuffer>
 
-#include "src/engines/io/network/Reader.h"
+#include "src/utils/io/Reader.h"
 #include "D2OClassDefinition.h"
 #include <functional>
 

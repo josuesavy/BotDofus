@@ -1,8 +1,8 @@
 #ifndef SNIFFER_H
 #define SNIFFER_H
 
-#include "src/protocol/messages/MessageUtils.h"
-#include "src/protocol/messages/MessageDeclarator.h"
+#include "src/protocol/network/messages/MessageUtils.h"
+#include "src/protocol/network/messages/MessageDeclarator.h"
 #include "SocketIO.h"
 
 #include <QTcpSocket>

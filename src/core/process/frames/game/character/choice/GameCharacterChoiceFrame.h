@@ -4,9 +4,9 @@
 #include <QInputDialog>
 #include <QtSql/QtSql>
 
-#include "src/engines/core/process/frames/AbstractFrame.h"
-#include "src/engines/core/process/managers/connection/ConnectionManager.h"
-#include "src/engines/core/process/managers/group/GroupManager.h"
+#include "src/core/process/frames/AbstractFrame.h"
+#include "src/core/process/managers/connection/ConnectionManager.h"
+#include "src/core/process/managers/group/GroupManager.h"
 
 #include "src/gui/main/forms/dialogs/treewidgetdialog.h"
 

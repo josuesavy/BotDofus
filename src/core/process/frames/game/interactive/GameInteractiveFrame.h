@@ -1,10 +1,10 @@
 #ifndef GAMEINTERACTIVEFRAME_H
 #define GAMEINTERACTIVEFRAME_H
 
-#include "src/engines/core/process/frames/AbstractFrame.h"
-#include "src/engines/core/process/managers/interaction/InteractionManager.h"
-#include "src/engines/core/process/managers/farm/FarmManager.h"
-#include "src/engines/io/d2p/map/elements/GraphicalElement.h"
+#include "src/core/process/frames/AbstractFrame.h"
+#include "src/core/process/managers/interaction/InteractionManager.h"
+#include "src/core/process/managers/farm/FarmManager.h"
+#include "src/io/d2p/map/elements/GraphicalElement.h"
 
 class GameInteractiveFrame : public AbstractFrame
 {

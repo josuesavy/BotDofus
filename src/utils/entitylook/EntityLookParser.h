@@ -7,8 +7,8 @@
 
 #include "TiphonEntityLook.h"
 #include "EntityLookAdapter.h"
-#include "src/engines/DataHandler.h"
-#include "src/protocol/types/data/game/look/EntityLook.h"
+#include "src/core/DataHandler.h"
+#include "src/protocol/network/types/data/game/look/EntityLook.h"
 
 class EntityLookParser
 {

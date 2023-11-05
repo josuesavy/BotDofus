@@ -3,7 +3,7 @@
 
 #include <QInputDialog>
 
-#include "src/engines/core/process/frames/AbstractFrame.h"
+#include "src/core/process/frames/AbstractFrame.h"
 
 class ConnectionRegisterFrame : public AbstractFrame
 {

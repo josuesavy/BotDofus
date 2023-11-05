@@ -10,7 +10,7 @@
 
 #include "Buffer.h"
 #include "QMessageBox"
-#include "src/protocol/messages/MessageDeclarator.h"
+#include "src/protocol/network/messages/MessageDeclarator.h"
 //#include "src/core/ServerInteractions/SecurityModule.h"
 //#include "src/core/ServerInteractions/BotStatsModule.h"
 

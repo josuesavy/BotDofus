@@ -6,13 +6,13 @@
 #include <QDirIterator>
 
 
-#include "src/engines/io/utils/Singleton.h"
-#include "src/engines/io/i18n/I18nFile.h"
-#include "manager/D2OFile.h"
-#include "game/GameDataTypeDeclarator.h"
-#include "game/GameDataConverter.h"
-#include "game/AbstractGameData.h"
-#include "game/data/items/ItemData.h"
+#include "src/utils/Singleton.h"
+#include "src/gamedata/i18n/I18nFile.h"
+#include "D2OFile.h"
+#include "src/protocol/datacenter/GameDataTypeDeclarator.h"
+#include "src/protocol/datacenter/GameDataConverter.h"
+#include "src/protocol/datacenter/AbstractGameData.h"
+#include "src/protocol/datacenter/data/items/ItemData.h"
 
 class D2OManagerSingleton;
 

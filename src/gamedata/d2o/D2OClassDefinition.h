@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "src/engines/io/network/Reader.h"
+#include "src/utils/io/Reader.h"
 
 class D2OField;
 class I18nFile;

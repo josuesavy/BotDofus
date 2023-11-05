@@ -1,8 +1,8 @@
 #ifndef GAMECONTEXTROLEPLAYPARTYFRAME_H
 #define GAMECONTEXTROLEPLAYPARTYFRAME_H
 
-#include "src/engines/core/process/frames/AbstractFrame.h"
-#include "src/engines/core/process/managers/map/MapManager.h"
+#include "src/core/process/frames/AbstractFrame.h"
+#include "src/core/process/managers/map/MapManager.h"
 
 class GameContextRoleplayPartyFrame : public AbstractFrame
 {

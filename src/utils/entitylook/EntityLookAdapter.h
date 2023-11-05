@@ -2,7 +2,7 @@
 #define ENTITYLOOKADAPTER_H
 
 #include "TiphonEntityLook.h"
-#include "src/protocol/types/data/game/look/EntityLook.h"
+#include "src/protocol/network/types/data/game/look/EntityLook.h"
 
 class EntityLookAdapter
 {

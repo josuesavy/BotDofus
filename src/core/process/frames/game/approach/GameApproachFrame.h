@@ -3,8 +3,8 @@
 
 #include <QtSql/QtSql>
 
-#include "src/engines/core/process/frames/AbstractFrame.h"
-#include "src/engines/core/process/managers/connection/ConnectionManager.h"
+#include "src/core/process/frames/AbstractFrame.h"
+#include "src/core/process/managers/connection/ConnectionManager.h"
 
 class GameApproachFrame : public AbstractFrame
 {

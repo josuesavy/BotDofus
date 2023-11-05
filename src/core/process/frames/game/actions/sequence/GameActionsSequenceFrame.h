@@ -1,8 +1,8 @@
 #ifndef SEQUENCEFRAME_H
 #define SEQUENCEFRAME_H
 
-#include "src/engines/core/process/frames/AbstractFrame.h"
-#include "src/engines/core/process/managers/fight/FightManager.h"
+#include "src/core/process/frames/AbstractFrame.h"
+#include "src/core/process/managers/fight/FightManager.h"
 
 class GameActionsSequenceFrame : public AbstractFrame
 {

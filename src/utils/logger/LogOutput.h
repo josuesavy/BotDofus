@@ -1,8 +1,8 @@
 #ifndef LOGOUTPUT_H
 #define LOGOUTPUT_H
 
-#include "src/Public.h"
-#include "src/engines/io/network/Reader.h"
+#include "src/utils/Public.h"
+#include "src/utils/io/Reader.h"
 
 enum Channel
 {

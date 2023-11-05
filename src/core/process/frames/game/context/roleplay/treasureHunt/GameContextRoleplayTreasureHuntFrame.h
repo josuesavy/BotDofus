@@ -1,7 +1,7 @@
 #ifndef GAMECONTEXTROLEPLAYTREASUREHUNTFRAME_H
 #define GAMECONTEXTROLEPLAYTREASUREHUNTFRAME_H
 
-#include "src/engines/core/process/frames/AbstractFrame.h"
+#include "src/core/process/frames/AbstractFrame.h"
 
 class GameContextRoleplayTreasureHuntFrame : public AbstractFrame
 {

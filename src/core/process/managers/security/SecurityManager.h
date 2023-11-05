@@ -5,7 +5,7 @@
 #include <QCryptographicHash>
 #include <QFile>
 
-#include "src/engines/core/process/managers/AbstractManager.h"
+#include "src/core/process/managers/AbstractManager.h"
 
 class SecurityManager : public AbstractManager
 {

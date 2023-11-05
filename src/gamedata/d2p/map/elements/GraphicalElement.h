@@ -1,8 +1,8 @@
 ﻿#pragma once
 
-#include "src/engines/io/network/Reader.h"
-#include "src/engines/io/d2p/map/Map.h"
-#include "src/engines/io/d2p/map/elements/BasicElement.h"
+#include "src/utils/io/Reader.h"
+#include "src/gamedata/d2p/map/Map.h"
+#include "BasicElement.h"
 
 #define FIXEDMAPCHANGER_GRAPHICAL_ID 34708
 

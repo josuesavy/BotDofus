@@ -1,8 +1,8 @@
 #ifndef BINFILE_H
 #define BINFILE_H
 
-#include "src/engines/io/network/Reader.h"
-#include "src/engines/io/bin/world/WorldGraph.h"
+#include "src/utils/io/Reader.h"
+#include "world/WorldGraph.h"
 
 class BINFile
 {

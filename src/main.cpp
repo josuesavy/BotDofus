@@ -1,6 +1,6 @@
-#include "gui/mainwindow.h"
-#include "gui/connectiondialog.h"
-#include "gui/theme.h"
+#include "gui/windows/mainwindow.h"
+#include "gui/windows/dialogs/connectiondialog.h"
+#include "gui/utils/theme.h"
 
 #include <QApplication>
 

@@ -1,12 +1,12 @@
 ﻿#pragma once
 
 #include "WorldPoint.h"
-#include "src/engines/io/network/Reader.h"
+#include "src/utils/io/Reader.h"
 #include "CellData.h"
-#include "src/engines/io/d2p/manager/CompressedMap.h"
+#include "src/gamedata/d2p/CompressedMap.h"
 #include "Fixture.h"
 #include "Layer.h"
-#include "src/Public.h"
+#include "src/utils/Public.h"
 
 class Layer;
 

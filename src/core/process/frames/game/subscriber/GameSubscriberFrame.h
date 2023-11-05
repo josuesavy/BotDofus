@@ -1,7 +1,7 @@
 #ifndef GAMESUBSCRIBERFRAME_H
 #define GAMESUBSCRIBERFRAME_H
 
-#include "src/engines/core/process/frames/AbstractFrame.h"
+#include "src/core/process/frames/AbstractFrame.h"
 
 class GameSubscriberFrame : public AbstractFrame
 {

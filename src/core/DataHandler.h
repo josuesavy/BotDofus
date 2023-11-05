@@ -8,15 +8,15 @@
 #include <QSharedPointer>
 #include <QTime>
 
-#include "src/engines/utils/logger/LogOutput.h"
-#include "src/protocol/enums/EnumDeclarator.h"
-#include "src/engines/io/d2p/D2PManager.h"
-#include "src/engines/io/d2o/D2OManager.h"
-#include "src/protocol/types/ClassDeclarator.h"
-#include "src/protocol/messages/AbstractMessage.h"
-#include "src/protocol/messages/MessageDeclarator.h"
-#include "src/engines/pathfinding/map/Pathfinding.h"
-#include "src/engines/pathfinding/world/PathfindingMap.h"
+#include "src/utils/logger/LogOutput.h"
+#include "src/protocol/network/enums/EnumDeclarator.h"
+#include "src/gamedata/d2p/D2PManager.h"
+#include "src/gamedata/d2o/D2OManager.h"
+#include "src/protocol/network/types/ClassDeclarator.h"
+#include "src/protocol/network/messages/AbstractMessage.h"
+#include "src/protocol/network/messages/MessageDeclarator.h"
+#include "src/utils/pathfinding/map/Pathfinding.h"
+#include "src/utils/pathfinding/world/PathfindingMap.h"
 
 struct Point2D
 {

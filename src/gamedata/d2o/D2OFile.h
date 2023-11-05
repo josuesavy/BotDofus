@@ -1,9 +1,9 @@
 ﻿#pragma once
 
 #include "D2OFileAccessor.h"
-#include "src/engines/io/i18n/I18nFile.h"
-#include "src/engines/io/d2o/game/GameDataTypeDeclarator.h"
-#include "src/engines/io/d2o/game/AbstractGameData.h"
+#include "src/gamedata/i18n/I18nFile.h"
+#include "src/protocol/datacenter/GameDataTypeDeclarator.h"
+#include "src/protocol/datacenter/AbstractGameData.h"
 
 class D2OFile
 {

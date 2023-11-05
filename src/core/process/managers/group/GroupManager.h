@@ -1,8 +1,8 @@
 #ifndef GROUPMANAGER_H
 #define GROUPMANAGER_H
 
-#include "src/engines/core/process/managers/AbstractManager.h"
-#include "src/engines/core/process/managers/map/MapManager.h"
+#include "src/core/process/managers/AbstractManager.h"
+#include "src/core/process/managers/map/MapManager.h"
 
 class GroupManager : public AbstractManager
 {

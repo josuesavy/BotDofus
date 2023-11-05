@@ -1,7 +1,7 @@
 #ifndef BOOLEANBYTEWRAPPER_H
 #define BOOLEANBYTEWRAPPER_H
 
-#include "src/Public.h"
+#include "src/utils/Public.h"
 
 class BooleanByteWrapper
 {

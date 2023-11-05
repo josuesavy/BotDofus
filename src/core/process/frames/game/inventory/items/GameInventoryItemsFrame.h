@@ -1,9 +1,9 @@
 #ifndef GAMEINVENTORYITEMSFRAME_H
 #define GAMEINVENTORYITEMSFRAME_H
 
-#include "src/engines/core/process/frames/AbstractFrame.h"
-#include "src/engines/core/process/managers/exchange/ExchangeManager.h"
-#include "src/engines/core/process/managers/stats/StatsManager.h"
+#include "src/core/process/frames/AbstractFrame.h"
+#include "src/core/process/managers/exchange/ExchangeManager.h"
+#include "src/core/process/managers/stats/StatsManager.h"
 
 class GameInventoryItemsFrame : public AbstractFrame
 {

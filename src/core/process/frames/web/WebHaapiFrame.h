@@ -1,7 +1,7 @@
 #ifndef WEBHAAPIFRAME_H
 #define WEBHAAPIFRAME_H
 
-#include "src/engines/core/process/frames/AbstractFrame.h"
+#include "src/core/process/frames/AbstractFrame.h"
 
 class WebHaapiFrame : public AbstractFrame
 {

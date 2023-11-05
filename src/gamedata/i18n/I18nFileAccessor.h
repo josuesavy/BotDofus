@@ -1,8 +1,8 @@
 ﻿#pragma once
 
-#include "src/Public.h"
+#include "src/utils/Public.h"
 
-#include "src/engines/io/network/Reader.h"
+#include "src/utils/io/Reader.h"
 
 
 class I18nFileAccessor

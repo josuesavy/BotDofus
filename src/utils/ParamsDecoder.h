@@ -6,9 +6,9 @@
 
 #include <QDateTime>
 
-#include "src/engines/io/d2o/game/GameDataDeclarator.h"
-#include "src/engines/io/d2o/D2OManager.h"
-#include "src/Public.h"
+#include "src/protocol/datacenter/GameDataDeclarator.h"
+#include "src/gamedata/d2o/D2OManager.h"
+#include "src/utils/Public.h"
 
 class ParamsDecoder
 {

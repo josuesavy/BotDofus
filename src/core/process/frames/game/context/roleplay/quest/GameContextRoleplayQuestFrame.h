@@ -1,7 +1,7 @@
 #ifndef GAMECONTEXTROLEPLAYQUESTFRAME_H
 #define GAMECONTEXTROLEPLAYQUESTFRAME_H
 
-#include "src/engines/core/process/frames/AbstractFrame.h"
+#include "src/core/process/frames/AbstractFrame.h"
 
 class GameContextRoleplayQuestFrame : public AbstractFrame
 {

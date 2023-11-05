@@ -8,7 +8,7 @@
  * \version Alpha
  */
 
-#include "src/engines/core/process/frames/AbstractFrame.h"
+#include "src/core/process/frames/AbstractFrame.h"
 
 enum class QuantityEnum
 {

@@ -1,9 +1,9 @@
 ﻿#pragma once
 
-#include "src/engines/io/network/Reader.h"
+#include "src/utils/io/Reader.h"
 #include "D2OClassDefinition.h"
-#include "src/engines/io/i18n/I18nFile.h"
-#include "src/engines/io/d2o/game/AbstractGameData.h"
+#include "src/gamedata/i18n/I18nFile.h"
+#include "src/protocol/datacenter/AbstractGameData.h"
 
 
 class D2OFileAccessor

@@ -1,9 +1,9 @@
 #ifndef FIGHTMANAGER_H
 #define FIGHTMANAGER_H
 
-#include "src/engines/core/process/managers/AbstractManager.h"
-#include "src/engines/core/process/managers/map/MapManager.h"
-#include "src/engines/core/process/managers/group/GroupManager.h"
+#include "src/core/process/managers/AbstractManager.h"
+#include "src/core/process/managers/map/MapManager.h"
+#include "src/core/process/managers/group/GroupManager.h"
 
 #include <QTime>
 #include <QMap>

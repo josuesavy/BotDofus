@@ -1,7 +1,7 @@
 #ifndef MAPMANAGER_H
 #define MAPMANAGER_H
 
-#include "src/engines/core/process/managers/AbstractManager.h"
+#include "src/core/process/managers/AbstractManager.h"
 
 /*!
  * \enum Directions

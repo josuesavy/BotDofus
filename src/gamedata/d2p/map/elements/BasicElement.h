@@ -1,8 +1,8 @@
 ﻿#pragma once
 
-#include "src/engines/io/network/Reader.h"
-#include "src/engines/io/d2p/map/elements/enums/ElementTypesEnum.h"
-#include "src/engines/io/d2p/map/Map.h"
+#include "src/utils/io/Reader.h"
+#include "enums/ElementTypesEnum.h"
+#include "src/gamedata/d2p/map/Map.h"
 //#include "GraphicalElement.h"
 //#include "SoundElement.h"
 

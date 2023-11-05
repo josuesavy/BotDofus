@@ -1,7 +1,7 @@
 #ifndef TRUSTSTATUSFRAME_H
 #define TRUSTSTATUSFRAME_H
 
-#include "src/engines/core/process/frames/AbstractFrame.h"
+#include "src/core/process/frames/AbstractFrame.h"
 
 class SecureFrame : public AbstractFrame
 {

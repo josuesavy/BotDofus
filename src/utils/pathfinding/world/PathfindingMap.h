@@ -1,11 +1,11 @@
 #ifndef PathfindingMap_H
 #define PathfindingMap_H
 
-#include "src/Public.h"
-#include "src/engines/pathfinding/map/Pathfinding.h"
+#include "src/utils/Public.h"
+#include "src/utils/pathfinding/map/Pathfinding.h"
 #include "MapNode.h"
-#include "src/engines/io/d2p/D2PManager.h"
-#include "src/engines/io/d2o/D2OManager.h"
+#include "src/gamedata/d2p/D2PManager.h"
+#include "src/gamedata/d2o/D2OManager.h"
 #include "src/network/SocketIO.h"
 
 enum class MapSide

@@ -2,10 +2,10 @@
 
 #include <QString>
 
-#include "src/engines/io/bin/manager/BINFile.h"
-#include "src/engines/io/bin/manager/BINFolder.h"
-#include "src/engines/io/bin/world/WorldGraph.h"
-#include "src/engines/io/utils/Singleton.h"
+#include "BINFile.h"
+#include "BINFolder.h"
+#include "world/WorldGraph.h"
+#include "src/utils/Singleton.h"
 
 class BINManager
 {

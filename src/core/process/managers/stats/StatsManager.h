@@ -1,7 +1,7 @@
 #ifndef STATSMANAGER_H
 #define STATSMANAGER_H
 
-#include "src/engines/core/process/managers/AbstractManager.h"
+#include "src/core/process/managers/AbstractManager.h"
 
 struct LifeRegenQueue
 {

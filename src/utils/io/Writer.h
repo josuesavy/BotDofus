@@ -1,7 +1,7 @@
 #ifndef WRITER_H
 #define WRITER_H
 
-#include "src/Public.h"
+#include "src/utils/Public.h"
 
 class Writer
 {
