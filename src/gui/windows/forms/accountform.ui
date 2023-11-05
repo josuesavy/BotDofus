@@ -69,7 +69,7 @@
             <string/>
            </property>
            <property name="pixmap">
-            <pixmap resource="../../../assets/resources.qrc">:/icons/bullet_red_16px.ico</pixmap>
+            <pixmap resource="../../../resources/resources.qrc">:/icons/bullet_red_16px.ico</pixmap>
            </property>
           </widget>
          </item>
@@ -108,7 +108,7 @@
             <string/>
            </property>
            <property name="pixmap">
-            <pixmap resource="../../../assets/resources.qrc">:/icons/lightning_16px.ico</pixmap>
+            <pixmap resource="../../../resources/resources.qrc">:/icons/lightning_16px.ico</pixmap>
            </property>
           </widget>
          </item>
@@ -130,7 +130,7 @@
             <string/>
            </property>
            <property name="pixmap">
-            <pixmap resource="../../../assets/resources.qrc">:/icons/heart_16px.ico</pixmap>
+            <pixmap resource="../../../resources/resources.qrc">:/icons/heart_16px.ico</pixmap>
            </property>
           </widget>
          </item>
@@ -162,7 +162,7 @@
             <string/>
            </property>
            <property name="pixmap">
-            <pixmap resource="../../../assets/resources.qrc">:/icons/balance_16px.ico</pixmap>
+            <pixmap resource="../../../resources/resources.qrc">:/icons/balance_16px.ico</pixmap>
            </property>
           </widget>
          </item>
@@ -194,7 +194,7 @@
             <string/>
            </property>
            <property name="pixmap">
-            <pixmap resource="../../../assets/resources.qrc">:/icons/medal_gold_blue_16px.ico</pixmap>
+            <pixmap resource="../../../resources/resources.qrc">:/icons/medal_gold_blue_16px.ico</pixmap>
            </property>
           </widget>
          </item>
@@ -226,7 +226,7 @@
             <string/>
            </property>
            <property name="pixmap">
-            <pixmap resource="../../../assets/resources.qrc">:/icons/coins_16px.ico</pixmap>
+            <pixmap resource="../../../resources/resources.qrc">:/icons/coins_16px.ico</pixmap>
            </property>
           </widget>
          </item>
@@ -260,7 +260,7 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset resource="../../../assets/resources.qrc">
+           <iconset resource="../../../resources/resources.qrc">
             <normaloff>:/icons/connect_16px.ico</normaloff>:/icons/connect_16px.ico</iconset>
           </property>
           <property name="flat">
@@ -274,7 +274,7 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset resource="../../../assets/resources.qrc">
+           <iconset resource="../../../resources/resources.qrc">
             <normaloff>:/icons/cancel_16px.ico</normaloff>:/icons/cancel_16px.ico</iconset>
           </property>
           <property name="flat">
@@ -288,7 +288,7 @@
            <string>Group options</string>
           </property>
           <property name="icon">
-           <iconset resource="../../../assets/resources.qrc">
+           <iconset resource="../../../resources/resources.qrc">
             <normaloff>:/icons/group_16px.ico</normaloff>:/icons/group_16px.ico</iconset>
           </property>
           <property name="checked">
@@ -318,7 +318,7 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset resource="../../../assets/resources.qrc">
+           <iconset resource="../../../resources/resources.qrc">
             <normaloff>:/icons/script_16px.ico</normaloff>:/icons/script_16px.ico</iconset>
           </property>
           <property name="flat">
@@ -349,7 +349,7 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset resource="../../../assets/resources.qrc">
+           <iconset resource="../../../resources/resources.qrc">
             <normaloff>:/icons/lock.ico</normaloff>:/icons/lock.ico</iconset>
           </property>
           <property name="flat">
@@ -365,7 +365,7 @@
   </layout>
   <action name="actionLoadScript">
    <property name="icon">
-    <iconset resource="../../../assets/resources.qrc">
+    <iconset resource="../../../resources/resources.qrc">
      <normaloff>:/icons/script_add_16px.ico</normaloff>:/icons/script_add_16px.ico</iconset>
    </property>
    <property name="text">
@@ -374,7 +374,7 @@
   </action>
   <action name="actionRunScript">
    <property name="icon">
-    <iconset resource="../../../assets/resources.qrc">
+    <iconset resource="../../../resources/resources.qrc">
      <normaloff>:/icons/script_go_16px.ico</normaloff>:/icons/script_go_16px.ico</iconset>
    </property>
    <property name="text">
@@ -398,7 +398,7 @@
   <tabstop>tabWidget</tabstop>
  </tabstops>
  <resources>
-  <include location="../../../assets/resources.qrc"/>
+  <include location="../../../resources/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

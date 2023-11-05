@@ -26,7 +26,7 @@
      </property>
      <widget class="QWidget" name="tab_8">
       <attribute name="icon">
-       <iconset resource="../../../../assets/resources.qrc">
+       <iconset resource="../../../../resources/resources.qrc">
         <normaloff>:/icons/sword_16px.ico</normaloff>:/icons/sword_16px.ico</iconset>
       </attribute>
       <attribute name="title">
@@ -109,7 +109,7 @@
      </widget>
      <widget class="QWidget" name="tab_9">
       <attribute name="icon">
-       <iconset resource="../../../../assets/resources.qrc">
+       <iconset resource="../../../../resources/resources.qrc">
         <normaloff>:/icons/flask_16px.ico</normaloff>:/icons/flask_16px.ico</iconset>
       </attribute>
       <attribute name="title">
@@ -187,7 +187,7 @@
      </widget>
      <widget class="QWidget" name="tab_10">
       <attribute name="icon">
-       <iconset resource="../../../../assets/resources.qrc">
+       <iconset resource="../../../../resources/resources.qrc">
         <normaloff>:/icons/apple_16px.ico</normaloff>:/icons/apple_16px.ico</iconset>
       </attribute>
       <attribute name="title">
@@ -260,7 +260,7 @@
      </widget>
      <widget class="QWidget" name="tab_11">
       <attribute name="icon">
-       <iconset resource="../../../../assets/resources.qrc">
+       <iconset resource="../../../../resources/resources.qrc">
         <normaloff>:/icons/key_16px.ico</normaloff>:/icons/key_16px.ico</iconset>
       </attribute>
       <attribute name="title">
@@ -326,7 +326,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../../../../assets/resources.qrc"/>
+  <include location="../../../../resources/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

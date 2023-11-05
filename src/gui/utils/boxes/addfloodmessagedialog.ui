@@ -14,7 +14,7 @@
    <string>Add a message</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../../../../assets/resources.qrc">
+   <iconset resource="../../../../../resources/resources.qrc">
     <normaloff>:/icons/comment_16px.ico</normaloff>:/icons/comment_16px.ico</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
@@ -141,7 +141,7 @@
         <string>Add</string>
        </property>
        <property name="icon">
-        <iconset resource="../../../../../assets/resources.qrc">
+        <iconset resource="../../../../../resources/resources.qrc">
          <normaloff>:/icons/plus_16px.ico</normaloff>:/icons/plus_16px.ico</iconset>
        </property>
       </widget>
@@ -152,7 +152,7 @@
         <string>Cancel</string>
        </property>
        <property name="icon">
-        <iconset resource="../../../../../assets/resources.qrc">
+        <iconset resource="../../../../../resources/resources.qrc">
          <normaloff>:/icons/cancel_16px.ico</normaloff>:/icons/cancel_16px.ico</iconset>
        </property>
       </widget>
@@ -178,7 +178,7 @@
   <tabstop>pushButtonCancel</tabstop>
  </tabstops>
  <resources>
-  <include location="../../../../../assets/resources.qrc"/>
+  <include location="../../../../../resources/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

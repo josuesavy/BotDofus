@@ -26,7 +26,7 @@
      </property>
      <widget class="QWidget" name="tab_4">
       <attribute name="icon">
-       <iconset resource="../../../../assets/resources.qrc">
+       <iconset resource="../../../../resources/resources.qrc">
         <normaloff>:/icons/theater_16px.ico</normaloff>:/icons/theater_16px.ico</iconset>
       </attribute>
       <attribute name="title">
@@ -388,7 +388,7 @@
              <string/>
             </property>
             <property name="icon">
-             <iconset resource="../../../../assets/resources.qrc">
+             <iconset resource="../../../../resources/resources.qrc">
               <normaloff>:/icons/plus_16px.ico</normaloff>:/icons/plus_16px.ico</iconset>
             </property>
             <property name="flat">
@@ -508,7 +508,7 @@
              <string/>
             </property>
             <property name="icon">
-             <iconset resource="../../../../assets/resources.qrc">
+             <iconset resource="../../../../resources/resources.qrc">
               <normaloff>:/icons/plus_16px.ico</normaloff>:/icons/plus_16px.ico</iconset>
             </property>
             <property name="flat">
@@ -587,7 +587,7 @@
              <string/>
             </property>
             <property name="icon">
-             <iconset resource="../../../../assets/resources.qrc">
+             <iconset resource="../../../../resources/resources.qrc">
               <normaloff>:/icons/plus_16px.ico</normaloff>:/icons/plus_16px.ico</iconset>
             </property>
             <property name="flat">
@@ -639,7 +639,7 @@
              <string/>
             </property>
             <property name="icon">
-             <iconset resource="../../../../assets/resources.qrc">
+             <iconset resource="../../../../resources/resources.qrc">
               <normaloff>:/icons/plus_16px.ico</normaloff>:/icons/plus_16px.ico</iconset>
             </property>
             <property name="flat">
@@ -691,7 +691,7 @@
              <string/>
             </property>
             <property name="icon">
-             <iconset resource="../../../../assets/resources.qrc">
+             <iconset resource="../../../../resources/resources.qrc">
               <normaloff>:/icons/plus_16px.ico</normaloff>:/icons/plus_16px.ico</iconset>
             </property>
             <property name="flat">
@@ -711,7 +711,7 @@
              <string/>
             </property>
             <property name="icon">
-             <iconset resource="../../../../assets/resources.qrc">
+             <iconset resource="../../../../resources/resources.qrc">
               <normaloff>:/icons/plus_16px.ico</normaloff>:/icons/plus_16px.ico</iconset>
             </property>
             <property name="flat">
@@ -732,7 +732,7 @@
              <string>Réinitialiser les caractéristiques</string>
             </property>
             <property name="icon">
-             <iconset resource="../../../../assets/resources.qrc">
+             <iconset resource="../../../../resources/resources.qrc">
               <normaloff>:/icons/arrow_redo_16px.ico</normaloff>:/icons/arrow_redo_16px.ico</iconset>
             </property>
             <property name="flat">
@@ -815,7 +815,7 @@
      </widget>
      <widget class="QWidget" name="tab_5">
       <attribute name="icon">
-       <iconset resource="../../../../assets/resources.qrc">
+       <iconset resource="../../../../resources/resources.qrc">
         <normaloff>:/icons/magic_wand_2_16px.ico</normaloff>:/icons/magic_wand_2_16px.ico</iconset>
       </attribute>
       <attribute name="title">
@@ -877,7 +877,7 @@
      </widget>
      <widget class="QWidget" name="tab_6">
       <attribute name="icon">
-       <iconset resource="../../../../assets/resources.qrc">
+       <iconset resource="../../../../resources/resources.qrc">
         <normaloff>:/icons/ax_16px.ico</normaloff>:/icons/ax_16px.ico</iconset>
       </attribute>
       <attribute name="title">
@@ -975,7 +975,7 @@
   <tabstop>tableWidgetJobs</tabstop>
  </tabstops>
  <resources>
-  <include location="../../../../assets/resources.qrc"/>
+  <include location="../../../../resources/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

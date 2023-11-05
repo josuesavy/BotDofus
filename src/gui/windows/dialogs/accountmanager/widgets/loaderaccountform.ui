@@ -33,7 +33,7 @@
       <string>Import</string>
      </property>
      <property name="icon">
-      <iconset resource="../../../../assets/resources.qrc">
+      <iconset resource="../../../../resources/resources.qrc">
        <normaloff>:/icons/inbox_download_16px.ico</normaloff>:/icons/inbox_download_16px.ico</iconset>
      </property>
     </widget>
@@ -44,7 +44,7 @@
       <string>Delete</string>
      </property>
      <property name="icon">
-      <iconset resource="../../../../assets/resources.qrc">
+      <iconset resource="../../../../resources/resources.qrc">
        <normaloff>:/icons/user_delete_16px.ico</normaloff>:/icons/user_delete_16px.ico</iconset>
      </property>
     </widget>
@@ -123,7 +123,7 @@
             <string>Server choice</string>
            </property>
            <property name="icon">
-            <iconset resource="../../../../assets/resources.qrc">
+            <iconset resource="../../../../resources/resources.qrc">
              <normaloff>:/icons/server_go_16px.ico</normaloff>:/icons/server_go_16px.ico</iconset>
            </property>
           </item>
@@ -132,7 +132,7 @@
             <string>Character choice</string>
            </property>
            <property name="icon">
-            <iconset resource="../../../../assets/resources.qrc">
+            <iconset resource="../../../../resources/resources.qrc">
              <normaloff>:/icons/user_go_16px.ico</normaloff>:/icons/user_go_16px.ico</iconset>
            </property>
           </item>
@@ -141,7 +141,7 @@
             <string>Direct access to the game</string>
            </property>
            <property name="icon">
-            <iconset resource="../../../../assets/resources.qrc">
+            <iconset resource="../../../../resources/resources.qrc">
              <normaloff>:/icons/arrow_right_16px.ico</normaloff>:/icons/arrow_right_16px.ico</iconset>
            </property>
           </item>
@@ -158,7 +158,7 @@
       <string>Export</string>
      </property>
      <property name="icon">
-      <iconset resource="../../../../assets/resources.qrc">
+      <iconset resource="../../../../resources/resources.qrc">
        <normaloff>:/icons/inbox_upload_16px.ico</normaloff>:/icons/inbox_upload_16px.ico</iconset>
      </property>
     </widget>
@@ -220,7 +220,7 @@
         <string>Load</string>
        </property>
        <property name="icon">
-        <iconset resource="../../../../assets/resources.qrc">
+        <iconset resource="../../../../resources/resources.qrc">
          <normaloff>:/icons/tick_16px.ico</normaloff>:/icons/tick_16px.ico</iconset>
        </property>
       </widget>
@@ -253,7 +253,7 @@
   <tabstop>pushButtonLoad</tabstop>
  </tabstops>
  <resources>
-  <include location="../../../../assets/resources.qrc"/>
+  <include location="../../../../resources/resources.qrc"/>
  </resources>
  <connections/>
 </ui>
