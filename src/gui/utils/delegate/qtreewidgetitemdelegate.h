@@ -7,7 +7,7 @@
 
 #include <QNetworkReply>
 
-#include "src/engines/DataHandler.h"
+#include "src/core/DataHandler.h"
 
 //#include "qtreewidgetitemdatadelegate.h"
 

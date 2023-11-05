@@ -7,8 +7,8 @@
 #include <QString>
 
 
-#include "src/engines/DataHandler.h"
-#include "src/engines/io/d2o/D2OManager.h"
+#include "src/core/DataHandler.h"
+#include "src/gamedata/d2o/D2OManager.h"
 
 namespace Ui {
 class SmileysDialog;

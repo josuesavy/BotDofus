@@ -11,9 +11,9 @@
 #include <QFormLayout>
 #include <QGridLayout>
 
-#include "src/engines/core/process/ProcessEngine.h"
-#include "src/engines/DataHandler.h"
-#include "src/gui/main/forms/dialogs/addfloodmessagedialog.h"
+#include "src/core/process/ProcessEngine.h"
+#include "src/core/DataHandler.h"
+#include "src/gui/utils/boxes/addfloodmessagedialog.h"
 
 namespace Ui {
 class FloodForm;

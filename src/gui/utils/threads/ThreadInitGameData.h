@@ -1,10 +1,10 @@
 #ifndef THREADINITGAMEDATA_H
 #define THREADINITGAMEDATA_H
 
-#include "src/engines/io/d2o/D2OManager.h"
-#include "src/engines/io/d2p/D2PManager.h"
-#include "src/engines/pathfinding/world/PathfindingMap.h"
-#include "src/engines/io/i18n/I18nFileAccessor.h"
+#include "src/gamedata/d2o/D2OManager.h"
+#include "src/gamedata/d2p/D2PManager.h"
+#include "src/utils/pathfinding/world/PathfindingMap.h"
+#include "src/gamedata/i18n/I18nFileAccessor.h"
 
 #include <QObject>
 #include <QThread>

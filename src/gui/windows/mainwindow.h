@@ -7,11 +7,11 @@
 #include <QSystemTrayIcon>
 #include <QProgressDialog>
 
-#include "src/engines/core/process/ProcessEngine.h"
+#include "src/core/process/ProcessEngine.h"
 
-#include "accountmanager/accountmanagerdialog.h"
-#include "main/accountform.h"
-#include "delegate/qtreewidgetitemdelegate.h"
+#include "dialogs/accountmanager/accountmanagerdialog.h"
+#include "forms/accountform.h"
+#include "src/gui/utils/delegate/qtreewidgetitemdelegate.h"
 
 namespace Ui {
 class MainWindow;

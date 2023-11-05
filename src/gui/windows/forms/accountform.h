@@ -8,18 +8,18 @@
 #include <QStackedWidget>
 #include <QNetworkReply>
 
-#include "src/gui/main/forms/consoleform.h"
-#include "src/gui/main/forms/characterform.h"
-#include "src/gui/main/forms/inventoryform.h"
-#include "src/gui/main/forms/mapform.h"
-#include "src/gui/main/forms/floodform.h"
-#include "src/gui/main/forms/fightform.h"
-#include "src/gui/main/forms/settingsform.h"
-#include "src/gui/main/forms/statisticsform.h"
+#include "widgets/consoleform.h"
+#include "widgets/characterform.h"
+#include "widgets/inventoryform.h"
+#include "widgets/mapform.h"
+#include "widgets/floodform.h"
+#include "widgets/fightform.h"
+#include "widgets/settingsform.h"
+#include "widgets/statisticsform.h"
 
-#include "src/engines/core/process/ProcessEngine.h"
-#include "src/engines/DataHandler.h"
-#include "src/engines/utils/logger/LogOutput.h"
+#include "src/core/process/ProcessEngine.h"
+#include "src/core/DataHandler.h"
+#include "src/utils/logger/LogOutput.h"
 
 #define UPDATE_INTERVAL 500
 

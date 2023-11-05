@@ -3,9 +3,9 @@
 
 #include <QWidget>
 
-#include "src/engines/core/process/ProcessEngine.h"
-#include "src/engines/DataHandler.h"
-#include "src/Public.h"
+#include "src/core/process/ProcessEngine.h"
+#include "src/core/DataHandler.h"
+#include "src/utils/Public.h"
 
 namespace Ui {
 class StatisticsForm;

@@ -6,9 +6,9 @@
 #include <QNetworkReply>
 #include <QTableWidget>
 
-#include "src/engines/core/process/ProcessEngine.h"
-#include "src/engines/DataHandler.h"
-#include "src/protocol/messages/AbstractMessage.h"
+#include "src/core/process/ProcessEngine.h"
+#include "src/core/DataHandler.h"
+#include "src/protocol/network/messages/AbstractMessage.h"
 
 #define MAIN_SERVER_IP "dofus2-co-production.ankama-games.com"
 

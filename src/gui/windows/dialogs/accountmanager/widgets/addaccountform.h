@@ -6,7 +6,7 @@
 #include <QNetworkReply>
 #include <QtSql/QtSql>
 
-#include "src/engines/core/CoreEngine.h"
+#include "src/core/CoreEngine.h"
 
 namespace Ui {
 class AddAccountForm;

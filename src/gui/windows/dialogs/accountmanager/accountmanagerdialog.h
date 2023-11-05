@@ -5,11 +5,11 @@
 #include <QtSql/QtSql>
 #include <QCloseEvent>
 
-#include "src/engines/core/CoreEngine.h"
-#include "forms/loaderaccountform.h"
-#include "forms/addaccountform.h"
-#include "forms/charactercreatorform.h"
-#include "forms/configurationform.h"
+#include "src/core/CoreEngine.h"
+#include "widgets/loaderaccountform.h"
+#include "widgets/addaccountform.h"
+#include "widgets/charactercreatorform.h"
+#include "widgets/configurationform.h"
 
 namespace Ui {
 class AccountManagerDialog;

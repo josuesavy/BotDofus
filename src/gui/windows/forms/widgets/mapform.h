@@ -7,9 +7,9 @@
 #include <QToolTip>
 #include <QCursor>
 
-#include "src/engines/core/process/ProcessEngine.h"
-#include "src/engines/DataHandler.h"
-#include "src/engines/utils/PropertyHelper.h"
+#include "src/core/process/ProcessEngine.h"
+#include "src/core/DataHandler.h"
+#include "src/utils/PropertyHelper.h"
 
 namespace Ui {
 class MapForm;

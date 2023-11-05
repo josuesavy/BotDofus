@@ -3,11 +3,11 @@
 
 #include <QWidget>
 
-#include "dialogs/smileysdialog.h"
+#include "src/gui/utils/boxes/smileysdialog.h"
 
-#include "src/engines/core/process/ProcessEngine.h"
-#include "src/engines/DataHandler.h"
-#include "src/Public.h"
+#include "src/core/process/ProcessEngine.h"
+#include "src/core/DataHandler.h"
+#include "src/utils/Public.h"
 
 // Canaux Dofus
 #define GLOBAL_COLOR "#E9E9E9"

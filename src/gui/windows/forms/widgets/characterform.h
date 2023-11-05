@@ -5,9 +5,9 @@
 
 #include <QNetworkReply>
 
-#include "src/engines/utils/entitylook/EntityLookParser.h"
-#include "src/engines/core/process/ProcessEngine.h"
-#include "src/engines/DataHandler.h"
+#include "src/utils/entitylook/EntityLookParser.h"
+#include "src/core/process/ProcessEngine.h"
+#include "src/core/DataHandler.h"
 
 namespace Ui {
 class CharacterForm;

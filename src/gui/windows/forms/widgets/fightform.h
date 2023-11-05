@@ -5,9 +5,9 @@
 #include <QDialogButtonBox>
 #include <QFormLayout>
 
-#include "src/engines/core/process/ProcessEngine.h"
-#include "src/engines/DataHandler.h"
-#include "src/gui/main/forms/dialogs/addspelldialog.h"
+#include "src/core/process/ProcessEngine.h"
+#include "src/core/DataHandler.h"
+#include "src/gui/utils/boxes/addspelldialog.h"
 
 namespace Ui {
 class FightForm;

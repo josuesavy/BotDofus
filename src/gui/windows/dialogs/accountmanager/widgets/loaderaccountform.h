@@ -8,8 +8,8 @@
 #include <QtSql/QtSql>
 #include <QFileDialog>
 
-#include "src/engines/core/CoreEngine.h"
-#include "src/Public.h"
+#include "src/core/CoreEngine.h"
+#include "src/utils/Public.h"
 
 namespace Ui {
 class LoaderAccountForm;

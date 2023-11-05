@@ -6,8 +6,8 @@
 #include <QtSql/QtSql>
 #include <QSemaphore>
 
-#include "mainwindow.h"
-#include "ThreadInitGameData.h"
+#include "src/gui/windows/mainwindow.h"
+#include "src/gui/utils/threads/ThreadInitGameData.h"
 
 namespace Ui {
 class ConnectionDialog;
