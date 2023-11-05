@@ -26,7 +26,7 @@
      </property>
      <widget class="QWidget" name="tab_18">
       <attribute name="icon">
-       <iconset resource="../../../../resources/resources.qrc">
+       <iconset resource="../../../../../resources/resources.qrc">
         <normaloff>:/icons/add_on_16px.ico</normaloff>:/icons/add_on_16px.ico</iconset>
       </attribute>
       <attribute name="title">
@@ -118,7 +118,7 @@
      </widget>
      <widget class="QWidget" name="tab_19">
       <attribute name="icon">
-       <iconset resource="../../../../resources/resources.qrc">
+       <iconset resource="../../../../../resources/resources.qrc">
         <normaloff>:/icons/server_link_16px.ico</normaloff>:/icons/server_link_16px.ico</iconset>
       </attribute>
       <attribute name="title">
@@ -281,7 +281,7 @@
      </widget>
      <widget class="QWidget" name="tab_20">
       <attribute name="icon">
-       <iconset resource="../../../../resources/resources.qrc">
+       <iconset resource="../../../../../resources/resources.qrc">
         <normaloff>:/icons/clock_15_16px.ico</normaloff>:/icons/clock_15_16px.ico</iconset>
       </attribute>
       <attribute name="title">
@@ -1245,7 +1245,7 @@ border: 0px;</string>
   <tabstop>pushButtonApply</tabstop>
  </tabstops>
  <resources>
-  <include location="../../../../resources/resources.qrc"/>
+  <include location="../../../../../resources/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -49,11 +49,11 @@ RESOURCES += \
 # Specifies the UI files (see Qt Designer Manual) to be processed by uic before compiling.
 FORMS += \
     src/gui/windows/dialogs/accountmanager/accountmanagerdialog.ui \
-    src/gui/windows/dialogs/accountmanager/forms/addaccountform.ui \
-    src/gui/windows/dialogs/accountmanager/forms/charactercreatorform.ui \
-    src/gui/windows/dialogs/accountmanager/forms/configurationform.ui \
-    src/gui/windows/dialogs/accountmanager/forms/loaderaccountform.ui \
-    src/gui/windows/dialogs/accountmanager/forms/subscriptionform.ui \
+    src/gui/windows/dialogs/accountmanager/widgets/addaccountform.ui \
+    src/gui/windows/dialogs/accountmanager/widgets/charactercreatorform.ui \
+    src/gui/windows/dialogs/accountmanager/widgets/configurationform.ui \
+    src/gui/windows/dialogs/accountmanager/widgets/loaderaccountform.ui \
+    src/gui/windows/dialogs/accountmanager/widgets/subscriptionform.ui \
     src/gui/windows/dialogs/connectiondialog.ui \
     src/gui/windows/forms/accountform.ui \
     src/gui/windows/forms/widgets/characterform.ui \
