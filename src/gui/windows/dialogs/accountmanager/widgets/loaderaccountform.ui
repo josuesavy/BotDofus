@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>LoaderAccountForm</class>
+ <widget class="QWidget" name="LoaderAccountForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>355</width>
+    <height>317</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="0">
+    <spacer name="horizontalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="1" column="1">
+    <widget class="QPushButton" name="pushButtonImportAccounts">
+     <property name="text">
+      <string>Import</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../../../../assets/resources.qrc">
+       <normaloff>:/icons/inbox_download_16px.ico</normaloff>:/icons/inbox_download_16px.ico</iconset>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="3">
+    <widget class="QPushButton" name="pushButtonDelete">
+     <property name="text">
+      <string>Delete</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../../../../assets/resources.qrc">
+       <normaloff>:/icons/user_delete_16px.ico</normaloff>:/icons/user_delete_16px.ico</iconset>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="4">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Advanced options</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="1" column="0">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>146</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="1">
+       <widget class="QCheckBox" name="checkBoxConnectionAuto">
+        <property name="text">
+         <string>Automatic connection</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <spacer name="horizontalSpacer_5">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>145</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="0" colspan="3">
+       <layout class="QFormLayout" name="formLayout">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Group leader:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QComboBox" name="comboBoxMaster">
+          <item>
+           <property name="text">
+            <string>Do not make a group</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Connection to:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QComboBox" name="comboBoxConnectionTo">
+          <property name="currentIndex">
+           <number>2</number>
+          </property>
+          <item>
+           <property name="text">
+            <string>Server choice</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../../../../assets/resources.qrc">
+             <normaloff>:/icons/server_go_16px.ico</normaloff>:/icons/server_go_16px.ico</iconset>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Character choice</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../../../../assets/resources.qrc">
+             <normaloff>:/icons/user_go_16px.ico</normaloff>:/icons/user_go_16px.ico</iconset>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Direct access to the game</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../../../../assets/resources.qrc">
+             <normaloff>:/icons/arrow_right_16px.ico</normaloff>:/icons/arrow_right_16px.ico</iconset>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="2">
+    <widget class="QPushButton" name="pushButtonExportAccounts">
+     <property name="text">
+      <string>Export</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../../../../assets/resources.qrc">
+       <normaloff>:/icons/inbox_upload_16px.ico</normaloff>:/icons/inbox_upload_16px.ico</iconset>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0" colspan="4">
+    <widget class="QTreeWidget" name="treeWidgetAccounts">
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::ExtendedSelection</enum>
+     </property>
+     <property name="sortingEnabled">
+      <bool>true</bool>
+     </property>
+     <attribute name="headerStretchLastSection">
+      <bool>false</bool>
+     </attribute>
+     <column>
+      <property name="text">
+       <string>a.k.a</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Account name</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Last use</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Banned</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="4">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <spacer name="horizontalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>37</width>
+         <height>17</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButtonLoad">
+       <property name="text">
+        <string>Load</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../../../../assets/resources.qrc">
+         <normaloff>:/icons/tick_16px.ico</normaloff>:/icons/tick_16px.ico</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_4">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>37</width>
+         <height>17</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>treeWidgetAccounts</tabstop>
+  <tabstop>pushButtonImportAccounts</tabstop>
+  <tabstop>pushButtonExportAccounts</tabstop>
+  <tabstop>pushButtonDelete</tabstop>
+  <tabstop>comboBoxMaster</tabstop>
+  <tabstop>comboBoxConnectionTo</tabstop>
+  <tabstop>checkBoxConnectionAuto</tabstop>
+  <tabstop>pushButtonLoad</tabstop>
+ </tabstops>
+ <resources>
+  <include location="../../../../assets/resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>
