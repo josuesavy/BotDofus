@@ -7,3 +7,5 @@
 # The file will be ignored
 
 *.pro.user
+*.pro.user.*
+build/
