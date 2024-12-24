@@ -1,0 +1,10 @@
+#ifndef CHALLENGEMODENUM_H
+#define CHALLENGEMODENUM_H
+
+enum class ChallengeModEnum
+{
+    CHALLENGE_CHOICE = 0,
+    CHALLENGE_RANDOM = 1
+};
+
+#endif // CHALLENGEMODENUM_H

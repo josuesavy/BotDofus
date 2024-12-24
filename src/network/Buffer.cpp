@@ -32,7 +32,7 @@ Writer Buffer::writePacket(AbstractMessage &message)
 
 Writer Buffer::writePacket(MessageInfos &message)
 {
-    qDebug()<<"\n----------------------PACKET SEND----------------------";
+    qDebug()<<"----------------------PACKET SEND----------------------";
 
     ushort messageType = (ushort)message.messageType;
 
@@ -104,14 +104,14 @@ QList<MessageInfos> Buffer::readPacket(QByteArray packetData)
 
         if (m_remainingBytes == 0)
         {
-            qDebug()<<"\n----------------------PACKET RECONSTITUTED----------------------";
+            qDebug()<<"----------------------PACKET RECONSTITUTED----------------------";
             qDebug()<<"Packet "<<messages.size()<<"-"<<MessageUtils::getName(m_message.messageType)<< "- ID :"<<(int)m_message.messageType<< "- Taille :"<<m_message.messageData.size();
         }
     }
 
     if (m_remainingBytes == 0 && messageTotalLength != packetData.size())
     {
-        qDebug()<<"\n----------------------PACKET(S) RECEIVED ("<<packetData.size() - messageTotalLength<<")----------------------";
+        qDebug()<<"----------------------PACKET(S) RECEIVED ("<<packetData.size() - messageTotalLength<<")----------------------";
 
         while (messageTotalLength < packetData.size())
         {

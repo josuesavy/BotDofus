@@ -15,7 +15,7 @@ struct FloodRequest
 {
     SocketIO* sender;   /*!< Pointer to the bot instance */
     Channel channel;    /*!< Channel to flood on */
-    QTime elapsedTime;  /*!< Timer of elapsed time since the last message sent */
+    QElapsedTimer elapsedTime;  /*!< Timer of elapsed time since the last message sent */
     int estimatedTime;  /*!< Cooldown between two messages */
 };
 

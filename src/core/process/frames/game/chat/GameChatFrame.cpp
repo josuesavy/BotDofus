@@ -50,7 +50,7 @@ bool GameChatFrame::processMessage(const MessageInfos &data, SocketIO *sender)
 
         LogMessage chat;
         chat.channel = (Channel)message.channel;
-        chat.timeStamp = QDateTime::currentDateTime().toTime_t();
+        chat.timeStamp = QDateTime::currentDateTime().toSecsSinceEpoch();
         chat.output = "à <b>"+message.receiverName+"</b> : "+message.content+"";
 
         m_botData[sender].generalData.logMessages<<chat;
@@ -64,7 +64,7 @@ bool GameChatFrame::processMessage(const MessageInfos &data, SocketIO *sender)
 
         LogMessage chat;
         chat.channel = (Channel)message.channel;
-        chat.timeStamp = QDateTime::currentDateTime().toTime_t();
+        chat.timeStamp = QDateTime::currentDateTime().toSecsSinceEpoch();
         if(message.channel == Channel::CHANNELPRIVATE)
             chat.output = "de <b>"+message.senderName+"</b> : "+message.content;
         else
@@ -91,7 +91,7 @@ bool GameChatFrame::processMessage(const MessageInfos &data, SocketIO *sender)
 
         LogMessage chat;
         chat.channel = (Channel)message.channel;
-        chat.timeStamp = QDateTime::currentDateTime().toTime_t();
+        chat.timeStamp = QDateTime::currentDateTime().toSecsSinceEpoch();
 
         QString contentModified = message.content;
         foreach(QSharedPointer<ObjectItem> object, message.objects)

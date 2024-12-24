@@ -38,11 +38,8 @@ bool GameCharacterCreationFrame::processMessage(const MessageInfos &data, Socket
             case CharacterCreationResultEnum::ERR_NO_REASON:
                 error(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.popup.charcrea.noReason");
                 break;
-            case CharacterCreationResultEnum::ERR_RESTRICTED_ZONE:
-                error(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.charSel.deletionErrorUnsecureMode");
-                break;
-            case CharacterCreationResultEnum::ERR_INCONSISTENT_COMMUNITY:
-                error(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.popup.charcrea.wrongCommunity");
+            case CharacterCreationResultEnum::ERR_NEW_PLAYER_NOT_ALLOWED:
+                //error(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.charSel.deletionErrorUnsecureMode");
                 break;
             }
 

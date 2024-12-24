@@ -1,5 +1,5 @@
 ﻿#include "CellData.h"
-#include "src/engines/io/d2p/map/Map.h"
+#include "src/gamedata/d2p/map/Map.h"
 
 CellData::CellData(int id, Reader *reader, Map *map)
 {

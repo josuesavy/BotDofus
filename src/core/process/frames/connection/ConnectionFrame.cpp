@@ -77,7 +77,7 @@ bool ConnectionFrame::processMessage(const MessageInfos &data, SocketIO *sender)
 
         error(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.popup.accessDenied.badVersion").arg(oldVersion).arg(newVersion);
 
-        qDebug() << "[ConnectionFrame] Bad version " << oldVersion << "->" << newVersion;
+        qCritical() << "(ConnectionFrame) Bad version " << oldVersion << "->" << newVersion;
 
         sender->disconnect();
     }
@@ -188,10 +188,8 @@ bool ConnectionFrame::processMessage(const MessageInfos &data, SocketIO *sender)
         IdentificationSuccessMessage message;
         message.deserialize(&reader);
 
-        m_botData[sender].playerData.isAccountForced = message.isAccountForced;
         m_botData[sender].playerData.accountId = message.accountId;
         m_botData[sender].playerData.subscriptionEndDate = message.subscriptionEndDate;
-        m_botData[sender].playerData.subscriptionElapsedDuration = message.subscriptionElapsedDuration;
 
         QSqlQuery query;
         query.prepare("UPDATE accounts SET isbanned = :isbanned WHERE login = :login");
@@ -281,15 +279,6 @@ bool ConnectionFrame::processMessage(const MessageInfos &data, SocketIO *sender)
                 break;
             }
         }
-            break;
-        case ServerConnectionErrorEnum::SERVER_CONNECTION_ERROR_ACCOUNT_RESTRICTED:
-            m_error = "communityNonSubscriberRestricted";
-            break;
-        case ServerConnectionErrorEnum::SERVER_CONNECTION_ERROR_COMMUNITY_RESTRICTED:
-            m_error = "communityRestricted";
-            break;
-        case ServerConnectionErrorEnum::SERVER_CONNECTION_ERROR_LOCATION_RESTRICTED:
-            m_error = "locationRestricted";
             break;
         case ServerConnectionErrorEnum::SERVER_CONNECTION_ERROR_SUBSCRIBERS_ONLY:
             m_error = "communityOrSubscribersRestricted";

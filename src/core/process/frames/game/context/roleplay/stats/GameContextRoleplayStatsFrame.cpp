@@ -34,9 +34,6 @@ bool GameContextRoleplayStatsFrame::processMessage(const MessageInfos &data, Soc
         case StatsUpgradeResultEnum::GUEST:
             error(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.fight.guestAccount");
             break;
-        case StatsUpgradeResultEnum::RESTRICTED:
-            error(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.charSel.deletionErrorUnsecureMode");
-            break;
         case StatsUpgradeResultEnum::IN_FIGHT:
             error(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.error.cantDoInFight");
             break;

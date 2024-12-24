@@ -22,22 +22,22 @@ bool HandshakeFrame::processMessage(const MessageInfos &data, SocketIO *sender)
         ProtocolRequired message;
         message.deserialize(&reader);
 
-        QString protocol_build = "1.0.3-702b86a";
+        QString protocol_build = "1.0.3+56e1f37";
 
         qDebug() << "Server version is" << message.version << ". Client version is" << protocol_build << ".";
         if (message.version.isEmpty() || protocol_build.isEmpty())
-            qDebug() << "A protocol version is empty or null. What happened?";
+            qWarning() << "A protocol version is empty or null. What happened?";
 
-        QString clientHash = protocol_build.split("-").at(1);
+        QString clientHash = protocol_build.split("+").at(1);
         if (clientHash.isEmpty())
-            qDebug() << "The client protocol version is malformed:" << protocol_build;
+            qCritical() << "The client protocol version is malformed:" << protocol_build;
 
-        QString serverHash = message.version.split("-").at(1);
+        QString serverHash = message.version.split("+").at(1);
         if (clientHash.isEmpty())
-            qDebug() << "The server protocol version is malformed:" << message.version;
+            qCritical() << "The server protocol version is malformed:" << message.version;
 
         if (clientHash != serverHash)
-            qDebug() << "Protocol mismatch between the client and the server.";
+            qCritical() << "Protocol mismatch between the client and the server.";
     }
         break;
     }

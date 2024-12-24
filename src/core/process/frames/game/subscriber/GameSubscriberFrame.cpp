@@ -39,12 +39,9 @@ bool GameSubscriberFrame::processMessage(const MessageInfos &data, SocketIO *sen
         case SubscriptionRequiredEnum::LIMIT_ON_ITEM:
             text = D2OManagerSingleton::get()->getI18N()->getText("ui.payzone.limitItem");
             break;
-        case SubscriptionRequiredEnum::LIMIT_ON_VENDOR:
-            text = D2OManagerSingleton::get()->getI18N()->getText("ui.payzone.limitVendor");
+        case SubscriptionRequiredEnum::LIMIT_ON_HAVENBAG:
+            //text = D2OManagerSingleton::get()->getI18N()->getText("ui.payzone.limit");
             break;
-//        case SubscriptionRequiredEnum::LIMIT_ON_HAVENBAG:
-//            text = D2OManagerSingleton::get()->getI18N()->getText("ui.payzone.limit");
-//            break;
         case SubscriptionRequiredEnum::LIMITED_TO_SUBSCRIBER:
             text = D2OManagerSingleton::get()->getI18N()->getText("ui.payzone.limit");
             break;

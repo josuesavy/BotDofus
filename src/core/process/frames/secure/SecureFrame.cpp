@@ -22,7 +22,6 @@ bool SecureFrame::processMessage(const MessageInfos &data, SocketIO *sender)
         TrustStatusMessage message;
         message.deserialize(&reader);
 
-        m_botData[sender].connectionData.trustedAccount = message.trusted;
         m_botData[sender].connectionData.certifiedAccount = message.certified;
 
         CharactersListRequestMessage answer;

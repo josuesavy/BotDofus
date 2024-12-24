@@ -74,7 +74,7 @@ CoreEngine::CoreEngine()
     m_frames.append(new SubscriptionFrame(&m_botData));
     m_frames.append(new WebHaapiFrame(&m_botData));
 
-    qDebug()<<"[INFO] (CoreEngine) Initialized ! ("<<t.elapsed()<<"ms)";
+    qInfo()<<"(CoreEngine) Initialized ! ("<<t.elapsed()<<"ms)";
 }
 
 CoreEngine::~CoreEngine()

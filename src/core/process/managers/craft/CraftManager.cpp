@@ -93,7 +93,7 @@ void CraftManager::processCrafting(SocketIO *sender)
                         foreach(MerchantInfos m, m_botData[sender].mapData.merchantsOnMap)
                             cells << m.cellId;
 
-                        QTime mesure;
+                        QElapsedTimer mesure;
                         mesure.start();
                         NearestPathInfos nearestPath;
                         Pathfinding pathfinding;

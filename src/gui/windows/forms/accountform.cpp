@@ -342,7 +342,7 @@ void AccountForm::updateInterface(bool directCall)
             ui->labelSubscriptionDofus->setText(D2OManagerSingleton::get()->getI18N()->getText("ui.common.non_subscriber"));
 
         // Ankama shield
-        if (!infos.connectionData.trustedAccount && !infos.connectionData.certifiedAccount)
+        if (!infos.connectionData.certifiedAccount)
             ui->pushButtonAskShieldCode->show();
 
         else

@@ -99,7 +99,7 @@ void ConnectionManager::connect(SocketIO *sender)
 
         QSqlQuery query;
         query.prepare("UPDATE accounts SET lastconnection = :lastconnection WHERE login = :login");
-        query.bindValue(":lastconnection", QDateTime::currentDateTime().toTime_t());
+        query.bindValue(":lastconnection", QDateTime::currentDateTime().toMSecsSinceEpoch());
         query.bindValue(":login", m_botData[sender].connectionData.connectionInfos.login);
         query.exec();
 
@@ -148,33 +148,33 @@ QList<int> ConnectionManager::cipherRSA(SocketIO *sender, QList<int> keys, QStri
     m_botData[sender].connectionData.aesKey = AesManager::generateRandomAESKey();
 
     // ---
-    curl_global_init(CURL_GLOBAL_ALL);
+    // curl_global_init(CURL_GLOBAL_ALL);
 
-    CURL *curl;
-    curl = curl_easy_init();
-    if(curl)
-    {
-        static const char *postthis = QString("login=%1&password=%2&game_id=%3&long_life_token=true&shop_key=ZAAP&payment_mode=OK&lang=en").arg(m_botData[sender].connectionData.connectionInfos.login).arg(m_botData[sender].connectionData.connectionInfos.password).arg(102).toStdString().c_str();
-        struct curl_slist *chunk = NULL;
+    // CURL *curl;
+    // curl = curl_easy_init();
+    // if(curl)
+    // {
+    //     static const char *postthis = QString("login=%1&password=%2&game_id=%3&long_life_token=true&shop_key=ZAAP&payment_mode=OK&lang=en").arg(m_botData[sender].connectionData.connectionInfos.login).arg(m_botData[sender].connectionData.connectionInfos.password).arg(102).toStdString().c_str();
+    //     struct curl_slist *chunk = NULL;
 
-        chunk = curl_slist_append(chunk, "user-agent: Zaap 3.6.15");
+    //     chunk = curl_slist_append(chunk, "user-agent: Zaap 3.6.15");
 
-        curl_easy_setopt(curl, CURLOPT_URL, "https://haapi.ankama.com/json/Ankama/v5/Api/CreateApiKey");
-        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postthis);
-        curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, (long)strlen(postthis));
-        curl_easy_setopt(curl, CURLOPT_HTTPHEADER, chunk);
+    //     curl_easy_setopt(curl, CURLOPT_URL, "https://haapi.ankama.com/json/Ankama/v5/Api/CreateApiKey");
+    //     curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postthis);
+    //     curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, (long)strlen(postthis));
+    //     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, chunk);
 
-        CURLcode res;
-        res = curl_easy_perform(curl);
-        if(res != CURLE_OK)
-        {
-            fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
-        }
+    //     CURLcode res;
+    //     res = curl_easy_perform(curl);
+    //     if(res != CURLE_OK)
+    //     {
+    //         fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
+    //     }
 
-        curl_easy_cleanup(curl);
-        curl_slist_free_all(chunk);
-    }
-    curl_global_cleanup();
+    //     curl_easy_cleanup(curl);
+    //     curl_slist_free_all(chunk);
+    // }
+    // curl_global_cleanup();
     // ---
 
     credentials = keyDecoder.generateCredentials(salt, m_botData[sender].connectionData.aesKey, m_botData[sender].connectionData.connectionInfos.login, m_botData[sender].connectionData.connectionInfos.password);

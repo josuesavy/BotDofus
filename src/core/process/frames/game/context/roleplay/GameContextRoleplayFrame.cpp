@@ -65,7 +65,7 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
                             (rolePlay->alignmentInfos.characterPower - rolePlay->contextualId) >= m_botData[sender].floodData.levelMin &&
                             (rolePlay->alignmentInfos.characterPower - rolePlay->contextualId) <= m_botData[sender].floodData.levelMax)
                     {
-                        QStringList splited = m_botData[sender].floodData.floodMessage.split("##", QString::SkipEmptyParts);
+                        QStringList splited = m_botData[sender].floodData.floodMessage.split("##", Qt::SkipEmptyParts);
                         for (int i = 0; i < splited.size(); i++)
                         {
                             if (splited[i] == "NAME")
@@ -84,18 +84,18 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
             }
         }
 
-        else if (message.informations->getTypes().contains(ClassEnum::GAMEROLEPLAYMERCHANTINFORMATIONS))
-        {
-            QSharedPointer<GameRolePlayMerchantInformations> merchant = qSharedPointerCast<GameRolePlayMerchantInformations>(message.informations);
+//        else if (message.informations->getTypes().contains(ClassEnum::GAMEROLEPLAYMERCHANTINFORMATIONS))
+//        {
+//            QSharedPointer<GameRolePlayMerchantInformations> merchant = qSharedPointerCast<GameRolePlayMerchantInformations>(message.informations);
 
-            m_botData[sender].mapData.merchantsOnMap[merchant->contextualId].name = merchant->name;
-            m_botData[sender].mapData.merchantsOnMap[merchant->contextualId].look = merchant->look;
-            m_botData[sender].mapData.merchantsOnMap[merchant->contextualId].direction = merchant->disposition->direction;
-            m_botData[sender].mapData.merchantsOnMap[merchant->contextualId].merchantId = merchant->contextualId;
-            m_botData[sender].mapData.merchantsOnMap[merchant->contextualId].sellType = merchant->sellType;
-            m_botData[sender].mapData.merchantsOnMap[merchant->contextualId].options = merchant->options;
-            m_botData[sender].mapData.merchantsOnMap[merchant->contextualId].cellId = merchant->disposition->cellId;
-        }
+//            m_botData[sender].mapData.merchantsOnMap[merchant->contextualId].name = merchant->name;
+//            m_botData[sender].mapData.merchantsOnMap[merchant->contextualId].look = merchant->look;
+//            m_botData[sender].mapData.merchantsOnMap[merchant->contextualId].direction = merchant->disposition->direction;
+//            m_botData[sender].mapData.merchantsOnMap[merchant->contextualId].merchantId = merchant->contextualId;
+//            m_botData[sender].mapData.merchantsOnMap[merchant->contextualId].sellType = merchant->sellType;
+//            m_botData[sender].mapData.merchantsOnMap[merchant->contextualId].options = merchant->options;
+//            m_botData[sender].mapData.merchantsOnMap[merchant->contextualId].cellId = merchant->disposition->cellId;
+//        }
 
         else if (message.informations->getTypes().contains(ClassEnum::GAMEROLEPLAYGROUPMONSTERINFORMATIONS))
         {
@@ -311,22 +311,22 @@ bool GameContextRoleplayFrame::processMessage(const MessageInfos &data, SocketIO
             }
 
             // Get merchants
-            else if(base->getTypes().contains(ClassEnum::GAMEROLEPLAYMERCHANTINFORMATIONS))
-            {
-                QSharedPointer<GameRolePlayMerchantInformations> merchant = qSharedPointerCast<GameRolePlayMerchantInformations>(base);
+//            else if(base->getTypes().contains(ClassEnum::GAMEROLEPLAYMERCHANTINFORMATIONS))
+//            {
+//                QSharedPointer<GameRolePlayMerchantInformations> merchant = qSharedPointerCast<GameRolePlayMerchantInformations>(base);
 
-                MerchantInfos infos;
-                infos.name = merchant->name;
-                infos.look = merchant->look;
-                infos.direction = merchant->disposition->direction;
-                infos.merchantId = merchant->contextualId;
-                infos.sellType = merchant->sellType;
-                infos.options = merchant->options;
-                infos.cellId = merchant->disposition->cellId;
+//                MerchantInfos infos;
+//                infos.name = merchant->name;
+//                infos.look = merchant->look;
+//                infos.direction = merchant->disposition->direction;
+//                infos.merchantId = merchant->contextualId;
+//                infos.sellType = merchant->sellType;
+//                infos.options = merchant->options;
+//                infos.cellId = merchant->disposition->cellId;
 
-                m_botData[sender].mapData.merchantsOnMap[merchant->contextualId] = infos;
-                qDebug()<<"MERCHANT - Name:"<<infos.name<<"CellId:"<<infos.cellId<<" ContextualID:"<<infos.merchantId;
-            }
+//                m_botData[sender].mapData.merchantsOnMap[merchant->contextualId] = infos;
+//                qDebug()<<"MERCHANT - Name:"<<infos.name<<"CellId:"<<infos.cellId<<" ContextualID:"<<infos.merchantId;
+//            }
 
             // Get groups monsters
             else if(base->getTypes().contains(ClassEnum::GAMEROLEPLAYGROUPMONSTERINFORMATIONS))

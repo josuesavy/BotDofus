@@ -1,5 +1,5 @@
 ﻿#include "D2OClassDefinition.h"
-#include "src/engines/io/d2o/game/GameDataConverter.h"
+#include "src/protocol/datacenter/GameDataConverter.h"
 
 D2OClassDefinition::D2OClassDefinition(const QString &className):
     m_className(className)

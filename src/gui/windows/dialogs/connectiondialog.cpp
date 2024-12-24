@@ -13,7 +13,7 @@ ConnectionDialog::ConnectionDialog(QWidget *parent) :
 
     if(m_db.open())
     {
-        qDebug() << "Connected Successfully to DB !";
+        qInfo() << "Connected Successfully to DB !";
 
         QSqlQuery query;
         QString request = "CREATE TABLE IF NOT EXISTS accounts ("
@@ -67,7 +67,7 @@ ConnectionDialog::ConnectionDialog(QWidget *parent) :
 
     }
     else
-        qDebug()<<"The"<<USER_DATA_PATH<<" file cannot be opened / created";
+        qCritical()<<"The"<<USER_DATA_PATH<<" file cannot be opened / created";
 
     init();
 }

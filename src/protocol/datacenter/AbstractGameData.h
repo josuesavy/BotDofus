@@ -5,10 +5,10 @@
 #include <QList>
 #include <QRect>
 
-#include "src/engines/io/network/Reader.h"
-#include "src/engines/io/d2o/game/GameDataTypeDeclarator.h"
-#include "src/engines/io/i18n/I18nFile.h"
-#include "src/engines/io/d2o/manager/D2OField.h"
+#include "src/utils/io/Reader.h"
+#include "src/protocol/datacenter/GameDataTypeDeclarator.h"
+#include "src/gamedata/i18n/I18nFile.h"
+#include "src/gamedata/d2o/D2OField.h"
 
 class AbstractGameData
 {
@@ -27,6 +27,7 @@ protected:
     QString readUTF(const QByteArray &data);
     double readDouble(const QByteArray &data);
     QRect readRect(const QByteArray &data);
+    QPoint readPoint(const QByteArray &data);
 
     I18nFile *m_I18n;
 };

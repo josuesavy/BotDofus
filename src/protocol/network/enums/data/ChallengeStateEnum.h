@@ -1,0 +1,11 @@
+#ifndef CHALLENGESTATEENUM_H
+#define CHALLENGESTATEENUM_H
+
+enum class ChallengeStateEnum
+{
+    CHALLENGE_COMPLETED = 0,
+    CHALLENGE_FAILED = 1,
+    CHALLENGE_RUNNING = 2
+};
+
+#endif // CHALLENGESTATEENUM_H

@@ -1,0 +1,10 @@
+#ifndef PRISMATTACKRESULTENUM_H
+#define PRISMATTACKRESULTENUM_H
+
+enum class PrismAttackResultEnum
+{
+    DEFENDERS_WIN = 0,
+    ATTACKERS_WIN = 1
+};
+
+#endif // PRISMATTACKRESULTENUM_H

@@ -112,77 +112,78 @@ void StatsManager::updateRequiredStats(SocketIO *sender)
 {
     QSharedPointer<BreedData> breed = qSharedPointerCast<BreedData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::BREEDS, (int)m_botData[sender].playerData.breed));
 
-    for(int i = 0; i < breed->getStatsPointsForVitality().size(); i++)
-    {
-        if(m_botData[sender].playerData.stats[(int)StatIds::VITALITY].total < breed->getStatsPointsForVitality()[i][0])
-        {
-            m_botData[sender].playerData.statsRequiredVitality = breed->getStatsPointsForVitality()[i - 1][1];
-            break;
-        }
+    // get stats of breed changed
+//    for(int i = 0; i < breed->getStatsPointsForVitality().size(); i++)
+//    {
+//        if(m_botData[sender].playerData.stats[(int)StatIds::VITALITY].total < breed->getStatsPointsForVitality()[i][0])
+//        {
+//            m_botData[sender].playerData.statsRequiredVitality = breed->getStatsPointsForVitality()[i - 1][1];
+//            break;
+//        }
 
-        else
-            m_botData[sender].playerData.statsRequiredVitality = breed->getStatsPointsForVitality()[i][1];
-    }
+//        else
+//            m_botData[sender].playerData.statsRequiredVitality = breed->getStatsPointsForVitality()[i][1];
+//    }
 
-    for(int i = 0; i < breed->getStatsPointsForWisdom().size(); i++)
-    {
-        if(m_botData[sender].playerData.stats[(int)StatIds::WISDOM].total < breed->getStatsPointsForWisdom()[i][0])
-        {
-            m_botData[sender].playerData.statsRequiredWisdom = breed->getStatsPointsForWisdom()[i - 1][1];
-            break;
-        }
+//    for(int i = 0; i < breed->getStatsPointsForWisdom().size(); i++)
+//    {
+//        if(m_botData[sender].playerData.stats[(int)StatIds::WISDOM].total < breed->getStatsPointsForWisdom()[i][0])
+//        {
+//            m_botData[sender].playerData.statsRequiredWisdom = breed->getStatsPointsForWisdom()[i - 1][1];
+//            break;
+//        }
 
-        else
-            m_botData[sender].playerData.statsRequiredWisdom = breed->getStatsPointsForWisdom()[i][1];
-    }
+//        else
+//            m_botData[sender].playerData.statsRequiredWisdom = breed->getStatsPointsForWisdom()[i][1];
+//    }
 
-    for(int i = 0; i < breed->getStatsPointsForStrength().size(); i++)
-    {
-        if(m_botData[sender].playerData.stats[(int)StatIds::STRENGTH].total < breed->getStatsPointsForStrength()[i][0])
-        {
-            m_botData[sender].playerData.statsRequiredStrength = breed->getStatsPointsForStrength()[i - 1][1];
-            break;
-        }
+//    for(int i = 0; i < breed->getStatsPointsForStrength().size(); i++)
+//    {
+//        if(m_botData[sender].playerData.stats[(int)StatIds::STRENGTH].total < breed->getStatsPointsForStrength()[i][0])
+//        {
+//            m_botData[sender].playerData.statsRequiredStrength = breed->getStatsPointsForStrength()[i - 1][1];
+//            break;
+//        }
 
-        else
-            m_botData[sender].playerData.statsRequiredStrength = breed->getStatsPointsForStrength()[i][1];
-    }
+//        else
+//            m_botData[sender].playerData.statsRequiredStrength = breed->getStatsPointsForStrength()[i][1];
+//    }
 
-    for(int i = 0; i < breed->getStatsPointsForIntelligence().size(); i++)
-    {
-        if(m_botData[sender].playerData.stats[(int)StatIds::INTELLIGENCE].total < breed->getStatsPointsForIntelligence()[i][0])
-        {
-            m_botData[sender].playerData.statsRequiredIntelligence = breed->getStatsPointsForIntelligence()[i - 1][1];
-            break;
-        }
+//    for(int i = 0; i < breed->getStatsPointsForIntelligence().size(); i++)
+//    {
+//        if(m_botData[sender].playerData.stats[(int)StatIds::INTELLIGENCE].total < breed->getStatsPointsForIntelligence()[i][0])
+//        {
+//            m_botData[sender].playerData.statsRequiredIntelligence = breed->getStatsPointsForIntelligence()[i - 1][1];
+//            break;
+//        }
 
-        else
-            m_botData[sender].playerData.statsRequiredIntelligence = breed->getStatsPointsForIntelligence()[i][1];
-    }
+//        else
+//            m_botData[sender].playerData.statsRequiredIntelligence = breed->getStatsPointsForIntelligence()[i][1];
+//    }
 
-    for(int i = 0; i < breed->getStatsPointsForChance().size(); i++)
-    {
-        if(m_botData[sender].playerData.stats[(int)StatIds::CHANCE].total < breed->getStatsPointsForChance()[i][0])
-        {
-            m_botData[sender].playerData.statsRequiredChance = breed->getStatsPointsForChance()[i - 1][1];
-            break;
-        }
+//    for(int i = 0; i < breed->getStatsPointsForChance().size(); i++)
+//    {
+//        if(m_botData[sender].playerData.stats[(int)StatIds::CHANCE].total < breed->getStatsPointsForChance()[i][0])
+//        {
+//            m_botData[sender].playerData.statsRequiredChance = breed->getStatsPointsForChance()[i - 1][1];
+//            break;
+//        }
 
-        else
-            m_botData[sender].playerData.statsRequiredChance = breed->getStatsPointsForChance()[i][1];
-    }
+//        else
+//            m_botData[sender].playerData.statsRequiredChance = breed->getStatsPointsForChance()[i][1];
+//    }
 
-    for(int i = 0; i < breed->getStatsPointsForAgility().size(); i++)
-    {
-        if(m_botData[sender].playerData.stats[(int)StatIds::AGILITY].total < breed->getStatsPointsForAgility()[i][0])
-        {
-            m_botData[sender].playerData.statsRequiredAgility = breed->getStatsPointsForAgility()[i - 1][1];
-            break;
-        }
+//    for(int i = 0; i < breed->getStatsPointsForAgility().size(); i++)
+//    {
+//        if(m_botData[sender].playerData.stats[(int)StatIds::AGILITY].total < breed->getStatsPointsForAgility()[i][0])
+//        {
+//            m_botData[sender].playerData.statsRequiredAgility = breed->getStatsPointsForAgility()[i - 1][1];
+//            break;
+//        }
 
-        else
-            m_botData[sender].playerData.statsRequiredAgility = breed->getStatsPointsForAgility()[i][1];
-    }
+//        else
+//            m_botData[sender].playerData.statsRequiredAgility = breed->getStatsPointsForAgility()[i][1];
+//    }
 }
 
 const QMap<uint, QString> &StatsManager::getPets()

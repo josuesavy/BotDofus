@@ -182,7 +182,6 @@ bool GameInventoryItemsFrame::processMessage(const MessageInfos &data, SocketIO 
         message.deserialize(&reader);
         m_botData[sender].playerData.pods.current = message.inventoryWeight;
         m_botData[sender].playerData.pods.max = message.weightMax;
-        m_botData[sender].merchandData.shopWeight = message.shopWeight;
     }
         break;
 

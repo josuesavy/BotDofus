@@ -54,6 +54,7 @@ public:
     LogOutput &operator<<(const double &source);
     LogOutput &operator<<(const bool &source);
     LogOutput &operator<<(const std::ostream &source);
+    LogOutput &operator<<(const long long int &source);
 
     bool operator=(const QString &source);
 

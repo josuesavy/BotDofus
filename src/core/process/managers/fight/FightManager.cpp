@@ -589,7 +589,7 @@ QList<uint> FightManager::getClosestCells(uint cellID, QList<uint> cibles)
         associatedDistances.insert(distance, cibles[i]);
     }
 
-    qSort(distances);
+    std::sort(distances.begin(), distances.end());
     cibles.clear();
 
 
@@ -809,7 +809,7 @@ SpellInabilityReason FightManager::canCastSpell(SocketIO *sender, int spellID)
         QList<QString> states = stateCriterion.split("&");
         foreach (QString state, states)
         {
-            values << state.split(QRegExp("(=|!)")).at(1).toInt();
+            values << state.split(QRegularExpression("(=|!)")).at(1).toInt();
         }
     }
 
@@ -1453,7 +1453,7 @@ bool FightManager::castNear(SocketIO *sender, int spellID, int cibleID)
             associatedDistances.insert(distance, possibleCells[i]);
         }
 
-        qSort(distances);
+        std::sort(distances.begin(), distances.end());
         possibleCells.clear();
 
         for(int i = 0; i < distances.size(); i++)
@@ -1534,7 +1534,7 @@ bool FightManager::castAway(SocketIO *sender, int spellID, int cibleID)
             associatedDistances.insert(distance, possibleCells[i]);
         }
 
-        qSort(distances);
+        std::sort(distances.begin(), distances.end());
         possibleCells.clear();
 
         for(int i = 0; i < distances.size(); i++)
@@ -1649,7 +1649,7 @@ bool FightManager::moveAway(SocketIO *sender, int cibleID, int distanceWanted, b
             }
         }
 
-        qSort(distances);
+        std::sort(distances.begin(), distances.end());
         possibleCells.clear();
 
         for(int i = 0; i < distances.size(); i++)

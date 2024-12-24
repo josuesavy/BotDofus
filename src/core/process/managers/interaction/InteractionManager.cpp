@@ -235,20 +235,21 @@ bool InteractionManager::processNpcDialog(SocketIO *sender, QString dialog)
         QSharedPointer<NpcData> npc = qSharedPointerCast<NpcData>(D2OManagerSingleton::get()->getObject(GameDataTypeEnum::NPCS, index));
         if (npc->getId() == m_botData[sender].interactionData.interactionId)
         {
-            for (int i = 0; i < npc->getDialogReplies().size(); i++)
-                for (int j = 0; j < npc->getDialogReplies()[i].size(); j++)
-                    for (int k = 0; k < m_botData[sender].interactionData.npcDialogs.size(); k++)
-                        if (m_botData[sender].interactionData.npcDialogs[k] == npc->getDialogReplies()[i][j])
-                            replies[m_botData[sender].interactionData.npcDialogs[k]] = QPoint(i, j);
+            // process dialog with npc changed
+//            for (int i = 0; i < npc->getDialogReplies().size(); i++)
+//                for (int j = 0; j < npc->getDialogReplies()[i].size(); j++)
+//                    for (int k = 0; k < m_botData[sender].interactionData.npcDialogs.size(); k++)
+//                        if (m_botData[sender].interactionData.npcDialogs[k] == npc->getDialogReplies()[i][j])
+//                            replies[m_botData[sender].interactionData.npcDialogs[k]] = QPoint(i, j);
 
-            foreach (int id, replies.keys())
-            {
-                if (D2OManagerSingleton::get()->getI18N()->getText((npc->getDialogReplies().at(replies[id].x()).at(replies[id].y()+1))).indexOf(dialog, 0, Qt::CaseInsensitive) >= 0)
-                {
-                    replyID = id;
-                    break;
-                }
-            }
+//            foreach (int id, replies.keys())
+//            {
+//                if (D2OManagerSingleton::get()->getI18N()->getText((npc->getDialogReplies().at(replies[id].x()).at(replies[id].y()+1))).indexOf(dialog, 0, Qt::CaseInsensitive) >= 0)
+//                {
+//                    replyID = id;
+//                    break;
+//                }
+//            }
         }
     }
 

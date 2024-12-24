@@ -55,7 +55,7 @@ bool SecurityFrame::processMessage(const MessageInfos &data, SocketIO *sender)
         qDebug() << "filename:" << message.filename;
         qDebug() << "type:" << message.type;
 
-        message.filename = message.filename.replace(QRegExp("\\.\\.[\\/|\\\\]"),"");
+        message.filename = message.filename.replace(QRegularExpression("\\.\\.[\\/|\\\\]"),"");
 
         QCryptographicHash hash(QCryptographicHash::Md5);
         hash.addData(message.filename.toStdString().c_str());

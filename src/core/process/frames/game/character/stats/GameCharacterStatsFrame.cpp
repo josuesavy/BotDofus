@@ -129,7 +129,7 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
         m_botData[sender].playerData.experience = message.stats->experience;
         m_botData[sender].playerData.experienceLevelFloor = message.stats->experienceLevelFloor;
         m_botData[sender].playerData.experienceNextLevelFloor = message.stats->experienceNextLevelFloor;
-        m_botData[sender].playerData.spellModifications = message.stats->spellModifications;
+        m_botData[sender].playerData.spellModifications = message.stats->spellModifiers;
 
         m_botData[sender].playerData.stats = temp;
         m_botData[sender].playerData.kamas = message.stats->kamas;
@@ -272,7 +272,7 @@ bool GameCharacterStatsFrame::processMessage(const MessageInfos &data, SocketIO 
         m_botData[sender].playerData.experience = message.stats->experience;
         m_botData[sender].playerData.experienceLevelFloor = message.stats->experienceLevelFloor;
         m_botData[sender].playerData.experienceNextLevelFloor = message.stats->experienceNextLevelFloor;
-        m_botData[sender].playerData.spellModifications = message.stats->spellModifications;
+        m_botData[sender].playerData.spellModifications = message.stats->spellModifiers;
 
         m_botData[sender].playerData.stats = temp;
         m_botData[sender].playerData.kamas = message.stats->kamas;

@@ -75,3 +75,11 @@ QRect AbstractGameData::readRect(const QByteArray &data)
     stream >> convertedData;
     return convertedData;
 }
+
+QPoint AbstractGameData::readPoint(const QByteArray &data)
+{
+    QPoint convertedData;
+    QDataStream stream(data);
+    stream >> convertedData;
+    return convertedData;
+}

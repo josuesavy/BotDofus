@@ -1,0 +1,10 @@
+#ifndef CHALLENGEBONUSENUM_H
+#define CHALLENGEBONUSENUM_H
+
+enum class ChallengeBonusEnum
+{
+    CHALLENGE_EXPERIENCE_BONUS = 0,
+    CHALLENGE_DROP_BONUS = 1
+};
+
+#endif // CHALLENGEBONUSENUM_H

@@ -1,0 +1,11 @@
+#ifndef GUILDRANKACTIVITYTYPEENUM_H
+#define GUILDRANKACTIVITYTYPEENUM_H
+
+enum class GuildRankActivityTypeEnum
+{
+    CREATION = 0,
+    UPDATE = 1,
+    DELETE_ACTIVTY = 2
+};
+
+#endif // GUILDRANKACTIVITYTYPEENUM_H

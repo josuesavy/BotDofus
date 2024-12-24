@@ -16,15 +16,6 @@ bool GamePrismFrame::processMessage(const MessageInfos &data, SocketIO *sender)
     default :
         messageFound = false;
         break;
-
-    case MessageEnum::PRISMSETTINGSERRORMESSAGE:
-    {
-        PrismSettingsErrorMessage message;
-        message.deserialize(&reader);
-
-        error(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.error.cantModifiedPrismVulnerabiltyHour");
-    }
-        break;
     }
 
     return messageFound;

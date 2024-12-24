@@ -8,6 +8,7 @@
 #include <QTime>
 #include <QMap>
 #include <QtMath>
+#include <algorithm>
 
 #define INVALID -1
 #define MAP_WIDTH 14

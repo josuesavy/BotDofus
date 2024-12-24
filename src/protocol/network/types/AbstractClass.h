@@ -1,10 +1,10 @@
 #ifndef ABSTRACTCLASS_H
 #define ABSTRACTCLASS_H
 
-#include "src/Public.h"
+#include "src/utils/Public.h"
 #include "ClassEnum.h"
-#include "src/engines/io/network/Reader.h"
-#include "src/engines/io/network/Writer.h"
+#include "src/utils/io/Reader.h"
+#include "src/utils/io/Writer.h"
 
 class AbstractClass
 {

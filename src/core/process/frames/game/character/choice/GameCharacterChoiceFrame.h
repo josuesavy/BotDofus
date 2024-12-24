@@ -8,7 +8,7 @@
 #include "src/core/process/managers/connection/ConnectionManager.h"
 #include "src/core/process/managers/group/GroupManager.h"
 
-#include "src/gui/main/forms/dialogs/treewidgetdialog.h"
+#include "src/gui/utils/boxes/treewidgetdialog.h"
 
 class GameCharacterChoiceFrame : public AbstractFrame
 {

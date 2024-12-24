@@ -29,8 +29,8 @@ bool GameCharacterDeletionFrame::processMessage(const MessageInfos &data, Socket
         case CharacterDeletionErrorEnum::DEL_ERR_NO_REASON:
             reason += "TooManyDeletion";
             break;
-        case CharacterDeletionErrorEnum::DEL_ERR_RESTRICED_ZONE:
-            reason += "WrongAnswer";
+        case CharacterDeletionErrorEnum::DEL_ERR_TOO_MANY_CHAR_DELETION:
+            //reason += "WrongAnswer";
             break;
         case CharacterDeletionErrorEnum::DEL_ERR_BAD_SECRET_ANSWER:
             reason += "UnsecureMode";

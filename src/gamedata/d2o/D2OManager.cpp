@@ -22,17 +22,17 @@ void D2OManager::init(const QString &D2OFolderPath, const QString &I18nFilePath)
     m_isInit = true;
 
     if (!QDir(D2OFolderPath).exists())
-        qDebug()<<"[ERROR] (D2OManager) init: Cannot open the D2Os folder :"<<D2OFolderPath;
+        qCritical()<<"(D2OManager) init: Cannot open the D2Os folder :"<<D2OFolderPath;
 
     if (!QFile(I18nFilePath).exists())
-        qDebug()<<"[ERROR] (D2OManager) init: Cannot open the I18n file :"<<I18nFilePath;
+        qCritical()<<"(D2OManager) init: Cannot open the I18n file :"<<I18nFilePath;
 
     m_D2OFolderPath = D2OFolderPath;
     m_I18nFilePath = I18nFilePath;
 
     m_I18n = new I18nFile(m_I18nFilePath);
 
-    qDebug()<<"[INFO] (D2OManager) Initialized ! ("<<t.elapsed()<<"ms)";
+    qInfo()<<"(D2OManager) Initialized ! ("<<t.elapsed()<<"ms)";
 }
 
 bool D2OManager::isInit() const
@@ -50,7 +50,7 @@ QSharedPointer<AbstractGameData> D2OManager::getObject(GameDataTypeEnum type, in
     m_mutex.lock();
 
     if (!m_isInit)
-        qDebug()<<"[ERROR] (D2OManager) getObject: Is not initialized!";
+        qCritical()<<"(D2OManager) getObject: Is not initialized!";
 
     if (!m_D2Os.contains(type))
         loadFile(type);
@@ -65,7 +65,7 @@ QSharedPointer<AbstractGameData> D2OManager::getObject(GameDataTypeEnum type, in
 QList<GameDataTypeEnum> D2OManager::getLoadedFiles() const
 {
     if (!m_isInit)
-        qDebug()<<"[ERROR] (D2OManager) getLoadedFiles: Is not initialized!";
+        qCritical()<<"(D2OManager) getLoadedFiles: Is not initialized!";
 
     return m_D2Os.keys();
 }
@@ -75,7 +75,7 @@ QList<int> D2OManager::getIndexes(GameDataTypeEnum type)
     QList<int> indexes;
 
     if (!m_isInit)
-        qDebug()<<"[ERROR] (D2OManager) getIndexes: Is not initialized!";
+        qCritical()<<"(D2OManager) getIndexes: Is not initialized!";
 
     if(!m_D2Os.contains(type))
         loadFile(type);
@@ -99,7 +99,7 @@ const QString D2OManager::getI18nFilePath()
 QSharedPointer<ItemData> D2OManager::getItem(int objectGID)
 {
     if (!m_isInit)
-        qDebug()<<"[ERROR] (D2OManager) getItem: Is not initialized!";
+        qCritical()<<"(D2OManager) getItem: Is not initialized!";
 
     if(!m_D2Os.contains(GameDataTypeEnum::ITEMS))
         loadFile(GameDataTypeEnum::ITEMS);
@@ -130,6 +130,6 @@ void D2OManager::loadFile(GameDataTypeEnum searchedType)
     }
 
     if(!foundFile)
-        qDebug()<<"[ERROR] (D2OManager) loadFile: Don't know the enum"<<(int)searchedType;
+        qCritical()<<"(D2OManager) loadFile: Don't know the enum"<<(int)searchedType;
 }
 

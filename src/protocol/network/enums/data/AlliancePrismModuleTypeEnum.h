@@ -1,0 +1,11 @@
+#ifndef ALLIANCEPRISMMODULETYPEENUM_H
+#define ALLIANCEPRISMMODULETYPEENUM_H
+
+enum class AlliancePrismModuleTypeEnum
+{
+    NO_MODULE = -1,
+    TELEPORTER = 0,
+    RECYCLER = 1
+};
+
+#endif // ALLIANCEPRISMMODULETYPEENUM_H

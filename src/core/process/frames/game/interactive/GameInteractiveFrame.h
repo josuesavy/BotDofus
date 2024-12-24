@@ -4,7 +4,7 @@
 #include "src/core/process/frames/AbstractFrame.h"
 #include "src/core/process/managers/interaction/InteractionManager.h"
 #include "src/core/process/managers/farm/FarmManager.h"
-#include "src/io/d2p/map/elements/GraphicalElement.h"
+#include "src/gamedata/d2p/map/elements/GraphicalElement.h"
 
 class GameInteractiveFrame : public AbstractFrame
 {

@@ -694,7 +694,7 @@ struct FloodMessage
 {
     QString message;
     Channel channel;
-    QTime timer;
+    QElapsedTimer timer;
     int changeTimer = -1;
     int levelMin = 1;
     int levelMax = 200;
@@ -783,13 +783,12 @@ struct MapData
 struct PlayerData
 {
     QMap<uint,Stats> stats;
-    QList<QSharedPointer<CharacterSpellModification>> spellModifications;
+    QList<SpellModifierMessage> spellModifications;
     Pods pods;
     uint kamas = 0;
     uint dofus = 0;
     bool ring = false;
     uint regenRate = 0;
-    bool isAccountForced = false;
     uint accountId = 0;
     int healPercentage;
     bool isRiding = false;
@@ -804,7 +803,6 @@ struct PlayerData
     bool isRequestingFreeSoul = false;
     bool hasSentRequestFreeSoul = false;
     double subscriptionEndDate = INVALID;
-    double subscriptionElapsedDuration = INVALID;
     bool automaticallyAcceptAchievement = false;
     QList<InventoryObject> healInventory;
     int breed = 0;
@@ -847,14 +845,13 @@ struct ConnectionData
     QString haapiApiKey;
     bool preventInactivityDisconnects = false;
     QSharedPointer<QTimer> serverActivityTimer;
-    bool trustedAccount = true;
     bool certifiedAccount = true;
 };
 
 struct FloodData
 {
     QList<FloodMessage> flood;
-    QTime timer;
+    QElapsedTimer timer;
     int levelMin = 1;
     int levelMax = 200;
     int changeTimer = -1;
@@ -924,7 +921,7 @@ struct ScriptData
     QList<ScriptFunction> toExecute;
     ManagerType activeModule = ManagerType::UNKNOWN;
     int sequence = -10;
-    QTime scriptTimer;
+    QElapsedTimer scriptTimer;
     int scriptMaxTime = INVALID;
 };
 
@@ -1003,7 +1000,6 @@ struct StatisticsData
 struct MerchandData
 {
     QList<QSharedPointer<ObjectItemToSell>> objectsItemToSell;
-    uint shopWeight = 0;
 };
 
 struct BotData

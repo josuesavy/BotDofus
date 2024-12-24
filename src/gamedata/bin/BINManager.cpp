@@ -19,7 +19,7 @@ BINManager::~BINManager()
 
 void BINManager::init(const QString &BINFolder)
 {
-    QTime t;
+    QElapsedTimer t;
     t.start();
 
     m_isInit = true;

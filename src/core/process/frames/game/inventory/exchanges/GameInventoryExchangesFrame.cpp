@@ -77,9 +77,6 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
         case ExchangeErrorEnum::REQUEST_CHARACTER_OVERLOADED:
             typeError += "cantExchangeCharacterOverloaded";
             break;
-        case ExchangeErrorEnum::REQUEST_CHARACTER_RESTRICTED:
-            typeError += "cantExchangeCharacterRestricted";
-            break;
         case ExchangeErrorEnum::REQUEST_CHARACTER_TOOL_TOO_FAR:
             typeError = "ui.craft.notNearCraftTable";
             break;
@@ -236,21 +233,6 @@ bool GameInventoryExchangesFrame::processMessage(const MessageInfos &data, Socke
                 m_craftManager->processCrafting(sender);
             }
         }
-    }
-        break;
-
-    case MessageEnum::EXCHANGEREPLYTAXVENDORMESSAGE:
-    {
-        ExchangeReplyTaxVendorMessage message;
-        message.deserialize(&reader);
-
-        warn(sender) << D2OManagerSingleton::get()->getI18N()->getText("ui.humanVendor.taxPriceMessage").replace("%1", QString::number(message.totalTaxValue));
-
-        LeaveDialogRequestMessage ldrmsg;
-        sender->send(ldrmsg);
-
-        ExchangeStartAsVendorMessage esavmsg;
-        sender->send(esavmsg);
     }
         break;
 

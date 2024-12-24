@@ -145,7 +145,7 @@ void GroupManager::updateTeams()
             }
         }
     }
-    StartupActionsListMessage a;
+    //StartupActionsListMessage a;
 }
 
 void GroupManager::teleportSlavesToMaster(SocketIO *sender, const QString master)

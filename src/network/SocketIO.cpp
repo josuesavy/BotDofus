@@ -150,7 +150,7 @@ void SocketIO::dataReceived()
 //        disconnect();
 
     else
-        qDebug()<< "SOCKET - INVALID SOCKET";
+        qCritical()<< "(Socket) INVALID SOCKET";
 }
 
 bool SocketIO::switchServer(QString hostAdress)
@@ -158,7 +158,7 @@ bool SocketIO::switchServer(QString hostAdress)
     if (!m_isServerSwitched /*&& SecurityModuleSingleton::get()->isAuthentificated()*/)
     {
         m_socket->disconnectFromHost();
-        qDebug()<<"SOCKET - SERVER SWITCH FROM IP:"<<getCurrentHostIp()<<" to IP:"<<hostAdress;
+        qDebug()<<"(Socket) SERVER SWITCH FROM IP:"<<getCurrentHostIp()<<" to IP:"<<hostAdress;
         m_serverIp = hostAdress;
         m_isServerSwitched = true;
         connect(true);
@@ -172,7 +172,7 @@ bool SocketIO::switchServer(QString hostAdress)
 void SocketIO::socketDisconnection()
 {
 //    m_botStatsModule.removeActiveBot();
-    qDebug()<<"SOCKET - COMPLETED CONNECTION - IP:"<<getCurrentHostIp()<<" PORT:"<<QString::number(getCurrentHostPort());
+    qDebug()<<"(Socket) COMPLETED CONNECTION - IP:"<<getCurrentHostIp()<<" PORT:"<<QString::number(getCurrentHostPort());
     m_isActive = false;
     m_timers.clear();
     reset();
@@ -190,7 +190,7 @@ void SocketIO::socketConnectionSucess()
 //    m_botStatsModule.addActiveBot();
     m_isActive = true;
 
-    qDebug()<<"SOCKET - SERVER CONNECTION - IP:"<<getCurrentHostIp()<<" PORT:"<<QString::number(getCurrentHostPort())<<"SUCCESSFUL";
+    qDebug()<<"(Socket) SERVER CONNECTION - IP:"<<getCurrentHostIp()<<" PORT:"<<QString::number(getCurrentHostPort())<<"SUCCESSFUL";
 
     //if (!m_isServerSwitched)
         emit connected();
@@ -198,8 +198,8 @@ void SocketIO::socketConnectionSucess()
 
 void SocketIO::socketConnectionFailure()
 {
-    qDebug()<<"SOCKET - SERVER CONNECTION - IP:"<< getCurrentHostIp()<<" PORT: "<<QString::number(getCurrentHostPort())<<"FAILED";
-    qDebug()<<"SOCKET - REASON :"<<m_socket->errorString();
+    qDebug()<<"(Socket) SERVER CONNECTION - IP:"<< getCurrentHostIp()<<" PORT: "<<QString::number(getCurrentHostPort())<<"FAILED";
+    qDebug()<<"(Socket) REASON :"<<m_socket->errorString();
 
     // Connection to proxy refused : QAbstractSocket::ProxyConnectionRefusedError
 

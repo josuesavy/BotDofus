@@ -5,8 +5,8 @@
 
 #include <QDebug>
 
-#include "src/engines/io/network/Reader.h"
-#include "src/Public.h"
+#include "src/utils/io/Reader.h"
+#include "src/utils/Public.h"
 
 
 class CompressedMap

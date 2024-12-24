@@ -8,7 +8,7 @@ Sniffer::Sniffer():
 {
     m_listener.listen(QHostAddress::Any, 5555);
     connect(&m_listener, SIGNAL(newConnection()), this, SLOT(getClient()));
-    qDebug()<<"Server is listening";
+    qDebug()<<"(Sniffer) Server is listening";
 
     connect(&m_server, SIGNAL(disconnected()), this, SLOT(serverDisconnection()));
     connect(&m_server, SIGNAL(readyRead()), this, SLOT(processServerData()));

@@ -53,9 +53,6 @@ bool GameFriendFrame::processMessage(const MessageInfos &data, SocketIO *sender)
     case MessageEnum::FRIENDWARNONLEVELGAINSTATEMESSAGE:
         break;
 
-    case MessageEnum::GUILDMEMBERWARNONCONNECTIONSTATEMESSAGE:
-        break;
-
     case MessageEnum::SPOUSESTATUSMESSAGE:
         break;
     }

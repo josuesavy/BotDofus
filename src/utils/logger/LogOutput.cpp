@@ -83,6 +83,13 @@ LogOutput &LogOutput::operator<<(const bool &source)
     return *this;
 }
 
+LogOutput &LogOutput::operator<<(const long long int &source)
+{
+    initInput();
+    m_target->output += QString::number(source);
+    return *this;
+}
+
 bool LogOutput::operator=(const QString &source)
 {
     m_target->output = source;

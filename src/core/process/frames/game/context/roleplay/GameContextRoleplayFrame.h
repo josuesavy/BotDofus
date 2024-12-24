@@ -4,7 +4,7 @@
 #include "src/core/process/frames/AbstractFrame.h"
 #include "src/core/process/managers/map/MapManager.h"
 #include "src/core/process/managers/flood/FloodManager.h"
-#include "src/io/d2p/map/elements/GraphicalElement.h"
+#include "src/gamedata/d2p/map/elements/GraphicalElement.h"
 
 class GameContextRoleplayFrame : public AbstractFrame
 {

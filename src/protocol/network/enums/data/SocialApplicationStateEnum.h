@@ -1,0 +1,11 @@
+#ifndef SOCIALAPPLICATIONSTATEENUM_H
+#define SOCIALAPPLICATIONSTATEENUM_H
+
+enum class SocialApplicationStateEnum
+{
+    ADDED = 0,
+    DELETED = 1,
+    UPDATED = 2
+};
+
+#endif // SOCIALAPPLICATIONSTATEENUM_H

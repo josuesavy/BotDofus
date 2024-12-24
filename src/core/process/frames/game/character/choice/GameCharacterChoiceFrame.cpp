@@ -19,25 +19,6 @@ bool GameCharacterChoiceFrame::processMessage(const MessageInfos &data, SocketIO
         messageFound = false;
         break;
 
-    case MessageEnum::BASICCHARACTERSLISTMESSAGE:
-    {
-        BasicCharactersListMessage message;
-        message.deserialize(&reader);
-
-        foreach (QSharedPointer<CharacterBaseInformations> infos, message.characters)
-        {
-            //debug(sender)<<"\t->"<<infos->name<<"niveau"<<infos->level;
-
-            if (infos->name == m_botData[sender].connectionData.connectionInfos.character)
-            {
-                m_botData[sender].mapData.botId = infos->id;
-                m_botData[sender].playerData.breed = infos->breed;
-            }
-        }
-
-    }
-        break;
-
     case MessageEnum::CHARACTERSELECTEDERRORMESSAGE:
     {
         CharacterSelectedErrorMessage message;
